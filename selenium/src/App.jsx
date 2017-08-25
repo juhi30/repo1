@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
 import './App.css';
 
 function renderScreenshots(view) {
@@ -61,6 +60,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('THIS.STATE', this.state);
     return (
       this.state.screenshots.map(renderScreenshots)
     );

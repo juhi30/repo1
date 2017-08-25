@@ -6,7 +6,30 @@ function renderScreenshots() {
     return '';
   };
 
-class App extends Component {
+// Strips the browser and OS information from the 
+// screenshot names
+function cleanStrings(string) {
+  if (string.includes('Chrome_OS X_')) {
+    return string.slice(12);
+  } else if (string.includes('Chrome_Windows_')) {
+    return string.slice(15);
+  } else if (string.includes('Firefox_OS X_')) {
+    return string.slice(13);
+  } else if (string.includes('Firefox_Windows_')) {
+    return string.slice(16);
+  } else if (string.includes('IE_Windows_')) {
+    return string.slice(11);
+  } else {
+    return string.slice(12); // Safari_OS X_
+  }
+}
+
+function cleanArray(array) {
+  const viewArray = array.map(cleanStrings);
+  // create new array without duplicate values
+}
+
+class AltApp extends Component {
 
   componentWillMount() {
     axios.get('/screenshots').then((response) => {
@@ -68,4 +91,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default AltApp;

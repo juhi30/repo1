@@ -35,7 +35,7 @@ const otherOption = {
   },
 };
 const firstContact = {
-  xpath: `//div[1]/div/div[2]/div/div[1]/div[2]/div[1]/div[1]/div[1]`, //eslint-disable-line
+  xpath: `//div[1]/div/div[2]/div/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[2]/div`, //eslint-disable-line
   find: (driver, by) => {
     return driver.findElement(by.xpath(firstContact.xpath));
   },

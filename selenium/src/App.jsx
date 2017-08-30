@@ -54,15 +54,16 @@ function renderScreenshots(view) {
 };
 
 class App extends Component {
-
+  
   componentWillMount() {
     this.setState({ screenshots: currentlySupportedViews });
   }
 
   render() {
-    console.log('THIS.STATE', this.state);
     return (
-      this.state.screenshots.map(renderScreenshots)
+      <div>
+        {this.state.screenshots.map(renderScreenshots)}
+      </div>
     );
   }
 }

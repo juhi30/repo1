@@ -20,7 +20,7 @@ const channelsDropdown = {
 };
 
 const firstChannelInDropdown = {
-  xpath: `//*[@id="subtree-container"]/span/div[2]/div/div/div[2]/div/div[5]/span[2]/div/div/div/div[1]/a/div/div/div/span`, // eslint-disable-line
+  xpath: `//div[@class='form']/div[5]/span[2]/div/div/div/div[1]/a/div`, // eslint-disable-line
   find: (driver, by) => {
     return driver.findElement(by.xpath(firstChannelInDropdown.xpath));
   },

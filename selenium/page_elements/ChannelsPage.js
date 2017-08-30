@@ -1,12 +1,12 @@
 const bizHoursOnSelector = {
-  xpath: `//div[1]/div/div/div/div/div[2]/div[2]/div/ul/li[1]/div/label`,
+  xpath: `//div[5]/div/div/div/div[2]/div[2]/div/div/div[1]/div/label`,
   find: (driver, by) => {
     return driver.findElement(by.xpath(bizHoursOnSelector.xpath));
   },
 };
 
 const bizHoursOffSelector = {
-  xpath: `//*[@id="subtree-container"]/span/div[2]/div/div/div[2]/div[2]/div/div/div[2]/div/label`,
+  xpath: `//div[5]/div/div/div/div[2]/div[2]/div/div/div[2]/div/input`,
   find: (driver, by) => {
     return driver.findElement(by.xpath(bizHoursOffSelector.xpath));
   },

@@ -6,7 +6,7 @@ const createTemplateButton = {
 };
 
 const cancelCreationButton = {
-  xpath: `//*[@id="subtree-container"]/span/div[2]/div/div/div/div[3]/div/button[1]/span`, // eslint-disable-line
+  xpath: `//div[5]/div/div/div/div/div[3]/div/button[1]`, // eslint-disable-line
   find: (driver, by) => {
     return driver.findElement(by.xpath(cancelCreationButton.xpath));
   },

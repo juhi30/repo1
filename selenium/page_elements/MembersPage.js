@@ -13,14 +13,14 @@ const addMemberButton = {
 };
 
 const addPhotoButton = {
-  xpath: `//*[@id="subtree-container"]/span/div[3]/div[2]/div/div/div/div[1]/button/span`,
+  xpath: `//div[@class='cover__body']//button[.='Add Photo']`,
   find: (driver, by) => {
     return driver.findElement(by.xpath(addPhotoButton.xpath));
   },
 };
 
 const closeAddPhotoButton = {
-  xpath: `//div[@id='subtree-container']/span/div[4]/div/div/div[1]/button`,
+  xpath: `//div[7]/div/div/div/div[1]/button`,
   find: (driver, by) => {
     return driver.findElement(by.xpath(closeAddPhotoButton.xpath));
   },

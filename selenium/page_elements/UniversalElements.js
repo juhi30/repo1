@@ -62,7 +62,7 @@ const templatesInSettingsDropdown = {
 };
 
 const logoutButton = {
-  xpath: `//div[@id='cuke-main-settings']//button[.='Log Out']`,
+  xpath: `//div[@id='cuke-main-settings']/div/div/button`,
   find: (driver, by) => {
     return driver.findElement(by.xpath(logoutButton.xpath));
   },

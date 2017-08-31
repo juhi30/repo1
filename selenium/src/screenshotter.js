@@ -150,7 +150,6 @@ function waitFor(element, next) {
       outerCatch = 1;
     })
     .catch(() => {
-      console.log('innerCatch', innerCatch);    // eslint-disable-line
       innerCatch++;                              // eslint-disable-line
       if (innerCatch > 3) {
         flow.execute(() => {
@@ -161,7 +160,6 @@ function waitFor(element, next) {
       waitFor(element, next);
     });
   }).catch(() => {
-    console.log('outerCatch', outerCatch);      // eslint-disable-line
     outerCatch++;                                // eslint-disable-line
     if (outerCatch > 3) {
       flow.execute(() => {

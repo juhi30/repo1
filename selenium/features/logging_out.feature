@@ -1,8 +1,8 @@
-Feature: Toggling Sound
+Feature: Logging out
 
 Background:
   Given I navigate to "https://dev.dev-rhinogram.com"
  
-Scenario: Toggle Off and Save
+Scenario: Logging out
   Given I login with "tonton" and "chacoz"
   Then I logout

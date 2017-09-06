@@ -82,6 +82,20 @@ const chatInboxTab = {
   },
 };
 
+const searchButton = {
+  xpath: `//div[@class='app-header__button-group']//button[.='Search']`,
+  find: (driver, by) => {
+    return driver.findElement(by.xpath(searchButton.xpath));
+  },
+};
+
+const searchDropdownInput = {
+  xpath: `//div[@class='app-header__button-group']/div[1]/div/div/div/div[1]/div/input`,
+  find: (driver, by) => {
+    return driver.findElement(by.xpath(searchDropdownInput.xpath));
+  },
+};
+
 module.exports = {
   settingsDropdown,
   myProfileInSettingsDropdown,
@@ -95,4 +109,6 @@ module.exports = {
   contactsTab,
   chatInboxTab,
   templatesInSettingsDropdown,
+  searchButton,
+  searchDropdownInput
 };

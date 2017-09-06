@@ -1,8 +1,8 @@
 Feature: Logging out
 
 Background:
-  Given I navigate to "https://dev.dev-rhinogram.com"
+  * I navigate to "https://dev.dev-rhinogram.com"
  
 Scenario: Logging out
-  Given I login with "tonton" and "chacoz"
-  Then I logout
+  * I login with "kfoster" and "chacoz"
+  * I logout

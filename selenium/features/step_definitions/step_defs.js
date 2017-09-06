@@ -98,4 +98,21 @@ module.exports = function() {
       })
     });
   });
+
+  this.Then(/^I should not see "([^"]*)"$/, (text, callback) => {
+    let page = '';
+    flow.execute(() => driver.sleep(2000));
+    flow.execute(() => {
+      page = driver.getPageSource();
+    });
+    flow.execute(() => {
+      page.then((pageSrc) => {
+        if (pageSrc.includes(text)) {
+          throw new Error (`Was able to see: ${text}`);
+        } else {
+          callback();
+        };
+      })
+    });
+  });
 };

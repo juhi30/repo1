@@ -4,7 +4,6 @@ Feature: Search Functionality
   And those people show up  
 
 Scenario: Searching by first name (patient)
-  * I navigate to "https://dev.dev-rhinogram.com"
   * I login with "kfoster" and "chacoz"
   * I click Search
   * I search for "Tony"

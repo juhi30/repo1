@@ -65,13 +65,13 @@ module.exports = function() {
     flow.execute(() => Uni.settingsDropdown.find(driver, by).click());
     flow.execute(() => waitFor(Uni.logoutButton));
     flow.execute(() => Uni.logoutButton.find(driver, by).click());
-    flow.execute(() => waitfor(LoginPage.usernameInput));
+    flow.execute(() => waitFor(LoginPage.usernameInput));
     flow.execute(() => callback());
   });
 
   this.Then(/^I click Search$/, (callback) => {
     flow.execute(() => waitFor(Uni.searchButton));
-    flow.execute(() => Uni.search.find(driver, by).click());
+    flow.execute(() => Uni.searchButton.find(driver, by).click());
     flow.execute(() => callback());
   });
 
@@ -83,17 +83,19 @@ module.exports = function() {
   });
 
   this.Then(/^I should see "([^"]*)"$/, (text, callback) => {
-    const page = '';
+    let page = '';
     flow.execute(() => driver.sleep(2000));
     flow.execute(() => {
       page = driver.getPageSource();
     });
     flow.execute(() => {
-      if (page.includes(text)) {
-        callback();
-      } else {
-        throw new Error (`Was unable to see: ${text}`);
-      };
+      page.then((pageSrc) => {
+        if (pageSrc.includes(text)) {
+          callback();
+        } else {
+          throw new Error (`Was unable to see: ${text}`);
+        };
+      })
     });
   });
 };

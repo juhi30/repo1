@@ -2,6 +2,7 @@
 
 const selenium = require('selenium-webdriver');
 const LoginPage = require('../../page_elements/LoginPage');
+const ChatPage = require('../../page_elements/ChatPage');
 const Uni = require('../../page_elements/UniversalElements');
 
 const by  = selenium.By;
@@ -49,6 +50,14 @@ module.exports = function() {
 
   this.Then(/^I navigate to "([^"]*)"$/, (url, callback) => {
     flow.execute(() => driver.get(url));
+    flow.execute(() => callback());
+  });
+
+  this.Then(/^I login with "([^"]*)" and "([^"]*)"$/, (username, password, callback) => {
+    flow.execute(() => waitFor(LoginPage.usernameInput));
+    flow.execute(() => LoginPage.usernameInput.find(driver, by).sendKeys(username));
+    flow.execute(() => LoginPage.passwordInput.find(driver, by).sendKeys(password));
+    flow.execute(() => LoginPage.loginButton.find(driver, by).click());
     flow.execute(() => callback());
   });
 
@@ -107,12 +116,25 @@ module.exports = function() {
       })
     });
   });
-
-  this.Then(/^I login with "([^"]*)" and "([^"]*)"$/, (username, password, callback) => {
-    flow.execute(() => waitFor(LoginPage.usernameInput));
-    flow.execute(() => LoginPage.usernameInput.find(driver, by).sendKeys(username));
-    flow.execute(() => LoginPage.passwordInput.find(driver, by).sendKeys(password));
-    flow.execute(() => LoginPage.loginButton.find(driver, by).click());
+  // Below is geoff's poorly written first attempt at this step_def function
+  // lord have mercy on my soul
+  // cucumber not wating for buttons on DOM?
+  this.Then(/^I click Chat tab$/, (callback) => {
+    // flow.execute(() => driver.sleep(5000));
+    flow.execute(() => waitFor(Uni.chatInboxTab));
+    flow.execute(() => Uni.chatInboxTab.find(driver, by).click());
+    flow.execute(() => callback());
+  });
+  this.Then(/^I click New Chat$/, (callback) => {
+    // flow.execute(() => driver.sleep(5000));
+    flow.execute(() => waitFor(ChatPage.newChatButton));
+    flow.execute(() => ChatPage.newChatButton.find(driver, by).click());
+    flow.execute(() => callback());
+  });
+  this.Then(/^I search Chat for "([^"]*)"$/, (searchText, callback) => {
+    flow.execute(() => waitFor(ChatPage.newChatSearchInput));
+    flow.execute(() => ChatPage.newChatSearchInput.find(driver, by).clear());
+    flow.execute(() => ChatPage.newChatSearchInput.find(driver, by).sendKeys(searchText));
     flow.execute(() => callback());
   });
 };

@@ -5,19 +5,24 @@ Feature: New Chat Functionality
 
 Scenario: Searching for a Member by first name
   * I login with "gma" and "123456"
-  * I navigate to "https://dev.dev-rhinogram.com/chat"
+  * I click Chat tab
   * I click New Chat
-  * I search for "Keaton"
+  * I search Chat for "Keaton"
   * I should see "Keaton Foster"
 
 Scenario: Searching for a Member by last name
-  * I search for "Foster"
+  * I search Chat for "Foster"
   * I should see "Keaton Foster"
 
+#should not see is too broad and catching the user on the DOM
+
 Scenario: Searching for User by first name
-  * I search for "Geoff"
+  * I search Chat for "Geoff"
   * I should not see "Geoff Maas"
 
 Scenario: Searching for User by last name
-  * I search for "Maas"
-  * I should not see "Geoff Maas"
+  * I search Chat for "Maas"
+  * I should not see "Geoff Maas" in Chat Search
+
+Scenario: Logging out
+  * I logout

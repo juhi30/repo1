@@ -52,14 +52,6 @@ module.exports = function() {
     flow.execute(() => callback());
   });
 
-  this.Then(/^I login with "([^"]*)" and "([^"]*)"$/, (username, password, callback) => {
-    flow.execute(() => waitFor(LoginPage.usernameInput));
-    flow.execute(() => LoginPage.usernameInput.find(driver, by).sendKeys(username));
-    flow.execute(() => LoginPage.passwordInput.find(driver, by).sendKeys(password));
-    flow.execute(() => LoginPage.loginButton.find(driver, by).click());
-    flow.execute(() => callback());
-  });
-
   this.Then(/^I logout$/, (callback) => {
     flow.execute(() => waitFor(Uni.settingsDropdown));
     flow.execute(() => Uni.settingsDropdown.find(driver, by).click());
@@ -114,5 +106,13 @@ module.exports = function() {
         };
       })
     });
+  });
+
+  this.Then(/^I login with "([^"]*)" and "([^"]*)"$/, (username, password, callback) => {
+    flow.execute(() => waitFor(LoginPage.usernameInput));
+    flow.execute(() => LoginPage.usernameInput.find(driver, by).sendKeys(username));
+    flow.execute(() => LoginPage.passwordInput.find(driver, by).sendKeys(password));
+    flow.execute(() => LoginPage.loginButton.find(driver, by).click());
+    flow.execute(() => callback());
   });
 };

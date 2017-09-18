@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="1"
+            tests="1">
+
+  <testsuite name="homepage"
+    errors="1" failures="1" hostname="" id="" package="homepage" skipped="0"
+    tests="1" time="6.776" timestamp="Mon, 18 Sep 2017 19:47:05 GMT">
+  
+    <testcase name="Demo test Google" classname="homepage" time="6.776" assertions="5">
+
+    
+
+    
+
+    
+
+      <failure message="Testing if element &lt;ol#rso li:first-child&gt; contains text: &quot;Rembrandt - Wikipedia&quot;. Element could not be located.">    at Object.Demo test Google (/Users/thomasfoster/projects/rhinomatic/nightwatch_tests/tests/homepage.js:13:15)
+    at _combinedTickCallback (internal/process/next_tick.js:73:7)</failure>
+
+    
+    </testcase>
+  
+
+  
+    <system-err>
+      ERROR: Unable to locate element: &quot;ol#rso li:first-child&quot; using: xpath
+    at command (/Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/lib/api/assertions/containsText.js:46:21)
+    at module.exports.BaseAssertion._scheduleAssertion (/Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/lib/core/assertion.js:87:17)
+    at module.exports.BaseAssertion._executeCommand (/Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/lib/core/assertion.js:82:17)
+    at AssertionInstance.commandFn [as _commandFn] (/Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/lib/core/assertion.js:180:21)
+    at AsyncTree.runCommand (/Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/lib/core/queue.js:154:30)
+    at AsyncTree.runChildNode (/Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/lib/core/queue.js:114:8)
+    at AsyncTree.walkDown (/Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/lib/core/queue.js:80:10)
+    at AsyncTree.walkUp (/Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/lib/core/queue.js:97:8)
+    at AsyncTree.walkDown (/Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/lib/core/queue.js:90:12)
+    at AsyncTree.traverse (/Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/lib/core/queue.js:73:8)
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>

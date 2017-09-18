@@ -30,4 +30,4 @@ selenium/src/screenshots
 # testing
 /coverage
 ./nightwatch_tests/reports
-selenium-debug-log
+selenium-debug.log

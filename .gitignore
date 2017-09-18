@@ -31,3 +31,4 @@ selenium/src/screenshots
 /coverage
 ./nightwatch_tests/reports
 selenium-debug.log
+/nightwatch_tests/bin

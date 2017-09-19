@@ -1,6 +1,7 @@
 const pageCommands = {
   loginAsMember: (client) => {
-    client.waitForElementVisible('@usernameInput', 5000)
+    client.useXpath()
+      .waitForElementVisible('@usernameInput', 5000)
       .setValue('@usernameInput', 'tonton')
       .setValue('@passwordInput', 'chacoz')
       .click('@loginButton')

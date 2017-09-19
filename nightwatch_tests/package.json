@@ -11,5 +11,8 @@
     "test-e2e": "nightwatch"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nightwatch": "0.9.16"
+  }
 }

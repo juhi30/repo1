@@ -28,4 +28,7 @@ Session.vim
 selenium/src/screenshots
 
 # testing
-/coverage
+coverage
+reports
+selenium-debug.log
+nightwatch_tests/bin

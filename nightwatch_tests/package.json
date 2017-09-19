@@ -11,5 +11,10 @@
     "test-e2e": "nightwatch"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "chromedriver": "^2.32.3",
+    "nightwatch": "0.9.16",
+    "selenium-server-standalone-jar": "^3.5.3"
+  }
 }

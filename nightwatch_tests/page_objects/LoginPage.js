@@ -1,7 +1,6 @@
 const pageCommands = {
-  loginAsMember: () => {
-    // console.log('this', this);
-    return this.waitForElementVisible('@usernameInput', 5000)
+  loginAsMember: (client) => {
+    client.waitForElementVisible('@usernameInput', 5000)
       .setValue('@usernameInput', 'tonton')
       .setValue('@passwordInput', 'chacoz')
       .click('@loginButton')
@@ -12,7 +11,7 @@ module.exports = {
   commands: [pageCommands],
   elements: {
     usernameInput: {
-      selector: `//input[@id='username']`,
+      selector: `//*[@id="username"]`,
       locateStrategy: 'xpath',
     },
     passwordInput: {

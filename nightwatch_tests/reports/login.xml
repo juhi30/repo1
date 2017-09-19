@@ -5,19 +5,19 @@
 
   <testsuite name="login"
     errors="1" failures="0" hostname="" id="" package="login" skipped="0"
-    tests="1" time="0.01300" timestamp="Tue, 19 Sep 2017 02:00:22 GMT">
+    tests="1" time="0.01900" timestamp="Tue, 19 Sep 2017 13:25:58 GMT">
   
-    <testcase name="Loging in as Member" classname="login" time="0.01300" assertions="0">
+    <testcase name="Logging in as Member" classname="login" time="0.01900" assertions="0">
     </testcase>
   
 
   
     <system-err>
-        Error while running [Login / Loging in as Member]:
+        Error while running [Login / Logging in as Member]:
 
-  TypeError: this.waitForElementVisible is not a function
-    at Object.loginAsMember (/Users/thomasfoster/projects/rhinomatic/nightwatch_tests/page_objects/LoginPage.js:4:17)
-    at Object.Loging in as Member (/Users/thomasfoster/projects/rhinomatic/nightwatch_tests/tests/login.js:6:15)
+  TypeError: Cannot read property 'waitForElementVisible' of undefined
+    at Object.loginAsMember (/Users/thomasfoster/projects/rhinomatic/nightwatch_tests/page_objects/LoginPage.js:4:15)
+    at Object.Logging in as Member (/Users/thomasfoster/projects/rhinomatic/nightwatch_tests/tests/login.js:7:15)
     at Module.call (/Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
     at /Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/lib/runner/testcase.js:70:29
     at _fulfilled (/Users/thomasfoster/.nvm/versions/node/v6.11.1/lib/node_modules/nightwatch/node_modules/q/q.js:834:54)

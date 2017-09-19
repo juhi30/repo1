@@ -29,6 +29,6 @@ selenium/src/screenshots
 
 # testing
 /coverage
-./nightwatch_tests/reports
+/reports
 selenium-debug.log
 /nightwatch_tests/bin

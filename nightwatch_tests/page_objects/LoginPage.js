@@ -15,13 +15,20 @@ const loginCommands = {
   submit: function() {
     return this.waitForElementVisible('body', 1000)
       .click('@loginButton')
-      .waitForElementVisible('body', 1000)
   },
-  validateError: function(errorMessage) {
-    return this.verify.visible('@errorPrompt')
-      .verify.containsText('@errorPrompt', errorMessage)
+
+  validateError: function() {
+    return this.waitForElementVisible('@errorPrompt', 1000)
       .verify.valueContains('@usernameInput', '')
       .verify.valueContains('@passwordInput', '')
+
+  },
+
+  validateUrlChange: function() {
+    return this.waitForElementVisible('body', 1000)
+      .waitForElementNotPresent('@loginButton', 5000)
+
+
   }
 }
 
@@ -44,7 +51,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
     errorPrompt: {
-      selector: `//div[@class='alert__body']`,
+      selector: `//*[@id="app"]/div/div/div/div[2]/div[5]/div`,
       locateStrategy: 'xpath',
     }
   }

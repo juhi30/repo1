@@ -1,9 +1,20 @@
-module.exports = {  
-  'Logging in as Member' : function (client) {
-    const LoginPage = client.page.LoginPage();
+module.exports = {
+  'Login Page Initial Render': function(client) {
+    let login = client.page.LoginPage();
 
-    client.url('https://dev.dev-rhinogram.com');
-    LoginPage.loginAsMember(client);
+    login.navigate()
+      .validateForm()
+
+    client.end();
+  },
+
+  'Login Page with Correct Credentials': function(client) {
+    let login = client.page.LoginPage();
+
+    login.navigate()
+      .fillInForm('nightTester', 'tester')
+      .submit()
+
     client.end();
   }
-}
+};

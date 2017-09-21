@@ -57,7 +57,7 @@ module.exports = {
       .searchResultVisible()
       .clickFirstResult()
 
-    client.pause()
+    client.end()
 
   },
 }

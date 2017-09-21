@@ -3,6 +3,8 @@ const inboxCommands = {
   validateInbox: function() {
     return this.waitForElementVisible('body', 5000)
       .verify.visible('@inboxMessages', 'Inbox Messages are visible')
+      .waitForElementVisible('@firstThread', 1000)
+      .verify.visible('@firstThread', 'First thread is visible')
       .verify.visible('@newMessageButton', 'Button is visible')
       .verify.containsText('@newMessageButton', 'New Message', 'Button says New Message')
   },
@@ -51,8 +53,9 @@ module.exports = {
       selector: `//*[@id="app"]/div/div[2]/div/div[1]/div/div[2]`,
       locateStrategy: 'xpath'
     },
+    // currently not being used due to xpath not reading properly make sure thgreads are there
     firstThread: {
-      selector: `//div[1]/div/div[2]/div/div[1]/div/div[2]/div[1]/div[1]/div[2]/div[1]`,
+      selector: `//*[@id="js-inbox__item-50002"]`,
       locateStrategy: 'xpath',
     },
     newMessageButton: {

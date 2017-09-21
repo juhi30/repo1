@@ -1,4 +1,6 @@
+
 module.exports = {
+
   'Login Page with Correct Credentials': function(client) {
     let login = client.page.LoginPage();
 

@@ -13,8 +13,13 @@ module.exports = {
   'Universal Elements render': function(client) {
     let universalElements = client.page.UniversalElements();
 
-    universalElements.validateUniversalElements();
+    universalElements.validateUniversalElements()
+      .validateSearchDropdown()
+      .validateSettingsDropdown()
 
-    client.pause();
+    client.pause(3000);
   },
+
+
+
 }

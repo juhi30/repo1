@@ -33,7 +33,7 @@ module.exports = {
     let inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
-      .fillInNewMessageInput('a')
+      .fillInNewMessageInput('j')
       .searchResultNotVisible()
       .newMessageClick()
   },
@@ -42,19 +42,22 @@ module.exports = {
     let inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
-      .fillInNewMessageInput('as')
+      .fillInNewMessageInput('jy')
       .searchResultNotVisible()
       .newMessageClick()
+
+    client.pause(5000)
   },
 
   'Search results with three characters input': function(client) {
     let inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
-      .fillInNewMessageInput('asd')
+      .fillInNewMessageInput('jyo')
       .searchResultVisible()
       .clickFirstResult()
 
-    client.end()
+    client.pause()
+
   },
 }

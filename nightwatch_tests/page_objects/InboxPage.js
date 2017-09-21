@@ -35,8 +35,9 @@ const inboxCommands = {
   },
 
   clickFirstResult: function() {
-    return this.waitForElementVisible('body', 1000)
+    return this.waitForElementVisible('@firstResultNewMessageSearch', 1000)
       .click('@firstResultNewMessageSearch')
+      .verify.urlContains('profileOpen=1')
   },
 }
 
@@ -63,7 +64,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
     firstResultNewMessageSearch: {
-      selector: `//div[@class='inbox__header']/div/div/div/div/div[2]/button`,
+      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div/div[1]/div/div/div/div/div[2]/a`,
       locateStrategy: 'xpath',
     },
     newContactButtonWithinNewMessage: {

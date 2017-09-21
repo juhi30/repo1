@@ -1,4 +1,3 @@
-
 module.exports = {
 
   //Logs into app to start tests
@@ -9,8 +8,6 @@ module.exports = {
       .fillInForm('nightTester', 'tester')
       .submit()
       .validateUrlChange()
-    // ^ better name for this function needed?
-
   },
 
   'Universal Elements render': function(client) {
@@ -18,6 +15,6 @@ module.exports = {
 
     universalElements.validateUniversalElements();
 
+    client.pause();
   },
-
 }

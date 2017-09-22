@@ -1,10 +1,9 @@
-const saveChangesButton = {
-  xpath: `//div[@class='app-page__container']//button[.='Save Preferences']`,
-  find: (driver, by) => {
-    return driver.findElement(by.xpath(saveChangesButton.xpath));
-  },
-};
-
 module.exports = {
-  saveChangesButton,
+  // commands: [preferencesCommands],
+  elements: {
+    saveChangesButton: {
+      selector: `//div[@class='app-page__container']//button[.='Save Preferences']`,
+      locateStrategy: 'xpath'
+    }
+  }
 };

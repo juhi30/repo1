@@ -88,11 +88,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    locationsInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div[8]/a/div`,
-      locateStrategy: 'xpath',
-    },
-
     channelsInSettingsDropdown: {
       selector: `//*[@id="cuke-main-settings"]/div/div/div[7]/a/div`,
       locateStrategy: 'xpath',

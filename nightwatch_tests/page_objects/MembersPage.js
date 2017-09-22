@@ -1,50 +1,29 @@
-const saveMemberButton = {
-  xpath: `/html/body/div[1]/div/div/div[3]/div/div/button[2]/span`, //eslint-disable-line
-  find: (driver, by) => {
-    return driver.findElement(by.xpath(saveMemberButton.xpath));
-  },
-};
-
-const addMemberButton = {
-  xpath: `//*[@id="app"]/div/div[2]/div/div[1]/div[1]/div/div[2]/div/button/span`,
-  find: (driver, by) => {
-    return driver.findElement(by.xpath(addMemberButton.xpath));
-  },
-};
-
-const addPhotoButton = {
-  xpath: `//div[@class='cover__body']//button[.='Add Photo']`,
-  find: (driver, by) => {
-    return driver.findElement(by.xpath(addPhotoButton.xpath));
-  },
-};
-
-const closeAddPhotoButton = {
-  xpath: `//div[7]/div/div/div/div[1]/button`,
-  find: (driver, by) => {
-    return driver.findElement(by.xpath(closeAddPhotoButton.xpath));
-  },
-};
-
-const firstNameInput = {
-  xpath: `//*[@id="firstName"]`,
-  find: (driver, by) => {
-    return driver.findElement(by.xpath(firstNameInput.xpath));
-  },
-};
-
-const closeEditMemberFormButton = {
-  xpath: `/html/body/div[1]/div/div/div[3]/div/div/button[1]/span`,
-  find: (driver, by) => {
-    return driver.findElement(by.xpath(closeEditMemberFormButton.xpath));
-  },
-};
-
 module.exports = {
-  saveMemberButton,
-  addMemberButton,
-  addPhotoButton,
-  closeAddPhotoButton,
-  firstNameInput,
-  closeEditMemberFormButton,
+  // commands: [membersCommands],
+  elements: {
+    saveMemberButton: {
+      selector: `/html/body/div[1]/div/div/div[3]/div/div/button[2]/span`,
+      locateStrategy: 'xpath'
+    },
+    addMemberButton: {
+      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[1]/div/div[2]/div/button/span`,
+      locateStrategy: 'xpath'
+    },
+    addPhotoButton: {
+      selector: `//div[@class='cover__body']//button[.='Add Photo']`,
+      locateStrategy: 'xpath'
+    },
+    closeAddPhotoButton: {
+      selector: `//div[7]/div/div/div/div[1]/button`,
+      locateStrategy: 'xpath'
+    },
+    firstNameInput: {
+      selector: `//*[@id="firstName"]`,
+      locateStrategy: 'xpath'
+    },
+    closeEditMemberFormButton: {
+      selector: `/html/body/div[1]/div/div/div[3]/div/div/button[1]/span`,
+      locateStrategy: 'xpath'
+    },
+  }
 };

@@ -40,7 +40,7 @@ const universalElementsCommands = {
   },
 
   clickAppNavButtons: function() {
-    return this.waitForElementVisible('body',1000)
+    return this.waitForElementVisible('body', 1000)
       .click('@myProfileButton')
       .verify.containsText('@appHeaderTitle', 'My Profile', 'My Profile title present')
       .click('@inboxTab')
@@ -54,14 +54,69 @@ const universalElementsCommands = {
   clickSearchDropdownButtons: function(patientName) {
     return this.click('@searchButton')
       .setValue('@searchDropdownInput', patientName)
-      .waitForElementVisible('@searchDropdownFirstResult', 1000, 'First result is present')
+      .waitForElementVisible('@searchDropdownFirstResult', 1500, 'First result is present')
       .click('@searchDropdownFirstResult')
       .verify.urlContains('userId', 'Taken to profile summary view')
       .click('@searchButton')
       .setValue('@searchDropdownInput', patientName)
-      .waitForElementVisible('@addNewContactButton', 1000, 'Add contact button is present')
+      .waitForElementVisible('@addNewContactButton', 1500, 'Add contact button is present')
       .click('@addNewContactButton')
   },
+
+  clickMyProfile: function() {
+    return this.click('@settingsDropdown')
+      .click('@myProfileInSettingsDropdown')
+      .verify.urlContains('/profile', 'My profile page is visible')
+  },
+
+  clickMyPreferences: function() {
+    return this.click('@settingsDropdown')
+      .click('@myPreferencesInSettingsDropdown')
+      .verify.urlContains('/preferences', 'My Preferences page is visible')
+  },
+
+  clickAutoResponse: function() {
+    return this.click('@settingsDropdown')
+      .click('@autoResponseInSettingsDropdown')
+      .verify.urlContains('/organization/auto-response', 'Auto-Response page is visible')
+  },
+
+  clickChannels: function() {
+    return this.click('@settingsDropdown')
+      .click('@channelsInSettingsDropdown')
+      .verify.urlContains('organization/channels', 'Channels page is visible')
+  },
+
+  clickMembers: function() {
+    return this.click('@settingsDropdown')
+      .click('@membersInSettingsDropdown')
+      .verify.urlContains('organization/members', 'Members page is visible')
+  },
+
+  clickOrgPreferences: function() {
+    return this.click('@settingsDropdown')
+      .click('@orgPreferencesInSettingsDropdown')
+      .verify.urlContains('organization/preferences', 'Organization Preferences page is visible')
+  },
+
+  clickOrgProfile: function() {
+    return this.click('@settingsDropdown')
+      .click('@orgProfileInSettingsDropdown')
+      .verify.urlContains('organization/profile', 'Organization Profile page is visible')
+  },
+
+  clickTemplates: function() {
+    return this.click('@settingsDropdown')
+      .click('@templatesInSettingsDropdown')
+      .verify.urlContains('organization/templates', 'Templates page is visible')
+  },
+
+  clickLogout: function() {
+    return this.click('@settingsDropdown')
+      .click('@logoutButton')
+      .waitForElementNotPresent('@logoutButton', 1000, 'Logout button no longer present')
+      .verify.urlContains('/login', 'Succsessfully logged out')
+  }
 }
 
 module.exports = {
@@ -175,8 +230,8 @@ module.exports = {
     },
 
     orgProfileInSettingsDropdown: {
-        selector: `//*[@id="cuke-main-settings"]/div/div/div[11]/a`,
-        locateStrategy: 'xpath',
+      selector: `//*[@id="cuke-main-settings"]/div/div/div[11]/a`,
+      locateStrategy: 'xpath',
     },
 
     templatesInSettingsDropdown: {

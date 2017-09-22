@@ -2,6 +2,7 @@
   "src_folders" : ["tests"],
   "output_folder" : "reports",
   "page_objects_path" : "./page_objects",
+  "globals_path" : "global.js",
 
   "selenium" : {
     "start_process" : true,

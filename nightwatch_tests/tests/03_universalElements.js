@@ -1,3 +1,10 @@
+/*--------------------------------------------------------------------------------------------------------*/
+
+// The purpose of these tests is to make sure the elements present throughout the app (universalElements)
+// render properly and function properly when clicked and lead to their respective end points
+
+/*--------------------------------------------------------------------------------------------------------*/
+
 module.exports = {
 
   //Logs into app to start tests
@@ -33,9 +40,26 @@ module.exports = {
     let addContactPopup = client.page.AddContactPopupPage();
 
     universalElements.clickSearchDropdownButtons('jyo')
+
     addContactPopup.renderAddContactsPage()
       .closeAddContactsPage()
 
-    client.pause();
-  }
+    client.pause(3000);
+  },
+
+  'Test click all setting dropdown buttons': function(client) {
+    let universalElements = client.page.UniversalElements();
+
+    universalElements.clickMyProfile()
+      .clickMyPreferences()
+      .clickAutoResponse()
+      .clickChannels()
+      .clickMembers()
+      .clickOrgPreferences()
+      .clickOrgProfile()
+      .clickTemplates()
+      .clickLogout()
+
+    client.pause(3000);
+  },
 }

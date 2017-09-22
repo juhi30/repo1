@@ -27,7 +27,7 @@ const loginCommands = {
   //need more appropiate name or refactor
   validateUrlChange: function() {
     return this.waitForElementVisible('body', 1000)
-      .waitForElementNotPresent('@loginButton', 8000)
+      .waitForElementNotPresent('@loginButton', 5000)
       .verify.urlContains('inbox')  // maybe some timeout issues happening here working as of 9/20/17
 
   }

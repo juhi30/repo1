@@ -14,12 +14,28 @@ module.exports = {
     let universalElements = client.page.UniversalElements();
 
     universalElements.validateUniversalElements()
-      .validateSearchDropdown()
+      .validateSearchDropdown('jyo')
       .validateSettingsDropdown()
 
     client.pause(3000);
   },
 
+  'Test click app-navigation buttons': function(client) {
+    let universalElements = client.page.UniversalElements();
 
+    universalElements.clickAppNavButtons()
 
+    client.pause(3000);
+  },
+
+  'Test click search dropdown buttons': function(client) {
+    let universalElements = client.page.UniversalElements();
+    let addContactPopup = client.page.AddContactPopupPage();
+
+    universalElements.clickSearchDropdownButtons('jyo')
+    addContactPopup.renderAddContactsPage()
+      .closeAddContactsPage()
+
+    client.pause();
+  }
 }

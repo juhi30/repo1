@@ -1,6 +1,8 @@
 /*--------------------------------------------------------------------------------------------------------*/
 
-
+  // These tests are to check the functionality of the login page, make sure the form shows up, validates
+  // properly and shows error when login incorrectly and transfers properly when login is correct
+  
 /*--------------------------------------------------------------------------------------------------------*/
 
 module.exports = {

@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------------------------------------------*/
 
-// The purpose of these tests is to make sure the elements present throughout the app (universalElements)
+// The purpose of these tests are to make sure the elements present throughout the app (universalElements)
 // render properly and function properly when clicked and lead to their respective end points
 
 /*--------------------------------------------------------------------------------------------------------*/
@@ -60,6 +60,6 @@ module.exports = {
       .clickTemplates()
       .clickLogout()
 
-    client.pause(3000);
+    client.end(3000);
   },
 }

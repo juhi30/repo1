@@ -1,5 +1,8 @@
 /*--------------------------------------------------------------------------------------------------------*/
 
+  // These tests make sure that we login, all Inbox pages render properly and the new message search all
+  // function properly
+
 /*--------------------------------------------------------------------------------------------------------*/
 
 module.exports = {

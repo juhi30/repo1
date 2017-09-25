@@ -7,7 +7,7 @@
 
 module.exports = {
   'Login Page Initial Render': function(client) {
-    let login = client.page.LoginPage();
+    const login = client.page.LoginPage();
 
     login.navigate()
       .validateForm()
@@ -16,7 +16,7 @@ module.exports = {
   },
 
   'Try to login with NO name and NO password': function(client) {
-    let login = client.page.LoginPage();
+    const login = client.page.LoginPage();
 
     login.navigate()
       .fillInForm('', '')
@@ -27,7 +27,7 @@ module.exports = {
   },
 
   'Try to login WITH name and NO password': function(client) {
-    let login = client.page.LoginPage();
+    const login = client.page.LoginPage();
 
     login.navigate()
       .fillInForm('nightTester', '')
@@ -38,7 +38,7 @@ module.exports = {
   },
 
   'Try to login WITH NO name and password': function(client) {
-    let login = client.page.LoginPage();
+    const login = client.page.LoginPage();
 
     login.navigate()
       .fillInForm('', 'Tester')
@@ -49,7 +49,7 @@ module.exports = {
   },
 
   'Login Page with Correct Credentials': function(client) {
-    let login = client.page.LoginPage();
+    const login = client.page.LoginPage();
 
     login.navigate()
       .fillInForm('nightTester', 'tester')

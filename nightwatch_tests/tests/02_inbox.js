@@ -8,7 +8,7 @@
 module.exports = {
 
   'Login Page with Correct Credentials': function(client) {
-    let login = client.page.LoginPage();
+    const login = client.page.LoginPage();
 
     login.navigate()
       .fillInForm('nightTester', 'tester')
@@ -19,7 +19,7 @@ module.exports = {
   },
 
   'Inbox Page initial render': function(client) {
-    let inbox = client.page.InboxPage();
+    const inbox = client.page.InboxPage();
 
     inbox.validateInbox()
 
@@ -28,7 +28,7 @@ module.exports = {
   },
 
   'Click New Message button to show Search input': function(client) {
-    let inbox = client.page.InboxPage();
+    const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
       .validateNewMessageInput()
@@ -38,7 +38,7 @@ module.exports = {
   },
 
   'No search results with one character input': function(client) {
-    let inbox = client.page.InboxPage();
+    const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
       .fillInNewMessageInput('j')
@@ -47,7 +47,7 @@ module.exports = {
   },
 
   'No search results with two characters input': function(client) {
-    let inbox = client.page.InboxPage();
+    const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
       .fillInNewMessageInput('jy')
@@ -58,7 +58,7 @@ module.exports = {
   },
 
   'Search results with three characters input': function(client) {
-    let inbox = client.page.InboxPage();
+    const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
       .fillInNewMessageInput('jyo')

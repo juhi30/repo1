@@ -2,32 +2,32 @@
 
 const loginCommands = {
   validateForm: function() {
-    return this.waitForElementVisible('body', 1000)
-      .verify.visible('@usernameInput')
-      .verify.visible('@passwordInput')
-      .verify.containsText('@loginButton', 'Log In')
+    return this.waitForElementVisible('body', 1000, 'Body is visible')
+      .verify.visible('@usernameInput', 'Username input is visible')
+      .verify.visible('@passwordInput', 'password input is visible')
+      .verify.containsText('@loginButton', 'Log In', 'Login button is visible')
   },
   fillInForm: function(username, password) {
-    return this.waitForElementVisible('body', 1000)
+    return this.waitForElementVisible('body', 1000, 'Body is visible')
       .setValue('@usernameInput', username)
       .setValue('@passwordInput', password)
   },
   submit: function() {
-    return this.waitForElementVisible('body', 1000)
+    return this.waitForElementVisible('body', 1000, 'Body is visible')
       .click('@loginButton')
   },
 
   validateError: function() {
-    return this.waitForElementVisible('@errorPrompt', 1000)
-      .verify.valueContains('@usernameInput', '')
-      .verify.valueContains('@passwordInput', '')
+    return this.waitForElementVisible('@errorPrompt', 1000, 'Error logging in prompt is visible')
+      .verify.valueContains('@usernameInput', '', 'username input testing ')
+      .verify.valueContains('@passwordInput', '', 'password input testing')
 
   },
 
   //need more appropiate name or refactor
   validateUrlChange: function() {
-    return this.waitForElementVisible('body', 1000)
-      .waitForElementNotPresent('@loginButton', 5000)
+    return this.waitForElementVisible('body', 1000, 'Body is visible')
+      .waitForElementNotPresent('@loginButton', 5000, 'login button is no longer visible, page changes to inbox')
       .verify.urlContains('inbox')  // maybe some timeout issues happening here working as of 9/20/17
 
   }

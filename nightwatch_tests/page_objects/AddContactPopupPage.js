@@ -15,7 +15,7 @@ const addContactsCommands = {
 module.exports = {
   commands: [addContactsCommands],
   url: function() {
-    return this.api.launch_url + '/inbox'
+    return this.api.launch_url 
   },
   elements: {
 

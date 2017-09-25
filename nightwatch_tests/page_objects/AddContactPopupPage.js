@@ -1,14 +1,14 @@
 const addContactsCommands = {
 
   renderAddContactsPage: function() {
-    return this.waitForElementVisible('body', 1000)
-      verify.visible('@addContactPopupPage', 'Add Contacts Popup is visible')
+    return this.waitForElementVisible('@addContactPopupPage', 1500)
+      .verify.visible('@addContactPopupPage', 'Add Contacts Popup is visible')
   },
 
   closeAddContactsPage: function() {
     return this.click('@addContactCloseButton')
-      .waitForElementNotVisible('@addContactPopupPage', 1000, 'Add Contacts Popup is hidden')
-      .verify.hidden('@addContactPopupPage')
+      .waitForElementNotPresent('@addContactPopupPage', 1500, 'Add Contacts Popup is hidden')
+      .verify.elementNotPresent('@addContactPopupPage')
   }
 }
 

@@ -21,15 +21,13 @@ const loginCommands = {
     return this.waitForElementVisible('@errorPrompt', 1000, 'Error logging in prompt is visible')
       .verify.valueContains('@usernameInput', '', 'username input testing ')
       .verify.valueContains('@passwordInput', '', 'password input testing')
-
   },
 
   //need more appropiate name or refactor
   validateUrlChange: function() {
     return this.waitForElementVisible('body', 1000, 'Body is visible')
-      .waitForElementNotPresent('@loginButton', 5000, 'login button is no longer visible, page changes to inbox')
-      .verify.urlContains('inbox')  // maybe some timeout issues happening here working as of 9/20/17
-
+      .waitForElementNotPresent('@loginButton', 6000, 'login button is no longer visible, page changes to inbox')
+      .verify.urlContains('inbox')  // maybe some timeout issues happening here working as of 9/20/1
   }
 }
 

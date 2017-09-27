@@ -1,9 +1,41 @@
-
 const channelsCommands = {
 
   validateChannelsElements: function() {
+    return this.waitForElementVisible('body', 2000, 'Body is visible')
+      .waitForElementVisible('@firstChannelContainer', 3000, 'First channel is visible')
+      .verify.visible('@addChannelbutton', 'Add channel button is visible')
+      .verify.visible('@editChannel', 'Edit channel button is visible')
 
-  }
+  },
+
+  clickCreateNewFBChannel: function() {
+    return this.waitForElementVisible('body', 1000, 'Body is visible')
+      .click('@addChannelbutton')
+      .waitForElementVisible('@addChannelDropdown', 1500, 'Add facebook dropdown is visible')
+      .click('@addChannelDropdown')
+  },
+
+  validateConnectFBPopup: function() {
+    return this.waitForElementVisible('@connectFacebookPopup', 1500, 'Connect to facebook popup is visible')
+      .verify.visible('@connectFacebookCancel', 'Cancel button is visible')
+      .verify.visible('@connectFacebookButton', 'Connect facebook button is visible')
+  },
+
+  clickConnectFacebook: function() {
+    return this.click('@connectFacebookButton')
+  },
+
+  validateFacebookPagePopup: function() {
+    return this.waitForElementVisible('@facebookPagePopup', 3000, 'Facebook page selection popup is visible')
+      .verify.visible('@facebookPageCancel', 'Facebook page selection cancel is visible')
+      .verify.visible('@facebookPageNextButton', 'Facebook page Next button is visible')
+      .verify.visible('@firstFacebookPageChoice', 'First FB page choice is visible')
+  },
+
+  // ^^^ Create a facebook page to connect to the channel for testing purposes
+
+
+
 }
 
 module.exports = {
@@ -27,8 +59,13 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    firstChannelContainer: {
+      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[2]/div`,
+      locateStrategy: 'xpath',
+    },
+
     editChannel: {
-      selector: `//*[@id="app"]/div/div[2]/div[2]/div[1]/div[3]/div/div[1]/div[2]/button`,
+      selector: `//*[@id="app"]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div[2]/button`,
       locateStrategy: 'xpath'
     },
 
@@ -38,7 +75,7 @@ module.exports = {
     },
 
     deleteChannelPopup: {
-      selector:  `/html/body/div[5]/div/div/div`,
+      selector: `/html/body/div[5]/div/div/div`,
       locateStrategy: 'xpath',
     },
 
@@ -66,7 +103,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    connectFacebook button: {
+    connectFacebookButton: {
       selector: `/html/body/div[4]/div/div/div/div[3]/div/button[2]`,
       locateStrategy: 'xpath',
     },
@@ -76,14 +113,24 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    firstPageChoice: {
+    firstFacebookPageChoice: {
       selector: `/html/body/div[4]/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/a[1]`,
       locateStrategy: 'xpath',
     },
 
-    facebookPageNextButton: {
-      selector:  `/html/body/div[4]/div/div/div/div[3]/div/div/button`,
+    facebookPageCancel: {
+      selector: `/html/body/div[4]/div/div/div/div[3]/div/button`,
       locateStrategy: 'xpath',
+    },
+
+    facebookPageNextButton: {
+      selector: `/html/body/div[4]/div/div/div/div[3]/div/div/button`,
+      locateStrategy: 'xpath',
+    },
+
+    connectFacebookAcctPopup: {
+      selector: `/html/body/div[4]/div/div/div`,
+      locateStrategy: 'xpath'
     },
 
     facebookLocationDropdown: {
@@ -131,7 +178,7 @@ module.exports = {
     },
 
     bizHoursForm: {
-      selector: `/html/body/div[4]/div/div/div/div[2]/div[2]/div[2]/div[1]`
+      selector: `/html/body/div[4]/div/div/div/div[2]/div[2]/div[2]/div[1]`,
       locateStrategy: 'xpath',
     },
 

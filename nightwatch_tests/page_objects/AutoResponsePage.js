@@ -75,7 +75,7 @@ const autoResponseCommands = {
 
   validateEditOOOEvent: function() {
     return this.waitForElementVisible('body', 2000, 'Body is visible')
-      .waitForElementVisible('@editEventButton', 1000, 'Body is visible')
+      .waitForElementVisible('@editEventButton', 3000, 'Body is visible')
       .click('@editEventButton')
       .waitForElementVisible('@scheduleEventPopup', 2000, 'Edit OOO event popup visible')
       .click('@closeFormButton')

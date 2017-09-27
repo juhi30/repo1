@@ -1,6 +1,7 @@
 /*--------------------------------------------------------------------------------------------------------*/
 
-// Auto-Response tests explanation here
+// Auto-Response page testing the elements rendering and interaction. Creates and deletes a new out of office
+// event as well
 
 /*--------------------------------------------------------------------------------------------------------*/
 
@@ -69,7 +70,7 @@ module.exports = {
       .deleteLastOOOEvent()
       .savedPrompt()
 
-    client.pause(5000)
+    client.end(5000)
   }
 
 }

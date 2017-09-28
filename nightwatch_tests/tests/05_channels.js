@@ -14,7 +14,25 @@ module.exports = {
       .validateUrlChange()
   },
 
-  'Render channel elements and popups': function(client) {
+  'Render and validate edit channel form': function(client) {
+    const channelsPage = client.page.ChannelsPage();
+
+    channelsPage.navigate()
+      .validateChannelsElements()
+      .validateEditForm()
+
+    client.pause(1000)
+  },
+
+  'Change channel name in edit form and test': function(client) {
+    const channelsPage = client.page.ChannelsPage();
+
+    channelsPage.changeEditFormElements('SMS Test Channel')
+
+    client.pause(5000);
+  },
+
+  'Render and create channel elements and popups': function(client) {
     const channelsPage = client.page.ChannelsPage();
 
     channelsPage.navigate()
@@ -38,7 +56,18 @@ module.exports = {
     channelsPage.validateFacebookPagePopup()
       .clickFacebookPage()
       .validateConnectFBAcctPopup()
+      .finalizeCreateNewFBChannel('Rhino\'s Night Moves')
 
-    client.pause();
+    client.pause(1000);
   },
+
+  'Validate and remove added channel and elements': function(client) {
+    const channelsPage = client.page.ChannelsPage();
+
+    channelsPage.navigate()
+      .validateChannelAdded()
+      .removeChannelAdded()
+
+    client.pause(5000)
+  }
 }

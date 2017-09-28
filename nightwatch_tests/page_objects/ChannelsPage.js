@@ -33,9 +33,26 @@ const channelsCommands = {
   },
 
   // ^^^ Create a facebook page to connect to the channel for testing purposes
+  loginFacebook: function(email, password) {
+    return this.waitForElementVisible('@facebookLoginPage', 3000, 'Facebook login page is visible')
+      .setValue('@facebookLoginEmail', email)
+      .setValue('@facebookLoginPassword', password)
+      .click('@facebookLoginButton')
+  },
 
+  clickFacebookPage: function() {
+    return this.click('@firstFacebookPageChoice')
+      .click('@facebookPageNextButton')
+  },
 
-
+  validateConnectFBAcctPopup: function() {
+    return this.waitForElementVisible('@connectFacebookAcctPopup', 1000, 'Connect facebook account popup is visible')
+      .verify.visible('@connectFacebookAcctChannelName', 'Channel name is visible')
+      .verify.visible('@facebookLocationDropdown', 'Location dropdown is visible')
+      .click('@facebookLocationDropdown')
+      .waitForElementVisible('@facebookFirstLocation', 1000, 'First location choice is visible')
+      .verify.visible('@facebookPageFinishButton', 'Finish form button is visible')
+  },
 }
 
 module.exports = {
@@ -91,6 +108,7 @@ module.exports = {
 
     /*-----------------------------------------------------*/
     // connect facebook popups
+    // breaks between elements separate different popups
     /*-----------------------------------------------------*/
 
     connectFacebookPopup: {
@@ -107,7 +125,7 @@ module.exports = {
       selector: `/html/body/div[4]/div/div/div/div[3]/div/button[2]`,
       locateStrategy: 'xpath',
     },
-
+    /*-----------------------------------------------------*/
     facebookPagePopup: {
       selector: `/html/body/div[4]/div/div/div/div[2]/div/div[1]`,
       locateStrategy: 'xpath',
@@ -127,24 +145,53 @@ module.exports = {
       selector: `/html/body/div[4]/div/div/div/div[3]/div/div/button`,
       locateStrategy: 'xpath',
     },
-
+    /*-----------------------------------------------------*/
     connectFacebookAcctPopup: {
       selector: `/html/body/div[4]/div/div/div`,
       locateStrategy: 'xpath'
     },
 
+    connectFacebookAcctChannelName: {
+      selector: `//*[@id="name"]`,
+      locateStrategy: 'xpath',
+    },
+
     facebookLocationDropdown: {
-      selector: `/html/body/div[3]/div/div/div/div[2]/div/div[2]/span[2]/div[1]`,
+      selector: `/html/body/div[4]/div/div/div/div[2]/div/div[2]/span[2]/div[1]/input`,
       locateStrategy: 'xpath',
     },
 
     facebookFirstLocation: {
-      selector: `/html/body/div[3]/div/div/div/div[2]/div/div[2]/span[2]/div[1]/div/div/div/a`,
+      selector: `/html/body/div[4]/div/div/div/div[2]/div/div[2]/span[2]/div[1]/div/div/div/a`,
       locateStrategy: 'xpath',
     },
 
     facebookPageFinishButton: {
       selector: `/html/body/div[4]/div/div/div/div[3]/div/div/button[2]`,
+      locateStrategy: 'xpath',
+    },
+
+    /*-----------------------------------------------------*/
+    // facebook login user page
+    /*-----------------------------------------------------*/
+
+    facebookLoginPage: {
+      selector: `//*[@id="facebook"]/body`,
+      locateStrategy: 'xpath',
+    },
+
+    facebookLoginEmail: {
+      selector: `//*[@id="email"]`,
+      locateStrategy: 'xpath',
+    },
+
+    facebookLoginPassword: {
+      selector: `//*[@id="pass"]`,
+      locateStrategy: 'xpath',
+    },
+
+    facebookLoginButton: {
+      selector: `//*[@id="loginbutton"]`,
       locateStrategy: 'xpath',
     },
 

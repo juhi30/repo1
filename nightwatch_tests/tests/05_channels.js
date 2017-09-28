@@ -1,4 +1,3 @@
-
 /*--------------------------------------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------------------------------------*/
@@ -23,7 +22,22 @@ module.exports = {
       .clickCreateNewFBChannel()
       .validateConnectFBPopup()
       .clickConnectFacebook()
-      .validateFacebookPagePopup()
+
+    client.window_handles(function(result) {
+      let facebookWindow = result.value[1];
+      client.switchWindow(facebookWindow)
+    });
+
+    channelsPage.loginFacebook('geoff@rhinogram.com', 'rhinos')
+
+    client.window_handles(function(result) {
+      let rhinoWindow = result.value[0];
+      client.switchWindow(rhinoWindow)
+    });
+
+    channelsPage.validateFacebookPagePopup()
+      .clickFacebookPage()
+      .validateConnectFBAcctPopup()
 
     client.pause();
   },

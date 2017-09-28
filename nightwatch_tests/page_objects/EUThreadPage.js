@@ -1,3 +1,35 @@
+const euThreadCommands = {
+  validatePageElements: function() {
+    return this.waitForElementVisible('body', 1000)
+      .verify.visible('@messageInput', 'Compose input is visible')
+      .verify.visible('@attachmentButton', 'Attachment button is visible')
+      .verify.visible('@firstOrgInPanel', 'First org tab is visible')
+      .verify.visible('@settingsDropdown', 'Settings dropdown is visible')
+      .verify.visible('@myProfileButton', 'My profile button is visible')
+  },
+
+  fillInMessageInput: function(messageText) {
+    return this.waitForElementVisible('@messageInput', 1000)
+      .setValue('@messageInput', messageText)
+  },
+
+  clickSettingsDropdown: function() {
+    return this.waitForElementVisible('@settingsDropdown', 1000)
+      .click('@settingsDropdown')
+  },
+
+  clickProfileInSettingsDropdown: function() {
+    return this.waitForElementVisible('@profileLinkInSettingsDropdown', 1000)
+      .click('@profileLinkInSettingsDropdown')
+  },
+
+  clickLogoutButton: function() {
+    return this.waitForElementVisible('@logoutButton', 1000)
+      .click('@logoutButton')
+  }
+
+}
+
 module.exports = {
   // commands: [euThreadCommands],
   elements: {

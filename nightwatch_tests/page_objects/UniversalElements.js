@@ -114,7 +114,7 @@ const universalElementsCommands = {
   clickLogout: function() {
     return this.click('@settingsDropdown')
       .click('@logoutButton')
-      .waitForElementNotPresent('@logoutButton', 1000, 'Logout button no longer present')
+      .waitForElementNotPresent('@logoutButton', 1500, 'Logout button no longer present')
       .verify.urlContains('/login', 'Succsessfully logged out')
   }
 }

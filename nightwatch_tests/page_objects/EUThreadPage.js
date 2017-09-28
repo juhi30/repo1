@@ -26,12 +26,17 @@ const euThreadCommands = {
   clickLogoutButton: function() {
     return this.waitForElementVisible('@logoutButton', 1000)
       .click('@logoutButton')
+  },
+
+  clickMyProfileButton: function() {
+    return this.waitForElementVisible('@myProfileButton', 1000)
+      .click('@myProfileButton')
   }
 
 }
 
 module.exports = {
-  // commands: [euThreadCommands],
+  commands: [euThreadCommands],
   elements: {
     messageInput: {
       selector: `//div[@class='convo__message__compose']/div/textarea`,

@@ -23,7 +23,7 @@ module.exports = {
 
     inbox.validateInbox()
 
-    client.pause(3000)
+    client.pause(2000)
     // client.end();
   },
 
@@ -34,7 +34,7 @@ module.exports = {
       .validateNewMessageInput()
       .newMessageClick()
 
-    client.pause(5000)
+    client.pause(2000)
   },
 
   'No search results with one character input': function(client) {
@@ -50,18 +50,18 @@ module.exports = {
     let inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
-      .fillInNewMessageInput('jy')
+      .fillInNewMessageInput('ja')
       .searchResultNotVisible()
       .newMessageClick()
 
-    client.pause(5000)
+    client.pause(2000)
   },
 
   'Search results with three characters input': function(client) {
     let inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
-      .fillInNewMessageInput('jyo')
+      .fillInNewMessageInput('jay')
       .searchResultVisible()
       .clickFirstResult()
 

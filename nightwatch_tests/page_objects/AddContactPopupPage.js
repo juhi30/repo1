@@ -9,6 +9,7 @@ const addContactsCommands = {
     return this.click('@addContactCloseButton')
       .waitForElementNotPresent('@addContactPopupPage', 1500, 'Add Contacts Popup is hidden')
       .verify.elementNotPresent('@addContactPopupPage', 'Add contacts popup is hidden')
+      //fails without a verify func ^^
   }
 }
 

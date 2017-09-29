@@ -64,55 +64,55 @@ const universalElementsCommands = {
   },
 
   clickMyProfile: function() {
-    return this.click('@settingsDropdown')
+    return this.click('@settingsButton')
       .click('@myProfileInSettingsDropdown')
       .verify.urlContains('/profile', 'My profile page is visible')
   },
 
   clickMyPreferences: function() {
-    return this.click('@settingsDropdown')
+    return this.click('@settingsButton')
       .click('@myPreferencesInSettingsDropdown')
       .verify.urlContains('/preferences', 'My Preferences page is visible')
   },
 
   clickAutoResponse: function() {
-    return this.click('@settingsDropdown')
+    return this.click('@settingsButton')
       .click('@autoResponseInSettingsDropdown')
       .verify.urlContains('/organization/auto-response', 'Auto-Response page is visible')
   },
 
   clickChannels: function() {
-    return this.click('@settingsDropdown')
+    return this.click('@settingsButton')
       .click('@channelsInSettingsDropdown')
       .verify.urlContains('organization/channels', 'Channels page is visible')
   },
 
   clickMembers: function() {
-    return this.click('@settingsDropdown')
+    return this.click('@settingsButton')
       .click('@membersInSettingsDropdown')
       .verify.urlContains('organization/members', 'Members page is visible')
   },
 
   clickOrgPreferences: function() {
-    return this.click('@settingsDropdown')
+    return this.click('@settingsButton')
       .click('@orgPreferencesInSettingsDropdown')
       .verify.urlContains('organization/preferences', 'Organization Preferences page is visible')
   },
 
   clickOrgProfile: function() {
-    return this.click('@settingsDropdown')
+    return this.click('@settingsButton')
       .click('@orgProfileInSettingsDropdown')
       .verify.urlContains('organization/profile', 'Organization Profile page is visible')
   },
 
   clickTemplates: function() {
-    return this.click('@settingsDropdown')
+    return this.click('@settingsButton')
       .click('@templatesInSettingsDropdown')
       .verify.urlContains('organization/templates', 'Templates page is visible')
   },
 
   clickLogout: function() {
-    return this.click('@settingsDropdown')
+    return this.click('@settingsButton')
       .click('@logoutButton')
       .waitForElementNotPresent('@logoutButton', 1500, 'Logout button no longer present')
       .verify.urlContains('/login', 'Succsessfully logged out')
@@ -195,52 +195,52 @@ module.exports = {
     },
 
     settingsDropdown: {
-      selector: `//div[@id='cuke-main-settings']//span[.='Settings']`,
+      selector: `//*[@id="cuke-main-settings"]/div/div/div`,
       locateStrategy: 'xpath',
     },
 
     myProfileInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div[2]/a/div`,
+      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[2]/a`,
       locateStrategy: 'xpath',
     },
 
     myPreferencesInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div[3]/a`,
+      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[3]/a`,
       locateStrategy: 'xpath',
     },
 
     autoResponseInSettingsDropdown: {
-      selector: `//div[@id='cuke-main-settings']//span[.='Auto-Response']`,
+      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[6]/a`,
       locateStrategy: 'xpath',
     },
 
     channelsInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div[7]/a/div`,
+      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[7]/a`,
       locateStrategy: 'xpath',
     },
 
     membersInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div[9]/a/div`,
+      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[9]/a`,
       locateStrategy: 'xpath',
     },
 
     orgPreferencesInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div[10]/a/div`,
+      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[10]/a`,
       locateStrategy: 'xpath',
     },
 
     orgProfileInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div[11]/a`,
+      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[11]/a`,
       locateStrategy: 'xpath',
     },
 
     templatesInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div[12]/a/div`,
+      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[12]/a/div`,
       locateStrategy: 'xpath',
     },
 
     logoutButton: {
-      selector: `//div[@id='cuke-main-settings']/div/div/button`,
+      selector: `//*[@id="cuke-main-settings"]/div/div/div/button`,
       locateStrategy: 'xpath',
     },
   }

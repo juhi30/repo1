@@ -1,4 +1,8 @@
+
 /*--------------------------------------------------------------------------------------------------------*/
+
+// Channels page found under the settings tab is tested to validate its elements including parts found
+// on modals(popups) it also creates a new channel by connecting to facebook
 
 /*--------------------------------------------------------------------------------------------------------*/
 
@@ -29,7 +33,7 @@ module.exports = {
 
     channelsPage.changeEditFormElements('SMS Test Channel')
 
-    client.pause(5000);
+    client.pause(1000);
   },
 
   'Render and create channel elements and popups': function(client) {
@@ -68,6 +72,6 @@ module.exports = {
       .validateChannelAdded()
       .removeChannelAdded()
 
-    client.pause(5000)
+    client.end(5000)
   }
 }

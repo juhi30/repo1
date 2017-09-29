@@ -19,19 +19,30 @@ const channelsCommands = {
       .verify.visible('@bizHoursOffSelector', 'Business hours OFF checkbox visible')
       .verify.visible('@bizHoursForm', 'Business hours form input is visible')
       .verify.visible('@dSTCheckBox', 'Daylight savings time checkbox is visible')
+      .click('@cancelEditChannelForm')
+    // .waitForElementNotVisible('@editChannel', 4000, 'Edit channel form is no longer visible')
+    // ^^^ keeps failing due to element being found/present
   },
 
   changeEditFormElements: function(channelName) {
-    let randoNum = Math.ceil(Math.random()*100);
-    return this.clearValue('@editChannelName')
+    let randoNum = Math.ceil(Math.random() * 100);
+    return this.click('@editChannel')
+      .waitForElementVisible('@editChannelPopup', 2000, 'Edit channel form is visible')
+      .clearValue('@editChannelName')
       .setValue('@editChannelName', channelName + randoNum)
       .verify.valueContains('@editChannelName', channelName + randoNum, 'The title is ' + channelName + ' and random number which is ' + randoNum)
-
-
-
-
-
-
+      .click('@editLocationCloseButton')
+      .verify.elementNotPresent('@editLocationCloseButton', 'Location selected choice is hidden')
+      .click('@editLocationDropdown')
+      .click('@editLocationFirstResult')
+      .verify.visible('@editLocationCloseButton', 'Location selected choice is visible')
+      .click('@bizHoursOffSelector')
+      .waitForElementNotPresent('@bizHoursForm', 'Business hours form is hidden')
+      .click('@bizHoursOnSelector')
+      .verify.visible('@bizHoursForm', 'Business hours form is visible again')
+      .click('@dSTCheckBox')
+      .click('@saveChannelButton')
+      // .waitForElementNotPresent('@editChannel', 2000, 'Edit channel form is longer visible')
   },
 
   clickCreateNewFBChannel: function() {
@@ -91,7 +102,7 @@ const channelsCommands = {
     return this.waitForElementVisible('body', 4000, 'Body is visible')
       .waitForElementNotVisible('@connectFacebookAcctPopup', 2000, 'Facebook popups are closed')
       .verify.elementNotPresent('@addChannelbutton', 'Add Channel button is not present')
-      .waitForElementVisible('@facebookChannelContainer',2000, 'Facebook Channel is visible')
+      .waitForElementVisible('@facebookChannelContainer', 2000, 'Facebook Channel is visible')
       .verify.visible('@deleteChannel', 'Delete button is visible')
   },
 
@@ -261,6 +272,7 @@ module.exports = {
     /*-----------------------------------------------------*/
     // Edit channel popup elements
     /*-----------------------------------------------------*/
+
     editChannelPopup: {
       selector: `/html/body/div[5]/div/div/div`,
       locateStrategy: 'xpath',
@@ -279,6 +291,11 @@ module.exports = {
     editLocationFirstResult: {
       selector: `/html/body/div[5]/div/div/div/div[2]/div[1]/div[2]/span[2]/div[1]/div/div/div/a`,
       locateStrategy: 'xpath'
+    },
+
+    editLocationCloseButton: {
+      selector: `/html/body/div[5]/div/div/div/div[2]/div[1]/div[2]/span[2]/div[2]/div/button`,
+      locateStrategy: 'xpath',
     },
 
     bizHoursOnSelector: {
@@ -302,12 +319,12 @@ module.exports = {
     },
 
     saveChannelButton: {
-      selector: `/html/body/div[4]/div/div/div/div[3]/div/button[2]`,
+      selector: `/html/body/div[5]/div/div/div/div[3]/div/button[2]`,
       locateStrategy: 'xpath'
     },
 
     cancelEditChannelForm: {
-      selector: `/html/body/div[4]/div/div/div/div[3]/div/button[1]`,
+      selector: `/html/body/div[5]/div/div/div/div[3]/div/button[1]`,
       locateStrategy: 'xpath'
     }
   }

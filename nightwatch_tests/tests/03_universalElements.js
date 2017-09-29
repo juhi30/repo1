@@ -21,7 +21,7 @@ module.exports = {
     let universalElements = client.page.UniversalElements();
 
     universalElements.validateUniversalElements()
-      .validateSearchDropdown('jyo')
+      .validateSearchDropdown('fro')
       .validateSettingsDropdown()
 
     client.pause(3000);
@@ -39,7 +39,7 @@ module.exports = {
     let universalElements = client.page.UniversalElements();
     let addContactPopup = client.page.AddContactPopupPage();
 
-    universalElements.clickSearchDropdownButtons('jyo')
+    universalElements.clickSearchDropdownButtons('fro')
 
     addContactPopup.renderAddContactsPage()
       .closeAddContactsPage()

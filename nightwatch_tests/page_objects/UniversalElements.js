@@ -18,7 +18,7 @@ const universalElementsCommands = {
       .click('@searchButton')
       .verify.visible('@searchDropdownInput', 'Search input is visible on click')
       .setValue('@searchDropdownInput', patientName)
-      .waitForElementVisible('@searchDropdownFirstResult', 1000)
+      .waitForElementVisible('@searchDropdownFirstResult', 2000, 'First result on search dropdown is visible')
       .verify.visible('@searchDropdownFirstResult', 'First result is visible')
       .verify.visible('@addNewContactButton', 'Add new contact button is visible')
   },

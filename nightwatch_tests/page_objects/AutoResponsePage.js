@@ -143,7 +143,7 @@ module.exports = {
     },
 
     editEventButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[5]/div/div[1]/div[2]/button[1]`,
+      selector: `(//BUTTON[@type='button'][text()='Edit'][text()='Edit'])[1]`,
       locateStrategy: 'xpath',
     },
 

@@ -1,6 +1,3 @@
-const theDateObj = new Date;
-const dateString = theDateObj.toDateString();
-
 const euThreadCommands = {
   validatePageElements: function() {
     return this.waitForElementVisible('@messageInput', 5000, 'Compose input is visible')
@@ -12,13 +9,8 @@ const euThreadCommands = {
   },
 
   fillInMessageInput: function(messageText) {
-    return this.waitForElementVisible('@messageInput', 1000)
+    return this.waitForElementVisible('@messageInput', 1000, 'Message input is visible')
       .setValue('@messageInput', messageText);
-  },
-
-  fillMessageInputWithDate: function() {
-    return this.waitForElementVisible('@messageInput', 1000, 'Compose Message input is visible')
-      .setValue('@messageInput', dateString);
   },
 
   clickSend: function() {
@@ -27,22 +19,22 @@ const euThreadCommands = {
   },
 
   clickSettingsDropdown: function() {
-    return this.waitForElementVisible('@settingsDropdown', 1000)
+    return this.waitForElementVisible('@settingsDropdown', 1000, 'Settings dropdown is visible')
       .click('@settingsDropdown');
   },
 
   clickProfileInSettingsDropdown: function() {
-    return this.waitForElementVisible('@profileLinkInSettingsDropdown', 1000)
+    return this.waitForElementVisible('@profileLinkInSettingsDropdown', 1000, 'Profile button in Settings dropdown is visible')
       .click('@profileLinkInSettingsDropdown');
   },
 
   clickLogoutButton: function() {
-    return this.waitForElementVisible('@logoutButton', 1000)
+    return this.waitForElementVisible('@logoutButton', 1000, 'Logout button is visible')
       .click('@logoutButton');
   },
 
   clickMyProfileButton: function() {
-    return this.waitForElementVisible('@myProfileButton', 1000)
+    return this.waitForElementVisible('@myProfileButton', 1000, 'My Profile button is visible')
       .click('@myProfileButton');
   }
 

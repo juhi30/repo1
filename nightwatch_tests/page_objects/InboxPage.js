@@ -3,8 +3,8 @@ const inboxCommands = {
   validateInbox: function() {
     return this.waitForElementVisible('body', 5000, 'Body is visible')
       .verify.visible('@inboxMessages', 'Inbox Messages are visible')
-      .waitForElementVisible('@firstThread', 1000)
-      .verify.visible('@firstThread', 'First thread is visible')
+      .waitForElementVisible('@threadContainer', 2000, 'Thread container is visible')
+      .verify.visible('@threadContainer', 'First thread is visible')
       .verify.visible('@newMessageButton', 'Button is visible')
       .verify.containsText('@newMessageButton', 'New Message', 'Button says New Message')
   },
@@ -17,7 +17,7 @@ const inboxCommands = {
   },
 
   validateNewMessageInput: function() {
-      return this.waitForElementVisible('@newMessageSearchInput', 1000)
+      return this.waitForElementVisible('@newMessageSearchInput', 1000, 'New message input is visible')
         .verify.visible('@newMessageSearchInput', 'New message input is visible')
   },
 
@@ -32,14 +32,14 @@ const inboxCommands = {
   },
 
   searchResultVisible: function() {
-      return this.waitForElementVisible('@firstResultNewMessageSearch', 1000)
+      return this.waitForElementVisible('@firstResultNewMessageSearch', 1000, 'First result of the search is visible')
         .verify.visible('@firstResultNewMessageSearch', 'First input result is visible')
   },
 
   clickFirstResult: function() {
-    return this.waitForElementVisible('@firstResultNewMessageSearch', 1000)
+    return this.waitForElementVisible('@firstResultNewMessageSearch', 1000, 'First result of the search is visible')
       .click('@firstResultNewMessageSearch')
-      .verify.urlContains('profileOpen=1')
+      .verify.urlContains('profileOpen=1', 'The page address goes to profile view')
   },
 }
 
@@ -53,9 +53,9 @@ module.exports = {
       selector: `//*[@id="app"]/div/div[2]/div/div[1]/div/div[2]`,
       locateStrategy: 'xpath'
     },
-    // currently not being used due to xpath not reading properly make sure thgreads are there
-    firstThread: {
-      selector: `//*[@id="js-inbox__item-50002"]`,
+    // written to make sure threads have somewhere to populate as the thread xpath changes and difficult to find
+    threadContainer: {
+      selector: `//*[@id="inbox__body__scroll"]/div[1]`,
       locateStrategy: 'xpath',
     },
     newMessageButton: {

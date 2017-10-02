@@ -1,6 +1,7 @@
 /*--------------------------------------------------------------------------------------------------------*/
 
-// Auto-Response tests explanation here
+// Auto-Response page testing the elements rendering and interaction. Creates and deletes a new out of office
+// event as well
 
 /*--------------------------------------------------------------------------------------------------------*/
 
@@ -33,7 +34,7 @@ module.exports = {
     const autoResponse = client.page.AutoResponsePage();
 
     autoResponse.navigate()
-      .fillInAutoResponse('I am a the very model of a modern individual. I am animated, something-ated something sometihginsomething somethign else one more thing')
+      .fillInAutoResponse('I am the very model of a modern individual. I am animated, something-ated something sometihginsomething somethign else one more thing')
       .submitAutoResponse()
       .validateAutoResponseError()
 
@@ -63,13 +64,12 @@ module.exports = {
   'Render edit then delete OOO event': function(client) {
     const autoResponse = client.page.AutoResponsePage();
 
-    autoResponse.navigate()
-      .validateEditOOOEvent()
+    autoResponse.validateEditOOOEvent()
       .navigate()
       .deleteLastOOOEvent()
       .savedPrompt()
 
-    client.pause(5000)
+    client.end(5000)
   }
 
 }

@@ -9,7 +9,7 @@ module.exports = {
 
   //Logs into app to start tests
   'Login Page with Correct Credentials': function(client) {
-    let login = client.page.LoginPage();
+    const login = client.page.LoginPage();
 
     login.navigate()
       .fillInForm('ntester', 'tester')
@@ -18,7 +18,7 @@ module.exports = {
   },
 
   'Universal Elements render': function(client) {
-    let universalElements = client.page.UniversalElements();
+    const universalElements = client.page.UniversalElements();
 
     universalElements.validateUniversalElements()
       .validateSearchDropdown('fro')
@@ -28,7 +28,7 @@ module.exports = {
   },
 
   'Test click app-navigation buttons': function(client) {
-    let universalElements = client.page.UniversalElements();
+    const universalElements = client.page.UniversalElements();
 
     universalElements.clickAppNavButtons()
 
@@ -36,8 +36,8 @@ module.exports = {
   },
 
   'Test click search dropdown buttons': function(client) {
-    let universalElements = client.page.UniversalElements();
-    let addContactPopup = client.page.AddContactPopupPage();
+    const universalElements = client.page.UniversalElements();
+    const addContactPopup = client.page.AddContactPopupPage();
 
     universalElements.clickSearchDropdownButtons('fro')
 
@@ -48,7 +48,7 @@ module.exports = {
   },
 
   'Test click all setting dropdown buttons': function(client) {
-    let universalElements = client.page.UniversalElements();
+    const universalElements = client.page.UniversalElements();
 
     universalElements.clickMyProfile()
       .clickMyPreferences()

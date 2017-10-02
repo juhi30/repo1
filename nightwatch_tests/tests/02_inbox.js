@@ -8,64 +8,63 @@
 module.exports = {
 
   'Login Page with Correct Credentials': function(client) {
-    let login = client.page.LoginPage();
+    const login = client.page.LoginPage();
 
     login.navigate()
       .fillInForm('ntester', 'tester')
       .submit()
-      .validateUrlChange()
+      .validateUrlChange();
     //better name for this function needed
 
   },
 
   'Inbox Page initial render': function(client) {
-    let inbox = client.page.InboxPage();
+    const inbox = client.page.InboxPage();
 
-    inbox.validateInbox()
+    inbox.validateInbox();
 
-    client.pause(2000)
-    // client.end();
+    client.pause(2000);
   },
 
   'Click New Message button to show Search input': function(client) {
-    let inbox = client.page.InboxPage();
+    const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
       .validateNewMessageInput()
-      .newMessageClick()
+      .newMessageClick();
 
-    client.pause(2000)
+    client.pause(2000);
   },
 
   'No search results with one character input': function(client) {
-    let inbox = client.page.InboxPage();
+    const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
       .fillInNewMessageInput('j')
       .searchResultNotVisible()
-      .newMessageClick()
+      .newMessageClick();
   },
 
   'No search results with two characters input': function(client) {
-    let inbox = client.page.InboxPage();
+    const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
       .fillInNewMessageInput('ja')
       .searchResultNotVisible()
-      .newMessageClick()
+      .newMessageClick();
 
-    client.pause(2000)
+    client.pause(2000);
   },
 
   'Search results with three characters input': function(client) {
-    let inbox = client.page.InboxPage();
+    const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
       .fillInNewMessageInput('jay')
       .searchResultVisible()
-      .clickFirstResult()
+      .clickFirstResult();
 
-    client.end()
+    client.end();
 
   },
 }

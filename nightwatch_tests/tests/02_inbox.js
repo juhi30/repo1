@@ -21,9 +21,9 @@ module.exports = {
   'Inbox Page initial render': function(client) {
     const inbox = client.page.InboxPage();
 
-    inbox.validateInbox()
+    inbox.validateInbox();
 
-    client.pause(3000)
+    client.pause(3000);
     // client.end();
   },
 

@@ -8,33 +8,38 @@ const euProfileCommands = {
       .verify.visible('@settingsDropdown', 'Settings dropdown is visible')
   },
 
+  verifyPasswordUpdatedToast: function() {
+    return this.waitForElementVisible('@passwordUpdatedToast', 5000, 'Toast: Password Updated Successfully is visible');
+  },
+
   clickChangePassword: function() {
-    return waitForElementVisible('@changePasswordLink', 1000)
-      .click('@changePasswordLink')
+    return this.waitForElementVisible('@changePasswordLink', 1000, 'clicked Change Password')
+      .click('@changePasswordLink');
   },
 
   clickSavePassword: function() {
-    return waitForElementVisible('@savePasswordButton', 1000)
-      .click('@savePasswordButton')
+    return this.waitForElementVisible('@savePasswordButton', 1000, 'clicked Save Password')
+      .click('@savePasswordButton');
   },
 
-  fillInCurrentPassword: function(currentPassword) {
-    return waitForElementVisible('@currentPasswordInput', 1000)
-      .setValue('@currentPasswordInput', currentPassword)
+  fillInCurrentPasswordInput: function(currentPassword) {
+    return this.waitForElementVisible('@currentPasswordInput', 1000, `filled in Current Password with ${currentPassword}`)
+      .setValue('@currentPasswordInput', currentPassword);
   },
 
-  fillInNewPassword: function(newPassword) {
-    return waitForElementVisible('@newPasswordInput', 1000)
-      .setValue('@newPasswordInput', newPassword)
+  fillInNewPasswordInput: function(newPassword) {
+    return this.waitForElementVisible('@newPasswordInput', 1000, `filled in New Password with ${newPassword}`)
+      .setValue('@newPasswordInput', newPassword);
   },
 
   fillInRetypeNewPasswordInput: function(newPassword) {
-    return waitForElementVisible('@retypeNewPasswordInput', 1000)
-      .setValue('@retypeNewPasswordInput', newPassword)
+    return this.waitForElementVisible('@retypeNewPasswordInput', 1000, `filled in Retype New Password with ${newPassword}`)
+      .setValue('@retypeNewPasswordInput', newPassword);
   }
 }
 
 module.exports = {
+  url: 'https://dev.dev-rhinogram.com/settings/user/profile',
   commands: [euProfileCommands],
   elements: {
     usernameInput: {
@@ -84,6 +89,11 @@ module.exports = {
 
     logoutButton: {
       selector: `(//SPAN[@class='button__text-wrapper'])[2]`,
+      locateStrategy: 'xpath'
+    },
+
+    passwordUpdatedToast: {
+      selector: `//DIV[@class='toast__text'][text()='Password updated successfully.']`,
       locateStrategy: 'xpath'
     }
 

@@ -13,7 +13,7 @@ module.exports = {
     login.navigate()
       .fillInForm('ntester', 'tester')
       .submit()
-      .validateUrlChange()
+      .validateUrlChange();
     //better name for this function needed
 
   },
@@ -23,8 +23,7 @@ module.exports = {
 
     inbox.validateInbox();
 
-    client.pause(3000);
-    // client.end();
+    client.pause(2000);
   },
 
   'Click New Message button to show Search input': function(client) {
@@ -32,9 +31,9 @@ module.exports = {
 
     inbox.newMessageClick()
       .validateNewMessageInput()
-      .newMessageClick()
+      .newMessageClick();
 
-    client.pause(5000)
+    client.pause(2000);
   },
 
   'No search results with one character input': function(client) {
@@ -43,29 +42,29 @@ module.exports = {
     inbox.newMessageClick()
       .fillInNewMessageInput('j')
       .searchResultNotVisible()
-      .newMessageClick()
+      .newMessageClick();
   },
 
   'No search results with two characters input': function(client) {
     const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
-      .fillInNewMessageInput('jy')
+      .fillInNewMessageInput('ja')
       .searchResultNotVisible()
-      .newMessageClick()
+      .newMessageClick();
 
-    client.pause(5000)
+    client.pause(2000);
   },
 
   'Search results with three characters input': function(client) {
     const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
-      .fillInNewMessageInput('jyo')
+      .fillInNewMessageInput('jay')
       .searchResultVisible()
-      .clickFirstResult()
+      .clickFirstResult();
 
-    client.end()
+    client.end();
 
   },
 }

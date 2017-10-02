@@ -1,11 +1,11 @@
 const euProfileCommands = {
   verifyElements: function() {
-    return waitForElementVisible('@usernameInput', 5000)
+    return this.waitForElementVisible('@usernameInput', 5000)
       .verify.visible('@usernameInput', 'Username input is visible')
       .verify.visible('@emailAddressInput', 'Email address input is visible')
       .verify.visible('@changePasswordLink', 'Change password link is visible')
       .verify.visible('@saveProfileButton', 'Save Profile button is visible')
-      .verify.visible('@settingsDropdown', 'Settings dropdown is visible')
+      .verify.visible('@settingsDropdown', 'Settings dropdown is visible');
   },
 
   verifyPasswordUpdatedToast: function() {

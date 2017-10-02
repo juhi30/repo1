@@ -3,7 +3,7 @@ const dateString = theDateObj.toDateString();
 
 const euThreadCommands = {
   validatePageElements: function() {
-    this.waitForElementVisible('@messageInput', 5000, 'Compose input is visible')
+    return this.waitForElementVisible('@messageInput', 5000, 'Compose input is visible')
       .verify.visible('@messageInput', 'Compose input is visible')
       .verify.visible('@attachmentButton', 'Attachment button is visible')
       .verify.visible('@firstOrgInPanel', 'First org tab is visible')
@@ -12,37 +12,37 @@ const euThreadCommands = {
   },
 
   fillInMessageInput: function(messageText) {
-    this.waitForElementVisible('@messageInput', 1000)
+    return this.waitForElementVisible('@messageInput', 1000)
       .setValue('@messageInput', messageText);
   },
 
   fillMessageInputWithDate: function() {
-    this.waitForElementVisible('@messageInput', 1000, 'Compose Message input is visible')
+    return this.waitForElementVisible('@messageInput', 1000, 'Compose Message input is visible')
       .setValue('@messageInput', dateString);
   },
 
   clickSend: function() {
-    this.waitForElementVisible('@sendButton', 1000, 'Send Button is visible')
+    return this.waitForElementVisible('@sendButton', 1000, 'Send Button is visible')
       .click('@sendButton');
   },
 
   clickSettingsDropdown: function() {
-    this.waitForElementVisible('@settingsDropdown', 1000)
+    return this.waitForElementVisible('@settingsDropdown', 1000)
       .click('@settingsDropdown');
   },
 
   clickProfileInSettingsDropdown: function() {
-    this.waitForElementVisible('@profileLinkInSettingsDropdown', 1000)
+    return this.waitForElementVisible('@profileLinkInSettingsDropdown', 1000)
       .click('@profileLinkInSettingsDropdown');
   },
 
   clickLogoutButton: function() {
-    this.waitForElementVisible('@logoutButton', 1000)
+    return this.waitForElementVisible('@logoutButton', 1000)
       .click('@logoutButton');
   },
 
   clickMyProfileButton: function() {
-    this.waitForElementVisible('@myProfileButton', 1000)
+    return this.waitForElementVisible('@myProfileButton', 1000)
       .click('@myProfileButton');
   }
 

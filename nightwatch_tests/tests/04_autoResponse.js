@@ -34,7 +34,7 @@ module.exports = {
     const autoResponse = client.page.AutoResponsePage();
 
     autoResponse.navigate()
-      .fillInAutoResponse('I am a the very model of a modern individual. I am animated, something-ated something sometihginsomething somethign else one more thing')
+      .fillInAutoResponse('I am the very model of a modern individual. I am animated, something-ated something sometihginsomething somethign else one more thing')
       .submitAutoResponse()
       .validateAutoResponseError()
 
@@ -64,8 +64,7 @@ module.exports = {
   'Render edit then delete OOO event': function(client) {
     const autoResponse = client.page.AutoResponsePage();
 
-    autoResponse.navigate()
-      .validateEditOOOEvent()
+    autoResponse.validateEditOOOEvent()
       .navigate()
       .deleteLastOOOEvent()
       .savedPrompt()

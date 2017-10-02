@@ -74,8 +74,7 @@ const autoResponseCommands = {
   },
 
   validateEditOOOEvent: function() {
-    return this.waitForElementVisible('body', 2000, 'Body is visible')
-      .waitForElementVisible('@editEventButton', 3000, 'Body is visible')
+    return this.waitForElementVisible('@editEventButton', 3000, 'Edit event button is visible')
       .click('@editEventButton')
       .waitForElementVisible('@scheduleEventPopup', 2000, 'Edit OOO event popup visible')
       .click('@closeFormButton')
@@ -83,7 +82,7 @@ const autoResponseCommands = {
 
   deleteLastOOOEvent: function() {
     return this.waitForElementVisible('body', 2000, 'Body is visible')
-      .waitForElementVisible('@secondDeleteEventButton', 3000, 'Delete event button is visible')
+      .waitForElementVisible('@secondDeleteEventButton', 3000, '2nd Delete event button is visible')
       .click('@secondDeleteEventButton')
       .waitForElementVisible('@deleteEventPopup', 3000, 'Delete event popup is visible')
       .click('@deleteButtonFinal')
@@ -134,7 +133,7 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     scheduleEventButton: {
-      selector: `//*[@id="app"]/div/div[2]/div[2]/div/div[4]/div/div[2]/div/button`,
+      selector: `//*[@id="app"]/div/div[2]/div/div/div[4]/div/div[2]/div/button`,
       locateStrategy: 'xpath',
     },
 
@@ -144,17 +143,17 @@ module.exports = {
     },
 
     editEventButton: {
-      selector: `//*[@id="app"]/div/div[2]/div[2]/div/div[5]/div/div[1]/div[2]/button[1]`,
+      selector: `//*[@id="app"]/div/div[2]/div/div/div[5]/div/div[1]/div[2]/button[1]`,
       locateStrategy: 'xpath',
     },
 
     deleteEventButton: {
-      selector: `//*[@id="app"]/div/div[2]/div[2]/div/div[5]/div/div[1]/div[2]/button[2]`,
+      selector: `//*[@id="app"]/div/div[2]/div/div/div[5]/div/div[1]/div[2]/button[2]`,
       locateStrategy: 'xpath',
     },
 
     secondDeleteEventButton: {
-      selector: `//*[@id="app"]/div/div[2]/div[2]/div/div[6]/div/div[1]/div[2]/button[2]`,
+      selector: `//*[@id="app"]/div/div[2]/div/div/div[6]/div/div[1]/div[2]/button[2]`,
       locateStrategy: 'xpath',
       // this element added so test deletes the OOO event it creates as they are listed in order of creation
     },

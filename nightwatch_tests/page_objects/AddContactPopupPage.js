@@ -6,7 +6,7 @@ const addContactsCommands = {
   },
 
   renderPageElements: function() {
-    return this.verify.visible('@avatarPicture', 'Contact picture is visible')
+    return this.verify.visible('@avatarPicture', 'Avatar picture is visible')
       .verify.visible('@addPhotoButton', 'Add photo button is visible')
       .verify.visible('@contactTypeDropdown', 'Contact type is visible')
       .verify.visible('@firstNameInput', 'First name input is visible')
@@ -35,6 +35,21 @@ const addContactsCommands = {
       .verify.visible('@closeButton', 'Close form button is visible')
       .verify.visible('@addContactButton', 'Add contact button is visible')
   },
+  testErrorPrompt: function() {
+    return this.click('@addContactButton')
+      .waitForElementVisible('@requiredInputAlert', 2000, 'Required input alert is visible')
+      .verify.containsText('@requiredInputAlert', 'Last name is required, Birthday is required for all patients', 'Alert message is right')
+  },
+
+  fillInForm: function(firstName, lastName, month, day, year) {
+    return this.clearValue('@firstNameInput')
+      .setValue('@firstNameInput', firstName)
+      .setValue('@lastNameInput', lastName)
+      .setValue('@monthDropdown', month)
+      .setValue('@dayDropdown', day)
+      .setValue('@yearDropdown', year)
+
+  },
 
   closeAddContactsPage: function() {
     return this.click('@closeButton')
@@ -57,17 +72,17 @@ module.exports = {
     },
 
     requiredInputAlert: {
-      selector: `/html/body/div[6]/div/div[2]/div/div/div[1]`,
+      selector: `//DIV[@class='alert u-m-b alert--danger']`,
       locateStrategy: 'xpath',
     },
 
     avatarPicture: {
-      selector: `/html/body/div[6]/div/div[2]/div/div/div[2]/div[1]/div`,
+      selector: `//DIV[@class='edit-profile__user__avatar-wrapper']`,
       locateStrategy: 'xpath',
     },
 
     addPhotoButton: {
-      selector: `/html/body/div[7]/div/div[2]/div/div/div/div[1]/button`,
+      selector: `//BUTTON[@class='button--reset u-text-small u-text-primary']`,
       locateStrategy: 'xpath',
     },
 
@@ -111,7 +126,7 @@ module.exports = {
     /*-----------------------------------------------------------*/
 
     locationDropdown: {
-      selector: `/html/body/div[7]/div/div[2]/div/div/div/div[3]/div[2]/span[2]/div[1]/input`,
+      selector: `(//INPUT[@type='text'])[7]`,
       locateStrategy: 'xpath',
     },
 
@@ -141,12 +156,12 @@ module.exports = {
     },
 
     maleRadioButton: {
-      selector: `/html/body/div[7]/div/div[2]/div/div/div[2]/div[3]/div[4]/div/div[2]/div/div/div[1]/div/label`,
+      selector: `/html/body/div[8]/div/div[2]/div/div/div/div[3]/div[4]/div/div[2]/div/div/div[1]/div`,
       locateStrategy: 'xpath',
     },
 
     femaleRadioButton: {
-      selector: `/html/body/div[7]/div/div[2]/div/div/div[2]/div[3]/div[4]/div/div[2]/div/div/div[2]/div/label`,
+      selector: `/html/body/div[8]/div/div[2]/div/div/div/div[3]/div[4]/div/div[2]/div/div/div[2]/div`,
       locateStrategy: 'xpath',
     },
 
@@ -158,7 +173,7 @@ module.exports = {
     },
 
     phoneTypedDropdown: {
-      selector: `/html/body/div[7]/div/div[2]/div/div/div[2]/div[4]/div[1]/div/div/div[2]/div/div/select`,
+      selector: `(//SELECT[@class='rhinoselect__select form__control form__control--chevron'])[7]`,
       locateStrategy: 'xpath',
     },
 
@@ -168,7 +183,7 @@ module.exports = {
     },
 
     emailTypdeDropdown: {
-      selector: `/html/body/div[7]/div/div[2]/div/div/div[2]/div[4]/div[2]/div/div/div[2]/div/div/select`,
+      selector: `(//SELECT[@class='rhinoselect__select form__control form__control--chevron'])[7]`,
       locateStrategy: 'xpath',
     },
 
@@ -180,27 +195,27 @@ module.exports = {
     /*-----------------------------------------------------------*/
 
     hIPAAConsentForm: {
-      selector: `/html/body/div[6]/div/div[2]/div/div/div/div[6]`,
+      selector: `//DIV[@class='hipaa-status hipaa-status--profile hipaa-status--off']`,
       locateStrategy: 'xpath',
     },
 
     unknownConsentButton: {
-      selector: `//*[@id="value"]`,
+      selector: `/html/body/div[8]/div/div[2]/div/div/div/div[6]/div/div/div/div[1]/div`,
       locateStrategy: 'xpath',
     },
 
     grantedConsentButton: {
-      selector: `//*[@id="value"]`,
+      selector: `/html/body/div[8]/div/div[2]/div/div/div/div[6]/div/div/div/div[2]/div`,
       locateStrategy: 'xpath',
     },
 
     deniedConsentButton: {
-      selector: `//*[@id="value"]`,
+      selector: `/html/body/div[8]/div/div[2]/div/div/div/div[6]/div/div/div/div[3]/div`,
       locateStrategy: 'xpath',
     },
 
     connectedPartyButton: {
-      selector: `/html/body/div[6]/div/div[2]/div/div/div[2]/div[7]/div/div[1]/div/button`,
+      selector: `//DIV[@class='hipaa-status hipaa-status--profile hipaa-status--off']`,
       locateStrategy: 'xpath',
     },
 
@@ -209,7 +224,7 @@ module.exports = {
     /*-----------------------------------------------------------*/
 
     addContactButton: {
-      selector: `/html/body/div[7]/div/div[3]/div/div/button[2]`,
+      selector: `/html/body/div[8]/div/div[3]/div/div/button[2]`,
       locateStrategy: 'xpath',
     },
 

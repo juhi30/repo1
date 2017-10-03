@@ -15,7 +15,7 @@ module.exports = {
       .validateUrlChange();
   },
 
-  'Open Add Contact Page': function(client) {
+  'Open Add Contact Page and render elements': function(client) {
     const universalElements = client.page.UniversalElements();
     const addContacts = client.page.AddContactPopupPage();
 
@@ -23,4 +23,21 @@ module.exports = {
     addContacts.renderAddContactsPage()
       .renderPageElements()
   },
+
+  'Test alert box firing': function(client) {
+    const addContacts = client.page.AddContactPopupPage();
+
+    addContacts.testErrorPrompt()
+
+    client.pause(2000)
+  },
+
+  'Fill out form': function(client) {
+    const addContacts = client.page.AddContactPopupPage();
+
+    addContacts.fillInForm('steve', 'monstermash', 'october', '31', '1936')
+
+    client.pause()
+  },
+
 }

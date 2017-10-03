@@ -63,6 +63,12 @@ const universalElementsCommands = {
       .click('@addNewContactButton')
   },
 
+  clickAddNewContact: function() {
+    return this.click('@searchButton')
+      .waitForElementVisible('@searchDropdownInput', 2000, 'Search input is present')
+      .click('@addNewContactButton')
+  },
+
   clickMyProfile: function() {
     return this.click('@settingsButton')
       .click('@myProfileInSettingsDropdown')

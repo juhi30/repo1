@@ -25,7 +25,7 @@ const addContactsCommands = {
       .verify.visible('@phoneNumberInput', 'Phone Number input is visible')
       .verify.visible('@phoneTypedDropdown', 'Phone type is visible')
       .verify.visible('@emailInput', 'Email input is visible')
-      .verify.visible('@emailTypdeDropdown', 'Email type dropdown is visible')
+      .verify.visible('@emailTypeDropdown', 'Email type dropdown is visible')
       .verify.visible('@noteInput', 'Note input is visible')
       .verify.visible('@hIPAAConsentForm', 'HIPAA form is visible')
       .verify.visible('@unknownConsentButton', 'Unknown choice is visible')
@@ -35,20 +35,36 @@ const addContactsCommands = {
       .verify.visible('@closeButton', 'Close form button is visible')
       .verify.visible('@addContactButton', 'Add contact button is visible')
   },
+
   testErrorPrompt: function() {
-    return this.click('@addContactButton')
-      .waitForElementVisible('@requiredInputAlert', 2000, 'Required input alert is visible')
+    return this.waitForElementVisible('@requiredInputAlert', 2000, 'Required input alert is visible')
       .verify.containsText('@requiredInputAlert', 'Last name is required, Birthday is required for all patients', 'Alert message is right')
   },
 
-  fillInForm: function(firstName, lastName, month, day, year) {
+  fillInFormPartOne: function(firstName, lastName, preferredName, month, day, year) {
     return this.clearValue('@firstNameInput')
       .setValue('@firstNameInput', firstName)
+      .setValue('@middleNameInput', new Date)
       .setValue('@lastNameInput', lastName)
+      .setValue('@preferredNameInput', preferredName)
       .setValue('@monthDropdown', month)
       .setValue('@dayDropdown', day)
       .setValue('@yearDropdown', year)
+  },
 
+  fillInFormPartTwo: function(iDNum, phoneNum, phoneType, email, emailType, note) {
+    return this.setValue('@iDInput', iDNum)
+      .click('@maleRadioButton')
+      .setValue('@phoneNumberInput', phoneNum)
+      .setValue('@phoneTypedDropdown', phoneType)
+      .setValue('@emailInput', email)
+      .setValue('@emailTypeDropdown', emailType)
+      .setValue('@noteInput', note)
+      .click('@grantedConsentButton')
+  },
+
+  clickAddContact: function() {
+    return this.click('@addContactButton')
   },
 
   closeAddContactsPage: function() {
@@ -178,12 +194,12 @@ module.exports = {
     },
 
     emailInput: {
-      selector: `//*[@id="value"]`,
+      selector: `(//*[@id="value"])[2]`,
       locateStrategy: 'xpath',
     },
 
-    emailTypdeDropdown: {
-      selector: `(//SELECT[@class='rhinoselect__select form__control form__control--chevron'])[7]`,
+    emailTypeDropdown: {
+      selector: `(//SELECT[@class='rhinoselect__select form__control form__control--chevron'])[8]`,
       locateStrategy: 'xpath',
     },
 

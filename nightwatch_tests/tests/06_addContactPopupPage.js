@@ -24,19 +24,21 @@ module.exports = {
       .renderPageElements()
   },
 
-  'Test alert box firing': function(client) {
+  'Make sure alert validator is showing on input': function(client) {
     const addContacts = client.page.AddContactPopupPage();
 
-    addContacts.testErrorPrompt()
+    addContacts.clickAddContact()
+      .testErrorPrompt()
 
     client.pause(2000)
   },
 
-  'Fill out form': function(client) {
+  'Fill out form and add it as a new contact': function(client) {
     const addContacts = client.page.AddContactPopupPage();
 
-    addContacts.fillInForm('steve', 'monstermash', 'october', '31', '1936')
-
+    addContacts.fillInFormPartOne('steve', 'monstermash', 'bash', 'october', '31', '1936')
+      .fillInFormPartTwo('12345', '8435559876', 'work', 'steveMM@mooosh.com', 'secondary', 'It was a graveyard bash!')
+      .clickAddContact()
     client.pause()
   },
 

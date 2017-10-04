@@ -1,6 +1,10 @@
 
 /*--------------------------------------------------------------------------------------------------------*/
 
+// the tests below make the page renders properly and as well as all popups (modals) and input validators
+// show up when they are supposed to.
+// Tests can be expanded on the avatar upload and editing, connect party search as well as auto deleting the
+// created user in the test
 
 /*--------------------------------------------------------------------------------------------------------*/
 
@@ -20,6 +24,7 @@ module.exports = {
     const addContacts = client.page.AddContactPopupPage();
 
     contactsPage.navigate()
+      .clickAddContact()
       .clickAddNewContact()
 
     addContacts.renderAddContactsPage()
@@ -64,9 +69,9 @@ module.exports = {
       .fillInFormPartTwo('12345', '8435559876', 'work', 'steveMM@mooosh.com', 'secondary', 'It was a graveyard bash!')
       .clickAddContact();
 
-    client.end(1000);
+    client.end(3000);
     //
-    // maybe create more logic to go in and delete contact after creation
+    // maybe create more logic to go in and delete contact after creation with access to contacts page elements
     //
   },
 

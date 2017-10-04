@@ -1,5 +1,13 @@
+const membersCommands = {
+  clickAddMember: function() {
+    return this.waitForElementVisible('@addMemberButton', 5000, 'Add member button visible')
+      .click('@addMemberButton');
+  }
+}
+
 module.exports = {
-  // commands: [membersCommands],
+  commands: [membersCommands],
+  url: 'https://dev.dev-rhinogram.com/settings/organization/members',
   elements: {
     saveMemberButton: {
       selector: `/html/body/div[1]/div/div/div[3]/div/div/button[2]/span`,

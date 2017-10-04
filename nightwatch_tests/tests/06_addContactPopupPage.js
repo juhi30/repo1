@@ -64,7 +64,7 @@ module.exports = {
       .fillInFormPartTwo('12345', '8435559876', 'work', 'steveMM@mooosh.com', 'secondary', 'It was a graveyard bash!')
       .clickAddContact();
 
-    client.pause(2000);
+    client.end(1000);
     //
     // maybe create more logic to go in and delete contact after creation
     //

@@ -285,7 +285,7 @@ module.exports = {
     /*-----------------------------------------------------------*/
 
     connectedPartyButton: {
-      selector: `/html/body/div[5]/div/div[2]/div/div/div[2]/div[7]/div/div[1]/div/button`,
+      selector: `//SPAN[@class='dropdown__toggle__text'][text()='Add a Connected Party']`,
       locateStrategy: 'xpath',
     },
 

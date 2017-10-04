@@ -1,5 +1,19 @@
+
+const contactsCommands = {
+
+  clickAddNewContact: function() {
+    return this.waitForElementVisible('@addContactButton', 1500, 'Add contact button is visible')
+      .click('@addContactButton')
+      .waitForElementVisible('@addContactButtonDropdown', 1500, 'Add new contact button is visible')
+      .click('@addNewContactButton')
+  },
+}
+
 module.exports = {
-  // commands: [contactsCommands],
+  commands: [contactsCommands],
+  url: function() {
+    return this.api.launch_url + '/contacts'
+  },
   elements: {
     filterDropdown: {
       selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[1]/div[2]/div/button/span/span`,
@@ -30,15 +44,15 @@ module.exports = {
       locateStrategy: 'xpath'
     },
     addContactButton: {
-      selector: `//div[@class='contacts__header__actions']//span[.='Add Contact']`,
+      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[1]/div[3]/div/button`,
       locateStrategy: 'xpath'
     },
     addContactButtonDropdown: {
       selector: `//div[@class='contacts__header__actions']/div/div/div/div[2]/button`,
       locateStrategy: 'xpath'
     },
-    submitNewContactButton: {
-      selector: `//div[@class='cover__footer__container']//button[.='Add Contact']`,
+    addNewContactButton: {
+      selector: `(//SPAN[@class='button__text-wrapper'])[8]`,
       locateStrategy: 'xpath'
     }
   }

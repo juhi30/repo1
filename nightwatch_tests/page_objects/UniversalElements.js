@@ -23,6 +23,11 @@ const universalElementsCommands = {
       .verify.visible('@addNewContactButton', 'Add new contact button is visible')
   },
 
+  clickAddNewContact: function() {
+    return this.click('@searchButton')
+      .waitForElementVisible('@addNewContactButton', 1500, 'Add new contact button is visible')
+  },
+
   validateSettingsDropdown: function() {
     return this.waitForElementVisible('body', 1000)
       .click('@settingsButton')

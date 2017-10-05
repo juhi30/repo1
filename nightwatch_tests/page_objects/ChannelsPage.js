@@ -53,7 +53,7 @@ const channelsCommands = {
   },
 
   validateConnectFBPopup: function() {
-    return this.waitForElementVisible('@connectFacebookPopup', 1500, 'Connect to facebook popup is visible')
+    return this.waitForElementVisible('@connectFacebookPopup', 3000, 'Connect to facebook popup is visible')
       .verify.visible('@connectFacebookCancel', 'Cancel button is visible')
       .verify.visible('@connectFacebookButton', 'Connect facebook button is visible');
   },
@@ -66,7 +66,7 @@ const channelsCommands = {
     return this.waitForElementVisible('@facebookPagePopup', 3000, 'Facebook page selection popup is visible')
       .verify.visible('@facebookPageCancel', 'Facebook page selection cancel is visible')
       .verify.visible('@facebookPageNextButton', 'Facebook page Next button is visible')
-      .verify.visible('@firstFacebookPageChoice', 'First FB page choice is visible');
+      // .verify.visible('@firstFacebookPageChoice', 'First FB page choice is visible');
   },
 
   loginFacebook: function(email, password) {
@@ -82,25 +82,25 @@ const channelsCommands = {
   },
 
   validateConnectFBAcctPopup: function() {
-    return this.waitForElementVisible('@connectFacebookAcctPopup', 1000, 'Connect facebook account popup is visible')
+    return this.waitForElementVisible('@connectFacebookAcctPopup', 3000, 'Connect facebook account popup is visible')
       .verify.visible('@connectFacebookAcctChannelName', 'Channel name is visible')
       .verify.visible('@facebookLocationDropdown', 'Location dropdown is visible')
       .click('@facebookLocationDropdown')
-      .waitForElementVisible('@facebookFirstLocation', 1000, 'First location choice is visible')
+      .waitForElementVisible('@facebookFirstLocation', 1500, 'First location choice is visible')
       .verify.visible('@facebookPageFinishButton', 'Finish form button is visible');
   },
 
   finalizeCreateNewFBChannel: function(channelName) {
     return this.verify.valueContains('@connectFacebookAcctChannelName', channelName)
       .click('@facebookLocationDropdown')
-      .waitForElementVisible('@facebookFirstLocation', 1000, 'First location choice is visible')
+      .waitForElementVisible('@facebookFirstLocation', 1500, 'First location choice is visible')
       .click('@facebookFirstLocation')
       .click('@facebookPageFinishButton');
   },
 
   validateChannelAdded: function() {
-    return this.waitForElementVisible('@deleteChannel', 4000, 'Delete button is visible')
-      .waitForElementNotVisible('@connectFacebookAcctPopup', 2000, 'Facebook popups are closed')
+    return this.waitForElementNotPresent('@connectFacebookAcctPopup', 4000, 'Facebook popups are closed')
+      .waitForElementVisible('@deleteChannel', 4000, 'Delete button is visible')
       .verify.elementNotPresent('@addChannelbutton', 'Add Channel button is not present')
       .waitForElementVisible('@facebookChannelContainer', 2000, 'Facebook Channel is visible')
       .verify.visible('@deleteChannel', 'Delete button is visible');
@@ -161,17 +161,17 @@ module.exports = {
     },
 
     deleteChannelPopup: {
-      selector: `/html/body/div[6]/div/div/div`,
+      selector: `/html/body/div[4]/div/div/div`,
       locateStrategy: 'xpath',
     },
 
     deleteChannelFinal: {
-      selector: `/html/body/div[6]/div/div/div/div[3]/div/button[2]`,
+      selector: `/html/body/div[4]/div/div/div/div[3]/div/button[2]`,
       locateStrategy: 'xpath',
     },
 
     cancelDeleteChannel: {
-      selector: `/html/body/div[6]/div/div/div/div[3]/div/button[1]`,
+      selector: `/html/body/div[4]/div/div/div/div[3]/div/button[1]`,
       locateStrategy: 'xpath',
     },
 
@@ -186,42 +186,42 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     connectFacebookPopup: {
-      selector: `/html/body/div[4]/div/div/div/div[2]`,
+      selector: `/html/body/div[5]/div/div/div`,
       locateStrategy: 'xpath',
     },
 
     connectFacebookCancel: {
-      selector: `/html/body/div[4]/div/div/div/div[3]/div/button[1]`,
+      selector: `(//BUTTON[@type='button'])[11]`,
       locateStrategy: 'xpath',
     },
 
     connectFacebookButton: {
-      selector: `/html/body/div[4]/div/div/div/div[3]/div/button[2]`,
+      selector: `(//BUTTON[@type='button'])[12]`,
       locateStrategy: 'xpath',
     },
     /*-----------------------------------------------------*/
     facebookPagePopup: {
-      selector: `/html/body/div[4]/div/div/div/div[2]/div/div[1]`,
+      selector: `/html/body/div[5]/div/div/div`,
       locateStrategy: 'xpath',
     },
 
     firstFacebookPageChoice: {
-      selector: `/html/body/div[4]/div/div/div/div[2]/div/div[2]/div/div/div/div[1]/div/a[1]`,
+      selector: `(//A[@href='javascript:void(0)'])[3]`,
       locateStrategy: 'xpath',
     },
 
     facebookPageCancel: {
-      selector: `/html/body/div[4]/div/div/div/div[3]/div/button`,
+      selector: `/html/body/div[5]/div/div/div/div[3]/div/button`,
       locateStrategy: 'xpath',
     },
 
     facebookPageNextButton: {
-      selector: `/html/body/div[4]/div/div/div/div[3]/div/div/button`,
+      selector: `(//BUTTON[@type='button'])[12]`,
       locateStrategy: 'xpath',
     },
     /*-----------------------------------------------------*/
     connectFacebookAcctPopup: {
-      selector: `/html/body/div[4]/div/div/div`,
+      selector: `/html/body/div[5]/div/div/div`,
       locateStrategy: 'xpath'
     },
 
@@ -231,17 +231,17 @@ module.exports = {
     },
 
     facebookLocationDropdown: {
-      selector: `/html/body/div[4]/div/div/div/div[2]/div/div[2]/span[2]/div[1]/input`,
+      selector: `(//INPUT[@type='text'])[3]`,
       locateStrategy: 'xpath',
     },
 
     facebookFirstLocation: {
-      selector: `/html/body/div[4]/div/div/div/div[2]/div/div[2]/span[2]/div[1]/div/div/div/a`,
+      selector: `(//A[@href='javascript:void(0)'])[3]`,
       locateStrategy: 'xpath',
     },
 
     facebookPageFinishButton: {
-      selector: `/html/body/div[4]/div/div/div/div[3]/div/div/button[2]`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Finish']`,
       locateStrategy: 'xpath',
     },
 

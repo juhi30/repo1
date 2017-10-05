@@ -1,5 +1,6 @@
 /*----------------------------------------------------------------------*/
-
+// These tests are to test the simple functionality of the Organization
+// preferences page
 /*----------------------------------------------------------------------*/
 
 module.exports = {

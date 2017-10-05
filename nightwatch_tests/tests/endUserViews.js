@@ -4,6 +4,8 @@
 // functionality is possible. 
 
 /*--------------------------------------------------------------------------------------------------------*/
+const theDateObj = new Date;
+const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleDateString();
 
 module.exports = {
 
@@ -38,7 +40,7 @@ module.exports = {
     const EUThread = client.page.EUThreadPage();
 
     EUThread.navigate()
-      .fillMessageInputWithDate();
+      .fillInMessageInput(dateString);
 
     client.pause(500);
 

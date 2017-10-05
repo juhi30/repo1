@@ -28,11 +28,16 @@ module.exports = {
   'Toggle sound and save then revert': function(client) {
     const orgPrefs = client.page.OrgPreferencesPage();
 
-    orgPrefs.toggleSound()
+    orgPrefs.toggleSoundOn()
+      .pause(1000)
       .clickSave()
-      .toggleSound()
+      .validateSaveToast()
+      .pause(1000)
+      .toggleSoundOff()
+      .pause(1000)
       .clickSave()
+      .validateSaveToast()
 
-    client.pause()
+    client.end(3000)
   }
 }

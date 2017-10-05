@@ -2,11 +2,15 @@
 const orgPreferencesCommands = {
 
   validatePageElements: function() {
-    return this.waitForElementVisible('@toggleSoundOn', 'Toggle sound is visible')
+    return this.waitForElementVisible('@toggleSound', 'Toggle sound is visible')
       .verify.visible('@saveButton', 'Save Preferences button is visible')
   },
 
-  toggleSound: function() {
+  toggleSoundOn: function() {
+    return this.click('@toggleSound')
+  },
+
+  toggleSoundOff: function() {
     return this.click('@toggleSound')
   },
 
@@ -16,7 +20,6 @@ const orgPreferencesCommands = {
 
   validateSaveToast: function() {
     return this.waitForElementVisible('@saveToast', 1000, 'Save toast is visible')
-      .waitForElementNotVisible('@saveToast', 5000, 'Save toast is now hidden')
   }
 }
 
@@ -32,7 +35,7 @@ module.exports = {
   },
   elements: {
     toggleSound: {
-      selector: `//label[@class='rhinoswitcher__label']`,
+      selector: `//*[@id="app"]/div/div[2]/div/div/div[1]/div/div[2]/div/div/label`,
       locateStrategy: 'xpath'
     },
 

@@ -13,7 +13,6 @@ module.exports = {
       .submit()
       .validateUrlChange();
     //better name for this function needed
-
   },
 
   'Change to Contacts url, render and verify Page elements': function(client) {
@@ -30,17 +29,26 @@ module.exports = {
     const contacts = client.page.ContactsPage();
 
     contacts.clickPatientOption()
-      .pause(1000)
+      .pause(500)
       .clickMemberOption()
-      .pause(1000)
+      .pause(500)
       .clickConnectedPartyOption()
-      .pause(1000)
+      .pause(500)
       .clickUnknownOption()
-      .pause(1000)
+      .pause(500)
       .clickOtherOption()
-      // .clickAllContactsOption();
+      .pause(500)
+      .clickAllContactsOption();
 
-    client.pause();
+    client.pause(1000);
   },
 
+  'Search for contact and validate that contacts profile page': function(client) {
+    const contacts = client.page.ContactsPage();
+
+    contacts.clickAddContact()
+      .searchForContact('fro')
+
+    client.end(3000)  
+  }
 }

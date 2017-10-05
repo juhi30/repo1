@@ -1,15 +1,15 @@
-
 const contactsCommands = {
 
   validateContactsElements: function() {
     return this.waitForElementVisible('@contactsContainer', 1500, 'Contacts container is visible')
       .verify.visible('@filterDropdown', 'Filter dropdown button is visible')
       .click('@filterDropdown')
+      .verify.visible('@allContactsOption', 'All contacts option is visible')
       .verify.visible('@patientOption', 'Patient option is visible')
-      .verify.visible('@memberOption','Member option is visible')
-      .verify.visible('@connectedPartyOption','Connected party option is visible')
-      .verify.visible('@unknownOption','Unknown option is visible')
-      .verify.visible('@otherOption','Other option is visible')
+      .verify.visible('@memberOption', 'Member option is visible')
+      .verify.visible('@connectedPartyOption', 'Connected party option is visible')
+      .verify.visible('@unknownOption', 'Unknown option is visible')
+      .verify.visible('@otherOption', 'Other option is visible')
   },
 
   clickPatientOption: function() {
@@ -44,8 +44,8 @@ const contactsCommands = {
 
   clickAllContactsOption: function() {
     return this.click('@filterDropdown')
-      .click(' allContactsOption')
-      .verify.containsText('@filterDropdown', 'Other', 'Filter dropdown is now set to all Contacts')
+      .click('@allContactsOption')
+      .verify.containsText('@filterDropdown', 'All Contacts', 'Filter dropdown is now set to all Contacts')
   },
 
   clickAddContact: function() {
@@ -56,6 +56,13 @@ const contactsCommands = {
       .verify.visible('@addNewContactButton', 'Add New Contact button is visible')
   },
 
+  searchForContact: function(contactName) {
+    return this.setValue('@addContactDropdownInput', contactName)
+      .waitForElementVisible('@addContactDropdownFirstResult', 1000, 'First result is visible')
+    .click('@addContactDropdownFirstResult')
+    .waitForElementVisible('@profileContainer', 1500, 'Profile summary is visible')
+  },
+
   clickAddNewContact: function() {
     return this.waitForElementVisible('@addContactButtonDropdown', 1500, 'Add new contact button is visible')
       .click('@addNewContactButton')
@@ -64,15 +71,19 @@ const contactsCommands = {
 
 module.exports = {
   commands: [contactsCommands, {
-  pause: function (time) {
-    this.api.pause(time);
-    return this;
-  }
-}],
+    pause: function(time) {
+      this.api.pause(time);
+      return this;
+    }
+  }],
   url: function() {
     return this.api.launch_url + '/contacts'
   },
   elements: {
+
+    /*-----------------------------------------------------------*/
+    // filter dropdown and its elements
+    /*-----------------------------------------------------------*/
 
     filterDropdown: {
       selector: `(//BUTTON[@class='button dropdown__toggle u-flex-shrink-0 u-text-capitalize button--default'])[1]`,
@@ -110,6 +121,8 @@ module.exports = {
     },
 
     /*-----------------------------------------------------------*/
+    // Contacts page containers and elements
+    /*-----------------------------------------------------------*/
 
     contactsContainer: {
       selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[2]`,
@@ -121,6 +134,13 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
+    profileContainer: {
+      selector: `//DIV[@class='profile']`,
+      locateStrategy: 'xpath',
+    },
+
+    /*-----------------------------------------------------------*/
+    // Add contact elements
     /*-----------------------------------------------------------*/
 
     addContactButton: {
@@ -135,6 +155,11 @@ module.exports = {
 
     addContactDropdownInput: {
       selector: `(//INPUT[@type='text'])[2]`,
+      locateStrategy: 'xpath',
+    },
+
+    addContactDropdownFirstResult: {
+      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[1]/div[3]/div/div/div/div[2]/a`,
       locateStrategy: 'xpath',
     },
 

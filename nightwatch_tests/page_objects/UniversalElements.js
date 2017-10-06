@@ -1,5 +1,10 @@
 const universalElementsCommands = {
 
+  pause: function(time) {
+    this.api.pause(time);
+    return this;
+  },
+
   validateUniversalElements: function() {
     return this.waitForElementVisible('body', 1000)
       .verify.visible('@myProfileButton', 'Top left profile button is visible')
@@ -21,6 +26,11 @@ const universalElementsCommands = {
       .waitForElementVisible('@searchDropdownFirstResult', 2000, 'First result on search dropdown is visible')
       .verify.visible('@searchDropdownFirstResult', 'First result is visible')
       .verify.visible('@addNewContactButton', 'Add new contact button is visible')
+  },
+
+  clickAddNewContact: function() {
+    return this.click('@searchButton')
+      .waitForElementVisible('@addNewContactButton', 1500, 'Add new contact button is visible')
   },
 
   validateSettingsDropdown: function() {
@@ -60,6 +70,12 @@ const universalElementsCommands = {
       .click('@searchButton')
       .setValue('@searchDropdownInput', patientName)
       .waitForElementVisible('@addNewContactButton', 1500, 'Add contact button is present')
+      .click('@addNewContactButton')
+  },
+
+  clickAddNewContact: function() {
+    return this.click('@searchButton')
+      .waitForElementVisible('@searchDropdownInput', 2000, 'Search input is present')
       .click('@addNewContactButton')
   },
 

@@ -2,7 +2,15 @@ const membersCommands = {
   clickAddMember: function() {
     return this.waitForElementVisible('@addMemberButton', 5000, 'Add member button visible')
       .click('@addMemberButton');
-  }
+  },
+
+  deactivateMember: function() {
+    return this.waitForElementVisible('@deactivateButton', 5000, 'Deactivate button is visible')
+      .click('@deactivateButton')
+      .waitForElementVisible('@finalDeactivateButton', 5000, 'Final deactivate button is visible')
+      .click('@finalDeactivateButton')
+      .waitForElementVisible('@memberUpdatedToast', 5000, 'Member updated toast visible');
+  },
 }
 
 module.exports = {
@@ -31,6 +39,24 @@ module.exports = {
     },
     closeEditMemberFormButton: {
       selector: `/html/body/div[1]/div/div/div[3]/div/div/button[1]/span`,
+      locateStrategy: 'xpath'
+    },
+
+    // will select the first one on the page
+    deactivateButton: {
+      selector: `(//BUTTON[@type='button'][text()='Deactivate'][text()='Deactivate'])[1]`,
+      locateStrategy: 'xpath'
+    },
+
+    finalDeactivateButton: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Deactivate']`,
+      locateStrategy: 'xpath'
+    },
+
+    // -------- Toasts -------//
+
+    memberUpdatedToast: {
+      selector: `//DIV[@class='toast__text'][text()='Member updated successfully.']`,
       locateStrategy: 'xpath'
     },
   }

@@ -21,13 +21,30 @@ const addMemberCommands = {
       .verify.visible('@nullLocationValidator', 'Null location validator visible');
   },
 
-  getTemporaryPassword: function() {
-    return this.waitForElementVisible('@temporaryPasswordBox', 5000, 'Temp password is visible')
-      .getText('@temporaryPasswordBox', function(tpObj) {
-        const password = tpObj.value.slice(20);
-        return password;
-      });
-  }
+  setRandomUsername: function(name) {
+    let randoNum = Math.ceil(Math.random() * 1000);
+    
+    return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
+      .clearValue('@usernameInput')
+      .setValue('@usernameInput', name + randoNum);
+  },
+
+  selectFirstLocation: function() {
+    return this.waitForElementVisible('@locationDropdown', 5000, 'Location dropdown is visible')
+      .click('@locationDropdown')
+      .waitForElementVisible('@firstLocationInDropdown', 5000, 'First location is visible')
+      .click('@firstLocationInDropdown');
+  },
+
+  fillInFirstNameInput: function(name) {
+    return this.waitForElementVisible('@firstNameInput', 5000, 'First name input is visible')
+      .setValue('@firstNameInput', name);
+  },
+
+  fillInLastNameInput: function(name) {
+    return this.waitForElementVisible('@lastNameInput', 5000, 'Last name input is visible')
+      .setValue('@lastNameInput', name);
+  },
 }
 
 module.exports = {
@@ -109,7 +126,14 @@ module.exports = {
     },
 
     temporaryPasswordBox: {
-      selector: `(//DIV[@class='bucket__body'])[44]`,
+      selector: `//div[@class='cover__body']/div/div/div/div[3]/div[3]/div/div`,
+      locateStrategy: 'xpath'
+    },
+
+    // ------------ Dropdown elements ---------//
+
+    firstLocationInDropdown: {
+      selector: `(//DIV[@class='dropdown__menu__item__content'])[15]`,
       locateStrategy: 'xpath'
     },
 

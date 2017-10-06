@@ -1,5 +1,10 @@
 const universalElementsCommands = {
 
+  pause: function(time) {
+    this.api.pause(time);
+    return this;
+  },
+
   validateUniversalElements: function() {
     return this.waitForElementVisible('body', 1000)
       .verify.visible('@myProfileButton', 'Top left profile button is visible')

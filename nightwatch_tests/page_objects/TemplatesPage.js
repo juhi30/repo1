@@ -1,5 +1,10 @@
 const templatesCommands = {
 
+  pause: function(time) {
+    this.api.pause(time);
+    return this;
+  },
+
   renderPageElements: function() {
     return this.waitForElementVisible('@createTemplateButton', 2000, 'Create template button is visible')
       .verify.visible('@hIPAATemplate', 'HIPAA template is visible')
@@ -49,12 +54,7 @@ const templatesCommands = {
 }
 
 module.exports = {
-  commands: [templatesCommands, {
-    pause: function(time) {
-      this.api.pause(time);
-      return this;
-    }
-  }],
+  commands: [templatesCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/templates'
   },

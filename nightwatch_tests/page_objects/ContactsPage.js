@@ -1,5 +1,10 @@
 const contactsCommands = {
 
+  pause: function(time) {
+    this.api.pause(time);
+    return this;
+  },
+
   validateContactsElements: function() {
     return this.waitForElementVisible('@contactsContainer', 1500, 'Contacts container is visible')
       .verify.visible('@filterDropdown', 'Filter dropdown button is visible')
@@ -70,12 +75,7 @@ const contactsCommands = {
 }
 
 module.exports = {
-  commands: [contactsCommands, {
-    pause: function(time) {
-      this.api.pause(time);
-      return this;
-    }
-  }],
+  commands: [contactsCommands],
   url: function() {
     return this.api.launch_url + '/contacts'
   },

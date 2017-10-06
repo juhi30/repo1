@@ -1,6 +1,11 @@
 
 const orgPreferencesCommands = {
 
+  pause: function(time) {
+    this.api.pause(time);
+    return this;
+  },
+
   validatePageElements: function() {
     return this.waitForElementVisible('@toggleSound', 'Toggle sound is visible')
       .verify.visible('@saveButton', 'Save Preferences button is visible')
@@ -24,12 +29,7 @@ const orgPreferencesCommands = {
 }
 
 module.exports = {
-  commands: [orgPreferencesCommands, {
-    pause: function(time) {
-      this.api.pause(time);
-      return this;
-    }
-  }],
+  commands: [orgPreferencesCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/preferences'
   },

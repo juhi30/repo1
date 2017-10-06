@@ -1,24 +1,15 @@
 const channelsCommands = {
 
   validateChannelsElements: function() {
-    return this.waitForElementVisible('body', 2000, 'Body is visible')
-      .waitForElementVisible('@firstChannelContainer', 3000, 'First channel is visible')
-      .verify.visible('@addChannelbutton', 'Add channel button is visible')
-      .verify.visible('@editChannel', 'Edit channel button is visible');
-
+    return this.waitForElementVisible('body', 5000, 'Body is visible')
+      .waitForElementVisible('@firstChannelContainer', 5000, 'First channel is visible')
   },
 
   validateEditForm: function() {
     return this.click('@editChannel')
-      .waitForElementVisible('@editChannelPopup', 2000, 'Edit channel form is visible')
-      .verify.visible('@editChannelName', 'Edit channel name input is visible')
-      .verify.visible('@editLocationDropdown', 'Edit location dropdown is visible')
+      .waitForElementVisible('@editChannelPopup', 5000, 'Edit channel form is visible')
       .click('@editLocationDropdown')
-      .waitForElementVisible('@editLocationFirstResult', 1000, 'First location is visible')
-      .verify.visible('@bizHoursOnSelector', 'Business hours ON checkbox visible')
-      .verify.visible('@bizHoursOffSelector', 'Business hours OFF checkbox visible')
-      .verify.visible('@bizHoursForm', 'Business hours form input is visible')
-      .verify.visible('@dSTCheckBox', 'Daylight savings time checkbox is visible')
+      .waitForElementVisible('@editLocationFirstResult', 5000, 'First location is visible')
       .click('@cancelEditChannelForm');
     // .waitForElementNotVisible('@editChannel', 4000, 'Edit channel form is no longer visible')
     // ^^^ keeps failing due to element being found/present
@@ -27,35 +18,30 @@ const channelsCommands = {
   changeEditFormElements: function(channelName) {
     let randoNum = Math.ceil(Math.random() * 100);
     return this.click('@editChannel')
-      .waitForElementVisible('@editChannelPopup', 2000, 'Edit channel form is visible')
+      .waitForElementVisible('@editChannelPopup', 5000, 'Edit channel form is visible')
       .clearValue('@editChannelName')
       .setValue('@editChannelName', channelName + randoNum)
       .verify.valueContains('@editChannelName', channelName + randoNum, 'The title is ' + channelName + ' and random number which is ' + randoNum)
       .click('@editLocationCloseButton')
-      .verify.elementNotPresent('@editLocationCloseButton', 'Location selected choice is hidden')
       .click('@editLocationDropdown')
       .click('@editLocationFirstResult')
-      .verify.visible('@editLocationCloseButton', 'Location selected choice is visible')
       .click('@bizHoursOffSelector')
       .waitForElementNotPresent('@bizHoursForm', 'Business hours form is hidden')
       .click('@bizHoursOnSelector')
-      .verify.visible('@bizHoursForm', 'Business hours form is visible again')
       .click('@dSTCheckBox')
       .click('@saveChannelButton');
-      // .waitForElementNotPresent('@editChannel', 2000, 'Edit channel form is longer visible')
+      // .waitForElementNotPresent('@editChannel', 5000, 'Edit channel form is longer visible')
   },
 
   clickCreateNewFBChannel: function() {
-    return this.waitForElementVisible('body', 1000, 'Body is visible')
+    return this.waitForElementVisible('body', 5000, 'Body is visible')
       .click('@addChannelbutton')
-      .waitForElementVisible('@addChannelDropdown', 1500, 'Add facebook dropdown is visible')
+      .waitForElementVisible('@addChannelDropdown', 5000, 'Add facebook dropdown is visible')
       .click('@addChannelDropdown');
   },
 
   validateConnectFBPopup: function() {
-    return this.waitForElementVisible('@connectFacebookPopup', 3000, 'Connect to facebook popup is visible')
-      .verify.visible('@connectFacebookCancel', 'Cancel button is visible')
-      .verify.visible('@connectFacebookButton', 'Connect facebook button is visible');
+    return this.waitForElementVisible('@connectFacebookPopup', 5000, 'Connect to facebook popup is visible')
   },
 
   clickConnectFacebook: function() {
@@ -63,37 +49,34 @@ const channelsCommands = {
   },
 
   validateFacebookPagePopup: function() {
-    return this.waitForElementVisible('@facebookPagePopup', 3000, 'Facebook page selection popup is visible')
-      .verify.visible('@facebookPageCancel', 'Facebook page selection cancel is visible')
-      .verify.visible('@facebookPageNextButton', 'Facebook page Next button is visible')
+    return this.waitForElementVisible('@facebookPageNextButton', 5000, 'Facebook page selection popup is visible')
+      .waitForElementVisible('@facebookPageCancel', 5000, 'Cancel button is visible wisible');
       // .verify.visible('@firstFacebookPageChoice', 'First FB page choice is visible');
   },
 
   loginFacebook: function(email, password) {
-    return this.waitForElementVisible('@facebookLoginPage', 3000, 'Facebook login page is visible')
+    return this.waitForElementVisible('@facebookLoginPage', 5000, 'Facebook login page is visible')
       .setValue('@facebookLoginEmail', email)
       .setValue('@facebookLoginPassword', password)
       .click('@facebookLoginButton');
   },
 
   clickFacebookPage: function() {
-    return this.click('@firstFacebookPageChoice')
+    return this.waitForElementVisible('@firstFacebookPageChoice', 5000, 'First facebook page choice is visible')
+      .click('@firstFacebookPageChoice')
       .click('@facebookPageNextButton');
   },
 
   validateConnectFBAcctPopup: function() {
-    return this.waitForElementVisible('@connectFacebookAcctPopup', 3000, 'Connect facebook account popup is visible')
-      .verify.visible('@connectFacebookAcctChannelName', 'Channel name is visible')
-      .verify.visible('@facebookLocationDropdown', 'Location dropdown is visible')
+    return this.waitForElementVisible('@connectFacebookAcctChannelName', 5000, 'Connect facebook account popup is visible')
       .click('@facebookLocationDropdown')
-      .waitForElementVisible('@facebookFirstLocation', 1500, 'First location choice is visible')
-      .verify.visible('@facebookPageFinishButton', 'Finish form button is visible');
+      .waitForElementVisible('@facebookFirstLocation', 5000, 'First location choice is visible');
   },
 
   finalizeCreateNewFBChannel: function(channelName) {
     return this.verify.valueContains('@connectFacebookAcctChannelName', channelName)
       .click('@facebookLocationDropdown')
-      .waitForElementVisible('@facebookFirstLocation', 1500, 'First location choice is visible')
+      .waitForElementVisible('@facebookFirstLocation', 5000, 'First location choice is visible')
       .click('@facebookFirstLocation')
       .click('@facebookPageFinishButton');
   },
@@ -101,20 +84,16 @@ const channelsCommands = {
   validateChannelAdded: function() {
     return this.waitForElementNotPresent('@connectFacebookAcctPopup', 4000, 'Facebook popups are closed')
       .waitForElementVisible('@deleteChannel', 4000, 'Delete button is visible')
-      .verify.elementNotPresent('@addChannelbutton', 'Add Channel button is not present')
-      .waitForElementVisible('@facebookChannelContainer', 2000, 'Facebook Channel is visible')
-      .verify.visible('@deleteChannel', 'Delete button is visible');
+      .waitForElementVisible('@facebookChannelContainer', 5000, 'Facebook Channel is visible')
   },
 
   removeChannelAdded: function() {
     return this.click('@deleteChannel')
-      .waitForElementVisible('@deleteChannelPopup', 3000, 'Delete channel popup is visible')
-      .verify.visible('@cancelDeleteChannel', 'Cancel button is visible')
-      .verify.visible('@deleteChannelFinal', 'Final delete button is visible')
+      .waitForElementVisible('@deleteChannelPopup', 5000, 'Delete channel popup is visible')
       .click('@deleteChannelFinal')
-      // .waitForElementVisible('@savedPrompt', 1000, 'Saved prompt visible')
-      .waitForElementNotVisible('@deleteChannelPopup', 2000, 'Delete channel popup is not visible')
-      .waitForElementNotPresent('@facebookChannelContainer', 1000, 'Facebook channel is deleted');
+      // .waitForElementVisible('@savedPrompt', 5000, 'Saved prompt visible')
+      .waitForElementNotVisible('@deleteChannelPopup', 5000, 'Delete channel popup is not visible')
+      .waitForElementNotPresent('@facebookChannelContainer', 5000, 'Facebook channel is deleted');
   },
 
 }

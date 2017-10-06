@@ -1,6 +1,8 @@
 
 /*----------------------------------------------------------------------*/
-
+// These tests check the simple functionality of templating system. They 
+// render the page elements and make sure all popups and edit forms work
+// as they are supposed to
 /*----------------------------------------------------------------------*/
 
 module.exports = {
@@ -33,7 +35,10 @@ module.exports = {
 
     templates.clickCreateTemplate()
       .fillOutNewTemplate('auto test created template', 'this should be in the template\'s message body')
+      .editTemplate()
+      .pause(2000)
+      .deleteTemplate()
 
-    client.pause()  
+    client.end(3000)
   }
 }

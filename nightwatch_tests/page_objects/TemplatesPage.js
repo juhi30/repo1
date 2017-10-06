@@ -1,4 +1,3 @@
-
 const templatesCommands = {
 
   renderPageElements: function() {
@@ -29,11 +28,33 @@ const templatesCommands = {
       .setValue('@createTemplateMessage', message)
       .click('@createTemplateSaveButton')
       .waitForElementNotVisible('@createTemplatePopup', 1500, 'Create template popup is hidden')
+  },
+
+  editTemplate: function() {
+    return this.click('@firstTemplateEdit')
+      .waitForElementVisible('@firstTemplateEditPopup', 1500, 'Edit template popup is visible')
+      .verify.visible('@firstTemplateEditSaveButton', 'Save template button is visible')
+      .setValue('@createTemplateTitle', '* added from edit popup')
+      .click('@firstTemplateEditSaveButton')
+      .waitForElementNotVisible('@firstTemplateEditPopup', 1500, 'Edit template popup is hidden')
+  },
+
+  deleteTemplate: function() {
+    return this.waitForElementVisible('@firstTemplateDelete', 1000, 'Template delete button is visible')
+      .click('@firstTemplateDelete')
+      .waitForElementVisible('@firstTemplateDeletePopup', 1500, 'Delete template popup is visible')
+      .click('@firstTemplateDeleteFinal')
+      .waitForElementNotVisible('@firstTemplateDeletePopup', 1500, 'Delete template popup is hidden')
   }
 }
 
 module.exports = {
-  commands: [templatesCommands],
+  commands: [templatesCommands, {
+    pause: function(time) {
+      this.api.pause(time);
+      return this;
+    }
+  }],
   url: function() {
     return this.api.launch_url + '/settings/organization/templates'
   },
@@ -45,9 +66,49 @@ module.exports = {
     },
 
     firstTestTemplate: {
-      selector:  `//*[@id="app"]/div/div[2]/div/div/div[2]/div[1]`,
+      selector: `//*[@id="app"]/div/div[2]/div/div/div[2]/div[1]`,
       locateStrategy: 'xpath',
     },
+
+    /*---------------------------------------------------------*/
+
+    firstTemplateEdit: {
+      selector: `(//BUTTON[@type='button'][text()='Edit'][text()='Edit'])[1]`,
+      locateStrategy: 'xpath',
+    },
+
+    firstTemplateEditPopup: {
+      selector: `/html/body/div[5]/div/div/div`,
+      locateStrategy: 'xpath'
+    },
+
+    firstTemplateEditTitleInput: {
+      selector: `//*[@id="subject"]`,
+      locateStrategy: 'xpath',
+    },
+
+    firstTemplateEditSaveButton: {
+      selector: `/html/body/div[5]/div/div/div/div/div[3]/button/span`,
+      locateStrategy: 'xpath',
+    },
+
+    /*---------------------------------------------------------*/
+
+    firstTemplateDelete: {
+      selector: `(//BUTTON[@type='button'][text()='Delete'][text()='Delete'])[1]`,
+      locateStrategy: 'xpath',
+    },
+
+    firstTemplateDeletePopup: {
+      selector: `/html/body/div[4]/div/div/div`,
+      locateStrategy: 'xpath',
+    },
+
+    firstTemplateDeleteFinal: {
+      selector: `/html/body/div[4]/div/div/div/div[3]/div/button[2]/span`,
+      locateStrategy: 'xpath',
+    },
+    /*---------------------------------------------------------*/
 
     hIPAATemplate: {
       selector: `//*[@id="app"]/div/div[2]/div/div/div[2]/div[2]`,

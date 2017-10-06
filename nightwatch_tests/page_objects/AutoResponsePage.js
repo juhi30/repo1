@@ -32,7 +32,7 @@ const autoResponseCommands = {
 
   validateDeletePopup: function() {
     return this.waitForElementVisible('body', 1000, 'body is visible')
-      .waitForElementVisible('@deleteEventButton', 3000, 'Delete event button is visible')
+      .waitForElementVisible('@deleteEventButton', 5000, 'Delete event button is visible')
       .click('@deleteEventButton')
       .waitForElementVisible('@deleteEventPopup', 2000, 'Delete event popup is visible')
       .verify.visible('@deleteButtonFinal', 'Delete button final is visible')
@@ -42,7 +42,7 @@ const autoResponseCommands = {
   },
 
   fillInAutoResponse: function(autoResponseText) {
-    return this.waitForElementVisible('@autoResponseInput', 3000, 'Input is visible')
+    return this.waitForElementVisible('@autoResponseInput', 5000, 'Input is visible')
       .clearValue('@autoResponseInput')
       .setValue('@autoResponseInput', autoResponseText)
   },
@@ -63,28 +63,27 @@ const autoResponseCommands = {
   fillInOOOEvent: function() {
     return this.waitForElementVisible('@scheduleEventButton', 1000, 'Schedule event button is visible')
       .click('@scheduleEventButton')
-      .waitForElementVisible('@scheduleEventPopup', 3000, 'Schedule event popup is visible')
+      .waitForElementVisible('@channelsDropdown', 5000, 'Channels dropdown is visible')
+      .click('@channelsDropdown')
+      .click('@firstChannelInDropdown')
       .setValue('@eventNameInput', 'Automated testing created event')
       .click('@allDayCheckbox')
       .setValue('@autoResponseInputInPopup', 'Hi Im a sentient computer program... ergo... vis a vie...')
-      .click('@channelsDropdown')
-      .click('@firstChannelInDropdown')
       .click('@submitEventButton')
       // .waitForElementVisible('@autoResponseSavedPrompt', 1000, 'Saved prompt is visible')
   },
 
   validateEditOOOEvent: function() {
-    return this.waitForElementVisible('@editEventButton', 3000, 'Edit event button is visible')
+    return this.waitForElementVisible('@editEventButton', 5000, 'Edit event button is visible')
       .click('@editEventButton')
       .waitForElementVisible('@scheduleEventPopup', 2000, 'Edit OOO event popup visible')
       .click('@closeFormButton')
   },
 
   deleteLastOOOEvent: function() {
-    return this.waitForElementVisible('body', 2000, 'Body is visible')
-      .waitForElementVisible('@secondDeleteEventButton', 3000, '2nd Delete event button is visible')
+    return this.waitForElementVisible('@secondDeleteEventButton', 5000, '2nd Delete event button is visible')
       .click('@secondDeleteEventButton')
-      .waitForElementVisible('@deleteEventPopup', 3000, 'Delete event popup is visible')
+      .waitForElementVisible('@deleteEventPopup', 5000, 'Delete event popup is visible')
       .click('@deleteButtonFinal')
 
   }

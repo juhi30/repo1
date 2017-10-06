@@ -22,7 +22,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('tonton', 'chacoz')
+      .fillInForm('kfoster', 'chacoz')
       .submit()
       .validateUrlChange();
   },
@@ -58,7 +58,7 @@ module.exports = {
     client.pause(2000);
     uni.clickLogout();
     login.fillInForm(username, tempPassword)
-      .submit()
+      .submitForFirstTime()
       .fillInNewPasswordInput('chacoz')
       .fillInConfirmPasswordInput('chacoz')
       .clickSaveAndContinueButton();
@@ -70,8 +70,9 @@ module.exports = {
 
     uni.clickLogout();
 
-    login.fillInForm('tonton', 'chacoz')
-      .submit();
+    login.fillInForm('kfoster', 'chacoz')
+      .submit()
+      .validateUrlChange();
   },
 
   'Deactivate the new member': function(client) {

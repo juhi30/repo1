@@ -4,7 +4,7 @@ module.exports = {
   const login = client.page.LoginPage();
 
   login.navigate()
-    .fillInForm('tonton', 'chacoz')
+    .fillInForm('kfoster', 'chacoz')
     .submit()
     .validateUrlChange();
 },

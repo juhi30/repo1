@@ -17,7 +17,12 @@ const loginCommands = {
   submit: function() {
     return this.waitForElementVisible('@loginButton', 1000, 'Login button is visible')
       .click('@loginButton')
-      .waitForElementNotPresent('@usernameInput', 5000, false, null, 'Username input is no longer present');
+  },
+
+  submitForFirstTime: function() {
+    return this.waitForElementVisible('@loginButton', 1000, 'Login button is visible')
+      .click('@loginButton')
+      .waitForElementNotPresent('@usernameInput', 5000, 'Username input no longer present');
   },
 
   validateError: function() {

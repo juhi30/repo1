@@ -128,7 +128,9 @@ const universalElementsCommands = {
   },
 
   clickLogout: function() {
-    return this.click('@settingsButton')
+    return this.waitForElementVisible('@settingsButton', 5000, 'Settings button is visible')
+      .click('@settingsButton')
+      .waitForElementVisible('@logoutButton', 5000, 'Logout button is visible')
       .click('@logoutButton')
       .waitForElementNotPresent('@logoutButton', 1500, 'Logout button no longer present')
       .verify.urlContains('/login', 'Succsessfully logged out')
@@ -211,7 +213,7 @@ module.exports = {
     },
 
     settingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div`,
+      selector: `//SPAN[@class='dropdown__toggle__text'][text()='Settings']`,
       locateStrategy: 'xpath',
     },
 

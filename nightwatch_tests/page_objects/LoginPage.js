@@ -7,14 +7,22 @@ const loginCommands = {
       .verify.visible('@passwordInput', 'password input is visible')
       .verify.containsText('@loginButton', 'Log In', 'Login button is visible')
   },
+
   fillInForm: function(username, password) {
-    return this.waitForElementVisible('body', 1000, 'Body is visible')
+    return this.waitForElementVisible('@usernameInput', 1000, 'Username input is visible')
       .setValue('@usernameInput', username)
       .setValue('@passwordInput', password)
   },
+
   submit: function() {
-    return this.waitForElementVisible('body', 1000, 'Body is visible')
+    return this.waitForElementVisible('@loginButton', 1000, 'Login button is visible')
       .click('@loginButton')
+  },
+
+  submitForFirstTime: function() {
+    return this.waitForElementVisible('@loginButton', 1000, 'Login button is visible')
+      .click('@loginButton')
+      .waitForElementNotPresent('@usernameInput', 5000, 'Username input no longer present');
   },
 
   validateError: function() {
@@ -25,9 +33,23 @@ const loginCommands = {
 
   //need more appropiate name or refactor
   validateUrlChange: function() {
-    return this.waitForElementVisible('body', 1000, 'Body is visible')
-      .waitForElementNotPresent('@loginButton', 6000, 'login button is no longer visible, page changes to inbox')
+    return this.waitForElementNotPresent('@loginButton', 6000, false, null, 'Login button is no longer visible, page changes to inbox')
       .verify.urlContains('inbox')  // maybe some timeout issues happening here working as of 9/20/1
+  },
+
+  fillInNewPasswordInput: function(password) {
+    return this.waitForElementVisible('@newPasswordInput', 5000, 'New password input is visible')
+      .setValue('@newPasswordInput', password);
+  },
+
+  fillInConfirmPasswordInput: function(password) {
+    return this.waitForElementVisible('@confirmPasswordInput', 5000, 'Confirm password input is visible')
+      .setValue('@confirmPasswordInput', password);
+  },
+
+  clickSaveAndContinueButton: function() {
+    return this.waitForElementVisible('@saveAndContinueButton', 5000, 'Save and Continue button is visible')
+      .click('@saveAndContinueButton');
   }
 }
 
@@ -52,6 +74,23 @@ module.exports = {
     errorPrompt: {
       selector: `//*[@id="app"]/div/div/div/div[2]/div[5]/div`,
       locateStrategy: 'xpath',
-    }
+    },
+
+    //------ below are elements found when logging in with a temporary password -----//
+
+    newPasswordInput: {
+      selector: `//INPUT[@id='password']`,
+      locateStrategy: 'xpath'
+    },
+
+    confirmPasswordInput: {
+      selector: `//INPUT[@id='confirmPassword']`,
+      locateStrategy: 'xpath'
+    },
+
+    saveAndContinueButton: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Save and Continue']`,
+      locateStrategy: 'xpath'
+    },
   }
 };

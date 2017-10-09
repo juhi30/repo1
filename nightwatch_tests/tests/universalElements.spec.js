@@ -51,13 +51,21 @@ module.exports = {
     const universalElements = client.page.UniversalElements();
 
     universalElements.clickMyProfile()
+      .pause(500)
       .clickMyPreferences()
+      .pause(500)
       .clickAutoResponse()
+      .pause(500)
       .clickChannels()
+      .pause(500)
       .clickMembers()
+      .pause(500)
       .clickOrgPreferences()
+      .pause(500)
       .clickOrgProfile()
+      .pause(500)
       .clickTemplates()
+      .pause(500)
       .clickLogout()
 
     client.end(3000);

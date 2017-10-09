@@ -21,6 +21,8 @@ module.exports = {
 
     addMember.clickAddMemberButton()
       .testValidators();
+
+    client.end(3000)
   },
-  
+
 }

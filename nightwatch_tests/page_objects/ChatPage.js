@@ -1,4 +1,9 @@
 const chatCommands = {
+  pause: function(time) {
+    this.api.pause(time);
+    return this;
+  },
+
   clickNewChatButton: function() {
     return this.waitForElementVisible('@newChatButton', 5000, 'New Chat button is visible')
       .click('@newChatButton');
@@ -12,6 +17,11 @@ const chatCommands = {
   clickSendMessageButton: function() {
     return this.waitForElementVisible('@sendMessageButton', 5000, 'Send message button is visible')
       .click('@sendMessageButton');
+  },
+
+  clickFirstChatThread: function() {
+    return this.waitForElementVisible('@firstChatThread', 5000, 'First chat thread is visible')
+      .click('@firstChatThread');
   },
 
   fillInNewChatSearchInput: function(text) {

@@ -25,8 +25,8 @@ const autoResponseCommands = {
       .waitForElementVisible('@firstChannelInDropdown', 5000, 'Wait for first channel')
       .verify.visible('@firstChannelInDropdown', 'First channel in popup is visible')
       .verify.visible('@submitEventButton', 'Submit event button in popup is visible')
-      .verify.visible('@cancelButtonInNewOOOForm', 'Cancel button in popup is visible')
-      .verify.visible('@closeFormButton', 'Close form (X) button is visible')
+      // .verify.visible('@cancelButtonInNewOOOForm', 'Cancel button in popup is visible')
+      // .verify.visible('@closeFormButton', 'Close form (X) button is visible')
       .click('@closeFormButton')
   },
 
@@ -75,7 +75,7 @@ const autoResponseCommands = {
   validateEditOOOEvent: function() {
     return this.waitForElementVisible('@editEventButton', 5000, 'Edit event button is visible')
       .click('@editEventButton')
-      .waitForElementVisible('@scheduleEventPopup', 2000, 'Edit OOO event popup visible')
+      .waitForElementVisible('@closeFormButton', 5000, 'Edit OOO event popup visible')
       .click('@closeFormButton')
   },
 
@@ -221,7 +221,7 @@ module.exports = {
     },
 
     closeFormButton: {
-      selector: `/html/body/div[5]/div/div/div/div[1]/button`,
+      selector: `//div[@class='modal__header']/button`,
       locateStrategy: 'xpath'
     }
   }

@@ -4,7 +4,7 @@ const chatCommands = {
       .click('@newChatButton');
   },
 
-  clickFirstChatResult: function() {
+  clickFirstChatSearchResult: function() {
     return this.waitForElementVisible('@newChatSearchResult', 5000, 'First result is visible')
       .click('@newChatSearchResult');
   },
@@ -22,6 +22,10 @@ const chatCommands = {
   fillInChatMessageInput: function(text) {
     return this.waitForElementVisible('@chatMessageInput', 5000, 'Message input is visible')
       .setValue('@chatMessageInput', text);
+  },
+
+  verifyPresenceOfTypingIndicator: function() {
+    return this.waitForElementVisible('@typingIndicator', 5000, 'Typing indicator is visible')
   },
 
 }

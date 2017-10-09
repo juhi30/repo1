@@ -41,7 +41,7 @@ const channelsCommands = {
   },
 
   validateConnectFBPopup: function() {
-    return this.waitForElementVisible('@connectFacebookPopup', 5000, 'Connect to facebook popup is visible')
+    return this.waitForElementVisible('@connectFacebookButton', 5000, 'Connect to facebook popup is visible')
   },
 
   clickConnectFacebook: function() {
@@ -263,12 +263,12 @@ module.exports = {
     },
 
     editLocationDropdown: {
-      selector: `/html/body/div[5]/div/div/div/div[2]/div[1]/div[2]/span[2]/div[1]/input`,
+      selector: `(//INPUT[@type='text'])[3]`,
       locateStrategy: 'xpath',
     },
 
     editLocationFirstResult: {
-      selector: `/html/body/div[5]/div/div/div/div[2]/div[1]/div[2]/span[2]/div[1]/div/div/div/a`,
+      selector: `(//DIV[@class='dropdown__menu__item__content'])[13]`,
       locateStrategy: 'xpath'
     },
 
@@ -303,7 +303,7 @@ module.exports = {
     },
 
     cancelEditChannelForm: {
-      selector: `/html/body/div[5]/div/div/div/div[3]/div/button[1]`,
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[2]`,
       locateStrategy: 'xpath'
     }
   }

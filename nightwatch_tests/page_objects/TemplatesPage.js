@@ -13,7 +13,7 @@ const templatesCommands = {
 
   clickCreateTemplate: function() {
     return this.click('@createTemplateButton')
-      .waitForElementVisible('@createTemplatePopup', 2000, 'Create Template Popup is visible')
+      .waitForElementVisible('@createTemplateTitle', 2000, 'Create Template Popup is visible')
   },
 
   validateCreateTemplatePopup: function() {

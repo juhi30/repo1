@@ -7,7 +7,7 @@ const channelsCommands = {
 
   validateEditForm: function() {
     return this.click('@editChannel')
-      .waitForElementVisible('@editChannelPopup', 5000, 'Edit channel form is visible')
+      .waitForElementVisible('@editLocationDropdown', 5000, 'Edit channel form is visible')
       .click('@editLocationDropdown')
       .waitForElementVisible('@editLocationFirstResult', 5000, 'First location is visible')
       .click('@cancelEditChannelForm');
@@ -18,7 +18,7 @@ const channelsCommands = {
   changeEditFormElements: function(channelName) {
     let randoNum = Math.ceil(Math.random() * 100);
     return this.click('@editChannel')
-      .waitForElementVisible('@editChannelPopup', 5000, 'Edit channel form is visible')
+      .waitForElementVisible('@editChannelName', 5000, 'Edit channel form is visible')
       .clearValue('@editChannelName')
       .setValue('@editChannelName', channelName + randoNum)
       .verify.valueContains('@editChannelName', channelName + randoNum, 'The title is ' + channelName + ' and random number which is ' + randoNum)
@@ -34,8 +34,8 @@ const channelsCommands = {
   },
 
   clickCreateNewFBChannel: function() {
-    return this.waitForElementVisible('body', 5000, 'Body is visible')
-      .click('@addChannelbutton')
+    return this.waitForElementVisible('@addChannelButton', 5000, 'Add channel button is visible')
+      .click('@addChannelButton')
       .waitForElementVisible('@addChannelDropdown', 5000, 'Add facebook dropdown is visible')
       .click('@addChannelDropdown');
   },
@@ -89,7 +89,7 @@ const channelsCommands = {
 
   removeChannelAdded: function() {
     return this.click('@deleteChannel')
-      .waitForElementVisible('@deleteChannelPopup', 5000, 'Delete channel popup is visible')
+      .waitForElementVisible('@deleteChannelFinal', 5000, 'Delete channel popup is visible')
       .click('@deleteChannelFinal')
       // .waitForElementVisible('@savedPrompt', 5000, 'Saved prompt visible')
       .waitForElementNotVisible('@deleteChannelPopup', 5000, 'Delete channel popup is not visible')
@@ -109,7 +109,7 @@ module.exports = {
     // main page elements
     /*-----------------------------------------------------*/
 
-    addChannelbutton: {
+    addChannelButton: {
       selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[1]/div/div[2]/div/div/button`,
       locateStrategy: 'xpath',
     },

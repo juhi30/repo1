@@ -1,7 +1,7 @@
 const autoResponseCommands = {
 
   validateAutoResponseElements: function() {
-    return this.waitForElementVisible('@autoResponseInput', 1500, 'Auto-Response input is visible ready for test')
+    return this.waitForElementVisible('@autoResponseInput', 5000, 'Auto-Response input is visible ready for test')
       .verify.visible('@autoResponseInput', 'Auto-Response text area is visible')
       .verify.visible('@saveAutoResponseButton', 'Save Auto-Response button is visible')
       .verify.visible('@cancelAutoResponseButton', 'Cancel button is visible')
@@ -14,15 +14,15 @@ const autoResponseCommands = {
   },
 
   validateAutoResponsePopupElements: function() {
-    return this.waitForElementVisible('body', 1000, 'Body is visible')
+    return this.waitForElementVisible('@scheduleEventButton', 5000, 'Body is visible')
       .click('@scheduleEventButton')
-      .waitForElementVisible('@scheduleEventPopup', 4000, 'Schedule event popup is visible')
+      .waitForElementVisible('@eventNameInput', 5000, 'Schedule event popup is visible')
       .verify.visible('@eventNameInput', 'Event input is visible')
       .verify.visible('@allDayCheckbox', 'All day checkbox is visible')
       .verify.visible('@autoResponseInputInPopup', 'Auto-Response input in popup is visible')
       .verify.visible('@channelsDropdown', 'Channels dropdown tab in popup is visible')
       .click('@channelsDropdown')
-      .waitForElementVisible('@firstChannelInDropdown', 2000, 'Wait for first channel')
+      .waitForElementVisible('@firstChannelInDropdown', 5000, 'Wait for first channel')
       .verify.visible('@firstChannelInDropdown', 'First channel in popup is visible')
       .verify.visible('@submitEventButton', 'Submit event button in popup is visible')
       .verify.visible('@cancelButtonInNewOOOForm', 'Cancel button in popup is visible')
@@ -31,10 +31,9 @@ const autoResponseCommands = {
   },
 
   validateDeletePopup: function() {
-    return this.waitForElementVisible('body', 1000, 'body is visible')
-      .waitForElementVisible('@deleteEventButton', 5000, 'Delete event button is visible')
+    return this.waitForElementVisible('@deleteEventButton', 5000, 'Delete event button is visible')
       .click('@deleteEventButton')
-      .waitForElementVisible('@deleteEventPopup', 2000, 'Delete event popup is visible')
+      .waitForElementVisible('@closeDeletePopupButton', 5000, 'Delete event popup is visible')
       .verify.visible('@deleteButtonFinal', 'Delete button final is visible')
       .verify.visible('@cancelDeletePopupButton', 'Cancel delete popup button is visible')
       .verify.visible('@closeDeletePopupButton', 'Close delete popup (X) button is visible')
@@ -48,20 +47,20 @@ const autoResponseCommands = {
   },
 
   validateAutoResponseError: function() {
-    return this.waitForElementVisible('@autoResponseError', 2000, 'Error prompt is visible')
+    return this.waitForElementVisible('@autoResponseError', 5000, 'Error prompt is visible')
   },
 
   submitAutoResponse: function() {
-    return this.waitForElementVisible('body', 1000, 'Body is visible')
+    return this.waitForElementVisible('@saveAutoResponseButton', 5000, 'Save button is visible')
       .click('@saveAutoResponseButton')
   },
 
   savedPrompt: function() {
-    return this.waitForElementVisible('@autoResponseSavedPrompt', 1000, 'Saved prompt is visible')
+    return this.waitForElementVisible('@autoResponseSavedPrompt', 5000, 'Saved prompt is visible')
   },
 
   fillInOOOEvent: function() {
-    return this.waitForElementVisible('@scheduleEventButton', 1000, 'Schedule event button is visible')
+    return this.waitForElementVisible('@scheduleEventButton', 5000, 'Schedule event button is visible')
       .click('@scheduleEventButton')
       .waitForElementVisible('@channelsDropdown', 5000, 'Channels dropdown is visible')
       .click('@channelsDropdown')

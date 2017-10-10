@@ -1,8 +1,7 @@
 const addContactsCommands = {
 
   renderAddContactsPage: function() {
-    return this.waitForElementVisible('@addContactPopupPage', 2000, 'Add Contacts popup is visible')
-      .verify.visible('@addContactPopupPage', 'Add Contacts Popup is visible')
+    return this.waitForElementVisible('@addContactButton', 5000, 'Add Contacts popup is visible')
   },
 
   renderPageElements: function() {
@@ -46,21 +45,21 @@ const addContactsCommands = {
 
   validatePhotoPopup: function() {
     return this.click('@addPhotoButton')
-      .waitForElementVisible('@addPhotoPopup', 1500, 'Add photo popup is visible')
+      .waitForElementVisible('@uploadPhotoButton', 5000, 'Add photo popup is visible')
       .verify.visible('@uploadPhotoButton', 'Upload photo button is visible')
-      .verify.visible('@addPhotoCloseButton', 'Add Photo close button (X) is visible')
-      .verify.visible('@addPhotoDoneButton', 'Done button is visible')
+      // .verify.visible('@addPhotoCloseButton', 'Add Photo close button (X) is visible')
+      // .verify.visible('@addPhotoDoneButton', 'Done button is visible')
   },
 
   clickClosePhotoPopup: function() {
     return this.click('@addPhotoCloseButton')
-      .waitForElementNotVisible('@addPhotoPopup', 2500, 'Add photo popup is no longer visible')
+      .waitForElementNotPresent('@addPhotoCloseButton', 5000, 'Add photo popup is no longer visible')
   },
 
   clickConnectParties: function() {
     return this.verify.visible('@connectedPartyButton', 'Connect party button is visible')
       .click('@connectedPartyButton')
-      .waitForElementVisible('@connectedPartyDropdown', 1500, 'Connect parties dropdown is visible')
+      .waitForElementVisible('@connectedPartyDropdown', 5000, 'Connect parties dropdown is visible')
   },
 
   fillInFormPartOne: function(firstName, lastName, preferredName, month, day, year) {
@@ -89,7 +88,7 @@ const addContactsCommands = {
 
   closeAddContactsPage: function() {
     return this.click('@closeButton')
-      .waitForElementNotPresent('@closeButton', 2500, 'Add Contacts Popup is hidden')
+      .waitForElementNotPresent('@closeButton', 5000, 'Add Contacts Popup is hidden')
       // .verify.elementNotPresent('@addContactPopupPage', 'Add contacts popup is hidden')
     // fails without a verify func ??? no idea why ^^^
   }
@@ -151,7 +150,7 @@ module.exports = {
     },
 
     addPhotoCloseButton: {
-      selector: `/html/body/div[6]/div/div/div/div[1]/button`,
+      selector: `//div[@class='modal__header']/button`,
       locateStrategy: 'xpath'
     },
 
@@ -290,7 +289,7 @@ module.exports = {
     },
 
     connectedPartyDropdown: {
-      selector: `(//DIV[@class='dropdown__menu__scroll'])[7]`,
+      selector: `//DIV[@class='dropdown__menu dropdown__menu--top dropdown__menu--wide']`,
       locateStrategy: 'xpath',
     },
 

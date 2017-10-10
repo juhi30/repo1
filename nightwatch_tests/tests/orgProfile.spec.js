@@ -1,5 +1,10 @@
 /*----------------------------------------------------------------------------*/
 
+// These test make sure all elements render properly and the organization profile
+// can be updated. Input validators are not able to be tested as the inputs
+// are refilled on clicking save profile button. This seems to be a quirk of nightwatch
+// have not found a way around it yet. 
+
 /*----------------------------------------------------------------------------*/
 
 module.exports = {
@@ -25,29 +30,17 @@ module.exports = {
     client.pause(1000);
   },
 
-  // 'Clear values and test validators': function(client) {
-  //   const orgProfile = client.page.OrgProfilePage();
-  //
-  //   orgProfile.clearPrefilledValues()
-  //     .setNewValues()
-  //     .clickSaveProfile()
-  //     .renderValidators()
-  //
-  //   client.pause(1000);
-  // },
-
   'Fill out form with new info and save': function(client) {
     let randoNum = Math.ceil(Math.random() * 1000);
     const orgProfile = client.page.OrgProfilePage();
 
-    client.deleteCookies();
     orgProfile.clearPrefilledValues()
     .pause(1000)
-    .setNewValues('QA Test Org', randoNum+'somewhere st.', 'Charleston', 'SC', '29403')
-    .pause()
+    .setNewValues('QA Test Org' + randoNum, randoNum+'somewhere st.', 'Charleston')
+    .pause(1000)
     .clickSaveProfile()
     .validateSaveToast()
 
-    client.pause()
+    client.end(5000)
   }
 }

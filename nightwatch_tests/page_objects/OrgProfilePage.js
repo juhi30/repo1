@@ -31,16 +31,12 @@ const orgProfileCommands = {
     return this.clearValue('@orgNameInput')
       .clearValue('@addressOneInput')
       .clearValue('@cityInput')
-      .clearValue('@stateInput')
-      .clearValue('@zipInput')
   },
 
-  setNewValues: function(name, address, city, state, zip) {
+  setNewValues: function(name, address, city) {
     return this.setValue('@orgNameInput', name)
-    .setValue('@addressOneInput', address)
-    .setValue('@cityInput', city)
-    .setValue('@stateInput', state)
-    .setValue('@zipInput', zip)
+      .setValue('@addressOneInput', address)
+      .setValue('@cityInput', city)
   },
 
   clickSaveProfile: function() {

@@ -16,7 +16,7 @@ const autoResponseCommands = {
   validateAutoResponsePopupElements: function() {
     return this.waitForElementVisible('body', 1000, 'Body is visible')
       .click('@scheduleEventButton')
-      .waitForElementVisible('@scheduleEventPopup', 4000, 'Schedule event popup is visible')
+      .waitForElementVisible('@submitEventButton', 4000, 'Submit event button on popup is visible')
       .verify.visible('@eventNameInput', 'Event input is visible')
       .verify.visible('@allDayCheckbox', 'All day checkbox is visible')
       .verify.visible('@autoResponseInputInPopup', 'Auto-Response input in popup is visible')
@@ -147,7 +147,7 @@ module.exports = {
     },
 
     deleteEventButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[5]/div/div[1]/div[2]/button[2]`,
+      selector: `(//BUTTON[@type='button'][text()='Delete'][text()='Delete'])[1]`,
       locateStrategy: 'xpath',
     },
 
@@ -217,7 +217,7 @@ module.exports = {
     },
 
     cancelButtonInNewOOOForm: {
-      selector: `/html/body/div[5]/div/div/div/div[3]/div/button[1]`,
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[3]`,
       locateStrategy: 'xpath'
     },
 

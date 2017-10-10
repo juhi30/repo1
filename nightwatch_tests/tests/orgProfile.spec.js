@@ -40,9 +40,11 @@ module.exports = {
     let randoNum = Math.ceil(Math.random() * 1000);
     const orgProfile = client.page.OrgProfilePage();
 
+    client.deleteCookies();
     orgProfile.clearPrefilledValues()
-    .pause()
+    .pause(1000)
     .setNewValues('QA Test Org', randoNum+'somewhere st.', 'Charleston', 'SC', '29403')
+    .pause()
     .clickSaveProfile()
     .validateSaveToast()
 

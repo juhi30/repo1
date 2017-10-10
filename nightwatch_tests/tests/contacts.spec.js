@@ -1,6 +1,9 @@
 
 /*--------------------------------------------------------------------------*/
 
+// These tests render and check contacts page elements and make sure the filters
+// are working
+
 /*--------------------------------------------------------------------------*/
 
 module.exports = {
@@ -49,6 +52,6 @@ module.exports = {
     contacts.clickAddContact()
       .searchForContact('fro')
 
-    client.end(3000)  
+    client.end(3000)
   }
 }

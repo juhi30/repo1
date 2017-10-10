@@ -66,7 +66,7 @@ module.exports = {
     const addContacts = client.page.AddContactPopupPage();
 
     addContacts.fillInFormPartOne('steve' + randoNum, 'monstermash', 'bash' + randoNum, 'october', '31', '1936')
-      .fillInFormPartTwo('12345', '8435559876', 'work', 'steveMM@mooosh.com', 'secondary', 'It was a graveyard bash!')
+      .fillInFormPartTwo('12345', '8435559876', 'work', 'steveMM@mooosh.com', 'secondary', 'It was a graveyard smash! (corrected thanks to keaton)')
       .clickAddContact();
 
     client.end(3000);

@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------------------------------------------------*/
 
 // The purpose of these tests are to verify the correct views for End Users and that all necessary
-// functionality is possible. 
+// functionality is possible.
 
 /*--------------------------------------------------------------------------------------------------------*/
 const theDateObj = new Date;
@@ -45,5 +45,7 @@ module.exports = {
     client.pause(500);
 
     EUThread.clickSend();
+
+    client.end(3000)
   },
 }

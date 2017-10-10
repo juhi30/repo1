@@ -17,31 +17,31 @@ const templatesCommands = {
   },
 
   validateCreateTemplatePopup: function() {
-    return this.verify.visible('@createTemplateTitle', 'Title input is visible')
+    return this.waitForElementVisible('@createTemplateTitle', 5000, 'Title input is visible')
       .verify.visible('@createTemplateMessage', 'Message input is visible')
       .verify.visible('@createTemplateSaveButton', 'Create button is visible')
-      .verify.visible('@cancelCreateButton', 'Cancel button (X) is visible')
+      // .verify.visible('@cancelCreateButton', 'Cancel button (X) is visible') no good xpaths for svg close button
       .click('@createTemplateSaveButton')
       .verify.visible('@nullTemplateTitle', 'Title validator is visible')
       .verify.visible('@nullTemplateMessage', 'Message validator is visible')
-      .click('@cancelCreateButton')
-      .waitForElementNotVisible('@createTemplatePopup', 1500, 'Create template popup is hidden')
+      // .click('@cancelCreateButton')
+      // .waitForElementNotPresent('@createTemplatePopup', 5000, 'Create template popup is hidden')
   },
 
   fillOutNewTemplate: function(title, message) {
     return this.setValue('@createTemplateTitle', title)
       .setValue('@createTemplateMessage', message)
       .click('@createTemplateSaveButton')
-      .waitForElementNotVisible('@createTemplatePopup', 1500, 'Create template popup is hidden')
+      .waitForElementNotPresent('@createTemplateTitle', 5000, 'Create template popup is hidden')
   },
 
   editTemplate: function() {
     return this.click('@firstTemplateEdit')
-      .waitForElementVisible('@firstTemplateEditPopup', 1500, 'Edit template popup is visible')
+      .waitForElementVisible('@createTemplateTitle', 5000, 'Edit template popup is visible')
       .verify.visible('@firstTemplateEditSaveButton', 'Save template button is visible')
       .setValue('@createTemplateTitle', '* added from edit popup')
       .click('@firstTemplateEditSaveButton')
-      .waitForElementNotVisible('@firstTemplateEditPopup', 1500, 'Edit template popup is hidden')
+      .waitForElementNotPresent('@firstTemplateEditPopup', 5000, 'Edit template popup is not present')
   },
 
   deleteTemplate: function() {
@@ -88,7 +88,7 @@ module.exports = {
     },
 
     firstTemplateEditSaveButton: {
-      selector: `/html/body/div[5]/div/div/div/div/div[3]/button/span`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Template']`,
       locateStrategy: 'xpath',
     },
 

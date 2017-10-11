@@ -2,7 +2,6 @@
 Automated tools for testing.
 
 ## Nightwatch
-  http://nightwatchjs.org/
 
   This is a suite of e2e (end-to-end) and regression tests, utilizing Nightwatch and Selenium Server Standalone. Following the Page Object Model style to improve scalability. 
   
@@ -12,6 +11,11 @@ Automated tools for testing.
   *to run the suite*: run 'nightwatch' from the nightwatch tests directory.    
   *to run a specific test*: run 'nightwatch tests/testFile.spec.js' (also from the nightwatch directory).
   
+  ### Helpful links
+  
+  Nightwatch
+    http://nightwatchjs.org/
+    
   Page Object Model
     http://nightwatchjs.org/guide#page-objects
     https://joepurdy.io/words/page-objects-in-nightwatch-js/
@@ -20,8 +24,9 @@ Automated tools for testing.
   Writing Tests
     https://www.sitepoint.com/javascript-functional-testing-nightwatch-js/
     
-Selenium
-  ...
+
+## Selenium
+
   
 
 Browserstack

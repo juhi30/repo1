@@ -28,9 +28,10 @@ module.exports = {
 
     // after creating the contact, you are redirected to the contacts page
     // with that profile summary in view (including the delete button)
-    profileSum.deleteContact();
+    profileSum.deleteContact()
+      .seeDeleteToast();
 
-
+    client.end(1000)
     
   }
 }

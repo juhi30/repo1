@@ -4,6 +4,10 @@ const profileSummaryCommands = {
       .click('@deleteContactButton')
       .waitForElementVisible('@deleteContactButtonFinal', 5000, 'Final delete button is visible')
       .click('@deleteContactButtonFinal');
+  },
+
+  seeDeleteToast: function() {
+    this.waitForElementVisible('@toastSuccessfulDelete', 5000, 'Successful deletion toast is visible');
   }
 }
 
@@ -19,5 +23,10 @@ module.exports = {
       selector: `//SPAN[@class='button__text-wrapper'][text()='Delete Contact']`,
       locateStrategy: 'xpath',
     },
+
+    toastSuccessfulDelete: {
+      selector: `//DIV[@class='toast__text'][text()='Contact successfully deleted.']`,
+      locateStrategy: 'xpath',
+    }
   }
 }

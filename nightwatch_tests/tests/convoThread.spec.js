@@ -1,6 +1,12 @@
 
 /*--------------------------------------------------------------------------*/
 
+// These tests make render and validate important elements on the Conversation
+// thread page. Mostly the add notes and messages, filter between the two, search
+// for message and make sure templates can be imported to the messages.
+//
+// More tests for uploading files  may be helpful too
+
 /*--------------------------------------------------------------------------*/
 
 module.exports = {

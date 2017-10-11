@@ -1,14 +1,16 @@
 # rhinomatic
 Automated tools for testing.
 
-# Nightwatch
+## Nightwatch
   http://nightwatchjs.org/
 
-  from nightwatchjs.org: 
-  "Nightwatch.js is an easy to use Node.js based End-to-End (E2E) testing solution for browser based apps and websites. It uses the powerful W3C WebDriver API to perform commands and assertions on DOM elements."
-
-  To run from the terminal: $ nightwatch
-  To run a specific test: $ nightwatch tests/<testFile>
+  This is a suite of e2e (end-to-end) and regression tests, utilizing Nightwatch and Selenium Server Standalone. Following the Page Object Model style to improve scalability. 
+  
+  ### Installation and running the suite
+  
+  'npm install' should install the necessary dependencies.    
+  *to run the suite*: run 'nightwatch' from the nightwatch tests directory.    
+  *to run a specific test*: run 'nightwatch tests/testFile.spec.js' (also from the nightwatch directory).
   
   Page Object Model
     http://nightwatchjs.org/guide#page-objects

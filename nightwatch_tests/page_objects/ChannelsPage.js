@@ -99,7 +99,7 @@ const channelsCommands = {
       .waitForElementVisible('@deleteChannelFinal', 5000, 'Delete channel popup is visible')
       .click('@deleteChannelFinal')
       // .waitForElementVisible('@savedPrompt', 5000, 'Saved prompt visible')
-      .waitForElementNotVisible('@deleteChannelPopup', 5000, 'Delete channel popup is not visible')
+      .waitForElementNotPresent('@deleteChannelPopup', 5000, 'Delete channel popup is not visible')
       .waitForElementNotPresent('@facebookChannelContainer', 5000, 'Facebook channel is deleted');
   },
 

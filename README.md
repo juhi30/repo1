@@ -7,11 +7,11 @@ Automated tools for testing.
   
   ### Installation and running the suite
   
-  *From the nightwatch\_tests dir*: 'npm install'
+  **From the nightwatch\_tests dir**: 'npm install'
 
-  *to run the suite*: run 'nightwatch' from the nightwatch\_tests directory.
+  **to run the suite**: run 'nightwatch' from the nightwatch\_tests directory.
 
-  *to run a specific test*: run 'nightwatch tests/testFile.spec.js' (also from the nightwatch\_tests directory).
+  **to run a specific test**: run 'nightwatch tests/testFile.spec.js' (also from the nightwatch\_tests directory).
   
   ### Helpful links
   

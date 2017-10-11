@@ -1,6 +1,6 @@
 
 /*----------------------------------------------------------------------*/
-// These tests check the simple functionality of templating system. They 
+// These tests check the simple functionality of templating system. They
 // render the page elements and make sure all popups and edit forms work
 // as they are supposed to
 /*----------------------------------------------------------------------*/
@@ -25,7 +25,6 @@ module.exports = {
       .renderPageElements()
       .clickCreateTemplate()
       .validateCreateTemplatePopup()
-
 
     client.pause(1000)
   },

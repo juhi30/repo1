@@ -12,7 +12,7 @@ const autoResponseCommands = {
       .verify.visible('@cancelAutoResponseButton', 'Cancel button is visible')
       // .verify.visible('@characterLimitCounter', 'Character limit counter is visible')
       // characterLimitCounter causing error
-      .verify.visible('@editEventButton', 'Edit event button is visible')
+      .waitForElementVisible('@editEventButton', 5000, 'Edit event button is visible')
       .verify.visible('@deleteEventButton', 'Delete event button is visible')
       .verify.visible('@scheduleEventButton', 'Schedule event button is visible')
       .verify.visible('@firstScheduledEvent', 'First event is visible')

@@ -8,7 +8,9 @@ Automated tools for testing.
   ### Installation and running the suite
   
   *From the nightwatch\_tests dir*: 'npm install'
-  *to run the suite*: run 'nightwatch' from the nightwatch\_tests directory.    
+
+  *to run the suite*: run 'nightwatch' from the nightwatch\_tests directory.
+
   *to run a specific test*: run 'nightwatch tests/testFile.spec.js' (also from the nightwatch\_tests directory).
   
   ### Helpful links
@@ -31,14 +33,21 @@ Automated tools for testing.
 
   ### Scenarios (OS / Browser specs)
   Scenario 1: OSX & Chrome 
+
   Scenario 2: OSX & Firefox 
+
   Scenario 3: OSX & Safari 
+
   Scenario 4: Windows & Chrome 
+
   Scenario 5: Windows & Firefox 
+
   Scenario 6: Windows & IE11 
 
   ### Installation and usage
 
-  *From the screenshotter dir*: 'npm install'
-  *to run a scenario*: from screenshotter/src/screenshots, run 'SCENARIO=1 node ../screenshotter.js' (SCENARIO can be set to 1 - 6 currently)
-  *to start the React app*: from the screenshotter dir, run 'npm start'
+  **From the screenshotter dir**: 'npm install'
+
+  **to run a scenario**: from screenshotter/src/screenshots, run 'SCENARIO=1 node ../screenshotter.js' (SCENARIO can be set to 1 - 6 currently)
+
+  **to start the React app**: from the screenshotter dir, run 'npm start'

@@ -1,13 +1,13 @@
 const profileSummaryCommands = {
   deleteContact: function() {
-    this.waitForElementVisible('@deleteContactButton', 5000, 'Delete button is visible')
+    return this.waitForElementVisible('@deleteContactButton', 5000, 'Delete button is visible')
       .click('@deleteContactButton')
       .waitForElementVisible('@deleteContactButtonFinal', 5000, 'Final delete button is visible')
       .click('@deleteContactButtonFinal');
   },
 
   seeDeleteToast: function() {
-    this.waitForElementVisible('@toastSuccessfulDelete', 5000, 'Successful deletion toast is visible');
+    return this.waitForElementVisible('@toastSuccessfulDelete', 5000, 'Successful deletion toast is visible');
   }
 }
 

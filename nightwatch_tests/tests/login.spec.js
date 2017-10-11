@@ -57,6 +57,6 @@ module.exports = {
       .validateUrlChange()
       ///need step to validate that it transfered to inbox view here
 
-    client.end();
+    client.end(3000);
   },
 };

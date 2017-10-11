@@ -64,7 +64,7 @@ module.exports = {
       .searchResultVisible()
       .clickFirstResult();
 
-    client.end();
+    client.end(3000);
 
   },
 }

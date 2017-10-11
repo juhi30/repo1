@@ -64,8 +64,8 @@ const contactsCommands = {
   searchForContact: function(contactName) {
     return this.setValue('@addContactDropdownInput', contactName)
       .waitForElementVisible('@addContactDropdownFirstResult', 1000, 'First result is visible')
-    .click('@addContactDropdownFirstResult')
-    .waitForElementVisible('@profileContainer', 1500, 'Profile summary is visible')
+      .click('@addContactDropdownFirstResult')
+      .waitForElementVisible('@profileContainer', 1500, 'Profile summary is visible')
   },
 
   clickAddNewContact: function() {

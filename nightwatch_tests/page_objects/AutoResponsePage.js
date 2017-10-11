@@ -1,5 +1,10 @@
 const autoResponseCommands = {
 
+  pause: function(time) {
+    this.api.pause(time);
+    return this;
+  },
+
   validateAutoResponseElements: function() {
     return this.waitForElementVisible('@autoResponseInput', 5000, 'Auto-Response input is visible ready for test')
       .verify.visible('@autoResponseInput', 'Auto-Response text area is visible')
@@ -16,7 +21,7 @@ const autoResponseCommands = {
   validateAutoResponsePopupElements: function() {
     return this.waitForElementVisible('@scheduleEventButton', 5000, 'Body is visible')
       .click('@scheduleEventButton')
-      .waitForElementVisible('@eventNameInput', 5000, 'Schedule event popup is visible')
+      .waitForElementVisible('@submitEventButton', 4000, 'Submit event button on popup is visible')
       .verify.visible('@eventNameInput', 'Event input is visible')
       .verify.visible('@allDayCheckbox', 'All day checkbox is visible')
       .verify.visible('@autoResponseInputInPopup', 'Auto-Response input in popup is visible')
@@ -24,10 +29,10 @@ const autoResponseCommands = {
       .click('@channelsDropdown')
       .waitForElementVisible('@firstChannelInDropdown', 5000, 'Wait for first channel')
       .verify.visible('@firstChannelInDropdown', 'First channel in popup is visible')
+      .click('@firstChannelInDropdown')
       .verify.visible('@submitEventButton', 'Submit event button in popup is visible')
-      // .verify.visible('@cancelButtonInNewOOOForm', 'Cancel button in popup is visible')
-      // .verify.visible('@closeFormButton', 'Close form (X) button is visible')
-      .click('@closeFormButton')
+      .waitForElementVisible('@cancelButtonInNewOOOForm', 5000, 'Cancel button in popup is visible')
+      .click('@cancelButtonInNewOOOForm')
   },
 
   validateDeletePopup: function() {
@@ -75,8 +80,8 @@ const autoResponseCommands = {
   validateEditOOOEvent: function() {
     return this.waitForElementVisible('@editEventButton', 5000, 'Edit event button is visible')
       .click('@editEventButton')
-      .waitForElementVisible('@closeFormButton', 5000, 'Edit OOO event popup visible')
-      .click('@closeFormButton')
+      .waitForElementVisible('@scheduleEventPopupSaveButton', 2000, 'Edit OOO event popup visible')
+      .click('@cancelButtonInNewOOOForm')
   },
 
   deleteLastOOOEvent: function() {
@@ -146,7 +151,7 @@ module.exports = {
     },
 
     deleteEventButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[5]/div/div[1]/div[2]/button[2]`,
+      selector: `(//BUTTON[@type='button'][text()='Delete'][text()='Delete'])[1]`,
       locateStrategy: 'xpath',
     },
 
@@ -180,8 +185,8 @@ module.exports = {
     // schedule event popup elements
     /*-----------------------------------------------------*/
 
-    scheduleEventPopup: {
-      selector: `/html/body/div[5]/div/div/div`,
+    scheduleEventPopupSaveButton: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Changes']`,
       locateStrategy: 'xpath',
     },
 
@@ -216,13 +221,14 @@ module.exports = {
     },
 
     cancelButtonInNewOOOForm: {
-      selector: `/html/body/div[5]/div/div/div/div[3]/div/button[1]`,
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[2]`,
       locateStrategy: 'xpath'
     },
 
-    closeFormButton: {
-      selector: `//div[@class='modal__header']/button`,
-      locateStrategy: 'xpath'
-    }
+    // closeFormButton: {
+    //   selector: `/html/body/div[5]/div/div/div/div[1]/button`,
+    //   locateStrategy: 'xpath'
+    // }
+    // removed because xpath is wonky due to element being an svg
   }
 };

@@ -1,6 +1,10 @@
 
 /*---------------------------------------------------------------*/
 
+// These tests just check for simple page elements and user is able
+// to navigate from page. Perhaps later tests can be built out to
+// test the validity of system details collected by the app
+
 /*---------------------------------------------------------------*/
 
 module.exports = {

@@ -68,9 +68,9 @@ const convoThreadCommands = {
   },
 
   validateMessageFrom: function() {
-    return this.click('@messageFromDropdown')
-      .waitForElementPresent('@smsChannelChoice', 5000, 'FROM choices are visible')
-      .click('@smsChannelChoice')
+    return this.waitForElementPresent('@messageFromDropdown', 5000, 'Message FROM dropdown is visible')
+    // not validating any further as there are no other choices in dropdown currently
+    // also sms channel name has random number generated in another test and hard to track
   },
 
   clickAddFileButton: function() {
@@ -241,7 +241,7 @@ module.exports = {
     },
 
     messageFromDropdown: {
-      selector: `(//DIV[@aria-haspopup='true'])[6]`,
+      selector: `(//BUTTON[@class='button dropdown__toggle u-p-a-0 button--link button--small'])[2]`,
       locateStrategy: 'xpath',
     },
 

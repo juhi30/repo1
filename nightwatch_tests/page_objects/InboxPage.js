@@ -20,7 +20,7 @@ const inboxCommands = {
   },
 
   fillInNewMessageInput: function(searchInput) {
-    return this.waitForElementVisible('@newMessageSearchInput', 5000)
+    return this.waitForElementVisible('@newMessageSearchInput', 5000, 'Search input is visible')
       .setValue('@newMessageSearchInput', searchInput)
   },
 
@@ -37,7 +37,7 @@ const inboxCommands = {
   clickFirstResult: function() {
     return this.waitForElementVisible('@firstResultNewMessageSearch', 5000, 'First result of the search is visible')
       .click('@firstResultNewMessageSearch')
-      .verify.urlContains('profileOpen=1', 'The page address goes to profile view')
+      .verify.urlContains('profileOpen=1', 'The page address goes to conversation thread and profile view')
   },
 
   clickAddNewContact: function() {
@@ -56,7 +56,7 @@ module.exports = {
       selector: `//*[@id="app"]/div/div[2]/div/div[1]/div/div[2]`,
       locateStrategy: 'xpath'
     },
-    
+
     // written to make sure threads have somewhere to populate as the thread xpath changes and difficult to find
     threadContainer: {
       selector: `//*[@id="inbox__body__scroll"]/div[1]`,

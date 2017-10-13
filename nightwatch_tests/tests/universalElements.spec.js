@@ -49,6 +49,7 @@ module.exports = {
 
   'Test click all setting dropdown buttons': function(client) {
     const universalElements = client.page.UniversalElements();
+    const sysDet = client.page.SystemDetailPage()
 
     universalElements.clickMyProfile()
       .pause(500)
@@ -66,7 +67,12 @@ module.exports = {
       .pause(500)
       .clickTemplates()
       .pause(500)
-      .clickLogout()
+      .clickSystemDetails()
+      .pause(500);
+
+    sysDet.leaveSysDetailsPage();
+
+    universalElements.clickLogout();
 
     client.end(3000);
   },

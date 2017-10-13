@@ -45,6 +45,8 @@ const universalElementsCommands = {
       .verify.visible('@orgPreferencesInSettingsDropdown', 'Org Preferences is visible')
       .verify.visible('@orgProfileInSettingsDropdown', 'Org profile is visible ')
       .verify.visible('@templatesInSettingsDropdown', 'templates is visible')
+      .verify.visible('@systemDetailsInSettingsDropdown', 'System Details option is visible')
+      .verify.visible('@emailSupportInSettingsDropdown', 'Email support is visible')
       .verify.visible('@logoutButton', 'logout button is visible')
 
   },
@@ -125,6 +127,12 @@ const universalElementsCommands = {
     return this.click('@settingsButton')
       .click('@templatesInSettingsDropdown')
       .verify.urlContains('organization/templates', 'Templates page is visible')
+  },
+
+  clickSystemDetails: function() {
+    return this.click('@settingsButton')
+      .click('@systemDetailsInSettingsDropdown')
+      .verify.urlContains('diagnostics', 'System Detail page is visible')
   },
 
   clickLogout: function() {
@@ -208,52 +216,62 @@ module.exports = {
     /*----------------------------------------------*/
 
     settingsButton: {
-      selector: `//*[@id="cuke-main-settings"]/div/button`,
-      locateStrategy: 'xpath',
-    },
-
-    settingsDropdown: {
       selector: `//SPAN[@class='dropdown__toggle__text'][text()='Settings']`,
       locateStrategy: 'xpath',
     },
 
+    settingsDropdown: {
+      selector: `(//DIV[@class='dropdown__menu dropdown__menu--right dropdown__menu--wide'])[2]`,
+      locateStrategy: 'xpath',
+    },
+
     myProfileInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[2]/a`,
+      selector: `(//SPAN[@class='u-text-overflow'][text()='Profile'][text()='Profile'])[1]`,
       locateStrategy: 'xpath',
     },
 
     myPreferencesInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[3]/a`,
+      selector: `(//SPAN[@class='u-text-overflow'][text()='Preferences'][text()='Preferences'])[1]`,
       locateStrategy: 'xpath',
     },
 
     autoResponseInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[6]/a`,
+      selector: `//SPAN[@class='u-text-overflow'][text()='Auto-Response']`,
       locateStrategy: 'xpath',
     },
 
     channelsInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[7]/a`,
+      selector: `//SPAN[@class='u-text-overflow'][text()='Channels']`,
       locateStrategy: 'xpath',
     },
 
     membersInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[9]/a`,
+      selector: `//SPAN[@class='u-text-overflow'][text()='Members']`,
       locateStrategy: 'xpath',
     },
 
     orgPreferencesInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[10]/a`,
+      selector: `(//SPAN[@class='u-text-overflow'][text()='Preferences'][text()='Preferences'])[2]`,
       locateStrategy: 'xpath',
     },
 
     orgProfileInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[11]/a`,
+      selector: `(//SPAN[@class='u-text-overflow'][text()='Profile'][text()='Profile'])[2]`,
       locateStrategy: 'xpath',
     },
 
     templatesInSettingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div/div[12]/a/div`,
+      selector: `//SPAN[@class='u-text-overflow'][text()='Templates']`,
+      locateStrategy: 'xpath',
+    },
+
+    systemDetailsInSettingsDropdown: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='System Details']`,
+      locateStrategy: 'xpath',
+    },
+
+    emailSupportInSettingsDropdown: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='Email Support']`,
       locateStrategy: 'xpath',
     },
 

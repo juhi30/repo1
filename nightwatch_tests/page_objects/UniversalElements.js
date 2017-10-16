@@ -9,7 +9,7 @@ const universalElementsCommands = {
     return this.waitForElementVisible('@searchButton', 5000, 'Search button is visible')
       .click('@searchButton')
       .waitForElementVisible('@searchDropdownInput', 5000, 'Search dropdoown input is visible')
-      .setValue(contactName)
+      .setValue('@searchDropdownInput', contactName)
       .waitForElementVisible('@searchDropdownFirstResult', 5000, 'First result is visible')
       .click('@searchDropdownFirstResult');
   },

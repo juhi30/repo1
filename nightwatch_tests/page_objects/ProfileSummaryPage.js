@@ -13,7 +13,8 @@ const profileSummaryCommands = {
 
   seeDeleteToast: function() {
     return this.waitForElementVisible('@toastSuccessfulDelete', 5000, 'Successful deletion toast is visible');
-  }
+  },
+
 }
 
 module.exports = {

@@ -4,6 +4,8 @@
 // all toggles change and render properly and are able to be saved
 // and then reverts back to there original saved state
 
+// Mobile notification toggles have been removed from desktop view
+// add more tests to check mobile view
 /*----------------------------------------------------------------*/
 
 module.exports = {
@@ -32,13 +34,13 @@ module.exports = {
     const prefs = client.page.PreferencesPage();
 
     prefs.changeDesktopToggles()
-      .changeMobileToggles()
+      // .changeMobileToggles()
       .pause(1000)
       .validateToggleChange()
       .clickSavePreferences()
       .pause(500)
       .changeDesktopToggles()
-      .changeMobileToggles()
+      // .changeMobileToggles()
       .pause(1000)
       .clickSavePreferences()
 

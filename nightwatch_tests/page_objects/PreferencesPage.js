@@ -8,8 +8,9 @@ const preferencesCommands = {
   renderPageElements: function() {
     return this.waitForElementVisible('@desktopInboxToggle', 5000, 'Desktop inbox toggle is visible')
       .verify.visible('@desktopChatToggle', 'Desktop chat toggle is visible')
-      .verify.visible('@mobileInboxToggle', 'Mobile inbox toggle is visible')
-      .verify.visible('@mobileChatToggle', 'Mobile Chat toggle is visible')
+      // .verify.visible('@mobileInboxToggle', 'Mobile inbox toggle is visible')
+      // .verify.visible('@mobileChatToggle', 'Mobile Chat toggle is visible')
+      // these have been removed from desktop view. expand tests to include mobile view
       .verify.visible('@savePreferencesButton', 'Save preferences button is visible')
       .verify.visible('@appStoreButton', 'App store button is visible')
       .verify.visible('@googlePlayButton', 'Google play button is visible')
@@ -20,16 +21,16 @@ const preferencesCommands = {
       .click('@desktopChatToggle')
   },
 
-  changeMobileToggles: function() {
-    return this.click('@mobileInboxToggle')
-      .click('@mobileChatToggle')
-  },
+  // changeMobileToggles: function() {
+  //   return this.click('@mobileInboxToggle')
+  //     .click('@mobileChatToggle')
+  // },
 
   validateToggleChange: function() {
     return this.verify.cssProperty('@desktopInboxToggle', 'background-color', 'rgba(131, 196, 0, 1)', 'Desktop inbox toggle color is green and on')
       .verify.cssProperty('@desktopChatToggle', 'background-color', 'rgba(131, 196, 0, 1)', 'Desktop chat toggle is green and on')
-      .verify.cssProperty('@mobileInboxToggle', 'background-color', 'rgba(128, 128, 128, 1)', 'Mobile inbox toggle is gray and off')
-      .verify.cssProperty('@mobileChatToggle', 'background-color', 'rgba(128, 128, 128, 1)', 'Mobile chat toggle is gray and on')
+      // .verify.cssProperty('@mobileInboxToggle', 'background-color', 'rgba(128, 128, 128, 1)', 'Mobile inbox toggle is gray and off')
+      // .verify.cssProperty('@mobileChatToggle', 'background-color', 'rgba(128, 128, 128, 1)', 'Mobile chat toggle is gray and on')
   },
 
   clickSavePreferences: function() {

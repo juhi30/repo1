@@ -11,6 +11,23 @@ const templatesCommands = {
       .verify.visible('@firstTestTemplate', 'First test template is visible')
   },
 
+  validateSMSFilter: function() {
+    return this.verify.visible('@filterDropdown', 'Channel filter is visible')
+      .click('@filterDropdown')
+      .waitForElementVisible('@filterSmsChannel', 5000, 'Filter choices are visible')
+      .click('@filterSmsChannel')
+      .waitForElementPresent('@filterDropdown', 5000, 'Dropdown choices are closed')
+      .verify.containsText('@filterDropdown', 'SMS / MMS', 'SMS/MMS filter is active')
+  },
+
+  validateChannelFilter: function() {
+    return this.click('@filterDropdown')
+      .waitForElementVisible('@filterAllChannels', 5000, 'All channel filter is visible')
+      .click('@filterAllChannels')
+      // .waitForElementPresent('@filterDropdown', 5000, 'Dropdown choices are closed')
+      .verify.containsText('@filterDropdown', 'All Channels', 'All Channels filter is active')
+  },
+
   clickCreateTemplate: function() {
     return this.click('@createTemplateButton')
       .waitForElementVisible('@createTemplateTitle', 2000, 'Create Template Popup is visible')
@@ -25,8 +42,8 @@ const templatesCommands = {
       .click('@createTemplateSaveButton')
       .verify.visible('@nullTemplateTitle', 'Title validator is visible')
       .verify.visible('@nullTemplateMessage', 'Message validator is visible')
-      // .click('@cancelCreateButton')
-      // .waitForElementNotPresent('@createTemplatePopup', 5000, 'Create template popup is hidden')
+    // .click('@cancelCreateButton')
+    // .waitForElementNotPresent('@createTemplatePopup', 5000, 'Create template popup is hidden')
   },
 
   uploadToTemplate: function() {
@@ -37,8 +54,11 @@ const templatesCommands = {
     return this.setValue('@createTemplateTitle', title)
       .setValue('@createTemplateMessage', message)
       .setValue('input[type="file"]', require('path').resolve(pathToFile))
-      // .waitForElementVisible('@uploadedFile', 5000, 'Uploaded file is visible')
-      .waitForElementVisible('@createTemplateSaveButton', 'Save template is visible')
+      .waitForElementVisible('@uploadedFile', 5000, 'Uploaded file is visible')
+  },
+
+  saveNewTemplate: function() {
+    return this.waitForElementVisible('@createTemplateSaveButton', 5000, 'Save template is visible')
       .click('@createTemplateSaveButton')
       .waitForElementNotPresent('@createTemplateTitle', 5000, 'Create template popup is hidden')
   },
@@ -71,6 +91,21 @@ module.exports = {
     createTemplateButton: {
       selector: `//SPAN[@class='button__text-wrapper'][text()='Create Template']`,
       locateStrategy: 'xpath'
+    },
+
+    filterDropdown: {
+      selector: `//BUTTON[@class='button dropdown__toggle button--default']`,
+      locateStrategy: 'xpath',
+    },
+
+    filterAllChannels: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='All Channels']`,
+      locateStrategy: 'xpath',
+    },
+
+    filterSmsChannel: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='SMS / MMS']`,
+      locateStrategy: 'xpath',
     },
 
     firstTestTemplate: {
@@ -153,7 +188,7 @@ module.exports = {
     },
 
     uploadedFile: {
-      selector: `(//BUTTON[@class='button--reset u-text-primary'])[17]`,
+      selector: `(//DIV[@class='template-attachments__name'])[4]`,
       locateStrategy: 'xpath',
     },
 

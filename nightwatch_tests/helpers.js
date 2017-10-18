@@ -4,5 +4,9 @@ function findTextOnPage(client, text) {
 
 const randoNum = Math.ceil(Math.random() * 1000);
 
+const theDateObj = new Date;
+const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleDateString();
+
 module.exports.findTextOnPage = findTextOnPage;
 module.exports.randoNum = randoNum;
+module.exports.dateString = dateString;

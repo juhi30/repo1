@@ -15,7 +15,7 @@ const universalElementsCommands = {
   },
 
   validateUniversalElements: function() {
-    return this.waitForElementVisible('body', 1000)
+    return this.waitForElementVisible('@myProfileButton', 3000)
       .verify.visible('@myProfileButton', 'Top left profile button is visible')
       .verify.visible('@inboxTab', 'Inbox tab is visible')
       .verify.visible('@chatTab', 'Chat tab is visible')
@@ -43,7 +43,7 @@ const universalElementsCommands = {
   },
 
   validateSettingsDropdown: function() {
-    return this.waitForElementVisible('body', 1000)
+    return this.waitForElementVisible('@settingsButton', 3000)
       .click('@settingsButton')
       .verify.visible('@settingsDropdown', 'Settings dropdown is visible')
       .verify.visible('@myProfileInSettingsDropdown', 'Profile in settings is visible')
@@ -61,7 +61,7 @@ const universalElementsCommands = {
   },
 
   clickAppNavButtons: function() {
-    return this.waitForElementVisible('body', 1000)
+    return this.waitForElementVisible('@myProfileButton', 3000, 'My Profile button is present')
       .click('@myProfileButton')
       .verify.containsText('@appHeaderTitle', 'My Profile', 'My Profile title present')
       .click('@inboxTab')

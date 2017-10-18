@@ -24,7 +24,7 @@ const orgPreferencesCommands = {
   },
 
   validateSaveToast: function() {
-    return this.waitForElementVisible('@saveToast', 1000, 'Save toast is visible')
+    return this.waitForElementVisible('@saveToast', 5000, 'Save toast is visible')
   }
 }
 

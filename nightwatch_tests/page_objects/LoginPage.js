@@ -2,31 +2,31 @@
 
 const loginCommands = {
   validateForm: function() {
-    return this.waitForElementVisible('body', 1000, 'Body is visible')
+    return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
       .verify.visible('@usernameInput', 'Username input is visible')
       .verify.visible('@passwordInput', 'password input is visible')
       .verify.containsText('@loginButton', 'Log In', 'Login button is visible')
   },
 
   fillInForm: function(username, password) {
-    return this.waitForElementVisible('@usernameInput', 1000, 'Username input is visible')
+    return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
       .setValue('@usernameInput', username)
       .setValue('@passwordInput', password)
   },
 
   submit: function() {
-    return this.waitForElementVisible('@loginButton', 1000, 'Login button is visible')
+    return this.waitForElementVisible('@loginButton', 5000, 'Login button is visible')
       .click('@loginButton')
   },
 
   submitForFirstTime: function() {
-    return this.waitForElementVisible('@loginButton', 1000, 'Login button is visible')
+    return this.waitForElementVisible('@loginButton', 5000, 'Login button is visible')
       .click('@loginButton')
       .waitForElementNotPresent('@usernameInput', 5000, 'Username input no longer present');
   },
 
   validateError: function() {
-    return this.waitForElementVisible('@errorPrompt', 1000, 'Error logging in prompt is visible')
+    return this.waitForElementVisible('@errorPrompt', 5000, 'Error logging in prompt is visible')
       .verify.valueContains('@usernameInput', '', 'username input testing ')
       .verify.valueContains('@passwordInput', '', 'password input testing')
   },

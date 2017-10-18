@@ -1,5 +1,5 @@
 
-function findConnectedParty(client, text) {
+function findTextOnPage(client, text) {
   client.verify.containsText('body', text);
 }
 

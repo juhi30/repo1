@@ -46,9 +46,9 @@ const templatesCommands = {
     // .waitForElementNotPresent('@createTemplatePopup', 5000, 'Create template popup is hidden')
   },
 
-  uploadToTemplate: function() {
-    return this.setValue('input[type="file"]', require('path').resolve('/Users/geoffmaas/Desktop/test_pics/night_watch.jpg'))
-  },
+  // uploadToTemplate: function() {
+  //   return this.setValue('input[type="file"]', require('path').resolve('/Users/geoffmaas/Desktop/test_pics/night_watch.jpg'))
+  // },
 
   fillOutNewTemplate: function(title, message, pathToFile) {
     return this.setValue('@createTemplateTitle', title)

@@ -49,24 +49,30 @@ module.exports = {
 
   'Test click all setting dropdown buttons': function(client) {
     const universalElements = client.page.UniversalElements();
+    const sysDet = client.page.SystemDetailPage()
 
     universalElements.clickMyProfile()
-      .pause(500)
+      .pause(1000)
       .clickMyPreferences()
-      .pause(500)
+      .pause(1000)
       .clickAutoResponse()
-      .pause(500)
+      .pause(1000)
       .clickChannels()
-      .pause(500)
+      .pause(1000)
       .clickMembers()
-      .pause(500)
+      .pause(1000)
       .clickOrgPreferences()
-      .pause(500)
+      .pause(1000)
       .clickOrgProfile()
-      .pause(500)
+      .pause(1000)
       .clickTemplates()
-      .pause(500)
-      .clickLogout()
+      .pause(1000)
+      .clickSystemDetails()
+      .pause(1000);
+
+    sysDet.leaveSysDetailsPage();
+
+    universalElements.clickLogout();
 
     client.end(3000);
   },

@@ -59,7 +59,7 @@ module.exports = {
       .pause(1500);
 
     verifyLatestMessage(chat);
-    
-  },
 
+    client.end(5000)
+  },
 }

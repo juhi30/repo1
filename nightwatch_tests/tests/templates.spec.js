@@ -23,6 +23,9 @@ module.exports = {
 
     templates.navigate()
       .renderPageElements()
+      .validateSMSFilter()
+      .pause(1000)
+      .validateChannelFilter()
       .clickCreateTemplate()
       .validateCreateTemplatePopup()
 
@@ -33,11 +36,13 @@ module.exports = {
     const templates = client.page.TemplatesPage();
 
     templates.clickCreateTemplate()
-      .fillOutNewTemplate('auto test created template', 'this should be in the template\'s message body')
+      .fillOutNewTemplate('auto test created template', 'this should be in the template\'s message body', '/Users/geoffmaas/Desktop/test_pics/night_watch.jpg')
+      .pause(2000)
+      .saveNewTemplate()
       .editTemplate()
       .pause(2000)
       .deleteTemplate()
 
-    client.end(3000)
+    client.end(5000)
   }
 }

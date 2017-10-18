@@ -20,7 +20,7 @@ const systemDetailsCommands = {
     return this.click('@rhinoLogoBackButton')
       .waitForElementNotPresent('@rhinoLogoBackButton', 5000, 'Rhino logo is no longer present')
   },
-  
+
 }
 
 module.exports = {
@@ -31,8 +31,9 @@ module.exports = {
   elements: {
 
     rhinoLogoBackButton: {
-      selector: `//IMG[@src='/1513/static/media/rhinogram-logo.e93b7fe7.svg']`,
+      selector: `//*[@id="app"]/div/div[1]/a`,
       locateStrategy: 'xpath',
+      // this xpath is a bit brittle when given a chance find a better option
     },
 
     sytemDetailsTable: {

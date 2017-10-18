@@ -80,7 +80,7 @@ const convoThreadCommands = {
   useHIPAATemplate: function() {
     return this.waitForElementPresent('@useTemplateChoice', 5000, 'Add file dropdown is visible')
       .click('@useTemplateChoice')
-      .waitForElementPresent('@createTemplateButton', 5000, 'Create/Use HIPAA template popup is visible')
+      .waitForElementPresent('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is visible')
       .click('@useHIPAATemplateButton')
       .waitForElementNotPresent('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is no longer present')
       .verify.containsText('@messageInput', 'In order to communicate protected health information (PHI) using unencrypted channels (like texting and Facebook), please give consent by replying "Agree."')
@@ -207,12 +207,12 @@ module.exports = {
     },
 
     createTemplateButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Create Template']`,
+      selector: `//SPAN[@class='u-text-overflow'][text()='Create Template']`,
       locateStrategy: 'xpath',
     },
 
     useHIPAATemplateButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Use']`,
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Use'])[last()]`,
       locateStrategy: 'xpath',
     },
 

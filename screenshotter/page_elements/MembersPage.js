@@ -20,7 +20,7 @@ const addPhotoButton = {
 };
 
 const closeAddPhotoButton = {
-  xpath: `//div[7]/div/div/div/div[1]/button`,
+  xpath: `//div[@class='modal__header']/button`,
   find: (driver, by) => {
     return driver.findElement(by.xpath(closeAddPhotoButton.xpath));
   },

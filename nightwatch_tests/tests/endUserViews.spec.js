@@ -4,8 +4,7 @@
 // functionality is possible.
 
 /*--------------------------------------------------------------------------------------------------------*/
-const theDateObj = new Date;
-const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleDateString();
+const dateString = require('../helpers').dateString;
 
 module.exports = {
 

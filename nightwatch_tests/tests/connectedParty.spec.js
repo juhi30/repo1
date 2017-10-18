@@ -1,5 +1,9 @@
-const findTextOnPage = require('../helper_functions').findTextOnPage;
-const randoNum = require('../helper_functions').randoNum;
+/**
+ * This test creates a connection between two contacts and verifies that the connection exists after the connection is established
+ */
+
+const findTextOnPage = require('../helpers').findTextOnPage;
+const randoNum = require('../helpers').randoNum;
 
 const fakeName = {
   firstName: `Pewpew${randoNum}`,

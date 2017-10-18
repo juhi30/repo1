@@ -1,3 +1,7 @@
+/**
+ * This test is designed to test the Add Member form (but not actually create a member.. this is done in createMember.spec.js)
+ */
+
 module.exports = {
 //Logs into app to start tests
 'Login Page with Correct Credentials': function(client) {

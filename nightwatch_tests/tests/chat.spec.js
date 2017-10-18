@@ -1,9 +1,10 @@
-const theDateObj = new Date;
-const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleDateString();
+/**
+ * This test entails one member sending a chat (direct) message to another member,
+ *  then logging in as the second member to verify the message exists on both sides. 
+ */
 
-const verifyLatestMessage = function(client) {
-  client.verify.containsText('body', dateString);
-}
+const findTextOnPage = require('../helpers').findTextOnPage;
+const dateString = require('../helpers').dateString;
 
 module.exports = {
   'Login as Night Tester (member A)': function(client) {
@@ -58,7 +59,7 @@ module.exports = {
       .clickFirstChatThread()
       .pause(1500);
 
-    verifyLatestMessage(chat);
+    findTextOnPage(chat, dateString);
 
     client.end(5000)
   },

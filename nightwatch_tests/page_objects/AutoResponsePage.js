@@ -87,12 +87,9 @@ const autoResponseCommands = {
   deleteLastOOOEvent: function() {
     return this.waitForElementVisible('@secondDeleteEventButton', 5000, '2nd Delete event button is visible')
       .click('@secondDeleteEventButton')
-      .waitForElementVisible('@deleteEventPopup', 5000, 'Delete event popup is visible')
+      .waitForElementVisible('@deleteButtonFinal', 5000, 'Delete event popup is visible')
       .click('@deleteButtonFinal')
-
   }
-
-
 }
 
 module.exports = {
@@ -111,19 +108,19 @@ module.exports = {
       locateStrategy: 'xpath',
     },
     saveAutoResponseButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[3]/div/button[2]`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Auto-Response']`,
       locateStrategy: 'xpath',
     },
     cancelAutoResponseButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[3]/div/button[1]`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Cancel']`,
       locateStrategy: 'xpath',
     },
     characterLimitCounter: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[2]/div/div/text()`,
+      selector: `//DIV[@class='form__character-count']`,
       locateStrategy: 'xpath',
     },
     autoResponseError: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[2]/div/div[1]/div`,
+      selector: `//DIV[@class='form__validation-message'][text()='Auto-response must be between 1 and 129 characters.']`,
       locateStrategy: 'xpath',
     },
     autoResponseSavedPrompt: {
@@ -136,12 +133,12 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     scheduleEventButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[4]/div/div[2]/div/button`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Schedule Event']`,
       locateStrategy: 'xpath',
     },
 
     firstScheduledEvent: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[5]/div`,
+      selector: `//DIV[@class='bucket bucket--default']`,
       locateStrategy: 'xpath',
     },
 
@@ -156,28 +153,28 @@ module.exports = {
     },
 
     secondDeleteEventButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[6]/div/div[1]/div[2]/button[2]`,
+      selector: `(//BUTTON[@type='button'][text()='Delete'][text()='Delete'])[2]`,
       locateStrategy: 'xpath',
       // this element added so test deletes the OOO event it creates as they are listed in order of creation
     },
 
-    deleteEventPopup: {
-      selector:`/html/body/div[4]/div/div`,
-      locateStrategy: 'xpath',
-    },
+    // deleteEventPopup: {
+    //   selector:`/html/body/div[4]/div/div`,
+    //   locateStrategy: 'xpath',
+    // },
 
     deleteButtonFinal: {
-      selector: `//div[@class='modal__footer']//button[.='Delete']`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Delete']`,
       locateStrategy: 'xpath'
     },
 
     cancelDeletePopupButton: {
-      selector: `/html/body/div[4]/div/div/div/div[3]/div/button[1]`,
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[2]`,
       locateStrategy: 'xpath',
     },
 
     closeDeletePopupButton: {
-      selector:  `/html/body/div[4]/div/div/div/div[1]/button`,
+      selector:  `//div[@class='modal__header']/button`,
       locateStrategy: 'xpath',
     },
 

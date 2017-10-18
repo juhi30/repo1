@@ -10,6 +10,7 @@ const preferencesCommands = {
       .verify.visible('@desktopChatToggle', 'Desktop chat toggle is visible')
       // .verify.visible('@mobileInboxToggle', 'Mobile inbox toggle is visible')
       // .verify.visible('@mobileChatToggle', 'Mobile Chat toggle is visible')
+      
       // these have been removed from desktop view. expand tests to include mobile view
       .verify.visible('@savePreferencesButton', 'Save preferences button is visible')
       .verify.visible('@appStoreButton', 'App store button is visible')

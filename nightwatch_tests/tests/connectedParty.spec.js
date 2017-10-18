@@ -1,6 +1,9 @@
+const findTextOnPage = require('../helper_functions').findTextOnPage;
+const randoNum = require('../helper_functions').randoNum;
 
-function findTextOnPage(client, text) {
-  client.verify.containsText('body', text);
+const fakeName = {
+  firstName: `Pewpew${randoNum}`,
+  lastName: `Pubgagrub${randoNum}`,
 }
 
 module.exports = {
@@ -23,17 +26,17 @@ module.exports = {
 
     profileSum.clickEditProfile();
 
-    editCon.createNewContactAndCP(`Pewpew${randoNum}`, `Pubgagrub${randoNum}`)
+    editCon.createNewContactAndCP(fakeName.firstName, fakeName.lastName)
       .clickSaveContact();
 
     client.pause(1000);
 
-    findConnectedParty(profileSum, `Pewpew${randoNum} Pubgagrub${randoNum}`);
+    findTextOnPage(profileSum, `${fakeName.firstName} ${fakeName.lastName}`);
     
     client.end(1000);
   },
 
   'Connect two contacts and delete one of the contact': function(client) {
-
+    
   },
 }

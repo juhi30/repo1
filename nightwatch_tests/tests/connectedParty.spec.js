@@ -35,8 +35,4 @@ module.exports = {
     
     client.end(1000);
   },
-
-  'Connect two contacts and delete one of the contact': function(client) {
-    
-  },
 }

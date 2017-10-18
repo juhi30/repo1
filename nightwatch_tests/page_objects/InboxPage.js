@@ -1,7 +1,7 @@
 const inboxCommands = {
 
   validateInbox: function() {
-    return this.waitForElementVisible('body', 5000, 'Body is visible')
+    return this.waitForElementVisible('@inboxMessages', 5000, 'Inbox is visible')
       .verify.visible('@inboxMessages', 'Inbox Messages are visible')
       .waitForElementVisible('@threadContainer', 5000, 'Thread container is visible')
       .verify.visible('@threadContainer', 'First thread is visible')

@@ -5,8 +5,17 @@ const universalElementsCommands = {
     return this;
   },
 
+  searchForContactAndClick: function(contactName) {
+    return this.waitForElementVisible('@searchButton', 5000, 'Search button is visible')
+      .click('@searchButton')
+      .waitForElementVisible('@searchDropdownInput', 5000, 'Search dropdoown input is visible')
+      .setValue('@searchDropdownInput', contactName)
+      .waitForElementVisible('@searchDropdownFirstResult', 5000, 'First result is visible')
+      .click('@searchDropdownFirstResult');
+  },
+
   validateUniversalElements: function() {
-    return this.waitForElementVisible('body', 1000)
+    return this.waitForElementVisible('@myProfileButton', 3000)
       .verify.visible('@myProfileButton', 'Top left profile button is visible')
       .verify.visible('@inboxTab', 'Inbox tab is visible')
       .verify.visible('@chatTab', 'Chat tab is visible')
@@ -19,7 +28,7 @@ const universalElementsCommands = {
   },
 
   validateSearchDropdown: function(patientName) {
-    return this.waitForElementVisible('body', 1000)
+    return this.waitForElementVisible('@searchButton', 5000)
       .click('@searchButton')
       .verify.visible('@searchDropdownInput', 'Search input is visible on click')
       .setValue('@searchDropdownInput', patientName)
@@ -34,7 +43,7 @@ const universalElementsCommands = {
   },
 
   validateSettingsDropdown: function() {
-    return this.waitForElementVisible('body', 1000)
+    return this.waitForElementVisible('@settingsButton', 3000)
       .click('@settingsButton')
       .verify.visible('@settingsDropdown', 'Settings dropdown is visible')
       .verify.visible('@myProfileInSettingsDropdown', 'Profile in settings is visible')
@@ -52,7 +61,7 @@ const universalElementsCommands = {
   },
 
   clickAppNavButtons: function() {
-    return this.waitForElementVisible('body', 1000)
+    return this.waitForElementVisible('@myProfileButton', 3000, 'My Profile button is present')
       .click('@myProfileButton')
       .verify.containsText('@appHeaderTitle', 'My Profile', 'My Profile title present')
       .click('@inboxTab')

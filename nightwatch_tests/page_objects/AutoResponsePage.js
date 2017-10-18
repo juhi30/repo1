@@ -19,7 +19,7 @@ const autoResponseCommands = {
   },
 
   validateAutoResponsePopupElements: function() {
-    return this.waitForElementVisible('@scheduleEventButton', 5000, 'Body is visible')
+    return this.waitForElementVisible('@scheduleEventButton', 5000, 'Schedule event button is visible')
       .click('@scheduleEventButton')
       .waitForElementVisible('@submitEventButton', 4000, 'Submit event button on popup is visible')
       .verify.visible('@eventNameInput', 'Event input is visible')

@@ -57,7 +57,7 @@ const channelsCommands = {
     return this.waitForElementVisible('@facebookPageNextButton', 5000, 'Facebook page selection popup is visible')
       // .waitForElementVisible('@facebookPageCancel', 5000, 'Cancel button is visible wisible');
       // .verify.visible('@firstFacebookPageChoice', 'First FB page choice is visible');
-      
+
       // these two are unecessary for the purpose of this test
   },
 
@@ -95,7 +95,8 @@ const channelsCommands = {
   },
 
   removeChannelAdded: function() {
-    return this.click('@deleteChannel')
+    return this.waitForElementVisible('@deleteChannel', 5000, 'Delete button is visible')
+      .click('@deleteChannel')
       .waitForElementVisible('@deleteChannelFinal', 5000, 'Delete channel popup is visible')
       .click('@deleteChannelFinal')
       // .waitForElementVisible('@savedPrompt', 5000, 'Saved prompt visible')
@@ -117,12 +118,12 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     addChannelButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[1]/div/div[2]/div/div/button`,
+      selector: `//SPAN[@class='dropdown__toggle__text'][text()='Add Channel']`,
       locateStrategy: 'xpath',
     },
 
     addChannelDropdown: {
-      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[1]/div/div[2]/div/div/div/div/div/a`,
+      selector: `//SPAN[@class='u-text-overflow'][text()='Facebook']`,
       locateStrategy: 'xpath',
     },
 
@@ -171,13 +172,13 @@ module.exports = {
     // breaks between elements separate different popups
     /*-----------------------------------------------------*/
 
-    connectFacebookPopup: {
-      selector: `/html/body/div[5]/div/div/div`,
-      locateStrategy: 'xpath',
-    },
+    // connectFacebookPopup: {
+    //   selector: `(//SPAN[@class='button__text-wrapper'])[7]`,
+    //   locateStrategy: 'xpath',
+    // },
 
     connectFacebookCancel: {
-      selector: `(//BUTTON[@type='button'])[11]`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Cancel']`,
       locateStrategy: 'xpath',
     },
 
@@ -197,12 +198,12 @@ module.exports = {
     },
 
     facebookPageCancel: {
-      selector: `/html/body/div[5]/div/div/div/div[3]/div/button`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Cancel']`,
       locateStrategy: 'xpath',
     },
 
     facebookPageNextButton: {
-      selector: `/html/body/div[4]/div/div/div/div[3]/div/div/button/span`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Next']`,
       locateStrategy: 'xpath',
     },
     /*-----------------------------------------------------*/

@@ -68,11 +68,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
     loginButton: {
-      selector: `//*[@id="app"]/div/div/div/div[2]/div[3]/button/span`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Log In']`,
       locateStrategy: 'xpath',
     },
     errorPrompt: {
-      selector: `//*[@id="app"]/div/div/div/div[2]/div[5]/div`,
+      selector: `//DIV[@class='alert__body'][text()='Username and password did not match']`,
       locateStrategy: 'xpath',
     },
 

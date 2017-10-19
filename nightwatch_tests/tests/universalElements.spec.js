@@ -41,6 +41,8 @@ module.exports = {
 
     universalElements.clickSearchDropdownButtons('fro')
 
+    client.pause(1000)
+
     addContactPopup.renderAddContactsPage()
       .closeAddContactsPage()
 
@@ -52,25 +54,27 @@ module.exports = {
     const sysDet = client.page.SystemDetailPage()
 
     universalElements.clickMyProfile()
-      .pause(1000)
+      .pause(1500)
       .clickMyPreferences()
-      .pause(1000)
+      .pause(1500)
       .clickAutoResponse()
-      .pause(1000)
+      .pause(1500)
       .clickChannels()
-      .pause(1000)
+      .pause(1500)
       .clickMembers()
-      .pause(1000)
+      .pause(1500)
       .clickOrgPreferences()
-      .pause(1000)
+      .pause(1500)
       .clickOrgProfile()
-      .pause(1000)
+      .pause(1500)
       .clickTemplates()
-      .pause(1000)
+      .pause(1500)
       .clickSystemDetails()
-      .pause(1000);
+      .pause(1500);
 
     sysDet.leaveSysDetailsPage();
+
+    client.pause(3000);
 
     universalElements.clickLogout();
 

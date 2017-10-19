@@ -22,7 +22,7 @@ module.exports = {
     client.pause(1000)
   },
 
-  'Search results with three characters input': function(client) {
+  'Enter conversation thread by searching for user': function(client) {
     const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
@@ -78,7 +78,7 @@ module.exports = {
   'Render and validate Add file dropdown options': function(client) {
     const convo = client.page.ConvoThreadPage();
 
-    convo.clickAddFileButton()
+    convo.clickAddFileDropdown()
       .useHIPAATemplate()
 
     client.end(5000)

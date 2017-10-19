@@ -3,7 +3,7 @@
 // These test make sure all elements render properly and the organization profile
 // can be updated. Input validators are not able to be tested as the inputs
 // are refilled on clicking save profile button. This seems to be a quirk of nightwatch
-// have not found a way around it yet. 
+// have not found a way around it yet.
 
 /*----------------------------------------------------------------------------*/
 
@@ -40,6 +40,8 @@ module.exports = {
     .pause(1000)
     .clickSaveProfile()
     .validateSaveToast()
+    .clearPrefilledValues()
+    .clickSaveProfile()
 
     client.end(5000)
   }

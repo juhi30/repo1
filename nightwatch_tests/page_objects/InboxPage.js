@@ -69,22 +69,17 @@ module.exports = {
     },
 
     newMessageButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div/div[1]/div/div/button/span`,
+      selector: `//SPAN[@class='dropdown__toggle__text'][text()='New Message']`,
       locateStrategy: 'xpath',
     },
 
     newMessageSearchInput: {
-      selector: `//div[@class='inbox__header']/div/div/div/div/div[1]/div/input`,
+      selector: `(//INPUT[@type='text'])[2]`,
       locateStrategy: 'xpath',
     },
 
     firstResultNewMessageSearch: {
-      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div/div[1]/div/div/div/div/div[2]/a`,
-      locateStrategy: 'xpath',
-    },
-
-    newContactButtonWithinNewMessage: {
-      selector: `//div[@class='inbox__header']/div/div/div/div/div[2]/button`,
+      selector: `(//DIV[@class='dropdown__menu__item__content'])[12]`,
       locateStrategy: 'xpath',
     },
 

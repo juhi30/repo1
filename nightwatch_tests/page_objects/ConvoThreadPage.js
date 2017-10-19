@@ -112,7 +112,7 @@ const convoThreadCommands = {
   },
 
   validateTemplateWasSent: function() {
-    return this.verify.containsText('@lastMessageBubble', 'this should be in the template\'s message body', 'Template was sent')
+    return this.verify.containsText('@lastMessageBubble', 'this should be in the template\'s message body', 'Template is shown in convo thread')
   }
 
 }

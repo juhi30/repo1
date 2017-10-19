@@ -17,11 +17,12 @@ module.exports = {
 
     // start at /inbox after logging in
     inbox.newMessageClick()
+      .pause(1000)
       .clickAddNewContact();
-    
+
     addContact.fillInFormPartOne('Darrensickle', 'Funbaggins', 'THE BEST', 'october', '31', '1936')
       .clickAddContact();
-  }, 
+  },
 
   'Delete the new contact': function(client) {
     let profileSum = client.page.ProfileSummaryPage();
@@ -32,6 +33,6 @@ module.exports = {
       .seeDeleteToast();
 
     client.end(1000)
-    
+
   }
 }

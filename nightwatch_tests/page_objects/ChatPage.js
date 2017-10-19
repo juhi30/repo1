@@ -50,7 +50,7 @@ module.exports = {
     },
 
     newChatSearchInput: {
-      selector: `//div[@class='inbox__header']/div/div/div/div/div/div/input`,
+      selector: `(//INPUT[@type='text'])[2]`,
       locateStrategy: 'xpath'
     },
 

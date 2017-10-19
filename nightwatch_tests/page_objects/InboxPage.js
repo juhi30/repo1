@@ -1,5 +1,10 @@
 const inboxCommands = {
 
+  pause: function(time) {
+    this.api.pause(time);
+    return this;
+  },
+
   validateInbox: function() {
     return this.waitForElementVisible('@inboxMessages', 5000, 'Inbox is visible')
       .verify.visible('@inboxMessages', 'Inbox Messages are visible')

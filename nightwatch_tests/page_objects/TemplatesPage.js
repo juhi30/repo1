@@ -14,18 +14,18 @@ const templatesCommands = {
   validateSMSFilter: function() {
     return this.verify.visible('@filterDropdown', 'Channel filter is visible')
       .click('@filterDropdown')
-      .waitForElementVisible('@filterSmsChannel', 5000, 'Filter choices are visible')
-      .click('@filterSmsChannel')
+      .waitForElementVisible('@filterTextingChannel', 5000, 'Filter choices are visible')
+      .click('@filterTextingChannel')
       .waitForElementPresent('@filterDropdown', 5000, 'Dropdown choices are closed')
-      .verify.containsText('@filterDropdown', 'SMS / MMS', 'SMS/MMS filter is active')
+      .verify.containsText('@filterDropdown', 'Texting', 'Texting filter is active')
   },
 
   validateChannelFilter: function() {
     return this.click('@filterDropdown')
-      .waitForElementVisible('@filterAllChannels', 5000, 'All channel filter is visible')
-      .click('@filterAllChannels')
+      .waitForElementVisible('@filterAll', 5000, 'All channel filter is visible')
+      .click('@filterAll')
       // .waitForElementPresent('@filterDropdown', 5000, 'Dropdown choices are closed')
-      .verify.containsText('@filterDropdown', 'All Channels', 'All Channels filter is active')
+      .verify.containsText('@filterDropdown', 'All', 'All filter is active')
   },
 
   clickCreateTemplate: function() {
@@ -98,13 +98,13 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    filterAllChannels: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='All Channels']`,
+    filterAll: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='All']`,
       locateStrategy: 'xpath',
     },
 
-    filterSmsChannel: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='SMS / MMS']`,
+    filterTextingChannel: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='Texting']`,
       locateStrategy: 'xpath',
     },
 

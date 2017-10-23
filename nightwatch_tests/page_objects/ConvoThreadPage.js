@@ -260,7 +260,7 @@ module.exports = {
     },
 
     useHIPAATemplateButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Use'])[last()]`,
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Use'][text()='Use'])[last()]`,
       locateStrategy: 'xpath',
     },
 

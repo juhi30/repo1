@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="5">
+
+  <testsuite name="universalElements.spec"
+    errors="1" failures="0" hostname="" id="" package="universalElements.spec" skipped="4"
+    tests="5" time="0.005000" timestamp="Mon, 23 Oct 2017 18:06:51 GMT">
+  
+    <testcase name="Login Page with Correct Credentials" classname="universalElements.spec" time="0.005000" assertions="0">
+    </testcase>
+  
+
+  
+    <system-err>
+        Error while running [Universal Elements Spec / Login Page with Correct Credentials]:
+
+  TypeError: Cannot read property 'LoginPage' of undefined
+    at Object.Login Page with Correct Credentials (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/universalElements.spec.js:12:30)
+    at Module.call (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:796:13)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:556:49
+    at runSingle (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:137:13)
+    at flush (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:125:13)
+    at _combinedTickCallback (internal/process/next_tick.js:73:7)
+    </system-err>
+  
+
+  
+    
+    <testcase
+      name="Universal Elements render" classname="universalElements.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Test click app-navigation buttons" classname="universalElements.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Test click search dropdown buttons" classname="universalElements.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Test click all setting dropdown buttons" classname="universalElements.spec">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

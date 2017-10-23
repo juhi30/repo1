@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="4">
+
+  <testsuite name="endUserViews.spec"
+    errors="1" failures="0" hostname="" id="" package="endUserViews.spec" skipped="3"
+    tests="4" time="0.01100" timestamp="Mon, 23 Oct 2017 18:06:50 GMT">
+  
+    <testcase name="Login Page with Correct Credentials" classname="endUserViews.spec" time="0.01100" assertions="0">
+    </testcase>
+  
+
+  
+    <system-err>
+        Error while running [End User Views Spec / Login Page with Correct Credentials]:
+
+  TypeError: Cannot read property 'LoginPage' of undefined
+    at Object.Login Page with Correct Credentials (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/endUserViews.spec.js:13:30)
+    at Module.call (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:796:13)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:556:49
+    at runSingle (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:137:13)
+    at flush (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:125:13)
+    at _combinedTickCallback (internal/process/next_tick.js:73:7)
+    </system-err>
+  
+
+  
+    
+    <testcase
+      name="Test presence of elements" classname="endUserViews.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Changing the password" classname="endUserViews.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Sending a message" classname="endUserViews.spec">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

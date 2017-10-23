@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="3">
+
+  <testsuite name="templatesInConvoThread.spec"
+    errors="0" failures="1" hostname="" id="" package="templatesInConvoThread.spec" skipped="2"
+    tests="3" time="23.80" timestamp="Mon, 23 Oct 2017 18:10:11 GMT">
+  
+    <testcase name="Login Page with Correct Credentials" classname="templatesInConvoThread.spec" time="23.80" assertions="1">  <failure message="Username input is visible">    at Object.fillInForm (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/page_objects/LoginPage.js:12:17)
+    at Object.Login Page with Correct Credentials (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/templatesInConvoThread.spec.js:15:8)</failure>
+
+    
+    </testcase>
+  
+
+  
+
+  
+    
+    <testcase
+      name="Enter conversation thread by searching for user" classname="templatesInConvoThread.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Enter templates modal in conversation thread" classname="templatesInConvoThread.spec">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

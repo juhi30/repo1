@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="2">
+
+  <testsuite name="connectedParty.spec"
+    errors="0" failures="0" hostname="" id="" package="connectedParty.spec" skipped="0"
+    tests="2" time="56.98" timestamp="Mon, 23 Oct 2017 18:14:22 GMT">
+  
+    <testcase name="Login with valid member creds" classname="connectedParty.spec" time="22.71" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Connect an existing contact with a new contact" classname="connectedParty.spec" time="34.26" assertions="10">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

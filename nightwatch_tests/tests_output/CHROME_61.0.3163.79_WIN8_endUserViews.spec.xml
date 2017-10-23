@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="4">
+
+  <testsuite name="endUserViews.spec"
+    errors="0" failures="1" hostname="" id="" package="endUserViews.spec" skipped="3"
+    tests="4" time="21.83" timestamp="Mon, 23 Oct 2017 18:10:05 GMT">
+  
+    <testcase name="Login Page with Correct Credentials" classname="endUserViews.spec" time="21.83" assertions="1">  <failure message="Username input is visible">    at Object.fillInForm (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/page_objects/LoginPage.js:12:17)
+    at Object.Login Page with Correct Credentials (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/endUserViews.spec.js:16:8)</failure>
+
+    
+    </testcase>
+  
+
+  
+
+  
+    
+    <testcase
+      name="Test presence of elements" classname="endUserViews.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Changing the password" classname="endUserViews.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Sending a message" classname="endUserViews.spec">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="7">
+
+  <testsuite name="chat.spec"
+    errors="0" failures="0" hostname="" id="" package="chat.spec" skipped="0"
+    tests="7" time="213.3" timestamp="Mon, 23 Oct 2017 18:14:22 GMT">
+  
+    <testcase name="Login as Night Tester (member A)" classname="chat.spec" time="163.1" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Navigate to the Chat page" classname="chat.spec" time="1.642" assertions="0">
+    </testcase>
+  
+    <testcase name="Open a chat thread for Keaton Foster" classname="chat.spec" time="9.454" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Send a message to Keaton Foster (member B)" classname="chat.spec" time="8.412" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Logout" classname="chat.spec" time="8.600" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Login as Keaton Foster (member B)" classname="chat.spec" time="8.127" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Navigate to that thread and view the message" classname="chat.spec" time="13.88" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

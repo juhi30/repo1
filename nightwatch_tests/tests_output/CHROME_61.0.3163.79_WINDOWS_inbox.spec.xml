@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="6">
+
+  <testsuite name="inbox.spec"
+    errors="0" failures="1" hostname="" id="" package="inbox.spec" skipped="5"
+    tests="6" time="63.65" timestamp="Mon, 23 Oct 2017 18:10:06 GMT">
+  
+    <testcase name="Login Page with Correct Credentials" classname="inbox.spec" time="63.65" assertions="1">  <failure message="Username input is visible">    at Object.fillInForm (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/page_objects/LoginPage.js:12:17)
+    at Object.Login Page with Correct Credentials (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/inbox.spec.js:14:8)</failure>
+
+    
+    </testcase>
+  
+
+  
+
+  
+    
+    <testcase
+      name="Inbox Page initial render" classname="inbox.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Click New Message button to show Search input" classname="inbox.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="No search results with one character input" classname="inbox.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="No search results with two characters input" classname="inbox.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Search results with three characters input" classname="inbox.spec">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

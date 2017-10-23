@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="7">
+
+  <testsuite name="convoThread.spec"
+    errors="0" failures="1" hostname="" id="" package="convoThread.spec" skipped="2"
+    tests="7" time="326.7" timestamp="Mon, 23 Oct 2017 18:14:22 GMT">
+  
+    <testcase name="Login Page with Correct Credentials" classname="convoThread.spec" time="232.5" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Enter conversation thread by searching for user" classname="convoThread.spec" time="12.60" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Validate conversation thread page elements" classname="convoThread.spec" time="28.46" assertions="10">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Add message and add note and test communication filter is working" classname="convoThread.spec" time="36.97" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Validate search function on conversation thread" classname="convoThread.spec" time="16.16" assertions="2">
+
+      <failure message="Message bubble hidden while searching for string">    at Object.searchMessageThread (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/page_objects/ConvoThreadPage.js:57:8)
+    at Object.Validate search function on conversation thread (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/convoThread.spec.js:63:8)</failure>
+
+    
+    </testcase>
+  
+
+  
+
+  
+    
+    <testcase
+      name="Render validate To/From channel dropdowns" classname="convoThread.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Render and validate Add file dropdown options" classname="convoThread.spec">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

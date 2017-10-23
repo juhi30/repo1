@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="6">
+
+  <testsuite name="autoResponse.spec"
+    errors="0" failures="1" hostname="" id="" package="autoResponse.spec" skipped="5"
+    tests="6" time="18.10" timestamp="Mon, 23 Oct 2017 18:09:51 GMT">
+  
+    <testcase name="Login Page with Correct Credentials" classname="autoResponse.spec" time="18.10" assertions="1">  <failure message="Username input is visible">    at Object.fillInForm (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/page_objects/LoginPage.js:12:17)
+    at Object.Login Page with Correct Credentials (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/autoResponse.spec.js:15:8)</failure>
+
+    
+    </testcase>
+  
+
+  
+
+  
+    
+    <testcase
+      name="Render Auto-Response page and popup elements" classname="autoResponse.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Try auto-response with a too long input" classname="autoResponse.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Save a new auto-response" classname="autoResponse.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Schedule a new out of office event" classname="autoResponse.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Render edit then delete OOO event" classname="autoResponse.spec">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

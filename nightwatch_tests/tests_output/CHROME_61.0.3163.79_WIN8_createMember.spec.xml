@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="6">
+
+  <testsuite name="createMember.spec"
+    errors="0" failures="1" hostname="" id="" package="createMember.spec" skipped="5"
+    tests="6" time="14.16" timestamp="Mon, 23 Oct 2017 18:09:51 GMT">
+  
+    <testcase name="Login Page with Correct Credentials" classname="createMember.spec" time="14.16" assertions="1">  <failure message="Username input is visible">    at Object.fillInForm (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/page_objects/LoginPage.js:12:17)
+    at Object.Login Page with Correct Credentials (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/createMember.spec.js:25:8)</failure>
+
+    
+    </testcase>
+  
+
+  
+
+  
+    
+    <testcase
+      name="Navigate to Members page and click Add Member" classname="createMember.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Fill out Add Member form" classname="createMember.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Login as new member" classname="createMember.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Login as original member" classname="createMember.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Deactivate the new member" classname="createMember.spec">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="4"
+            failures="0"
+            tests="5">
+
+  <testsuite name="channels.spec"
+    errors="4" failures="0" hostname="" id="" package="channels.spec" skipped="0"
+    tests="5" time="545.8" timestamp="Mon, 23 Oct 2017 18:14:22 GMT">
+  
+    <testcase name="Login Page with Correct Credentials" classname="channels.spec" time="459.8" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Render and validate edit channel form" classname="channels.spec" time="20.90" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Change channel name in edit form and test" classname="channels.spec" time="12.21" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Render and create channel elements and popups" classname="channels.spec" time="30.86" assertions="12">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Validate and remove added channel and elements" classname="channels.spec" time="22.04" assertions="7">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+    <system-err>
+      ERROR: Unable to locate element: &quot;(//INPUT[@type='text'])[3]&quot; using: xpath
+    at Object.click (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/page-object/command-wrapper.js:117:25)
+    at Object.changeEditFormElements (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/page_objects/ChannelsPage.js:31:8)
+    at Object.Change channel name in edit form and test (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/channels.spec.js:34:18)
+    at Module.call (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:796:13)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:556:49
+    at runSingle (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:137:13)
+ERROR: Unable to locate element: &quot;(//DIV[@class='dropdown__menu__item__content'])[13]&quot; using: xpath
+    at Object.click (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/page-object/command-wrapper.js:117:25)
+    at Object.changeEditFormElements (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/page_objects/ChannelsPage.js:32:8)
+    at Object.Change channel name in edit form and test (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/channels.spec.js:34:18)
+    at Module.call (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:796:13)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:556:49
+    at runSingle (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:137:13)
+ERROR: Unable to locate element: &quot;//*[@id=&quot;checkbox&quot;]&quot; using: xpath
+    at Object.click (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/page-object/command-wrapper.js:117:25)
+    at Object.changeEditFormElements (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/page_objects/ChannelsPage.js:36:8)
+    at Object.Change channel name in edit form and test (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/channels.spec.js:34:18)
+    at Module.call (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:796:13)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:556:49
+    at runSingle (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:137:13)
+ERROR: Unable to locate element: &quot;//SPAN[@class='button__text-wrapper'][text()='Save Channel']&quot; using: xpath
+    at Object.click (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/page-object/command-wrapper.js:117:25)
+    at Object.changeEditFormElements (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/page_objects/ChannelsPage.js:37:8)
+    at Object.Change channel name in edit form and test (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/channels.spec.js:34:18)
+    at Module.call (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:796:13)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:556:49
+    at runSingle (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:137:13)
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>

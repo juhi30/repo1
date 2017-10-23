@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="7">
+
+  <testsuite name="chat.spec"
+    errors="1" failures="0" hostname="" id="" package="chat.spec" skipped="6"
+    tests="7" time="0.02100" timestamp="Mon, 23 Oct 2017 18:06:49 GMT">
+  
+    <testcase name="Login as Night Tester (member A)" classname="chat.spec" time="0.02100" assertions="0">
+    </testcase>
+  
+
+  
+    <system-err>
+        Error while running [Chat Spec / Login as Night Tester (member A)]:
+
+  TypeError: Cannot read property 'LoginPage' of undefined
+    at Object.Login as Night Tester (member A) (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/tests/chat.spec.js:11:28)
+    at Module.call (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:796:13)
+    at /Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:556:49
+    at runSingle (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:137:13)
+    at flush (/Users/geoffmaas/Desktop/Rhinogram/rhinomatic/nightwatch_tests/node_modules/q/q.js:125:13)
+    at _combinedTickCallback (internal/process/next_tick.js:73:7)
+    </system-err>
+  
+
+  
+    
+    <testcase
+      name="Navigate to the Chat page" classname="chat.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Open a chat thread for Keaton Foster" classname="chat.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Send a message to Keaton Foster (member B)" classname="chat.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Logout" classname="chat.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Login as Keaton Foster (member B)" classname="chat.spec">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Navigate to that thread and view the message" classname="chat.spec">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

@@ -24,7 +24,7 @@ const orgProfileCommands = {
     return this.click('@addLogoButton')
       .waitForElementVisible('@uploadPhotoButton', 5000, 'Upload photo popup is visible')
       .click('@closeUploadPhotoIcon')
-      .waitForElementNotPresent('@uploadPhotoButton', 'Upload photo popup is hidden')
+      .waitForElementNotPresent('@uploadPhotoButton', 5000, 'Upload photo popup is hidden')
   },
 
   clearPrefilledValues: function() {

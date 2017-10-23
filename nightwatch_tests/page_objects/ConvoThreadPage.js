@@ -73,8 +73,14 @@ const convoThreadCommands = {
     // also sms channel name has random number generated in another test and hard to track
   },
 
-  clickAddFileButton: function() {
-    return this.click('@addFileDropdown')
+  clickAddFileDropdown: function() {
+    return this.waitForElementVisible('@addFileDropdown', 5000, 'Add file dropdown button is visible')
+      .click('@addFileDropdown')
+  },
+
+  clickUseTemplateChoice: function() {
+    return this.waitForElementPresent('@useTemplateChoice', 5000, 'Add file dropdown choices are visible')
+      .click('@useTemplateChoice')
   },
 
   useHIPAATemplate: function() {
@@ -85,6 +91,28 @@ const convoThreadCommands = {
       .waitForElementNotPresent('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is no longer present')
       .verify.containsText('@messageInput', 'In order to communicate protected health information (PHI) using unencrypted channels (like texting and Facebook), please give consent by replying "Agree."')
       .clearValue('@messageInput')
+  },
+
+  validateTemplateModalEls: function() {
+    return this.waitForElementVisible('@createTemplateButton', 5000, 'Create template button is visible')
+      .verify.visible('@templateFilterDropdown', 'Filter dropdown button is visible')
+      .click('@templateFilterDropdown')
+      .click('@textingFilter')
+      .waitForElementNotVisible('@allFilter', 5000, 'Filter dropdown is hidden')
+      .verify.containsText('@templateFilterDropdown', 'Texting', 'Texting filter is active')
+      .click('@templateFilterDropdown')
+      .click('@allFilter')
+      .waitForElementNotVisible('@textingFilter', 5000, 'Filter dropdown is hidden')
+      .verify.containsText('@templateFilterDropdown', 'All', 'All filter is active')
+  },
+
+  useFirstTemplate: function() {
+    return this.click('@firstTemplateFilterButton')
+      .waitForElementNotPresent('@firstTemplateFilterButton', 5000, 'Template Modal is no longer visible')
+  },
+
+  validateTemplateWasSent: function() {
+    return this.verify.containsText('@lastMessageBubble', 'this should be in the template\'s message body', 'Template is shown in convo thread')
   }
 
 }
@@ -193,7 +221,7 @@ module.exports = {
     },
 
     /*------------------------------------------------------------------------*/
-    // add file dropdown and elements
+    // add file/Templates dropdown and elements
     /*------------------------------------------------------------------------*/
 
     addFileDropdown: {
@@ -211,8 +239,28 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    templateFilterDropdown: {
+      selector: `//BUTTON[@class='button dropdown__toggle button--default']`,
+      locateStrategy: 'xpath',
+    },
+
+    allFilter: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='All']`,
+      locateStrategy: 'xpath',
+    },
+
+    textingFilter: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='Texting']`,
+      locateStrategy: 'xpath',
+    },
+
+    firstTemplateFilterButton: {
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Use'][text()='Use'])[1]`,
+      locateStrategy: 'xpath',
+    },
+
     useHIPAATemplateButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Use'])[last()]`,
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Use'][text()='Use'])[last()]`,
       locateStrategy: 'xpath',
     },
 

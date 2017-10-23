@@ -32,3 +32,4 @@ coverage
 reports
 selenium-debug.log
 nightwatch_tests/bin
+nightwatch_tests/tests_output

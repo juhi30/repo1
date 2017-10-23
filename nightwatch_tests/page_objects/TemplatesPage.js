@@ -78,7 +78,7 @@ const templatesCommands = {
       .waitForElementVisible('@firstTemplateDeleteFinal', 1500, 'Delete template popup is visible')
       .click('@firstTemplateDeleteFinal')
       .waitForElementNotVisible('@firstTemplateDeleteFinal', 1500, 'Delete template popup is hidden')
-  }
+  },
 }
 
 module.exports = {

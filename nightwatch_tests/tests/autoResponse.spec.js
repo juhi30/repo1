@@ -45,7 +45,7 @@ module.exports = {
     const autoResponse = client.page.AutoResponsePage();
 
     autoResponse.navigate()
-      .fillInAutoResponse('Auto Response TEST!!!')
+      .fillInAutoResponse('Auto Response TEST!!!')// not clearing the original input when saved, causing it to become to long
       .submitAutoResponse()
       .savedPrompt()
 

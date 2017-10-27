@@ -72,6 +72,7 @@ const autoResponseCommands = {
       .click('@firstChannelInDropdown')
       .setValue('@eventNameInput', 'Automated testing created event')
       .click('@allDayCheckbox')
+      .clearValue('@autoResponseInputInPopup')
       .setValue('@autoResponseInputInPopup', 'Hi Im a sentient computer program... ergo... vis a vie...')
       .click('@submitEventButton')
       // .waitForElementVisible('@autoResponseSavedPrompt', 1000, 'Saved prompt is visible')
@@ -193,7 +194,7 @@ module.exports = {
     },
 
     allDayCheckbox: {
-      selector: `//*[@id="allDayOOO"]`,
+      selector: `//LABEL[@for='closedAllDay'][text()='Office is closed all day']`,
       locateStrategy: 'xpath'
     },
 

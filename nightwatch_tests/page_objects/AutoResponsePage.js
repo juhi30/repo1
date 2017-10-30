@@ -72,6 +72,8 @@ const autoResponseCommands = {
       .click('@firstChannelInDropdown')
       .setValue('@eventNameInput', 'Automated testing created event')
       .click('@allDayCheckbox')
+      .waitForElementNotPresent('@fromTimeInput', 5000, 'From time input is not visible')
+      .waitForElementNotPresent('@toTimeInput', 5000, 'To time input is not visible')
       .clearValue('@autoResponseInputInPopup')
       .setValue('@autoResponseInputInPopup', 'Hi Im a sentient computer program... ergo... vis a vie...')
       .click('@submitEventButton')
@@ -190,6 +192,16 @@ module.exports = {
 
     eventNameInput: {
       selector: `//input[@id='title']`,
+      locateStrategy: 'xpath',
+    },
+
+    fromTimeInput: {
+      selector: `//SELECT[@id='fromTime']`,
+      locateStrategy: 'xpath',
+    },
+
+    toTimeInput: {
+      selector: `//SELECT[@id='toTime']`,
       locateStrategy: 'xpath',
     },
 

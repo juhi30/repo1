@@ -72,6 +72,9 @@ const autoResponseCommands = {
       .click('@firstChannelInDropdown')
       .setValue('@eventNameInput', 'Automated testing created event')
       .click('@allDayCheckbox')
+      .waitForElementNotPresent('@fromTimeInput', 5000, 'From time input is not visible')
+      .waitForElementNotPresent('@toTimeInput', 5000, 'To time input is not visible')
+      .clearValue('@autoResponseInputInPopup')
       .setValue('@autoResponseInputInPopup', 'Hi Im a sentient computer program... ergo... vis a vie...')
       .click('@submitEventButton')
       // .waitForElementVisible('@autoResponseSavedPrompt', 1000, 'Saved prompt is visible')
@@ -192,8 +195,18 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    fromTimeInput: {
+      selector: `//SELECT[@id='fromTime']`,
+      locateStrategy: 'xpath',
+    },
+
+    toTimeInput: {
+      selector: `//SELECT[@id='toTime']`,
+      locateStrategy: 'xpath',
+    },
+
     allDayCheckbox: {
-      selector: `//*[@id="allDayOOO"]`,
+      selector: `//LABEL[@for='closedAllDay'][text()='Office is closed all day']`,
       locateStrategy: 'xpath'
     },
 

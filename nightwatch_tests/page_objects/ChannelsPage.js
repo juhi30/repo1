@@ -85,6 +85,9 @@ const channelsCommands = {
       .click('@facebookLocationDropdown')
       .waitForElementVisible('@facebookFirstLocation', 5000, 'First location choice is visible')
       .click('@facebookFirstLocation')
+      .waitForElementVisible('@facebookChannelTimeZone', 5000, 'Timezone dropdown is visible')
+      .setValue('@facebookChannelTimeZone', 'E')
+      
       .click('@facebookPageFinishButton');
   },
 
@@ -232,6 +235,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    facebookChannelTimeZone: {
+      selector: `//SELECT[@id='timeZoneId']`,
+      locateStrategy: 'xpath'
+    },
+
     /*-----------------------------------------------------*/
     // facebook login user page
     /*-----------------------------------------------------*/
@@ -301,7 +309,7 @@ module.exports = {
     },
 
     dSTCheckBox: {
-      selector: `//*[@id="checkbox"]`,
+      selector: `//LABEL[@for='observesDst'][text()='Observe Daylight Saving Time']`,
       locateStrategy: 'xpath',
     },
 

@@ -5,7 +5,7 @@ const billingCommands = {
     return this;
   },
 
-  validateBillingContactEls: function() {
+  validateContactEls: function() {
     return this.waitForElementVisible('@contactTab', 5000, 'Billing Page is visible')
       .verify.visible('@firstNameInput', 'First name input is visible')
       .verify.visible('@lastNameInput', 'last name input is visible')
@@ -13,8 +13,21 @@ const billingCommands = {
       .verify.visible('@emailInput', 'Email input is visible')
   },
 
-  validateBillingPaymentEls: function() {
-    return this.click('@paymentTab')
+  fillInContactForm: function(firstName, lastName, phoneNum, email) {
+    return this.clearValue('@firstNameInput')
+      .setValue('@firstNameInput', firstName)
+      .clearValue('@lastNameInput')
+      .setValue('@lastNameInput', lastName)
+      .clearValue('@phoneNumInput')
+      .setValue('@phoneNumInput', phoneNum)
+      .clearValue('@emailInput')
+      .setValue('@emailInput', email)
+      .click('@saveBillingContactButton')
+  },
+
+  validatePaymentEls: function() {
+    return this.waitForElementVisible('@paymentTab', 5000, 'Payment tab is visible')
+      .click('@paymentTab')
       .waitForElementVisible('@changePaymentButton', 5000, 'Payment tab elements are visible')
       .click('@changePaymentButton')
       .waitForElementVisible('@paymentFirstNameInput', 5000, 'first name input is visible')
@@ -23,7 +36,7 @@ const billingCommands = {
       .verify.visible('@paymentCityInput', 'City input is visible')
       .verify.visible('@paymentStateInput', 'State input is visible')
       .verify.visible('@paymentZipInput', 'ZIP code input is visible')
-      .verify.visible('@savePaymentButton')
+      .verify.visible('@savePaymentButton', 'Save Payment Button is visible')
 
   },
 
@@ -42,13 +55,56 @@ const billingCommands = {
       .verify.visible('@routingNumInput', 'Routing number input is visible')
   },
 
+  fillInPaymentMethod: function(firstName, lastName, billingAdd, city, state, zip) {
+    return this.clearValue('@paymentFirstNameInput')
+      .setValue('@paymentFirstNameInput', firstName)
+      .clearValue('@paymentLastNameInput')
+      .setValue('@paymentLastNameInput', lastName)
+      .clearValue('@paymentBillingAddInput')
+      .setValue('@paymentBillingAddInput', billingAdd)
+      .clearValue('@paymentCityInput')
+      .setValue('@paymentCityInput', city)
+      .clearValue('@paymentStateInput')
+      .setValue('@paymentStateInput', state)
+      .clearValue('@paymentZipInput')
+      .setValue('@paymentZipInput', zip)
+  },
+
+  fillInCreditCardForm: function() {
+    return this.click('@creditCardRadio')
+      .waitForElementVisible('@creditCardNumInput', 5000, 'credit card inputs visible')
+      .clearValue('@creditCardNumInput')
+      .setValue('@creditCardNumInput', 4111111111111111)
+      .setValue('@expMonth', 'December')
+      .setValue('@expYear', 2020)
+      .setValue('@cvvInput', 123)
+  },
+
+  fillInBankAcctForm: function() {
+    return this.click('@bankAcctRadio')
+      .waitForElementVisible('@bankNameInput', 5000, 'Bank account inputs visible')
+      .clearValue('@bankNameInput')
+      .setValue('@bankNameInput', 'Best Bank')
+      .setValue('@bankAcctNumInput', 111111111121)
+      .setValue('@routingNumInput', 021000089)
+  },
+
+  savePaymentMethod: function() {
+    return this.click('@savePaymentButton')
+  },
+
+  changePaymentMethod: function() {
+    return this.waitForElementVisible('@changePaymentButton', 5000, 'change payment button is visible')
+      .click('@changePaymentButton')
+  },
+
   validateHistoryEls: function() {
     return this.click('@historyTab')
       .waitForElementVisible('@pdfFileButton', 5000, 'PDF view button is visible')
       .click('@pdfFileButton')
       .waitForElementVisible('@closePDFButton', 5000, 'PDF file is visible')
       .click('@closePDFButton')
-  }
+  },
 
 }
 
@@ -96,27 +152,35 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    saveBillingButton: {
+    saveBillingContactButton: {
       selector: `//SPAN[@class='button__text-wrapper'][text()='Save Billing Contact']`,
       locateStrategy: 'xpath',
     },
 
     /*------------------PAYMENT TAB INPUTS------------------------*/
 
+    paymentTypeListed: {
+      selector: `(//LI[@class=''])[1]`,
+      locateStrategy: 'xpath'
+    },
+
     changePaymentButton: {
       selector: `(//SPAN[@class='button__text-wrapper'])[6]`,
       locateStrategy: 'xpath',
     },
+
     creditCardRadio: {
       selector: `//*[@id="app"]/div/div[2]/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div[1]/div/label`,
       locateStrategy: 'xpath',
     },
+
     bankAcctRadio: {
       selector: `//*[@id="app"]/div/div[2]/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/div/label`,
       locateStrategy: 'xpath',
     },
+
     savePaymentButton: {
-      locateStrategy: `//SPAN[@class='button__text-wrapper'][text()='Save Payment Method']`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Payment Method']`,
       locateStrategy: 'xpath',
     },
 
@@ -200,6 +264,5 @@ module.exports = {
       selector: `/html/body/div[4]/div/div[1]/div/button`,
       locateStrategy: 'xpath',
     },
-
   }
 }

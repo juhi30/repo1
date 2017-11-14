@@ -26,7 +26,7 @@ const billingCommands = {
   },
 
   validatePaymentEls: function() {
-    return this.waitForElementVisible('@paymentTab', 5000, 'Payment tab is visible')
+    return this.waitForElementPresent('@paymentTab', 5000, 'Payment tab is visible')
       .click('@paymentTab')
       .waitForElementVisible('@changePaymentButton', 5000, 'Payment tab elements are visible')
       .click('@changePaymentButton')
@@ -56,7 +56,8 @@ const billingCommands = {
   },
 
   fillInPaymentMethod: function(firstName, lastName, billingAdd, city, state, zip) {
-    return this.clearValue('@paymentFirstNameInput')
+    return this.waitForElementVisible('@paymentFirstNameInput', 5000, 'First name input is visible')
+      .clearValue('@paymentFirstNameInput')
       .setValue('@paymentFirstNameInput', firstName)
       .clearValue('@paymentLastNameInput')
       .setValue('@paymentLastNameInput', lastName)
@@ -71,7 +72,8 @@ const billingCommands = {
   },
 
   fillInCreditCardForm: function() {
-    return this.click('@creditCardRadio')
+    return this.waitForElementVisible('@creditCardRadio', 5000, 'Payment radios are visible')
+      .click('@creditCardRadio')
       .waitForElementVisible('@creditCardNumInput', 5000, 'credit card inputs visible')
       .clearValue('@creditCardNumInput')
       .setValue('@creditCardNumInput', 4111111111111111)
@@ -81,7 +83,8 @@ const billingCommands = {
   },
 
   fillInBankAcctForm: function() {
-    return this.click('@bankAcctRadio')
+    return this.waitForElementVisible('@creditCardRadio', 5000, 'Payment radios are visible')
+      .click('@bankAcctRadio')
       .waitForElementVisible('@bankNameInput', 5000, 'Bank account inputs visible')
       .clearValue('@bankNameInput')
       .setValue('@bankNameInput', 'Best Bank')
@@ -90,7 +93,8 @@ const billingCommands = {
   },
 
   savePaymentMethod: function() {
-    return this.click('@savePaymentButton')
+    return this.waitForElementVisible('@savePaymentButton', 5000, 'Save payment button is visible')
+      .click('@savePaymentButton')
   },
 
   changePaymentMethod: function() {

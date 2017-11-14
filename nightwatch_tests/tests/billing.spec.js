@@ -46,11 +46,12 @@ module.exports = {
       .fillInPaymentMethod('Donny', 'Boondoggle', '1 way', 'Chs', 'SC', 29403)
       .fillInCreditCardForm()
       .savePaymentMethod()
-      .pause(1000)
+      .pause(5000)
+      .changePaymentMethod()
       .fillInPaymentMethod('Donny', 'Boondoggle', '1 way', 'Chs', 'SC', 29403)
       .fillInBankAcctForm()
       .savePaymentMethod();
 
-    client.pause();
+    client.end();
   }
 }

@@ -49,6 +49,7 @@ const universalElementsCommands = {
       .verify.visible('@myProfileInSettingsDropdown', 'Profile in settings is visible')
       .verify.visible('@myPreferencesInSettingsDropdown', 'Preferences in settings is visible')
       .verify.visible('@autoResponseInSettingsDropdown', 'Otto response is visible!')
+      .verify.visible('@billingInSettingsDropdown', 'Billing in settings is visible')
       .verify.visible('@channelsInSettingsDropdown', 'Channels is visible')
       .verify.visible('@membersInSettingsDropdown', 'Members is visible')
       .verify.visible('@orgPreferencesInSettingsDropdown', 'Org Preferences is visible')
@@ -106,6 +107,12 @@ const universalElementsCommands = {
     return this.click('@settingsButton')
       .click('@autoResponseInSettingsDropdown')
       .verify.urlContains('/organization/auto-response', 'Auto-Response page is visible')
+  },
+
+  clickBilling: function() {
+    return this.click('@settingsButton')
+      .click('@billingInSettingsDropdown')
+      .verify.urlContains('/organization/billing', 'Billing page is visible')
   },
 
   clickChannels: function() {
@@ -247,6 +254,11 @@ module.exports = {
 
     autoResponseInSettingsDropdown: {
       selector: `//SPAN[@class='u-text-overflow'][text()='Auto-Response']`,
+      locateStrategy: 'xpath',
+    },
+
+    billingInSettingsDropdown: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='Billing']`,
       locateStrategy: 'xpath',
     },
 

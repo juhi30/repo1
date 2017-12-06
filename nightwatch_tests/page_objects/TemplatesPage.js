@@ -154,7 +154,7 @@ module.exports = {
     /*---------------------------------------------------------*/
 
     hIPAATemplate: {
-      selector: `//SPAN[text()='HIPAA Consent Request']`,
+      selector: `//DIV[@class='bucket__header__title'][text()='HIPAA Consent Request']`,
       locateStrategy: 'xpath',
     },
 

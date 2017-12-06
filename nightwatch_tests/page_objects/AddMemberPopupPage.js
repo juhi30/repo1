@@ -133,7 +133,7 @@ module.exports = {
     // ------------ Dropdown elements ---------//
 
     firstLocationInDropdown: {
-      selector: `(//DIV[@class='dropdown__menu__item__content'])[16]`,
+      selector: `(//DIV[@class='dropdown__menu__item__content'])[15]`,
       locateStrategy: 'xpath'
     },
 

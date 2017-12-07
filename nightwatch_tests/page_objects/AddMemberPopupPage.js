@@ -23,7 +23,7 @@ const addMemberCommands = {
 
   setRandomUsername: function(name) {
     let randoNum = Math.ceil(Math.random() * 1000);
-    
+
     return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
       .clearValue('@usernameInput')
       .setValue('@usernameInput', name + randoNum);
@@ -133,12 +133,12 @@ module.exports = {
     // ------------ Dropdown elements ---------//
 
     firstLocationInDropdown: {
-      selector: `(//DIV[@class='dropdown__menu__item__content'])[15]`,
+      selector: `(//DIV[@class='dropdown__menu__item__content'])[16]`,
       locateStrategy: 'xpath'
     },
 
     // ------------ Validator display elements -----------//
-    
+
     nullFirstNameValidator: {
       selector: `//DIV[@class='form__validation-message'][text()='First name is required']`,
       locateStrategy: 'xpath'
@@ -159,5 +159,5 @@ module.exports = {
       locateStrategy: 'xpath'
     },
   }
-  
+
 };

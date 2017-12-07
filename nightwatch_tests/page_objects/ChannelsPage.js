@@ -87,7 +87,7 @@ const channelsCommands = {
       .click('@facebookFirstLocation')
       .waitForElementVisible('@facebookChannelTimeZone', 5000, 'Timezone dropdown is visible')
       .setValue('@facebookChannelTimeZone', 'E')
-      
+
       .click('@facebookPageFinishButton');
   },
 
@@ -284,7 +284,7 @@ module.exports = {
     },
 
     editLocationFirstResult: {
-      selector: `(//DIV[@class='dropdown__menu__item__content'])[13]`,
+      selector: `(//DIV[@class='dropdown__menu__item__content'])[14]`,
       locateStrategy: 'xpath'
     },
 

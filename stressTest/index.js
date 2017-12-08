@@ -1,6 +1,6 @@
 const request = require('request');
 const randomName = require('node-random-name');
-const sampleBody = require('./sampleBody.json');
+const sampleBody = require('./sampleBodyInsert.json');
 
 function sendRequest(data) {
   return new Promise((resolve, reject) => {
@@ -9,7 +9,7 @@ function sendRequest(data) {
       headers: {
         'Content-Type': 'application/json',
         'apikey': 'cRYPrBhezi1HptoianM3E1RJhAg9R2jtvT9GyUfg', // dev api key
-        'systemid': 27
+        'systemid': 30 // orgId
       },
       body: JSON.stringify(data)
     }, (err, res, body) => {
@@ -60,22 +60,22 @@ function makeData() {
   const isMale = Math.random() >= 0.5; // random gender
   const user = sampleBody;
 
-  user.Gender = !!isMale ? 'M' : 'F',
-  user.FirstName = randomName({ first: true, gender: !!isMale ? 'male' : 'female' });
-  user.LastName = randomName({ last: true, gender: !!isMale ? 'male' : 'female' });
-  user.DOB = randomDate(new Date(1970, 0, 1), new Date());
-  user.WorkPhone = null;
-  user.HomePhone = randomePhone();
-  user.HomeEmailAddress = `${user.FirstName}.${user.LastName}@gmail.com`;
-  user.CellPhone = null;
-  user.SSN = randomSSN();
+  // user.Gender = !!isMale ? 'M' : 'F',
+  // user.FirstName = randomName({ first: true, gender: !!isMale ? 'male' : 'female' });
+  // user.LastName = randomName({ last: true, gender: !!isMale ? 'male' : 'female' });
+  // user.DOB = randomDate(new Date(1970, 0, 1), new Date());
+  // user.WorkPhone = null;
+  // user.HomePhone = randomePhone();
+  // user.HomeEmailAddress = `${user.FirstName}.${user.LastName}@gmail.com`;
+  // user.CellPhone = null;
+  // user.SSN = randomSSN();
 
-  user.RecordedDate = randomDate(new Date(2017, 0, 1), new Date());
+  // user.RecordedDate = randomDate(new Date(2017, 0, 1), new Date());
   
-  user.PatientID_EMR = id;
-  user.PatientID_Alt = id;
-  user.AccountNumber = id;
-  user.PatientID_MI7 = id;
+  // user.PatientID_EMR = id;
+  // user.PatientID_Alt = id;
+  // user.AccountNumber = id;
+  // user.PatientID_MI7 = id;
   return Promise.resolve(user);
 }
 

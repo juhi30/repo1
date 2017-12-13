@@ -1,15 +1,29 @@
 const request = require('request');
 const randomName = require('node-random-name');
-const sampleBody = require('./sampleBodyInsert.json');
+const sampleBody = require(`./sample_bodies/${process.env.REQ}.json`);
+
+const ENV = process.env.ENV;
+const ORG_ID = process.env.ORG_ID;
+
+let api_key;
+let endpoint_url;
+
+if (ENV === 'staging') {
+  api_key = '7c00bfb4c62c4c699da25b018cde7a11';
+  endpoint_url = 'https://rhinofeeder.rhinogram.com/feeder/v1/mi7/inbound';
+} else if (ENV === 'dev') {
+  api_key = 'cRYPrBhezi1HptoianM3E1RJhAg9R2jtvT9GyUfg';
+  endpoint_url = 'https://rhinofeeder.dev-rhinogram.com/feeder/v1/mi7/inbound';
+}
 
 function sendRequest(data) {
   return new Promise((resolve, reject) => {
     request.post({
-      url: 'https://rhinofeeder.dev-rhinogram.com/feeder/v1/mi7/inbound',
+      url: endpoint_url,  
       headers: {
         'Content-Type': 'application/json',
-        'apikey': 'cRYPrBhezi1HptoianM3E1RJhAg9R2jtvT9GyUfg', // dev api key
-        'systemid': 30 // orgId
+        'apikey': api_key,
+        'systemid': ORG_ID // orgId
       },
       body: JSON.stringify(data)
     }, (err, res, body) => {

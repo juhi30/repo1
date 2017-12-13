@@ -1,0 +1,4 @@
+lastName,firstName,address_1,city,state,homePhone,workPhone,zipcode,externalId,responsible_party,compute_0013,compute_0014,status,sex,marital_status,responsible_party_status,birthday
+Stankles,Sprinkles,123 Main Street,Ringgold,GA,8032743702,8032743701,30736,3093,3093,"Smith, John J","Smith, John J",A,M,M,Y,5/13/50
+Stankles,Sprinkles,123 Main Street,Ringgold,GA,8032743702,8032743701,30736,3093,3093,"Smith, John J","Smith, John J",A,M,M,Y,5/13/51
+Stankles,Sprinkles,123 Main Street,Ringgold,GA,8032743702,8032743701,30736,3093,3093,"Smith, John J","Smith, John J",A,M,M,Y,5/13/49

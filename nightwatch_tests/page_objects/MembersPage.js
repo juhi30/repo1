@@ -44,7 +44,7 @@ module.exports = {
 
     // will select the first one on the page
     deactivateButton: {
-      selector: `(//BUTTON[@type='button'][text()='Deactivate'][text()='Deactivate'])[1]`,
+      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[2]/div/div[1]/div[2]/span/button`,
       locateStrategy: 'xpath'
     },
 

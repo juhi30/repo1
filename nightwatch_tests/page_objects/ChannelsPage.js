@@ -151,12 +151,12 @@ module.exports = {
     },
 
     deleteChannelPopup: {
-      selector: `/html/body/div[4]/div/div/div`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Delete Channel']`,
       locateStrategy: 'xpath',
     },
 
     deleteChannelFinal: {
-      selector: `/html/body/div[4]/div/div/div/div[3]/div/button[2]`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Delete Channel']`,
       locateStrategy: 'xpath',
     },
 
@@ -284,7 +284,7 @@ module.exports = {
     },
 
     editLocationFirstResult: {
-      selector: `(//DIV[@class='dropdown__menu__item__content'])[14]`,
+      selector: `(//DIV[@class='dropdown__menu__item__content'])[13]`,
       locateStrategy: 'xpath'
     },
 

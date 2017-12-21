@@ -233,7 +233,7 @@ module.exports = {
     /*----------------------------------------------*/
 
     settingsButton: {
-      selector: `//SPAN[@class='dropdown__toggle__text'][text()='Settings']`,
+      selector: `(//SPAN[@class='button__text-wrapper'])[3]`,
       locateStrategy: 'xpath',
     },
 

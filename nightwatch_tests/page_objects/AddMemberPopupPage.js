@@ -32,7 +32,7 @@ const addMemberCommands = {
   selectFirstLocation: function() {
     return this.waitForElementVisible('@locationDropdown', 5000, 'Location dropdown is visible')
       .click('@locationDropdown')
-      .waitForElementVisible('@firstLocationInDropdown', 5000, 'First location is visible')
+      .waitForElementPresent('@firstLocationInDropdown', 5000, 'First location is visible')
       .click('@firstLocationInDropdown');
   },
 
@@ -133,7 +133,7 @@ module.exports = {
     // ------------ Dropdown elements ---------//
 
     firstLocationInDropdown: {
-      selector: `(//DIV[@class='dropdown__menu__item__content'])[16]`,
+      selector: `(//DIV[@class='dropdown__menu__item__content'])[15]`,
       locateStrategy: 'xpath'
     },
 

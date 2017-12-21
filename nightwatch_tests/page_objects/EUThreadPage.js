@@ -70,7 +70,7 @@ module.exports = {
     },
 
     firstOrgInPanel: {
-      selector: `//*[@id="nav-org-1"]`,
+      selector: `//A[@id='nav-org-3']`,
       locateStrategy: 'xpath',
     },
 

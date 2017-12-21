@@ -151,7 +151,7 @@ module.exports = {
     },
 
     deleteChannelPopup: {
-      selector: `/html/body/div[4]/div/div/div`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Delete Channel']`,
       locateStrategy: 'xpath',
     },
 

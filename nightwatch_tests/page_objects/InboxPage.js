@@ -79,7 +79,7 @@ module.exports = {
     },
 
     firstResultNewMessageSearch: {
-      selector: `(//A[@href='javascript:void(0)'])[2]`, // this xpath count changes time to time why???
+      selector: `(//DIV[@class='dropdown__menu__item__content'])[12]`, // this xpath count changes time to time why???
       locateStrategy: 'xpath',
     },
 

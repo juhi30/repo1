@@ -40,7 +40,7 @@ module.exports = {
     const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
-      .fillInNewMessageInput('j')
+      .fillInNewMessageInput('f')
       .searchResultNotVisible()
       .newMessageClick();
   },
@@ -49,7 +49,7 @@ module.exports = {
     const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
-      .fillInNewMessageInput('ja')
+      .fillInNewMessageInput('fr')
       .searchResultNotVisible()
       .newMessageClick();
 
@@ -60,7 +60,7 @@ module.exports = {
     const inbox = client.page.InboxPage();
 
     inbox.newMessageClick()
-      .fillInNewMessageInput('jay')
+      .fillInNewMessageInput('fro')
       .searchResultVisible()
       .clickFirstResult();
 

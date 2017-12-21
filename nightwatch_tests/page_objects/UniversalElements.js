@@ -49,7 +49,7 @@ const universalElementsCommands = {
       .verify.visible('@myProfileInSettingsDropdown', 'Profile in settings is visible')
       .verify.visible('@myPreferencesInSettingsDropdown', 'Preferences in settings is visible')
       .verify.visible('@autoResponseInSettingsDropdown', 'Otto response is visible!')
-      .verify.visible('@billingInSettingsDropdown', 'Billing in settings is visible')
+      // .verify.visible('@billingInSettingsDropdown', 'Billing in settings is visible')
       .verify.visible('@channelsInSettingsDropdown', 'Channels is visible')
       .verify.visible('@membersInSettingsDropdown', 'Members is visible')
       .verify.visible('@orgPreferencesInSettingsDropdown', 'Org Preferences is visible')

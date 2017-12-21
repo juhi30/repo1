@@ -72,7 +72,7 @@ module.exports = {
     },
 
     closeUploadPhotoIcon: {
-      selector: `/html/body/div[4]/div/div/div/div[1]/button`,
+      selector: `/html/body/div[4]/div/div/div[1]/button`,
       locateStrategy: 'xpath',
     },
 

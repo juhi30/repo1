@@ -14,8 +14,8 @@ const convoThreadCommands = {
       .verify.visible('@messageInput', 'Message input is visible')
       .verify.visible('@messageSendButton', 'Send message button is visible')
       .verify.visible('@addFileDropdown', 'Add file dropdown is visible')
-      .verify.visible('@messageToDropdown', 'Message to dropdown is visible')
-      .verify.visible('@messageFromDropdown', 'Message from dropdown is visible')
+      .verify.visible('@messageToDropdown', 'Message TO dropdown is visible')
+      .verify.visible('@messageFromDropdown', 'Message FROM dropdown is visible')
   },
 
   addMessagesToThread: function(text) {
@@ -89,7 +89,7 @@ const convoThreadCommands = {
       .waitForElementPresent('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is visible')
       .click('@useHIPAATemplateButton')
       .waitForElementNotPresent('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is no longer present')
-      .verify.containsText('@messageInput', 'In order to communicate protected health information (PHI) using unencrypted channels (like texting and Facebook), please give consent by replying "Agree."')
+      .verify.containsText('@messageInput', 'In order to communicate protected health information (PHI) using unencrypted channels (like SMS and Facebook Messenger), please give consent by replying "Agree."')
       .clearValue('@messageInput')
   },
 
@@ -274,7 +274,7 @@ module.exports = {
     /*------------------------------------------------------------------------*/
 
     messageToDropdown: {
-      selector: `//SPAN[@class='dropdown__toggle__text'][text()='(843) 555-1234']`,
+      selector: `//SPAN[@class='dropdown__toggle__text'][text()='(843) 555-1239']`,
       locateStrategy: 'xpath',
     },
 
@@ -284,7 +284,7 @@ module.exports = {
     },
 
     phoneNumChoice: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='(843) 555-1234']`,
+      selector: `//SPAN[@class='u-text-overflow'][text()='(843) 555-1239']`,
       locateStrategy: 'xpath',
     },
 

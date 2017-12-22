@@ -36,7 +36,7 @@ module.exports = {
 
     orgProfile.clearPrefilledValues()
     .pause(1000)
-    .setNewValues('QA Test Org' + randoNum, randoNum+'somewhere st.', 'Charleston')
+    .setNewValues('QA Test Org' + randoNum, randoNum+'A', 'C')
     .pause(1000)
     .clickSaveProfile()
     .validateSaveToast()

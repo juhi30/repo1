@@ -14,8 +14,8 @@ const convoThreadCommands = {
       .verify.visible('@messageInput', 'Message input is visible')
       .verify.visible('@messageSendButton', 'Send message button is visible')
       .verify.visible('@addFileDropdown', 'Add file dropdown is visible')
-      .verify.visible('@messageToDropdown', 'Message to dropdown is visible')
-      .verify.visible('@messageFromDropdown', 'Message from dropdown is visible')
+      .verify.visible('@messageToDropdown', 'Message TO dropdown is visible')
+      .verify.visible('@messageFromDropdown', 'Message FROM dropdown is visible')
   },
 
   addMessagesToThread: function(text) {
@@ -58,6 +58,7 @@ const convoThreadCommands = {
       .waitForElementPresent('@lastMessageBubble', 5000, 'Message bubble with search string is visible')
       .verify.containsText('@lastMessageBubble', searchString, 'Found message with the searched for string')
       .clearValue('@searchConvoInput')
+      .click('@searchConvoClearButton')
   },
 
   validateMessageTo: function() {
@@ -83,13 +84,15 @@ const convoThreadCommands = {
       .click('@useTemplateChoice')
   },
 
-  useHIPAATemplate: function() {
-    return this.waitForElementPresent('@useTemplateChoice', 5000, 'Add file dropdown is visible')
-      .click('@useTemplateChoice')
+  useHIPAATemplate: function(hipaa) {
+    return this.waitForElementPresent('@useHIPAATemplateButton', 5000, 'Add file dropdown is visible')
       .waitForElementPresent('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is visible')
       .click('@useHIPAATemplateButton')
-      .waitForElementNotPresent('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is no longer present')
-      .verify.containsText('@messageInput', 'In order to communicate protected health information (PHI) using unencrypted channels (like texting and Facebook), please give consent by replying "Agree."')
+      .pause(1000)
+      // .click('@messageSendButton')
+      // .pause()
+      .waitForElementNotVisible('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is no longer present')
+      .verify.containsText('@messageInput', hipaa)
       .clearValue('@messageInput')
   },
 
@@ -196,6 +199,10 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    searchConvoClearButton: {
+      selector: `(//BUTTON[@type='button'])[14]`,
+      locateStrategy: 'xpath',
+    },
     /*------------------------------------------------------------------------*/
     // message thread elements
     /*------------------------------------------------------------------------*/
@@ -260,7 +267,7 @@ module.exports = {
     },
 
     useHIPAATemplateButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Use'][text()='Use'])[last()]`,
+      selector: `//SPAN[@class='u-text-overflow'][text()='Use consent request template']`,
       locateStrategy: 'xpath',
     },
 
@@ -274,7 +281,7 @@ module.exports = {
     /*------------------------------------------------------------------------*/
 
     messageToDropdown: {
-      selector: `//SPAN[@class='dropdown__toggle__text'][text()='(843) 555-1234']`,
+      selector: `//SPAN[@class='dropdown__toggle__text'][text()='(843) 555-1239']`,
       locateStrategy: 'xpath',
     },
 
@@ -284,7 +291,7 @@ module.exports = {
     },
 
     phoneNumChoice: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='(843) 555-1234']`,
+      selector: `//SPAN[@class='u-text-overflow'][text()='(843) 555-1239']`,
       locateStrategy: 'xpath',
     },
 

@@ -79,7 +79,7 @@ module.exports = {
     const convo = client.page.ConvoThreadPage();
 
     convo.clickAddFileDropdown()
-      .useHIPAATemplate()
+      .useHIPAATemplate("In order to communicate protected health information (PHI) using unencrypted channels (like texting and Facebook), please give consent by replying \"Agree.\"")
 
     client.end(5000)
   }

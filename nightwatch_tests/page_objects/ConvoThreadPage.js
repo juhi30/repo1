@@ -58,6 +58,7 @@ const convoThreadCommands = {
       .waitForElementPresent('@lastMessageBubble', 5000, 'Message bubble with search string is visible')
       .verify.containsText('@lastMessageBubble', searchString, 'Found message with the searched for string')
       .clearValue('@searchConvoInput')
+      .click('@searchConvoClearButton')
   },
 
   validateMessageTo: function() {
@@ -83,13 +84,15 @@ const convoThreadCommands = {
       .click('@useTemplateChoice')
   },
 
-  useHIPAATemplate: function() {
-    return this.waitForElementPresent('@useTemplateChoice', 5000, 'Add file dropdown is visible')
-      .click('@useTemplateChoice')
+  useHIPAATemplate: function(hipaa) {
+    return this.waitForElementPresent('@useHIPAATemplateButton', 5000, 'Add file dropdown is visible')
       .waitForElementPresent('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is visible')
       .click('@useHIPAATemplateButton')
-      .waitForElementNotPresent('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is no longer present')
-      .verify.containsText('@messageInput', 'In order to communicate protected health information (PHI) using unencrypted channels (like SMS and Facebook Messenger), please give consent by replying "Agree."')
+      .pause(1000)
+      // .click('@messageSendButton')
+      // .pause()
+      .waitForElementNotVisible('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is no longer present')
+      .verify.containsText('@messageInput', hipaa)
       .clearValue('@messageInput')
   },
 
@@ -196,6 +199,10 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    searchConvoClearButton: {
+      selector: `(//BUTTON[@type='button'])[14]`,
+      locateStrategy: 'xpath',
+    },
     /*------------------------------------------------------------------------*/
     // message thread elements
     /*------------------------------------------------------------------------*/
@@ -260,7 +267,7 @@ module.exports = {
     },
 
     useHIPAATemplateButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Use'][text()='Use'])[last()]`,
+      selector: `//SPAN[@class='u-text-overflow'][text()='Use consent request template']`,
       locateStrategy: 'xpath',
     },
 

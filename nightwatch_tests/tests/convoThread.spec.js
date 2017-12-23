@@ -85,8 +85,11 @@ module.exports = {
   "Render and validate Add file dropdown options": function(client) {
     const convo = client.page.ConvoThreadPage();
 
-    convo.clickAddFileDropdown()
-      .useHIPAATemplate("In order to communicate protected health information (PHI) using unencrypted channels (like texting and Facebook), please give consent by replying \"Agree.\"")
+    convo
+      .clickAddFileDropdown()
+      .useHIPAATemplate(
+        'In order to communicate protected health information (PHI) using unencrypted channels (like texting and Facebook), please give consent by replying "Agree."'
+      );
 
     client.end(5000);
   }

@@ -5,16 +5,29 @@ const convoThreadCommands = {
   },
 
   validatePageElements: function() {
-    return this.waitForElementVisible('@messageInput', 5000, 'Conversation thread is visible')
-      .verify.visible('@allCommunicationsDropdown', 'All Communications dropdown is visible')
-      .verify.visible('@addNoteButton', 'Add note button is visible')
-      .verify.visible('@searchConvobutton', 'Search Conversation button is visible')
-      .verify.visible('@lastMessageBubble', 'First message is visible')
-      .verify.visible('@messageInput', 'Message input is visible')
-      .verify.visible('@messageSendButton', 'Send message button is visible')
-      .verify.visible('@addFileDropdown', 'Add file dropdown is visible')
-      .verify.visible('@messageToDropdown', 'Message TO dropdown is visible')
-      .verify.visible('@messageFromDropdown', 'Message FROM dropdown is visible')
+    return this.waitForElementVisible(
+      "@messageInput",
+      5000,
+      "Conversation thread is visible"
+    )
+      .verify.visible(
+        "@allCommunicationsDropdown",
+        "All Communications dropdown is visible"
+      )
+      .verify.visible("@addNoteButton", "Add note button is visible")
+      .verify.visible(
+        "@searchConvobutton",
+        "Search Conversation button is visible"
+      )
+      .verify.visible("@lastMessageBubble", "First message is visible")
+      .verify.visible("@messageInput", "Message input is visible")
+      .verify.visible("@messageSendButton", "Send message button is visible")
+      .verify.visible("@addFileDropdown", "Add file dropdown is visible")
+      .verify.visible("@messageToDropdown", "Message TO dropdown is visible")
+      .verify.visible(
+        "@messageFromDropdown",
+        "Message FROM dropdown is visible"
+      );
   },
 
   addMessagesToThread: function(text) {
@@ -67,12 +80,24 @@ const convoThreadCommands = {
   },
 
   searchMessageThread: function(searchString) {
-    return this.setValue('@searchConvoInput', searchString)
-      .waitForElementNotPresent('@lastMessageBubble', 5000, 'Message bubble hidden while searching for string')
-      .waitForElementPresent('@lastMessageBubble', 5000, 'Message bubble with search string is visible')
-      .verify.containsText('@lastMessageBubble', searchString, 'Found message with the searched for string')
-      .clearValue('@searchConvoInput')
-      .click('@searchConvoClearButton')
+    return this.setValue("@searchConvoInput", searchString)
+      .waitForElementNotPresent(
+        "@lastMessageBubble",
+        5000,
+        "Message bubble hidden while searching for string"
+      )
+      .waitForElementPresent(
+        "@lastMessageBubble",
+        5000,
+        "Message bubble with search string is visible"
+      )
+      .verify.containsText(
+        "@lastMessageBubble",
+        searchString,
+        "Found message with the searched for string"
+      )
+      .clearValue("@searchConvoInput")
+      .click("@searchConvoClearButton");
   },
 
   validateMessageTo: function() {
@@ -113,15 +138,29 @@ const convoThreadCommands = {
   },
 
   useHIPAATemplate: function(hipaa) {
-    return this.waitForElementPresent('@useHIPAATemplateButton', 5000, 'Add file dropdown is visible')
-      .waitForElementPresent('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is visible')
-      .click('@useHIPAATemplateButton')
-      .pause(1000)
-      // .click('@messageSendButton')
-      // .pause()
-      .waitForElementNotVisible('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is no longer present')
-      .verify.containsText('@messageInput', hipaa)
-      .clearValue('@messageInput')
+    return (
+      this.waitForElementPresent(
+        "@useHIPAATemplateButton",
+        5000,
+        "Add file dropdown is visible"
+      )
+        .waitForElementPresent(
+          "@useHIPAATemplateButton",
+          5000,
+          "Create/Use HIPAA template popup is visible"
+        )
+        .click("@useHIPAATemplateButton")
+        .pause(1000)
+        // .click('@messageSendButton')
+        // .pause()
+        .waitForElementNotVisible(
+          "@useHIPAATemplateButton",
+          5000,
+          "Create/Use HIPAA template popup is no longer present"
+        )
+        .verify.containsText("@messageInput", hipaa)
+        .clearValue("@messageInput")
+    );
   },
 
   validateTemplateModalEls: function() {
@@ -253,7 +292,7 @@ module.exports = {
 
     searchConvoClearButton: {
       selector: `(//BUTTON[@type='button'])[14]`,
-      locateStrategy: 'xpath',
+      locateStrategy: "xpath"
     },
     /*------------------------------------------------------------------------*/
     // message thread elements
@@ -320,7 +359,7 @@ module.exports = {
 
     useHIPAATemplateButton: {
       selector: `//SPAN[@class='u-text-overflow'][text()='Use consent request template']`,
-      locateStrategy: 'xpath',
+      locateStrategy: "xpath"
     },
 
     addFilechoice: {
@@ -334,7 +373,7 @@ module.exports = {
 
     messageToDropdown: {
       selector: `//SPAN[@class='dropdown__toggle__text'][text()='(843) 555-1239']`,
-      locateStrategy: 'xpath',
+      locateStrategy: "xpath"
     },
 
     rhinoSecureChoice: {
@@ -344,7 +383,7 @@ module.exports = {
 
     phoneNumChoice: {
       selector: `//SPAN[@class='u-text-overflow'][text()='(843) 555-1239']`,
-      locateStrategy: 'xpath',
+      locateStrategy: "xpath"
     },
 
     messageFromDropdown: {

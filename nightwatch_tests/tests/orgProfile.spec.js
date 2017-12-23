@@ -35,15 +35,16 @@ module.exports = {
     let randoNum = Math.ceil(Math.random() * 1000);
     const orgProfile = client.page.OrgProfilePage();
 
-    orgProfile.clearPrefilledValues()
-    .pause(1000)
-    .setNewValues('QA Test Org' + randoNum, randoNum+'A', 'C')
-    .pause(1000)
-    .clickSaveProfile()
-    .validateSaveToast()
-    .clearPrefilledValues()
-    .clickSaveProfile()
+    orgProfile
+      .clearPrefilledValues()
+      .pause(1000)
+      .setNewValues("QA Test Org" + randoNum, randoNum + "A", "C")
+      .pause(1000)
+      .clickSaveProfile()
+      .validateSaveToast()
+      .clearPrefilledValues()
+      .clickSaveProfile();
 
-    client.end(5000)
+    client.end(5000);
   }
 };

@@ -9,31 +9,31 @@
 /*----------------------------------------------------------------*/
 
 module.exports = {
-
-  'Login Page with Correct Credentials': function(client) {
+  "Login Page with Correct Credentials": function(client) {
     const login = client.page.LoginPage();
 
-    login.navigate()
-      .fillInForm('ntester', 'tester')
+    login
+      .navigate()
+      .fillInForm("ntester", "tester")
       .submit()
-      .validateUrlChange()
+      .validateUrlChange();
 
     client.pause(1000);
   },
 
-  'Render and verify all page elements': function(client) {
+  "Render and verify all page elements": function(client) {
     const prefs = client.page.PreferencesPage();
 
-    prefs.navigate()
-      .renderPageElements()
+    prefs.navigate().renderPageElements();
 
-    client.pause(1000)
+    client.pause(1000);
   },
 
-  'Validate toggle change and save then revert': function(client) {
+  "Validate toggle change and save then revert": function(client) {
     const prefs = client.page.PreferencesPage();
 
-    prefs.changeDesktopToggles()
+    prefs
+      .changeDesktopToggles()
       // .changeMobileToggles()
       .pause(1000)
       .validateToggleChange()
@@ -42,8 +42,8 @@ module.exports = {
       .changeDesktopToggles()
       // .changeMobileToggles()
       .pause(1000)
-      .clickSavePreferences()
+      .clickSavePreferences();
 
-    client.end(3000)
+    client.end(3000);
   }
-}
+};

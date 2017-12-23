@@ -8,41 +8,47 @@
 /*----------------------------------------------------------------------------*/
 
 module.exports = {
-
-  'Login Page with Correct Credentials': function(client) {
+  "Login Page with Correct Credentials": function(client) {
     const login = client.page.LoginPage();
 
-    login.navigate()
-      .fillInForm('ntester', 'tester')
+    login
+      .navigate()
+      .fillInForm("ntester", "tester")
       .submit()
-      .validateUrlChange()
+      .validateUrlChange();
 
     client.pause(1000);
   },
 
-  'Render and validate page elements and popup': function(client) {
+  "Render and validate page elements and popup": function(client) {
     const orgProfile = client.page.OrgProfilePage();
 
-    orgProfile.navigate()
+    orgProfile
+      .navigate()
       .renderPageElements()
-      .renderUploadPhotoPopup()
+      .renderUploadPhotoPopup();
 
     client.pause(1000);
   },
 
-  'Fill out form with new info and save': function(client) {
+  "Fill out form with new info and save": function(client) {
     let randoNum = Math.ceil(Math.random() * 1000);
     const orgProfile = client.page.OrgProfilePage();
 
-    orgProfile.clearPrefilledValues()
-    .pause(1000)
-    .setNewValues('QA Test Org' + randoNum, randoNum+'somewhere st.', 'Charleston')
-    .pause(1000)
-    .clickSaveProfile()
-    .validateSaveToast()
-    .clearPrefilledValues()
-    .clickSaveProfile()
+    orgProfile
+      .clearPrefilledValues()
+      .pause(1000)
+      .setNewValues(
+        "QA Test Org" + randoNum,
+        randoNum + "somewhere st.",
+        "Charleston"
+      )
+      .pause(1000)
+      .clickSaveProfile()
+      .validateSaveToast()
+      .clearPrefilledValues()
+      .clickSaveProfile();
 
-    client.end(5000)
+    client.end(5000);
   }
-}
+};

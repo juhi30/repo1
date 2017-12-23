@@ -1,4 +1,3 @@
-
 /*----------------------------------------------------------------------*/
 
 // These tests make sure the templates modal from the conversation thread
@@ -7,42 +6,43 @@
 /*----------------------------------------------------------------------*/
 
 module.exports = {
-
-  'Login Page with Correct Credentials': function(client) {
+  "Login Page with Correct Credentials": function(client) {
     const login = client.page.LoginPage();
 
-    login.navigate()
-      .fillInForm('ntester', 'tester')
+    login
+      .navigate()
+      .fillInForm("ntester", "tester")
       .submit()
-      .validateUrlChange()
+      .validateUrlChange();
 
     client.pause(1000);
   },
 
-  'Enter conversation thread by searching for user': function(client) {
+  "Enter conversation thread by searching for user": function(client) {
     const inbox = client.page.InboxPage();
 
-    inbox.newMessageClick()
-      .fillInNewMessageInput('fro')
+    inbox
+      .newMessageClick()
+      .fillInNewMessageInput("fro")
       .searchResultVisible()
       .clickFirstResult();
 
     client.pause(1000);
   },
 
-  'Enter templates modal in conversation thread': function(client) {
+  "Enter templates modal in conversation thread": function(client) {
     const convo = client.page.ConvoThreadPage();
     const temps = client.page.TemplatesPage();
 
-
-    convo.clickAddFileDropdown()
+    convo
+      .clickAddFileDropdown()
       .clickUseTemplateChoice()
       .validateTemplateModalEls()
       .useFirstTemplate()
       .clickSendMessage()
       .pause(1000)
-      .validateTemplateWasSent()
+      .validateTemplateWasSent();
 
-    client.end(5000)
+    client.end(5000);
   }
-}
+};

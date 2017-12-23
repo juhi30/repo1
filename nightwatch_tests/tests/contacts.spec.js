@@ -1,4 +1,3 @@
-
 /*--------------------------------------------------------------------------*/
 
 // These tests render and check contacts page elements and make sure the filters
@@ -7,31 +6,33 @@
 /*--------------------------------------------------------------------------*/
 
 module.exports = {
-
-  'Login Page with Correct Credentials': function(client) {
+  "Login Page with Correct Credentials": function(client) {
     const login = client.page.LoginPage();
 
-    login.navigate()
-      .fillInForm('ntester', 'tester')
+    login
+      .navigate()
+      .fillInForm("ntester", "tester")
       .submit()
       .validateUrlChange();
     //better name for this function needed
   },
 
-  'Change to Contacts url, render and verify Page elements': function(client) {
+  "Change to Contacts url, render and verify Page elements": function(client) {
     const contacts = client.page.ContactsPage();
 
-    contacts.navigate()
+    contacts
+      .navigate()
       .validateContactsElements()
       .clickAddContact();
 
     client.pause(1000);
   },
 
-  'Click and validate filters are working': function(client) {
+  "Click and validate filters are working": function(client) {
     const contacts = client.page.ContactsPage();
 
-    contacts.clickPatientOption()
+    contacts
+      .clickPatientOption()
       .pause(500)
       .clickMemberOption()
       .pause(500)
@@ -46,12 +47,13 @@ module.exports = {
     client.pause(1000);
   },
 
-  'Search for contact and validate that contacts profile page': function(client) {
+  "Search for contact and validate that contacts profile page": function(
+    client
+  ) {
     const contacts = client.page.ContactsPage();
 
-    contacts.clickAddContact()
-      .searchForContact('fro')
+    contacts.clickAddContact().searchForContact("fro");
 
-    client.end(3000)
+    client.end(3000);
   }
-}
+};

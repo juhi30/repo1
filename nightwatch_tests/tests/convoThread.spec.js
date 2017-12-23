@@ -1,4 +1,3 @@
-
 /*--------------------------------------------------------------------------*/
 
 // These tests make render and validate important elements on the Conversation
@@ -10,77 +9,84 @@
 /*--------------------------------------------------------------------------*/
 
 module.exports = {
-
-  'Login Page with Correct Credentials': function(client) {
+  "Login Page with Correct Credentials": function(client) {
     const login = client.page.LoginPage();
 
-    login.navigate()
-      .fillInForm('ntester', 'tester')
+    login
+      .navigate()
+      .fillInForm("ntester", "tester")
       .submit()
       .validateUrlChange();
 
-    client.pause(1000)
+    client.pause(1000);
   },
 
-  'Enter conversation thread by searching for user': function(client) {
+  "Enter conversation thread by searching for user": function(client) {
     const inbox = client.page.InboxPage();
 
-    inbox.newMessageClick()
-      .fillInNewMessageInput('fro')
+    inbox
+      .newMessageClick()
+      .fillInNewMessageInput("fro")
       .searchResultVisible()
       .clickFirstResult();
 
     client.pause(1000);
   },
 
-  'Validate conversation thread page elements': function(client) {
+  "Validate conversation thread page elements": function(client) {
     const convo = client.page.ConvoThreadPage();
 
-    convo.validatePageElements()
+    convo.validatePageElements();
 
-    client.pause(1000)
+    client.pause(1000);
   },
 
-  'Add message and add note and test communication filter is working': function(client) {
+  "Add message and add note and test communication filter is working": function(
+    client
+  ) {
     const convo = client.page.ConvoThreadPage();
 
-    convo.addMessagesToThread('Why\'d you even rope me into this?!')
-      .pause(500)// pause added to let the send button to become active after text added
+    convo
+      .addMessagesToThread("Why'd you even rope me into this?!")
+      .pause(500) // pause added to let the send button to become active after text added
       .clickSendMessage()
       .pause(500)
-      .addNoteToThread('Wubba lubba dub dub!')
+      .addNoteToThread("Wubba lubba dub dub!")
       .pause(1000)
       .validateNotesFilter()
       .pause(1000)
-      .validateAllComsFilter()
+      .validateAllComsFilter();
 
-    client.pause(1000)
+    client.pause(1000);
   },
-  'Validate search function on conversation thread': function(client) {
+  "Validate search function on conversation thread": function(client) {
     const convo = client.page.ConvoThreadPage();
 
-    convo.clickSearchButton()
-      .searchMessageThread('i may not be able to carry the ring but at least i can carry you!')
+    convo
+      .clickSearchButton()
+      .searchMessageThread(
+        "i may not be able to carry the ring but at least i can carry you!"
+      );
 
-    client.pause(1000)
+    client.pause(1000);
   },
 
-  'Render validate To/From channel dropdowns': function(client) {
+  "Render validate To/From channel dropdowns": function(client) {
     const convo = client.page.ConvoThreadPage();
 
-    convo.validateMessageTo()
+    convo
+      .validateMessageTo()
       .pause(500)
-      .validateMessageFrom()
+      .validateMessageFrom();
 
-    client.pause(1000)
+    client.pause(1000);
   },
 
-  'Render and validate Add file dropdown options': function(client) {
+  "Render and validate Add file dropdown options": function(client) {
     const convo = client.page.ConvoThreadPage();
 
-    convo.clickAddFileDropdown()
-      .useHIPAATemplate()
+    convo.clickAddFileDropdown().useHIPAATemplate();
 
-    client.end(5000)
+    client.end(5000);
   }
-}
+};

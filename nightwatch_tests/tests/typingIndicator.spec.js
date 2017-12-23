@@ -1,7 +1,6 @@
-// THIS TEST CANNOT HAPPEN (YET?). We have a way to switch windows, but 
+// THIS TEST CANNOT HAPPEN (YET?). We have a way to switch windows, but
 // not the ability to create a new one on command, so there isn't another
 // window to switch to. Keeping this file in case we figure out a way to continue this.
-
 
 /*--------------------------------------------------------------------------------------------------------*/
 
@@ -36,14 +35,14 @@
 
 //   'Login with valid creds (window 2)': function(client) {
 //     client.window_handles(function(result) {
-      
+
 //       let keatonsWindow = result.value[1];
 
 //       client.switchWindow(keatonsWindow);
 //     });
 
 //     let login = client.page.LoginPage();
-    
+
 //     login.navigate()
 //       .fillInForm('kfoster', 'chacoz')
 //       .submit()

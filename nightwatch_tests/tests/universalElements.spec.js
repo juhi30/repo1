@@ -6,54 +6,55 @@
 /*--------------------------------------------------------------------------------------------------------*/
 
 module.exports = {
-
   //Logs into app to start tests
-  'Login Page with Correct Credentials': function(client) {
+  "Login Page with Correct Credentials": function(client) {
     const login = client.page.LoginPage();
 
-    login.navigate()
-      .fillInForm('ntester', 'tester')
+    login
+      .navigate()
+      .fillInForm("ntester", "tester")
       .submit()
-      .validateUrlChange()
+      .validateUrlChange();
   },
 
-  'Universal Elements render': function(client) {
+  "Universal Elements render": function(client) {
     const universalElements = client.page.UniversalElements();
 
-    universalElements.validateUniversalElements()
-      .validateSearchDropdown('fro')
-      .validateSettingsDropdown()
+    universalElements
+      .validateUniversalElements()
+      .validateSearchDropdown("fro")
+      .validateSettingsDropdown();
 
     client.pause(3000);
   },
 
-  'Test click app-navigation buttons': function(client) {
+  "Test click app-navigation buttons": function(client) {
     const universalElements = client.page.UniversalElements();
 
-    universalElements.clickAppNavButtons()
+    universalElements.clickAppNavButtons();
 
     client.pause(3000);
   },
 
-  'Test click search dropdown buttons': function(client) {
+  "Test click search dropdown buttons": function(client) {
     const universalElements = client.page.UniversalElements();
     const addContactPopup = client.page.AddContactPopupPage();
 
-    universalElements.clickSearchDropdownButtons('fro')
+    universalElements.clickSearchDropdownButtons("fro");
 
-    client.pause(1000)
+    client.pause(1000);
 
-    addContactPopup.renderAddContactsPage()
-      .closeAddContactsPage()
+    addContactPopup.renderAddContactsPage().closeAddContactsPage();
 
     client.pause(3000);
   },
 
-  'Test click all setting dropdown buttons': function(client) {
+  "Test click all setting dropdown buttons": function(client) {
     const universalElements = client.page.UniversalElements();
-    const sysDet = client.page.SystemDetailPage()
+    const sysDet = client.page.SystemDetailPage();
 
-    universalElements.clickMyProfile()
+    universalElements
+      .clickMyProfile()
       .pause(1500)
       .clickMyPreferences()
       .pause(1500)
@@ -81,5 +82,5 @@ module.exports = {
     universalElements.clickLogout();
 
     client.end(3000);
-  },
-}
+  }
+};

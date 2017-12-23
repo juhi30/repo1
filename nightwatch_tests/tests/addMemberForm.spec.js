@@ -3,30 +3,28 @@
  */
 
 module.exports = {
-//Logs into app to start tests
-'Login Page with Correct Credentials': function(client) {
-  const login = client.page.LoginPage();
+  //Logs into app to start tests
+  "Login Page with Correct Credentials": function(client) {
+    const login = client.page.LoginPage();
 
-  login.navigate()
-    .fillInForm('kfoster', 'chacoz')
-    .submit()
-    .validateUrlChange();
-},
+    login
+      .navigate()
+      .fillInForm("kfoster", "chacoz")
+      .submit()
+      .validateUrlChange();
+  },
 
-  'Navigate to form': function(client) {
+  "Navigate to form": function(client) {
     const members = client.page.MembersPage();
 
-    members.navigate()
-      .clickAddMember();
+    members.navigate().clickAddMember();
   },
 
-  'Test validators': function(client) {
+  "Test validators": function(client) {
     const addMember = client.page.AddMemberPopupPage();
 
-    addMember.clickAddMemberButton()
-      .testValidators();
+    addMember.clickAddMemberButton().testValidators();
 
-    client.end(3000)
-  },
-
-}
+    client.end(3000);
+  }
+};

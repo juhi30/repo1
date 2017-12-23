@@ -1,66 +1,71 @@
 /**
  * This test entails one member sending a chat (direct) message to another member,
- *  then logging in as the second member to verify the message exists on both sides. 
+ *  then logging in as the second member to verify the message exists on both sides.
  */
 
-const findTextOnPage = require('../helpers').findTextOnPage;
-const dateString = require('../helpers').dateString;
+const findTextOnPage = require("../helpers").findTextOnPage;
+const dateString = require("../helpers").dateString;
 
 module.exports = {
-  'Login as Night Tester (member A)': function(client) {
+  "Login as Night Tester (member A)": function(client) {
     let login = client.page.LoginPage();
 
-    login.navigate()
-      .fillInForm('ntester', 'tester')
+    login
+      .navigate()
+      .fillInForm("ntester", "tester")
       .submit()
-      .validateUrlChange()
+      .validateUrlChange();
   },
 
-  'Navigate to the Chat page': function(client) {
+  "Navigate to the Chat page": function(client) {
     let chat = client.page.ChatPage();
 
     chat.navigate();
   },
 
-  'Open a chat thread for Keaton Foster': function(client) {
+  "Open a chat thread for Keaton Foster": function(client) {
     let chat = client.page.ChatPage();
 
-    chat.clickNewChatButton()
-      .fillInNewChatSearchInput('Keaton Foster')
+    chat
+      .clickNewChatButton()
+      .fillInNewChatSearchInput("Keaton Foster")
       .clickFirstChatSearchResult();
   },
 
-  'Send a message to Keaton Foster (member B)': function(client) {
+  "Send a message to Keaton Foster (member B)": function(client) {
     let chat = client.page.ChatPage();
 
-    chat.fillInChatMessageInput(dateString)
+    chat
+      .fillInChatMessageInput(dateString)
       .pause(1000)
-      .clickSendMessageButton()
+      .clickSendMessageButton();
   },
 
-  'Logout': function(client) {
+  Logout: function(client) {
     let universal = client.page.UniversalElements();
 
     universal.clickLogout();
   },
 
-  'Login as Keaton Foster (member B)': function(client) {
+  "Login as Keaton Foster (member B)": function(client) {
     let login = client.page.LoginPage();
 
-    login.fillInForm('kfoster', 'chacoz')
+    login
+      .fillInForm("kfoster", "chacoz")
       .submit()
-      .validateUrlChange()
+      .validateUrlChange();
   },
 
-  'Navigate to that thread and view the message': function(client) {
+  "Navigate to that thread and view the message": function(client) {
     let chat = client.page.ChatPage();
 
-    chat.navigate()
+    chat
+      .navigate()
       .clickFirstChatThread()
       .pause(1500);
 
     findTextOnPage(chat, dateString);
 
-    client.end(5000)
-  },
-}
+    client.end(5000);
+  }
+};

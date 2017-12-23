@@ -6,70 +6,74 @@
 /*--------------------------------------------------------------------------------------------------------*/
 
 module.exports = {
-
   //Logs into app to start tests
-  'Login Page with Correct Credentials': function(client) {
+  "Login Page with Correct Credentials": function(client) {
     let login = client.page.LoginPage();
 
-    login.navigate()
-      .fillInForm('ntester', 'tester')
+    login
+      .navigate()
+      .fillInForm("ntester", "tester")
       .submit()
-      .validateUrlChange()
+      .validateUrlChange();
   },
 
-  'Render Auto-Response page and popup elements': function(client) {
+  "Render Auto-Response page and popup elements": function(client) {
     const autoResponse = client.page.AutoResponsePage();
 
-    autoResponse.navigate()
+    autoResponse
+      .navigate()
       .validateAutoResponseElements()
       .validateAutoResponsePopupElements()
       .navigate()
       // navigate added due to not finding second popup(modal) after first fires
-      .validateDeletePopup()
+      .validateDeletePopup();
 
     client.pause(1000);
   },
 
-  'Try auto-response with a too long input': function(client) {
+  "Try auto-response with a too long input": function(client) {
     const autoResponse = client.page.AutoResponsePage();
 
-    autoResponse.navigate()
-      .fillInAutoResponse('I am the very model of a modern individual. I am animated, something-ated something sometihginsomething somethign else one more thing')
+    autoResponse
+      .navigate()
+      .fillInAutoResponse(
+        "I am the very model of a modern individual. I am animated, something-ated something sometihginsomething somethign else one more thing"
+      )
       .submitAutoResponse()
-      .validateAutoResponseError()
+      .validateAutoResponseError();
 
-    client.pause(1000)
+    client.pause(1000);
   },
 
-  'Save a new auto-response': function(client) {
+  "Save a new auto-response": function(client) {
     const autoResponse = client.page.AutoResponsePage();
 
-    autoResponse.navigate()
-      .fillInAutoResponse('Auto Response TEST!!!')// not clearing the original input when saved, causing it to become to long
+    autoResponse
+      .navigate()
+      .fillInAutoResponse("Auto Response TEST!!!") // not clearing the original input when saved, causing it to become to long
       .submitAutoResponse()
-      .savedPrompt()
+      .savedPrompt();
 
-    client.pause(1000)
+    client.pause(1000);
   },
 
-  'Schedule a new out of office event': function(client) {
+  "Schedule a new out of office event": function(client) {
     const autoResponse = client.page.AutoResponsePage();
 
-    autoResponse.navigate()
-      .fillInOOOEvent()
+    autoResponse.navigate().fillInOOOEvent();
 
-    client.pause(1000)
+    client.pause(1000);
   },
 
-  'Render edit then delete OOO event': function(client) {
+  "Render edit then delete OOO event": function(client) {
     const autoResponse = client.page.AutoResponsePage();
 
-    autoResponse.validateEditOOOEvent()
+    autoResponse
+      .validateEditOOOEvent()
       .navigate()
       .deleteLastOOOEvent()
-      .savedPrompt()
+      .savedPrompt();
 
-    client.end(5000)
+    client.end(5000);
   }
-
-}
+};

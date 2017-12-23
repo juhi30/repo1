@@ -16,6 +16,6 @@
     "chromedriver": "^2.32.3",
     "nightwatch": "0.9.16",
     "prettier": "1.9.2",
-    "selenium-server-standalone-jar": "^3.5.3"
+    "selenium-server-standalone-jar": "^3.8.1"
   }
 }

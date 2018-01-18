@@ -21,9 +21,8 @@ const universalElementsCommands = {
       .verify.visible('@chatTab', 'Chat tab is visible')
       .verify.visible('@contactsTab', 'Contacts tab is visible')
       .verify.visible('@rhinogramLogo', 'Rhinogram logo is visible')
-      .verify.visible('@appHeaderTitle', 'Page title is visible')
-      .verify.containsText('@appHeaderTitle', 'Inbox', 'Title is properly on Inbox')
       .verify.visible('@searchButton', 'Search button is visible')
+      .verify.visible('@notificationAlertButton', 'Notification button is visible')
       .verify.visible('@settingsButton', 'Settings button is visible')
   },
 
@@ -51,27 +50,29 @@ const universalElementsCommands = {
       .verify.visible('@autoResponseInSettingsDropdown', 'Otto response is visible!')
       // .verify.visible('@billingInSettingsDropdown', 'Billing in settings is visible')
       .verify.visible('@channelsInSettingsDropdown', 'Channels is visible')
+      .verify.visible('@groupsInSettingsDropdown', 'Groups is visible')
       .verify.visible('@membersInSettingsDropdown', 'Members is visible')
       .verify.visible('@orgPreferencesInSettingsDropdown', 'Org Preferences is visible')
       .verify.visible('@orgProfileInSettingsDropdown', 'Org profile is visible ')
+      .verify.visible('@tagsInSettingsDropdown', 'Tags is visible')
       .verify.visible('@templatesInSettingsDropdown', 'templates is visible')
       .verify.visible('@systemDetailsInSettingsDropdown', 'System Details option is visible')
       .verify.visible('@emailSupportInSettingsDropdown', 'Email support is visible')
       .verify.visible('@logoutButton', 'logout button is visible')
 
   },
-
-  clickAppNavButtons: function() {
-    return this.waitForElementVisible('@myProfileButton', 3000, 'My Profile button is present')
-      .click('@myProfileButton')
-      .verify.containsText('@appHeaderTitle', 'My Profile', 'My Profile title present')
-      .click('@inboxTab')
-      .verify.containsText('@appHeaderTitle', 'Inbox', 'Inbox title present')
-      .click('@chatTab')
-      .verify.containsText('@appHeaderTitle', 'Chat', 'Chat title present')
-      .click('@contactsTab')
-      .verify.containsText('@appHeaderTitle', 'Contacts', 'Contacts title present')
-  },
+// needs to be refactored 
+  // clickAppNavButtons: function() {
+  //   return this.waitForElementVisible('@myProfileButton', 3000, 'My Profile button is present')
+  //     .click('@myProfileButton')
+  //     .verify.containsText('@appHeaderTitle', 'My Profile', 'My Profile title present')
+  //     .click('@inboxTab')
+  //     .verify.containsText('@appHeaderTitle', 'Inbox', 'Inbox title present')
+  //     .click('@chatTab')
+  //     .verify.containsText('@appHeaderTitle', 'Chat', 'Chat title present')
+  //     .click('@contactsTab')
+  //     .verify.containsText('@appHeaderTitle', 'Contacts', 'Contacts title present')
+  // },
 
   clickSearchDropdownButtons: function(patientName) {
     return this.click('@searchButton')
@@ -121,6 +122,12 @@ const universalElementsCommands = {
       .verify.urlContains('organization/channels', 'Channels page is visible')
   },
 
+  clickGroups: function() {
+    return this.click('@settingsButton')
+      .click('@groupsInSettingsDropdown')
+      .verify.urlContains('organization/groups', 'Groups page is visible')
+  },
+
   clickMembers: function() {
     return this.click('@settingsButton')
       .click('@membersInSettingsDropdown')
@@ -138,6 +145,12 @@ const universalElementsCommands = {
       .click('@orgProfileInSettingsDropdown')
       .waitForElementNotVisible('@orgProfileInSettingsDropdown', 5000, 'Org Profile is hidden')
       .verify.urlContains('organization/profile', 'Organization Profile page is visible')
+  },
+
+  clickTags: function() {
+    return this.click('@settingsButton')
+      .click('@tagsInSettingsDropdown')
+      .verify.urlContains('organization/tags', 'Tags page is visible')
   },
 
   clickTemplates: function() {
@@ -170,37 +183,43 @@ module.exports = {
 
   elements: {
 
-    appHeaderTitle: {
-      selector: `//*[@id="app"]/div/div[2]/header/div[2]`,
-      locateStrategy: 'xpath',
-    },
+    // appHeaderTitle: {
+    //   selector: `//*[@id="app"]/div/div[2]/header/div[2]`,
+    //   locateStrategy: 'xpath',
+    // },
+    // could be removed
 
     /*----------------------------------------------*/
-    // app-navigation buttons. Top to bottom
+    //Left hand column navigation buttons. Top to bottom
     /*----------------------------------------------*/
 
     myProfileButton: {
-      selector: `//*[@id="app-navigation"]/div/a`,
+      selector: `//A[@title='My Profile']`,
       locateStrategy: 'xpath',
     },
 
-    inboxTab: {
-      selector: `//*[@id="nav-office-inbox"]`,
+    assignedToMeButton: {
+      selector: `//SPAN[@class='app-navigation__nav__button__text'][text()='Assigned To Me']`,
       locateStrategy: 'xpath',
     },
 
-    chatTab: {
-      selector: `//*[@id="nav-chat-inbox"]`,
+    followingButton: {
+      selector: `//SPAN[@class='app-navigation__nav__button__text'][text()='Following']`,
       locateStrategy: 'xpath',
     },
 
-    contactsTab: {
-      selector: `//a[@id='nav-contacts']`,
+    inboxDirectButton: {
+      selector: `(//SPAN[@class='app-navigation__nav__button__text'][text()='Direct'][text()='Direct'])[1]`,
+      locateStrategy: 'xpath',
+    },
+
+    chatDirectButton: {
+      selector: `(//SPAN[@class='app-navigation__nav__button__text'][text()='Direct'][text()='Direct'])[2]`,
       locateStrategy: 'xpath',
     },
 
     rhinogramLogo: {
-      selector: `//*[@id="app-navigation"]/div/div/div/a`,
+      selector: `//IMG[@class='u-img-fluid']`,
       locateStrategy: 'xpath',
     },
 
@@ -209,22 +228,36 @@ module.exports = {
     /*----------------------------------------------*/
 
     searchButton: {
-      selector: `//div[@class='app-header__button-group']//button[.='Search']`,
+      selector: `(//SPAN[@class='button__text-wrapper'])[2]`, // look for better way to grab xpath
       locateStrategy: 'xpath',
     },
 
     searchDropdownInput: {
-      selector: `//div[@class='app-header__button-group']/div[1]/div/div/div/div[1]/div/input`,
+      selector: `//INPUT[@id='global-2742b015-6087-4f1e-a1f4-7aad513adbfb']`,
       locateStrategy: 'xpath',
     },
 
     searchDropdownFirstResult: {
-      selector: `//*[@id="app"]/div/div[2]/header/div[3]/div[1]/div/div/div/div[2]/a`,
+      selector: `(//DIV[@role='button'])[12]`,
       locateStrategy: 'xpath',
     },
 
     addNewContactButton: {
-      selector: `//*[@id="app"]/div/div[2]/header/div[3]/div[1]/div/div/div/div[3]/button`,
+      selector: `(//SPAN[@class='button__text-wrapper'])[8]`,
+      locateStrategy: 'xpath',
+    },
+
+    /*----------------------------------------------*/
+    // Notification alert button elements
+    /*----------------------------------------------*/
+
+    notificationAlertButton: {
+      selector: `(//SPAN[@class='button__text-wrapper'])[3]`,
+      locateStrategy: 'xpath'
+    },
+
+    notificationDropdown: {
+      selector:`//DIV[@class='dropdown__menu__container'][text()='Notifications here!']`, // test to see what happens when notifications are in
       locateStrategy: 'xpath',
     },
 
@@ -233,12 +266,7 @@ module.exports = {
     /*----------------------------------------------*/
 
     settingsButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[3]`,
-      locateStrategy: 'xpath',
-    },
-
-    settingsDropdown: {
-      selector: `(//DIV[@class='dropdown__menu dropdown__menu--right dropdown__menu--wide'])[2]`,
+      selector: `(//SPAN[@class='button__text-wrapper'])[4]`,
       locateStrategy: 'xpath',
     },
 
@@ -257,13 +285,18 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    billingInSettingsDropdown: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Billing']`,
-      locateStrategy: 'xpath',
-    },
+    // billingInSettingsDropdown: {
+    //   selector: `//SPAN[@class='u-text-overflow'][text()='Billing']`, // not built into RG3 yet
+    //   locateStrategy: 'xpath',
+    // },
 
     channelsInSettingsDropdown: {
       selector: `//SPAN[@class='u-text-overflow'][text()='Channels']`,
+      locateStrategy: 'xpath',
+    },
+
+    groupsInSettingsDropdown: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='Groups']`,
       locateStrategy: 'xpath',
     },
 
@@ -279,6 +312,11 @@ module.exports = {
 
     orgProfileInSettingsDropdown: {
       selector: `(//SPAN[@class='u-text-overflow'][text()='Profile'][text()='Profile'])[2]`,
+      locateStrategy: 'xpath',
+    },
+
+    tagsInSettingsDropdown: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='Tags']`,
       locateStrategy: 'xpath',
     },
 
@@ -298,7 +336,7 @@ module.exports = {
     },
 
     logoutButton: {
-      selector: `//*[@id="cuke-main-settings"]/div/div/div/button`,
+      selector: `(//SPAN[@class='button__text-wrapper'])[5]`,
       locateStrategy: 'xpath',
     },
   }

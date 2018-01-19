@@ -10,7 +10,7 @@ const preferencesCommands = {
       .verify.visible('@desktopChatToggle', 'Desktop chat toggle is visible')
       // .verify.visible('@mobileInboxToggle', 'Mobile inbox toggle is visible')
       // .verify.visible('@mobileChatToggle', 'Mobile Chat toggle is visible')
-      
+
       // these have been removed from desktop view. expand tests to include mobile view
       .verify.visible('@savePreferencesButton', 'Save preferences button is visible')
       .verify.visible('@appStoreButton', 'App store button is visible')
@@ -56,15 +56,15 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    mobileInboxToggle: {
-      selector: `(//LABEL[@class='rhinoswitcher__label'])[3]`,
-      locateStrategy: 'xpath',
-    },
-
-    mobileChatToggle: {
-      selector: `(//LABEL[@class='rhinoswitcher__label'])[4]`,
-      locateStrategy: 'xpath',
-    },
+    // mobileInboxToggle: {
+    //   selector: `(//LABEL[@class='rhinoswitcher__label'])[3]`, // hidden until tests are written for mobile
+    //   locateStrategy: 'xpath',
+    // },
+    //
+    // mobileChatToggle: {
+    //   selector: `(//LABEL[@class='rhinoswitcher__label'])[4]`, // hidden until tests are written for mobile
+    //   locateStrategy: 'xpath',
+    // },
 
     savePreferencesButton: {
       selector: `//SPAN[@class='button__text-wrapper'][text()='Save Preferences']`,

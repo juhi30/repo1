@@ -97,9 +97,9 @@ const autoResponseCommands = {
 
 module.exports = {
   commands: [autoResponseCommands],
-  url: function() {
-    return this.api.launch_url + '/settings/organization/auto-response'
-  },
+  // url: function() {
+  //   return this.api.launch_url + '/settings/organization/auto-response'
+  // },
   elements: {
 
     /*-----------------------------------------------------*/
@@ -107,7 +107,7 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     autoResponseInput: {
-      selector: `//*[@id="defaultReply"]`,
+      selector: `//TEXTAREA[@id='defaultReply-0cb9105a-b0ae-443a-b73f-66aee8934941']`,
       locateStrategy: 'xpath',
     },
     saveAutoResponseButton: {
@@ -118,10 +118,10 @@ module.exports = {
       selector: `//SPAN[@class='button__text-wrapper'][text()='Cancel']`,
       locateStrategy: 'xpath',
     },
-    characterLimitCounter: {
-      selector: `//DIV[@class='form__character-count']`,
-      locateStrategy: 'xpath',
-    },
+    // characterLimitCounter: {
+    //   selector: `//DIV[@class='form__character-count']`, //really needed?
+    //   locateStrategy: 'xpath',
+    // },
     autoResponseError: {
       selector: `//DIV[@class='form__validation-message'][text()='Auto-response must be between 1 and 129 characters.']`,
       locateStrategy: 'xpath',
@@ -141,7 +141,7 @@ module.exports = {
     },
 
     firstScheduledEvent: {
-      selector: `//DIV[@class='bucket bucket--default']`,
+      selector: `(//DIV[@class='bucket__header u-flex-justify-between'])[1]`, // xpath using event title container
       locateStrategy: 'xpath',
     },
 
@@ -182,26 +182,21 @@ module.exports = {
     },
 
     /*-----------------------------------------------------*/
-    // schedule event popup elements
+    // edit schedule event popup elements
     /*-----------------------------------------------------*/
 
-    scheduleEventPopupSaveButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Changes']`,
-      locateStrategy: 'xpath',
-    },
-
     eventNameInput: {
-      selector: `//input[@id='title']`,
+      selector: `//INPUT[@id='title-4bcfd559-f851-4214-99fa-1e6370fb4843']`,
       locateStrategy: 'xpath',
     },
 
     fromTimeInput: {
-      selector: `//SELECT[@id='fromTime']`,
+      selector: `//INPUT[@id='from']`,
       locateStrategy: 'xpath',
     },
 
     toTimeInput: {
-      selector: `//SELECT[@id='toTime']`,
+      selector: `//SELECT[@id='to']`,
       locateStrategy: 'xpath',
     },
 
@@ -211,17 +206,17 @@ module.exports = {
     },
 
     autoResponseInputInPopup:{
-      selector: `//*[@id="message"]`,
+      selector: `//TEXTAREA[@id='message-dd0f7f75-f15c-4c24-a67c-94580d769a0e']`,
       locateStrategy: 'xpath',
     },
 
     channelsDropdown: {
-      selector: `//div[@class='form']/div[5]/span[2]/div/input`,
+      selector: `(//INPUT[@type='text'])[4]`,
       locateStrategy: 'xpath'
     },
 
     firstChannelInDropdown: {
-      selector: `//div[@class='form']/div[5]/span[2]/div/div/div/div[1]/a/div`,
+      selector: `(//DIV[@class='dropdown__menu__item__content'])[13]`,
       locateStrategy: 'xpath'
     },
 
@@ -233,6 +228,11 @@ module.exports = {
     cancelButtonInNewOOOForm: {
       selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[2]`,
       locateStrategy: 'xpath'
+    },
+
+    scheduleEventPopupSaveButton: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Changes']`,
+      locateStrategy: 'xpath',
     },
 
     // closeFormButton: {

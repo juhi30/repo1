@@ -97,9 +97,9 @@ const autoResponseCommands = {
 
 module.exports = {
   commands: [autoResponseCommands],
-  // url: function() {
-  //   return this.api.launch_url + '/settings/organization/auto-response'
-  // },
+  url: function() {
+    return this.api.launch_url + '/settings/organization/auto-response'
+  },
   elements: {
 
     /*-----------------------------------------------------*/

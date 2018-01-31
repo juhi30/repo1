@@ -60,7 +60,7 @@ module.exports = {
   elements: {
 
     addLogoButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Add Logo']`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Add Logo']`, //MAKE SURE WORKING
       locateStrategy: 'xpath'
     },
 
@@ -79,52 +79,52 @@ module.exports = {
     /*----------------------------------------------------------------------------*/
 
     orgNameInput: {
-      selector: `//INPUT[@id='name']`,
+      selector: `//INPUT[@id='name-27b23a3c-7a47-457b-be0d-6562270297a9']`,
       locateStrategy: 'xpath',
     },
 
     addressOneInput: {
-      selector: `//INPUT[@id='street1']`,
+      selector: `//INPUT[@id='street1-07d34c02-4000-4821-ac75-39be96364fff']`,
       locateStrategy: 'xpath',
     },
 
     cityInput: {
-      selector: `//INPUT[@id='city']`,
+      selector: `//INPUT[@id='city-ce498470-e94e-492b-b144-2796e1c3e713']`,
       locateStrategy: 'xpath',
     },
 
     stateInput: {
-      selector: `//INPUT[@id='state']`,
+      selector: `//INPUT[@id='state-7565b4ee-a3ad-49e7-a8ff-58d4e4f8a2b4']`,
       locateStrategy: 'xpath',
     },
 
     zipInput: {
-      selector: `//INPUT[@id='zip']`,
+      selector: `//INPUT[@id='zip-1ec419ed-a623-40de-87de-8321870705ca']`,
       locateStrategy: 'xpath',
     },
 
     orgPhoneInput: {
-      selector: `//INPUT[@id='businessPhone']`,
+      selector: `//INPUT[@id='businessPhone-f42476f2-fe97-4ab4-8dd2-f7365b84b6d2']`,
       locateStrategy: 'xpath',
     },
 
     orgEmailInput: {
-      selector: `//INPUT[@id='businessEmail']`,
+      selector: `//INPUT[@id='businessEmail-41043022-d8d0-44d9-bab1-3a3ab21becc9']`,
       locateStrategy: 'xpath',
     },
 
     orgContactNameInput: {
-      selector: `//INPUT[@id='contactName']`,
+      selector: `//INPUT[@id='contactName-3d77665b-62a7-4fae-8f3d-b3d3ba5dbbca']`,
       locateStrategy: 'xpath',
     },
 
     orgContactPhoneInput: {
-      selector: `//INPUT[@id='contactPhone']`,
+      selector: `//INPUT[@id='contactPhone-d06ca5bf-01e4-4225-8aae-a3a28176a5ff']`,
       locateStrategy: 'xpath',
     },
 
     orgContactEmailInput: {
-      selector: `//INPUT[@id='contactEmail']`,
+      selector: `//INPUT[@id='contactEmail-1ea93ca2-c44f-4428-9d0a-8cd69db2c540']`,
       locateStrategy: 'xpath',
     },
 

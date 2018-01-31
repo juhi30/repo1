@@ -61,7 +61,7 @@ const universalElementsCommands = {
       .verify.visible('@logoutButton', 'logout button is visible')
 
   },
-// needs to be refactored 
+// needs to be refactored
   // clickAppNavButtons: function() {
   //   return this.waitForElementVisible('@myProfileButton', 3000, 'My Profile button is present')
   //     .click('@myProfileButton')
@@ -189,14 +189,9 @@ module.exports = {
     // },
     // could be removed
 
-    /*----------------------------------------------*/
-    //Left hand column navigation buttons. Top to bottom
-    /*----------------------------------------------*/
-
-    myProfileButton: {
-      selector: `//A[@title='My Profile']`,
-      locateStrategy: 'xpath',
-    },
+    /*-------------------------------------------------------------------------*/
+    //Left hand column navigation buttons. Top to bottom.
+    /*-------------------------------------------------------------------------*/
 
     assignedToMeButton: {
       selector: `//SPAN[@class='app-navigation__nav__button__text'][text()='Assigned To Me']`,
@@ -248,18 +243,23 @@ module.exports = {
     },
 
     /*----------------------------------------------*/
-    // Notification alert button elements
+    // Profile Button and former Notification xpaths
     /*----------------------------------------------*/
 
-    notificationAlertButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[3]`,
-      locateStrategy: 'xpath'
-    },
-
-    notificationDropdown: {
-      selector:`//DIV[@class='dropdown__menu__container'][text()='Notifications here!']`, // test to see what happens when notifications are in
+    myProfileButton: { //profile now moved to circular button by settings
+      selector: `//A[@title='My Profile']`,
       locateStrategy: 'xpath',
     },
+
+    // notificationAlertButton: {
+    //   selector: `(//SPAN[@class='button__text-wrapper'])[3]`,
+    //   locateStrategy: 'xpath'
+    // },
+    //
+    // notificationDropdown: {
+    //   selector:`//DIV[@class='dropdown__menu__container'][text()='Notifications here!']`, // test to see what happens when notifications are in
+    //   locateStrategy: 'xpath',
+    // },
 
     /*----------------------------------------------*/
     // Settings dropdown elements

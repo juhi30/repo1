@@ -43,7 +43,14 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
+    createChannelButton: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Create Channel']`,
+      locateStrategy: 'xpath',
+    },
+
     /*---------------------------------------------------------------*/
     // channel tags (use tags page object)
     /*---------------------------------------------------------------*/
+
+
   }

@@ -52,7 +52,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('gmaas', 'bacon')
+      .fillInForm('ntester', 'z016Vk')
       .submit()
       .validateUrlChange()
       ///need step to validate that it transfered to inbox view here

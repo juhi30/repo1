@@ -60,15 +60,15 @@ module.exports = {
   },
   elements: {
     usernameInput: {
-      selector: `//*[@id="username"]`,
+      selector: `//INPUT[@id='username']`,
       locateStrategy: 'xpath',
     },
     passwordInput: {
-      selector: `//input[@id='password']`,
+      selector: `//INPUT[@id='password']`,
       locateStrategy: 'xpath',
     },
     loginButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Log In']`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Alpha Log In']`, //Will change after Alpha
       locateStrategy: 'xpath',
     },
     errorPrompt: {

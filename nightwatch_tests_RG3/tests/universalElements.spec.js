@@ -12,7 +12,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('ntester', 'tester')
+      .fillInForm('ntester', 'rhinos')
       .submit()
       .validateUrlChange()
   },
@@ -21,30 +21,24 @@ module.exports = {
     const universalElements = client.page.UniversalElements();
 
     universalElements.validateUniversalElements()
-      .validateSearchDropdown('fro')
+      .validateSearchModal('fro')
       .validateSettingsDropdown()
 
     client.pause(3000);
   },
-
-  'Test click app-navigation buttons': function(client) {
-    const universalElements = client.page.UniversalElements();
-
-    universalElements.clickAppNavButtons()
-
-    client.pause(3000);
-  },
+  // refactor with the page object command
+  // 'Test click app-navigation buttons': function(client) {
+  //   const universalElements = client.page.UniversalElements();
+  //
+  //   universalElements.clickAppNavButtons()
+  //
+  //   client.pause(3000);
+  // },
 
   'Test click search dropdown buttons': function(client) {
     const universalElements = client.page.UniversalElements();
-    const addContactPopup = client.page.AddContactPopupPage();
 
-    universalElements.clickSearchDropdownButtons('fro')
-
-    client.pause(1000)
-
-    addContactPopup.renderAddContactsPage()
-      .closeAddContactsPage()
+    universalElements.clicksearchModalButtons('fro')
 
     client.pause(3000);
   },
@@ -57,8 +51,6 @@ module.exports = {
       .pause(1500)
       .clickMyPreferences()
       .pause(1500)
-      .clickAutoResponse()
-      .pause(1500)
       // .clickBilling()
       // .pause(1500)
       .clickChannels()
@@ -66,6 +58,8 @@ module.exports = {
       .clickGroups()
       .pause(1500)
       .clickMembers()
+      .pause(1500)
+      .clickOOO()
       .pause(1500)
       .clickOrgPreferences()
       .pause(1500)

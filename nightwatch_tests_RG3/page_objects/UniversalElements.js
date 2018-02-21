@@ -43,7 +43,7 @@ const universalElementsCommands = {
 
   validateSettingsDropdown: function() {
     return this.waitForElementVisible('@settingsButton', 3000, 'Settings button is visible')
-      .pause(1000)
+      .pause(500)
       .click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Profile in settings is visible')
       .waitForElementVisible('@myPreferencesInSettingsDropdown', 'Preferences in settings is visible')
@@ -59,20 +59,30 @@ const universalElementsCommands = {
       .waitForElementVisible('@systemDetailsInSettingsDropdown', 'System Details option is visible')
       .waitForElementVisible('@emailSupportInSettingsDropdown', 'Email support is visible')
       .waitForElementVisible('@logoutButton', 'logout button is visible')
+      .pause(500)
+      .click('@settingsButton')
 
   },
-// needs to be refactored
-  // clickAppNavButtons: function() {
-  //   return this.waitForElementVisible('@myProfileButton', 3000, 'My Profile button is present')
-  //     .click('@myProfileButton')
-  //     .verify.containsText('@appHeaderTitle', 'My Profile', 'My Profile title present')
-  //     .click('@inboxTab')
-  //     .verify.containsText('@appHeaderTitle', 'Inbox', 'Inbox title present')
-  //     .click('@chatTab')
-  //     .verify.containsText('@appHeaderTitle', 'Chat', 'Chat title present')
-  //     .click('@contactsTab')
-  //     .verify.containsText('@appHeaderTitle', 'Contacts', 'Contacts title present')
-  // },
+
+  /*----------perhaps add more to test for groups-----------*/
+  clickAppNavButtons: function() {
+    return this.waitForElementVisible('@assignedToMeButton', 3000, 'Assigned to Me button is shown')
+      .click('@assignedToMeButton')
+      .pause(500)
+      .verify.containsText('@appHeaderTitle', 'Inbox - Assigned', 'Inbox Assigned title present')
+      .click('@followingButton')
+      .pause(500)
+      .verify.containsText('@appHeaderTitle', 'Inbox - Following', 'Inbox following title present')
+      .click('@inboxDirectButton')
+      .pause(500)
+      .verify.containsText('@appHeaderTitle', 'Inbox - Direct', 'Inbox Direct title present')
+      .click('@chatDirectButton')
+      .pause(500)
+      .verify.containsText('@appHeaderTitle', 'Chat', 'Chat Direct title present')
+      .click('@contactsButton')
+      .pause(500)
+      .verify.containsText('@appHeaderTitle', 'Contacts', 'Contacts title present')
+  },
 
   clicksearchModalButtons: function(patientName) {
     return this.click('@searchButton')
@@ -196,18 +206,17 @@ module.exports = {
 
   elements: {
 
-    // appHeaderTitle: {
-    //   selector: `//*[@id="app"]/div/div[2]/header/div[2]`,
-    //   locateStrategy: 'xpath',
-    // },
-    // could be removed
+    appHeaderTitle: {
+      selector: `//*[@id="app"]/div/div[2]/div/div/div/div/div[1]/div[1]`,
+      locateStrategy: 'xpath',
+    },
 
     /*-------------------------------------------------------------------------*/
     //Left hand column navigation buttons. Top to bottom.
     /*-------------------------------------------------------------------------*/
 
     assignedToMeButton: {
-      selector: `//SPAN[@class='app-navigation__nav__button__text'][text()='Assigned To Me']`,
+      selector: `//SPAN[@class='app-navigation__nav__button__text'][text()='Assigned to Me']`,
       locateStrategy: 'xpath',
     },
 

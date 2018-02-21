@@ -26,14 +26,14 @@ module.exports = {
 
     client.pause(3000);
   },
-  // refactor with the page object command
-  // 'Test click app-navigation buttons': function(client) {
-  //   const universalElements = client.page.UniversalElements();
-  //
-  //   universalElements.clickAppNavButtons()
-  //
-  //   client.pause(3000);
-  // },
+
+  'Test click app-navigation buttons': function(client) {
+    const universalElements = client.page.UniversalElements();
+
+    universalElements.clickAppNavButtons()
+
+    client.pause(3000);
+  },
 
   'Test click search dropdown buttons': function(client) {
     const universalElements = client.page.UniversalElements();

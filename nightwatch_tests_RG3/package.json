@@ -16,5 +16,11 @@
     "chromedriver": "^2.32.3",
     "nightwatch": "0.9.16",
     "selenium-server-standalone-jar": "^3.8.1"
+  },
+  "dependencies": {
+    "testarmada-magellan": "^10.0.5",
+    "testarmada-magellan-local-executor": "^2.0.0",
+    "testarmada-magellan-nightwatch-plugin": "^7.0.0",
+    "testarmada-nightwatch-extra": "^4.1.0"
   }
 }

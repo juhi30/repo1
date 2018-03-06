@@ -13,7 +13,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .enterMemberCreds()
+      .enterPatientCreds()
       .submit()
   },
 

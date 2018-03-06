@@ -9,8 +9,13 @@ const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleD
 
 // This object reflects a Member who has full permissions
 const memberCreds = {
-  username: 'nighttester',
+  username: 'nightmember',
   password: 'Nightpass1'
+};
+
+const patientCreds = {
+  username: 'nightpatient',
+  password: 'Nightpass2'
 };
 
 module.exports = {

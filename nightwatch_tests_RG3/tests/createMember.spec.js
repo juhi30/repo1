@@ -1,3 +1,5 @@
+/* Marking this test as unnecessary for now - keaton
+
 // This test will create a new member, login as that member,
 // and have that member be deactivated afterwards.
 let tempPassword = '';
@@ -22,7 +24,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('kfoster', 'chacoz')
+      .enterMemberCreds()
       .submit()
       .validateUrlChange();
   },
@@ -85,3 +87,5 @@ module.exports = {
   }
 
 }
+
+*/

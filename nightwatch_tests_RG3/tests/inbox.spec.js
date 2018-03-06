@@ -11,7 +11,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('ntester', 'tester')
+      .enterMemberCreds()
       .submit()
       .validateUrlChange();
     //better name for this function needed

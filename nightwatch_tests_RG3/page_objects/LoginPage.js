@@ -68,7 +68,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
     loginButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Log In']`,
+      selector: `//*[@id="app"]/div/div/div[1]/div[4]/button/span`,
       locateStrategy: 'xpath',
     },
     errorPrompt: {

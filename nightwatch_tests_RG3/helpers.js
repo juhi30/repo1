@@ -7,6 +7,14 @@ const randoNum = Math.ceil(Math.random() * 1000);
 const theDateObj = new Date;
 const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleDateString();
 
-module.exports.findTextOnPage = findTextOnPage;
-module.exports.randoNum = randoNum;
-module.exports.dateString = dateString;
+const memberCreds = {
+  username: 'nighttester',
+  password: 'Nightpass1'
+};
+
+module.exports = {
+  findTextOnPage: findTextOnPage,
+  randoNum: randoNum,
+  dateString: dateString,
+  memberCreds: memberCreds
+}

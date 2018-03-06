@@ -1,4 +1,5 @@
 //coding based off Matthew roach's example @ http://matthewroach.me/ui-testing-with-nightwatch-js/
+const helpers = require('../helpers');
 
 const loginCommands = {
   validateForm: function() {
@@ -12,6 +13,12 @@ const loginCommands = {
     return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
       .setValue('@usernameInput', username)
       .setValue('@passwordInput', password)
+  },
+
+  enterMemberCreds: function() {
+    return this.waitForElementVisible('@usernameInput', 'Username input visible')
+      .setValue('@usernameInput', helpers.memberCreds.username)
+      .setValue('@passwordInput', helpers.memberCreds.password)
   },
 
   submit: function() {

@@ -10,7 +10,8 @@
     "log_path" : "",
     "port" : 4444,
     "cli_args" : {
-      "webdriver.chrome.driver" : "./node_modules/chromedriver/bin/chromedriver"
+      "webdriver.chrome.driver" : "./node_modules/chromedriver/bin/chromedriver",
+      "webdriver.gecko.driver": "./node_modules/geckodriver/bin/geckodriver"
     }
   },
 
@@ -19,6 +20,7 @@
       "launch_url" : "https://rg3.dev-rhinogram.com",
       "selenium_port"  : 4444,
       "selenium_host"  : "localhost",
+      "use_xpath": true,
       "desiredCapabilities": {
         "browserName": "chrome",
         "javascriptEnabled": true,

@@ -31,7 +31,7 @@ module.exports = {
   elements: {
 
     rhinoLogoBackButton: {
-      selector: `//*[@id="app"]/div/div[1]/a`,
+      selector: `//DIV[@class='u-text-muted u-m-t-small u-text-small'][text()='Back to Rhinogram']`,
       locateStrategy: 'xpath',
       // this xpath is a bit brittle when given a chance find a better option
     },

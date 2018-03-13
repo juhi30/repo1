@@ -7,6 +7,20 @@ const randoNum = Math.ceil(Math.random() * 1000);
 const theDateObj = new Date;
 const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleDateString();
 
-module.exports.findTextOnPage = findTextOnPage;
-module.exports.randoNum = randoNum;
-module.exports.dateString = dateString;
+// This object reflects a Member who has full permissions
+const memberCreds = {
+  username: 'nightmember',
+  password: 'Nightpass1'
+};
+
+const patientCreds = {
+  username: 'nightpatient',
+  password: 'Nightpass2'
+};
+
+module.exports = {
+  findTextOnPage: findTextOnPage,
+  randoNum: randoNum,
+  dateString: dateString,
+  memberCreds: memberCreds
+}

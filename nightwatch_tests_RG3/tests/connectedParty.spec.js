@@ -1,5 +1,6 @@
 /**
  * This test creates a connection between two contacts and verifies that the connection exists after the connection is established
+ * TODO: make a connection, verify the reciprocal relationships exist, and remove the connection
  */
 
 const findTextOnPage = require('../helpers').findTextOnPage;
@@ -15,9 +16,9 @@ module.exports = {
     let login = client.page.LoginPage();
 
     login.navigate()
-    .fillInForm('kfoster', 'chacoz')
-    .submit()
-    .validateUrlChange()
+      .enterMemberCreds()
+      .submit()
+      .validateUrlChange()
   },
 
   'Connect an existing contact with a new contact': function(client) {

@@ -1,6 +1,8 @@
 // Purpose of this test is to verify the ability to delete contacts
 // who have no thread history.
 
+/* Marking this test as unnecessary for now - Keaton
+
 module.exports = {
   'Login with valid credentials': function(client) {
     let login = client.page.LoginPage();
@@ -36,3 +38,5 @@ module.exports = {
 
   }
 }
+
+*/

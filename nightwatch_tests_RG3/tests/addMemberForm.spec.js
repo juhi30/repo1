@@ -8,7 +8,7 @@ module.exports = {
   const login = client.page.LoginPage();
 
   login.navigate()
-    .fillInForm('kfoster', 'chacoz')
+    .enterMemberCreds()
     .submit()
     .validateUrlChange();
 },

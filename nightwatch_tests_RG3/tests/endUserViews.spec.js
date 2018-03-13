@@ -13,7 +13,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('pbetter', 'chacoz')
+      .enterPatientCreds()
       .submit()
   },
 

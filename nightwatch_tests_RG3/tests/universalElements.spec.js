@@ -12,7 +12,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('ntester', 'rhinos')
+      .enterMemberCreds()
       .submit()
       .validateUrlChange()
   },

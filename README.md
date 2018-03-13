@@ -25,6 +25,10 @@ Automated tools for testing.
   
   Writing Tests
     https://www.sitepoint.com/javascript-functional-testing-nightwatch-js/
+
+  ### To-Dos
+    1. Transpile with Babel
+    2. Integrate with Magellan
     
 
 ## Screenshotter

@@ -13,9 +13,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "chromedriver": "^2.32.3",
+    "chromedriver": "^2.36",
     "nightwatch": "0.9.16",
-    "selenium-server-standalone-jar": "^3.8.1"
+    "selenium-server-standalone-jar": "3.8.1"
   },
   "dependencies": {
     "testarmada-magellan": "^10.0.5",

@@ -17,7 +17,7 @@ const loginCommands = {
 
   enterMemberCreds: function() {
     return this.waitForElementVisible('@usernameInput', 'Username input visible')
-      .setValue('@usernameInput', helpers.memberCreds.username)
+      .setValue('@usernameInput', 'BROOOOOOOO')
       .setValue('@passwordInput', helpers.memberCreds.password)
   },
 

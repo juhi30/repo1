@@ -22,5 +22,6 @@ module.exports = {
   findTextOnPage: findTextOnPage,
   randoNum: randoNum,
   dateString: dateString,
-  memberCreds: memberCreds
+  memberCreds: memberCreds,
+  patientCreds: patientCreds
 }

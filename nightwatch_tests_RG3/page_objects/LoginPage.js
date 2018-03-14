@@ -9,9 +9,13 @@ const loginCommands = {
       .verify.containsText('@loginButton', 'Log In', 'Login button is visible')
   },
 
-  fillInForm: function(username, password) {
-    return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
+  fillInUsername: function(username) {
+    return this.waitForElementVisible('@usernameInput', 'Username input visible')
       .setValue('@usernameInput', username)
+  },
+
+  fillInPassword: function(password) {
+    return this.waitForElementVisible('@passwordInput', 'Password input visible')
       .setValue('@passwordInput', password)
   },
 
@@ -25,6 +29,16 @@ const loginCommands = {
     return this.waitForElementVisible('@usernameInput', 'Username input visible')
       .setValue('@usernameInput', helpers.patientCreds.username)
       .setValue('@passwordInput', helpers.patientCreds.password)
+  },
+
+  clearUsernameInput: function() {
+    return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
+      .clearValue('@usernameInput')
+  },
+
+  clearPasswordInput: function() {
+    return this.waitForElementVisible('@passwordInput', 5000, 'Password input is visible')
+      .clearValue('@passwordInput')
   },
 
   submit: function() {

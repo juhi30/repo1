@@ -27,6 +27,16 @@ const loginCommands = {
       .setValue('@passwordInput', helpers.patientCreds.password)
   },
 
+  clearUsernameInput: function() {
+    return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
+      .setValue('@usernameInput', '')
+  },
+
+  clearPasswordInput: function() {
+    return this.waitForElementVisible('@passwordInput', 5000, 'Password input is visible')
+      .setValue('@passwordInput', '')
+  },
+
   submit: function() {
     return this.waitForElementVisible('@loginButton', 5000, 'Login button is visible')
       .click('@loginButton')

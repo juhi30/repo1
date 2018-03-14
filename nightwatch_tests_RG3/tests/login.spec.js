@@ -19,7 +19,6 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('', '')
       .submit()
       .validateError()
 
@@ -30,7 +29,8 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('nTester', '')
+      .enterMemberCreds()
+      .clearPasswordInput()
       .submit()
       .validateError()
 
@@ -41,7 +41,8 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('', 'tester')
+      .enterMemberCreds()
+      .clearUsernameInput()
       .submit()
       .validateError()
 

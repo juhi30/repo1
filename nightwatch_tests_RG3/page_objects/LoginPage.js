@@ -2,6 +2,12 @@
 const helpers = require('../helpers');
 
 const loginCommands = {
+
+  pause: function (time) {
+    this.api.pause(time);
+    return this;
+  },
+  
   validateForm: function() {
     return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
       .verify.visible('@usernameInput', 'Username input is visible')
@@ -20,13 +26,13 @@ const loginCommands = {
   },
 
   enterMemberCreds: function() {
-    return this.waitForElementVisible('@usernameInput', 'Username input visible')
+    return this.waitForElementVisible('@usernameInput', 5000,'Username input visible')
       .setValue('@usernameInput', helpers.memberCreds.username)
       .setValue('@passwordInput', helpers.memberCreds.password)
   },
 
   enterPatientCreds: function() {
-    return this.waitForElementVisible('@usernameInput', 'Username input visible')
+    return this.waitForElementVisible('@usernameInput', 5000, 'Username input visible')
       .setValue('@usernameInput', helpers.patientCreds.username)
       .setValue('@passwordInput', helpers.patientCreds.password)
   },

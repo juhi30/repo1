@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "chromedriver": "^2.36.0",
+    "chromedriver": "^2.38.0",
     "nightwatch": "0.9.16",
     "selenium-server-standalone-jar": "3.8.1"
   },

@@ -5,14 +5,15 @@ const universalElementsCommands = {
     return this;
   },
 
-  searchForContactAndClick: function(contactName) {
-    return this.waitForElementVisible('@searchButton', 5000, 'Search button is visible')
-      .click('@searchButton')
-      .waitForElementVisible('@searchModalInput', 5000, 'Search dropdoown input is visible')
-      .setValue('@searchModalInput', contactName)
-      .waitForElementVisible('@searchModalFirstResult', 5000, 'First result is visible')
-      .click('@searchModalFirstResult');
-  },
+  // searchForContactAndClick: function(contactName) {
+  //   return this.waitForElementVisible('@searchButton', 5000, 'Search button is visible')
+  //     .click('@searchButton')
+  //     .waitForElementVisible('@searchModalInput', 5000, 'Search dropdoown input is visible')
+  //     .setValue('@searchModalInput', contactName)
+  //     .waitForElementVisible('@searchModalFirstResult', 5000, 'First result is visible')
+  //     .click('@searchModalFirstResult');
+  // },
+  // currently not being used 5/2/18
 
   validateUniversalElements: function() {
     return this.waitForElementVisible('@myProfileButton', 3000, 'My Profile button is visible')
@@ -21,7 +22,6 @@ const universalElementsCommands = {
       .verify.visible('@chatDirectButton', 'Chat direct is visible')
       .verify.visible('@contactsButton', 'Contacts button is visible')
       .verify.visible('@searchButton', 'Search button is visible')
-      // .verify.visible('@notificationAlertButton', 'Notification button is visible') //been removed as of 2/20/18
       .verify.visible('@settingsButton', 'Settings button is visible')
   },
 
@@ -64,7 +64,7 @@ const universalElementsCommands = {
 
   },
 
-  /*----------perhaps add more to test for groups-----------*/
+  /*----------perhaps add more to test for groups in Inbox/Chat-----------*/
   clickAppNavButtons: function() {
     return this.waitForElementVisible('@assignedToMeButton', 3000, 'Assigned to Me button is shown')
       .click('@assignedToMeButton')
@@ -85,15 +85,18 @@ const universalElementsCommands = {
   },
 
   clickSearchModalButtons: function(patientName) {
-    return this.click('@searchButton')
-      .setValue('@searchModalInput', patientName)
-      .waitForElementVisible('@searchModalFirstResult', 1500, 'First result is present')
-      .click('@searchModalFirstResult')
-      .verify.urlContains('50069', 'Taken to profile summary view')// no long 'userID' string but actual ID number
+    return this.waitForElementVisible('@searchButton', 5000, 'Search button is visible')
       .click('@searchButton')
+      .waitForElementVisible('@searchModalInput', 'Search input is visible on click')
       .setValue('@searchModalInput', patientName)
-      .waitForElementVisible('@addNewContactButton', 1500, 'Add contact button is present')
-      .click('@addNewContactButton')
+      .waitForElementVisible('@searchModalFirstResult', 5000, 'First result on search dropdown is visible')
+      .click('@searchModalFirstResult')
+      .pause(3000)
+      .verify.urlContains('50069', 'Taken to profile summary view')// no long 'userID' string but actual ID number
+      // .click('@searchButton')
+      // .setValue('@searchModalInput', patientName)
+      // .waitForElementVisible('@addNewContactButton', 1500, 'Add contact button is present')
+      // .click('@addNewContactButton')
   },
 
   clickAddNewContact: function() {
@@ -271,7 +274,7 @@ module.exports = {
     },
 
     searchModalFirstResult: {
-      selector: `//DIV[@role='button']`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][text()='Frodo  Baggins']`, //specific to Frodo test case
       locateStrategy: 'xpath',
     },
 

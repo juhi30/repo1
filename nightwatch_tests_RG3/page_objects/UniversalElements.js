@@ -5,16 +5,6 @@ const universalElementsCommands = {
     return this;
   },
 
-  // searchForContactAndClick: function(contactName) {
-  //   return this.waitForElementVisible('@searchButton', 5000, 'Search button is visible')
-  //     .click('@searchButton')
-  //     .waitForElementVisible('@searchModalInput', 5000, 'Search dropdoown input is visible')
-  //     .setValue('@searchModalInput', contactName)
-  //     .waitForElementVisible('@searchModalFirstResult', 5000, 'First result is visible')
-  //     .click('@searchModalFirstResult');
-  // },
-  // currently not being used 5/2/18
-
   validateUniversalElements: function() {
     return this.waitForElementVisible('@myProfileButton', 3000, 'My Profile button is visible')
       .verify.visible('@myProfileButton', 'Profile button is visible')
@@ -69,29 +59,31 @@ const universalElementsCommands = {
     return this.waitForElementVisible('@assignedToMeButton', 3000, 'Assigned to Me button is shown')
       .click('@assignedToMeButton')
       .pause(500)
-      .verify.containsText('@appHeaderTitle', 'Inbox - Assigned', 'Inbox Assigned title present')
+      .verify.containsText('@appHeaderTitle', 'Assigned to Me', 'Inbox Assigned title present')
       .click('@followingButton')
       .pause(500)
-      .verify.containsText('@appHeaderTitle', 'Inbox - Following', 'Inbox following title present')
+      .verify.containsText('@appHeaderTitle', 'Following', 'Inbox following title present')
       .click('@inboxDirectButton')
       .pause(500)
-      .verify.containsText('@appHeaderTitle', 'Inbox - Direct', 'Inbox Direct title present')
+      .verify.containsText('@appHeaderTitle', 'Patient - Direct', 'Inbox Direct title present')
       .click('@chatDirectButton')
       .pause(500)
-      .verify.containsText('@appHeaderTitle', 'Chat', 'Chat Direct title present')
+      .verify.containsText('@appHeaderTitle', 'Team - Direct', 'Chat Direct title present')
       .click('@contactsButton')
       .pause(500)
       .verify.containsText('@appHeaderTitle', 'Contacts', 'Contacts title present')
   },
 
   clickSearchModalButtons: function(patientName) {
-    return this.waitForElementVisible('@searchButton', 5000, 'Search button is visible')
+    return this.click('@assignedToMeButton')
+      .waitForElementVisible('@searchButton', 5000, 'Search button is visible')
       .click('@searchButton')
       .waitForElementVisible('@searchModalInput', 'Search input is visible on click')
       .setValue('@searchModalInput', patientName)
       .waitForElementVisible('@searchModalFirstResult', 5000, 'First result on search dropdown is visible')
+      .verify.visible('@addNewContactButton', 'Add new contact button is visible')
       .click('@searchModalFirstResult')
-      .pause(3000)
+      .waitForElementNotPresent('@searchModalFirstResult', 'First result is hidden')
       .verify.urlContains('50069', 'Taken to profile summary view')// no long 'userID' string but actual ID number
       // .click('@searchButton')
       // .setValue('@searchModalInput', patientName)
@@ -208,7 +200,7 @@ const universalElementsCommands = {
       .waitForElementVisible('@logoutButton', 5000, 'Logout button is visible')
       .pause(500)
       .click('@logoutButton')
-      .waitForElementNotVisible('@logoutButton', 3000, 'Logout button no longer present')
+      .waitForElementNotVisible('@logoutButton', 5000, 'Logout button no longer present')
   }
 }
 
@@ -250,7 +242,7 @@ module.exports = {
     },
 
     contactsButton: {
-        selector: `//SPAN[@class='app-navigation__nav__button__text'][text()='Contacts']`,
+        selector: `//SPAN[@class='button__text-wrapper'][text()='Contacts']`,
         locateStrategy: 'xpath'
     },
 
@@ -295,16 +287,6 @@ module.exports = {
       selector: `//A[@title='My Profile']`,
       locateStrategy: 'xpath',
     },
-
-    // notificationAlertButton: {
-    //   selector: `(//SPAN[@class='button__text-wrapper'])[3]`,
-    //   locateStrategy: 'xpath'
-    // },
-    //
-    // notificationDropdown: {
-    //   selector:`//DIV[@class='dropdown__menu__container'][text()='Notifications here!']`, // test to see what happens when notifications are in
-    //   locateStrategy: 'xpath',
-    // },
 
     /*----------------------------------------------*/
     // Settings dropdown elements
@@ -381,7 +363,7 @@ module.exports = {
     },
 
     logoutButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[3]`,
+      selector: `(//SPAN[@class='button__text-wrapper'])[4]`,
       locateStrategy: 'xpath',
     },
   }

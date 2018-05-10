@@ -1,7 +1,28 @@
 const tagCommands = {
 
-////commands to be written here
+  pause: function (time) {
+    this.api.pause(time);
+    return this;
+  },
 
+  validateTagPageElements: function() {
+    return this.waitForElementVisible('@newTagButton', 3000, 'New Tag button is visible')
+      .waitForElementVisible('@firstTag', 3000, 'First tag is visible')
+  },
+
+  validateCreateTagModal: function() {
+    return this.click('@newTagButton')
+      .waitForElementVisible('@createTagButton', 3000, 'Create Tag modal is visible')
+      .waitForElementVisible('@tagNameInput', 3000, 'Tag name input is visible')        
+      .waitForElementVisible('@tagCategoryLocation', 3000, 'Location category is visible')
+      .waitForElementVisible('@tagCategoryDepartment ', 3000, 'Department category is visible')
+      .waitForElementVisible('@tagCategoryRole', 3000, 'Role category is visible')
+      .waitForElementVisible('@tagCategoryCustom', 3000, 'Custom category is visible')
+  },
+
+  createNewTag: function() {
+    return this.setValue('@tagNameInput', 'fake_tag')
+  }
 }
 
 module.exports = {
@@ -16,7 +37,7 @@ module.exports = {
   /*------------------------------------------------------------*/
 
     newTagButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[4]`,
+      selector: `(//SPAN[@class='button__text-wrapper'])[5]`,
       locateStrategy: 'xpath',
     },
 
@@ -30,7 +51,7 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     tagNameInput: {
-      selector: `//INPUT[@id='tagName-cb79baab-fe2f-4ac9-8e54-f04b1e429f80']`,// needs to be fixed for serial number
+      selector: `//INPUT[contains(@id,'tagName')]`,// needs to be fixed for serial number
       locateStrategy: 'xpath',
     },
 

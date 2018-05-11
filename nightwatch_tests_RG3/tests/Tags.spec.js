@@ -1,30 +1,39 @@
 module.exports = {
-  
-  //Logs into app to start tests
- 'Login Page with Correct Credentials': function (client) {
-     const login = client.page.LoginPage();
 
-     login.navigate()
-         .enterMemberCreds()
-         .submit()
-         .validateUrlChange()
- },
+    //Logs into app to start tests
+    'Login Page with Correct Credentials': function (client) {
+        const login = client.page.LoginPage();
 
- 'Go to Tags page and validate elements': function (client) {
-     const tags = client.page.TagsPage();
+        login.navigate()
+            .enterMemberCreds()
+            .submit()
+            .validateUrlChange();
+    },
 
-     tags.navigate()
-        .validateTagPageElements()
+    'Go to Tags page and validate elements': function (client) {
+        const tags = client.page.TagsPage();
 
-     client.pause(1000);
- },
+        tags.navigate()
+            .validateTagPageElements();
 
- 'Validate new Tag modal and create new Tag': function (client) {
-     const tags = client.page.TagsPage();
+        client.pause(1000);
+    },
 
-     tags.validateCreateTagModal()
+    'Validate new Tag modal and create new Tag': function (client) {
+        const tags = client.page.TagsPage();
 
-     client.pause(1000)
- }
+        tags.validateCreateTagModal()
+            .createNewTag();
+
+        client.pause(1000);
+    },
+
+    'Validate edit Tag modal and delete tag': function (client) {
+        const tags = client.page.TagsPage();
+
+        tags.editTag();
+
+        client.pause();
+    }
 
 }

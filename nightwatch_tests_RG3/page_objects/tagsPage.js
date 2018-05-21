@@ -30,7 +30,8 @@ const tagCommands = {
   },
 
   editTag: function () {
-    return this.click('@lastTag')
+    return this.waitForElementVisible('@lastTag', 3000, 'last tag is visible')
+      .click('@lastTag')
       .waitForElementVisible('@updateTagButton', 3000, 'Edit tag modal is visible')
       .click('@tagNameInput')
       .clearValue('@tagNameInput')
@@ -38,7 +39,18 @@ const tagCommands = {
       .click('@updateTagButton')
       .waitForElementNotVisible('@updateTagButton', 3000, 'Edit Tag Modal is hidden')
       .waitForElementVisible('@lastTag', 3000, 'Edited tag exists')
-  }
+  },
+
+  deleteTag: function () {
+    return this.waitForElementVisible('@lastTag', 3000, 'last tag is visible')
+      .click('@lastTag')
+      .waitForElementVisible('@deleteTagTrashIcon', 'Trash Icon is visible')
+      .click('@deleteTagTrashIcon')
+      .waitForElementVisible('@deleteTagConfirmButton', 'Delete confirm is visible')
+      .click('@deleteTagConfirmButton')
+      .waitForElementNotVisible('@updateTagButton', 3000, 'Edit Tag Modal is hidden')
+      .waitForElementNotVisible('@lastTag', 3000, 'Tag is deleted')
+  },
 }
 
 module.exports = {
@@ -64,7 +76,7 @@ module.exports = {
 
     lastTag: {
       selector: `(//BUTTON[@type='button'])[9]`,
-      locateStrategy: 'xpath',
+      locateStrategy: 'xpath'
     },
 
     /*------------------------------------------------------------*/

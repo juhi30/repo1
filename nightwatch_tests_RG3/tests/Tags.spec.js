@@ -31,9 +31,12 @@ module.exports = {
     'Validate edit Tag modal and delete tag': function (client) {
         const tags = client.page.TagsPage();
 
-        tags.editTag();
+        tags.navigate()
+            .editTag()
+            .navigate()
+            .deleteTag();
 
-        client.pause();
+        client.end(1000);
     }
 
 }

@@ -28,13 +28,15 @@ const orgProfileCommands = {
   },
 
   clearPrefilledValues: function() {
-    return this.clearValue('@orgNameInput')
+    return this.waitForElementVisible('@orgNameInput', 'Name input visible ready to be cleared')
+      .clearValue('@orgNameInput')
       .clearValue('@addressOneInput')
       .clearValue('@cityInput')
   },
 
   setNewValues: function(name, address, city) {
-    return this.setValue('@orgNameInput', name)
+    return this.waitForElementVisible('@orgNameInput', 'Name input is visible ready to set new values')
+      .setValue('@orgNameInput', name)
       .setValue('@addressOneInput', address)
       .setValue('@cityInput', city)
   },
@@ -94,7 +96,7 @@ module.exports = {
     },
 
     stateInput: {
-      selector: `//INPUT[contains(@id,'state')]`,
+      selector: `(//DIV[@class='form__group'])[6]`, //only grabs form group. dropdown and xpath contains not getting along
       locateStrategy: 'xpath',
     },
 

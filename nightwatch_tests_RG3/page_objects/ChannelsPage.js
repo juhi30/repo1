@@ -6,18 +6,16 @@ const channelsCommands = {
   },
 
   validateChannelsElements: function() {
-    return this.waitForElementVisible('body', 5000, 'Body is visible')
-      .waitForElementVisible('@firstChannelContainer', 5000, 'First channel is visible')
+    return this.waitForElementVisible('@addChannelButton', 'Channel page is visible')
+      .waitForElementVisible('@firstChannelContainer', 'First channel is visible')
   },
 
   validateEditForm: function() {
-    return this.click('@editChannel')
-      .waitForElementVisible('@editLocationDropdown', 5000, 'Edit channel form is visible')
-      .click('@editLocationDropdown')
-      .waitForElementVisible('@editLocationFirstResult', 5000, 'First location is visible')
-      .click('@cancelEditChannelForm');
-    // .waitForElementNotVisible('@editChannel', 4000, 'Edit channel form is no longer visible')
-    // ^^^ keeps failing due to element being found/present
+    return this.waitForElementVisible('@firstChannelContainer', 'First Channel is visible')
+      .click('@firstChannelContainer')
+      .waitForElementVisible('@summaryContainer', 'channel summary container is visible')
+      .click('@editChannel')
+      .waitForElementNotVisible('@editChannel', 'Edit channel button is no longer visible')
   },
 
   changeEditFormElements: function(channelName) {
@@ -36,59 +34,6 @@ const channelsCommands = {
       .click('@dSTCheckBox')
       .click('@saveChannelButton');
       // .waitForElementNotPresent('@editChannel', 5000, 'Edit channel form is longer visible')
-  },
-
-  clickCreateNewFBChannel: function() {
-    return this.waitForElementVisible('@addChannelButton', 5000, 'Add channel button is visible')
-      .click('@addChannelButton')
-      .waitForElementVisible('@addChannelDropdown', 5000, 'Add facebook dropdown is visible')
-      .click('@addChannelDropdown');
-  },
-
-  validateConnectFBPopup: function() {
-    return this.waitForElementVisible('@connectFacebookButton', 5000, 'Connect to facebook popup is visible')
-  },
-
-  clickConnectFacebook: function() {
-    return this.click('@connectFacebookButton');
-  },
-
-  validateFacebookPagePopup: function() {
-    return this.waitForElementVisible('@facebookPageNextButton', 5000, 'Facebook page selection popup is visible')
-      // .waitForElementVisible('@facebookPageCancel', 5000, 'Cancel button is visible wisible');
-      // .verify.visible('@firstFacebookPageChoice', 'First FB page choice is visible');
-
-      // these two are unecessary for the purpose of this test
-  },
-
-  loginFacebook: function(email, password) {
-    return this.waitForElementVisible('@facebookLoginPage', 5000, 'Facebook login page is visible')
-      .setValue('@facebookLoginEmail', email)
-      .setValue('@facebookLoginPassword', password)
-      .click('@facebookLoginButton');
-  },
-
-  clickFacebookPage: function() {
-    return this.waitForElementVisible('@firstFacebookPageChoice', 5000, 'First facebook page choice is visible')
-      .click('@firstFacebookPageChoice')
-      .click('@facebookPageNextButton');
-  },
-
-  validateConnectFBAcctPopup: function() {
-    return this.waitForElementVisible('@connectFacebookAcctChannelName', 5000, 'Connect facebook account popup is visible')
-      .click('@facebookLocationDropdown')
-      .waitForElementVisible('@facebookFirstLocation', 5000, 'First location choice is visible');
-  },
-
-  finalizeCreateNewFBChannel: function(channelName) {
-    return this.verify.valueContains('@connectFacebookAcctChannelName', channelName)
-      .click('@facebookLocationDropdown')
-      .waitForElementVisible('@facebookFirstLocation', 5000, 'First location choice is visible')
-      .click('@facebookFirstLocation')
-      .waitForElementVisible('@facebookChannelTimeZone', 5000, 'Timezone dropdown is visible')
-      .setValue('@facebookChannelTimeZone', 'E')
-
-      .click('@facebookPageFinishButton');
   },
 
   validateChannelAdded: function() {
@@ -121,147 +66,23 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     addChannelButton: {
-      selector: `//SPAN[@class='dropdown__toggle__text'][text()='Add Channel']`,
-      locateStrategy: 'xpath',
-    },
-
-    addChannelDropdown: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Facebook']`,
+      selector: `(//SPAN[@class='button__text-wrapper'])[6]`,
       locateStrategy: 'xpath',
     },
 
     firstChannelContainer: {
-      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[2]/div`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][text()='QA Test channel']`,// first channel listed to access channel summary container
       locateStrategy: 'xpath',
     },
 
-    facebookChannelContainer: {
-      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[3]`,
-      locateStrategy: 'xpath',
+    summaryPanel: {
+      selector: `//DIV[@class='summary-panel__content']`,
+      locateStrategy: 'xpath'
     },
 
     editChannel: {
-      selector: `(//BUTTON[@type='button'][text()='Edit'][text()='Edit'])[1]`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Edit Channel']`,
       locateStrategy: 'xpath'
-    },
-
-    deleteChannel: {
-      selector: `//BUTTON[@type='button'][text()='Delete']`,
-      locateStrategy: 'xpath',
-    },
-
-    deleteChannelPopup: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Delete Channel']`,
-      locateStrategy: 'xpath',
-    },
-
-    deleteChannelFinal: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Delete Channel']`,
-      locateStrategy: 'xpath',
-    },
-
-    cancelDeleteChannel: {
-      selector: `/html/body/div[4]/div/div/div/div[3]/div/button[1]`,
-      locateStrategy: 'xpath',
-    },
-
-    // savedPrompt: {
-    //   selector: ``,
-    //   locateStrategy: 'xpath'
-    // },
-
-    /*-----------------------------------------------------*/
-    // connect facebook popups
-    // breaks between elements separate different popups
-    /*-----------------------------------------------------*/
-
-    // connectFacebookPopup: {
-    //   selector: `(//SPAN[@class='button__text-wrapper'])[7]`,
-    //   locateStrategy: 'xpath',
-    // },
-
-    connectFacebookCancel: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Cancel']`,
-      locateStrategy: 'xpath',
-    },
-
-    connectFacebookButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[7]`,
-      locateStrategy: 'xpath',
-    },
-    /*-----------------------------------------------------*/
-    facebookPagePopup: {
-      selector: `/html/body/div[5]/div/div/div`,
-      locateStrategy: 'xpath',
-    },
-
-    firstFacebookPageChoice: {
-      selector: `(//A[@href='javascript:void(0)'])[3]`,
-      locateStrategy: 'xpath',
-    },
-
-    facebookPageCancel: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Cancel']`,
-      locateStrategy: 'xpath',
-    },
-
-    facebookPageNextButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Next']`,
-      locateStrategy: 'xpath',
-    },
-    /*-----------------------------------------------------*/
-    connectFacebookAcctPopup: {
-      selector: `/html/body/div[5]/div/div/div`,
-      locateStrategy: 'xpath'
-    },
-
-    connectFacebookAcctChannelName: {
-      selector: `//*[@id="name"]`,
-      locateStrategy: 'xpath',
-    },
-
-    facebookLocationDropdown: {
-      selector: `(//INPUT[@type='text'])[3]`,
-      locateStrategy: 'xpath',
-    },
-
-    facebookFirstLocation: {
-      selector: `(//A[@href='javascript:void(0)'])[3]`,
-      locateStrategy: 'xpath',
-    },
-
-    facebookPageFinishButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Finish']`,
-      locateStrategy: 'xpath',
-    },
-
-    facebookChannelTimeZone: {
-      selector: `//SELECT[@id='timeZoneId']`,
-      locateStrategy: 'xpath'
-    },
-
-    /*-----------------------------------------------------*/
-    // facebook login user page
-    /*-----------------------------------------------------*/
-
-    facebookLoginPage: {
-      selector: `//*[@id="facebook"]/body`,
-      locateStrategy: 'xpath',
-    },
-
-    facebookLoginEmail: {
-      selector: `//*[@id="email"]`,
-      locateStrategy: 'xpath',
-    },
-
-    facebookLoginPassword: {
-      selector: `//*[@id="pass"]`,
-      locateStrategy: 'xpath',
-    },
-
-    facebookLoginButton: {
-      selector: `//*[@id="loginbutton"]`,
-      locateStrategy: 'xpath',
     },
 
     /*-----------------------------------------------------*/

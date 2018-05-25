@@ -26,30 +26,30 @@ const tagCommands = {
       .pause(1000)
       .click('@createTagButton')
       .waitForElementNotVisible('@createTagButton', 3000, 'New Tag Modal is hidden')
-      .waitForElementVisible('@lastTag', 3000, 'New tag exists')
+      .waitForElementVisible('@fakeTag', 3000, 'New tag exists')
   },
 
   editTag: function () {
-    return this.waitForElementVisible('@lastTag', 3000, 'last tag is visible')
-      .click('@lastTag')
+    return this.waitForElementVisible('@fakeTag', 3000, 'last tag is visible')
+      .click('@fakeTag')
       .waitForElementVisible('@updateTagButton', 3000, 'Edit tag modal is visible')
       .click('@tagNameInput')
       .clearValue('@tagNameInput')
       .setValue('@tagNameInput', 'Edited_tag')
       .click('@updateTagButton')
       .waitForElementNotVisible('@updateTagButton', 3000, 'Edit Tag Modal is hidden')
-      .waitForElementVisible('@lastTag', 3000, 'Edited tag exists')
+      .waitForElementVisible('@editedTag', 3000, 'Edited tag exists')
   },
 
   deleteTag: function () {
-    return this.waitForElementVisible('@lastTag', 3000, 'last tag is visible')
-      .click('@lastTag')
+    return this.waitForElementVisible('@editedTag', 3000, 'last tag is visible')
+      .click('@editedTag')
       .waitForElementVisible('@deleteTagTrashIcon', 'Trash Icon is visible')
       .click('@deleteTagTrashIcon')
       .waitForElementVisible('@deleteTagConfirmButton', 'Delete confirm is visible')
       .click('@deleteTagConfirmButton')
       .waitForElementNotVisible('@updateTagButton', 3000, 'Edit Tag Modal is hidden')
-      .waitForElementNotVisible('@lastTag', 3000, 'Tag is deleted')
+      .waitForElementNotPresent('@editedTag', 3000, 'Tag is deleted')
   },
 }
 
@@ -65,17 +65,22 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     newTagButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[5]`,
+      selector: `(//SPAN[@class='button__text-wrapper'])[6]`,//shifted count need better grab
       locateStrategy: 'xpath',
     },
 
     firstTag: {
-      selector: `(//BUTTON[@type='button'])[5]`, // first tag should be under location
+      selector: `//SPAN[contains(.,'#Charleston')]`, // first tag should be under location
       locateStrategy: 'xpath',
     },
 
-    lastTag: {
-      selector: `(//BUTTON[@type='button'])[9]`,
+    fakeTag: {
+      selector: `//SPAN[contains(.,'#fake_tag')]`,
+      locateStrategy: 'xpath'
+    },
+
+    editedTag: {
+      selector: `//SPAN[contains(.,'#Edited_tag')]`,
       locateStrategy: 'xpath'
     },
 

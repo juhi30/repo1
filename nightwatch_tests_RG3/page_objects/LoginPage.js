@@ -101,7 +101,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
     loginButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Alpha Log In']`, //Will change after Alpha
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Log In']`, //Will change after Alpha
       locateStrategy: 'xpath',
     },
     errorPrompt: {

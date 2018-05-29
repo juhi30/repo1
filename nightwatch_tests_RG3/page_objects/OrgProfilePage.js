@@ -96,7 +96,7 @@ module.exports = {
     },
 
     stateInput: {
-      selector: `(//DIV[@class='form__group'])[6]`, //only grabs form group. dropdown and xpath contains not getting along
+      selector: `//SELECT[contains(@id,'state')]`, //only grabs form group. dropdown and xpath contains not getting along
       locateStrategy: 'xpath',
     },
 

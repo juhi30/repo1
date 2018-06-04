@@ -13,7 +13,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('ntester', 'tester')
+      .enterMemberCreds()
       .submit()
       .validateUrlChange()
 
@@ -35,13 +35,13 @@ module.exports = {
     const orgProfile = client.page.OrgProfilePage();
 
     orgProfile.clearPrefilledValues()
-    .pause(1000)
-    .setNewValues('QA Test Org' + randoNum, randoNum+'A', 'C')
-    .pause(1000)
-    .clickSaveProfile()
-    .validateSaveToast()
-    .clearPrefilledValues()
-    .clickSaveProfile()
+      .pause(1000)
+      .setNewValues('QA Test Org' + randoNum, randoNum+'A', 'C')
+      .pause(1000)
+      .clickSaveProfile()
+      .validateSaveToast()
+      .clearPrefilledValues()
+      .clickSaveProfile()
 
     client.end(5000)
   }

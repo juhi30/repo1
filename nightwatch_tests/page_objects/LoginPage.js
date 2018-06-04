@@ -1,6 +1,13 @@
 //coding based off Matthew roach's example @ http://matthewroach.me/ui-testing-with-nightwatch-js/
+const helpers = require('../helpers');
 
 const loginCommands = {
+
+  pause: function (time) {
+    this.api.pause(time);
+    return this;
+  },
+  
   validateForm: function() {
     return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
       .verify.visible('@usernameInput', 'Username input is visible')
@@ -8,10 +15,36 @@ const loginCommands = {
       .verify.containsText('@loginButton', 'Log In', 'Login button is visible')
   },
 
-  fillInForm: function(username, password) {
-    return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
+  fillInUsername: function(username) {
+    return this.waitForElementVisible('@usernameInput', 'Username input visible')
       .setValue('@usernameInput', username)
+  },
+
+  fillInPassword: function(password) {
+    return this.waitForElementVisible('@passwordInput', 'Password input visible')
       .setValue('@passwordInput', password)
+  },
+
+  enterMemberCreds: function() {
+    return this.waitForElementVisible('@usernameInput', 5000,'Username input visible')
+      .setValue('@usernameInput', helpers.memberCreds.username)
+      .setValue('@passwordInput', helpers.memberCreds.password)
+  },
+
+  enterPatientCreds: function() {
+    return this.waitForElementVisible('@usernameInput', 5000, 'Username input visible')
+      .setValue('@usernameInput', helpers.patientCreds.username)
+      .setValue('@passwordInput', helpers.patientCreds.password)
+  },
+
+  clearUsernameInput: function() {
+    return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
+      .clearValue('@usernameInput')
+  },
+
+  clearPasswordInput: function() {
+    return this.waitForElementVisible('@passwordInput', 5000, 'Password input is visible')
+      .clearValue('@passwordInput')
   },
 
   submit: function() {
@@ -60,15 +93,15 @@ module.exports = {
   },
   elements: {
     usernameInput: {
-      selector: `//*[@id="username"]`,
+      selector: `//INPUT[@id='username']`,
       locateStrategy: 'xpath',
     },
     passwordInput: {
-      selector: `//input[@id='password']`,
+      selector: `//INPUT[@id='password']`,
       locateStrategy: 'xpath',
     },
     loginButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Log In']`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Log In']`, //Will change after Alpha
       locateStrategy: 'xpath',
     },
     errorPrompt: {

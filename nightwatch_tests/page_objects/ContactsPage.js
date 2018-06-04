@@ -54,22 +54,22 @@ const contactsCommands = {
   },
 
   clickAddContact: function() {
-    return this.waitForElementVisible('@addContactButton', 2000, 'Add contact button is visible')
+    return this.waitForElementVisible('@addContactButton', 5000, 'Add contact button is visible')
       .click('@addContactButton')
-      .waitForElementVisible('@addContactButtonDropdown', 1500, 'Add new contact button is visible')
+      .waitForElementVisible('@addContactButtonModal', 5000, 'Add new contact button is visible')
       .verify.visible('@addContactDropdownInput', 'Dropdown input is visible')
       .verify.visible('@addNewContactButton', 'Add New Contact button is visible')
   },
 
   searchForContact: function(contactName) {
     return this.setValue('@addContactDropdownInput', contactName)
-      .waitForElementVisible('@addContactDropdownFirstResult', 1000, 'First result is visible')
+      .waitForElementVisible('@addContactDropdownFirstResult', 5000, 'First result is visible')
       .click('@addContactDropdownFirstResult')
-      .waitForElementVisible('@profileContainer', 1500, 'Profile summary is visible')
+      .waitForElementVisible('@profileContainer', 5000, 'Profile summary is visible')
   },
 
   clickAddNewContact: function() {
-    return this.waitForElementVisible('@addContactButtonDropdown', 1500, 'Add new contact button is visible')
+    return this.waitForElementVisible('@addContactButtonModal', 5000, 'Add new contact button is visible')
       .click('@addNewContactButton')
   },
 }
@@ -144,12 +144,12 @@ module.exports = {
     /*-----------------------------------------------------------*/
 
     addContactButton: {
-      selector: `//SPAN[@class='dropdown__toggle__text'][text()='Add Contact']`,
+      selector: `//*[@id="app"]/div/div[2]/div/div/div/div/div[1]/div[3]/button/span`,
       locateStrategy: 'xpath'
     },
 
-    addContactButtonDropdown: {
-      selector: `(//DIV[@class='dropdown__menu__container'])[2]`,
+    addContactButtonModal: {
+      selector: `(//SPAN[@class='button__text-wrapper'])[7]`,
       locateStrategy: 'xpath'
     },
 

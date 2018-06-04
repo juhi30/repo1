@@ -11,7 +11,7 @@ nightwatch_config = {
 
   test_settings: {
     default: {
-      launch_url : "https://dev.dev-rhinogram.com",
+      launch_url : "http://rg3.dev-rhinogram.com/login",
       desiredCapabilities: {
         'build': 'nightwatch-browserstack',
         'browserstack.user': process.env.BROWSERSTACK_USERNAME || 'thomaskeatonfost1',
@@ -21,7 +21,7 @@ nightwatch_config = {
       }
     }
   },
-  // 
+  //
   // "test_workers": {
   //   "enabled": true,
   //   "workers": 10

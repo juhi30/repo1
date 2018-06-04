@@ -11,7 +11,7 @@ module.exports = {
     let login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('ntester', 'tester')
+      .enterMemberCreds()
       .submit()
       .validateUrlChange()
   },

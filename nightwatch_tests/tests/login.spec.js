@@ -19,7 +19,6 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('', '')
       .submit()
       .validateError()
 
@@ -30,7 +29,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('nTester', '')
+      .fillInUsername('nightmember')
       .submit()
       .validateError()
 
@@ -41,7 +40,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('', 'tester')
+      .fillInPassword('justsomepassword')
       .submit()
       .validateError()
 
@@ -52,7 +51,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('ntester', 'tester')
+      .enterMemberCreds()
       .submit()
       .validateUrlChange()
       ///need step to validate that it transfered to inbox view here

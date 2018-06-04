@@ -24,17 +24,19 @@ const orgProfileCommands = {
     return this.click('@addLogoButton')
       .waitForElementVisible('@uploadPhotoButton', 5000, 'Upload photo popup is visible')
       .click('@closeUploadPhotoIcon')
-      .waitForElementNotPresent('@uploadPhotoButton', 5000, 'Upload photo popup is hidden')
+      .waitForElementNotVisible('@uploadPhotoButton', 5000, 'Upload photo popup is hidden')
   },
 
   clearPrefilledValues: function() {
-    return this.clearValue('@orgNameInput')
+    return this.waitForElementVisible('@orgNameInput', 'Name input visible ready to be cleared')
+      .clearValue('@orgNameInput')
       .clearValue('@addressOneInput')
       .clearValue('@cityInput')
   },
 
   setNewValues: function(name, address, city) {
-    return this.setValue('@orgNameInput', name)
+    return this.waitForElementVisible('@orgNameInput', 'Name input is visible ready to set new values')
+      .setValue('@orgNameInput', name)
       .setValue('@addressOneInput', address)
       .setValue('@cityInput', city)
   },
@@ -60,8 +62,8 @@ module.exports = {
   elements: {
 
     addLogoButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Add Logo']`, //MAKE SURE WORKING
-      locateStrategy: 'xpath'
+      selector: `#app > div > div.app-wrapper > div.app-page__container > div > form > div:nth-child(1) > div.edit-profile__avatar-wrapper > button > span`, //MAKE SURE WORKING
+      // locateStrategy: 'xpath'
     },
 
     /*----------------------------------------------------------------------------*/
@@ -79,52 +81,52 @@ module.exports = {
     /*----------------------------------------------------------------------------*/
 
     orgNameInput: {
-      selector: `//INPUT[@id='name-27b23a3c-7a47-457b-be0d-6562270297a9']`,
+      selector: `//INPUT[contains(@id,'name')]`,
       locateStrategy: 'xpath',
     },
 
     addressOneInput: {
-      selector: `//INPUT[@id='street1-07d34c02-4000-4821-ac75-39be96364fff']`,
+      selector: `//INPUT[contains(@id,'street1')]`,
       locateStrategy: 'xpath',
     },
 
     cityInput: {
-      selector: `//INPUT[@id='city-ce498470-e94e-492b-b144-2796e1c3e713']`,
+      selector: `//INPUT[contains(@id,'city')]`,
       locateStrategy: 'xpath',
     },
 
     stateInput: {
-      selector: `//INPUT[@id='state-7565b4ee-a3ad-49e7-a8ff-58d4e4f8a2b4']`,
+      selector: `//SELECT[contains(@id,'state')]`, //only grabs form group. dropdown and xpath contains not getting along
       locateStrategy: 'xpath',
     },
 
     zipInput: {
-      selector: `//INPUT[@id='zip-1ec419ed-a623-40de-87de-8321870705ca']`,
+      selector: `//INPUT[contains(@id,'zip')]`,
       locateStrategy: 'xpath',
     },
 
     orgPhoneInput: {
-      selector: `//INPUT[@id='businessPhone-f42476f2-fe97-4ab4-8dd2-f7365b84b6d2']`,
+      selector: `//INPUT[contains(@id,'businessPhone')]`,
       locateStrategy: 'xpath',
     },
 
     orgEmailInput: {
-      selector: `//INPUT[@id='businessEmail-41043022-d8d0-44d9-bab1-3a3ab21becc9']`,
+      selector: `//INPUT[contains(@id,'businessEmail')]`,
       locateStrategy: 'xpath',
     },
 
     orgContactNameInput: {
-      selector: `//INPUT[@id='contactName-3d77665b-62a7-4fae-8f3d-b3d3ba5dbbca']`,
+      selector: `//INPUT[contains(@id,'contactName')]`,
       locateStrategy: 'xpath',
     },
 
     orgContactPhoneInput: {
-      selector: `//INPUT[@id='contactPhone-d06ca5bf-01e4-4225-8aae-a3a28176a5ff']`,
+      selector: `//INPUT[contains(@id,'contactPhone')]`,
       locateStrategy: 'xpath',
     },
 
     orgContactEmailInput: {
-      selector: `//INPUT[@id='contactEmail-1ea93ca2-c44f-4428-9d0a-8cd69db2c540']`,
+      selector: `//INPUT[contains(@id,'contactEmail')]`,
       locateStrategy: 'xpath',
     },
 
@@ -167,7 +169,7 @@ module.exports = {
       locateStrategy: 'xpath'
     },
     saveToast: {
-      selector: `//*[@id="js-toasts-container"]/div/div/div`,
+      selector: `//DIV[@role='button']`,
       locateStrategy: 'xpath'
     },
   }

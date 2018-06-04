@@ -38,7 +38,7 @@ module.exports = {
   'Test click search dropdown buttons': function(client) {
     const universalElements = client.page.UniversalElements();
 
-    universalElements.clicksearchModalButtons('fro')
+    universalElements.clickSearchModalButtons('fro')
 
     client.pause(3000);
   },

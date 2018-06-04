@@ -17,7 +17,7 @@
 
   "test_settings" : {
     "default" : {
-      "launch_url" : "https://rg3.dev-rhinogram.com",
+      "launch_url" : "https://dev.dev-rhinogram.com",
       "selenium_port"  : 4444,
       "selenium_host"  : "localhost",
       "use_xpath": true,

@@ -58,33 +58,33 @@ module.exports = {
   },
   elements: {
     inboxMessages: {
-      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div/div[2]`,
+      selector: ``,
       locateStrategy: 'xpath'
     },
 
     // written to make sure threads have somewhere to populate as the thread xpath changes and difficult to find
     threadContainer: {
-      selector: `//*[@id="inbox__body__scroll"]/div[1]`,
+      selector: ``,
       locateStrategy: 'xpath',
     },
 
     newMessageButton: {
-      selector: `//SPAN[@class='dropdown__toggle__text'][text()='New Message']`,
+      selector: ``,
       locateStrategy: 'xpath',
     },
 
     newMessageSearchInput: {
-      selector: `(//INPUT[@type='text'])[2]`,
+      selector: ``,
       locateStrategy: 'xpath',
     },
 
     firstResultNewMessageSearch: {
-      selector: `(//DIV[@class='dropdown__menu__item__content'])[12]`, // this xpath count changes time to time why???
+      selector: ``, 
       locateStrategy: 'xpath',
     },
 
     addNewContactButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[6]`,
+      selector: ``,
       locateStrategy: 'xpath'
     },
 

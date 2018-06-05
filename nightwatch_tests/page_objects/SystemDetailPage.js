@@ -23,7 +23,7 @@ const systemDetailsCommands = {
 
 }
 
-module.exports = {
+export default SystemDetailPage = {
   commands: [systemDetailsCommands],
   url: function() {
     return this.api.launch_url + '/diagnostics'

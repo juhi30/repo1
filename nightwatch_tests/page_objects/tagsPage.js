@@ -53,7 +53,7 @@ const tagCommands = {
   },
 }
 
-module.exports = {
+export default TagsPage = {
   commands: [tagCommands],
   url: function () {
     return this.api.launch_url + '/settings/organization/tags'

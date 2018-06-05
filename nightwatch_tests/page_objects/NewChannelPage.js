@@ -7,7 +7,7 @@ const newChannelCommands = {
 
 }
 
-module.exports = {
+export default NewChannelPage = {
   commands: [newChannelCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/channels/create'

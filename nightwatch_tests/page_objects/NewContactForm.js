@@ -1,4 +1,4 @@
-module.exports = {
+export default NewContactForm = {
   // commands: [newContactCommands],
   elements: {
     closeButton: {

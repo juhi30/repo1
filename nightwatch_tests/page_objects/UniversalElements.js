@@ -204,7 +204,7 @@ const universalElementsCommands = {
   }
 }
 
-module.exports = {
+export default UniversalElements = {
   commands: [universalElementsCommands],
   url: function() {
     return this.api.launch_url + '/inbox'

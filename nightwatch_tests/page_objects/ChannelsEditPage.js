@@ -1,15 +1,11 @@
 const editChannelsCommands = {
-
     pause: function (time) {
         this.api.pause(time);
         return this;
     },
-
-    
-
 }
 
-module.exports = {
+export default ChannelsEditPage = {
     commands: [editChannelsCommands],
     url: function () {
         return this.api.launch_url + '/settings/organization/channels/edit'

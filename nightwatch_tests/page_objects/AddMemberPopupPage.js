@@ -47,7 +47,7 @@ const addMemberCommands = {
   },
 }
 
-module.exports = {
+export default AddMemberPopupPage = {
   commands: [addMemberCommands],
   elements: {
     addPhotoButton: {

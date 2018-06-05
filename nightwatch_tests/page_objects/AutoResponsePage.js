@@ -95,7 +95,7 @@ const autoResponseCommands = {
   }
 }
 
-module.exports = {
+export default AutoResponsePage = {
   commands: [autoResponseCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/auto-response'

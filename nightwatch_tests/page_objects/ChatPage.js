@@ -40,7 +40,7 @@ const chatCommands = {
 
 }
 
-module.exports = {
+export default ChatPage = {
   commands: [chatCommands],
   url: 'https://dev.dev-rhinogram.com/chat',
   elements: {

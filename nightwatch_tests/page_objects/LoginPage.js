@@ -86,7 +86,7 @@ const loginCommands = {
   }
 }
 
-module.exports = {
+export default LoginPage = {
   commands: [loginCommands],
   url: function() {
     return this.api.launch_url + '/login'

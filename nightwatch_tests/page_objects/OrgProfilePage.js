@@ -54,7 +54,7 @@ const orgProfileCommands = {
   },
 }
 
-module.exports = {
+export default OrgProfilePage = {
   commands: [orgProfileCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/profile'

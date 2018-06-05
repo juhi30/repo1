@@ -17,7 +17,7 @@ const profileSummaryCommands = {
 
 }
 
-module.exports = {
+export default ProfileSummaryPage = {
   commands: [profileSummaryCommands],
   elements: {
     editProfileButton: {

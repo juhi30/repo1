@@ -74,7 +74,7 @@ const contactsCommands = {
   },
 }
 
-module.exports = {
+export default ContactsPage = {
   commands: [contactsCommands],
   url: function() {
     return this.api.launch_url + '/contacts'

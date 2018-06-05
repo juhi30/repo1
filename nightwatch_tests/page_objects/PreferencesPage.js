@@ -40,7 +40,7 @@ const preferencesCommands = {
   }
 }
 
-module.exports = {
+export default PreferencesPage = {
   commands: [preferencesCommands],
   url: function() {
     return this.api.launch_url + '/settings/preferences'

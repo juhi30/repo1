@@ -51,7 +51,7 @@ const inboxCommands = {
   },
 }
 
-module.exports = {
+export default InboxPage = {
   commands: [inboxCommands],
   url: function() {
     return this.api.launch_url + '/inbox'

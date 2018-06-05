@@ -27,7 +27,7 @@ const orgPreferencesCommands = {
   }
 }
 
-export default OrgPreferencesPage = {
+const OrgPreferencesPage = {
   commands: [orgPreferencesCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/preferences'
@@ -49,3 +49,5 @@ export default OrgPreferencesPage = {
     },
   }
 };
+
+export default OrgPreferencesPage;

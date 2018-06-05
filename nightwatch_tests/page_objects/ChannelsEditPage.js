@@ -5,7 +5,7 @@ const editChannelsCommands = {
     },
 }
 
-export default ChannelsEditPage = {
+const ChannelsEditPage = {
     commands: [editChannelsCommands],
     url: function () {
         return this.api.launch_url + '/settings/organization/channels/edit'
@@ -110,3 +110,5 @@ export default ChannelsEditPage = {
         }
     }
 };
+
+export default ChannelsEditPage;

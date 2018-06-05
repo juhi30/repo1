@@ -11,7 +11,7 @@ const channelsCommands = {
 
 }
 
-export default ChannelsPage = {
+const ChannelsPage = {
   commands: [channelsCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/channels'
@@ -46,3 +46,5 @@ export default ChannelsPage = {
   
   }
 };
+
+export default ChannelsPage;

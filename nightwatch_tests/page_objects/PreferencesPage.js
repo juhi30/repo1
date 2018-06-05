@@ -40,7 +40,7 @@ const preferencesCommands = {
   }
 }
 
-export default PreferencesPage = {
+const PreferencesPage = {
   commands: [preferencesCommands],
   url: function() {
     return this.api.launch_url + '/settings/preferences'
@@ -87,3 +87,5 @@ export default PreferencesPage = {
     }
   }
 };
+
+export default PreferencesPage;

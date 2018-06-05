@@ -1,4 +1,4 @@
-export default NewContactForm = {
+const NewContactForm = {
   // commands: [newContactCommands],
   elements: {
     closeButton: {
@@ -11,3 +11,5 @@ export default NewContactForm = {
     },
   }
 };
+
+export default NewContactForm;

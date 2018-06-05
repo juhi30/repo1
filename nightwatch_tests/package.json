@@ -8,16 +8,20 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test-e2e": "nightwatch"
+    "test-e2e": "nightwatch",
+    "clean": "rm -rf lib/*",
+    "build": "yarn clean && node_modules/.bin/babel tests --out-dir lib/tests && node_modules/.bin/babel page_objects --out-dir lib/page_objects && node_modules/.bin/babel helpers.js --out-dir lib/ && node_modules/.bin/babel global.js --out-dir lib/"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel": "^6.23.0",
     "chromedriver": "^2.38.0",
     "nightwatch": "0.9.16",
     "selenium-server-standalone-jar": "3.8.1"
   },
   "dependencies": {
+    "babel-preset-env": "^1.7.0",
     "testarmada-magellan": "^10.0.5",
     "testarmada-magellan-local-executor": "^2.0.0",
     "testarmada-magellan-nightwatch-plugin": "^7.0.0",

@@ -89,7 +89,7 @@ const billingCommands = {
       .clearValue('@bankNameInput')
       .setValue('@bankNameInput', 'Best Bank')
       .setValue('@bankAcctNumInput', 111111111121)
-      .setValue('@routingNumInput', 021000089)
+      // .setValue('@routingNumInput', 021000089)
   },
 
   savePaymentMethod: function() {
@@ -112,7 +112,7 @@ const billingCommands = {
 
 }
 
-export default BillingPage = {
+const BillingPage = {
   commands: [billingCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/billing'
@@ -270,3 +270,5 @@ export default BillingPage = {
     },
   }
 }
+
+export default BillingPage;

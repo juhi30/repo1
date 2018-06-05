@@ -74,7 +74,7 @@ const contactsCommands = {
   },
 }
 
-export default ContactsPage = {
+const ContactsPage = {
   commands: [contactsCommands],
   url: function() {
     return this.api.launch_url + '/contacts'
@@ -169,3 +169,5 @@ export default ContactsPage = {
     }
   }
 };
+
+export default ContactsPage;

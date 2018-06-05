@@ -6,7 +6,8 @@ const availabilityHoursCommands = {
     },
 
     validateAvailabilityHourEls: function () {
-        return this.waitForElementVisible('@', '')
+        return this.waitForElementVisible('@availabilityHoursToggle', 'Hours toggle is visible')
+            .click('@availibilityHoursToggle')
     }
 
 }

@@ -70,8 +70,7 @@ module.exports = {
     },
 
     firstTag: {
-      selector: `//SPAN[contains(.,'#Charleston')]`, // first tag should be under location
-      locateStrategy: 'xpath',
+      selector: `//SPAN[contains(.,'#Charleston')]`, 
     },
 
     fakeTag: {
@@ -89,7 +88,7 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     tagNameInput: {
-      selector: `//INPUT[contains(@id,'tagName')]`, // needs to be fixed for serial number
+      selector: `//INPUT[contains(@id,'tagName')]`, 
       locateStrategy: 'xpath',
     },
 

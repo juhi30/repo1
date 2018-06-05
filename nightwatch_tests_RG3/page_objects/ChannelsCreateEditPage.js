@@ -11,9 +11,9 @@ const editChannelsCommands = {
 
 module.exports = {
     commands: [editChannelsCommands],
-    url: function () {
-        return this.api.launch_url + '/settings/organization/channels/edit'
-    },
+    // url: function () {
+    //     return this.api.launch_url + '/settings/organization/channels/edit'
+    // },
     elements: {
 
         /*-----------------------------------------------------*/
@@ -21,14 +21,14 @@ module.exports = {
         /*-----------------------------------------------------*/
 
         backButton: {
-            selector: ``,
+            selector: `//*[@id="app"]/div/div[2]/div/div/div/div/button/span/svg`, //add id to svg
             locateStrategy: 'xpath'
         },
 
-        newNumberRadio: {
-            selector: ``,
-            locateStrategy: 'xpath'
-        },
+        // newNumberRadio: {
+        //     selector: ``, // for csr view
+        //     locateStrategy: 'xpath'
+        // },
 
         searchNumberInput: {
             selector: `//INPUT[contains(@id,'search')]`,
@@ -41,7 +41,12 @@ module.exports = {
         },
 
         facebookChannelRadio: {
-            selector:  ``,
+            selector: `//SPAN[@class='form__block-group__label'][text()='Facebook']`,
+            locateStrategy: 'xpath'
+        },
+
+        secureChannelRadio: {
+            selector: `//SPAN[@class='form__block-group__label'][text()='RhinoSecure']`,
             locateStrategy: 'xpath'
         },
 

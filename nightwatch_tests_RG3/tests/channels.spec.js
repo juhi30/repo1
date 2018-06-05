@@ -18,60 +18,25 @@ module.exports = {
       .validateUrlChange()
   },
 
-  'Render and validate edit channel form': function(client) {
+  'Render and validate Channels page': function(client) {
     const channelsPage = client.page.ChannelsPage();
 
     channelsPage.navigate()
-      .validateChannelsElements()
-      .validateEditForm()
+      .validateChannelsEls();
 
     client.pause(1000)
   },
 
-  'Change channel name in edit form and test': function(client) {
+  'Render and validate Edit Channels page': function(client) {
     const channelsPage = client.page.ChannelsPage();
-
-    channelsPage.changeEditFormElements('SMS Test Channel')
-
-    client.pause(1000);
-  },
-
-  'Render and create channel elements and popups': function(client) {
-    const channelsPage = client.page.ChannelsPage();
+    const createEditChannelsPage = client.page.ChannelsCreateEditPage();
 
     channelsPage.navigate()
-      .validateChannelsElements()
-      .clickCreateNewFBChannel()
-      .validateConnectFBPopup()
-      .clickConnectFacebook()
+      .navigateToEditChannels();
 
-    client.window_handles(function(result) {
-      let facebookWindow = result.value[1];
-      client.switchWindow(facebookWindow)
-    });
+    createEditChannelsPage.thing()
+      
 
-    channelsPage.loginFacebook('geoff@rhinogram.com', 'rhinos')
-
-    client.window_handles(function(result) {
-      let rhinoWindow = result.value[0];
-      client.switchWindow(rhinoWindow)
-    });
-
-    channelsPage.validateFacebookPagePopup()
-      .clickFacebookPage()
-      .validateConnectFBAcctPopup()
-      .finalizeCreateNewFBChannel('Rhino\'s Night Moves')
-
-    client.pause(1000);
+    client.pause()
   },
-
-  'Validate and remove added channel and elements': function(client) {
-    const channelsPage = client.page.ChannelsPage();
-
-    channelsPage.navigate()
-      .validateChannelAdded()
-      .removeChannelAdded()
-
-    client.end(5000)
-  }
 }

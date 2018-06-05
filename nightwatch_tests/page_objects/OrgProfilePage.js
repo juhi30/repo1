@@ -24,17 +24,19 @@ const orgProfileCommands = {
     return this.click('@addLogoButton')
       .waitForElementVisible('@uploadPhotoButton', 5000, 'Upload photo popup is visible')
       .click('@closeUploadPhotoIcon')
-      .waitForElementNotPresent('@uploadPhotoButton', 5000, 'Upload photo popup is hidden')
+      .waitForElementNotVisible('@uploadPhotoButton', 5000, 'Upload photo popup is hidden')
   },
 
   clearPrefilledValues: function() {
-    return this.clearValue('@orgNameInput')
+    return this.waitForElementVisible('@orgNameInput', 'Name input visible ready to be cleared')
+      .clearValue('@orgNameInput')
       .clearValue('@addressOneInput')
       .clearValue('@cityInput')
   },
 
   setNewValues: function(name, address, city) {
-    return this.setValue('@orgNameInput', name)
+    return this.waitForElementVisible('@orgNameInput', 'Name input is visible ready to set new values')
+      .setValue('@orgNameInput', name)
       .setValue('@addressOneInput', address)
       .setValue('@cityInput', city)
   },
@@ -60,8 +62,8 @@ module.exports = {
   elements: {
 
     addLogoButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Add Logo']`,
-      locateStrategy: 'xpath'
+      selector: `#app > div > div.app-wrapper > div.app-page__container > div > form > div:nth-child(1) > div.edit-profile__avatar-wrapper > button > span`, //MAKE SURE WORKING
+      // locateStrategy: 'xpath'
     },
 
     /*----------------------------------------------------------------------------*/
@@ -79,52 +81,52 @@ module.exports = {
     /*----------------------------------------------------------------------------*/
 
     orgNameInput: {
-      selector: `//INPUT[@id='name']`,
+      selector: `//INPUT[contains(@id,'name')]`,
       locateStrategy: 'xpath',
     },
 
     addressOneInput: {
-      selector: `//INPUT[@id='street1']`,
+      selector: `//INPUT[contains(@id,'street1')]`,
       locateStrategy: 'xpath',
     },
 
     cityInput: {
-      selector: `//INPUT[@id='city']`,
+      selector: `//INPUT[contains(@id,'city')]`,
       locateStrategy: 'xpath',
     },
 
     stateInput: {
-      selector: `//INPUT[@id='state']`,
+      selector: `//SELECT[contains(@id,'state')]`, //only grabs form group. dropdown and xpath contains not getting along
       locateStrategy: 'xpath',
     },
 
     zipInput: {
-      selector: `//INPUT[@id='zip']`,
+      selector: `//INPUT[contains(@id,'zip')]`,
       locateStrategy: 'xpath',
     },
 
     orgPhoneInput: {
-      selector: `//INPUT[@id='businessPhone']`,
+      selector: `//INPUT[contains(@id,'businessPhone')]`,
       locateStrategy: 'xpath',
     },
 
     orgEmailInput: {
-      selector: `//INPUT[@id='businessEmail']`,
+      selector: `//INPUT[contains(@id,'businessEmail')]`,
       locateStrategy: 'xpath',
     },
 
     orgContactNameInput: {
-      selector: `//INPUT[@id='contactName']`,
+      selector: `//INPUT[contains(@id,'contactName')]`,
       locateStrategy: 'xpath',
     },
 
     orgContactPhoneInput: {
-      selector: `//INPUT[@id='contactPhone']`,
+      selector: `//INPUT[contains(@id,'contactPhone')]`,
       locateStrategy: 'xpath',
     },
 
     orgContactEmailInput: {
-      selector: `//INPUT[@id='contactEmail']`,
+      selector: `//INPUT[contains(@id,'contactEmail')]`,
       locateStrategy: 'xpath',
     },
 
@@ -167,7 +169,7 @@ module.exports = {
       locateStrategy: 'xpath'
     },
     saveToast: {
-      selector: `//*[@id="js-toasts-container"]/div/div/div`,
+      selector: `//DIV[@role='button']`,
       locateStrategy: 'xpath'
     },
   }

@@ -1,4 +1,3 @@
-
 /*--------------------------------------------------------------------------------------------------------*/
 
 // the tests below make the page renders properly and as well as all popups (modals) and input validators
@@ -14,7 +13,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .fillInForm('ntester', 'tester')
+      .enterMemberCreds()
       .submit()
       .validateUrlChange();
   },

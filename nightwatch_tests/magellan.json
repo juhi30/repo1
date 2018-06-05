@@ -1,0 +1,45 @@
+{
+"max_workers": 30,
+"reporters": [
+"testarmada-magellan-xunit-reporter",
+"testarmada-magellan-dev-reporter"
+],
+"executors": [
+"magellan-local-executor",
+"magellan-saucelabs-executor",
+"magellan-browserstack-executor"
+],
+"profiles": {
+"tier-one-browsers": [
+{
+"browser": "microsoftedge_14_Windows_10_Desktop",
+"resolution": "1280x1024",
+"executor": "sauce"
+},
+{
+"browser": "chrome_latest_Windows_10_Desktop",
+"resolution": "1280x1024",
+"executor": "sauce"
+},
+{
+"browser": "iphone_10_0_iOS_iPhone_7_Simulator",
+"orientation": "portrait",
+"appium": {
+"app": "sauce-storage:my_app.zip",
+"appiumVersion": "1.6.4",
+"automationName": "xcuitest",
+"sendKeyStrategy": "setValue",
+"waitForAppScript": "true"
+}
+}
+],
+"browserstack-browsers": [
+{
+"browser": "xxxxxxx",
+"executor": "browserstack"
+}
+]
+},
+"framework": "testarmada-magellan-mocha-plugin",
+"strategy_bail": "testarmada-magellan-early-bail-strategy"
+}

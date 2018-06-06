@@ -11,7 +11,7 @@ module.exports = {
   //Logs into app to start tests
   'Login Page with Correct Credentials': function(client) {
     let login = client.page.LoginPage();
-
+    
     login.navigate()
       .enterMemberCreds()
       .submit()
@@ -34,8 +34,9 @@ module.exports = {
     channelsPage.navigate()
       .navigateToEditChannels();
 
-    createEditChannelsPage.thing()
-      
+    createEditChannelsPage.validateEditEls()
+      .validateEditAndCreateEls()
+
 
     client.pause()
   },

@@ -4,7 +4,27 @@ const editChannelsCommands = {
         this.api.pause(time);
         return this;
     },
+    
+    validateCreateEls: function() {
+        return this.waitForElementVisible('@channelNameInput')
+            .verify.visible('')
+    },
 
+    validateEditEls: function() {
+        return this.waitForElementVisible('@channelNameInput')
+            // .waitForElementVisible('@backButton', 'back button is visible')
+            .verify.visible('@newNumberRadio', 'new number radio is visible')
+            .verify.visible('@chooseNumberInput', 'choose a number input is visible')
+            .verify.visible('@forwardNumberInput', 'forward number input is visible')
+    },
+
+    validateEditAndCreateEls: function() {
+        return this.waitForElementVisible('@channelNameInput', 'channel name input is visible')
+            .verify.visible('@channelPurposeInput', 'channel purpose is visible')
+            .verify.visible('@channelTimezoneDropdown', 'timezone dropdown is visible')
+            .verify.visible('@channelDSTCheckbox', 'DST checkbox is visible')
+            .verify.visible('@updateChannelButton', 'update channel button is visible')
+    },
     
 
 }
@@ -25,12 +45,12 @@ module.exports = {
             locateStrategy: 'xpath'
         },
 
-        // newNumberRadio: {
-        //     selector: ``, // for csr view
-        //     locateStrategy: 'xpath'
-        // },
+        newNumberRadio: {
+            selector: `//SPAN[@class='form__block-group__label'][text()='New Phone Number']`, // for csr view(grabbed from member view)
+            locateStrategy: 'xpath'
+        },
 
-        searchNumberInput: {
+        chooseNumberInput: {
             selector: `//INPUT[contains(@id,'search')]`,
             locateStrategy: 'xpath'
         },
@@ -72,40 +92,6 @@ module.exports = {
 
         updateChannelButton: {
             selector: `//SPAN[@class='button__text-wrapper'][text()='Update Channel']`,
-            locateStrategy: 'xpath'
-        },
-
-        /*-----------------------------------------------------*/
-        //Channel tags check
-        /*-----------------------------------------------------*/
-
-
-        /*-----------------------------------------------------*/
-        //Channel route
-        /*-----------------------------------------------------*/
-
-        membersButton: {    
-            selector: `//SPAN[contains(.,'Members')]`,
-            locateStrategy: 'xpath'
-        },
-
-        groupsButton: {
-            selector: `//SPAN[contains(.,'Groups')]`,
-            locateStrategy: 'xpath'
-        },
-
-        routeInput: {
-            selector: `//INPUT[contains(@id, 'preloadedMembers')]`,
-            locateStrategy: 'xpath'
-        },
-
-        firstMember: {
-            selector: `//SPAN[contains(., 'Night Member')]`,
-            locateStrategy: 'xpath'
-        },
-
-        firstGroup: {
-            selector: `//SPAN[contains(., 'QA Inbox & Chat Group')]`,
             locateStrategy: 'xpath'
         },
 

@@ -40,7 +40,7 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     addChannelButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[6]`,
+      selector: `//*[@id="app"]/div/div[2]/div/div/div/div/div[1]/div[2]/button`,
       locateStrategy: 'xpath',
     },
 

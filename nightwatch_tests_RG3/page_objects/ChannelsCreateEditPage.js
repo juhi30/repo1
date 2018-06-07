@@ -6,13 +6,13 @@ const editChannelsCommands = {
     },
     
     validateCreateEls: function() {
-        return this.waitForElementVisible('@channelNameInput')
+        return this.waitForElementVisible('@channelNameInput', 'create channel is visible')
             .verify.visible('')
     },
 
     validateEditEls: function() {
-        return this.waitForElementVisible('@channelNameInput')
-            // .waitForElementVisible('@backButton', 'back button is visible')
+        return this.waitForElementVisible('@channelNameInput', 'Edit channel is visible')
+            .waitForElementVisible('@backButton', 'back button is visible')
             .verify.visible('@newNumberRadio', 'new number radio is visible')
             .verify.visible('@chooseNumberInput', 'choose a number input is visible')
             .verify.visible('@forwardNumberInput', 'forward number input is visible')
@@ -25,8 +25,16 @@ const editChannelsCommands = {
             .verify.visible('@channelDSTCheckbox', 'DST checkbox is visible')
             .verify.visible('@updateChannelButton', 'update channel button is visible')
     },
-    
 
+    createNewSecureChannel: function() {
+        return this.waitForElementVisible('@secureChannelRadio', 'secure channel radio is visible')
+            .click('@secureChannelRadio')
+            .setValue('@channelNameInput', 'Rhino Secure test')
+            .setValue('@channelPurposeInput', 'automatic testing')
+            .setValue('@channelTimezoneDropdown', 'e')
+            
+    },
+    
 }
 
 module.exports = {
@@ -41,7 +49,7 @@ module.exports = {
         /*-----------------------------------------------------*/
 
         backButton: {
-            selector: `//*[@id="app"]/div/div[2]/div/div/div/div/button/span/svg`, //add id to svg
+            selector: `//BUTTON[contains(@title, 'Go back')]`, 
             locateStrategy: 'xpath'
         },
 

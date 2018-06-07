@@ -38,6 +38,24 @@ module.exports = {
       .validateEditAndCreateEls()
 
 
-    client.pause()
+    client.pause(1000);
+  },
+
+  'Create new secure channel': function(client) {
+    const channelsPage = client.page.ChannelsPage();    
+    const createEditChannelsPage = client.page.ChannelsCreateEditPage();
+    const avaHoursContainer = client.page.AvailabilityHoursContainer();
+    const channelRouteContainer = client.page.ChannelRouteMemberContainer();
+
+    channelsPage.navigate()
+      .navigateToCreateChannels();
+
+    createEditChannelsPage.createNewSecureChannel();
+
+    // channelRouteContainer.filller();
+
+    // avaHoursContainer.validateAvailabilityHoursEls();
+
+    client.pause();
   },
 }

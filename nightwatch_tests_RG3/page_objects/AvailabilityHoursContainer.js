@@ -5,7 +5,7 @@ const availabilityHoursCommands = {
         return this;
     },
 
-    validateAvailabilityHourEls: function () {
+    validateAvailabilityHoursEls: function () {
         return this.waitForElementVisible('@availabilityHoursToggle', 'Hours toggle is visible')
             .click('@availibilityHoursToggle')
             .verify.visible('@sundayFrom', 'Sunday hours visible')
@@ -25,7 +25,7 @@ const availabilityHoursCommands = {
     updateAvailabilityHours: function () {
         return this.waitForElementVisible('@availabilityHoursToggle', 'Hours toggle is visibile')
             .click('@availabilityHoursToggle')
-            .setValue('@sundayFrom','')
+            .setValue('@sundayFrom', '')
 
     }
 

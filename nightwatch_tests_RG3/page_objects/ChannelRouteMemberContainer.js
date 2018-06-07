@@ -15,6 +15,20 @@ module.exports = {
     // },
     elements: {
         
+        /*-------------------------Member container select only-------------------------------*/ 
+        
+        addMemberButton: {
+            selector: `//SPAN[@class='button__text-wrapper'][text()='Add More Members']`,
+            locateStrategy: 'xpath'
+        },
+
+        reviewButton: {
+            selector: `//SPAN[@class='button__text-wrapper'][text()='Review']`,
+            locateStrategy: 'xpath'
+        },
+
+        /*------------------------------------------------------------------*/
+        
         membersButton: {    
             selector: `//SPAN[contains(.,'Members')]`,
             locateStrategy: 'xpath'

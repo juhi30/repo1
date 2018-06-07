@@ -27,7 +27,7 @@ Session.vim
 # Test data
 screenshotter/src/screenshots
 
-# testing
+# nightwatch testing
 coverage
 reports
 selenium-debug.log

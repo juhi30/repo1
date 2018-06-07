@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const contactsCommands = {
 
   pause: function (time) {
@@ -147,4 +144,4 @@ const ContactsPage = {
   }
 };
 
-exports.default = ContactsPage;
+module.exports = ContactsPage;

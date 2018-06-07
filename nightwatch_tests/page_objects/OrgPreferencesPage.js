@@ -50,4 +50,4 @@ const OrgPreferencesPage = {
   }
 };
 
-export default OrgPreferencesPage;
+module.exports = OrgPreferencesPage;

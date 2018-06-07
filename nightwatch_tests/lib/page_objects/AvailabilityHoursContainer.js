@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 const availabilityHoursCommands = {
 
     pause: function (time) {
@@ -115,4 +112,4 @@ const AvailabilityHoursContainer = {
     }
 };
 
-exports.default = AvailabilityHoursContainer;
+module.exports = AvailabilityHoursContainer;

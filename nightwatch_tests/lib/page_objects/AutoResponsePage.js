@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const autoResponseCommands = {
 
   pause: function (time) {
@@ -203,4 +200,4 @@ const AutoResponsePage = {
   }
 };
 
-exports.default = AutoResponsePage;
+module.exports = AutoResponsePage;

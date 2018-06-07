@@ -271,4 +271,4 @@ const BillingPage = {
   }
 }
 
-export default BillingPage;
+module.exports = BillingPage;

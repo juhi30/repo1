@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const templatesCommands = {
 
   pause: function (time) {
@@ -185,4 +182,4 @@ const TemplatesPage = {
   }
 };
 
-exports.default = TemplatesPage;
+module.exports = TemplatesPage;

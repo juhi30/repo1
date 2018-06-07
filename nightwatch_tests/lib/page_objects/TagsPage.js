@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const tagCommands = {
 
   pause: function (time) {
@@ -118,4 +115,4 @@ const TagsPage = {
   }
 };
 
-exports.default = TagsPage;
+module.exports = TagsPage;

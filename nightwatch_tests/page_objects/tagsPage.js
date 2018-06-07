@@ -140,4 +140,4 @@ const TagsPage = {
   }
 }
 
-export default TagsPage;
+module.exports = TagsPage;

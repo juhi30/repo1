@@ -170,4 +170,4 @@ const ContactsPage = {
   }
 };
 
-export default ContactsPage;
+module.exports = ContactsPage;

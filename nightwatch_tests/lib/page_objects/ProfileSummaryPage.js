@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const profileSummaryCommands = {
   clickEditProfile: function () {
     return this.waitForElementVisible('@editProfileButton', 5000, 'Edit profile button is present').click('@editProfileButton');
@@ -43,4 +40,4 @@ const ProfileSummaryPage = {
   }
 };
 
-exports.default = ProfileSummaryPage;
+module.exports = ProfileSummaryPage;

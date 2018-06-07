@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const inboxCommands = {
 
   pause: function (time) {
@@ -83,4 +80,4 @@ const InboxPage = {
   }
 };
 
-exports.default = InboxPage;
+module.exports = InboxPage;

@@ -47,4 +47,4 @@ const ChannelsPage = {
   }
 };
 
-export default ChannelsPage;
+module.exports = ChannelsPage;

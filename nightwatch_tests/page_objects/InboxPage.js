@@ -91,4 +91,4 @@ const InboxPage = {
   }
 };
 
-export default InboxPage;
+module.exports = InboxPage;

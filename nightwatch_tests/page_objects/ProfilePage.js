@@ -153,4 +153,4 @@ const ProfilePage = {
 
 };
 
-export default ProfilePage;
+module.exports = ProfilePage;

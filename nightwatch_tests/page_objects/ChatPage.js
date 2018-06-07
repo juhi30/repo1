@@ -82,4 +82,4 @@ const ChatPage = {
   }
 };
 
-export default ChatPage;
+module.exports = ChatPage;

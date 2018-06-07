@@ -307,4 +307,4 @@ const ConvoThreadPage = {
   }
 };
 
-export default ConvoThreadPage;
+module.exports = ConvoThreadPage;

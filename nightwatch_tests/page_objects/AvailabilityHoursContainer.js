@@ -110,4 +110,4 @@ const AvailabilityHoursContainer = {
     }
 };
 
-export default AvailabilityHoursContainer;
+module.exports = AvailabilityHoursContainer;

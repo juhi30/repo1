@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const addMemberCommands = {
   verifyElements: function () {
     return this.waitForElementVisible('@firstNameInput', 5000, 'First Name input is visible').verify.visible('@addPhotoButton', 'Add photo button is visible').verify.visible('@firstNameInput', 'First name input is visible').verify.visible('@lastNameInput', 'Last name input is visible').verify.visible('@usernameInput', 'Username input is visible').verify.visible('@permissionsDropdown', 'Permissions dropdown is visible').verify.visible('@addMemberButton', 'Add member button is visible');
@@ -150,4 +147,4 @@ const AddMemberPopupPage = {
 
 };
 
-exports.default = AddMemberPopupPage;
+module.exports = AddMemberPopupPage;

@@ -369,4 +369,4 @@ const UniversalElements = {
   }
 };
 
-export default UniversalElements;
+module.exports = UniversalElements;

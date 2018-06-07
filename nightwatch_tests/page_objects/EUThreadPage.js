@@ -92,4 +92,4 @@ const EUThreadPage= {
   
 };
 
-export default EUThreadPage;
+module.exports = EUThreadPage;

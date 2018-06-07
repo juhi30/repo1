@@ -209,4 +209,4 @@ const TemplatesPage = {
   }
 };
 
-export default TemplatesPage;
+module.exports = TemplatesPage;

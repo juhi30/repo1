@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const convoThreadCommands = {
 
   pause: function (time) {
@@ -268,4 +265,4 @@ const ConvoThreadPage = {
   }
 };
 
-exports.default = ConvoThreadPage;
+module.exports = ConvoThreadPage;

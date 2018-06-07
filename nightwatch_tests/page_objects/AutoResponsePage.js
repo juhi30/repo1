@@ -243,4 +243,4 @@ const AutoResponsePage = {
   }
 };
 
-export default AutoResponsePage;
+module.exports = AutoResponsePage;

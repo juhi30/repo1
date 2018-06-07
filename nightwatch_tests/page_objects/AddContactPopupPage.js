@@ -309,4 +309,4 @@ const AddContactPopupPage = {
   }
 }
 
-export default AddContactPopupPage;
+module.exports = AddContactPopupPage;

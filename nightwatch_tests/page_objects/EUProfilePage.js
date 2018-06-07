@@ -100,4 +100,4 @@ const EUProfilePage = {
   }
 };
 
-export default EUProfilePage;
+module.exports = EUProfilePage;

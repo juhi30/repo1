@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const euThreadCommands = {
   validatePageElements: function () {
     return this.waitForElementVisible('@messageInput', 5000, 'Compose input is visible').verify.visible('@messageInput', 'Compose input is visible').verify.visible('@attachmentButton', 'Attachment button is visible').verify.visible('@firstOrgInPanel', 'First org tab is visible').verify.visible('@settingsDropdown', 'Settings dropdown is visible').verify.visible('@myProfileButton', 'My profile button is visible');
@@ -86,4 +83,4 @@ const EUThreadPage = {
 
 };
 
-exports.default = EUThreadPage;
+module.exports = EUThreadPage;

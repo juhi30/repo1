@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const chatCommands = {
   pause: function (time) {
     this.api.pause(time);
@@ -81,4 +78,4 @@ const ChatPage = {
   }
 };
 
-exports.default = ChatPage;
+module.exports = ChatPage;

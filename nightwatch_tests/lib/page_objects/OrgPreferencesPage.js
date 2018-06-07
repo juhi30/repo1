@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const orgPreferencesCommands = {
 
   pause: function (time) {
@@ -54,4 +51,4 @@ const OrgPreferencesPage = {
   }
 };
 
-exports.default = OrgPreferencesPage;
+module.exports = OrgPreferencesPage;

@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const universalElementsCommands = {
 
   pause: function (time) {
@@ -265,4 +262,4 @@ const UniversalElements = {
   }
 };
 
-exports.default = UniversalElements;
+module.exports = UniversalElements;

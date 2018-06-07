@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const orgProfileCommands = {
 
   pause: function (time) {
@@ -160,4 +157,4 @@ const OrgProfilePage = {
   }
 };
 
-exports.default = OrgProfilePage;
+module.exports = OrgProfilePage;

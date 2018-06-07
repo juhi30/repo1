@@ -88,4 +88,4 @@ const PreferencesPage = {
   }
 };
 
-export default PreferencesPage;
+module.exports = PreferencesPage;

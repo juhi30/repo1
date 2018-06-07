@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const NewContactForm = {
   // commands: [newContactCommands],
   elements: {
@@ -17,4 +14,4 @@ const NewContactForm = {
   }
 };
 
-exports.default = NewContactForm;
+module.exports = NewContactForm;

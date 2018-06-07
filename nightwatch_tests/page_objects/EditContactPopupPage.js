@@ -139,4 +139,4 @@ const EditContactPopupPage = {
   
 };
 
-export default EditContactPopupPage;
+module.exports = EditContactPopupPage;

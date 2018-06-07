@@ -53,4 +53,4 @@ const SystemDetailPage = {
   }
 }
 
-export default SystemDetailPage;
+module.exports = SystemDetailPage;

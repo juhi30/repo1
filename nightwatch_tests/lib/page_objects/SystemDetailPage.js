@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const systemDetailsCommands = {
 
   pause: function (time) {
@@ -54,4 +51,4 @@ const SystemDetailPage = {
   }
 };
 
-exports.default = SystemDetailPage;
+module.exports = SystemDetailPage;

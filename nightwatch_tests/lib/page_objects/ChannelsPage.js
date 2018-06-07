@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const channelsCommands = {
 
   pause: function (time) {
@@ -52,4 +49,4 @@ const ChannelsPage = {
   }
 };
 
-exports.default = ChannelsPage;
+module.exports = ChannelsPage;

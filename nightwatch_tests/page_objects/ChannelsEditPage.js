@@ -111,4 +111,4 @@ const ChannelsEditPage = {
     }
 };
 
-export default ChannelsEditPage;
+module.exports = ChannelsEditPage;

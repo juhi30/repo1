@@ -56,4 +56,4 @@ const NewChannelPage = {
   }
 }
 
-export default NewChannelPage;
+module.exports = NewChannelPage;

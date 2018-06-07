@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 const editChannelsCommands = {
     pause: function (time) {
         this.api.pause(time);
@@ -115,4 +112,4 @@ const ChannelsEditPage = {
     }
 };
 
-exports.default = ChannelsEditPage;
+module.exports = ChannelsEditPage;

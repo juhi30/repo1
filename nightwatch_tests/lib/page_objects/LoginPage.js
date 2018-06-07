@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 //coding based off Matthew roach's example @ http://matthewroach.me/ui-testing-with-nightwatch-js/
 const helpers = require('../helpers');
 
@@ -113,4 +110,4 @@ const LoginPage = {
   }
 };
 
-exports.default = LoginPage;
+module.exports = LoginPage;

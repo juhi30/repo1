@@ -62,4 +62,4 @@ const MembersPage = {
   }
 };
 
-export default MembersPage;
+module.exports = MembersPage;

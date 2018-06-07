@@ -162,4 +162,4 @@ const AddMemberPopupPage = {
 
 };
 
-export default AddMemberPopupPage;
+module.exports = AddMemberPopupPage;

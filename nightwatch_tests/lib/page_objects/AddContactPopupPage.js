@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const addContactsCommands = {
 
   renderAddContactsPage: function () {
@@ -274,4 +271,4 @@ const AddContactPopupPage = {
   }
 };
 
-exports.default = AddContactPopupPage;
+module.exports = AddContactPopupPage;

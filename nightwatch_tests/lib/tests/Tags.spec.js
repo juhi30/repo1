@@ -4,7 +4,6 @@ module.exports = {
 
     //Logs into app to start tests
     'Login Page with Correct Credentials': function (client) {
-        console.log("CLIIIIIENT: ", client);
         const login = client.page.LoginPage();
 
         login.navigate().enterMemberCreds().submit().validateUrlChange();

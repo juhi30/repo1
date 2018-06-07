@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const editContactCommands = {
   connectExistingContact: function (existingContact) {
     return this.waitForElementVisible('@addAConnectedPartyLink', 5000, 'Add a connected party link is visible').click('@addAConnectedPartyLink').waitForElementVisible('@connectedPartySearchInput', 5000, 'CP search input is visible').setValue('@connectedPartySearchInput', existingContact).waitForElementVisible('@firstCPSearchResult', 5000, 'First result is visible').click('@firstCPSearchResult');
@@ -130,4 +127,4 @@ const EditContactPopupPage = {
 
 };
 
-exports.default = EditContactPopupPage;
+module.exports = EditContactPopupPage;

@@ -12,4 +12,4 @@ const NewContactForm = {
   }
 };
 
-export default NewContactForm;
+module.exports = NewContactForm;

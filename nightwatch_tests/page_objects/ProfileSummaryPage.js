@@ -42,4 +42,4 @@ const ProfileSummaryPage = {
   }
 }
 
-export default ProfileSummaryPage;
+module.exports = ProfileSummaryPage;

@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const profileCommands = {
   verifyElements: function () {
     return this.waitForElementVisible('@firstNameInput', 5000, 'First Name input is visible').verify.visible('@addPhotoButton', 'Add photo button is visible').verify.visible('@firstNameInput', 'First name input is visible').verify.visible('@lastNameInput', 'Last name input is visible').verify.visible('@usernameInput', 'Username input is visible').verify.visible('@changePasswordLink', 'Change Password link is visible').verify.visible('@permissionsDropdown', 'Permissions dropdown is visible').verify.visible('@saveProfileButton', 'Save Profile button is visible');
@@ -147,4 +144,4 @@ const ProfilePage = {
 
 };
 
-exports.default = ProfilePage;
+module.exports = ProfilePage;

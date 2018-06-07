@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const billingCommands = {
 
   pause: function (time) {
@@ -216,4 +213,4 @@ const BillingPage = {
   }
 };
 
-exports.default = BillingPage;
+module.exports = BillingPage;

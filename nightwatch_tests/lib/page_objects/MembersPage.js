@@ -1,8 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 const membersCommands = {
   clickAddMember: function () {
     return this.waitForElementVisible('@addMemberButton', 5000, 'Add member button visible').click('@addMemberButton');
@@ -62,4 +59,4 @@ const MembersPage = {
   }
 };
 
-exports.default = MembersPage;
+module.exports = MembersPage;

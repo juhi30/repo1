@@ -175,4 +175,4 @@ const OrgProfilePage = {
   }
 };
 
-export default OrgProfilePage;
+module.exports = OrgProfilePage;

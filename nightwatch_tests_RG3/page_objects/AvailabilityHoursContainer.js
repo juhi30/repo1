@@ -7,7 +7,7 @@ const availabilityHoursCommands = {
 
     validateAvailabilityHoursEls: function () {
         return this.waitForElementVisible('@availabilityHoursToggle', 'Hours toggle is visible')
-            .click('@availibilityHoursToggle')
+            .click('@availabilityHoursToggle')
             .verify.visible('@sundayFrom', 'Sunday hours visible')
             .verify.visible('@mondayFrom', 'Monday hours visible')
             .verify.visible('@tuesdayFrom', 'Tuesday hours visible')

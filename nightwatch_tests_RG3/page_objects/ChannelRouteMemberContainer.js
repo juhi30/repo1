@@ -5,7 +5,25 @@ const channelRoutCommands = {
         return this;
     },
 
+    validateChannelRoutes: function () {
+        return this.waitForElementVisible('@membersButton', 'members button is visible')
+            .verify.visible('@groupsButton', 'groups button is visible')
+            .verify.visible('@memberInput', 'search input is visible')
+            .verify.visible('@firstMember', 'first member is visible')
+    },
 
+    selectChannelRoutes: function () {
+        return this.waitForElementVisible('@membersButton', 'members button is visible')
+            .click('@groupsButton')
+            .waitForElementVisible('@firstGroup', 'first group is visible')
+            .click('@firstGroup')
+            .waitForElementVisible('@membersButton', 'members button is visible')
+            .click('@membersButton')
+            .waitForElementVisible('@memberInput', 'member input is visible')
+            .setValue('@memberInput', 'night')
+            .waitForElementVisible('@firstMember', 'first member is visible')
+            .click('@firstMember')
+    },
 }
 
 module.exports = {
@@ -39,8 +57,13 @@ module.exports = {
             locateStrategy: 'xpath'
         },
 
-        routeInput: {
+        memberInput: {
             selector: `//INPUT[contains(@id, 'preloadedMembers')]`,
+            locateStrategy: 'xpath'
+        },
+
+        groupInput: {
+            selector: `//INPUT[contains(@id, 'search')]`,
             locateStrategy: 'xpath'
         },
 

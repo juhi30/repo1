@@ -32,7 +32,12 @@ const editChannelsCommands = {
             .setValue('@channelNameInput', 'Rhino Secure test')
             .setValue('@channelPurposeInput', 'automatic testing')
             .setValue('@channelTimezoneDropdown', 'e')
-            
+
+    },
+
+    clickCreateChannel: function() {
+        return this.waitForElementVisible('@createChannelButton', 'create channel button is visible')
+            .click('@createChannelButton')
     },
     
 }
@@ -100,6 +105,11 @@ module.exports = {
 
         updateChannelButton: {
             selector: `//SPAN[@class='button__text-wrapper'][text()='Update Channel']`,
+            locateStrategy: 'xpath'
+        },
+
+        createChannelButton: {
+            selector: `//SPAN[@class='button__text-wrapper'][text()='Create Channel']`,
             locateStrategy: 'xpath'
         },
 

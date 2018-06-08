@@ -44,7 +44,7 @@ module.exports = {
   'Create new secure channel': function(client) {
     const channelsPage = client.page.ChannelsPage();    
     const createEditChannelsPage = client.page.ChannelsCreateEditPage();
-    const avaHoursContainer = client.page.AvailabilityHoursContainer();
+    // const avaHoursContainer = client.page.AvailabilityHoursContainer();
     const channelRouteContainer = client.page.ChannelRouteMemberContainer();
 
     channelsPage.navigate()
@@ -52,10 +52,25 @@ module.exports = {
 
     createEditChannelsPage.createNewSecureChannel();
 
-    // channelRouteContainer.filller();
+    channelRouteContainer.validateChannelRoutes()
+      .selectChannelRoutes();
 
-    // avaHoursContainer.validateAvailabilityHoursEls();
+    createEditChannelsPage.clickCreateChannel();
 
     client.pause();
   },
+
+  'Edit secure channel': function(client) {
+    const channelsPage = client.page.ChannelsPage();
+    const createEditChannelsPage = client.page.ChannelsCreateEditPage();
+    const avaHoursContainer = client.page.AvailabilityHoursContainer();
+    
+    channelsPage.navigate()
+      .navigateToCreateChannels();
+
+    // createEditChannelsPage.
+    // avaHoursContainer.validateAvailabilityHoursEls(); // only available for editing channel???
+
+
+  }
 }

@@ -11,7 +11,7 @@ const channelsCommands = {
 
 }
 
-const ChannelsPage = {
+module.exports = {
   commands: [channelsCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/channels'
@@ -46,5 +46,3 @@ const ChannelsPage = {
   
   }
 };
-
-module.exports = ChannelsPage;

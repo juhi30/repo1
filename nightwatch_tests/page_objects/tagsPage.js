@@ -53,7 +53,7 @@ const tagCommands = {
   },
 }
 
-const TagsPage = {
+module.exports = {
   commands: [tagCommands],
   url: function () {
     return this.api.launch_url + '/settings/organization/tags'
@@ -139,5 +139,3 @@ const TagsPage = {
 
   }
 }
-
-module.exports = TagsPage;

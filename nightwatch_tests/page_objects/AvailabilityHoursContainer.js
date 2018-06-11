@@ -11,7 +11,7 @@ const availabilityHoursCommands = {
 
 }
 
-const AvailabilityHoursContainer = {
+module.exports = {
     commands: [availabilityHoursCommands],
     // url: function () {
     //     return this.api.launch_url + '/settings/organization/channels'
@@ -109,5 +109,3 @@ const AvailabilityHoursContainer = {
 
     }
 };
-
-module.exports = AvailabilityHoursContainer;

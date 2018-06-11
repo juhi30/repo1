@@ -48,12 +48,12 @@ module.exports = {
         /*------------------------------------------------------------------*/
         
         membersButton: {    
-            selector: `//SPAN[contains(.,'Members')]`,
+            selector: `//SPAN[@class='button__text-wrapper'][text()='Members']`,
             locateStrategy: 'xpath'
         },
 
         groupsButton: {
-            selector: `//SPAN[contains(.,'Groups')]`,
+            selector: `//SPAN[@class='button__text-wrapper'][text()='Groups']`,
             locateStrategy: 'xpath'
         },
 

@@ -40,7 +40,7 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     addChannelButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div/div/div[1]/div[2]/button`,
+      selector: `//*[@id="app"]/div/div[2]/div/div/div/div/div[1]/div[2]/button`,// needs svg title added to button
       locateStrategy: 'xpath',
     },
 

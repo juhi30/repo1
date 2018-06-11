@@ -204,7 +204,7 @@ const universalElementsCommands = {
   }
 }
 
-module.exports = {
+const UniversalElements = {
   commands: [universalElementsCommands],
   url: function() {
     return this.api.launch_url + '/inbox'
@@ -368,3 +368,5 @@ module.exports = {
     },
   }
 };
+
+module.exports = UniversalElements;

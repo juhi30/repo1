@@ -1,4 +1,4 @@
-module.exports = {
+const NewContactForm = {
   // commands: [newContactCommands],
   elements: {
     closeButton: {
@@ -11,3 +11,5 @@ module.exports = {
     },
   }
 };
+
+module.exports = NewContactForm;

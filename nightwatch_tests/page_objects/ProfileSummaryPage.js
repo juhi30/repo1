@@ -17,7 +17,7 @@ const profileSummaryCommands = {
 
 }
 
-module.exports = {
+const ProfileSummaryPage = {
   commands: [profileSummaryCommands],
   elements: {
     editProfileButton: {
@@ -41,3 +41,5 @@ module.exports = {
     },
   }
 }
+
+module.exports = ProfileSummaryPage;

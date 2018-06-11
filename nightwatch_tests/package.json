@@ -7,8 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "test-e2e": "nightwatch",
+    "test": "nightwatch",
     "clean": "rm -rf lib/*",
     "build": "yarn clean && node_modules/.bin/babel tests --out-dir lib/tests && node_modules/.bin/babel page_objects --out-dir lib/page_objects && node_modules/.bin/babel helpers.js --out-dir lib/ && node_modules/.bin/babel global.js --out-dir lib/"
   },

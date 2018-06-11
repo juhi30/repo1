@@ -86,7 +86,7 @@ const loginCommands = {
   }
 }
 
-module.exports = {
+const LoginPage = {
   commands: [loginCommands],
   url: function() {
     return this.api.launch_url + '/login'
@@ -127,3 +127,5 @@ module.exports = {
     },
   }
 };
+
+module.exports = LoginPage;

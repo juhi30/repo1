@@ -27,11 +27,10 @@ Session.vim
 # Test data
 screenshotter/src/screenshots
 
-# testing
+# nightwatch testing
 coverage
 reports
 selenium-debug.log
 nightwatch_tests/bin
 nightwatch_tests/tests_output
-nightwatch_tests_RG3/bin
-nightwatch_tests_RG3/tests_output
+nightwatch_tests/lib

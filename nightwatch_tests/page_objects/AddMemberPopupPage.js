@@ -47,7 +47,7 @@ const addMemberCommands = {
   },
 }
 
-module.exports = {
+const AddMemberPopupPage = {
   commands: [addMemberCommands],
   elements: {
     addPhotoButton: {
@@ -161,3 +161,5 @@ module.exports = {
   }
 
 };
+
+module.exports = AddMemberPopupPage;

@@ -1,15 +1,11 @@
 const editChannelsCommands = {
-
     pause: function (time) {
         this.api.pause(time);
         return this;
     },
-
-    
-
 }
 
-module.exports = {
+const ChannelsEditPage = {
     commands: [editChannelsCommands],
     url: function () {
         return this.api.launch_url + '/settings/organization/channels/edit'
@@ -114,3 +110,5 @@ module.exports = {
         }
     }
 };
+
+module.exports = ChannelsEditPage;

@@ -1,4 +1,3 @@
-
 const orgPreferencesCommands = {
 
   pause: function(time) {
@@ -28,7 +27,7 @@ const orgPreferencesCommands = {
   }
 }
 
-module.exports = {
+const OrgPreferencesPage = {
   commands: [orgPreferencesCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/preferences'
@@ -50,3 +49,5 @@ module.exports = {
     },
   }
 };
+
+module.exports = OrgPreferencesPage;

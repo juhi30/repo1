@@ -81,7 +81,7 @@ const templatesCommands = {
   },
 }
 
-module.exports = {
+const TemplatesPage = {
   commands: [templatesCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/templates'
@@ -208,3 +208,5 @@ module.exports = {
     },
   }
 };
+
+module.exports = TemplatesPage;

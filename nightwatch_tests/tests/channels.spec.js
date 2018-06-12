@@ -11,67 +11,66 @@ module.exports = {
   //Logs into app to start tests
   'Login Page with Correct Credentials': function(client) {
     let login = client.page.LoginPage();
-
+    
     login.navigate()
       .enterMemberCreds()
       .submit()
       .validateUrlChange()
   },
 
-  'Render and validate edit channel form': function(client) {
+  'Render and validate Channels page': function(client) {
     const channelsPage = client.page.ChannelsPage();
 
     channelsPage.navigate()
-      .validateChannelsElements()
-      .validateEditForm()
+      .validateChannelsEls();
 
     client.pause(1000)
   },
 
-  'Change channel name in edit form and test': function(client) {
+  'Render and validate Edit Channels page': function(client) {
     const channelsPage = client.page.ChannelsPage();
+    const createEditChannelsPage = client.page.ChannelsCreateEditPage();
 
-    channelsPage.changeEditFormElements('SMS Test Channel')
+    channelsPage.navigate()
+      .navigateToEditChannels();
+
+    createEditChannelsPage.validateEditEls()
+      .validateEditAndCreateEls()
+
 
     client.pause(1000);
   },
 
-  'Render and create channel elements and popups': function(client) {
-    const channelsPage = client.page.ChannelsPage();
+  'Create new secure channel': function(client) {
+    const channelsPage = client.page.ChannelsPage();    
+    const createEditChannelsPage = client.page.ChannelsCreateEditPage();
+    // const avaHoursContainer = client.page.AvailabilityHoursContainer();
+    const channelRouteContainer = client.page.ChannelRouteMemberContainer();
 
     channelsPage.navigate()
-      .validateChannelsElements()
-      .clickCreateNewFBChannel()
-      .validateConnectFBPopup()
-      .clickConnectFacebook()
+      .navigateToCreateChannels();
 
-    client.window_handles(function(result) {
-      let facebookWindow = result.value[1];
-      client.switchWindow(facebookWindow)
-    });
+    createEditChannelsPage.createNewSecureChannel();
 
-    channelsPage.loginFacebook('geoff@rhinogram.com', 'rhinos')
+    channelRouteContainer.validateChannelRoutes()
+      .selectChannelRoutes();
 
-    client.window_handles(function(result) {
-      let rhinoWindow = result.value[0];
-      client.switchWindow(rhinoWindow)
-    });
+    createEditChannelsPage.clickCreateChannel();
 
-    channelsPage.validateFacebookPagePopup()
-      .clickFacebookPage()
-      .validateConnectFBAcctPopup()
-      .finalizeCreateNewFBChannel('Rhino\'s Night Moves')
-
-    client.pause(1000);
+    client.pause();
   },
 
-  'Validate and remove added channel and elements': function(client) {
+  'Edit secure channel': function(client) {
     const channelsPage = client.page.ChannelsPage();
-
+    const createEditChannelsPage = client.page.ChannelsCreateEditPage();
+    const avaHoursContainer = client.page.AvailabilityHoursContainer();
+    
     channelsPage.navigate()
-      .validateChannelAdded()
-      .removeChannelAdded()
+      .navigateToCreateChannels();
 
-    client.end(5000)
+    // createEditChannelsPage.
+    // avaHoursContainer.validateAvailabilityHoursEls(); // only available for editing channel???
+
+
   }
 }

@@ -1,4 +1,4 @@
-const channelRoutCommands = {
+const channelRouteCommands = {
 
     pause: function (time) {
         this.api.pause(time);
@@ -27,7 +27,7 @@ const channelRoutCommands = {
 }
 
 module.exports = {
-    commands: [channelRoutCommands],
+    commands: [channelRouteCommands],
     // url: function () {
     //     return this.api.launch_url + '/settings/organization/channels'
     // },

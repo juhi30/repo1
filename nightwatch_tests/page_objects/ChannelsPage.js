@@ -5,10 +5,27 @@ const channelsCommands = {
     return this;
   },
 
-  validateChannelEls: function() {
-    return this.waitForElementVisible('@addChannelButton', '')
-  }
+  validateChannelsEls: function() {
+    return this.waitForElementVisible('@addChannelButton', 'add channel button is present')
+      .waitForElementVisible('@firstChannelContainer', 'first channel is visible')
+      .click('@firstChannelContainer')
+      .waitForElementVisible('@summaryPanel', 'summary panel is visible')
+      .waitForElementVisible('@editChannel', 'edit channel button is visible')
+      .click('@firstChannelContainer')
+  },
 
+  navigateToCreateChannels: function() {
+    return this.waitForElementVisible('@addChannelButton', 'add channel button is present')
+      click('@addChannelButton')
+  },
+
+  navigateToEditChannels: function() {
+    return this.waitForElementVisible('@addChannelButton', 'add channel button is present')
+      .waitForElementVisible('@firstChannelContainer', 'first channel is visible')
+      .click('@firstChannelContainer')
+      .waitForElementVisible('@editChannel', 'edit channel button is visible')
+      .click('@editChannel')
+  }
 }
 
 module.exports = {
@@ -23,7 +40,7 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     addChannelButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[6]`,
+      selector: `//*[@id="app"]/div/div[2]/div/div/div/div/div[1]/div[2]/button`,// needs svg title added to button
       locateStrategy: 'xpath',
     },
 
@@ -40,9 +57,6 @@ module.exports = {
     editChannel: {
       selector: `//SPAN[@class='button__text-wrapper'][text()='Edit Channel']`,
       locateStrategy: 'xpath'
-    },
-
-    /*-----------------------------------------------------*/
-  
+    },  
   }
 };

@@ -40,7 +40,7 @@ const preferencesCommands = {
   }
 }
 
-const PreferencesPage = {
+module.exports = {
   commands: [preferencesCommands],
   url: function() {
     return this.api.launch_url + '/settings/preferences'
@@ -87,5 +87,3 @@ const PreferencesPage = {
     }
   }
 };
-
-module.exports = PreferencesPage;

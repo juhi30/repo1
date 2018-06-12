@@ -23,7 +23,7 @@ const profileCommands = {
   },
 }
 
-const ProfilePage = {
+module.exports = {
   commands: [profileCommands],
   // url: 'https://dev.dev-rhinogram.com/settings/profile',
   elements: {
@@ -152,5 +152,3 @@ const ProfilePage = {
   }
 
 };
-
-module.exports = ProfilePage;

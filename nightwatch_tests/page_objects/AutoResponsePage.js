@@ -95,7 +95,7 @@ const autoResponseCommands = {
   }
 }
 
-const AutoResponsePage = {
+module.exports = {
   commands: [autoResponseCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/auto-response'
@@ -242,5 +242,3 @@ const AutoResponsePage = {
     // removed because xpath is wonky due to element being an svg
   }
 };
-
-module.exports = AutoResponsePage;

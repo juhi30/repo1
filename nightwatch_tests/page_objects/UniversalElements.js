@@ -46,12 +46,11 @@ const universalElementsCommands = {
       .waitForElementVisible('@orgProfileInSettingsDropdown', 3000, 'Org profile is visible ')
       .waitForElementVisible('@tagsInSettingsDropdown', 3000, 'Tags is visible')
       .waitForElementVisible('@templatesInSettingsDropdown', 3000, 'templates is visible')
-      .waitForElementVisible('@systemDetailsInSettingsDropdown', 3000, 'System Details option is visible')
-      .waitForElementVisible('@emailSupportInSettingsDropdown', 3000, 'Email support is visible')
-      .waitForElementVisible('@logoutButton', 'logout button is visible')
+      .waitForElementPresent('@systemDetailsInSettingsDropdown', 3000, 'System Details option is visible')
+      .waitForElementPresent('@emailSupportInSettingsDropdown', 3000, 'Email support is visible')
+      .waitForElementPresent('@logoutButton', 'logout button is visible')
       .pause(500)
       .click('@settingsButton')
-
   },
 
   /*----------perhaps add more to test for groups in Inbox/Chat-----------*/
@@ -204,7 +203,7 @@ const universalElementsCommands = {
   }
 }
 
-const UniversalElements = {
+module.exports = {
   commands: [universalElementsCommands],
   url: function() {
     return this.api.launch_url + '/inbox'
@@ -368,5 +367,3 @@ const UniversalElements = {
     },
   }
 };
-
-module.exports = UniversalElements;

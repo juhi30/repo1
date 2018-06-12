@@ -13,7 +13,7 @@ const membersCommands = {
   },
 }
 
-const MembersPage = {
+module.exports = {
   commands: [membersCommands],
   url: 'https://dev.dev-rhinogram.com/settings/organization/members',
   elements: {
@@ -61,5 +61,3 @@ const MembersPage = {
     },
   }
 };
-
-module.exports = MembersPage;

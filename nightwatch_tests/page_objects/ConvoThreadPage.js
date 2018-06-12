@@ -120,7 +120,7 @@ const convoThreadCommands = {
 
 }
 
-const ConvoThreadPage = {
+module.exports = {
   commands: [convoThreadCommands],
   url: function() {
     return this.api.launch_url + '/inbox'
@@ -306,5 +306,3 @@ const ConvoThreadPage = {
     },
   }
 };
-
-module.exports = ConvoThreadPage;

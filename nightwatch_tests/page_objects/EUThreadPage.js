@@ -40,7 +40,7 @@ const euThreadCommands = {
 
 }
 
-const EUThreadPage= {
+module.exports = {
   url: 'https://dev.dev-rhinogram.com/secure',
   commands: [euThreadCommands],
   elements: {
@@ -91,5 +91,3 @@ const EUThreadPage= {
   }
   
 };
-
-module.exports = EUThreadPage;

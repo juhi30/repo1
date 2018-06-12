@@ -38,7 +38,7 @@ const euProfileCommands = {
   }
 }
 
-const EUProfilePage = {
+module.exports = {
   url: 'https://dev.dev-rhinogram.com/settings/user/profile',
   commands: [euProfileCommands],
   elements: {
@@ -99,5 +99,3 @@ const EUProfilePage = {
 
   }
 };
-
-module.exports = EUProfilePage;

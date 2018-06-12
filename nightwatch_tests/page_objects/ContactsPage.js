@@ -74,7 +74,7 @@ const contactsCommands = {
   },
 }
 
-const ContactsPage = {
+module.exports = {
   commands: [contactsCommands],
   url: function() {
     return this.api.launch_url + '/contacts'
@@ -169,5 +169,3 @@ const ContactsPage = {
     }
   }
 };
-
-module.exports = ContactsPage;

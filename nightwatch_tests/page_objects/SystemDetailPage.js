@@ -23,7 +23,7 @@ const systemDetailsCommands = {
 
 }
 
-const SystemDetailPage = {
+module.exports = {
   commands: [systemDetailsCommands],
   url: function() {
     return this.api.launch_url + '/diagnostics'
@@ -52,5 +52,3 @@ const SystemDetailPage = {
     },
   }
 }
-
-module.exports = SystemDetailPage;

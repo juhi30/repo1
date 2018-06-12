@@ -112,7 +112,7 @@ const billingCommands = {
 
 }
 
-const BillingPage = {
+module.exports = {
   commands: [billingCommands],
   url: function() {
     return this.api.launch_url + '/settings/organization/billing'
@@ -270,5 +270,3 @@ const BillingPage = {
     },
   }
 }
-
-module.exports = BillingPage;

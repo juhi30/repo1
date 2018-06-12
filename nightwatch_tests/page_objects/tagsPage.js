@@ -53,7 +53,7 @@ const tagCommands = {
   },
 }
 
-const TagsPage = {
+module.exports = {
   commands: [tagCommands],
   url: function () {
     return this.api.launch_url + '/settings/organization/tags'
@@ -70,8 +70,7 @@ const TagsPage = {
     },
 
     firstTag: {
-      selector: `//SPAN[contains(.,'#Charleston')]`, // first tag should be under location
-      locateStrategy: 'xpath',
+      selector: `//SPAN[contains(.,'#Charleston')]`, 
     },
 
     fakeTag: {
@@ -89,7 +88,7 @@ const TagsPage = {
     /*------------------------------------------------------------*/
 
     tagNameInput: {
-      selector: `//INPUT[contains(@id,'tagName')]`, // needs to be fixed for serial number
+      selector: `//INPUT[contains(@id,'tagName')]`, 
       locateStrategy: 'xpath',
     },
 
@@ -139,5 +138,3 @@ const TagsPage = {
 
   }
 }
-
-module.exports = TagsPage;

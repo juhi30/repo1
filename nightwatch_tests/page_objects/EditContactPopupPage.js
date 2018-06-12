@@ -26,7 +26,7 @@ const editContactCommands = {
   },
 }
 
-const EditContactPopupPage = {
+module.exports = {
   commands: [editContactCommands],
   elements: {
     editProfile: {
@@ -138,5 +138,3 @@ const EditContactPopupPage = {
   }
   
 };
-
-module.exports = EditContactPopupPage;

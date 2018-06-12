@@ -94,7 +94,7 @@ const addContactsCommands = {
   }
 }
 
-const AddContactPopupPage = {
+module.exports = {
   commands: [addContactsCommands],
   url: function() {
     return this.api.launch_url
@@ -308,5 +308,3 @@ const AddContactPopupPage = {
     },
   }
 }
-
-module.exports = AddContactPopupPage;

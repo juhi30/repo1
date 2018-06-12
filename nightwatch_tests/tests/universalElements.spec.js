@@ -22,6 +22,7 @@ module.exports = {
 
     universalElements.validateUniversalElements()
       .validateSearchModal('fro')
+      // .validateHelpDropdown()
       .validateSettingsDropdown()
 
     client.pause(3000);

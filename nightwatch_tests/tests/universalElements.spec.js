@@ -22,6 +22,7 @@ module.exports = {
 
     universalElements.validateUniversalElements()
       .validateSearchModal('fro')
+      .validateHelpDropdown()
       .validateSettingsDropdown()
 
     client.pause(3000);
@@ -43,15 +44,35 @@ module.exports = {
     client.pause(3000);
   },
 
-  'Test click all setting dropdown buttons': function(client) {
+  'Test click Help dropdown buttons': function(client) {
     const universalElements = client.page.UniversalElements();
     const sysDet = client.page.SystemDetailPage()
 
+
+    universalElements.clickHelpDropdownButtons()
+    
+    client.window_handles(function (result) {
+        const firstTab = result.value[0];
+
+        this.switchWindow(firstTab);
+      });
+
+    universalElements.clickSystemDetailsButton();
+
+    sysDet.leaveSysDetailsPage();
+
+    client.pause(1000);
+
+  },
+
+  'Test click all setting dropdown buttons': function(client) {
+    const universalElements = client.page.UniversalElements();
+    
     universalElements.clickMyProfile()
       .pause(1500)
       .clickMyPreferences()
       .pause(1500)
-      // .clickBilling()
+      // .clickBilling() // only visible when billing is implemented
       // .pause(1500)
       .clickChannels()
       .pause(1500)
@@ -68,13 +89,7 @@ module.exports = {
       .clickTags()
       .pause(1500)
       .clickTemplates()
-      .pause(1500)
-      .clickSystemDetails()
       .pause(1500);
-
-    sysDet.leaveSysDetailsPage();
-
-    client.pause(3000);
 
     universalElements.clickLogout();
 

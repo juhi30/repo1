@@ -6,18 +6,18 @@ const tagCommands = {
   },
 
   validateTagPageElements: function () {
-    return this.waitForElementVisible('@newTagButton', 3000, 'New Tag button is visible')
-      .waitForElementVisible('@firstTag', 3000, 'First tag is visible')
+    return this.waitForElementVisible('@newTagButton', 'New Tag button is visible')
+      .waitForElementVisible('@firstTag', 'First tag is visible')
   },
 
   validateCreateTagModal: function () {
     return this.click('@newTagButton')
-      .waitForElementVisible('@createTagButton', 3000, 'Create Tag modal is visible')
-      .waitForElementVisible('@tagNameInput', 3000, 'Tag name input is visible')
-      .waitForElementVisible('@tagCategoryLocation', 3000, 'Location category is visible')
-      .waitForElementVisible('@tagCategoryDepartment', 3000, 'Department category is visible')
-      .waitForElementVisible('@tagCategoryRole', 3000, 'Role category is visible')
-      .waitForElementVisible('@tagCategoryCustom', 3000, 'Custom category is visible')
+      .waitForElementVisible('@createTagButton', 'Create Tag modal is visible')
+      .waitForElementVisible('@tagNameInput', 'Tag name input is visible')
+      .waitForElementVisible('@tagCategoryLocation', 'Location category is visible')
+      .waitForElementVisible('@tagCategoryDepartment', 'Department category is visible')
+      .waitForElementVisible('@tagCategoryRole', 'Role category is visible')
+      .waitForElementVisible('@tagCategoryCustom', 'Custom category is visible')
   },
 
   createNewTag: function () {
@@ -25,31 +25,31 @@ const tagCommands = {
       .click('@tagCategoryCustom')
       .pause(1000)
       .click('@createTagButton')
-      .waitForElementNotVisible('@createTagButton', 3000, 'New Tag Modal is hidden')
-      .waitForElementVisible('@fakeTag', 3000, 'New tag exists')
+      .waitForElementNotVisible('@createTagButton', 'New Tag Modal is hidden')
+      .waitForElementVisible('@fakeTag', 'New tag exists')
   },
 
   editTag: function () {
-    return this.waitForElementVisible('@fakeTag', 3000, 'last tag is visible')
+    return this.waitForElementVisible('@fakeTag', 'last tag is visible')
       .click('@fakeTag')
-      .waitForElementVisible('@updateTagButton', 3000, 'Edit tag modal is visible')
+      .waitForElementVisible('@updateTagButton', 'Edit tag modal is visible')
       .click('@tagNameInput')
       .clearValue('@tagNameInput')
       .setValue('@tagNameInput', 'Edited_tag')
       .click('@updateTagButton')
-      .waitForElementNotVisible('@updateTagButton', 3000, 'Edit Tag Modal is hidden')
-      .waitForElementVisible('@editedTag', 3000, 'Edited tag exists')
+      .waitForElementNotVisible('@updateTagButton', 'Edit Tag Modal is hidden')
+      .waitForElementVisible('@editedTag', 'Edited tag exists')
   },
 
   deleteTag: function () {
-    return this.waitForElementVisible('@editedTag', 3000, 'last tag is visible')
+    return this.waitForElementVisible('@editedTag', 'last tag is visible')
       .click('@editedTag')
       .waitForElementVisible('@deleteTagTrashIcon', 'Trash Icon is visible')
       .click('@deleteTagTrashIcon')
       .waitForElementVisible('@deleteTagConfirmButton', 'Delete confirm is visible')
       .click('@deleteTagConfirmButton')
-      .waitForElementNotVisible('@updateTagButton', 3000, 'Edit Tag Modal is hidden')
-      .waitForElementNotPresent('@editedTag', 3000, 'Tag is deleted')
+      .waitForElementNotVisible('@updateTagButton', 'Edit Tag Modal is hidden')
+      .waitForElementNotPresent('@editedTag', 'Tag is deleted')
   },
 }
 
@@ -127,7 +127,7 @@ module.exports = {
     },
 
     deleteTagTrashIcon: {
-      selector: `/html/body/div[4]/div/div/div[3]/div/div[1]/button`, // better xpath (svg issue)
+      selector: `/html/body/div[3]/div/div/div[1]/button/span/svg`, // better xpath (svg issue)
       locateStrategy: 'xpath',
     },
 

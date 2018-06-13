@@ -1,8 +1,8 @@
 {
-  "src_folders" : ["lib/tests"],
+  "src_folders" : ["tests"],
   "output_folder" : "reports",
-  "page_objects_path" : "lib/page_objects",
-  "globals_path" : "lib/global.js",
+  "page_objects_path" : "page_objects",
+  "globals_path" : "global.js", 
 
   "selenium" : {
     "start_process" : true,

@@ -12,7 +12,7 @@ const universalElementsCommands = {
       .verify.visible('@chatDirectButton', 'Chat direct is visible')
       .verify.visible('@contactsButton', 'Contacts button is visible')
       .verify.visible('@searchButton', 'Search button is visible')
-      .verify.visible('@helpButton', 'Help button is visible')
+      .verify.visible('@helpDropdown', 'Help button is visible')
       .verify.visible('@settingsButton', 'Settings button is visible')
   },
 
@@ -27,15 +27,11 @@ const universalElementsCommands = {
       .waitForElementNotPresent('@searchModalFirstResult', 'First result is hidden')
   },
 
-  clickAddNewContact: function() {
-    return this.click('@searchButton')
-      .waitForElementVisible('@addNewContactButton', 1500, 'Add new contact button is visible')
-  },
-
   validateSettingsDropdown: function() {
     return this.waitForElementVisible('@settingsButton', 'Settings button is visible')
       .pause(500)
       .click('@settingsButton')
+      .waitForElementPresent('@logoutButton', 'logout button is visible')      
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Profile in settings is visible')
       .waitForElementVisible('@myPreferencesInSettingsDropdown', 'Preferences in settings is visible')
       .waitForElementVisible('@oooInSettingsDropdown', 'Out of Office is visible!')
@@ -47,15 +43,14 @@ const universalElementsCommands = {
       .waitForElementVisible('@orgProfileInSettingsDropdown', 'Org profile is visible ')
       .waitForElementVisible('@tagsInSettingsDropdown', 'Tags is visible')
       .waitForElementVisible('@templatesInSettingsDropdown', 'templates is visible')
-      .waitForElementPresent('@logoutButton', 'logout button is visible')
       .pause(500)
       .click('@settingsButton')
   },
 
-  validateHelpDropdown: function(){
-    return this.waitForElementVisible('@helpButton', 'Help button is visible')
+  validateHelpDropdown: function() {
+    return this.waitForElementVisible('@helpDropdown', 'Help button is visible')
       .pause(500)
-      .click('@helpButton')
+      .click('@helpDropdown')
       .waitForElementVisible('@supportDeskButton', 'Support desk is visible')
       .waitForElementVisible('@knowledgeBaseButton', 'Knowledge base is visible')
       .waitForElementVisible('@submitAnIssueButton', 'Submit an issue is visible')
@@ -83,6 +78,22 @@ const universalElementsCommands = {
       .verify.containsText('@appHeaderTitle', 'Contacts', 'Contacts title present')
   },
 
+  clickHelpDropdownButtons: function() {
+    return this.waitForElementPresent('@helpDropdown', 'Help dropdown is visible')
+      .click('@helpDropdown')
+      .waitForElementPresent('@supportDeskButton', 'Support desk button is visible')
+      .click('@supportDeskButton')
+      .click('@knowledgeBaseButton')
+      .click('@submitAnIssueButton')
+      .click('@ideaSubmissionButton')
+  },
+
+  clickSystemDetailsButton: function () {
+      return this.waitForElementPresent('@helpDropdown', 'Help dropdown is visible')
+        .waitForElementVisible('@systemDetailsButton', 'System Details button is visible')
+        .click('@systemDetailsButton')
+  },
+
   clickSearchModalButtons: function(patientName) {
     return this.click('@assignedToMeButton')
       .waitForElementVisible('@searchButton', 'Search button is visible')
@@ -94,10 +105,6 @@ const universalElementsCommands = {
       .click('@searchModalFirstResult')
       .waitForElementNotPresent('@searchModalFirstResult', 'First result is hidden')
       .verify.urlContains('50069', 'Taken to profile summary view')// no long 'userID' string but actual ID number
-      // .click('@searchButton')
-      // .setValue('@searchModalInput', patientName)
-      // .waitForElementVisible('@addNewContactButton', 1500, 'Add contact button is present')
-      // .click('@addNewContactButton')
   },
 
   clickAddNewContact: function() {
@@ -209,7 +216,7 @@ const universalElementsCommands = {
       .waitForElementVisible('@logoutButton', 'Logout button is visible')
       .pause(500)
       .click('@logoutButton')
-      .waitForElementNotVisible('@logoutButton', 'Logout button no longer present')
+      .waitForElementNotPresent('@logoutButton', 'Logout button no longer present')
   }
 }
 
@@ -265,8 +272,8 @@ module.exports = {
     /*----------------------------------------------*/
 
     searchButton: {
-      selector: `#app > div > div.app-wrapper > header > div.app-header__left > button > span > svg`, // look for better way to grab xpath
-      // locateStrategy: 'xpath',
+      selector: `//BUTTON[contains(@title, 'Search users')]`, 
+      locateStrategy: 'xpath',
     },
 
     searchModalInput: {
@@ -280,19 +287,20 @@ module.exports = {
     },
 
     addNewContactButton: {
-      selector: `//DIV[@class='search__new']`, //refactor xpath
+      selector: `(//SPAN[@class='button__text-wrapper'][(text()='Add New Contact')])`,
       locateStrategy: 'xpath',
     },
 
     closeSearchModal: {
-      selector: `/html/body/div[3]/div/div/div[1]/button/span`,
+      selector: `//BUTTON[contains(@title, 'Close')]`,
+      locateStrategy: 'xpath'
     },
 
     /*----------------------------------------------*/
     // Profile Button and former Notification xpaths
     /*----------------------------------------------*/
 
-    myProfileButton: { //profile now moved to circular button by settings
+    myProfileButton: { 
       selector: `//A[@title='My Profile']`,
       locateStrategy: 'xpath',
     },
@@ -300,8 +308,8 @@ module.exports = {
     // Help Button dropdown
     /*----------------------------------------------*/
 
-    helpButton: {
-      selector: `//BUTTON[contains(@title, 'Help')]`, // needs better 
+    helpDropdown: {
+      selector: `//BUTTON[contains(@title, 'Help')]`,
       locateStrategy: 'xpath'
     },
 
@@ -335,7 +343,7 @@ module.exports = {
     /*----------------------------------------------*/
 
     settingsButton: {
-      selector: `//*[@id="cuke-main-settings"]/div/button`, //svg icons are trouble for xpaths
+      selector: `//BUTTON[contains(@title, 'Settings')]`, 
       locateStrategy: 'xpath',
     },
 
@@ -354,10 +362,10 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    // billingInSettingsDropdown: {
-    //   selector: `//SPAN[@class='u-text-overflow'][text()='Billing']`, // not built into RG3 yet
-    //   locateStrategy: 'xpath',
-    // },
+    billingInSettingsDropdown: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='Billing']`, 
+      locateStrategy: 'xpath',
+    },
 
     channelsInSettingsDropdown: {
       selector: `//SPAN[@class='u-text-overflow'][text()='Channels']`,
@@ -405,7 +413,7 @@ module.exports = {
     },
 
     logoutButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[4]`,
+      selector: `(//SPAN[@class='button__text-wrapper' and contains(text(), 'Log Out')])`,
       locateStrategy: 'xpath',
     },
   }

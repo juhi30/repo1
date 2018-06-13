@@ -6,19 +6,20 @@ const systemDetailsCommands = {
   },
 
   validatePageElements: function() {
-    return this.waitForElementVisible('@rhinoLogoBackButton', 5000, 'Rhino Logo is visible')
+    return this.waitForElementVisible('@rhinoLogoBackButton', 'Rhino Logo is visible')
       .verify.visible('@sytemDetailsTable', 'System details table is visible')
       .verify.visible('@shareWithCCRButton', 'Share with CCR button is visible')
   },
 
   validateMessageToast: function() {
     return this.click('@shareWithCCRButton')
-      .waitForElementVisible('@messageToCCRToast', 5000, 'Message to CCR toast is visible')
+      .waitForElementVisible('@messageToCCRToast', 'Message to CCR toast is visible')
   },
 
   leaveSysDetailsPage: function() {
-    return this.click('@rhinoLogoBackButton')
-      .waitForElementNotPresent('@rhinoLogoBackButton', 5000, 'Rhino logo is no longer present')
+    return this.waitForElementVisible('@rhinoLogoBackButton', 'Back button is visible')
+      .click('@rhinoLogoBackButton')
+      .waitForElementNotPresent('@rhinoLogoBackButton', 'Rhino logo is no longer present')
   },
 
 }

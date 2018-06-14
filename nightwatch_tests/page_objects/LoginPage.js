@@ -25,16 +25,16 @@ const loginCommands = {
       .setValue('@passwordInput', password)
   },
 
-  enterMemberCreds: function() {
+  enterMemberCreds: function(username, password) {
     return this.waitForElementVisible('@usernameInput', 5000,'Username input visible')
-      .setValue('@usernameInput', helpers.memberCreds.username)
-      .setValue('@passwordInput', helpers.memberCreds.password)
+      .setValue('@usernameInput', username ? username : helpers.memberCreds.username)
+      .setValue('@passwordInput', password ? password : helpers.memberCreds.password)
   },
 
-  enterPatientCreds: function() {
+  enterPatientCreds: function(username, password) {
     return this.waitForElementVisible('@usernameInput', 5000, 'Username input visible')
-      .setValue('@usernameInput', helpers.patientCreds.username)
-      .setValue('@passwordInput', helpers.patientCreds.password)
+      .setValue('@usernameInput', username ? username : helpers.patientCreds.username)
+      .setValue('@passwordInput', password ? password : helpers.patientCreds.password)
   },
 
   clearUsernameInput: function() {

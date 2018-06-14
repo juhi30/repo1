@@ -27,7 +27,7 @@ Automated tools for testing.
     https://www.sitepoint.com/javascript-functional-testing-nightwatch-js/
 
   ### To-Dos
-    1. Transpile with Babel
+    1. Transpile with Babel (this is done, but not using any ES6 just yet)
     2. Integrate with Magellan
     
 

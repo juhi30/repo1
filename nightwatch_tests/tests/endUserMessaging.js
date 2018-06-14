@@ -17,9 +17,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .enterMemberCreds()
+      .enterPatientCreds('kvothe', 'Kingkiller1!')
       .submit()
-      .validateUrlChange();
-    //better name for this function needed
   },
 }

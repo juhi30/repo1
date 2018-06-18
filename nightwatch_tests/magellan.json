@@ -2,7 +2,6 @@
 "max_workers": 30,
 "reporters": [
 "testarmada-magellan-xunit-reporter",
-"testarmada-magellan-dev-reporter"
 ],
 "executors": [
 "magellan-local-executor",

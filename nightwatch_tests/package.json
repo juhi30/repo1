@@ -24,6 +24,7 @@
     "testarmada-magellan": "^10.0.5",
     "testarmada-magellan-local-executor": "^2.0.0",
     "testarmada-magellan-nightwatch-plugin": "^7.0.0",
+    "testarmada-magellan-xunit-reporter": "0.0.6",
     "testarmada-nightwatch-extra": "^4.1.0"
   }
 }

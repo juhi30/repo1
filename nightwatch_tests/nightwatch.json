@@ -1,7 +1,9 @@
 {
   "src_folders" : ["tests"],
   "output_folder" : "reports",
+  "custom_commands_path": "custom-commands",  
   "page_objects_path" : "page_objects",
+
   "globals_path" : "global.js", 
 
   "selenium" : {

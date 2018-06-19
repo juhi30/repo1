@@ -14,20 +14,22 @@ const inboxCommands = {
       .verify.containsText('@newMessageButton', 'New Message', 'Button says New Message')
   },
 
-  newMessageClick: function() {
-    return this.waitForElementVisible('@newMessageButton', 5000, 'New Message button is visible')
-      .click('@newMessageButton')
-  },
+  // this doesn't apply in this inbox
 
-  validateNewMessageInput: function() {
-      return this.waitForElementVisible('@newMessageSearchInput', 5000, 'New message input is visible')
-        .verify.visible('@newMessageSearchInput', 'New message input is visible')
-  },
+  // newMessageClick: function() {
+  //   return this.waitForElementVisible('@newMessageButton', 5000, 'New Message button is visible')
+  //     .click('@newMessageButton')
+  // },
 
-  fillInNewMessageInput: function(searchInput) {
-    return this.waitForElementVisible('@newMessageSearchInput', 5000, 'Search input is visible')
-      .setValue('@newMessageSearchInput', searchInput)
-  },
+  // validateNewMessageInput: function() {
+  //     return this.waitForElementVisible('@newMessageSearchInput', 5000, 'New message input is visible')
+  //       .verify.visible('@newMessageSearchInput', 'New message input is visible')
+  // },
+
+  // fillInNewMessageInput: function(searchInput) {
+  //   return this.waitForElementVisible('@newMessageSearchInput', 5000, 'Search input is visible')
+  //     .setValue('@newMessageSearchInput', searchInput)
+  // },
 
   searchResultNotVisible: function() {
       return this.waitForElementVisible('body', 5000)
@@ -45,10 +47,10 @@ const inboxCommands = {
       .verify.urlContains('profileOpen=1', 'The page address goes to conversation thread and profile view')
   },
 
-  clickAddNewContact: function() {
-    return this.waitForElementVisible('@addNewContactButton', 5000, 'Add new contact button is visible')
-      .click('@addNewContactButton');
-  },
+  // clickAddNewContact: function() {
+  //   return this.waitForElementVisible('@addNewContactButton', 5000, 'Add new contact button is visible')
+  //     .click('@addNewContactButton');
+  // },
 }
 
 module.exports = {

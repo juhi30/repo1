@@ -30,6 +30,7 @@ module.exports = {
     const endUserThread = client.page.EUThreadPage();
     
     endUserThread.fillInMessageInput(`Just a test ${num}`)
+      .pause(1000) // waiting for Send button to become enabled
       .clickSend()
       .clickSettingsDropdown()
       .clickLogoutButton();

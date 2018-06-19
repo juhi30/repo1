@@ -1,6 +1,12 @@
 const euThreadCommands = {
+
+  pause: function(milli) {
+    this.api.pause(milli);
+    return this;
+  },
+
   validatePageElements: function() {
-    return this.waitForElementVisible('@messageInput', 5000, 'Compose input is visible')
+    return this.waitForElementVisible('@messageInput', 'Compose input is visible')
       .verify.visible('@messageInput', 'Compose input is visible')
       .verify.visible('@attachmentButton', 'Attachment button is visible')
       .verify.visible('@firstOrgInPanel', 'First org tab is visible')
@@ -9,32 +15,32 @@ const euThreadCommands = {
   },
 
   fillInMessageInput: function(messageText) {
-    return this.waitForElementVisible('@messageInput', 1000, 'Message input is visible')
+    return this.waitForElementVisible('@messageInput', 'Message input is visible')
       .setValue('@messageInput', messageText);
   },
 
   clickSend: function() {
-    return this.waitForElementVisible('@sendButton', 1000, 'Send Button is visible')
+    return this.waitForElementVisible('@sendButton', 'Send Button is visible')
       .click('@sendButton');
   },
 
   clickSettingsDropdown: function() {
-    return this.waitForElementVisible('@settingsDropdown', 1000, 'Settings dropdown is visible')
+    return this.waitForElementVisible('@settingsDropdown', 'Settings dropdown is visible')
       .click('@settingsDropdown');
   },
 
   clickProfileInSettingsDropdown: function() {
-    return this.waitForElementVisible('@profileLinkInSettingsDropdown', 1000, 'Profile button in Settings dropdown is visible')
+    return this.waitForElementVisible('@profileLinkInSettingsDropdown', 'Profile button in Settings dropdown is visible')
       .click('@profileLinkInSettingsDropdown');
   },
 
   clickLogoutButton: function() {
-    return this.waitForElementVisible('@logoutButton', 1000, 'Logout button is visible')
+    return this.waitForElementVisible('@logoutButton', 'Logout button is visible')
       .click('@logoutButton');
   },
 
   clickMyProfileButton: function() {
-    return this.waitForElementVisible('@myProfileButton', 1000, 'My Profile button is visible')
+    return this.waitForElementVisible('@myProfileButton', 'My Profile button is visible')
       .click('@myProfileButton');
   }
 
@@ -45,17 +51,17 @@ module.exports = {
   commands: [euThreadCommands],
   elements: {
     messageInput: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[1]/div/div[2]/div[1]/div[2]/div/textarea`,
+      selector: `//TEXTAREA[contains(@name, 'message')]`,
       locateStrategy: 'xpath',
     },
 
     sendButton: {
-      selector: `//div[@class='convo__message__send']//button[.='Send']`,
+      selector: `//BUTTON[contains(@class, 'convo__message__send')]`,
       locateStrategy: 'xpath',
     },
 
     logoutButton: {
-      selector: `//div[@class='secure-app__header__branding__logout']//button[.='Logout']`,
+      selector: `//DIV[contains(@class, 'dropdown__menu--right')]`,
       locateStrategy: 'xpath',
     },
 
@@ -75,7 +81,7 @@ module.exports = {
     },
 
     settingsDropdown: {
-      selector: `//*[@id="cuke-main-settings"]/div/button/span/span`,
+      selector: `//BUTTON[contains(@class, 'app-header__dropdown__trigger')]`,
       locateStrategy: 'xpath',
     },
 

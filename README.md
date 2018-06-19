@@ -32,10 +32,17 @@ Automated tools for testing.
 
   ### The "Contains" trick with xpaths
   This trick allows us to search for property values of elements.
-  
+
   The format is: //ELEMENT[contains(@title/name/class/id/etc, 'value')]
 
   For example: //INPUT[contains(@title, 'Go Back')]
+
+  ### Nuances and Gotchas
+
+  1. The classic assert/verify library is still available on the Nightwatch instance as two objects containing the same methods to perform assertions on elements:
+
+  .assert - when an assertion fails, the test ends, skipping all other assertions.
+  .verify - when an assertion fails, the test logs the failure and continues with other assertions.
     
 
 ## Screenshotter
@@ -62,10 +69,3 @@ Automated tools for testing.
   **to run a scenario**: from screenshotter/src/screenshots, run 'SCENARIO=1 node ../screenshotter.js' (SCENARIO can be set to 1 - 6 currently)
 
   **to start the React app**: from the screenshotter dir, run 'npm start'
-
-  ### Nuances and Gotchas
-
-  1. The classic assert/verify library is still available on the Nightwatch instance as two objects containing the same methods to perform assertions on elements:
-
-  .assert - when an assertion fails, the test ends, skipping all other assertions.
-  .verify - when an assertion fails, the test logs the failure and continues with other assertions.

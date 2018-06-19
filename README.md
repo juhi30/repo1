@@ -27,8 +27,22 @@ Automated tools for testing.
     https://www.sitepoint.com/javascript-functional-testing-nightwatch-js/
 
   ### To-Dos
-    1. Transpile with Babel
+    1. Transpile with Babel (this is done, but not using any ES6 just yet)
     2. Integrate with Magellan
+
+  ### The "Contains" trick with xpaths
+  This trick allows us to search for property values of elements.
+
+  The format is: //ELEMENT[contains(@title/name/class/id/etc, 'value')]
+
+  For example: //INPUT[contains(@title, 'Go Back')]
+
+  ### Nuances and Gotchas
+
+  1. The classic assert/verify library is still available on the Nightwatch instance as two objects containing the same methods to perform assertions on elements:
+
+  .assert - when an assertion fails, the test ends, skipping all other assertions.
+  .verify - when an assertion fails, the test logs the failure and continues with other assertions.
     
 
 ## Screenshotter

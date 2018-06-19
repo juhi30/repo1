@@ -29,6 +29,13 @@ Automated tools for testing.
   ### To-Dos
     1. Transpile with Babel (this is done, but not using any ES6 just yet)
     2. Integrate with Magellan
+
+  ### The "Contains" trick with xpaths
+  This trick allows us to search for property values of elements.
+  
+  The format is: //ELEMENT[contains(@title/name/class/id/etc, 'value')]
+
+  For example: //INPUT[contains(@title, 'Go Back')]
     
 
 ## Screenshotter

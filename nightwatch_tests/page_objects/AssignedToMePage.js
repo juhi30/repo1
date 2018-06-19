@@ -59,36 +59,35 @@ module.exports = {
     return this.api.launch_url + '/inbox'
   },
   elements: {
-    inboxMessages: {
-      selector: ``,
-      locateStrategy: 'xpath'
-    },
+    // inboxMessages: {
+    //   selector: ``,
+    //   locateStrategy: 'xpath'
+    // },
 
-    // written to make sure threads have somewhere to populate as the thread xpath changes and difficult to find
-    threadContainer: {
-      selector: ``,
-      locateStrategy: 'xpath',
-    },
+    // // written to make sure threads have somewhere to populate as the thread xpath changes and difficult to find
+    // threadContainer: {
+    //   selector: ``,
+    //   locateStrategy: 'xpath',
+    // },
 
-    newMessageButton: {
-      selector: ``,
-      locateStrategy: 'xpath',
-    },
+    // newMessageButton: {
+    //   selector: ``,
+    //   locateStrategy: 'xpath',
+    // },
 
-    newMessageSearchInput: {
-      selector: ``,
-      locateStrategy: 'xpath',
-    },
+    // newMessageSearchInput: {
+    //   selector: ``,
+    //   locateStrategy: 'xpath',
+    // },
 
-    firstResultNewMessageSearch: {
-      selector: ``, 
-      locateStrategy: 'xpath',
-    },
+    // firstResultNewMessageSearch: {
+    //   selector: ``, 
+    //   locateStrategy: 'xpath',
+    // },
 
-    addNewContactButton: {
-      selector: ``,
-      locateStrategy: 'xpath'
-    },
-
+    // addNewContactButton: {
+    //   selector: ``,
+    //   locateStrategy: 'xpath',
+    // },
   }
 };

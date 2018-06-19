@@ -4,7 +4,7 @@
 
 const helpers = require('../helpers');
 let num = helpers.randoNum;
-
+let messageContent = `Just a test ${num}`;
 // Nightwatch has some issues with the ES6 method of exporting modules,
 // so we still do this the ES5 way for now. 
 module.exports = {
@@ -29,7 +29,7 @@ module.exports = {
   'Send a message as a patient': function(client) {
     const endUserThread = client.page.EUThreadPage();
     
-    endUserThread.fillInMessageInput(`Just a test ${num}`)
+    endUserThread.fillInMessageInput(messageContent)
       .pause(1000) // waiting for Send button to become enabled
       .clickSend()
       .clickSettingsDropdown()
@@ -37,12 +37,18 @@ module.exports = {
   },
 
   'Login as a member': function(client) {
+    const login = client.page.LoginPage();
+
     login.pause(2000)
       .enterMemberCreds('nightkeaton', 'Chacoz123')
-      .submit
+      .submit()
   }, 
 
   'Find that thread and view the message from the patient': function(client) {
-    const 
+    const inbox = client.page.AssignedToMePage();
+
+    helpers.findTextOnPage(inbox, messageContent);
+
+    client.end();
   }
 }

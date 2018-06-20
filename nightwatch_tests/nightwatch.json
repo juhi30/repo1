@@ -1,7 +1,7 @@
 {
-  "src_folders" : ["lib/tests"],
+  "src_folders" : ["tests"],
   "output_folder" : "reports",
-  "page_objects_path" : "lib/page_objects",
+  "page_objects_path" : "page_objects",
   "globals_path" : "lib/global.js",
 
   "selenium" : {
@@ -20,7 +20,6 @@
       "launch_url" : "https://dev.dev-rhinogram.com",
       "selenium_port"  : 4444,
       "selenium_host"  : "localhost",
-      "use_xpath": true,
       "desiredCapabilities": {
         "browserName": "chrome",
         "javascriptEnabled": true,

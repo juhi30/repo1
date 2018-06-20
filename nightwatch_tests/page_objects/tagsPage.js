@@ -7,7 +7,6 @@ const tagCommands = {
 
   validateTagPageElements: function () {
     return this.waitForElementVisible('@newTagButton', 3000, 'New Tag button is visible')
-      .waitForElementVisible('@firstTag', 3000, 'First tag is visible')
   },
 
   validateCreateTagModal: function () {
@@ -65,7 +64,7 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     newTagButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[6]`,//shifted count need better grab
+      selector: `//BUTTON[contains(@title,'Create Tag')]`, //shifted count need better grab
       locateStrategy: 'xpath',
     },
 
@@ -88,7 +87,7 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     tagNameInput: {
-      selector: `//INPUT[contains(@id,'tagName')]`, 
+      selector: `//INPUT[contains(@name,'tagName')]`, 
       locateStrategy: 'xpath',
     },
 
@@ -127,7 +126,7 @@ module.exports = {
     },
 
     deleteTagTrashIcon: {
-      selector: `/html/body/div[4]/div/div/div[3]/div/div[1]/button`, // better xpath (svg issue)
+      selector: ` //BUTTON[contains(@title,'Delete Tag')]`, // better xpath (svg issue)
       locateStrategy: 'xpath',
     },
 

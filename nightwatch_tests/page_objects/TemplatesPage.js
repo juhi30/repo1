@@ -89,27 +89,27 @@ module.exports = {
   elements: {
 
     createTemplateButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Create Template']`,
-      locateStrategy: 'xpath'
-    },
-
-    filterDropdown: {
-      selector: `//BUTTON[@class='button dropdown__toggle button--default']`,
+      selector: `//BUTTON[contains(@title, 'Create Template')]`,
       locateStrategy: 'xpath',
     },
 
+    filterDropdown: {
+      selector: `//BUTTON[contains(@class, 'app-page__header__filter__button')]`,
+      locateStrategy: 'class name',
+    },
+
     filterAll: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='All']`,
+      selector: `//SPAN[text()='All']`,
       locateStrategy: 'xpath',
     },
 
     filterTextingChannel: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Texting']`,
+      selector: `//SPAN[text()='Texting']`,
       locateStrategy: 'xpath',
     },
 
     firstTestTemplate: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[2]/div[1]`,
+      selector: `//SPAN[contains(.,'Check in')]`,
       locateStrategy: 'xpath',
     },
 

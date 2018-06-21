@@ -99,12 +99,12 @@ module.exports = {
     },
 
     filterAll: {
-      selector: `//SPAN[text()='All']`,
+      selector: `//SPAN[contains(.,'All')]`,
       locateStrategy: 'xpath',
     },
 
     filterTextingChannel: {
-      selector: `//SPAN[text()='Texting']`,
+      selector: `//SPAN[contains(.,'Texting')]`,
       locateStrategy: 'xpath',
     },
 
@@ -115,18 +115,18 @@ module.exports = {
 
     /*---------------------------------------------------------*/
 
-    firstTemplateEdit: {
-      selector: `(//BUTTON[@type='button'][text()='Edit'][text()='Edit'])[1]`,
+    firstTemplateEditButton: {
+      selector: `//SPAN[contains(.,'Edit Template')]`,
       locateStrategy: 'xpath',
     },
 
-    // firstTemplateEditPopup: {
-    //   selector: `/html/body/div[5]/div/div/div`,
-    //   locateStrategy: 'xpath'
-    // },
-
     firstTemplateEditTitleInput: {
-      selector: `//*[@id="subject"]`,
+      selector: `//INPUT[contains(@name, 'subject')]`,
+      locateStrategy: 'xpath',
+    },
+
+    firstTemplateEditMessageInput: {
+      selector: `//TEXTAREA[contains(@name, 'message')]`,
       locateStrategy: 'xpath',
     },
 

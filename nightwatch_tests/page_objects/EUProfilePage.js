@@ -43,59 +43,53 @@ module.exports = {
   commands: [euProfileCommands],
   elements: {
     usernameInput: {
-      selector: `//*[@id="username"]`,
+      selector: `//INPUT[contains(@name, 'username')]`,
       locateStrategy: 'xpath'
     },
 
     emailAddressInput: {
-      selector: `//*[@id="loginEmail"]`,
+      selector: `//INPUT[contains(@name, 'loginEmail')]`,
       locateStrategy: 'xpath'
     },
 
     changePasswordLink: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div/div[2]/div[3]/button`,
+      selector: `//SPAN[contains(.,'Change password')]`,
       locateStrategy: 'xpath'
     },
 
     saveProfileButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Profile']`,
+      selector: `//SPAN[contains(.,'Save Profile)]`,
       locateStrategy: 'xpath'
     },
 
     currentPasswordInput: {
-      selector: `//INPUT[@id='oldPass']`,
+      selector: `//INPUT[contains(@name, 'oldPass')]`,
       locateStrategy: 'xpath'
     },
 
     newPasswordInput: {
-      selector: `//INPUT[@id='newPass']`,
+      selector: `//INPUT[contains(@name, 'newPass')]`,
       locateStrategy: 'xpath'
     },
 
     retypeNewPasswordInput: {
-      selector: `//INPUT[@id='newPassAgain']`,
+      selector: `//INPUT[contains(@name, 'newPassAgain')]`,
       locateStrategy: 'xpath'
     },
 
     savePasswordButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Password']`,
+      selector: `//SPAN[contains(.,'Update password')]`,
       locateStrategy: 'xpath'
     },
 
     settingsDropdown: {
-      selector: `//SPAN[@class='dropdown__toggle__text'][text()='Settings']`,
+      selector: `//DIV[contains(@id, 'cuke-main-settings')]`,
       locateStrategy: 'xpath'
     },
 
     logoutButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[2]`,
-      locateStrategy: 'xpath'
-    },
-
-    passwordUpdatedToast: {
-      selector: `//DIV[@class='toast__text'][text()='Password updated successfully.']`,
+      selector: `(//SPAN[contains(.,'Log Out')]]`,
       locateStrategy: 'xpath'
     }
-
   }
 };

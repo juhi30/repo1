@@ -131,66 +131,57 @@ module.exports = {
     },
 
     firstTemplateEditSaveButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Template']`,
+      selector: `//SPAN[contains(.,'Update Template')]`,
       locateStrategy: 'xpath',
     },
 
     /*---------------------------------------------------------*/
 
-    firstTemplateDelete: {
-      selector: `(//BUTTON[@type='button'][text()='Delete'][text()='Delete'])[1]`,
+    deleteTemplateButton: {
+      selector: `//BUTTON[contains(@title, 'Delete Template')]`,
       locateStrategy: 'xpath',
     },
 
-    // firstTemplateDeletePopup: {
-    //   selector: `/html/body/div[4]/div/div/div`,
-    //   locateStrategy: 'xpath',
-    // },
-
-    firstTemplateDeleteFinal: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Delete']`,
+    deleteTemplateFinalButton: {
+      selector: `//SPAN[contains(.,'Yes, delete template')]`,
       locateStrategy: 'xpath',
     },
     /*---------------------------------------------------------*/
 
-    hIPAATemplate: {
-      selector: `(//DIV[@class='bucket__header__title'][text()='HIPAA Consent Request'][text()='HIPAA Consent Request'])[1]`,
+    HIPAATemplate: {
+      selector: `//SPAN[contains(.,'HIPAA Consent Request')]`,
       locateStrategy: 'xpath',
     },
 
     /*---------------------------------------------------------*/
-    // create template popup
+    // create template page
     /*---------------------------------------------------------*/
-
-    // createTemplatePopup: {
-    //   selector: `/html/body/div[5]/div/div/div`,
-    //   locateStrategy: 'xpath',
-    // },
 
     createTemplateTitle: {
-      selector: `//INPUT[@id='subject']`,
+      selector: `//INPUT[contains(@name, 'subject')]`,
       locateStrategy: 'xpath',
     },
 
     createTemplateMessage: {
-      selector: `//TEXTAREA[@id='message']`,
+      selector: `//TEXTAREA[contains(@name, 'message')]`,
       locateStrategy: 'xpath',
     },
 
     createTemplateSaveButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Create']`,
+      selector: `//SPAN[contains(.,'Upload File')]`,
       locateStrategy: 'xpath'
     },
 
     uploadFileButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Upload File']`,
+      selector: `//SPAN[contains(.,'Create Template')]`,
       locateStrategy: 'xpath',
     },
 
-    uploadedFile: {
-      selector: `(//DIV[@class='template-attachments__name'])[2]`,
-      locateStrategy: 'xpath',
-    },
+    // not sure how to incorporate this right now
+    // uploadedFile: {
+    //   selector: `(//DIV[@class='template-attachments__name'])[2]`,
+    //   locateStrategy: 'xpath',
+    // },
 
     // cancelCreateButton: {
     //   selector: `/html/body/div[5]/div/div/div/div/div[1]/button`,
@@ -198,12 +189,12 @@ module.exports = {
     // },
 
     nullTemplateTitle: {
-      selector: `//DIV[@class='form__validation-message'][text()='Title is required']`,
+      selector: `//DIV[contains(.,'Title is required')]`,
       locateStrategy: 'xpath',
     },
 
     nullTemplateMessage: {
-      selector: `//DIV[@class='form__validation-message'][text()='Message is required']`,
+      selector: `//DIV[contains(.,'Message is required')]`,
       locateStrategy: 'xpath',
     },
   }

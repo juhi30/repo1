@@ -18,7 +18,13 @@ const tagCommands = {
       .waitForElementVisible('@tagCategoryRole', 3000, 'Role category is visible')
       .waitForElementVisible('@tagCategoryCustom', 3000, 'Custom category is visible')
   },
-
+  
+  clickContainerNewTag: function () {
+    return this.waitForElementVisible('@newTagInContainer', 'New tag in container button is visible')
+      .click('@newTagInContainer')
+      .waitForElementVisible('@createTagButton', 'Create New tag modal is present')
+  },
+  
   createNewTag: function () {
     return this.setValue('@tagNameInput', 'fake_tag')
       .click('@tagCategoryCustom')
@@ -82,6 +88,11 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
+    newTagInContainer: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Create New Tag']`, // used in Tags container on channel, group and members pages
+      locateStrategy: 'xpath'
+    },
+
     /*------------------------------------------------------------*/
     // New Tag modal elements
     /*------------------------------------------------------------*/
@@ -126,7 +137,7 @@ module.exports = {
     },
 
     deleteTagTrashIcon: {
-      selector: ` //BUTTON[contains(@title,'Delete Tag')]`, // better xpath (svg issue)
+      selector: ` //BUTTON[contains(@title,'Delete Tag')]`, 
       locateStrategy: 'xpath',
     },
 

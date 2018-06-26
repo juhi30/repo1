@@ -45,7 +45,7 @@ const editChannelsCommands = {
 module.exports = {
     commands: [editChannelsCommands],
     // url: function () {
-    //     return this.api.launch_url + '/settings/organization/channels/edit'
+    //     return this.api.launch_url + '/settings/organization/channels/edit' // removed because it involves the channelID
     // },
     elements: {
 
@@ -118,7 +118,7 @@ module.exports = {
         /*-----------------------------------------------------*/
 
         channelForwardingToggle: {
-            selector: `//LABEL[contains(@for,'allowChannelReroute')]`, // id could be used here
+            selector: `//LABEL[contains(@for,'allowChannelReroute')]`, 
             locateStrategy: 'xpath'
         }
     }

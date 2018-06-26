@@ -7,7 +7,7 @@ const templatesCommands = {
 
   renderPageElements: function() {
     return this.waitForElementVisible('@createTemplateButton', 2000, 'Create template button is visible')
-      .verify.visible('@hIPAATemplate', 'HIPAA template is visible')
+      .verify.visible('@HIPAATemplate', 'HIPAA template is visible')
       .verify.visible('@firstTestTemplate', 'First test template is visible')
   },
 
@@ -50,11 +50,11 @@ const templatesCommands = {
   //   return this.setValue('input[type="file"]', require('path').resolve('/Users/geoffmaas/Desktop/test_pics/night_watch.jpg'))
   // },
 
-  fillOutNewTemplate: function(title, message, pathToFile) {
+  fillOutNewTemplate: function(title, message) {
     return this.setValue('@createTemplateTitle', title)
       .setValue('@createTemplateMessage', message)
-      .setValue('input[type="file"]', require('path').resolve(pathToFile))
-      .waitForElementVisible('@uploadedFile', 5000, 'Uploaded file is visible')
+      // .setValue('input[type="file"]', require('path').resolve(pathToFile)) can use this method, with pathToFile argument, to add attachments
+      // .waitForElementVisible('@uploadedFile', 5000, 'Uploaded file is visible')
   },
 
   saveNewTemplate: function() {
@@ -73,11 +73,11 @@ const templatesCommands = {
   },
 
   deleteTemplate: function() {
-    return this.waitForElementVisible('@firstTemplateDelete', 1000, 'Template delete button is visible')
-      .click('@firstTemplateDelete')
-      .waitForElementVisible('@firstTemplateDeleteFinal', 1500, 'Delete template popup is visible')
-      .click('@firstTemplateDeleteFinal')
-      .waitForElementNotVisible('@firstTemplateDeleteFinal', 1500, 'Delete template popup is hidden')
+    return this.waitForElementVisible('@deleteTemplateButton', 1000, 'Template delete button is visible')
+      .click('@deleteTemplateButton')
+      .waitForElementVisible('@deleteTemplateFinalButton', 1500, 'Delete template popup is visible')
+      .click('@deleteTemplateFinalButton')
+      .waitForElementNotVisible('@deleteTemplateFinalButton', 1500, 'Delete template popup is hidden')
   },
 }
 

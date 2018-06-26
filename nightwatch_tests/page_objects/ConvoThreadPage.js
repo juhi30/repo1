@@ -128,12 +128,12 @@ module.exports = {
   elements: {
 
     backArrowbutton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div[2]/div[1]/div/div[1]/button[1]`,
+      selector: `//BUTTON[contains(@class, 'convo__header__back-button')]`,
       locateStrategy: 'xpath',
     },
 
-    infoButton: {
-      selector: `//div[@class='convo__header']/button[2]`,
+    profileIcon: {
+      selector: `//BUTTON[contains(@title, 'Contact Profile')]`,
       locateStrategy: 'xpath'
     },
 

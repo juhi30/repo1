@@ -7,9 +7,6 @@ const membersCommands = {
   deactivateMember: function() {
     return this.waitForElementVisible('@deactivateButton', 'Deactivate button is visible')
       .click('@deactivateButton')
-      .waitForElementVisible('@finalDeactivateButton', 'Final deactivate button is visible')
-      .click('@finalDeactivateButton')
-      .waitForElementVisible('@memberUpdatedToast', 'Member updated toast visible');
   },
 }
 

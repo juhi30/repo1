@@ -3,6 +3,7 @@
   "output_folder" : "reports",
   "page_objects_path" : "page_objects",
   "globals_path" : "lib/global.js",
+  "custom_commands_path": "./tests/custom-commands",
 
   "selenium" : {
     "start_process" : true,

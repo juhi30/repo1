@@ -13,24 +13,33 @@ module.exports = {
   },
   elements: {
 
+    /*---------------------------------------------------*/
+    // photo upload elements
+    /*---------------------------------------------------*/
+
     addLogoButton: {
-      selector: `#app > div > div.app-wrapper > div.app-page__container > div > form > div:nth-child(1) > div.edit-profile__avatar-wrapper > button > span`, //MAKE SURE WORKING
-      // locateStrategy: 'xpath'
+      // selector: `//SPAN[contains(@title,'')]`,  weird text issue
+      locateStrategy: 'xpath'
     },
 
-    /*----------------------------------------------------------------------------*/
+    closeUploadPhotoIcon: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Add']`,
+      locateStrategy: 'xpath',
+    },
 
     uploadPhotoButton: {
       selector: `//LABEL[@class='avatar-editor__container__upload'][text()='Upload Photo']`,
       locateStrategy: 'xpath',
     },
 
-    closeUploadPhotoIcon: {
-      selector: `/html/body/div[4]/div/div/div[1]/button`,
-      locateStrategy: 'xpath',
+    doneUploadedPhotoButton: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Done']`,
+      locateStrategy: 'xpath'
     },
 
-    /*----------------------------------------------------------------------------*/
+    /*---------------------------------------------------*/
+    // Org profile inputs
+    /*---------------------------------------------------*/
 
     orgNameInput: {
       selector: `//INPUT[contains(@id,'name')]`,
@@ -48,7 +57,7 @@ module.exports = {
     },
 
     stateInput: {
-      selector: `//SELECT[contains(@id,'state')]`, //only grabs form group. dropdown and xpath contains not getting along
+      selector: `//SELECT[contains(@id,'state')]`, 
       locateStrategy: 'xpath',
     },
 
@@ -66,6 +75,9 @@ module.exports = {
       selector: `//INPUT[contains(@id,'businessEmail')]`,
       locateStrategy: 'xpath',
     },
+    /*---------------------------------------------------*/
+    // Org contact container
+    /*---------------------------------------------------*/
 
     orgContactNameInput: {
       selector: `//INPUT[contains(@id,'contactName')]`,
@@ -82,47 +94,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    /*----------------------------------------------------------------------------*/
-
-    // nullNameInput: {
-    //   selector: `//DIV[@class='form__validation-message'][text()='Name is required']`,
-    //   locateStrategy: 'xpath',
-    // },
-
-    // nullAddressInput: {
-    //   selector: `//DIV[@class='form__validation-message'][text()='Street is required']`,
-    //   locateStrategy: 'xpath',
-    // },
-
-    // nullCityInput: {
-    //   selector: `//DIV[@class='form__validation-message'][text()='City is required']`,
-    //   locateStrategy: 'xpath',
-    // },
-
-    // nullStateInput: {
-    //   selector: `//DIV[@class='form__validation-message'][text()='State is required']`,
-    //   locateStrategy: 'xpath',
-    // },
-
-    // nullZipInput: {
-    //   selector: `//DIV[@class='form__validation-message'][text()='Zip is required']`,
-    //   locateStrategy: 'xpath',
-    // },
-
-    // alertBox: {
-    //   selector: `//DIV[@class='alert u-m-b alert--danger']`,
-    //   locateStrategy: 'xpath',
-    // },
-
-    /*----------------------------------------------------------------------------*/
+    /*---------------------------------------------------*/
 
     saveOrgProfileButton: {
       selector: `//SPAN[@class='button__text-wrapper'][text()='Save Profile']`,
       locateStrategy: 'xpath'
-    },
-    saveToast: {
-      selector: `//DIV[@role='button']`,
-      locateStrategy: 'xpath'
-    },
+    }
   }
 };

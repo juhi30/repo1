@@ -1,3 +1,5 @@
+// EU = End User
+
 const euProfileCommands = {
   verifyElements: function() {
     return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')

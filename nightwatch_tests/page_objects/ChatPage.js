@@ -1,3 +1,5 @@
+// fairly certain that 
+
 const chatCommands = {
   pause: function(time) {
     this.api.pause(time);

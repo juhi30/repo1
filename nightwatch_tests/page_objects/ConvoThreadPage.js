@@ -13,7 +13,7 @@ const convoThreadCommands = {
       .verify.visible('@lastMessageBubble', 'First message is visible')
       .verify.visible('@messageInput', 'Message input is visible')
       .verify.visible('@messageSendButton', 'Send message button is visible')
-      .verify.visible('@addFileDropdown', 'Add file dropdown is visible')
+      .verify.visible('@addFilePopupButton', 'Add file dropdown is visible')
       .verify.visible('@messageToDropdown', 'Message TO dropdown is visible')
       .verify.visible('@messageFromDropdown', 'Message FROM dropdown is visible')
   },
@@ -74,9 +74,9 @@ const convoThreadCommands = {
     // also sms channel name has random number generated in another test and hard to track
   },
 
-  clickAddFileDropdown: function() {
-    return this.waitForElementVisible('@addFileDropdown', 5000, 'Add file dropdown button is visible')
-      .click('@addFileDropdown')
+  clickaddFilePopupButton: function() {
+    return this.waitForElementVisible('@addFilePopupButton', 5000, 'Add file dropdown button is visible')
+      .click('@addFilePopupButton')
   },
 
   clickUseTemplateChoice: function() {
@@ -94,19 +94,6 @@ const convoThreadCommands = {
       .waitForElementNotVisible('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is no longer present')
       .verify.containsText('@messageInput', hipaa)
       .clearValue('@messageInput')
-  },
-
-  validateTemplateModalEls: function() {
-    return this.waitForElementVisible('@createTemplateButton', 5000, 'Create template button is visible')
-      .verify.visible('@templateFilterDropdown', 'Filter dropdown button is visible')
-      .click('@templateFilterDropdown')
-      .click('@textingFilter')
-      .waitForElementNotVisible('@allFilter', 5000, 'Filter dropdown is hidden')
-      .verify.containsText('@templateFilterDropdown', 'Texting', 'Texting filter is active')
-      .click('@templateFilterDropdown')
-      .click('@allFilter')
-      .waitForElementNotVisible('@textingFilter', 5000, 'Filter dropdown is hidden')
-      .verify.containsText('@templateFilterDropdown', 'All', 'All filter is active')
   },
 
   useFirstTemplate: function() {
@@ -132,147 +119,90 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    editProfileButton: {
+      selector: `//SPAN[contains(.,'Edit Profile')]`,
+      locateStrategy: 'xpath'
+    },
+
+    /*------------------------------------------------------------------------*/
+    // convo header actions
+    /*------------------------------------------------------------------------*/
+
     profileIcon: {
       selector: `//BUTTON[contains(@title, 'Contact Profile')]`,
       locateStrategy: 'xpath'
     },
 
-    editProfileButton: {
-      selector: `//div[@class='profile__user']//button[.='Edit Profile']`,
+    searchConversationIcon: {
+      selector: `//BUTTON[contains(@title, 'Search Conversation')]`,
       locateStrategy: 'xpath'
     },
 
-    /*------------------------------------------------------------------------*/
-    // Communication dropdown filters
-    /*------------------------------------------------------------------------*/
-
-    allCommunicationsDropdown: {
-      selector: `//SPAN[@class='dropdown__toggle__text'][text()='All Communication']`,
-      locateStrategy: 'xpath',
-    },
-
-    notesDropdown: {
-      selector: `//SPAN[@class='dropdown__toggle__text'][text()='Notes']`,
-      locateStrategy: 'xpath',
-    },
-
-    allCommunicationsChoice: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='All Communication']`,
-      locateStrategy: 'xpath',
-    },
-
-    notesChoice: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Notes']`,
-      locateStrategy: 'xpath',
-    },
-
-    /*------------------------------------------------------------------------*/
-    // add note elements
-    /*------------------------------------------------------------------------*/
-
-    addNoteButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Add Note']`,
+    assignmentIcon: {
+      selector: `//BUTTON[contains(@title, 'Assign Conversation')]`,
       locateStrategy: 'xpath'
     },
 
-    addNoteInput: {
-      selector: `(//INPUT[@type='text'])[4]`,
+    moreOptionsIcon: {
+      selector: `//BUTTON[contains(@title, 'More Options')]`,
       locateStrategy: 'xpath'
     },
 
-    addNoteSubmit: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Add']`,
+    assignmentCompleteOption: {
+      selector: `//SPAN[contains(.,'Assignment Complete')]`,
       locateStrategy: 'xpath'
     },
 
-    /*------------------------------------------------------------------------*/
-    // search elements
-    /*------------------------------------------------------------------------*/
-
-    searchConvobutton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[11]`,
-      locateStrategy: 'xpath',
+    markUnreadOption: {
+      selector: `//SPAN[contains(.,'Mark as Unread')]`,
+      locateStrategy: 'xpath'
     },
 
-    searchConvoInput: {
-      selector: `(//INPUT[@type='text'])[3]`,
-      locateStrategy: 'xpath',
+    followIcon: {
+      selector: `//BUTTON[contains(.,'Follow')]`,
+      locateStrategy: 'xpath'
     },
 
-    searchConvoClearButton: {
-      selector: `(//BUTTON[@type='button'])[14]`,
-      locateStrategy: 'xpath',
+    unfollowIcon: {
+      selector: `//BUTTON[contains(.,'Unfollow')]`,
+      locateStrategy: 'xpath'
     },
+
     /*------------------------------------------------------------------------*/
     // message thread elements
     /*------------------------------------------------------------------------*/
 
     messageInput: {
-      selector: `//TEXTAREA[@rows='1']`,
+      selector: `//TEXTAREA[contains(@name, 'message')]`,
       locateStrategy: 'xpath',
     },
 
     messageSendButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Send']`,
+      selector: `//BUTTON[contains(@class, 'convo__message__send')]`,
       locateStrategy: 'xpath',
     },
-
-    lastMessageBubble: {
-      selector: `(//DIV[@class='msg convo__item__body__msg msg--primary msg--outbound'])[last()]`,
-      locateStrategy: 'xpath',
-    },
-
-    lastNoteBubble: {
-      selector: `(//DIV[@class='msg convo__item__body__msg msg--note msg--outbound'])[last()]`,
-      locateStrategy: 'xpath',
-    },
-
+    
     /*------------------------------------------------------------------------*/
-    // add file/Templates dropdown and elements
+    // add file/Templates popup and elements
     /*------------------------------------------------------------------------*/
 
-    addFileDropdown: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[15]`,
+    addFilePopupButton: {
+      selector: `//BUTTON[contains(@class, 'convo__message__add')]`,
+      locateStrategy: 'xpath',
+    },
+
+    addFileChoice: {
+      selector: `//SPAN[contains(.,'Add File')]`,
       locateStrategy: 'xpath',
     },
 
     useTemplateChoice: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Use Template']`,
+      selector: `//SPAN[contains(.,'Use Template')]`,
       locateStrategy: `xpath`,
     },
 
-    createTemplateButton: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Create Template']`,
-      locateStrategy: 'xpath',
-    },
-
-    templateFilterDropdown: {
-      selector: `//BUTTON[@class='button dropdown__toggle button--default']`,
-      locateStrategy: 'xpath',
-    },
-
-    allFilter: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='All']`,
-      locateStrategy: 'xpath',
-    },
-
-    textingFilter: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Texting']`,
-      locateStrategy: 'xpath',
-    },
-
-    firstTemplateFilterButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Use'][text()='Use'])[1]`,
-      locateStrategy: 'xpath',
-    },
-
-    useHIPAATemplateButton: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Use consent request template']`,
-      locateStrategy: 'xpath',
-    },
-
-    addFilechoice: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Add File']`,
+    consentRequestTemplateChoice: {
+      selector: `//SPAN[contains(.,'Use consent request template')]`,
       locateStrategy: 'xpath',
     },
 
@@ -280,28 +210,37 @@ module.exports = {
     // TO/FROM channel dropdown
     /*------------------------------------------------------------------------*/
 
-    messageToDropdown: {
-      selector: `//SPAN[@class='dropdown__toggle__text'][text()='(843) 555-1239']`,
+    channelPopupButton: {
+      selector: `//DIV[contains(@class, 'convo__channels')]`,
       locateStrategy: 'xpath',
     },
 
-    rhinoSecureChoice: {
-      selector: `//DIV[@class='dropdown__menu__item__content__desc'][text()='RhinoSecure messaging']`,
+    toDropdown: {
+      selector: `//SELECT[contains(@name, 'to-channel')]`,
       locateStrategy: 'xpath',
     },
 
-    phoneNumChoice: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='(843) 555-1239']`,
+    fromDropdown: {
+      selector: `//SELECT[contains(@name, 'from-channel')]`,
+      locateStrategy: 'xpath',
+    },
+    
+    /*------------------------------------------------------------------------*/
+    // Message / RhinoSecure / Note tabs
+    /*------------------------------------------------------------------------*/
+
+    messageTab: {
+      selector: `//SPAN[contains(.,'Message')]`,
       locateStrategy: 'xpath',
     },
 
-    messageFromDropdown: {
-      selector: `(//BUTTON[@class='button dropdown__toggle u-p-a-0 button--link button--small'])[2]`,
+    rhinoSecureTab: {
+      selector: `//SPAN[contains(.,'RhinoSecure')]`,
       locateStrategy: 'xpath',
     },
 
-    smsChannelChoice: {
-      selector: `//SPAN[@class='dropdown__toggle__text'][text()='SMS Test Channel56']`,
+    noteTab: {
+      selector: `//SPAN[contains(.,'Note')]`,
       locateStrategy: 'xpath',
     },
   }

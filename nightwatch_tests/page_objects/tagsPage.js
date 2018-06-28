@@ -139,11 +139,7 @@ module.exports = {
     },
 
     deleteTagTrashIcon: {
-<<<<<<< HEAD
       selector: ` //BUTTON[contains(@title,'Delete Tag')]`, 
-=======
-      selector: `/html/body/div[3]/div/div/div[1]/button/span/svg`, // better xpath (svg issue)
->>>>>>> 74e543ad8661c6ce1a30f22800c57e597ccac780
       locateStrategy: 'xpath',
     },
 
@@ -151,6 +147,5 @@ module.exports = {
       selector: `//SPAN[@class='button__text-wrapper'][text()='Yes, delete tag']`,
       locateStrategy: 'xpath',
     },
-
   }
 }

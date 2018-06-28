@@ -148,6 +148,7 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
+    // 
     assignmentCompleteOption: {
       selector: `//SPAN[contains(.,'Assignment Complete')]`,
       locateStrategy: 'xpath'

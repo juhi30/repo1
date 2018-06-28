@@ -9,7 +9,7 @@ const loginCommands = {
   },
   
   validateForm: function() {
-    return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
+    return this.waitForElementVisible('@usernameInput', 'Username input is visible')
       .verify.visible('@usernameInput', 'Username input is visible')
       .verify.visible('@passwordInput', 'password input is visible')
       .verify.containsText('@loginButton', 'Log In', 'Login button is visible')
@@ -25,41 +25,41 @@ const loginCommands = {
       .setValue('@passwordInput', password)
   },
 
-  enterMemberCreds: function() {
-    return this.waitForElementVisible('@usernameInput', 5000,'Username input visible')
-      .setValue('@usernameInput', helpers.memberCreds.username)
-      .setValue('@passwordInput', helpers.memberCreds.password)
+  enterMemberCreds: function(username, password) {
+    return this.waitForElementVisible('@usernameInput','Username input visible')
+      .setValue('@usernameInput', username ? username : helpers.memberCreds.username)
+      .setValue('@passwordInput', password ? password : helpers.memberCreds.password)
   },
 
-  enterPatientCreds: function() {
-    return this.waitForElementVisible('@usernameInput', 5000, 'Username input visible')
-      .setValue('@usernameInput', helpers.patientCreds.username)
-      .setValue('@passwordInput', helpers.patientCreds.password)
+  enterPatientCreds: function(username, password) {
+    return this.waitForElementVisible('@usernameInput', 'Username input visible')
+      .setValue('@usernameInput', username ? username : helpers.patientCreds.username)
+      .setValue('@passwordInput', password ? password : helpers.patientCreds.password)
   },
 
   clearUsernameInput: function() {
-    return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
+    return this.waitForElementVisible('@usernameInput', 'Username input is visible')
       .clearValue('@usernameInput')
   },
 
   clearPasswordInput: function() {
-    return this.waitForElementVisible('@passwordInput', 5000, 'Password input is visible')
+    return this.waitForElementVisible('@passwordInput', 'Password input is visible')
       .clearValue('@passwordInput')
   },
 
   submit: function() {
-    return this.waitForElementVisible('@loginButton', 5000, 'Login button is visible')
+    return this.waitForElementVisible('@loginButton', 'Login button is visible')
       .click('@loginButton')
   },
 
   submitForFirstTime: function() {
-    return this.waitForElementVisible('@loginButton', 5000, 'Login button is visible')
+    return this.waitForElementVisible('@loginButton', 'Login button is visible')
       .click('@loginButton')
-      .waitForElementNotPresent('@usernameInput', 5000, 'Username input no longer present');
+      .waitForElementNotPresent('@usernameInput', 'Username input no longer present');
   },
 
   validateError: function() {
-    return this.waitForElementVisible('@errorPrompt', 5000, 'Error logging in prompt is visible')
+    return this.waitForElementVisible('@errorPrompt', 'Error logging in prompt is visible')
       .verify.valueContains('@usernameInput', '', 'username input testing ')
       .verify.valueContains('@passwordInput', '', 'password input testing')
   },
@@ -71,17 +71,17 @@ const loginCommands = {
   },
 
   fillInNewPasswordInput: function(password) {
-    return this.waitForElementVisible('@newPasswordInput', 5000, 'New password input is visible')
+    return this.waitForElementVisible('@newPasswordInput', 'New password input is visible')
       .setValue('@newPasswordInput', password);
   },
 
   fillInConfirmPasswordInput: function(password) {
-    return this.waitForElementVisible('@confirmPasswordInput', 5000, 'Confirm password input is visible')
+    return this.waitForElementVisible('@confirmPasswordInput', 'Confirm password input is visible')
       .setValue('@confirmPasswordInput', password);
   },
 
   clickSaveAndContinueButton: function() {
-    return this.waitForElementVisible('@saveAndContinueButton', 5000, 'Save and Continue button is visible')
+    return this.waitForElementVisible('@saveAndContinueButton', 'Save and Continue button is visible')
       .click('@saveAndContinueButton');
   }
 }

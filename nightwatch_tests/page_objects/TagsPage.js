@@ -19,13 +19,7 @@ const tagCommands = {
       .waitForElementVisible('@tagCategoryRole', 'Role category is visible')
       .waitForElementVisible('@tagCategoryCustom', 'Custom category is visible')
   },
-  
-  clickContainerNewTag: function () {
-    return this.waitForElementVisible('@newTagInContainer', 'New tag in container button is visible')
-      .click('@newTagInContainer')
-      .waitForElementVisible('@createTagButton', 'Create New tag modal is present')
-  },
-  
+
   createNewTag: function () {
     return this.setValue('@tagNameInput', 'fake_tag')
       .click('@tagCategoryCustom')
@@ -71,13 +65,12 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     newTagButton: {
-      selector: `//BUTTON[contains(@title,'Create Tag')]`, //shifted count need better grab
+      selector: `(//SPAN[@class='button__text-wrapper'])[6]`,//shifted count need better grab
       locateStrategy: 'xpath',
     },
 
     firstTag: {
       selector: `//SPAN[contains(.,'#Charleston')]`, 
-      locateStrategy: 'xpath'
     },
 
     fakeTag: {
@@ -90,17 +83,12 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
-    newTagInContainer: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Create New Tag']`, // used in Tags container on channel, group and members pages
-      locateStrategy: 'xpath'
-    },
-
     /*------------------------------------------------------------*/
     // New Tag modal elements
     /*------------------------------------------------------------*/
 
     tagNameInput: {
-      selector: `//INPUT[contains(@name,'tagName')]`, 
+      selector: `//INPUT[contains(@id,'tagName')]`, 
       locateStrategy: 'xpath',
     },
 
@@ -139,11 +127,7 @@ module.exports = {
     },
 
     deleteTagTrashIcon: {
-<<<<<<< HEAD
-      selector: ` //BUTTON[contains(@title,'Delete Tag')]`, 
-=======
       selector: `/html/body/div[3]/div/div/div[1]/button/span/svg`, // better xpath (svg issue)
->>>>>>> 74e543ad8661c6ce1a30f22800c57e597ccac780
       locateStrategy: 'xpath',
     },
 

@@ -22,7 +22,7 @@ module.exports = {
     },
 
     firstMemberSelector: {
-      selector: `(//DIV[@role='button'])[1]` // dynamic element count used might need better way to access the members
+      selector: `(//DIV[@role='button'])[1]` // dynamic element count used, might need better way to access the members
     },
 
     /*----------------------------------------------------*/

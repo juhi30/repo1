@@ -147,5 +147,6 @@ module.exports = {
       selector: `//SPAN[@class='button__text-wrapper'][text()='Yes, delete tag']`,
       locateStrategy: 'xpath',
     },
+    
   }
-}
+};

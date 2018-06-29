@@ -5,8 +5,7 @@
 const helpers = require('../helpers');
 let num = helpers.randoNum;
 let messageContent = `Just a test ${num}`;
-// Nightwatch has some issues with the ES6 method of exporting modules,
-// so we still do this the ES5 way for now. 
+
 module.exports = {
   /*
     Nightwatch passes in the "client" object into each test file. This object contains all of

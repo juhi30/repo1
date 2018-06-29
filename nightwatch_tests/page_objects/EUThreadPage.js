@@ -1,3 +1,5 @@
+// EU = End User
+
 const euThreadCommands = {
 
   pause: function(milli) {

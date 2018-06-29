@@ -62,19 +62,19 @@ module.exports = {
   elements: {
 
     addLogoButton: {
-      selector: `#app > div > div.app-wrapper > div.app-page__container > div > form > div:nth-child(1) > div.edit-profile__avatar-wrapper > button > span`, //MAKE SURE WORKING
-      // locateStrategy: 'xpath'
+      selector: `//SPAN[contains(.,'Update')]`,
+      locateStrategy: 'xpath'
     },
 
     /*----------------------------------------------------------------------------*/
 
     uploadPhotoButton: {
-      selector: `//LABEL[@class='avatar-editor__container__upload'][text()='Upload Photo']`,
+      selector: `//LABEL[contains(.,'Upload Photo')]`,
       locateStrategy: 'xpath',
     },
 
     closeUploadPhotoIcon: {
-      selector: `/html/body/div[4]/div/div/div[1]/button`,
+      selector: `//BUTTON[contains(@title, 'Close')]`,
       locateStrategy: 'xpath',
     },
 
@@ -133,44 +133,35 @@ module.exports = {
     /*----------------------------------------------------------------------------*/
 
     nullNameInput: {
-      selector: `//DIV[@class='form__validation-message'][text()='Name is required']`,
+      selector: `//INPUT[contains(@name, 'name')]`,
       locateStrategy: 'xpath',
     },
 
     nullAddressInput: {
-      selector: `//DIV[@class='form__validation-message'][text()='Street is required']`,
+      selector: `//INPUT[contains(@name, 'street1')]`,
       locateStrategy: 'xpath',
     },
 
     nullCityInput: {
-      selector: `//DIV[@class='form__validation-message'][text()='City is required']`,
+      selector: `//INPUT[contains(@name, 'street2')]`,
       locateStrategy: 'xpath',
     },
 
     nullStateInput: {
-      selector: `//DIV[@class='form__validation-message'][text()='State is required']`,
+      selector: `//INPUT[contains(@name, 'city')]`,
       locateStrategy: 'xpath',
     },
 
     nullZipInput: {
-      selector: `//DIV[@class='form__validation-message'][text()='Zip is required']`,
-      locateStrategy: 'xpath',
-    },
-
-    alertBox: {
-      selector: `//DIV[@class='alert u-m-b alert--danger']`,
+      selector: `//INPUT[contains(@name, 'zip')]`,
       locateStrategy: 'xpath',
     },
 
     /*----------------------------------------------------------------------------*/
 
     saveOrgProfileButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Profile']`,
+      selector: `//SPAN[contains(.,'Save Profile')]`,
       locateStrategy: 'xpath'
-    },
-    saveToast: {
-      selector: `//DIV[@role='button']`,
-      locateStrategy: 'xpath'
-    },
+    }
   }
 };

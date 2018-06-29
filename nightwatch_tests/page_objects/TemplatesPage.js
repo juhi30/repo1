@@ -7,7 +7,7 @@ const templatesCommands = {
 
   renderPageElements: function() {
     return this.waitForElementVisible('@createTemplateButton', 2000, 'Create template button is visible')
-      .verify.visible('@hIPAATemplate', 'HIPAA template is visible')
+      .verify.visible('@HIPAATemplate', 'HIPAA template is visible')
       .verify.visible('@firstTestTemplate', 'First test template is visible')
   },
 
@@ -47,14 +47,24 @@ const templatesCommands = {
   },
 
   // uploadToTemplate: function() {
-  //   return this.setValue('input[type="file"]', require('path').resolve('/Users/geoffmaas/Desktop/test_pics/night_watch.jpg'))
   // },
 
-  fillOutNewTemplate: function(title, message, pathToFile) {
+//    we'll use something similar to this  //
+//    fillOutNewTemplate: function(title, message, pathToFile) {
+//      return this.setValue('@createTemplateTitle', title)
+//       .setValue('@createTemplateMessage', message)
+//       .setValue('input[type="file"]', require('path').resolve(pathToFile))
+//       .waitForElementVisible('@uploadedFile', 5000, 'Uploaded file is visible')
+//   },
+  
+//      (test call of command with variable input)
+//       .fillOutNewTemplate('auto test created template', 'this should be in the template\'s message body', 'test_files/sevenkbbuggy.PNG')
+
+  fillOutNewTemplate: function(title, message) {
     return this.setValue('@createTemplateTitle', title)
       .setValue('@createTemplateMessage', message)
-      .setValue('input[type="file"]', require('path').resolve(pathToFile))
-      .waitForElementVisible('@uploadedFile', 5000, 'Uploaded file is visible')
+      // .setValue('input[type="file"]', require('path').resolve(pathToFile)) can use this method, with pathToFile argument, to add attachments
+      // .waitForElementVisible('@uploadedFile', 5000, 'Uploaded file is visible')
   },
 
   saveNewTemplate: function() {
@@ -73,11 +83,11 @@ const templatesCommands = {
   },
 
   deleteTemplate: function() {
-    return this.waitForElementVisible('@firstTemplateDelete', 1000, 'Template delete button is visible')
-      .click('@firstTemplateDelete')
-      .waitForElementVisible('@firstTemplateDeleteFinal', 1500, 'Delete template popup is visible')
-      .click('@firstTemplateDeleteFinal')
-      .waitForElementNotVisible('@firstTemplateDeleteFinal', 1500, 'Delete template popup is hidden')
+    return this.waitForElementVisible('@deleteTemplateButton', 1000, 'Template delete button is visible')
+      .click('@deleteTemplateButton')
+      .waitForElementVisible('@deleteTemplateFinalButton', 1500, 'Delete template popup is visible')
+      .click('@deleteTemplateFinalButton')
+      .waitForElementNotVisible('@deleteTemplateFinalButton', 1500, 'Delete template popup is hidden')
   },
 }
 
@@ -89,121 +99,101 @@ module.exports = {
   elements: {
 
     createTemplateButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Create Template']`,
-      locateStrategy: 'xpath'
+      selector: `//BUTTON[contains(@title, 'Create Template')]`,
+      locateStrategy: 'xpath',
     },
 
     filterDropdown: {
-      selector: `//BUTTON[@class='button dropdown__toggle button--default']`,
+      selector: `//BUTTON[contains(@class, 'app-page__header__filter__button')]`,
       locateStrategy: 'xpath',
     },
 
     filterAll: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='All']`,
+      selector: `//SPAN[contains(.,'All')]`,
       locateStrategy: 'xpath',
     },
 
     filterTextingChannel: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Texting']`,
+      selector: `//SPAN[contains(.,'Texting')]`,
       locateStrategy: 'xpath',
     },
 
     firstTestTemplate: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div[2]/div[1]`,
+      selector: `//SPAN[contains(.,'Check in')]`,
       locateStrategy: 'xpath',
     },
 
     /*---------------------------------------------------------*/
 
-    firstTemplateEdit: {
-      selector: `(//BUTTON[@type='button'][text()='Edit'][text()='Edit'])[1]`,
+    firstTemplateEditButton: {
+      selector: `//SPAN[contains(.,'Edit Template')]`,
       locateStrategy: 'xpath',
     },
 
-    // firstTemplateEditPopup: {
-    //   selector: `/html/body/div[5]/div/div/div`,
-    //   locateStrategy: 'xpath'
-    // },
-
     firstTemplateEditTitleInput: {
-      selector: `//*[@id="subject"]`,
+      selector: `//INPUT[contains(@name, 'subject')]`,
+      locateStrategy: 'xpath',
+    },
+
+    firstTemplateEditMessageInput: {
+      selector: `//TEXTAREA[contains(@name, 'message')]`,
       locateStrategy: 'xpath',
     },
 
     firstTemplateEditSaveButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Template']`,
+      selector: `//SPAN[contains(.,'Update Template')]`,
       locateStrategy: 'xpath',
     },
 
     /*---------------------------------------------------------*/
 
-    firstTemplateDelete: {
-      selector: `(//BUTTON[@type='button'][text()='Delete'][text()='Delete'])[1]`,
+    deleteTemplateButton: {
+      selector: `//BUTTON[contains(@title, 'Delete Template')]`,
       locateStrategy: 'xpath',
     },
 
-    // firstTemplateDeletePopup: {
-    //   selector: `/html/body/div[4]/div/div/div`,
-    //   locateStrategy: 'xpath',
-    // },
-
-    firstTemplateDeleteFinal: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Delete']`,
+    deleteTemplateFinalButton: {
+      selector: `//SPAN[contains(.,'Yes, delete template')]`,
       locateStrategy: 'xpath',
     },
     /*---------------------------------------------------------*/
 
-    hIPAATemplate: {
-      selector: `(//DIV[@class='bucket__header__title'][text()='HIPAA Consent Request'][text()='HIPAA Consent Request'])[1]`,
+    HIPAATemplate: {
+      selector: `//SPAN[contains(.,'HIPAA Consent Request')]`,
       locateStrategy: 'xpath',
     },
 
     /*---------------------------------------------------------*/
-    // create template popup
+    // create template page
     /*---------------------------------------------------------*/
-
-    // createTemplatePopup: {
-    //   selector: `/html/body/div[5]/div/div/div`,
-    //   locateStrategy: 'xpath',
-    // },
 
     createTemplateTitle: {
-      selector: `//INPUT[@id='subject']`,
+      selector: `//INPUT[contains(@name, 'subject')]`,
       locateStrategy: 'xpath',
     },
 
     createTemplateMessage: {
-      selector: `//TEXTAREA[@id='message']`,
+      selector: `//TEXTAREA[contains(@name, 'message')]`,
       locateStrategy: 'xpath',
     },
 
     createTemplateSaveButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Create']`,
+      selector: `//SPAN[contains(.,'Upload File')]`,
       locateStrategy: 'xpath'
     },
 
     uploadFileButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Upload File']`,
+      selector: `//SPAN[contains(.,'Create Template')]`,
       locateStrategy: 'xpath',
     },
-
-    uploadedFile: {
-      selector: `(//DIV[@class='template-attachments__name'])[2]`,
-      locateStrategy: 'xpath',
-    },
-
-    // cancelCreateButton: {
-    //   selector: `/html/body/div[5]/div/div/div/div/div[1]/button`,
-    //   locateStrategy: 'xpath'
-    // },
 
     nullTemplateTitle: {
-      selector: `//DIV[@class='form__validation-message'][text()='Title is required']`,
+      selector: `//DIV[contains(.,'Title is required')]`,
       locateStrategy: 'xpath',
     },
 
     nullTemplateMessage: {
-      selector: `//DIV[@class='form__validation-message'][text()='Message is required']`,
+      selector: `//DIV[contains(.,'Message is required')]`,
       locateStrategy: 'xpath',
     },
   }

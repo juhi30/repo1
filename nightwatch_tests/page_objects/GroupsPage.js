@@ -7,7 +7,9 @@ const groupsPageCommands = {
 
 module.exports = {
   commands: [groupsPageCommands],
-  url: 'https://dev.dev-rhinogram.com/settings/organization/groups',
+  url: function() {
+    return this.api.launch_url + '/settings/organization/groups'
+  },
   elements: {
     createButton: {
       selector: `//BUTTON[@title, 'Create Group']`,

@@ -33,7 +33,7 @@ module.exports = {
   elements: {
 
     backToRhinogramLink: {
-      selector: `//A[contains(@class, 'u-inline-block')]`,
+      selector: `//DIV[contains(.,'Back to Rhinogram')]`,
       locateStrategy: 'xpath',
     },
 

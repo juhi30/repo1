@@ -47,8 +47,18 @@ const templatesCommands = {
   },
 
   // uploadToTemplate: function() {
-  //   return this.setValue('input[type="file"]', require('path').resolve('/Users/geoffmaas/Desktop/test_pics/night_watch.jpg'))
   // },
+
+//    we'll use something similar to this  //
+//    fillOutNewTemplate: function(title, message, pathToFile) {
+//      return this.setValue('@createTemplateTitle', title)
+//       .setValue('@createTemplateMessage', message)
+//       .setValue('input[type="file"]', require('path').resolve(pathToFile))
+//       .waitForElementVisible('@uploadedFile', 5000, 'Uploaded file is visible')
+//   },
+  
+//      (test call of command with variable input)
+//       .fillOutNewTemplate('auto test created template', 'this should be in the template\'s message body', 'test_files/sevenkbbuggy.PNG')
 
   fillOutNewTemplate: function(title, message) {
     return this.setValue('@createTemplateTitle', title)
@@ -95,7 +105,7 @@ module.exports = {
 
     filterDropdown: {
       selector: `//BUTTON[contains(@class, 'app-page__header__filter__button')]`,
-      locateStrategy: 'class name',
+      locateStrategy: 'xpath',
     },
 
     filterAll: {
@@ -176,17 +186,6 @@ module.exports = {
       selector: `//SPAN[contains(.,'Create Template')]`,
       locateStrategy: 'xpath',
     },
-
-    // not sure how to incorporate this right now
-    // uploadedFile: {
-    //   selector: `(//DIV[@class='template-attachments__name'])[2]`,
-    //   locateStrategy: 'xpath',
-    // },
-
-    // cancelCreateButton: {
-    //   selector: `/html/body/div[5]/div/div/div/div/div[1]/button`,
-    //   locateStrategy: 'xpath'
-    // },
 
     nullTemplateTitle: {
       selector: `//DIV[contains(.,'Title is required')]`,

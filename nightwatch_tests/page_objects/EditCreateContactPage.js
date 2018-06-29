@@ -72,30 +72,8 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
-    // birthday datepicker options
-
-    selectMonth: {
-      selector: `//SELECT[contains(@class, 'react-datepicker__month-select')]`,
-      locateStrategy: 'xpath'
-    },
-
-    januaryOption: {
-      selector: `//OPTION[contains(.,'January')]`,
-      locateStrategy: 'xpath'
-    },
-
-    firstOfTheMonthOption: {
-      selector: `//DIV[contains(.,'1')]`,
-      locateStrategy: 'xpath'
-    },
-
-    selectYear: {
-      selector: `//SELECT[contains(@class, 'react-datepicker__year-select')]`,
-      locateStrategy: 'xpath'
-    },
-
-    nineteenNinetyOption: {
-      selector: `//OPTION[contains(.,'1999')]`,
+    birthdayInput: {
+      selector: `//INPUT[contains(@name, 'birthday')]`,
       locateStrategy: 'xpath'
     },
 

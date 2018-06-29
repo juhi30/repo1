@@ -18,11 +18,14 @@ module.exports = {
   elements: {
 
     createMemberButton: {
-      selector: `//BUTTON[contains(@title, 'Create Member')]`
+      selector: `//BUTTON[contains(@title, 'Create Member')]`,
+      locateStrategy: 'xpath'
     },
 
     firstMemberSelector: {
-      selector: `(//DIV[@role='button'])[1]` // dynamic element count used, might need better way to access the members
+      selector: `(//DIV[@role='button'])[1]`, // dynamic element count used, might need better way to access the members
+      locateStrategy: 'xpath'
+
     },
 
     /*----------------------------------------------------*/
@@ -30,35 +33,43 @@ module.exports = {
     /*----------------------------------------------------*/
 
     closeSummaryButton: {
-      selector: `//SPAN[contains(@title, 'Close')]`
+      selector: `//SPAN[contains(@title, 'Close')]`,
+      locateStrategy: 'xpath'
     },
 
     goToConvoButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Go to Conversation']`
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Go to Conversation']`,
+      locateStrategy: 'xpath'
     },
 
     editMemberButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Edit Member']`
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Edit Member']`,
+      locateStrategy: 'xpath'
     },
 
     activateMember: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Activate']` //Only visible if member is deactivated
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Activate']`, //Only visible if member is deactivated
+      locateStrategy: 'xpath'
     },
 
     createTempPassword: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Create']`
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Create']`,
+      locateStrategy: 'xpath'
     },
     
     confirmTempPassword: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Yes']`
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Yes']`,
+      locateStrategy: 'xpath'
     },
 
     cancelTempPassword: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[1]`
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[1]`,
+      locateStrategy: 'xpath'
     },
 
     deactivateMemberButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Deactivate'][text()='Deactivate'])[1]`
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Deactivate'][text()='Deactivate'])[1]`,
+      locateStrategy: 'xpath'
     },
 
     /*----------------------------------------------------*/
@@ -66,19 +77,23 @@ module.exports = {
     /*----------------------------------------------------*/
 
     closeDeactivateModal: {
-      selector: `//SPAN[contains(@title, 'Close')]`
+      selector: `//SPAN[contains(@title, 'Close')]`,
+      locateStrategy: 'xpath'
     },
     
     cancelInModal: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[2]`
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[2]`,
+      locateStrategy: 'xpath'
     },
 
     deactivateInModal: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Deactivate'][text()='Deactivate'])[2]`
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Deactivate'][text()='Deactivate'])[2]`,
+      locateStrategy: 'xpath'
     },
 
     reactivateInModal: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Reactivate']`
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Reactivate']`,
+      locateStrategy: 'xpath'
     },
   }
 };

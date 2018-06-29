@@ -115,7 +115,7 @@ module.exports = {
   elements: {
 
     backArrowbutton: {
-      selector: `//BUTTON[contains(@class, 'convo__header__back-button')]`,
+      selector: `//BUTTON[contains(@title, 'Back to list')]`,
       locateStrategy: 'xpath',
     },
 
@@ -179,7 +179,7 @@ module.exports = {
     },
 
     messageSendButton: {
-      selector: `//BUTTON[contains(@class, 'convo__message__send')]`,
+      selector: `//BUTTON[contains(@title, 'Send message')]`,
       locateStrategy: 'xpath',
     },
     
@@ -188,7 +188,7 @@ module.exports = {
     /*------------------------------------------------------------------------*/
 
     addFilePopupButton: {
-      selector: `//BUTTON[contains(@class, 'convo__message__add')]`,
+      selector: `//BUTTON[contains(@title, 'Add to message')]`,
       locateStrategy: 'xpath',
     },
 

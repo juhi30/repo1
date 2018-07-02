@@ -51,22 +51,22 @@ module.exports = {
         },
 
         oneWeekRadio: {
-            selector: `//LABEL[@class='rhinodio__label'][text()='1 week prior']`,
+            selector: `//LABEL[conatins (text(),'1 week prior')]`,
             locatestrategy: 'xpath'
         },
 
         twoDayRadio: {
-            selector: `//LABEL[@class='rhinodio__label'][text()='48 hours prior']`,
+            selector: `//LABEL[conatins (text(),'48 hours prior')]`,
             locatestrategy: 'xpath'
         },
 
         oneDayRadio: {
-            selector: `//LABEL[@class='rhinodio__label'][text()='24 hours prior']`,
+            selector: `//LABEL[conatins (text(),'24 hours prior')]`,
             locatestrategy: 'xpath'
         },
 
         twoHourRadio: {
-            selector: `//LABEL[@class='rhinodio__label'][text()='2 hours prior']`,
+            selector: `//LABEL[conatins (text(),'2 hours prior')]`,
             locatestrategy: 'xpath'
         },
 
@@ -78,7 +78,7 @@ module.exports = {
         /*--------------------------------------------*/
 
         saveChangesButton: {
-            selector: `//SPAN[@class='button__text-wrapper'][text()='Save Changes']`,
+            selector: `//SPAN[contains(text(), 'Save Changes')]`,
             locatestrategy: 'xpath'
         },
     }

@@ -38,27 +38,27 @@ module.exports = {
     },
 
     goToConvoButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Go to Conversation']`,
+      selector: `//SPAN[contains(text(), 'Go to Conversation')]`,
       locateStrategy: 'xpath'
     },
 
     editMemberButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Edit Member']`,
+      selector: `//SPAN[contains(text(), 'Edit Member')]`,
       locateStrategy: 'xpath'
     },
 
     activateMember: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Activate']`, //Only visible if member is deactivated
+      selector: `//SPAN[contains(text(), 'Activate')]`, //Only visible if member is deactivated
       locateStrategy: 'xpath'
     },
 
     createTempPassword: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Create']`,
+      selector: `//SPAN[contains(text(), 'Create')]`,
       locateStrategy: 'xpath'
     },
     
     confirmTempPassword: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Yes']`,
+      selector: `//SPAN[contains(text(), 'Yes')]`,
       locateStrategy: 'xpath'
     },
 
@@ -92,7 +92,7 @@ module.exports = {
     },
 
     reactivateInModal: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Reactivate']`,
+      selector: `//SPAN[contains(text(), 'Reactivate')]`,
       locateStrategy: 'xpath'
     },
   }

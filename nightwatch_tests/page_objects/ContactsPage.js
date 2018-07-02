@@ -86,57 +86,28 @@ module.exports = {
     /*-----------------------------------------------------------*/
 
     filterDropdown: {
-      selector: `(//BUTTON[@class='button dropdown__toggle u-flex-shrink-0 u-text-capitalize button--default'])[1]`,
+      selector: `//BUTTON[contains(@title, 'Filter contacts')]`,
       locateStrategy: 'xpath'
     },
 
     allContactsOption: {
-      selector: `(//SPAN[@class='u-text-overflow'][text()='All Contacts'][text()='All Contacts'])[1]`,
+      selector: `//SPAN[contains(.,'All Contacts')]`,
       locateStrategy: 'xpath',
     },
 
     patientOption: {
-      selector: `(//SPAN[@class='u-text-overflow'][text()='patient'][text()='patient'])[1]`,
-      locateStrategy: 'xpath'
-    },
-
-    memberOption: {
-      selector: `(//SPAN[@class='u-text-overflow'][text()='member'][text()='member'])[1]`,
-      locateStrategy: 'xpath'
-    },
-
-    connectedPartyOption: {
-      selector: `(//SPAN[@class='u-text-overflow'][text()='connected party'][text()='connected party'])[1]`,
+      selector: `//SPAN[contains(.,'Patient')]`,
       locateStrategy: 'xpath'
     },
 
     unknownOption: {
-      selector: `(//SPAN[@class='u-text-overflow'][text()='unknown'][text()='unknown'])[1]`,
+      selector: `//SPAN[contains(.,'Unknown')]`,
       locateStrategy: 'xpath'
     },
 
     otherOption: {
-      selector: `(//SPAN[@class='u-text-overflow'][text()='other'][text()='other'])[1]`,
+      selector: `//SPAN[contains(.,'Other')]`,
       locateStrategy: 'xpath'
-    },
-
-    /*-----------------------------------------------------------*/
-    // Contacts page containers and elements
-    /*-----------------------------------------------------------*/
-
-    contactsContainer: {
-      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[2]`,
-      locateStrategy: 'xpath',
-    },
-
-    firstContact: {
-      selector: `//div[1]/div/div[2]/div/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[2]/div`,
-      locateStrategy: 'xpath'
-    },
-
-    profileContainer: {
-      selector: `//DIV[@class='profile']`,
-      locateStrategy: 'xpath',
     },
 
     /*-----------------------------------------------------------*/
@@ -144,28 +115,13 @@ module.exports = {
     /*-----------------------------------------------------------*/
 
     addContactButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div/div/div/div[1]/div[3]/button/span`,
+      selector: `//BUTTON[contains(@title, 'Add New Contact')]`,
       locateStrategy: 'xpath'
     },
 
-    addContactButtonModal: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[7]`,
-      locateStrategy: 'xpath'
-    },
-
-    addContactDropdownInput: {
-      selector: `(//INPUT[@type='text'])[2]`,
+    searchInputInAddContactModal: {
+      selector: `//INPUT[contains(@name, 'nonMembers')]`,
       locateStrategy: 'xpath',
     },
-
-    addContactDropdownFirstResult: {
-      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[1]/div[3]/div/div/div/div[2]/a`,
-      locateStrategy: 'xpath',
-    },
-
-    addNewContactButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[8]`,
-      locateStrategy: 'xpath'
-    }
   }
 };

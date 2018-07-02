@@ -92,16 +92,17 @@ module.exports = {
     return this.api.launch_url + '/login'
   },
   elements: {
+    // works for the forgotten password page
     usernameInput: {
-      selector: `//INPUT[@id='username']`,
+      selector: `//INPUT[contains(@name, 'username')]`,
       locateStrategy: 'xpath',
     },
     passwordInput: {
-      selector: `//INPUT[@id='password']`,
+      selector: `//INPUT[contains(@name, 'password')]`,      
       locateStrategy: 'xpath',
     },
     loginButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Log In']`, //Will change after Alpha
+      selector: `//SPAN[contains(.,'Log In')]`, //Will change after Alpha
       locateStrategy: 'xpath',
     },
     errorPrompt: {
@@ -109,20 +110,30 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    forgotPasswordLink: {
+      selector: `//SPAN[contains(.,'Forgot password?')]`,
+      locateStrategy: 'xpath',
+    },
+
+    getNewPassword: {
+      selector: `//SPAN[contains(.,'Get New Password')]`,
+      locateStrategy: 'xpath',
+    },
+
     //------ below are elements found when logging in with a temporary password -----//
 
     newPasswordInput: {
-      selector: `//INPUT[@id='password']`,
+      selector: `//INPUT[contains(@name, 'password')]`,
       locateStrategy: 'xpath'
     },
 
     confirmPasswordInput: {
-      selector: `//INPUT[@id='confirmPassword']`,
+      selector: `//INPUT[contains(@name, 'confirmPassword')]`,
       locateStrategy: 'xpath'
     },
 
     saveAndContinueButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Save and Continue']`,
+      selector: `//SPAN[contains(.,'Save and Continue')]`,
       locateStrategy: 'xpath'
     },
   }

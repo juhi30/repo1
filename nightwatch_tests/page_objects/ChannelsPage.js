@@ -45,7 +45,7 @@ module.exports = {
     },
 
     firstChannelContainer: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][text()='QA Test channel']`,// first channel listed to access channel summary container
+      selector: `//SPAN[contains(text(),'QA Test channel')]`, // first channel listed to access channel summary container
       locateStrategy: 'xpath',
     },
 
@@ -55,8 +55,8 @@ module.exports = {
     },
 
     editChannel: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Edit Channel']`,
-      locateStrategy: 'xpath'
+      selector: `//SPAN[contains(text(),'Edit Channel')]`,
+\      locateStrategy: 'xpath'
     },  
   }
 };

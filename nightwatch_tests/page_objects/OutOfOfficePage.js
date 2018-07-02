@@ -17,7 +17,7 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     createOOOEventButton: {
-        selector: `//INPUT[contains(@id, 'title')]`,
+        selector: `//BUTTON[contains(@title, 'Create Out of Office Event')]`,
         locatestrategy: 'xpath'
       },
 
@@ -27,7 +27,7 @@ module.exports = {
       },
 
       editOOOEvent: {
-        selector: `//SPAN[@class='button__text-wrapper'][text()='Edit Event']`,
+        selector: `//SPAN[contains(text(), 'Edit Event')]`,
         locatestrategy: 'xpath'
       },
 
@@ -41,7 +41,7 @@ module.exports = {
     },
 
     messageTextArea: {
-      selector: `//messageTextArea[contains(@id, 'message')]`,
+      selector: `//TEXTAREA[contains(@id, 'message')]`,
       locateStrategy: 'xpath',
     },
 
@@ -60,7 +60,7 @@ module.exports = {
     },
 
     closedAllDayCheck: {
-      selector: `//LABEL[@class='rhinobox__label'][text()='Office is closed all day']`,
+      selector: `//LABEL[contains(text(), 'Office is closed all day')]`,
       locateStrategy: 'xpath'
     },
 
@@ -79,12 +79,12 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     createEventButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Create Event']`,
+      selector: `//SPAN[contains(text(), 'Create Event')]`,
       locateStrategy: 'xpath'
     },
 
     updateEventButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Update Event']`,
+      selector: `//SPAN[contains(text(), 'Update Event')]`,
       locateStrategy: 'xpath'
     },
 
@@ -94,12 +94,12 @@ module.exports = {
     },
 
     cancelDeleteButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Cancel']`,
+      selector: `//SPAN[contains(text(), 'Cancel')]`,
       locateStrategy: 'xpath'
     },
     
     finalDeleteButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Yes, delete event']`,
+      selector: `//SPAN[contains(text(), 'Yes, delete event')]`,
       locateStrategy: 'xpath'
     },
   },

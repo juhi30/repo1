@@ -2,12 +2,7 @@
   "src_folders" : ["tests"],
   "output_folder" : "reports",
   "page_objects_path" : "page_objects",
-<<<<<<< HEAD
-  "globals_path" : "lib/global.js",
-  "custom_commands_path": "./tests/custom-commands",
-=======
   "globals_path" : "global.js", 
->>>>>>> 74e543ad8661c6ce1a30f22800c57e597ccac780
 
   "selenium" : {
     "start_process" : true,

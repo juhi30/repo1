@@ -238,12 +238,12 @@ module.exports = {
     /*-------------------------------------------------------------------------*/
 
     assignedToMeButton: {
-      selector: `//SPAN[@class='app-navigation__nav__button__text'][text()='Assigned to Me']`,
+      selector: `//BUTTON[contains(text(), 'Assigned to Me')]`,
       locateStrategy: 'xpath',
     },
 
     followingButton: {
-      selector: `//SPAN[@class='app-navigation__nav__button__text'][text()='Following']`,
+      selector: `//BUTTON[contains(text(), 'Following')]`,
       locateStrategy: 'xpath',
     },
 
@@ -258,12 +258,12 @@ module.exports = {
     },
 
     contactsButton: {
-        selector: `//SPAN[@class='button__text-wrapper'][text()='Contacts']`,
-        locateStrategy: 'xpath'
+      selector: `//BUTTON[contains(text(), 'Contacts')]`,
+      locateStrategy: 'xpath'
     },
 
     orgTitle: {
-      selector: `//DIV[@class='app-navigation__org']`,
+      selector: `//BUTTON[contains(text(), 'Organization')]`,
       locateStrategy: 'xpath',
     },
 
@@ -287,7 +287,7 @@ module.exports = {
     },
 
     addNewContactButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'][(text()='Add New Contact')])`,
+      selector: `//BUTTON[contains(text(), 'Add New Contact')]`,
       locateStrategy: 'xpath',
     },
 
@@ -314,27 +314,27 @@ module.exports = {
     },
 
     supportDeskButton: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Support Desk']`,
+      selector: `//BUTTON[contains(text(), 'Support Desk')]`,
       locateStrategy: 'xpath'
     },
 
     knowledgeBaseButton: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Knowledge Base']`,
+      selector: `//BUTTON[contains(text(), 'Knowledge Base')]`,
       locateStrategy: 'xpath'
     },
 
     submitAnIssueButton: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Submit an Issue']`,
+      selector: `//BUTTON[contains(text(), 'Submit an Issue')]`,
       locateStrategy: 'xpath'
     },
 
     ideaSubmissionButton: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Idea Submission']`,
+      selector: `//BUTTON[contains(text(), 'Idea Submission')]`,
       locateStrategy: 'xpath'
     },
 
     systemDetailsButton: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='System Details']`,
+      selector: `//BUTTON[contains(text(), 'System Details')]`,
       locateStrategy: 'xpath'
     },
 
@@ -358,27 +358,27 @@ module.exports = {
     },
 
     oooInSettingsDropdown: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Out of Office']`,
+      selector: `//SPAN[contains(text(), 'Out of Office')]`,
       locateStrategy: 'xpath',
     },
 
     billingInSettingsDropdown: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Billing']`, 
+      selector: `//SPAN[contains(text(), 'Billing')]`,
       locateStrategy: 'xpath',
     },
 
     channelsInSettingsDropdown: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Channels']`,
+      selector: `//SPAN[contains(text(), 'Channels')]`,
       locateStrategy: 'xpath',
     },
 
     groupsInSettingsDropdown: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Groups']`,
+      selector: `//SPAN[contains(text(), 'Groups')]`,
       locateStrategy: 'xpath',
     },
 
     membersInSettingsDropdown: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Members']`,
+      selector: `//SPAN[contains(text(), 'Members')]`,
       locateStrategy: 'xpath',
     },
 
@@ -393,22 +393,12 @@ module.exports = {
     },
 
     tagsInSettingsDropdown: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Tags']`,
+      selector: `//SPAN[contains(text(), 'Tags')]`,
       locateStrategy: 'xpath',
     },
 
     templatesInSettingsDropdown: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Templates']`,
-      locateStrategy: 'xpath',
-    },
-
-    systemDetailsInSettingsDropdown: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='System Details']`,
-      locateStrategy: 'xpath',
-    },
-
-    emailSupportInSettingsDropdown: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Email Support']`,
+      selector: `//SPAN[contains(text(), 'Templates')]`,
       locateStrategy: 'xpath',
     },
 

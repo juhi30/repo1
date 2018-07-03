@@ -1,18 +1,9 @@
+// This profile page also serves double duty as containing elements for member create and edit pages
+
 const profileCommands = {
-  verifyElements: function() {
-    return this.waitForElementVisible('@firstNameInput', 5000, 'First Name input is visible')
-      .verify.visible('@addPhotoButton', 'Add photo button is visible')
-      .verify.visible('@firstNameInput', 'First name input is visible')
-      .verify.visible('@lastNameInput', 'Last name input is visible')
-      .verify.visible('@usernameInput', 'Username input is visible')
-      .verify.visible('@changePasswordLink', 'Change Password link is visible')
-      .verify.visible('@permissionsDropdown', 'Permissions dropdown is visible')
-      .verify.visible('@saveProfileButton', 'Save Profile button is visible')
-
-  },
-
+  
   clearAllRequiredFields: function() {
-    return this.waitForElementVisible('@firstNameInput', 5000, 'First name input is visible')
+    return this.waitForElementVisible('@firstNameInput', 'First name input is visible')
       .clearValue('@firstNameInput')
       .clearValue('@lastNameInput')
       .clearValue('@usernameInput');
@@ -25,80 +16,110 @@ const profileCommands = {
 
 module.exports = {
   commands: [profileCommands],
-  // url: 'https://dev.dev-rhinogram.com/settings/profile',
+  url: function () {
+    return this.api.launch_url + '/settings/profile'
+  },
   elements: {
+    
+    backButton: {
+      selector: `//BUTTON[contains(@title, 'Go Back')]`,
+      locateStrategy: 'xpath'
+    },
+
+    /*-------------------------------------------------------*/
+    // add photo modal elements
+    /*-------------------------------------------------------*/
+
     addPhotoButton: {
-      selector: `(//BUTTON[@type='button'])[5]`,
+      selector: `//SPAN[contains(.,'Add Photo')]`,
       locateStrategy: 'xpath'
     },
 
     closeAddPhoto: {
-      selector: `/html/body/div[4]/div/div/div[1]/button`,
+      selector: `//BUTTON[contains(@title, 'Close')]`,
       locateStrategy: 'xpath'
     },
 
+    uploadPhotoButton: {
+      selector: `//LABEL[@class='avatar-editor__container__upload'][text()='Upload Photo']`,
+      locateStrategy: 'xpath'
+    },
+
+    donePhotoButton: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Done']`,
+      locateStrategy: 'xpath'
+    },
+
+    /*-------------------------------------------------------*/
+    // General information inputs
+    /*-------------------------------------------------------*/
+
     firstNameInput: {
-      selector: `//INPUT[@id='firstName-02725b4e-c148-470f-a465-5431c6cfadfc']`,
+      selector: `//INPUT[contains(@id, 'firstName')`,
       locateStrategy: 'xpath'
     },
 
     middleNameInput: {
-      selector: `//INPUT[@id='middleName-e26a71e3-bc07-454e-accc-a9c3d26b7069']`,
+      selector: `//INPUT[contains(@id, 'middleName')]`,
       locateStrategy: 'xpath',
     },
 
     lastNameInput: {
-      selector: `//INPUT[@id='lastName-76ce183f-0e39-4985-b221-4fbc226aab83']`,
+      selector: `//INPUT[contains(@id, 'lastName')`,
       locateStrategy: 'xpath'
     },
 
     preferredName: {
-      selector: `//INPUT[@id='preferredName-3fadce1e-5484-40f8-957f-863e744fa378']`,
+      selector: `//INPUT[contains(@id, 'preferredName')`,
       locateStrategy: 'xpath'
     },
 
     prefixDropdown: {
-      selector: `//SELECT[@id='prefixId-b27bd0e1-2f20-452d-9216-33ea71b3a45a']`,
+      selector: `//SELECT[contains(@id, 'prefixId')`,
       locateStrategy: 'xpath'
     },
 
     suffixDropdown: {
-      selector: `//SELECT[@id='suffixId-a02517ec-1e24-4701-ba36-35ff2e38b652']`,
+      selector: `//SELECT[contains(@id, 'suffixId')`,
       locateStrategy: 'xpath'
     },
 
     jobTitleInput: {
-      selector: `//INPUT[@id='businessTitle-963d9058-bdfb-47b6-8c3b-d8b3d91637d4']`,
+      selector: `//INPUT[contains(@id, 'businessTitle')`,
       locateStrategy: 'xpath'
     },
 
+    /*-------------------------------------------------------*/
+    // Login information 
+    /*-------------------------------------------------------*/
+
     usernameInput: {
-      selector: `//INPUT[@id='username-ff552724-56c1-4449-bd02-9175ca9b9333']`,
+      selector: `//INPUT[contains(@id, 'username')`,
       locateStrategy: 'xpath'
     },
 
     emailAddressInput: {
-      selector: `//INPUT[@id='loginEmail-aaf965e7-9402-49d2-b74c-da3e1ec96c6b']`,
+      selector: `//INPUT[contains(@id, 'loginEmail')`,
       locateStrategy: 'xpath'
     },
 
     changePasswordButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Change password']`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Change Password']`,
       locateStrategy: 'xpath'
     },
 
     currentPassInput: {
-      selector: `//INPUT[@id='oldPass-177d5275-3d28-4f92-8f4c-ef9838c11071']`,
+      selector: `//INPUT[contains(@id, 'oldPass')`,
       locateStrategy: 'xpath'
     },
 
     newPassInput: {
-      selector: `//INPUT[@id='newPass-0d730c2e-4bed-4132-bd27-c7fe735ff4b5']`,
+      selector: `//INPUT[contains(@id, 'newPass')`,
       locateStrategy: 'xpath'
     },
 
     confirmPassInput: {
-      selector: `//INPUT[@id='newPassAgain-305072be-47d2-4606-b36f-d6fdd97a1559']`,
+      selector: `//INPUT[contains(@id, 'newPassAgain')`,
       locateStrategy: 'xpath'
     },
 
@@ -112,18 +133,32 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    resetPasswordButton: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Reset password']`, //available Edit member pages
+      locateStrategy: 'xpath'
+    },
+
+    copyTempPassword: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Copy']`,  // available Create/Edit member pages
+      locateStrategy: 'xpath'
+    },
+
+    /*-------------------------------------------------------*/
+    // Admin Settings
+    /*-------------------------------------------------------*/
+
     memberSettingsCheck: {
-      selector: `(//LABEL[@class='rhinobox__label'])[1]`,
+      selector: `//SPAN[@class='form__block-group__label'][text()='Member Settings']`,
       locateStrategy: 'xpath'
     },
 
     administrativeSettingsCheck: {
-      selector: `(//LABEL[@class='rhinobox__label'])[2]`,
+      selector: `//SPAN[@class='form__block-group__label'][text()='Administrative Settings']`,
       locateStrategy: 'xpath'
     },
 
     billingSettingsCheck: {
-      selector: `(//LABEL[@class='rhinobox__label'])[3]`,
+      selector: `//SPAN[@class='form__block-group__label'][text()='Billing Settings']`,
       locateStrategy: 'xpath'
     },
 

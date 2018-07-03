@@ -1,62 +1,98 @@
 const membersCommands = {
   clickAddMember: function() {
-    return this.waitForElementVisible('@addMemberButton', 5000, 'Add member button visible')
+    return this.waitForElementVisible('@addMemberButton', 'Add member button visible')
       .click('@addMemberButton');
   },
 
   deactivateMember: function() {
-    return this.waitForElementVisible('@deactivateButton', 5000, 'Deactivate button is visible')
+    return this.waitForElementVisible('@deactivateButton', 'Deactivate button is visible')
       .click('@deactivateButton')
-      .waitForElementVisible('@finalDeactivateButton', 5000, 'Final deactivate button is visible')
-      .click('@finalDeactivateButton')
-      .waitForElementVisible('@memberUpdatedToast', 5000, 'Member updated toast visible');
   },
 }
 
 module.exports = {
   commands: [membersCommands],
-  url: 'https://dev.dev-rhinogram.com/settings/organization/members',
+  url: function () {
+      return this.api.launch_url + '/settings/organization/members'
+  },
   elements: {
-    saveMemberButton: {
-      selector: `/html/body/div[1]/div/div/div[3]/div/div/button[2]/span`,
-      locateStrategy: 'xpath'
-    },
-    addMemberButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[1]/div/div[2]/div/button/span`,
-      locateStrategy: 'xpath'
-    },
-    addPhotoButton: {
-      selector: `//div[@class='cover__body']//button[.='Add Photo']`,
-      locateStrategy: 'xpath'
-    },
-    closeAddPhotoButton: {
-      selector: `//div[7]/div/div/div/div[1]/button`,
-      locateStrategy: 'xpath'
-    },
-    firstNameInput: {
-      selector: `//*[@id="firstName"]`,
-      locateStrategy: 'xpath'
-    },
-    closeEditMemberFormButton: {
-      selector: `/html/body/div[1]/div/div/div[3]/div/div/button[1]/span`,
+
+    createMemberButton: {
+      selector: `//BUTTON[contains(@title, 'Create Member')]`,
       locateStrategy: 'xpath'
     },
 
-    // will select the first one on the page
-    deactivateButton: {
-      selector: `//*[@id="app"]/div/div[2]/div/div[1]/div[2]/div/div[1]/div[2]/span/button`,
+    firstMemberSelector: {
+      selector: `(//DIV[@role='button'])[1]`, // dynamic element count used, might need better way to access the members
+      locateStrategy: 'xpath'
+
+    },
+
+    /*----------------------------------------------------*/
+    // Member summary panel
+    /*----------------------------------------------------*/
+
+    closeSummaryButton: {
+      selector: `//SPAN[contains(@title, 'Close')]`,
       locateStrategy: 'xpath'
     },
 
-    finalDeactivateButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Deactivate']`,
+    goToConvoButton: {
+      selector: `//SPAN[contains(text(), 'Go to Conversation')]`,
       locateStrategy: 'xpath'
     },
 
-    // -------- Toasts -------//
+    editMemberButton: {
+      selector: `//SPAN[contains(text(), 'Edit Member')]`,
+      locateStrategy: 'xpath'
+    },
 
-    memberUpdatedToast: {
-      selector: `//DIV[@class='toast__text'][text()='Member updated successfully.']`,
+    activateMember: {
+      selector: `//SPAN[contains(text(), 'Activate')]`, //Only visible if member is deactivated
+      locateStrategy: 'xpath'
+    },
+
+    createTempPassword: {
+      selector: `//SPAN[contains(text(), 'Create')]`,
+      locateStrategy: 'xpath'
+    },
+    
+    confirmTempPassword: {
+      selector: `//SPAN[contains(text(), 'Yes')]`,
+      locateStrategy: 'xpath'
+    },
+
+    cancelTempPassword: {
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[1]`,
+      locateStrategy: 'xpath'
+    },
+
+    deactivateMemberButton: {
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Deactivate'][text()='Deactivate'])[1]`,
+      locateStrategy: 'xpath'
+    },
+
+    /*----------------------------------------------------*/
+    // Deactivate/Reactivate member Modals
+    /*----------------------------------------------------*/
+
+    closeDeactivateModal: {
+      selector: `//SPAN[contains(@title, 'Close')]`,
+      locateStrategy: 'xpath'
+    },
+    
+    cancelInModal: {
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[2]`,
+      locateStrategy: 'xpath'
+    },
+
+    deactivateInModal: {
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Deactivate'][text()='Deactivate'])[2]`,
+      locateStrategy: 'xpath'
+    },
+
+    reactivateInModal: {
+      selector: `//SPAN[contains(text(), 'Reactivate')]`,
       locateStrategy: 'xpath'
     },
   }

@@ -45,7 +45,7 @@ const editChannelsCommands = {
 module.exports = {
     commands: [editChannelsCommands],
     // url: function () {
-    //     return this.api.launch_url + '/settings/organization/channels/edit'
+    //     return this.api.launch_url + '/settings/organization/channels/edit' // removed because it involves the channelID
     // },
     elements: {
 
@@ -59,7 +59,7 @@ module.exports = {
         },
 
         newNumberRadio: {
-            selector: `//SPAN[@class='form__block-group__label'][text()='New Phone Number']`, // for csr view(grabbed from member view)
+            selector: `//SPAN[contains(text(), 'New Phone Number')]`, // for csr view(grabbed from member view)
             locateStrategy: 'xpath'
         },
 
@@ -74,12 +74,12 @@ module.exports = {
         },
 
         facebookChannelRadio: {
-            selector: `//SPAN[@class='form__block-group__label'][text()='Facebook']`,
+            selector: `//SPAN[contains(text(), 'Facebook')]`,
             locateStrategy: 'xpath'
         },
 
         secureChannelRadio: {
-            selector: `//SPAN[@class='form__block-group__label'][text()='RhinoSecure']`,
+            selector: `//SPAN[contains(text(), 'RhinoSecure')]`,
             locateStrategy: 'xpath'
         },
 
@@ -99,17 +99,17 @@ module.exports = {
         },
 
         channelDSTCheckbox: {
-            selector: `//LABEL[@class='rhinobox__label'][text()='Daylight saving time observed']`,
+            selector: `//LABEL[contains(text(),'Daylight saving time observed')]`,
             locateStrategy: 'xpath'
         },
 
         updateChannelButton: {
-            selector: `//SPAN[@class='button__text-wrapper'][text()='Update Channel']`,
+            selector: `//SPAN[contains(text(),'Update Channel')]`,
             locateStrategy: 'xpath'
         },
 
         createChannelButton: {
-            selector: `//SPAN[@class='button__text-wrapper'][text()='Create Channel']`,
+            selector: `//SPAN[contains(text(), 'Create Channel')]`,
             locateStrategy: 'xpath'
         },
 
@@ -118,7 +118,7 @@ module.exports = {
         /*-----------------------------------------------------*/
 
         channelForwardingToggle: {
-            selector: `//LABEL[contains(@for,'allowChannelReroute')]`, // id could be used here
+            selector: `//LABEL[contains(@for,'allowChannelReroute')]`, 
             locateStrategy: 'xpath'
         }
     }

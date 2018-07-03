@@ -18,42 +18,42 @@ module.exports = {
     /*---------------------------------------------------------------*/
 
     assignedToMeMobile: {
-      selector: `//LABEL[contains(@for,'')]`,
+      selector: `//INPUT[contains(@title,'Inbox Assigned To Me Mobile')]`,
       locateStrategy: 'xpath'
     },
 
     assignedToMeDesktop: {
-      selector: `//LABEL[contains(@for,'')]`,
+      selector: `//INPUT[contains(@title,'Inbox Assigned To Me Desktop')]`,
       locateStrategy: 'xpath'
     },
 
     followingMobile: {
-      selector: `//LABEL[contains(@for,'')]`,
+      selector: `//INPUT[contains(@title,'Inbox Following Mobile')]`,
       locateStrategy: 'xpath'
     },
 
     followingDesktop: {
-      selector: `//LABEL[contains(@for,'')]`,
+      selector: `//INPUT[contains(@title,'Inbox Following Desktop')]`,
       locateStrategy: 'xpath'
     },
 
     patientDirectMobile: {
-      selector: `//LABEL[contains(@for,'')]`,
+      selector: `//INPUT[contains(@title,'Inbox Direct Mobile')]`,
       locateStrategy: 'xpath'
     },
 
     patientDirectDesktop: {
-      selector: `//LABEL[contains(@for,'')]`,
+      selector: `//INPUT[contains(@title,'Inbox Direct Desktop')]`,
       locateStrategy: 'xpath'
     },
 
     patientAllGroupsMobile: {
-      selector: `//LABEL[contains(@for,'')]`,
+      selector: `//INPUT[contains(@name,'allInboxGroupsMobileSelected')]`,
       locateStrategy: 'xpath'
     }, 
 
     patientAllGroupsDesktop: {
-      selector: `//LABEL[contains(@for,'')]`,
+      selector: `//INPUT[contains(@name,'allInboxGroupsDesktopSelected')]`,
       locateStrategy: 'xpath'
     },
 
@@ -62,22 +62,22 @@ module.exports = {
     /*---------------------------------------------------------------*/
 
     teamDirectMobile: {
-      selector: `//LABEL[contains(@for,'')]`,
+      selector: `//INPUT[contains(@title,'Chat Direct Mobile')]`,
       locateStrategy: 'xpath'
     },
     
     teamDirectDesktop: {
-      selector: `//LABEL[contains(@for,'')]`,
+      selector: `//INPUT[contains(@title,'Chat Direct Desktop')]`,
       locateStrategy: 'xpath'
     },
 
     teamAllGroupsMobile: {
-      selector: `//LABEL[contains(@for,'')]`,
+      selector: `//INPUT[contains(@name,'allChatGroupsMobileSelected')]`,
       locateStrategy: 'xpath'
     },
 
     teamAllGroupsDesktop: {
-      selector: `//LABEL[contains(@for,'')]`,
+      selector: `//INPUT[contains(@name,'allChatGroupsDesktopSelected')]`,
       locateStrategy: 'xpath'
     },
 
@@ -86,17 +86,22 @@ module.exports = {
     /*---------------------------------------------------------------*/
 
     bothAllGroupsMobile: {
-      selector: ``,
+      selector: `//INPUT[contains(@name,'allInboxAndChatGroupsMobileSelected')]`,
       locateStrategy: 'xpath'
     },
 
     bothAllGroupsDesktop: {
-      selector: ``,
+      selector: `//INPUT[contains(@name,'allInboxAndChatGroupsDesktopSelected')]`,
+      locateStrategy: 'xpath'
+    },
+
+    recommendedSettingsButton: {
+      selector: `//SPAN[contains(text(), 'Use recommended settings for all notifications')]`,
       locateStrategy: 'xpath'
     },
 
     updatePreferencesButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Update Preferences']`,
+      selector: `//SPAN[contains(text(), 'Update Preferences')]`,
       locateStrategy: 'xpath',
     },
 

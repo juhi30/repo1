@@ -9,13 +9,13 @@ const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleD
 
 // This object reflects a Member who has full permissions
 const memberCreds = {
-  username: 'nightmember',
-  password: 'Nightpass1'
+  username: process.env.MEMBER_USERNAME,
+  password: process.env.MEMBER_PASSWORD
 };
 
 const patientCreds = {
-  username: 'nightpatient',
-  password: 'Nightpass2'
+  username: process.env.PATIENT_USERNAME,
+  password: process.env.PATIENT_PASSWORD
 };
 
 module.exports = {

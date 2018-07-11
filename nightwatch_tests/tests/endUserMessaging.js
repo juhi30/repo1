@@ -21,7 +21,7 @@ module.exports = {
     // PageObjects will always have access to both. 
     
     login.navigate()
-      .enterPatientCreds('kvothe', 'Kingkiller1!')
+      .enterPatientCreds()
       .submit()
   },
 
@@ -39,14 +39,22 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.pause(2000)
-      .enterMemberCreds('nightkeaton', 'Chacoz123')
+      .enterMemberCreds()
       .submit()
   }, 
 
-  'Find that thread and view the message from the patient': function(client) {
-    const inbox = client.page.AssignedToMePage();
+  'Verify Inbox contains inboxes': function(client) {
+    const inbox = client.page.InboxPage();
 
-    helpers.findTextOnPage(inbox, messageContent);
+    helpers.findTextOnPage(inbox, 'MY TASKS');
+    helpers.findTextOnPage(inbox, 'PATIENT MESSAGES');
+    helpers.findTextOnPage(inbox, 'TEAM MESSAGES');
+  },
+
+  'Find that thread and view the message from the patient': function(client) {
+    const inbox = client.page.InboxPage();
+
+    
 
     client.end();
   }

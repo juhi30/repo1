@@ -14,16 +14,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel": "^6.23.0",
-    "chromedriver": "^2.38.0",
-    "nightwatch": "0.9.16",
-    "selenium-server-standalone-jar": "3.8.1"
+    "babel": "6.23.x",
+    "chromedriver": "2.38.x",
+    "nightwatch": "0.9.x",
+    "selenium-server-standalone-jar": "3.8.x"
   },
   "dependencies": {
-    "babel-preset-env": "^1.7.0",
-    "testarmada-magellan": "^10.0.5",
-    "testarmada-magellan-local-executor": "^2.0.0",
-    "testarmada-magellan-nightwatch-plugin": "^7.0.0",
-    "testarmada-nightwatch-extra": "^4.1.0"
+    "babel-preset-env": "1.7.x",
+    "dotenv": "6.0.x",
+    "testarmada-magellan": "10.0.x",
+    "testarmada-magellan-local-executor": "2.0.x",
+    "testarmada-magellan-nightwatch-plugin": "7.0.x",
+    "testarmada-nightwatch-extra": "4.1.x"
   }
 }

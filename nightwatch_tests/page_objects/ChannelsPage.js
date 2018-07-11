@@ -56,7 +56,7 @@ module.exports = {
 
     editChannel: {
       selector: `//SPAN[contains(text(),'Edit Channel')]`,
-\      locateStrategy: 'xpath'
+      locateStrategy: 'xpath'
     },  
   }
 };

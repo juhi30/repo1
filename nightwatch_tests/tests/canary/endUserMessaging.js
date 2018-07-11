@@ -2,7 +2,7 @@
 // using the Page Objects and show some of the capabilities of 
 // Selenium / Nightwatch.
 
-const helpers = require('../helpers');
+const helpers = require('../../helpers');
 let num = helpers.randoNum;
 let messageContent = `Just a test ${num}`;
 

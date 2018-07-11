@@ -1,6 +1,7 @@
-// Purpose of this test is to demonstrate how to write a test
-// using the Page Objects and show some of the capabilities of 
-// Selenium / Nightwatch.
+/*
+Requirements to pass:
+  1. Kvothe Kingkiller (patient) must be assigned to Keaton Tester (member)
+*/
 
 const helpers = require('../../helpers');
 let num = helpers.randoNum;
@@ -44,7 +45,7 @@ module.exports = {
   }, 
 
   'Find that thread and view the message from the patient': function(client) {
-    const inbox = client.page.AssignedToMePage();
+    const inbox = client.page.InboxPage();
 
     helpers.findTextOnPage(inbox, messageContent);
 

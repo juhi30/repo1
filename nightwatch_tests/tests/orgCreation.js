@@ -1,7 +1,5 @@
 /*--------------------------------------------------------------------------------------------------------*/
 
-// The purpose of these tests are to make sure the elements present throughout the app (universalElements)
-// render properly and function properly when clicked and lead to their respective end points
 
 /*--------------------------------------------------------------------------------------------------------*/
 
@@ -12,8 +10,20 @@ module.exports = {
         const login = client.page.LoginPage();
 
         login.navigate()
-            .enterMemberCreds() // need csr creds here
+            .enterCSRCreds() // need csr creds here
             .submit()
-            .validateUrlChange()
+    },
+
+    'Validate CSR login and go to Account Setup': function (client) {
+        const csrPortal = client.page.SystemToolsContainer();
+
+        csrPortal.validateCSRPortal()
+            .clickAcctSetupButton()
+    },
+
+    'Validate Account Setup page and Create organization': function (client) {
+        const acctSetup = client.page.AccountSetupPage();
+
+        
     },
 }

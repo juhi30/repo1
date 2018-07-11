@@ -10,7 +10,7 @@ module.exports = {
     commands: [accountSetupCommands],
 
     url: function () {
-        return this.api.launch_url + '/inbox'
+        return this.api.launch_url + '/accountsetup'
     },
 
     elements: {

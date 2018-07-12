@@ -1,4 +1,4 @@
-FROM rhinogram/selenium:latest
+FROM rhinogram/selenium-chrome:latest
 LABEL description="Automated Test Image"
 
 RUN mkdir -p /rhinomatic

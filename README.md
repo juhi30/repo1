@@ -26,6 +26,11 @@ Automated tools for testing.
   Writing Tests
     https://www.sitepoint.com/javascript-functional-testing-nightwatch-js/
 
+  ### Env Vars
+  * `PORT`: Port that Selenium runs on
+  * `LAUNCH_URL`: Frontend URL
+  * `BROWSER_NAME`: Name of the web browser, i.e. "chrome"
+
   ### To-Dos
     1. Transpile with Babel (this is done, but not using any ES6 just yet)
     2. Integrate with Magellan

@@ -11,7 +11,7 @@ module.exports = {
 
         login.navigate()
             .enterCSRCreds() // need csr creds here
-            .submit()
+            .submit();
     },
 
     'Validate CSR login and go to Account Setup': function (client) {
@@ -19,14 +19,16 @@ module.exports = {
 
         csrPortal.validateCSRPortal()
             .pause(1000)
-            .clickAcctSetupButton()
+            .clickAcctSetupButton();
     },
 
     'Validate Account Setup page and Create organization': function (client) {
         const acctSetup = client.page.AccountSetupPage();
 
         acctSetup.clickBillingToggle()
+            .fillInOrgBasicInformation('fake org','1 nowhere st.', 'Charleston', 's', '29403')
+            // .clickCreateOrgButton(); not enabled until we have an org
 
-        client.pause();
+        client.end();
     },
 }

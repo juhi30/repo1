@@ -11,7 +11,19 @@ const accountSetupCommands = {
             .waitForElementNotPresent('@newBillingRadio', 'Billing options are hidden')
     },
 
-    fillIn
+    fillInOrgBasicInformation: function (name, address, city, state, zip) {
+        return this.waitForElementPresent('@orgNameInput', 'Organization inputs are visible')
+            .setValue('@orgNameInput', name)
+            .setValue('@addressLineOneInput', address)
+            .setValue('@cityInput', city)
+            .setValue('@stateDropdown', state)
+            .setValue('@zipInput', zip)
+    },
+
+    clickCreateOrganizaton: function () {
+        return this.waitForElementVisible('@createOrgButton', 'Create organization button is visible')
+            .click('@createOrgButton')
+    }
 }
 
 module.exports = {
@@ -35,6 +47,11 @@ module.exports = {
 
         newBillingRadio: {
             selector: `//LABEL[contains(@for, 'selectedBillingOpt')]`, // used to verify billing options are hidden
+            locateStrategy: 'xpath',
+        },
+
+        orgNameInput: {
+            selector: `//INPUT[contains(@id, 'name')]`,
             locateStrategy: 'xpath',
         },
 

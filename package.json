@@ -1,0 +1,18 @@
+{
+  "name": "rhinomatic",
+  "version": "1.0.0",
+  "description": "Automated tools for testing.",
+  "scripts": {
+    "nightwatch": "cd nightwatch_tests && yarn test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhinogram/rhinomatic.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rhinogram/rhinomatic/issues"
+  },
+  "homepage": "https://github.com/rhinogram/rhinomatic#readme"
+}

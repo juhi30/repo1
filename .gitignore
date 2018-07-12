@@ -31,7 +31,7 @@ screenshotter/src/screenshots
 # testing
 coverage
 reports
-selenium-debug.log
+nightwatch_tests/selenium-debug.log
 nightwatch_tests/bin
 nightwatch_tests/tests_output
 nightwatch_tests/lib

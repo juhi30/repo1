@@ -1,0 +1,53 @@
+defaults: &defaults
+  working_directory: ~/app
+  docker:
+    - image: rhinogram/node-awscli:8.11
+
+version: 2
+jobs:
+  buildAndUpdateEcr:
+    <<: *defaults
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Configure AWS CLI
+          command: |
+            aws configure set region $AWS_REGION
+            if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "staging" ]; then
+              aws configure set aws_access_key_id $RHINOPROD_ACCESS_KEY
+              aws configure set aws_secret_access_key $RHINOPROD_SECRET_KEY
+            else
+              aws configure set aws_access_key_id $RHINODEV_ACCESS_KEY
+              aws configure set aws_secret_access_key $RHINODEV_SECRET_KEY
+            fi
+      - run:
+          name: Build Docker Image
+          command: docker build -t rhino-ecr/rhinomatic .
+      - run:
+          name: Update ECR
+          command: |
+            # login
+            $(aws ecr get-login --no-include-email)
+            baseUri=657744331605.dkr.ecr.$AWS_REGION.amazonaws.com/rhino-ecr/rhinomatic
+            docker tag rhino-ecr/rhinomatic $baseUri:$CIRCLE_BRANCH
+            # push tagged with either "master", "staging", or "develop"
+            docker push $baseUri:$CIRCLE_BRANCH
+            docker tag $baseUri:$CIRCLE_BRANCH $baseUri:$CIRCLE_SHA1
+            # push tagged with the git commit SHA
+            docker push $baseUri:$CIRCLE_SHA1
+            if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "develop" ]; then
+              # always tag latest develop and master with "latest"
+              docker tag $baseUri:$CIRCLE_SHA1 $baseUri:latest
+              docker push $baseUri:latest
+            fi
+
+workflows:
+  ECR:
+    jobs:
+      - buildAndUpdateEcr:
+          filters:
+            branches:
+              only:
+                - master
+                - grady/docker

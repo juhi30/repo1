@@ -1,17 +1,16 @@
 FROM rhinogram/selenium-chrome:latest
 LABEL description="Automated Test Image"
 
-RUN sudo mkdir -p /rhinomatic
-RUN sudo chmod -R 0777 /rhinomatic
-ADD nightwatch_tests /rhinomatic/nightwatch_tests
-ADD screenshotter /rhinomatic/screenshotter
-ADD stressTest /rhinomatic/stressTest
+ADD nightwatch_tests /home/selenium/nightwatch_tests
+ADD screenshotter /home/selenium/screenshotter
+ADD stressTest /home/selenium/stressTest
+ADD package.json /home/selenium/
 
-RUN cd /rhinomatic/nightwatch_tests && sudo yarn && \
-  cd /rhinomatic/stressTest && sudo yarn && \
-  cd /rhinomatic/screenshotter && sudo yarn
+RUN sudo chmod -R 0777 /usr/bin/yarn
+RUN sudo chmod -R 0777 /home/selenium
 
-RUN sudo chmod -R 0777 /rhinomatic
-WORKDIR /rhinomatic
+RUN cd /home/selenium/nightwatch_tests && yarn && \
+  cd /home/selenium/stressTest && yarn && \
+  cd /home/selenium/screenshotter && yarn
 
 EXPOSE 4444

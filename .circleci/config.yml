@@ -29,7 +29,8 @@ jobs:
           command: |
             # login
             $(aws ecr get-login --no-include-email)
-            baseUri=657744331605.dkr.ecr.$AWS_REGION.amazonaws.com/rhino-ecr/rhinomatic
+            export accountId=$(aws sts get-caller-identity | jq '.Account' | sed "s/\"//g")
+            baseUri=$accountId.dkr.ecr.$AWS_REGION.amazonaws.com/rhino-ecr/rhinomatic
             docker tag rhino-ecr/rhinomatic $baseUri:$CIRCLE_BRANCH
             # push tagged with either "master", "staging", or "develop"
             docker push $baseUri:$CIRCLE_BRANCH

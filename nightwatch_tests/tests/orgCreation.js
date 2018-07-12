@@ -18,12 +18,15 @@ module.exports = {
         const csrPortal = client.page.SystemToolsContainer();
 
         csrPortal.validateCSRPortal()
+            .pause(1000)
             .clickAcctSetupButton()
     },
 
     'Validate Account Setup page and Create organization': function (client) {
         const acctSetup = client.page.AccountSetupPage();
 
-        
+        acctSetup.clickBillingToggle()
+
+        client.pause();
     },
 }

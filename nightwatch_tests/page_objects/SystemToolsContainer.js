@@ -6,11 +6,11 @@ const systemToolsCommands = {
     },
 
     validateCSRPortal: function () {
-        return this.waitForElementVisible('@organizationsButton', 'CSR system tools are visible')
+        return this.waitForElementPresent('@organizationsButton', 'CSR system tools are visible')
             .verify.urlContains('selectorg')
     },
 
-    clickAcctSetupbutton: function () {
+    clickAcctSetupButton: function () {
         return this.waitForElementVisible('@accountSetupButton', 'Account setup button is visible')
             .click('@accountSetupButton')
     }

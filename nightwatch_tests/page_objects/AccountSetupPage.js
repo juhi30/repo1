@@ -4,6 +4,14 @@ const accountSetupCommands = {
         this.api.pause(time);
         return this;
     },
+
+    clickBillingToggle: function () {
+        return this.waitForElementVisible('@billingToggle', 'Billing toggle is visible')
+            .click('@billingToggle')
+            .waitForElementNotPresent('@newBillingRadio', 'Billing options are hidden')
+    },
+
+    fillIn
 }
 
 module.exports = {
@@ -25,12 +33,10 @@ module.exports = {
         //     locateStrategy: 'xpath',
         // },
 
-        // existingBillingRadio: {
-        //     selector: ``,
-        //     locateStrategy: 'xpath',
-        // },
-
-        d
+        newBillingRadio: {
+            selector: `//LABEL[contains(@for, 'selectedBillingOpt')]`, // used to verify billing options are hidden
+            locateStrategy: 'xpath',
+        },
 
         parentCompanyInput: {
             selector: `//INPUT[contains(@id, 'parentCompany')]`,

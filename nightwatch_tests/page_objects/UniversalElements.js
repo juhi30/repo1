@@ -268,7 +268,7 @@ module.exports = {
     },
 
     /*----------------------------------------------*/
-    // search bar elements
+    // global search bar elements
     /*----------------------------------------------*/
 
     searchButton: {

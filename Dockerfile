@@ -2,7 +2,7 @@ FROM rhinogram/selenium-chrome:latest
 LABEL description="Automated Test Image"
 
 RUN sudo mkdir -p /rhinomatic
-RUN sudo chmod -R +x /rhinomatic
+RUN sudo chmod -R 755 /rhinomatic
 ADD nightwatch_tests /rhinomatic/nightwatch_tests
 ADD screenshotter /rhinomatic/screenshotter
 ADD stressTest /rhinomatic/stressTest

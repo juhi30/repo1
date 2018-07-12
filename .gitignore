@@ -16,7 +16,8 @@ ehthumbs.db
 Thumbs.db
 
 # Misc
-.env
+*/*.env
+!nightwatch_tests/sample.env
 npm-debug.log
 npm-debug.log.*
 yarn-debug.log*
@@ -30,7 +31,7 @@ screenshotter/src/screenshots
 # testing
 coverage
 reports
-selenium-debug.log
+nightwatch_tests/selenium-debug.log
 nightwatch_tests/bin
 nightwatch_tests/tests_output
 nightwatch_tests/lib

@@ -44,7 +44,7 @@ module.exports = {
   }, 
 
   'Find that thread and view the message from the patient': function(client) {
-    const inbox = client.page.AssignedToMePage();
+    const inbox = client.page.InboxPage();
 
     helpers.findTextOnPage(inbox, messageContent);
 

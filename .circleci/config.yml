@@ -43,7 +43,8 @@ jobs:
             fi
 
 workflows:
-  ECR:
+  version: 2
+  updateECR:
     jobs:
       - buildAndUpdateEcr:
           filters:

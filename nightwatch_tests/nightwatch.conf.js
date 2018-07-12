@@ -30,7 +30,7 @@ module.exports = {
     "default" : {
       "launch_url" : process.env.LAUNCH_URL || "localhost",
       "selenium_port"  : process.env.PORT || 4444,
-      "selenium_host"  : "localhost",
+      "selenium_host"  : process.env.SELENIUM_HOST || "localhost",
       "desiredCapabilities": {
         "browserName": process.env.BROWSER_NAME || "chrome",
         "javascriptEnabled": true,

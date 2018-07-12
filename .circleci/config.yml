@@ -42,8 +42,18 @@ jobs:
               docker push $baseUri:latest
             fi
 
+  build:
+    <<: *defaults
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Build
+          command: docker build .
+
 workflows:
   version: 2
+
   updateECR:
     jobs:
       - buildAndUpdateEcr:
@@ -51,4 +61,15 @@ workflows:
             branches:
               only:
                 - master
-                - docker
+                - staging
+                - develop
+
+  general:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - master
+                - staging
+                - develop

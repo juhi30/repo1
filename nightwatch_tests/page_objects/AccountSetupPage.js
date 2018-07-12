@@ -30,10 +30,7 @@ module.exports = {
         //     locateStrategy: 'xpath',
         // },
 
-        orgNameInput: {
-            selector: `//INPUT[contains(@id, 'name')]`,
-            locateStrategy: 'xpath',
-        },
+        d
 
         parentCompanyInput: {
             selector: `//INPUT[contains(@id, 'parentCompany')]`,

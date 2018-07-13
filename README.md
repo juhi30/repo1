@@ -30,6 +30,7 @@ Automated tools for testing.
   * `PORT`: Port that Selenium runs on
   * `LAUNCH_URL`: Frontend URL
   * `BROWSER_NAME`: Name of the web browser, i.e. "chrome"
+  * `SELENIUM_HOST`: Host where the selenium driver runs
 
   ### To-Dos
     1. Transpile with Babel (this is done, but not using any ES6 just yet)

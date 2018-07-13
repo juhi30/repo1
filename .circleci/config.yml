@@ -23,7 +23,8 @@ jobs:
             fi
       - run:
           name: Build Docker Image
-          command: docker build -t rhino-ecr/rhinomatic .
+          command: |
+            docker build -t rhino-ecr/rhinomatic:nw-chrome -f nightwatch_tests/chrome.Dockerfile nightwatch_tests
       - run:
           name: Update ECR
           command: |
@@ -31,14 +32,12 @@ jobs:
             $(aws ecr get-login --no-include-email)
             export accountId=$(aws sts get-caller-identity | jq '.Account' | sed "s/\"//g")
             baseUri=$accountId.dkr.ecr.$AWS_REGION.amazonaws.com/rhino-ecr/rhinomatic
-            docker tag rhino-ecr/rhinomatic $baseUri:$CIRCLE_BRANCH
-            # push tagged with either "master", "staging", or "develop"
-            docker push $baseUri:$CIRCLE_BRANCH
-            docker tag $baseUri:$CIRCLE_BRANCH $baseUri:$CIRCLE_SHA1
-            # push tagged with the git commit SHA
-            docker push $baseUri:$CIRCLE_SHA1
+            docker tag rhino-ecr/rhinomatic $baseUri:$CIRCLE_BRANCH-nw-chrome
+            # push tagged with either "master-nw-chrome", "staging-nw-chrome", or "develop-nw-chrome"
+            docker push $baseUri:$CIRCLE_BRANCH-nw-chrome
+ 
             if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "develop" ]; then
-              # always tag latest develop and master with "latest"
+              # always tag latest develop and master chrome builds with "latest"
               docker tag $baseUri:$CIRCLE_SHA1 $baseUri:latest
               docker push $baseUri:latest
             fi
@@ -50,7 +49,7 @@ jobs:
       - checkout
       - run:
           name: Build
-          command: docker build .
+          command: docker build -f nightwatch_tests/chrome.Dockerfile nightwatch_tests
 
 workflows:
   version: 2

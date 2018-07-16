@@ -25,6 +25,12 @@ const loginCommands = {
       .setValue('@passwordInput', password)
   },
 
+  enterCSRCreds: function (username, password) {
+    return this.waitForElementVisible('@usernameInput', 'Username input visible')
+      .setValue('@usernameInput', username ? username : helpers.csrCreds.username)
+      .setValue('@passwordInput', password ? password : helpers.csrCreds.password)
+  },
+
   enterMemberCreds: function(username, password) {
     return this.waitForElementVisible('@usernameInput','Username input visible')
       .setValue('@usernameInput', username ? username : helpers.memberCreds.username)

@@ -21,7 +21,7 @@ module.exports = {
     const universalElements = client.page.UniversalElements();
 
     universalElements.validateUniversalElements()
-      .validateSearchModal('fro')
+      .validateSearchModal('Frodo')
       .validateHelpDropdown()
       .validateSettingsDropdown()
 

@@ -4,7 +4,7 @@ function findTextOnPage(client, text) {
 
 const randoNum = Math.ceil(Math.random() * 1000);
 
-const theDateObj = new Date;
+const theDateObj = new Date();
 const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleDateString();
 
 // This object reflects a Member who has full permissions
@@ -24,4 +24,4 @@ module.exports = {
   dateString: dateString,
   memberCreds: memberCreds,
   patientCreds: patientCreds
-}
+};

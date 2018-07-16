@@ -16,6 +16,14 @@ module.exports = {
   'Fill out Create Contact form': function(client) {
     const contact = client.page.EditCreateContactPage();
 
-    contact.
+    contact.fillFirstNameInput('Dill')
+      .fillLastNameInput('Pickles')
+      .fillBirthday('11/22/2000')
+      .fillPhoneNumber('8039119111')
+      .clickCreateContact()
+  },
+
+  'Inside the thread, send a secure message': function(client) {
+    
   }
 }

@@ -22,6 +22,16 @@ const editCreateContacts = {
   fillPhoneNumber: function(phoneNumber) {
     return this.waitForElementVisible('@firstPhoneInput', 'Phone input is visible')
       .setValue('@firstPhoneInput', phoneNumber);
+  },
+
+  clickCreateContact: function() {
+    return this.waitForElementVisible('@createContactButton', 'Create contact button is visible')
+      .click('@createContactButton');
+  },
+
+  clickPatientOption: function() {
+    return this.waitForElementVisible('@patientOption', 'Patient Option is visible')
+      .click('@patientOption');
   }
 
 }
@@ -108,5 +118,11 @@ module.exports = {
       selector: `//SELECT[contains(@name, 'suffixId')]`,
       locateStrategy: 'xpath'
     },
+
+    // buttons
+    createContactButton: {
+      selector: `//SPAN[contains(text(), 'Create Contact')]`,
+      locateStrategy: 'xpath'
+    }
   }
 };

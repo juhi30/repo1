@@ -6,13 +6,13 @@ const accountSetupCommands = {
     },
 
     clickBillingToggle: function () {
-        return this.waitForElementVisible('@billingToggle', 'Billing toggle is visible')
+        return this.waitForElementPresent('@billingToggle', 'Billing toggle is present')
             .click('@billingToggle')
             .waitForElementNotPresent('@newBillingRadio', 'Billing options are hidden')
     },
 
     fillInOrgBasicInformation: function (name, address, city, state, zip) {
-        return this.waitForElementPresent('@orgNameInput', 'Organization inputs are visible')
+        return this.waitForElementPresent('@orgNameInput', 'Organization inputs are present')
             .setValue('@orgNameInput', name)
             .setValue('@addressLineOneInput', address)
             .setValue('@cityInput', city)
@@ -21,7 +21,7 @@ const accountSetupCommands = {
     },
 
     clickCreateOrganizaton: function () {
-        return this.waitForElementVisible('@createOrgButton', 'Create organization button is visible')
+        return this.waitForElementPresent('@createOrgButton', 'Create organization button is present')
             .click('@createOrgButton')
     }
 }

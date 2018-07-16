@@ -1,3 +1,7 @@
+const helpers = require('../../helpers');
+
+let linkToCreationPage = '';
+
 module.exports = {
   'Login as a member': function(client) {
     const login = client.page.LoginPage();
@@ -24,6 +28,15 @@ module.exports = {
   },
 
   'Inside the thread, send a secure message': function(client) {
-    
+    const thread = client.page.ConvoThreadPage();
+
+    thread.clickRhinoSecureTab()
+      .fillMessageInput('Thats a spicy meat-ball!')
+      .pause(1000)
+      .clickSendMessage()
+      .clickElement('@applyFiltersButton')
+      .clickElement('@closeFilterByPageButton');
+
+     linkToCreationPage = helpers.returnElementText(client, `//A[contains(text(), 'https://s')]`);
   }
 }

@@ -5,6 +5,18 @@ const convoThreadCommands = {
     return this;
   },
 
+  clickElement: function(element) {
+    return this.waitForElementVisible(element, `${element} is visible`)
+      .click(element)
+  },
+
+  clickSpanText: function(text) {
+    const xpath = `//SPAN[contains(text(), ${text})]`;
+
+    return this.waitForElementVisible(xpath, `Span with text "${text}" is visible`)
+      .click(xpath)
+  },
+
   validatePageElements: function() {
     return this.waitForElementVisible('@messageInput', 'Conversation thread is visible')
       .verify.visible('@allCommunicationsDropdown', 'All Communications dropdown is visible')
@@ -18,12 +30,47 @@ const convoThreadCommands = {
       .verify.visible('@messageFromDropdown', 'Message FROM dropdown is visible')
   },
 
-  addMessagesToThread: function(text) {
+  fillMessageInput: function(text) {
     return this.setValue('@messageInput', text)
   },
 
   clickSendMessage: function() {
     return this.click('@messageSendButton')
+  },
+
+  clickSearchButton: function(element) {
+    return this.click('@searchConvobutton')
+      .waitForElementPresent('@searchConvoInput', 'Search input is visible')
+  },
+
+  clickaddFilePopupButton: function() {
+    return this.waitForElementVisible('@addFilePopupButton', 'Add file dropdown button is visible')
+      .click('@addFilePopupButton')
+  },
+
+  clickUseTemplateChoice: function() {
+    return this.waitForElementPresent('@useTemplateChoice', 'Add file dropdown choices are visible')
+      .click('@useTemplateChoice')
+  },
+  
+  clickaddFilePopupButton: function() {
+    return this.waitForElementVisible('@addFilePopupButton', 'Add file dropdown button is visible')
+      .click('@addFilePopupButton')
+  },
+
+  clickUseTemplateChoice: function() {
+    return this.waitForElementPresent('@useTemplateChoice', 'Add file dropdown choices are visible')
+      .click('@useTemplateChoice')
+  },
+
+  clickRhinoSecureTab: function() {
+    return this.waitForElementPresent('@rhinoSecureTab', 'RhinoSecure tab visible')
+      .click('@rhinoSecureTab')
+  },
+
+  clickApplyFiltersButton: function() {
+    return this.waitForElementPresent('@applyFiltersButton', 'Apply Filters button is visible')
+      .click('@applyFiltersButton')
   },
 
   addNoteToThread: function(text) {
@@ -47,11 +94,6 @@ const convoThreadCommands = {
       .waitForElementPresent('@lastMessageBubble', 'Messages and notes are both visible')
   },
 
-  clickSearchButton: function() {
-    return this.click('@searchConvobutton')
-      .waitForElementPresent('@searchConvoInput', 'Search input is visible')
-  },
-
   searchMessageThread: function(searchString) {
     return this.setValue('@searchConvoInput', searchString)
       .waitForElementNotPresent('@lastMessageBubble', 'Message bubble hidden while searching for string')
@@ -72,16 +114,6 @@ const convoThreadCommands = {
     return this.waitForElementPresent('@messageFromDropdown', 'Message FROM dropdown is visible')
     // not validating any further as there are no other choices in dropdown currently
     // also sms channel name has random number generated in another test and hard to track
-  },
-
-  clickaddFilePopupButton: function() {
-    return this.waitForElementVisible('@addFilePopupButton', 'Add file dropdown button is visible')
-      .click('@addFilePopupButton')
-  },
-
-  clickUseTemplateChoice: function() {
-    return this.waitForElementPresent('@useTemplateChoice', 'Add file dropdown choices are visible')
-      .click('@useTemplateChoice')
   },
 
   useHIPAATemplate: function(hipaa) {
@@ -148,7 +180,6 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
-    // 
     assignmentCompleteOption: {
       selector: `//SPAN[contains(.,'Assignment Complete')]`,
       locateStrategy: 'xpath'
@@ -166,6 +197,25 @@ module.exports = {
 
     unfollowIcon: {
       selector: `//BUTTON[contains(.,'Unfollow')]`,
+      locateStrategy: 'xpath'
+    },
+
+    filterIcon: {
+      selector: `//BUTTON[contains(@title, 'Filter Conversation']`,
+      locateStrategy: 'xpath'
+    },
+
+    /*------------------------------------------------------------------------*/
+    // filter by elements
+    /*------------------------------------------------------------------------*/
+
+    applyFiltersButton: {
+      selector: `//SPAN[contains(text(), 'Apply Filters')]`,
+      locateStrategy: 'xpath'
+    },
+
+    closeFilterByPageButton: {
+      selector: `//BUTTON[contains(@title, 'Close')]`,
       locateStrategy: 'xpath'
     },
 

@@ -108,7 +108,8 @@ const universalElementsCommands = {
   },
 
   clickAddNewContact: function() {
-    return this.click('@searchButton')
+    return this.waitForElementVisible('@searchButton')
+      .click('@searchButton')
       .waitForElementVisible('@searchModalInput', 'Search input is present')
       .click('@addNewContactButton')
   },
@@ -268,11 +269,11 @@ module.exports = {
     },
 
     /*----------------------------------------------*/
-    // search bar elements
+    // global search bar elements
     /*----------------------------------------------*/
 
     searchButton: {
-      selector: `//BUTTON[contains(@title, 'Search users')]`, 
+      selector: `//SPAN[contains(text(), 'Search users')]`, 
       locateStrategy: 'xpath',
     },
 

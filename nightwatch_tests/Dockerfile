@@ -16,4 +16,4 @@ WORKDIR /home/selenium/nightwatch
 
 EXPOSE 4444
 
-CMD yarn nightwatch
+CMD yarn test

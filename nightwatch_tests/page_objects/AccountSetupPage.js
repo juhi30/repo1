@@ -4,13 +4,33 @@ const accountSetupCommands = {
         this.api.pause(time);
         return this;
     },
+
+    clickBillingToggle: function () {
+        return this.waitForElementPresent('@billingToggle', 'Billing toggle is present')
+            .click('@billingToggle')
+            .waitForElementNotPresent('@newBillingRadio', 'Billing options are hidden')
+    },
+
+    fillInOrgBasicInformation: function (name, address, city, state, zip) {
+        return this.waitForElementPresent('@orgNameInput', 'Organization inputs are present')
+            .setValue('@orgNameInput', name)
+            .setValue('@addressLineOneInput', address)
+            .setValue('@cityInput', city)
+            .setValue('@stateDropdown', state)
+            .setValue('@zipInput', zip)
+    },
+
+    clickCreateOrganizaton: function () {
+        return this.waitForElementPresent('@createOrgButton', 'Create organization button is present')
+            .click('@createOrgButton')
+    }
 }
 
 module.exports = {
     commands: [accountSetupCommands],
 
     url: function () {
-        return this.api.launch_url + '/inbox'
+        return this.api.launch_url + '/accountsetup'
     },
 
     elements: {
@@ -25,10 +45,10 @@ module.exports = {
         //     locateStrategy: 'xpath',
         // },
 
-        // existingBillingRadio: {
-        //     selector: ``,
-        //     locateStrategy: 'xpath',
-        // },
+        newBillingRadio: {
+            selector: `//LABEL[contains(@for, 'selectedBillingOpt')]`, // used to verify billing options are hidden
+            locateStrategy: 'xpath',
+        },
 
         orgNameInput: {
             selector: `//INPUT[contains(@id, 'name')]`,

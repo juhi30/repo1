@@ -1,18 +1,18 @@
 const profileSummaryCommands = {
   clickEditProfile: function() {
-    return this.waitForElementVisible('@editProfileButton', 5000, 'Edit profile button is present')
+    return this.waitForElementVisible('@editProfileButton', 'Edit profile button is present')
       .click('@editProfileButton');
   },
 
   deleteContact: function() {
-    return this.waitForElementVisible('@deleteContactButton', 5000, 'Delete button is visible')
+    return this.waitForElementVisible('@deleteContactButton', 'Delete button is visible')
       .click('@deleteContactButton')
-      .waitForElementVisible('@deleteContactButtonFinal', 5000, 'Final delete button is visible')
+      .waitForElementVisible('@deleteContactButtonFinal', 'Final delete button is visible')
       .click('@deleteContactButtonFinal');
   },
 
   seeDeleteToast: function() {
-    return this.waitForElementVisible('@toastSuccessfulDelete', 5000, 'Successful deletion toast is visible');
+    return this.waitForElementVisible('@toastSuccessfulDelete', 'Successful deletion toast is visible');
   },
 
 }

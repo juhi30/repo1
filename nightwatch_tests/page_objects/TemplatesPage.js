@@ -6,7 +6,7 @@ const templatesCommands = {
   },
 
   renderPageElements: function() {
-    return this.waitForElementVisible('@createTemplateButton', 2000, 'Create template button is visible')
+    return this.waitForElementVisible('@createTemplateButton', 'Create template button is visible')
       .verify.visible('@HIPAATemplate', 'HIPAA template is visible')
       .verify.visible('@firstTestTemplate', 'First test template is visible')
   },
@@ -14,27 +14,27 @@ const templatesCommands = {
   validateSMSFilter: function() {
     return this.verify.visible('@filterDropdown', 'Channel filter is visible')
       .click('@filterDropdown')
-      .waitForElementVisible('@filterTextingChannel', 5000, 'Filter choices are visible')
+      .waitForElementVisible('@filterTextingChannel', 'Filter choices are visible')
       .click('@filterTextingChannel')
-      .waitForElementPresent('@filterDropdown', 5000, 'Dropdown choices are closed')
+      .waitForElementPresent('@filterDropdown', 'Dropdown choices are closed')
       .verify.containsText('@filterDropdown', 'Texting', 'Texting filter is active')
   },
 
   validateChannelFilter: function() {
     return this.click('@filterDropdown')
-      .waitForElementVisible('@filterAll', 5000, 'All channel filter is visible')
+      .waitForElementVisible('@filterAll', 'All channel filter is visible')
       .click('@filterAll')
-      // .waitForElementPresent('@filterDropdown', 5000, 'Dropdown choices are closed')
+      // .waitForElementPresent('@filterDropdown', 'Dropdown choices are closed')
       .verify.containsText('@filterDropdown', 'All', 'All filter is active')
   },
 
   clickCreateTemplate: function() {
     return this.click('@createTemplateButton')
-      .waitForElementVisible('@createTemplateTitle', 2000, 'Create Template Popup is visible')
+      .waitForElementVisible('@createTemplateTitle', 'Create Template Popup is visible')
   },
 
   validateCreateTemplatePopup: function() {
-    return this.waitForElementVisible('@createTemplateTitle', 5000, 'Title input is visible')
+    return this.waitForElementVisible('@createTemplateTitle', 'Title input is visible')
       .verify.visible('@createTemplateMessage', 'Message input is visible')
       .verify.visible('@createTemplateSaveButton', 'Create button is visible')
       .verify.visible('@uploadFileButton', 'Upload File button is visible')
@@ -43,7 +43,7 @@ const templatesCommands = {
       .verify.visible('@nullTemplateTitle', 'Title validator is visible')
       .verify.visible('@nullTemplateMessage', 'Message validator is visible')
     // .click('@cancelCreateButton')
-    // .waitForElementNotPresent('@createTemplatePopup', 5000, 'Create template popup is hidden')
+    // .waitForElementNotPresent('@createTemplatePopup', 'Create template popup is hidden')
   },
 
   // uploadToTemplate: function() {
@@ -54,7 +54,7 @@ const templatesCommands = {
 //      return this.setValue('@createTemplateTitle', title)
 //       .setValue('@createTemplateMessage', message)
 //       .setValue('input[type="file"]', require('path').resolve(pathToFile))
-//       .waitForElementVisible('@uploadedFile', 5000, 'Uploaded file is visible')
+//       .waitForElementVisible('@uploadedFile', 'Uploaded file is visible')
 //   },
   
 //      (test call of command with variable input)
@@ -64,30 +64,30 @@ const templatesCommands = {
     return this.setValue('@createTemplateTitle', title)
       .setValue('@createTemplateMessage', message)
       // .setValue('input[type="file"]', require('path').resolve(pathToFile)) can use this method, with pathToFile argument, to add attachments
-      // .waitForElementVisible('@uploadedFile', 5000, 'Uploaded file is visible')
+      // .waitForElementVisible('@uploadedFile', 'Uploaded file is visible')
   },
 
   saveNewTemplate: function() {
-    return this.waitForElementVisible('@createTemplateSaveButton', 5000, 'Save template is visible')
+    return this.waitForElementVisible('@createTemplateSaveButton', 'Save template is visible')
       .click('@createTemplateSaveButton')
-      .waitForElementNotPresent('@createTemplateTitle', 5000, 'Create template popup is hidden')
+      .waitForElementNotPresent('@createTemplateTitle', 'Create template popup is hidden')
   },
 
   editTemplate: function() {
     return this.click('@firstTemplateEdit')
-      .waitForElementVisible('@createTemplateTitle', 5000, 'Edit template popup is visible')
+      .waitForElementVisible('@createTemplateTitle', 'Edit template popup is visible')
       .verify.visible('@firstTemplateEditSaveButton', 'Save template button is visible')
       .setValue('@createTemplateTitle', '* added from edit popup')
       .click('@firstTemplateEditSaveButton')
-      .waitForElementNotPresent('@firstTemplateEditSaveButton', 5000, 'Edit template popup is not present')
+      .waitForElementNotPresent('@firstTemplateEditSaveButton', 'Edit template popup is not present')
   },
 
   deleteTemplate: function() {
-    return this.waitForElementVisible('@deleteTemplateButton', 1000, 'Template delete button is visible')
+    return this.waitForElementVisible('@deleteTemplateButton', 'Template delete button is visible')
       .click('@deleteTemplateButton')
-      .waitForElementVisible('@deleteTemplateFinalButton', 1500, 'Delete template popup is visible')
+      .waitForElementVisible('@deleteTemplateFinalButton', 'Delete template popup is visible')
       .click('@deleteTemplateFinalButton')
-      .waitForElementNotVisible('@deleteTemplateFinalButton', 1500, 'Delete template popup is hidden')
+      .waitForElementNotVisible('@deleteTemplateFinalButton', 'Delete template popup is hidden')
   },
 }
 

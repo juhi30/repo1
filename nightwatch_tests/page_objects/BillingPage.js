@@ -6,7 +6,7 @@ const billingCommands = {
   },
 
   validateContactEls: function() {
-    return this.waitForElementVisible('@contactTab', 5000, 'Billing Page is visible')
+    return this.waitForElementVisible('@contactTab', 'Billing Page is visible')
       .verify.visible('@firstNameInput', 'First name input is visible')
       .verify.visible('@lastNameInput', 'last name input is visible')
       .verify.visible('@phoneNumInput', 'Phone Number input is visible')
@@ -26,11 +26,11 @@ const billingCommands = {
   },
 
   validatePaymentEls: function() {
-    return this.waitForElementPresent('@paymentTab', 5000, 'Payment tab is visible')
+    return this.waitForElementPresent('@paymentTab', 'Payment tab is visible')
       .click('@paymentTab')
-      .waitForElementVisible('@changePaymentButton', 5000, 'Payment tab elements are visible')
+      .waitForElementVisible('@changePaymentButton', 'Payment tab elements are visible')
       .click('@changePaymentButton')
-      .waitForElementVisible('@paymentFirstNameInput', 5000, 'first name input is visible')
+      .waitForElementVisible('@paymentFirstNameInput', 'first name input is visible')
       .verify.visible('@paymentLastNameInput', 'last name input is visible')
       .verify.visible('@paymentBillingAddInput', 'Billing address input is visible')
       .verify.visible('@paymentCityInput', 'City input is visible')
@@ -42,7 +42,7 @@ const billingCommands = {
 
   validateCCEls: function() {
     return this.click('@creditCardRadio')
-      .waitForElementVisible('@creditCardNumInput', 5000, 'Credit card input is visible')
+      .waitForElementVisible('@creditCardNumInput', 'Credit card input is visible')
       .verify.visible('@expMonth', 'Expiration month is visible')
       .verify.visible('@expYear', 'Expiration year is visible')
       .verify.visible('@cvvInput', 'CVV input is visible')
@@ -50,13 +50,13 @@ const billingCommands = {
 
   validateBankAcctEls: function() {
     return this.click('@bankAcctRadio')
-      .waitForElementVisible('@bankNameInput', 5000, 'Bank name input is visible')
+      .waitForElementVisible('@bankNameInput', 'Bank name input is visible')
       .verify.visible('@bankAcctNumInput', 'Bank account number is visible')
       .verify.visible('@routingNumInput', 'Routing number input is visible')
   },
 
   fillInPaymentMethod: function(firstName, lastName, billingAdd, city, state, zip) {
-    return this.waitForElementVisible('@paymentFirstNameInput', 5000, 'First name input is visible')
+    return this.waitForElementVisible('@paymentFirstNameInput', 'First name input is visible')
       .clearValue('@paymentFirstNameInput')
       .setValue('@paymentFirstNameInput', firstName)
       .clearValue('@paymentLastNameInput')
@@ -72,9 +72,9 @@ const billingCommands = {
   },
 
   fillInCreditCardForm: function() {
-    return this.waitForElementVisible('@creditCardRadio', 5000, 'Payment radios are visible')
+    return this.waitForElementVisible('@creditCardRadio', 'Payment radios are visible')
       .click('@creditCardRadio')
-      .waitForElementVisible('@creditCardNumInput', 5000, 'credit card inputs visible')
+      .waitForElementVisible('@creditCardNumInput', 'credit card inputs visible')
       .clearValue('@creditCardNumInput')
       .setValue('@creditCardNumInput', 4111111111111111)
       .setValue('@expMonth', 'December')
@@ -83,9 +83,9 @@ const billingCommands = {
   },
 
   fillInBankAcctForm: function() {
-    return this.waitForElementVisible('@creditCardRadio', 5000, 'Payment radios are visible')
+    return this.waitForElementVisible('@creditCardRadio', 'Payment radios are visible')
       .click('@bankAcctRadio')
-      .waitForElementVisible('@bankNameInput', 5000, 'Bank account inputs visible')
+      .waitForElementVisible('@bankNameInput', 'Bank account inputs visible')
       .clearValue('@bankNameInput')
       .setValue('@bankNameInput', 'Best Bank')
       .setValue('@bankAcctNumInput', 111111111121)
@@ -93,20 +93,20 @@ const billingCommands = {
   },
 
   savePaymentMethod: function() {
-    return this.waitForElementVisible('@savePaymentButton', 5000, 'Save payment button is visible')
+    return this.waitForElementVisible('@savePaymentButton', 'Save payment button is visible')
       .click('@savePaymentButton')
   },
 
   changePaymentMethod: function() {
-    return this.waitForElementVisible('@changePaymentButton', 5000, 'change payment button is visible')
+    return this.waitForElementVisible('@changePaymentButton', 'change payment button is visible')
       .click('@changePaymentButton')
   },
 
   validateHistoryEls: function() {
     return this.click('@historyTab')
-      .waitForElementVisible('@pdfFileButton', 5000, 'PDF view button is visible')
+      .waitForElementVisible('@pdfFileButton', 'PDF view button is visible')
       .click('@pdfFileButton')
-      .waitForElementVisible('@closePDFButton', 5000, 'PDF file is visible')
+      .waitForElementVisible('@closePDFButton', 'PDF file is visible')
       .click('@closePDFButton')
   },
 

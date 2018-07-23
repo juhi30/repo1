@@ -14,6 +14,7 @@ module.exports = {
   "output_folder" : "reports",
   "page_objects_path" : "page_objects",
   "globals_path" : "global.js",
+  "output_folder": "./reports",
 
   "selenium" : {
     "start_process" : true,

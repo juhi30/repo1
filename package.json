@@ -14,5 +14,8 @@
   "bugs": {
     "url": "https://github.com/rhinogram/rhinomatic/issues"
   },
-  "homepage": "https://github.com/rhinogram/rhinomatic#readme"
+  "homepage": "https://github.com/rhinogram/rhinomatic#readme",
+  "dependencies": {
+    "nightwatch-html-reporter": "^2.0.5"
+  }
 }

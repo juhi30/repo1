@@ -13,7 +13,7 @@ module.exports = {
   "src_folders" : ["tests"],
   "output_folder" : "reports",
   "page_objects_path" : "page_objects",
-  "globals_path" : "global.js",
+  "globals_path" : "globals.js",
   "output_folder": "./reports",
 
   "selenium" : {

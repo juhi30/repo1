@@ -23,6 +23,7 @@
   "dependencies": {
     "babel-preset-env": "1.7.x",
     "dotenv": "6.0.x",
+    "nightwatch-html-reporter": "^2.0.5",
     "testarmada-magellan": "10.0.x",
     "testarmada-magellan-local-executor": "2.0.x",
     "testarmada-magellan-nightwatch-plugin": "7.0.x",

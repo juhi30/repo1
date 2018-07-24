@@ -5,7 +5,7 @@ var reporter = new HtmlReporter({
 });
 
 module.exports = {
-    reporter: reporter.fn
+    reporter: reporter.fn,
     abortOnAssertionFailure: false,
     waitForConditionPollInterval: 300,
     waitForConditionTimeout: 10000,

@@ -3,15 +3,19 @@ Automated tools for testing.
 
 ## Nightwatch
 
-  This is a suite of e2e (end-to-end) and regression tests, utilizing Nightwatch and Selenium Server Standalone. Following the Page Object Model style to improve scalability. 
+  This is a suite of automated, Selenium-based tests built with the Nightwatch framework.
+  
+  ### Test groups
+
+  Currently we support two different groups of tests: a canary, and e2e (end-to-end). Tests written for the Canary group should be written to cover the core functionality of the Rhinogram in a repeatable and stable manner, more akin to a smoke test. These will be run on live environments (dev, staging, and production). Tests written for the e2e group will be larger in scope and will require the ability to create/delete data through the UI.
   
   ### Installation and running the suite
   
-  **From the nightwatch\_tests dir**: 'npm install'
+  **From the nightwatch\_tests dir**: 'yarn'
 
-  **to run the suite**: run 'nightwatch' from the nightwatch\_tests directory.
+  **to run a test group**: run 'nightwatch --group canary' or 'nightwatch --group e2e' from the nightwatch\_tests directory.
 
-  **to run a specific test**: run 'nightwatch tests/testFile.spec.js' (also from the nightwatch\_tests directory).
+  **to run a specific test**: run 'nightwatch tests/pathToTestFile.js' (also from the nightwatch\_tests directory).
   
   ### Helpful links
   
@@ -36,13 +40,12 @@ Automated tools for testing.
     1. Transpile with Babel (this is done, but not using any ES6 just yet)
     2. Integrate with Magellan
 
-  ### The "Contains" trick with property values and element text
-  This trick allows us to search for property value of elements, as well as text.
-  Examples:
-
+  ### Common ways of locating elements via xpath
+    **This will find an input with the title of "Go Back"**
     //INPUT[contains(@title, 'Go Back')] (this is for an input with the title='Go Back')
     
-    //SPAN[contains(.,'Check in')] (this is for a span with the text 'Check in')
+    **This will find a span containing the text "Check in"**
+    //SPAN[contains(text(), 'Check in')] (this is for a span with the text 'Check in')
 
   ### Nuances and Gotchas
 

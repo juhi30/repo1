@@ -2,7 +2,7 @@
 
 const euProfileCommands = {
   verifyElements: function() {
-    return this.waitForElementVisible('@usernameInput', 5000, 'Username input is visible')
+    return this.waitForElementVisible('@usernameInput', 'Username input is visible')
       .verify.visible('@usernameInput', 'Username input is visible')
       .verify.visible('@emailAddressInput', 'Email address input is visible')
       .verify.visible('@changePasswordLink', 'Change password link is visible')
@@ -11,31 +11,31 @@ const euProfileCommands = {
   },
 
   verifyPasswordUpdatedToast: function() {
-    return this.waitForElementVisible('@passwordUpdatedToast', 5000, 'Toast: Password Updated Successfully is visible');
+    return this.waitForElementVisible('@passwordUpdatedToast', 'Toast: Password Updated Successfully is visible');
   },
 
   clickChangePassword: function() {
-    return this.waitForElementVisible('@changePasswordLink', 1000, 'clicked Change Password')
+    return this.waitForElementVisible('@changePasswordLink', 'clicked Change Password')
       .click('@changePasswordLink');
   },
 
   clickSavePassword: function() {
-    return this.waitForElementVisible('@savePasswordButton', 1000, 'clicked Save Password')
+    return this.waitForElementVisible('@savePasswordButton', 'clicked Save Password')
       .click('@savePasswordButton');
   },
 
   fillInCurrentPasswordInput: function(currentPassword) {
-    return this.waitForElementVisible('@currentPasswordInput', 1000, `filled in Current Password with ${currentPassword}`)
+    return this.waitForElementVisible('@currentPasswordInput', `filled in Current Password with ${currentPassword}`)
       .setValue('@currentPasswordInput', currentPassword);
   },
 
   fillInNewPasswordInput: function(newPassword) {
-    return this.waitForElementVisible('@newPasswordInput', 1000, `filled in New Password with ${newPassword}`)
+    return this.waitForElementVisible('@newPasswordInput', `filled in New Password with ${newPassword}`)
       .setValue('@newPasswordInput', newPassword);
   },
 
   fillInRetypeNewPasswordInput: function(newPassword) {
-    return this.waitForElementVisible('@retypeNewPasswordInput', 1000, `filled in Retype New Password with ${newPassword}`)
+    return this.waitForElementVisible('@retypeNewPasswordInput', `filled in Retype New Password with ${newPassword}`)
       .setValue('@retypeNewPasswordInput', newPassword);
   }
 }

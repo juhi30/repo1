@@ -39,7 +39,12 @@ module.exports = {
     const inbox = client.page.InboxPage();
 
     helpers.findTextOnPage(inbox, messageContent);
+  },
 
-    client.end();
+  'Search for member: Chatty': function(client) {
+    const chat = client.page.DirectChatInboxPage();
+
+    chat.navigate()
+      .clickChattyMemberThread()
   }
 }

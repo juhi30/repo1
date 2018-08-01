@@ -21,10 +21,10 @@ const universalElementsCommands = {
       .click('@searchButton')
       .waitForElementVisible('@searchModalInput', 'Search input is visible on click')
       .setValue('@searchModalInput', patientName)
-      .waitForElementVisible('@searchModalFirstResult', 'First result on search dropdown is visible')
+      .waitForElementVisible('@searchResultFrodoBaggins', 'First result on search dropdown is visible')
       .verify.visible('@addNewContactButton', 'Add new contact button is visible')
-      .click('@searchModalFirstResult')
-      .waitForElementNotPresent('@searchModalFirstResult', 'First result is hidden')
+      .click('@searchResultFrodoBaggins')
+      .waitForElementNotPresent('@searchResultFrodoBaggins', 'First result is hidden')
   },
 
   validateSettingsDropdown: function() {
@@ -100,10 +100,10 @@ const universalElementsCommands = {
       .click('@searchButton')
       .waitForElementVisible('@searchModalInput', 'Search input is visible on click')
       .setValue('@searchModalInput', patientName)
-      .waitForElementVisible('@searchModalFirstResult', 'First result on search dropdown is visible')
+      .waitForElementVisible('@searchResultFrodoBaggins', 'First result on search dropdown is visible')
       .verify.visible('@addNewContactButton', 'Add new contact button is visible')
-      .click('@searchModalFirstResult')
-      .waitForElementNotPresent('@searchModalFirstResult', 'First result is hidden')
+      .click('@searchResultFrodoBaggins')
+      .waitForElementNotPresent('@searchResultFrodoBaggins', 'First result is hidden')
       .verify.urlContains('50069', 'Taken to profile summary view')// no long 'userID' string but actual ID number
   },
 
@@ -218,7 +218,14 @@ const universalElementsCommands = {
       .pause(500)
       .click('@logoutButton')
       .waitForElementNotPresent('@logoutButton', 'Logout button no longer present')
-  }
+  },
+
+  searchByName: function(name) {
+    return this.waitForElementVisible('@searchButton', 'Search field is visible')
+      .click('@searchButton')
+      .waitForElementVisible('@searchModalInput', 'Search input is visible')
+      .setValue('@searchModalInput', name)
+  },
 }
 
 module.exports = {
@@ -282,7 +289,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    searchModalFirstResult: {
+    searchResultFrodoBaggins: {
       selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][text()='Frodo  Baggins']`, //specific to Frodo test case
       locateStrategy: 'xpath',
     },

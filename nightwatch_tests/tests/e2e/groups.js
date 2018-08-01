@@ -13,11 +13,4 @@ module.exports = {
         client.pause(1000);
     },
 
-    'Go to and Verify Groups Page': function (client) {
-        const groups = client.page.GroupsPags();
-
-        groups.navigate()
-            .ver
-
-    },
 }

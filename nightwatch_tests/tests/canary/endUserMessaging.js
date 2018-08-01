@@ -33,7 +33,7 @@ module.exports = {
     login.pause(2000)
       .enterMemberCreds('nightkeaton', 'Chacoz123')
       .submit()
-  }, 
+  },
 
   'Find that thread and view the message from the patient': function(client) {
     const inbox = client.page.InboxPage();

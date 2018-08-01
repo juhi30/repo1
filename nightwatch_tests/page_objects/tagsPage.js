@@ -65,7 +65,7 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     newTagButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[6]`,//shifted count need better grab
+      selector: `//BUTTON[contains(@title, 'Create Tag)]`,
       locateStrategy: 'xpath',
     },
 
@@ -93,27 +93,27 @@ module.exports = {
     },
 
     tagCategoryLocation: {
-      selector: `//LABEL[@class='rhinodio__label'][text()='Location']`,
+      selector: `//LABEL[contains(text(),'Location')]`,
       locateStrategy: 'xpath',
     },
 
     tagCategoryDepartment: {
-      selector: `//LABEL[@class='rhinodio__label'][text()='Department']`,
+      selector: `//LABEL[contains(text(),'Department')]`,
       locateStrategy: 'xpath',
     },
 
     tagCategoryRole: {
-      selector: `//LABEL[@class='rhinodio__label'][text()='Role']`,
+      selector: `//LABEL[contains(text(),'Role')]`,
       locateStrategy: 'xpath',
     },
 
     tagCategoryCustom: {
-      selector: `//LABEL[@class='rhinodio__label'][text()='Custom']`,
+      selector: `//LABEL[contains(text(),'Custom')]`,
       locateStrategy: 'xpath',
     },
 
     createTagButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Create Tag']`,
+      selector: `//SPAN[contains(text(),'Create Tag')]`,
       locateStrategy: 'xpath',
     },
 
@@ -122,17 +122,17 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     updateTagButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Update Tag']`,
+      selector: `//SPAN[contains(text(), 'Update Tag')]`,
       locateStrategy: 'xpath',
     },
 
     deleteTagTrashIcon: {
-      selector: `/html/body/div[3]/div/div/div[1]/button/span/svg`, // better xpath (svg issue)
+      selector: `//BUTTON[contains(@title,'Delete Tag')]`,
       locateStrategy: 'xpath',
     },
 
     deleteTagConfirmButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Yes, delete tag']`,
+      selector: `//SPAN[contains(text(),'Yes, delete tag')]`,
       locateStrategy: 'xpath',
     },
 

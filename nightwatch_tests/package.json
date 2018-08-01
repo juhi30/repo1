@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "babel-preset-env": "1.7.x",
+    "browserstack-automate": "^1.0.2",
     "dotenv": "6.0.x",
     "nightwatch-html-reporter": "^2.0.5",
     "testarmada-magellan": "10.0.x",

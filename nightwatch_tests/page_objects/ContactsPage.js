@@ -6,13 +6,10 @@ const contactsCommands = {
   },
 
   validateContactsElements: function() {
-    return this.waitForElementVisible('@contactsContainer', 1500, 'Contacts container is visible')
-      .verify.visible('@filterDropdown', 'Filter dropdown button is visible')
+    return this.waitForElementVisible('@filterDropdown', 'Filter dropdown button is visible')
       .click('@filterDropdown')
       .verify.visible('@allContactsOption', 'All contacts option is visible')
       .verify.visible('@patientOption', 'Patient option is visible')
-      .verify.visible('@memberOption', 'Member option is visible')
-      .verify.visible('@connectedPartyOption', 'Connected party option is visible')
       .verify.visible('@unknownOption', 'Unknown option is visible')
       .verify.visible('@otherOption', 'Other option is visible')
   },
@@ -21,18 +18,6 @@ const contactsCommands = {
     return this.click('@filterDropdown')
       .click('@patientOption')
       .verify.containsText('@filterDropdown', 'Patient', 'Filter dropdown is now set to patient')
-  },
-
-  clickMemberOption: function() {
-    return this.click('@filterDropdown')
-      .click('@memberOption')
-      .verify.containsText('@filterDropdown', 'Member', 'Filter dropdown is now set to member')
-  },
-
-  clickConnectedPartyOption: function() {
-    return this.click('@filterDropdown')
-      .click('@connectedPartyOption')
-      .verify.containsText('@filterDropdown', 'Connected Party', 'Filter dropdown is now set to connected party')
   },
 
   clickUnknownOption: function() {
@@ -54,22 +39,22 @@ const contactsCommands = {
   },
 
   clickAddContact: function() {
-    return this.waitForElementVisible('@addContactButton', 5000, 'Add contact button is visible')
+    return this.waitForElementVisible('@addContactButton', 'Add contact button is visible')
       .click('@addContactButton')
-      .waitForElementVisible('@addContactButtonModal', 5000, 'Add new contact button is visible')
+      .waitForElementVisible('@addContactButtonModal', 'Add new contact button is visible')
       .verify.visible('@addContactDropdownInput', 'Dropdown input is visible')
       .verify.visible('@addNewContactButton', 'Add New Contact button is visible')
   },
 
   searchForContact: function(contactName) {
     return this.setValue('@addContactDropdownInput', contactName)
-      .waitForElementVisible('@addContactDropdownFirstResult', 5000, 'First result is visible')
+      .waitForElementVisible('@addContactDropdownFirstResult', 'First result is visible')
       .click('@addContactDropdownFirstResult')
-      .waitForElementVisible('@profileContainer', 5000, 'Profile summary is visible')
+      .waitForElementVisible('@profileContainer', 'Profile summary is visible')
   },
 
   clickAddNewContact: function() {
-    return this.waitForElementVisible('@addContactButtonModal', 5000, 'Add new contact button is visible')
+    return this.waitForElementVisible('@addContactButtonModal', 'Add new contact button is visible')
       .click('@addNewContactButton')
   },
 }

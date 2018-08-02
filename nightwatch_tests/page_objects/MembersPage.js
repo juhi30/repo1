@@ -1,5 +1,3 @@
-const helpers = require('../helpers');
-
 const membersCommands = {
   clickAddMember: function() {
     return this.waitForElementVisible('@addMemberButton', 'Add member button visible')
@@ -9,17 +7,6 @@ const membersCommands = {
   deactivateMember: function() {
     return this.waitForElementVisible('@deactivateButton', 'Deactivate button is visible')
       .click('@deactivateButton')
-  },
-
-  verifyTagIsAssigned: function() {
-    return this.waitForElementVisible('@currentMember', 'Current logged in member is visible')
-      .waitForElementVisible('@tagOnMember', 'Tag on member is present')
-  },
-
-  verifyTagIsUnassigned: function() {
-    return this. waitForElementVisible('@currentMember', 'Member is visible')
-      .waitForElementNotPresent('@tagOnMember', 'Tag has been unassigned')
-
   },
 }
 

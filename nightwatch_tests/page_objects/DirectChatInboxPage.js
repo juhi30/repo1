@@ -7,10 +7,7 @@ const commands = {
   clickChattyMemberThread: function() {
     return this.waitForElementVisible('@threadForChattyMember', 'Thread for Chatty Member is visible')
       .click('@threadForChattyMember');
-  },
-
-  //typeMessage(message)
-  //sendMessage()
+  }
 }
 
 module.exports = {

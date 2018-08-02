@@ -15,8 +15,6 @@ module.exports = {
 
         tags.navigate()
             .validateTagPageElements();
-
-        client.pause(1000);
     },
 
     'Validate new Tag modal and create new Tag': function (client) {
@@ -25,7 +23,6 @@ module.exports = {
         tags.validateCreateTagModal()
             .createNewTag();
 
-        client.pause(1000);
     },
 
     'Validate edit Tag modal and delete tag': function (client) {
@@ -35,20 +32,37 @@ module.exports = {
             .editTag()
             .navigate()
             .deleteTag();
-
-        client.pause(1000);
     },
 
-    'Attach tag to a Member and verify then remove': function (client) {
+    // if/else statement should be made so if the tag gets deleted it will create a new version, else continue with test
+    'Attach tag to logged in Member and verify': function (client) {
         const tags = client.page.TagsPage();
         const profile = client.page.ProfilePage();
-        const members = client.page.MembersPage();
 
-        profile.navigate()
+        profile.navigate();
+
+        tags.tagContainerCheck()
+            .clickToToggleTag();
+
+        profile.clickSaveProfileButton();
         
-        tags.
-
-
+        tags.checkTagSelected();
     },
+
+    'Remove tag from logged in Member': function (client) {
+        const tags = client.page.TagsPage();
+        const profile = client.page.ProfilePage();
+
+        profile.navigate();
+
+        tags.tagContainerCheck()
+            .clickToToggleTag();
+
+        profile.clickSaveProfileButton();
+        
+        tags.checkTagDeselected();
+
+        client.end()
+    }
 
 }

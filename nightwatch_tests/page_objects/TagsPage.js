@@ -51,6 +51,24 @@ const tagCommands = {
       .waitForElementNotVisible('@updateTagButton', 'Edit Tag Modal is hidden')
       .waitForElementNotPresent('@editedTag', 'Tag is deleted')
   },
+
+  tagContainerCheck: function () {
+    return this.waitForElementPresent('@newTagContainerButton', 'Tag container is visible')
+  },
+
+  clickToToggleTag: function () {
+    return this.waitForElementPresent('@youreItTag', 'youreIt_tag is visible')
+      .click('@youreItTag')
+  },
+
+  checkTagSelected: function() {
+    return this.verify.cssProperty('@youreItTag', 'color', 'rgba(0, 117, 201, 1)', 'Tag is selected and highlighted')
+  },
+
+  checkTagDeselected: function() {
+    return this.verify.cssProperty('@youreItTag', 'color', 'rgba(64, 64, 64, 1)', 'Tag is deselected')
+
+  },
 }
 
 module.exports = {
@@ -65,12 +83,13 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     newTagButton: {
-      selector: `//BUTTON[contains(@title, 'Create Tag)]`,
+      selector: `//BUTTON[contains(@title,'Create Tag')]`,
       locateStrategy: 'xpath',
     },
 
     firstTag: {
       selector: `//SPAN[contains(.,'#Charleston')]`, 
+      locateStrategy: 'xpath'
     },
 
     fakeTag: {
@@ -122,7 +141,7 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     updateTagButton: {
-      selector: `//SPAN[contains(text(), 'Update Tag')]`,
+      selector: `//SPAN[contains(text(),'Update Tag')]`,
       locateStrategy: 'xpath',
     },
 
@@ -134,6 +153,20 @@ module.exports = {
     deleteTagConfirmButton: {
       selector: `//SPAN[contains(text(),'Yes, delete tag')]`,
       locateStrategy: 'xpath',
+    },
+
+    /*------------------------------------------------------------*/
+    // xpaths for assigned tags
+    /*------------------------------------------------------------*/
+    
+    newTagContainerButton: {
+      selector: `//SPAN[contains(text(),'Create New Tag')]`,
+      locateStrategy: 'xpath'
+    },
+
+    youreItTag: {
+      selector: `//SPAN[contains(.,'#youreIt_tag')]`,
+      locateStrategy: 'xpath'
     },
 
   }

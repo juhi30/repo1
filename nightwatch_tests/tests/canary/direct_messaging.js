@@ -15,8 +15,10 @@ module.exports = {
   'Login as a member': function(client) {
     const login = client.page.LoginPage();
 
-    login.enterMemberCreds('nightkeaton', 'Chacoz123')
-      .submit();
+    login.navigate()
+      .enterMemberCreds('nightkeaton', 'Chacoz123')
+      .submit()
+      .pause(3000) // giving the page time to redirect
   },
 
   'Go to Chatty Members direct chat thread': function(client) {

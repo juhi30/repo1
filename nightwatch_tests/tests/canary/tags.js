@@ -40,15 +40,16 @@ module.exports = {
     },
 
     'Attach tag to a Member and verify then remove': function (client) {
-        const tags = client.page.TagsPage();
-        const profile = client.page.ProfilePage();
-        const members = client.page.MembersPage();
+      // this test isn't complete yet.
+        // const tags = client.page.TagsPage();
+        // const profile = client.page.ProfilePage();
+        // const members = client.page.MembersPage();
 
-        profile.navigate()
+        // profile.navigate()
         
-        tags.
+        // tags.
 
 
-    },
+    }
 
 }

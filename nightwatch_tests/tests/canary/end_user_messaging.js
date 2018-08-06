@@ -1,7 +1,9 @@
 /*
-Requirements to pass:
-  1. Kvothe Kingkiller (patient) must be assigned to Keaton Tester (member)
-  2. Kvothe Kingkiller is a signed-up patient
+This test uses Secure Messaging to test inbound/outbound messaging between a member and an end user (patient). A message is sent from patient -> member. The member logs in and verifies that the message came through.
+
+Preconditions/Credentials used:
+  1. kvothe / Kingkiller1! (patient)
+  2. nightkeaton / Chacoz123 (member)
 */
 
 const helpers = require('../../helpers');
@@ -14,14 +16,14 @@ module.exports = {
     
     login.navigate()
       .enterPatientCreds('kvothe', 'Kingkiller1!')
-      .submit()
+      .submit();
   },
 
   'Send a message as a patient': function(client) {
     const endUserThread = client.page.EUThreadPage();
     
     endUserThread.fillInMessageInput(messageContent)
-      .pause(1000) // waiting for Send button to become enabled
+      .pause(1000) // waiting for Send button to activate
       .clickSend()
       .clickSettingsDropdown()
       .clickLogoutButton();
@@ -30,16 +32,14 @@ module.exports = {
   'Login as a member': function(client) {
     const login = client.page.LoginPage();
 
-    login.pause(2000)
-      .enterMemberCreds('nightkeaton', 'Chacoz123')
-      .submit()
+    login.enterMemberCreds('nightkeaton', 'Chacoz123')
+      .submit();
   },
 
   'Find that thread and view the message from the patient': function(client) {
-    const inbox = client.page.InboxPage();
+    const inbox = client.page.DirectInboxPage();
 
     helpers.findTextOnPage(inbox, messageContent);
-
-    client.end();
+    client.end(2000);
   }
 }

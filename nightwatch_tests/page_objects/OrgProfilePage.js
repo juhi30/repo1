@@ -6,7 +6,7 @@ const orgProfileCommands = {
   },
 
   renderPageElements: function() {
-    return this.waitForElementVisible('@addLogoButton', 5000, 'Add logo button is visible')
+    return this.waitForElementVisible('@addLogoButton', 'Add logo button is visible')
       .verify.visible('@orgNameInput', 'Name input is visible')
       .verify.visible('@addressOneInput', 'Address input is visible')
       .verify.visible('@cityInput', 'City input is visible')
@@ -22,9 +22,9 @@ const orgProfileCommands = {
 
   renderUploadPhotoPopup: function() {
     return this.click('@addLogoButton')
-      .waitForElementVisible('@uploadPhotoButton', 5000, 'Upload photo popup is visible')
+      .waitForElementVisible('@uploadPhotoButton', 'Upload photo popup is visible')
       .click('@closeUploadPhotoIcon')
-      .waitForElementNotVisible('@uploadPhotoButton', 5000, 'Upload photo popup is hidden')
+      .waitForElementNotVisible('@uploadPhotoButton', 'Upload photo popup is hidden')
   },
 
   clearPrefilledValues: function() {
@@ -46,11 +46,11 @@ const orgProfileCommands = {
   },
 
   renderValidators: function() {
-    return this.waitForElementVisible('@alertBox', 5000, 'Alert box is visible')
+    return this.waitForElementVisible('@alertBox', 'Alert box is visible')
   },
 
   validateSaveToast: function() {
-    return this.waitForElementVisible('@saveToast', 5000, 'Save toast is visible')
+    return this.waitForElementVisible('@saveToast', 'Save toast is visible')
   },
 }
 

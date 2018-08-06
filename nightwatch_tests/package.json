@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "nightwatch",
+    "test": "nightwatch --skipgroup deprecated",
     "clean": "rm -rf lib/*",
     "build": "yarn clean && node_modules/.bin/babel tests --out-dir lib/tests && node_modules/.bin/babel page_objects --out-dir lib/page_objects && node_modules/.bin/babel helpers.js --out-dir lib/ && node_modules/.bin/babel global.js --out-dir lib/"
   },
@@ -22,7 +22,9 @@
   },
   "dependencies": {
     "babel-preset-env": "1.7.x",
+    "browserstack-automate": "^1.0.2",
     "dotenv": "6.0.x",
+    "nightwatch-html-reporter": "^2.0.5",
     "testarmada-magellan": "10.0.x",
     "testarmada-magellan-local-executor": "2.0.x",
     "testarmada-magellan-nightwatch-plugin": "7.0.x",

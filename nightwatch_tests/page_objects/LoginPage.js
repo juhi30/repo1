@@ -72,7 +72,7 @@ const loginCommands = {
 
   //need more appropiate name or refactor
   validateUrlChange: function() {
-    return this.waitForElementNotPresent('@loginButton', 6000, false, null, 'Login button is no longer visible, page changes to inbox')
+    return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
       .verify.urlContains('inbox')  // maybe some timeout issues happening here working as of 9/20/1
   },
 

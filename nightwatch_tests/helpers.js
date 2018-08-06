@@ -2,9 +2,16 @@ function findTextOnPage(client, text) {
   client.verify.containsText('body', text);
 }
 
+function returnElementText(client, selector) {
+  client.getText(selector, (result) => {
+    console.log(result);
+    return result;
+  })
+}
+
 const randoNum = Math.ceil(Math.random() * 1000);
 
-const theDateObj = new Date;
+const theDateObj = new Date();
 const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleDateString();
 
 // This object reflects a Member who has full permissions
@@ -23,10 +30,10 @@ const patientCreds = {
 };
 
 module.exports = {
-  findTextOnPage: findTextOnPage,
-  randoNum: randoNum,
-  dateString: dateString,
-  csrCreds: csrCreds,
-  memberCreds: memberCreds,
-  patientCreds: patientCreds
+  returnElementText,
+  findTextOnPage,
+  randoNum,
+  dateString,
+  memberCreds,
+  patientCreds,
 }

@@ -1,8 +1,17 @@
 const groupsPageCommands = {
+
   pause: function(time) {
     this.api.pause(time);
     return this;
   },
+
+  verifyGroupEls: function() {
+    return this.waitForElementPresent('@createButton', 'Create Button is visible')
+      .click('@createButton')
+      .waitForElementPresent('@teamOption', 'Team option is visible')
+      .verify.visible('@patientOption', 'Patient option is visible')
+      .verify.visible('@patientAndTeamOption', 'Patient and team option is visible')
+  }
 }
 
 module.exports = {
@@ -32,11 +41,6 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
-    createGroupButton: {
-      selector: `//SPAN[contains(.,'CreateGroup')]`,
-      locateStrategy: 'xpath'
-    },
-
     // Group Details
     nameInput: {
       selector: `//INPUT[contains(@name, 'name')]`,
@@ -46,7 +50,13 @@ module.exports = {
     purposeInput: {
       selector: `//INPUT[contains(@name, 'purpose')]`,
       locateStrategy: 'xpath'
-    }
+    },
+
+    createGroupButton: {
+      selector: `//SPAN[contains(.,'CreateGroup')]`,
+      locateStrategy: 'xpath'
+    },
+
 
     // TagsContainer is a separate page object
     // MembersContainer is a separate page object

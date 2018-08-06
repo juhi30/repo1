@@ -5,8 +5,20 @@ const convoThreadCommands = {
     return this;
   },
 
+  clickElement: function(element) {
+    return this.waitForElementVisible(element, `${element} is visible`)
+      .click(element)
+  },
+
+  clickSpanText: function(text) {
+    const xpath = `//SPAN[contains(text(), ${text})]`;
+
+    return this.waitForElementVisible(xpath, `Span with text "${text}" is visible`)
+      .click(xpath)
+  },
+
   validatePageElements: function() {
-    return this.waitForElementVisible('@messageInput', 5000, 'Conversation thread is visible')
+    return this.waitForElementVisible('@messageInput', 'Conversation thread is visible')
       .verify.visible('@allCommunicationsDropdown', 'All Communications dropdown is visible')
       .verify.visible('@addNoteButton', 'Add note button is visible')
       .verify.visible('@searchConvobutton', 'Search Conversation button is visible')
@@ -18,12 +30,47 @@ const convoThreadCommands = {
       .verify.visible('@messageFromDropdown', 'Message FROM dropdown is visible')
   },
 
-  addMessagesToThread: function(text) {
+  fillMessageInput: function(text) {
     return this.setValue('@messageInput', text)
   },
 
   clickSendMessage: function() {
     return this.click('@messageSendButton')
+  },
+
+  clickSearchButton: function(element) {
+    return this.click('@searchConvobutton')
+      .waitForElementPresent('@searchConvoInput', 'Search input is visible')
+  },
+
+  clickaddFilePopupButton: function() {
+    return this.waitForElementVisible('@addFilePopupButton', 'Add file dropdown button is visible')
+      .click('@addFilePopupButton')
+  },
+
+  clickUseTemplateChoice: function() {
+    return this.waitForElementPresent('@useTemplateChoice', 'Add file dropdown choices are visible')
+      .click('@useTemplateChoice')
+  },
+  
+  clickaddFilePopupButton: function() {
+    return this.waitForElementVisible('@addFilePopupButton', 'Add file dropdown button is visible')
+      .click('@addFilePopupButton')
+  },
+
+  clickUseTemplateChoice: function() {
+    return this.waitForElementPresent('@useTemplateChoice', 'Add file dropdown choices are visible')
+      .click('@useTemplateChoice')
+  },
+
+  clickRhinoSecureTab: function() {
+    return this.waitForElementPresent('@rhinoSecureTab', 'RhinoSecure tab visible')
+      .click('@rhinoSecureTab')
+  },
+
+  clickApplyFiltersButton: function() {
+    return this.waitForElementPresent('@applyFiltersButton', 'Apply Filters button is visible')
+      .click('@applyFiltersButton')
   },
 
   addNoteToThread: function(text) {
@@ -34,28 +81,23 @@ const convoThreadCommands = {
 
   validateNotesFilter: function() {
     return this.click('@allCommunicationsDropdown')
-      .waitForElementVisible('@notesChoice', 5000, 'Notes choice is visible')
+      .waitForElementVisible('@notesChoice', 'Notes choice is visible')
       .click('@notesChoice')
-      .waitForElementNotPresent('@lastMessageBubble', 5000, 'Messages are no longer present')
-      .waitForElementPresent('@lastNoteBubble', 5000, 'Most recent Note is visible')
+      .waitForElementNotPresent('@lastMessageBubble', 'Messages are no longer present')
+      .waitForElementPresent('@lastNoteBubble', 'Most recent Note is visible')
   },
 
   validateAllComsFilter: function() {
     return this.click('@notesDropdown')
-      .waitForElementVisible('@notesChoice', 5000, 'Notes choice is visible')
+      .waitForElementVisible('@notesChoice', 'Notes choice is visible')
       .click('@allCommunicationsChoice')
-      .waitForElementPresent('@lastMessageBubble', 5000, 'Messages and notes are both visible')
-  },
-
-  clickSearchButton: function() {
-    return this.click('@searchConvobutton')
-      .waitForElementPresent('@searchConvoInput', 5000, 'Search input is visible')
+      .waitForElementPresent('@lastMessageBubble', 'Messages and notes are both visible')
   },
 
   searchMessageThread: function(searchString) {
     return this.setValue('@searchConvoInput', searchString)
-      .waitForElementNotPresent('@lastMessageBubble', 5000, 'Message bubble hidden while searching for string')
-      .waitForElementPresent('@lastMessageBubble', 5000, 'Message bubble with search string is visible')
+      .waitForElementNotPresent('@lastMessageBubble', 'Message bubble hidden while searching for string')
+      .waitForElementPresent('@lastMessageBubble', 'Message bubble with search string is visible')
       .verify.containsText('@lastMessageBubble', searchString, 'Found message with the searched for string')
       .clearValue('@searchConvoInput')
       .click('@searchConvoClearButton')
@@ -63,42 +105,32 @@ const convoThreadCommands = {
 
   validateMessageTo: function() {
     return this.click('@messageToDropdown')
-      .waitForElementPresent('@rhinoSecureChoice', 5000, 'TO choices are visible')
+      .waitForElementPresent('@rhinoSecureChoice', 'TO choices are visible')
       .verify.visible('@phoneNumChoice', 'Phone number choice is visible')
       .click('@phoneNumChoice')
   },
 
   validateMessageFrom: function() {
-    return this.waitForElementPresent('@messageFromDropdown', 5000, 'Message FROM dropdown is visible')
+    return this.waitForElementPresent('@messageFromDropdown', 'Message FROM dropdown is visible')
     // not validating any further as there are no other choices in dropdown currently
     // also sms channel name has random number generated in another test and hard to track
   },
 
-  clickaddFilePopupButton: function() {
-    return this.waitForElementVisible('@addFilePopupButton', 5000, 'Add file dropdown button is visible')
-      .click('@addFilePopupButton')
-  },
-
-  clickUseTemplateChoice: function() {
-    return this.waitForElementPresent('@useTemplateChoice', 5000, 'Add file dropdown choices are visible')
-      .click('@useTemplateChoice')
-  },
-
   useHIPAATemplate: function(hipaa) {
-    return this.waitForElementPresent('@useHIPAATemplateButton', 5000, 'Add file dropdown is visible')
-      .waitForElementPresent('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is visible')
+    return this.waitForElementPresent('@useHIPAATemplateButton', 'Add file dropdown is visible')
+      .waitForElementPresent('@useHIPAATemplateButton', 'Create/Use HIPAA template popup is visible')
       .click('@useHIPAATemplateButton')
       .pause(1000)
       // .click('@messageSendButton')
       // .pause()
-      .waitForElementNotVisible('@useHIPAATemplateButton', 5000, 'Create/Use HIPAA template popup is no longer present')
+      .waitForElementNotVisible('@useHIPAATemplateButton', 'Create/Use HIPAA template popup is no longer present')
       .verify.containsText('@messageInput', hipaa)
       .clearValue('@messageInput')
   },
 
   useFirstTemplate: function() {
     return this.click('@firstTemplateFilterButton')
-      .waitForElementNotPresent('@firstTemplateFilterButton', 5000, 'Template Modal is no longer visible')
+      .waitForElementNotPresent('@firstTemplateFilterButton', 'Template Modal is no longer visible')
   },
 
   validateTemplateWasSent: function() {
@@ -148,7 +180,6 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
-    // 
     assignmentCompleteOption: {
       selector: `//SPAN[contains(.,'Assignment Complete')]`,
       locateStrategy: 'xpath'
@@ -166,6 +197,25 @@ module.exports = {
 
     unfollowIcon: {
       selector: `//BUTTON[contains(.,'Unfollow')]`,
+      locateStrategy: 'xpath'
+    },
+
+    filterIcon: {
+      selector: `//BUTTON[contains(@title, 'Filter Conversation']`,
+      locateStrategy: 'xpath'
+    },
+
+    /*------------------------------------------------------------------------*/
+    // filter by elements
+    /*------------------------------------------------------------------------*/
+
+    applyFiltersButton: {
+      selector: `//SPAN[contains(text(), 'Apply Filters')]`,
+      locateStrategy: 'xpath'
+    },
+
+    closeFilterByPageButton: {
+      selector: `//BUTTON[contains(@title, 'Close')]`,
       locateStrategy: 'xpath'
     },
 

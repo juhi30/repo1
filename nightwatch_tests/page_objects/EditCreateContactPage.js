@@ -3,6 +3,37 @@ const editCreateContacts = {
     this.api.pause(time);
     return this;
   },
+
+  fillFirstNameInput: function(name) {
+    return this.waitForElementVisible('@firstNameInput', 'First name input is visible')
+      .setValue('@firstNameInput', name);
+  },
+
+  fillLastNameInput: function(name) {
+    return this.waitForElementVisible('@lastNameInput', 'Last name input is visible')
+      .setValue('@lastNameInput', name);
+  },
+
+  fillBirthday: function(date) {
+    return this.waitForElementVisible('@birthdayInput', 'Birthday in put is visible')
+      .setValue('@birthdayInput', date);
+  },
+  
+  fillPhoneNumber: function(phoneNumber) {
+    return this.waitForElementVisible('@firstPhoneInput', 'Phone input is visible')
+      .setValue('@firstPhoneInput', phoneNumber);
+  },
+
+  clickCreateContact: function() {
+    return this.waitForElementVisible('@createContactButton', 'Create contact button is visible')
+      .click('@createContactButton');
+  },
+
+  clickPatientOption: function() {
+    return this.waitForElementVisible('@patientOption', 'Patient Option is visible')
+      .click('@patientOption');
+  }
+
 }
 
 module.exports = {
@@ -87,5 +118,11 @@ module.exports = {
       selector: `//SELECT[contains(@name, 'suffixId')]`,
       locateStrategy: 'xpath'
     },
+
+    // buttons
+    createContactButton: {
+      selector: `//SPAN[contains(text(), 'Create Contact')]`,
+      locateStrategy: 'xpath'
+    }
   }
 };

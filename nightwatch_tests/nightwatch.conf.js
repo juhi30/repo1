@@ -1,6 +1,9 @@
 const dotenv = require('dotenv');
 const fs = require('fs');
 
+//allows tests to run through browserstack
+require('browserstack-automate').Nightwatch();
+
 // Check if nightwatch_tests/e2e.env exists,
 // and load the env vars if it does.
 const envFile = `${__dirname}/e2e.env`;
@@ -13,7 +16,8 @@ module.exports = {
   "src_folders" : ["tests"],
   "output_folder" : "reports",
   "page_objects_path" : "page_objects",
-  "globals_path" : "global.js", 
+  "globals_path" : "globals.js",
+  "output_folder": "./reports",
 
   "selenium" : {
     "start_process" : true,

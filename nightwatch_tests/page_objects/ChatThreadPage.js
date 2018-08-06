@@ -5,12 +5,12 @@ const chatThreadCommands = {
   },
 
   clickSendMessageButton: function() {
-    return this.waitForElementVisible('@sendMessageButton', 5000, 'Send message button is visible')
+    return this.waitForElementVisible('@sendMessageButton', 'Send message button is visible')
       .click('@sendMessageButton');
   },
 
   fillInMessageInput: function(text) {
-    return this.waitForElementVisible('@messageInput', 5000, 'Message input is visible')
+    return this.waitForElementVisible('@messageInput', 'Message input is visible')
       .setValue('@messageInput', text);
   },
 

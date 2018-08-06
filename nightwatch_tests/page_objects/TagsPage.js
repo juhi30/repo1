@@ -83,7 +83,7 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     newTagButton: {
-      selector: `//BUTTON[contains(@title,'Create Tag')]`,
+      selector: `//BUTTON[contains(@title, 'Create Tag)]`,
       locateStrategy: 'xpath',
     },
 
@@ -141,7 +141,7 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     updateTagButton: {
-      selector: `//SPAN[contains(text(),'Update Tag')]`,
+      selector: `//SPAN[contains(text(), 'Update Tag')]`,
       locateStrategy: 'xpath',
     },
 

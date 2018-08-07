@@ -1,70 +1,104 @@
+const { colors, noteText } = require('../constants');
+
+let text = '';
+
 const billingCommands = {
 
-  pause: function(time) {
+  pause: function (time) {
     this.api.pause(time);
     return this;
   },
 
-  elementText: function (ele) {
-    return this.getText(ele, function(result) {
-      //console.log(result.value)
-      return result.value
+  elementText: function (ele, message) {
+    return this.getText(ele, function (tpObj) {
+      text = tpObj.value;
+      console.log(text + " : " + message);
     });
   },
 
-  validateUrlChange: function() {
+  validateUrlChange: function () {
     return this.waitForElementNotPresent('@billingPage', 6000, false, null, 'Billing page opened successfully')
       .verify.urlContains('billing')  // maybe some timeout issues happening here working as of 9/20/1
-      .pause(2000)
+      .pause(5000)
   },
 
-  validateSections: function(){  
+  validateSections: function () {
     return this.waitForElementVisible('@billingPage', 'Billing Page is available')
-    .verify.visible('@planDetailsSection', 'Billing Detail Section is visible')
-    .verify.visible('@contactDetailSection', 'Contact Detail Section is visible')
-    .verify.visible('@paymentMethodSection', 'Payment Method Section is visible')
-    .verify.visible('@historySection', 'History Section is visible')
-
+      .verify.visible('@planDetailsSection', 'Billing Detail Section is visible')
+      .verify.visible('@contactDetailSection', 'Contact Detail Section is visible')
+      .verify.visible('@paymentMethodSection', 'Payment Method Section is visible')
+      .verify.visible('@historySection', 'History Section is visible')
   },
 
-  validateCurrentPlan: function(){  
+  validateCurrentPlan: function () {
     return this.waitForElementVisible('@planDetailsSection', 'Billing Detail Section is available')
-    .verify.visible('@textMessageProduct','Text Message Product is visible')
-    .verify.containsText('@planName','Basic')
-    .verify.visible('@includedMessages','Text Messages included with plan')
-    .verify.visible('@membersProduct', 'Members Product is visible')
-    .verify.visible('@textChannelProduct', 'Text Channel Product is visible')
-
+      .elementText('@planName')
+      .verify.visible('@textMessageProduct', 'Text Message Product is visible')
+      .elementText('@includedMessages', ' : Messages included in plan')
+      .verify.visible('@membersProduct', 'Members Product is visible')
+      .elementText('@includedMembers', ' : Members included in plan')
+      .verify.visible('@textChannelProduct', 'Text Channel Product is visible')
+      .elementText('@includedTextChannels', ' : Text Channels included in plan')
   },
 
-  validateCurrentUsage: function(){  
+  validateIntegrationsProduct: function () {
+    let self = this;
+    this.getText('@planName', function (tpObj) {
+      text = tpObj.value;
+      if (text && text.match(/Standard/gi) && text.match(/Standard/gi).length) {
+        return self.expect.element('@IntegrationsProduct').to.be.present;
+      } else {
+        return self.expect.element('@IntegrationsProduct').to.not.be.present;
+      }
+    });
+  },
+
+  validateCurrentUsage: function () {
     return this.waitForElementVisible('@currentUsageSection', 'Current Usage Section is available')
-    .verify.visible('@textMessageUsage','Text Message Usage component is visible')
-    .verify.visible('@membersUsage', 'Members Usage component is visible')
-    .verify.visible('@textChannelUsage', 'Text Channel Usage component is visible')
+      .verify.visible('@textMessageUsage', 'Text Message Usage component is visible')
+      .elementText('@usedTextMessage', ' : Text Messages used')
+      .verify.visible('@membersUsage', 'Members Usage component is visible')
+      .elementText('@usedMembers', ' : Active Members used')
+      .verify.visible('@textChannelUsage', 'Text Channel Usage component is visible')
+      .elementText('@usedTextChannels', ' : Text Channels used')
+  },
+
+  validateColors: function (element, property) {
+    this.verify.visible(element, 'Element is visible');
+
+    return this.getCssProperty(element, property, function (res) {
+
+      const currentColor = colors.filter(val => val.code == res.value);
+      if (Array.isArray(currentColor) && currentColor.length > 0) {
+        console.log(res.value + ' : ' + currentColor[0].color + ' in Color!');
+      }
+    });
+  },
+
+
+  validateAddOnsOveragesSection: function () {
 
   },
 
-  validateAddOnsOveragesSection: function(){
-
+  validateEstimatedBillSection: function () {
+    return this.verify.visible('@estimatedBillSection', 'Estimated Bill Section header is visible')
+      .verify.visible('@nextBillDate', 'Next Bill Date is visible')
+      .verify.visible('@planNameEstimatedBill', 'Plan Name in Estimated bill is visible')
+      .verify.visible('@planEstimatedCost', 'Estimated Cost of Plan is visible')
+      .verify.visible('@addOnOveragesEstimatedBill', 'Add-On & Overages Name is  visible')
+      .verify.visible('@addOnOveragesEstimatedCost', 'Estimated Cost of Add-On & Overage is visible')
+      .verify.visible('@planNameEstimatedBill', 'this is test message')
   },
 
-  validateEstimatedBillSection: function(){
-    return this.verify.visible('@estimatedBillSection','Estimated Bill Section header is visible')
-    //.verify.visible('@nextBillDate','Next Bill Date is visible : ' + JSON.stringify(this.elementText('@nextBillDate')))
-    .verify.visible('@planNameEstimatedBill','Plan Name in Estimated bill is visible')
-    .verify.visible('@planEstimatedCost','Estimated Cost of Plan is visible')
-    .verify.visible('@addOnOveragesEstimatedBill','Add-On & Overages Name is  visible')
-    .verify.visible('@addOnOveragesEstimatedCost','Estimated Cost of Add-On & Overage is visible')
-    .verify.visible('@planNameEstimatedBill','this is test message')
-  }
-  
-
+  validareEstimatedBillNote: function () {
+    return this.verify.visible('@noteEstimatedBill', 'Note for Estimated Bill is visible')
+      .expect.element('@noteEstimatedBill').text.to.equal(noteText)
+  },
 }
 
 module.exports = {
   commands: [billingCommands],
-  url: function() {
+  url: function () {
     return this.api.launch_url + '/settings/organization/billing'
   },
 
@@ -72,7 +106,7 @@ module.exports = {
 
     //------ Page Title -----//
     billingPage: {
-      selector: `//div[@class = 'app-page__header__title'] [text()='Billing & Plan']`,
+      selector: `//div[@class = 'app-page__header__title'][text()='Billing & Plan']`,
       locateStrategy: 'xpath',
     },
 
@@ -116,7 +150,7 @@ module.exports = {
 
     includedMessages: {
       selector: `(//div[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[1]`,
-      locateStrategy: `xpath`,
+      locateStrategy: 'xpath',
     },
 
     membersProduct: {
@@ -126,7 +160,7 @@ module.exports = {
 
     includedMembers: {
       selector: `(//div[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[2]`,
-      locateStrategy: `xpath`,
+      locateStrategy: 'xpath',
     },
 
     textChannelProduct: {
@@ -136,22 +170,22 @@ module.exports = {
 
     includedTextChannels: {
       selector: `(//div[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[3]`,
-      locateStrategy: `xpath`,
+      locateStrategy: 'xpath',
     },
 
     IntegrationsProduct: {
-      selector: `//div[@class ='u-text-small'][text()='Integrations']`,
+      selector: `//*[text()='Integration']`,
       locateStrategy: 'xpath',
     },
 
     integrationsStatus: {
       selector: `(//div[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[4]`,
-      locateStrategy: `xpath`,
+      locateStrategy: 'xpath',
     },
 
 
     //------ Current Usage Section -----//
-    currentUsageSection: {  
+    currentUsageSection: {
       selector: `//h4[contains(text(),'Current Usage')]`,
       locateStrategy: 'xpath',
     },
@@ -161,8 +195,23 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    usedTextMessage: {
+      selector: `(//*[local-name()='svg' ]//*[local-name()='text'])[2]`,
+      locateStrategy: 'xpath',
+    },
+
+    messageAnimator: {
+      selector: `(//*[local-name()='svg' ]//*[local-name()='path'])[6]`,
+      locateStrategy: 'xpath',
+    },
+
     membersUsage: {
       selector: `//div[@class ='u-text-center u-text-small u-text-muted'][text()='Members']`,
+      locateStrategy: 'xpath',
+    },
+
+    usedMembers: {
+      selector: `(//*[local-name()='svg' ]//*[local-name()='text'])[3]`,
       locateStrategy: 'xpath',
     },
 
@@ -171,8 +220,14 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    usedTextChannels: {
+      selector: `(//*[local-name()='svg' ]//*[local-name()='text'])[4]`,
+      locateStrategy: 'xpath',
+    },
 
-//------ Add-Ons & Overages Section -----//
+
+
+    //------ Add-Ons & Overages Section -----//
     addOnOveragesSection: {
       selector: `//*[@class='u-m-t-large'][text()='Add-ons & Overages']`,
       locateStrategy: 'xpath',
@@ -183,8 +238,8 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    
-//------ Estimated Bill Section -----//
+
+    //------ Estimated Bill Section -----//
     estimatedBillSection: {
       selector: `//h4[contains(text(),'Estimated Bill')]`,
       locateStrategy: 'xpath',
@@ -225,7 +280,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    
+
 
 
 

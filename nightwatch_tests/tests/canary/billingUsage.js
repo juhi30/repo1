@@ -12,7 +12,7 @@
    const login = client.page.LoginPage();
 
    login.navigate()
-     .enterMemberCreds('plm', 'Test@123')
+     .enterMemberCreds('mkd', 'Test@123')
      .submit()
      .validateUrlChange();
  },
@@ -65,7 +65,8 @@
    },
 
    'Case 8 : Validate Add-Ons and Overages Section': function(client){
-     console.log('Munish');
+    const billing = client.page.BillingUsagePage();
+    billing.validateAddOnsOveragesSection()
    },
 
    'Case 9 : Validate Estimated Bill Section': function(client){
@@ -80,7 +81,7 @@
     billing.validareEstimatedBillNote()
 
  },
-   
+  
 
     
 }

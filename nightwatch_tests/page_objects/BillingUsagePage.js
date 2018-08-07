@@ -46,9 +46,9 @@ const billingCommands = {
     this.getText('@planName', function (tpObj) {
       text = tpObj.value;
       if (text && text.match(/Standard/gi) && text.match(/Standard/gi).length) {
-        return self.expect.element('@IntegrationsProduct').to.be.present;
+        return self.expect.element('@integrationsProduct').to.be.present;
       } else {
-        return self.expect.element('@IntegrationsProduct').to.not.be.present;
+        return self.expect.element('@integrationsProduct').to.not.be.present;
       }
     });
   },
@@ -76,8 +76,26 @@ const billingCommands = {
   },
 
 
+  //to Verify the Add-On and Overages Section
   validateAddOnsOveragesSection: function () {
-
+    return this.waitForElementVisible('@addOnOveragesSection', 'AddOns and Overages Section is visible')
+      .verify.visible('@description', 'Description Column Title is visible')
+      .verify.visible('@qty', 'Product Quantity Column Title is visible')
+      .verify.visible('@unitPrice', 'UnitPrice Column Title is visible')
+      .verify.visible('@total', 'Total Column Title is visible')
+      .verify.visible('@additionalMember', 'AddtionalMember Row is visible')
+      .verify.visible('@additionalMemberQty', 'Quantity for additional members is visible')
+      .verify.visible('@additionalMemberUnitPrice', 'Unit Price for additional members is visible')
+      .verify.visible('@additionalMemberTotal', 'Total Amount for additional members is visible')
+      .verify.visible('@additionalTextChannel', 'AddtionalTextChannel Row is visible')
+      .verify.visible('@additionalTextChannelQty', 'Quantity for additional Text Channels is visible')
+      .verify.visible('@additionalTextChannelUnitPrice', 'Unit Price for additional Text Channels is visible')
+      .verify.visible('@additionalTextChannelTotal', 'Total Price for additional Text Channels is visible')
+      .verify.visible('@additionalTextMessages', 'Additional Text Messages row is visible')
+      .verify.visible('@additionalTextMessagesQty', 'Quantity for Additional Text messages is visible')
+      .verify.visible('@additionalTextMessagesUnitPrice', 'Unit Price for Additional Text messages is visible')
+      .verify.visible('@additionalTextMessagesTotal', 'Total for Additional Text messages is visible')
+      .verify.visible('@overageMessage', 'Overage Message is visible')
   },
 
   validateEstimatedBillSection: function () {
@@ -173,7 +191,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    IntegrationsProduct: {
+    integrationsProduct: {
       selector: `//*[text()='Integration']`,
       locateStrategy: 'xpath',
     },
@@ -225,8 +243,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-
-
     //------ Add-Ons & Overages Section -----//
     addOnOveragesSection: {
       selector: `//*[@class='u-m-t-large'][text()='Add-ons & Overages']`,
@@ -236,6 +252,89 @@ module.exports = {
     description: {
       selector: `//th[text()='Description']`,
       locateStrategy: 'xpath',
+    },
+
+    qty: {
+      selector: `//th[text()='Qty']`,
+      locateStrategy: 'xpath'
+    },
+
+    unitPrice: {
+      selector: `//th[text()='Unit Price']`,
+      locateStrategy: 'xpath'
+    },
+    total: {
+      selector: `//th[text()='Total']`,
+      locateStrategy: 'xpath'
+    },
+
+    additionalMember: {
+      selector: `//tbody//td[text()='Additional Members']`,
+      locateStrategy: 'xpath'
+    },
+
+    additionalMemberQty: {
+      selector: `(//tbody//td[@class='u-text-center'])[1]`,
+      locateStrategy: 'xpath'
+    },
+
+    additionalMemberUnitPrice: {
+      selector: `(//*[@class='u-text-center'])[5]`,
+      locateStrategy: 'xpath'
+    },
+
+    additionalMemberTotal: {
+      selector: `(//tbody//td[@class='u-text-center'])[3]`,
+      locateStrategy: 'xpath'
+
+    },
+
+    additionalTextChannel: {
+      selector: `//tbody//td[text()='Additional Text Channel']`,
+      locateStrategy: 'xpath'
+    },
+
+    additionalTextChannelQty: {
+      selector: `(//tbody//tr[2]//td[@class='u-text-center'])[1]`,
+      locateStrategy: 'xpath'
+    },
+
+    additionalTextChannelUnitPrice: {
+      selector: `(//tbody//tr[2]//td[@class='u-text-center'])[2]`,
+      locateStrategy: 'xpath'
+    },
+
+    additionalTextChannelTotal: {
+      selector: `(//tbody//tr[2]//td[@class='u-text-center'])[3]`,
+      locateStrategy: 'xpath'
+
+    },
+
+    //Additional Text Messages
+    //Every 1000 messages over equals 1 overage
+    additionalTextMessages: {
+      selector: `//td[text()='Additional Text Messages']`,
+      locateStrategy: 'xpath'
+    }
+    ,
+    overageMessage: {
+      selector: `//tbody//span`,
+      locateStrategy: 'xpath'
+    },
+
+    additionalTextMessagesQty: {
+      selector: `(//tbody//tr[3]//td[@class='u-text-center'])[1]`,
+      locateStrategy: 'xpath'
+    },
+
+    additionalTextMessagesUnitPrice: {
+      selector: `(//tbody//tr[3]//td[@class='u-text-center'])[2]`,
+      locateStrategy: 'xpath'
+    },
+
+    additionalTextMessagesTotal: {
+      selector: `(//tbody//tr[3]//td[@class='u-text-center'])[3]`,
+      locateStrategy: 'xpath'
     },
 
 
@@ -277,160 +376,6 @@ module.exports = {
 
     noteEstimatedBill: {
       selector: `//*[@class = 'u-text-small u-text-muted'][contains(text(),'Note')]`,
-      locateStrategy: 'xpath',
-    },
-
-
-
-
-
-
-
-
-
-
-    paymentTab: {
-      selector: `//DIV[@class='nav-tabs__item__link'][text()='Payment']`,
-      locateStrategy: 'xpath',
-    },
-
-    historyTab: {
-      selector: `//DIV[@class='nav-tabs__item__link'][text()='History']`,
-      locateStrategy: 'xpath',
-    },
-
-    /*------------------CONTACT TAB INPUT------------------------*/
-
-    firstNameInput: {
-      selector: `//INPUT[@id='contactFirstName']`,
-      locateStrategy: 'xpath',
-    },
-
-    lastNameInput: {
-      selector: `//INPUT[@id='contactLastName']`,
-      locateStrategy: 'xpath',
-    },
-
-    phoneNumInput: {
-      selector: `//INPUT[@id='contactPhone']`,
-      locateStrategy: 'xpath',
-    },
-
-    emailInput: {
-      selector: `//INPUT[@id='contactEmail']`,
-      locateStrategy: 'xpath',
-    },
-
-    saveBillingContactButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Billing Contact']`,
-      locateStrategy: 'xpath',
-    },
-
-    /*------------------PAYMENT TAB INPUTS------------------------*/
-
-    paymentTypeListed: {
-      selector: `(//LI[@class=''])[1]`,
-      locateStrategy: 'xpath'
-    },
-
-    changePaymentButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'])[6]`,
-      locateStrategy: 'xpath',
-    },
-
-    creditCardRadio: {
-      selector: `//*[@id="app"]/div/div[2]/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div[1]/div/label`,
-      locateStrategy: 'xpath',
-    },
-
-    bankAcctRadio: {
-      selector: `//*[@id="app"]/div/div[2]/div[2]/div/div[2]/div[2]/div/div/div[1]/div/div[2]/div/label`,
-      locateStrategy: 'xpath',
-    },
-
-    savePaymentButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Payment Method']`,
-      locateStrategy: 'xpath',
-    },
-
-    paymentFirstNameInput: {
-      selector: `//INPUT[@id='firstName']`,
-      locateStrategy: 'xpath',
-    },
-
-    paymentLastNameInput: {
-      selector: `//INPUT[@id='lastName']`,
-      locateStrategy: 'xpath',
-    },
-
-    paymentBillingAddInput: {
-      selector: `//INPUT[@id='street1']`,
-      locateStrategy: 'xpath',
-    },
-
-    paymentCityInput: {
-      selector: `//INPUT[@id='city']`,
-      locateStrategy: 'xpath',
-    },
-
-    paymentStateInput: {
-      selector: `//INPUT[@id='state']`,
-      locateStrategy: 'xpath',
-    },
-
-    paymentZipInput: {
-      selector: `//INPUT[@id='zip']`,
-      locateStrategy: 'xpath',
-    },
-
-    /*-----------------CREDIT CARD INPUTS-------------------------*/
-
-    creditCardNumInput: {
-      selector: `//INPUT[@id='ccNumber']`,
-      locateStrategy: 'xpath',
-    },
-
-    expMonth: {
-      selector: `//SELECT[@id='ccExpMonth']`,
-      locateStrategy: 'xpath',
-    },
-
-    expYear: {
-      selector: `//SELECT[@id='ccExpYear']`,
-      locateStrategy: 'xpath'
-    },
-
-    cvvInput: {
-      selector: `//INPUT[@id='cardVerificationValue']`,
-      locateStrategy: 'xpath',
-    },
-
-    /*-----------------BANK ACCT INPUTS-------------------------*/
-
-    bankNameInput: {
-      selector: `//INPUT[@id='bankName']`,
-      locateStrategy: 'xpath',
-    },
-
-    bankAcctNumInput: {
-      selector: `//INPUT[@id='bankAccNum']`,
-      locateStrategy: 'xpath',
-    },
-
-    routingNumInput: {
-      selector: `//INPUT[@id='bankRouteNum']`,
-      locateStrategy: 'xpath',
-    },
-
-    /*-----------------HISTORY TAB ELEMENTS-------------------------*/
-
-    pdfFileButton: {
-      selector: `//BUTTON[@class='button--reset u-text-primary'][text()='PDF']`,
-      locateStrategy: 'xpath',
-    },
-
-    closePDFButton: {
-      selector: `/html/body/div[4]/div/div[1]/div/button`,
       locateStrategy: 'xpath',
     },
   }

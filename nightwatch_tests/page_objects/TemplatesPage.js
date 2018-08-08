@@ -46,9 +46,6 @@ const templatesCommands = {
     // .waitForElementNotPresent('@createTemplatePopup', 'Create template popup is hidden')
   },
 
-  // uploadToTemplate: function() {
-  // },
-
 //    we'll use something similar to this  //
 //    fillOutNewTemplate: function(title, message, pathToFile) {
 //      return this.setValue('@createTemplateTitle', title)

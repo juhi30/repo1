@@ -124,13 +124,13 @@ module.exports = {
 
     //------ Page Title -----//
     billingPage: {
-      selector: `//div[@class = 'app-page__header__title'][text()='Billing & Plan']`,
+      selector: `//DIV[@class = 'app-page__header__title'][text()='Billing & Plan']`,
       locateStrategy: 'xpath',
     },
 
     //------- Sections ------//
     planDetailsSection: {
-      selector: `//div[@class = 'box__title'][text()='Plan Details']`,
+      selector: `//DIV[@class = 'box__title'][text()='Plan Details']`,
       locateStrategy: 'xpath',
     },
 
@@ -157,37 +157,37 @@ module.exports = {
 
     //try finding a better way to locate than indexing
     planAmount: {
-      selector: `//small[@class = 'u-text-small u-font-weight-normal'][contains(text(),'a month')]`,
+      selector: `//SMALL[@class = 'u-text-small u-font-weight-normal'][contains(text(),'a month')]`,
       locateStrategy: 'xpath',
     },
 
     textMessageProduct: {
-      selector: `//div[@class ='u-text-small'][text()='Text Messages']`,
+      selector: `//DIV[@class ='u-text-small'][text()='Text Messages']`,
       locateStrategy: 'xpath',
     },
 
     includedMessages: {
-      selector: `(//div[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[1]`,
+      selector: `(//DIV[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[1]`,
       locateStrategy: 'xpath',
     },
 
     membersProduct: {
-      selector: `//div[@class ='u-text-small'][text()='Members']`,
+      selector: `//DIV[@class ='u-text-small'][text()='Members']`,
       locateStrategy: 'xpath',
     },
 
     includedMembers: {
-      selector: `(//div[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[2]`,
+      selector: `(//DIV[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[2]`,
       locateStrategy: 'xpath',
     },
 
     textChannelProduct: {
-      selector: `//div[@class ='u-text-small'][text()='Text Channels']`,
+      selector: `//DIV[@class ='u-text-small'][text()='Text Channels']`,
       locateStrategy: 'xpath',
     },
 
     includedTextChannels: {
-      selector: `(//div[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[3]`,
+      selector: `(//DIV[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[3]`,
       locateStrategy: 'xpath',
     },
 
@@ -197,19 +197,19 @@ module.exports = {
     },
 
     integrationsStatus: {
-      selector: `(//div[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[4]`,
+      selector: `(//DIV[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[4]`,
       locateStrategy: 'xpath',
     },
 
 
     //------ Current Usage Section -----//
     currentUsageSection: {
-      selector: `//h4[contains(text(),'Current Usage')]`,
+      selector: `//H4[contains(text(),'Current Usage')]`,
       locateStrategy: 'xpath',
     },
 
     textMessageUsage: {
-      selector: `//div[@class ='u-text-center u-text-small u-text-muted'][text()='Text Messages']`,
+      selector: `//DIV[@class ='u-text-center u-text-small u-text-muted'][text()='Text Messages']`,
       locateStrategy: 'xpath',
     },
 
@@ -224,7 +224,7 @@ module.exports = {
     },
 
     membersUsage: {
-      selector: `//div[@class ='u-text-center u-text-small u-text-muted'][text()='Members']`,
+      selector: `//DIV[@class ='u-text-center u-text-small u-text-muted'][text()='Members']`,
       locateStrategy: 'xpath',
     },
 
@@ -234,7 +234,7 @@ module.exports = {
     },
 
     textChannelUsage: {
-      selector: `//div[@class ='u-text-center u-text-small u-text-muted'][text()='Text Channels']`,
+      selector: `//DIV[@class ='u-text-center u-text-small u-text-muted'][text()='Text Channels']`,
       locateStrategy: 'xpath',
     },
 
@@ -250,31 +250,31 @@ module.exports = {
     },
 
     description: {
-      selector: `//th[text()='Description']`,
+      selector: `//TH[text()='Description']`,
       locateStrategy: 'xpath',
     },
 
     qty: {
-      selector: `//th[text()='Qty']`,
+      selector: `//TH[text()='Qty']`,
       locateStrategy: 'xpath'
     },
 
     unitPrice: {
-      selector: `//th[text()='Unit Price']`,
+      selector: `//TH[text()='Unit Price']`,
       locateStrategy: 'xpath'
     },
     total: {
-      selector: `//th[text()='Total']`,
+      selector: `//TH[text()='Total']`,
       locateStrategy: 'xpath'
     },
 
     additionalMember: {
-      selector: `//tbody//td[text()='Additional Members']`,
+      selector: `//TBODY//TD[text()='Additional Members']`,
       locateStrategy: 'xpath'
     },
 
     additionalMemberQty: {
-      selector: `(//tbody//td[@class='u-text-center'])[1]`,
+      selector: `(//TBODY//TD[@class='u-text-center'])[1]`,
       locateStrategy: 'xpath'
     },
 
@@ -284,28 +284,28 @@ module.exports = {
     },
 
     additionalMemberTotal: {
-      selector: `(//tbody//td[@class='u-text-center'])[3]`,
+      selector: `(//TBODY//TD[@class='u-text-center'])[3]`,
       locateStrategy: 'xpath'
 
     },
 
     additionalTextChannel: {
-      selector: `//tbody//td[text()='Additional Text Channel']`,
+      selector: `//TBODY//TD[text()='Additional Text Channel']`,
       locateStrategy: 'xpath'
     },
 
     additionalTextChannelQty: {
-      selector: `(//tbody//tr[2]//td[@class='u-text-center'])[1]`,
+      selector: `(//TBODY//TR[2]//TD[@class='u-text-center'])[1]`,
       locateStrategy: 'xpath'
     },
 
     additionalTextChannelUnitPrice: {
-      selector: `(//tbody//tr[2]//td[@class='u-text-center'])[2]`,
+      selector: `(//TBODY//TR[2]//TD[@class='u-text-center'])[2]`,
       locateStrategy: 'xpath'
     },
 
     additionalTextChannelTotal: {
-      selector: `(//tbody//tr[2]//td[@class='u-text-center'])[3]`,
+      selector: `(//TBODY//TR[2]//TD[@class='u-text-center'])[3]`,
       locateStrategy: 'xpath'
 
     },
@@ -313,39 +313,39 @@ module.exports = {
     //Additional Text Messages
     //Every 1000 messages over equals 1 overage
     additionalTextMessages: {
-      selector: `//td[text()='Additional Text Messages']`,
+      selector: `//TD[text()='Additional Text Messages']`,
       locateStrategy: 'xpath'
     }
     ,
     overageMessage: {
-      selector: `//tbody//span`,
+      selector: `//SPAN[@class='u-text-small u-text-muted']`,
       locateStrategy: 'xpath'
     },
 
     additionalTextMessagesQty: {
-      selector: `(//tbody//tr[3]//td[@class='u-text-center'])[1]`,
+      selector: `(//TBODY//TR[3]//TD[@class='u-text-center'])[1]`,
       locateStrategy: 'xpath'
     },
 
     additionalTextMessagesUnitPrice: {
-      selector: `(//tbody//tr[3]//td[@class='u-text-center'])[2]`,
+      selector: `(//TBODY//TR[3]//TD[@class='u-text-center'])[2]`,
       locateStrategy: 'xpath'
     },
 
     additionalTextMessagesTotal: {
-      selector: `(//tbody//tr[3]//td[@class='u-text-center'])[3]`,
+      selector: `(//TBODY//TR[3]//TD[@class='u-text-center'])[3]`,
       locateStrategy: 'xpath'
     },
 
 
     //------ Estimated Bill Section -----//
     estimatedBillSection: {
-      selector: `//h4[contains(text(),'Estimated Bill')]`,
+      selector: `//H4[contains(text(),'Estimated Bill')]`,
       locateStrategy: 'xpath',
     },
 
     nextBillDate: {
-      selector: `//small[@class = 'u-text-small u-font-weight-normal'][contains(text(),'next bill')]`,
+      selector: `//SMALL[@class = 'u-text-small u-font-weight-normal'][contains(text(),'next bill')]`,
       locateStrategy: 'xpath',
     },
 

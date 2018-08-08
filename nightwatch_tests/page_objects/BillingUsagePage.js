@@ -256,57 +256,57 @@ module.exports = {
 
     qty: {
       selector: `//TH[text()='Qty']`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     unitPrice: {
       selector: `//TH[text()='Unit Price']`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
     total: {
       selector: `//TH[text()='Total']`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     additionalMember: {
       selector: `//TBODY//TD[text()='Additional Members']`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     additionalMemberQty: {
       selector: `(//TBODY//TD[@class='u-text-center'])[1]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     additionalMemberUnitPrice: {
       selector: `(//*[@class='u-text-center'])[5]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     additionalMemberTotal: {
       selector: `(//TBODY//TD[@class='u-text-center'])[3]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
 
     },
 
     additionalTextChannel: {
       selector: `//TBODY//TD[text()='Additional Text Channel']`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     additionalTextChannelQty: {
       selector: `(//TBODY//TR[2]//TD[@class='u-text-center'])[1]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     additionalTextChannelUnitPrice: {
       selector: `(//TBODY//TR[2]//TD[@class='u-text-center'])[2]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     additionalTextChannelTotal: {
       selector: `(//TBODY//TR[2]//TD[@class='u-text-center'])[3]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
 
     },
 
@@ -314,27 +314,27 @@ module.exports = {
     //Every 1000 messages over equals 1 overage
     additionalTextMessages: {
       selector: `//TD[text()='Additional Text Messages']`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     }
     ,
     overageMessage: {
       selector: `//SPAN[@class='u-text-small u-text-muted']`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     additionalTextMessagesQty: {
       selector: `(//TBODY//TR[3]//TD[@class='u-text-center'])[1]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     additionalTextMessagesUnitPrice: {
       selector: `(//TBODY//TR[3]//TD[@class='u-text-center'])[2]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     additionalTextMessagesTotal: {
       selector: `(//TBODY//TR[3]//TD[@class='u-text-center'])[3]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
 

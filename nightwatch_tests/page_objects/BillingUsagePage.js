@@ -12,7 +12,7 @@ const billingCommands = {
   elementText: function (ele, message) {
     return this.getText(ele, function (tpObj) {
       text = tpObj.value;
-      console.log(text + " : " + message);
+      console.log(text, message);
     });
   },
 
@@ -32,7 +32,7 @@ const billingCommands = {
 
   validateCurrentPlan: function () {
     return this.waitForElementVisible('@planDetailsSection', 'Billing Detail Section is available')
-      .elementText('@planName')
+      .elementText('@planName', ' is the Subscribed Plan')
       .verify.visible('@textMessageProduct', 'Text Message Product is visible')
       .elementText('@includedMessages', ' : Messages included in plan')
       .verify.visible('@membersProduct', 'Members Product is visible')
@@ -192,7 +192,7 @@ module.exports = {
     },
 
     integrationsProduct: {
-      selector: `//*[text()='Integration']`,
+      selector: `//DIV[text()='Integration']`,
       locateStrategy: 'xpath',
     },
 
@@ -245,7 +245,7 @@ module.exports = {
 
     //------ Add-Ons & Overages Section -----//
     addOnOveragesSection: {
-      selector: `//*[@class='u-m-t-large'][text()='Add-ons & Overages']`,
+      selector: `//H4[@class='u-m-t-large'][text()='Add-ons & Overages']`,
       locateStrategy: 'xpath',
     },
 
@@ -279,7 +279,7 @@ module.exports = {
     },
 
     additionalMemberUnitPrice: {
-      selector: `(//*[@class='u-text-center'])[5]`,
+      selector: `(//TD[@class='u-text-center'])[5]`,
       locateStrategy: 'xpath',
     },
 

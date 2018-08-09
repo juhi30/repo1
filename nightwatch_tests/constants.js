@@ -12,6 +12,10 @@ const colors = [
       code: "rgb(242, 80, 65)",
       color: "Red",
     },
+    {
+      code: "rgb(0, 117, 201)",
+      color: "Blue",
+    },
    ];
 
 const noteText = 'Note: Charges are made on a monthly basis at the end of each billing period. '+

@@ -5,6 +5,9 @@ const templatesCommands = {
     return this;
   },
 
+  /*
+    Validation
+  */
   renderPageElements: function() {
     return this.waitForElementVisible('@createTemplateButton', 'Create template button is visible')
       .verify.visible('@HIPAATemplate', 'HIPAA template is visible')
@@ -28,14 +31,9 @@ const templatesCommands = {
       .verify.containsText('@filterDropdown', 'All', 'All filter is active')
   },
 
-  clickCreateTemplate: function() {
-    return this.click('@createTemplateButton')
-      .waitForElementVisible('@createTemplateTitle', 'Create Template Popup is visible')
-  },
-
   validateCreateTemplatePopup: function() {
-    return this.waitForElementVisible('@createTemplateTitle', 'Title input is visible')
-      .verify.visible('@createTemplateMessage', 'Message input is visible')
+    return this.waitForElementVisible('@templateTitleInput', 'Title input is visible')
+      .verify.visible('@templateMessageInput', 'Message input is visible')
       .verify.visible('@createTemplateSaveButton', 'Create button is visible')
       .verify.visible('@uploadFileButton', 'Upload File button is visible')
       // .verify.visible('@cancelCreateButton', 'Cancel button (X) is visible') no good xpaths for svg close button
@@ -46,40 +44,48 @@ const templatesCommands = {
     // .waitForElementNotPresent('@createTemplatePopup', 'Create template popup is hidden')
   },
 
-//    we'll use something similar to this  //
-//    fillOutNewTemplate: function(title, message, pathToFile) {
-//      return this.setValue('@createTemplateTitle', title)
-//       .setValue('@createTemplateMessage', message)
-//       .setValue('input[type="file"]', require('path').resolve(pathToFile))
-//       .waitForElementVisible('@uploadedFile', 'Uploaded file is visible')
-//   },
-  
-//      (test call of command with variable input)
-//       .fillOutNewTemplate('auto test created template', 'this should be in the template\'s message body', 'test_files/sevenkbbuggy.PNG')
+  /*
+    Clicking
+  */
 
-  fillOutNewTemplate: function(title, message) {
-    return this.setValue('@createTemplateTitle', title)
-      .setValue('@createTemplateMessage', message)
-      // .setValue('input[type="file"]', require('path').resolve(pathToFile)) can use this method, with pathToFile argument, to add attachments
+  clickCreateTemplate: function() {
+    return this.click('@createTemplateButton')
+      .waitForElementVisible('@templateTitleInput', 'Create Template Popup is visible')
+  },
+
+  clickSaveNewTemplate: function() {
+    return this.waitForElementVisible('@createTemplateSaveButton', 'Save template is visible')
+      .click('@createTemplateSaveButton')
+      .waitForElementNotPresent('@templateTitleInput', 'Create template popup is hidden')
+  },
+
+  /*
+    Multistep
+  */
+
+  fillTitleAndMessage: function(title, message) {
+    return this.waitForElementVisible('@templateTitleInput')
+      .setValue('@templateTitleInput', title)
+      .setValue('@templateMessageInput', message)
+  },
+
+  addAttachment: function() {
+    return this.waitForElementVisible('@uploadFileButton')
+          // .setValue('input[type="file"]', require('path').resolve(pathToFile)) can use this method, with pathToFile argument, to add attachments
       // .waitForElementVisible('@uploadedFile', 'Uploaded file is visible')
   },
 
-  saveNewTemplate: function() {
-    return this.waitForElementVisible('@createTemplateSaveButton', 'Save template is visible')
-      .click('@createTemplateSaveButton')
-      .waitForElementNotPresent('@createTemplateTitle', 'Create template popup is hidden')
-  },
-
-  editTemplate: function() {
+  editFirstTemplate: function() {
     return this.click('@firstTemplateEdit')
-      .waitForElementVisible('@createTemplateTitle', 'Edit template popup is visible')
+      .waitForElementVisible('@templateTitleInput', 'Edit template popup is visible')
       .verify.visible('@firstTemplateEditSaveButton', 'Save template button is visible')
-      .setValue('@createTemplateTitle', '* added from edit popup')
+      .setValue('@templateTitleInput', 'I changed the title')
+      .setValue('@templateTitleInput')
       .click('@firstTemplateEditSaveButton')
       .waitForElementNotPresent('@firstTemplateEditSaveButton', 'Edit template popup is not present')
   },
 
-  deleteTemplate: function() {
+  deleteFirstTemplate: function() {
     return this.waitForElementVisible('@deleteTemplateButton', 'Template delete button is visible')
       .click('@deleteTemplateButton')
       .waitForElementVisible('@deleteTemplateFinalButton', 'Delete template popup is visible')
@@ -164,12 +170,12 @@ module.exports = {
     // create template page
     /*---------------------------------------------------------*/
 
-    createTemplateTitle: {
+    templateTitleInput: {
       selector: `//INPUT[contains(@name, 'subject')]`,
       locateStrategy: 'xpath',
     },
 
-    createTemplateMessage: {
+    templateMessageInput: {
       selector: `//TEXTAREA[contains(@name, 'message')]`,
       locateStrategy: 'xpath',
     },
@@ -195,3 +201,16 @@ module.exports = {
     },
   }
 };
+
+// this is a leftover comment regarding making attachments. keeping it here for reference
+
+ //    we'll use something similar to this  //
+  //    fillOutNewTemplate: function(title, message, pathToFile) {
+  //      return this.setValue('@templateTitleInput', title)
+  //       .setValue('@templateMessageInput', message)
+  //       .setValue('input[type="file"]', require('path').resolve(pathToFile))
+  //       .waitForElementVisible('@uploadedFile', 'Uploaded file is visible')
+  //   },
+    
+  //      (test call of command with variable input)
+  //       .fillOutNewTemplate('auto test created template', 'this should be in the template\'s message body', 'test_files/sevenkbbuggy.PNG')

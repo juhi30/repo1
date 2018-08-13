@@ -31,33 +31,19 @@ const templatesCommands = {
       .verify.containsText('@filterDropdown', 'All', 'All filter is active')
   },
 
-  validateCreateTemplatePopup: function() {
-    return this.waitForElementVisible('@templateTitleInput', 'Title input is visible')
-      .verify.visible('@templateMessageInput', 'Message input is visible')
-      .verify.visible('@createTemplateSaveButton', 'Create button is visible')
-      .verify.visible('@uploadFileButton', 'Upload File button is visible')
-      // .verify.visible('@cancelCreateButton', 'Cancel button (X) is visible') no good xpaths for svg close button
-      .click('@createTemplateSaveButton')
-      .verify.visible('@nullTemplateTitle', 'Title validator is visible')
-      .verify.visible('@nullTemplateMessage', 'Message validator is visible')
-    // .click('@cancelCreateButton')
-    // .waitForElementNotPresent('@createTemplatePopup', 'Create template popup is hidden')
-  },
-
   /*
     Clicking
   */
 
-  clickCreateTemplate: function() {
+  clickCreateTemplateButton: function() {
     return this.waitForElementVisible('@createTemplateButton', 'Create Template button is visible')
       .click('@createTemplateButton')
       .waitForElementVisible('@templateTitleInput', 'Create Template Popup is visible')
   },
 
-  clickSaveNewTemplate: function() {
-    return this.waitForElementVisible('@createTemplateSaveButton', 'Save template is visible')
+  clickCreateTemplateSaveButton: function() {
+    return this.waitForElementVisible('@createTemplateSaveButton', 'Save button is visible')
       .click('@createTemplateSaveButton')
-      .waitForElementNotPresent('@templateTitleInput', 'Create template popup is hidden')
   },
 
   /*
@@ -65,7 +51,7 @@ const templatesCommands = {
   */
 
   fillTitleAndMessage: function(title, message) {
-    return this.waitForElementVisible('@templateTitleInput')
+    return this.waitForElementVisible('@templateTitleInput', 'Title input is visible')
       .setValue('@templateTitleInput', title)
       .setValue('@templateMessageInput', message)
   },
@@ -95,9 +81,10 @@ const templatesCommands = {
   },
 
   deleteSpecificTemplate: function(templateName) {
-    return this.waitForElementVisible(`//SPAN[contains(text(), '${templateName}')]`, `${templateName} template is visible`)
-      .click(`//SPAN[contains(text(), '${templateName}')]`)
-      .waitForElementVisible('@editTemplateButton', 'Edit Template button is visible')
+    this.api.useXpath().waitForElementVisible(`//SPAN[contains(text(), '${templateName}')]`, `${templateName} template is visible`)
+      .click(`//SPAN[contains(text(), '${templateName}')]`);
+
+    return this.waitForElementVisible('@editTemplateButton', 'Edit Template button is visible')
       .click('@editTemplateButton')
       .waitForElementVisible('@deleteTemplateButton', 'Delete button is visible')
       .click('@deleteTemplateButton')
@@ -136,7 +123,7 @@ module.exports = {
     /*---------------------------------------------------------*/
 
     editTemplateButton: {
-      selector: `//SPAN[contains(.,'Edit Template')]`,
+      selector: `//SPAN[contains(text(), 'Edit Template')]`,
       locateStrategy: 'xpath',
     },
 
@@ -173,12 +160,12 @@ module.exports = {
     },
 
     createTemplateSaveButton: {
-      selector: `//SPAN[contains(.,'Upload File')]`,
+      selector: `//SPAN[contains(.,'Create Template')]`,
       locateStrategy: 'xpath'
     },
 
     uploadFileButton: {
-      selector: `//SPAN[contains(.,'Create Template')]`,
+      selector: `//SPAN[contains(.,'Upload File')]`,
       locateStrategy: 'xpath',
     },
 

@@ -65,7 +65,7 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     newTagButton: {
-      selector: `//BUTTON[contains(@title, 'Create Tag')]`,
+      selector: `//BUTTON[contains(@title, 'Create Tag)]`,
       locateStrategy: 'xpath',
     },
 

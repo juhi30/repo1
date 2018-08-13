@@ -18,7 +18,9 @@ module.exports = {
   },
 
   'Remove that template': function (client) {
-    // do stuff
+    const template = client.page.TemplatesPage();
+
+    template.deleteSpecificTemplate('Normal template');
   },
 
   'Create a new template with an attachment < 600KB': function (client) {

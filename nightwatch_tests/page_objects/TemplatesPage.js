@@ -49,7 +49,8 @@ const templatesCommands = {
   */
 
   clickCreateTemplate: function() {
-    return this.click('@createTemplateButton')
+    return this.waitForElementVisible('@createTemplateButton', 'Create Template button is visible')
+      .click('@createTemplateButton')
       .waitForElementVisible('@templateTitleInput', 'Create Template Popup is visible')
   },
 
@@ -60,7 +61,7 @@ const templatesCommands = {
   },
 
   /*
-    Multistep
+    Multistep functions
   */
 
   fillTitleAndMessage: function(title, message) {
@@ -92,6 +93,17 @@ const templatesCommands = {
       .click('@deleteTemplateFinalButton')
       .waitForElementNotVisible('@deleteTemplateFinalButton', 'Delete template popup is hidden')
   },
+
+  deleteSpecificTemplate: function(templateName) {
+    return this.waitForElementVisible(`//SPAN[contains(text(), '${templateName}')]`, `${templateName} template is visible`)
+      .click(`//SPAN[contains(text(), '${templateName}')]`)
+      .waitForElementVisible('@editTemplateButton', 'Edit Template button is visible')
+      .click('@editTemplateButton')
+      .waitForElementVisible('@deleteTemplateButton', 'Delete button is visible')
+      .click('@deleteTemplateButton')
+      .waitForElementVisible('@deleteTemplateFinalButton', 'Final delete button is visible')
+      .click('@deleteTemplateFinalButton')
+  }
 }
 
 module.exports = {
@@ -121,30 +133,10 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    firstTestTemplate: {
-      selector: `//SPAN[contains(.,'Check in')]`,
-      locateStrategy: 'xpath',
-    },
-
     /*---------------------------------------------------------*/
 
-    firstTemplateEditButton: {
+    editTemplateButton: {
       selector: `//SPAN[contains(.,'Edit Template')]`,
-      locateStrategy: 'xpath',
-    },
-
-    firstTemplateEditTitleInput: {
-      selector: `//INPUT[contains(@name, 'subject')]`,
-      locateStrategy: 'xpath',
-    },
-
-    firstTemplateEditMessageInput: {
-      selector: `//TEXTAREA[contains(@name, 'message')]`,
-      locateStrategy: 'xpath',
-    },
-
-    firstTemplateEditSaveButton: {
-      selector: `//SPAN[contains(.,'Update Template')]`,
       locateStrategy: 'xpath',
     },
 

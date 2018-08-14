@@ -67,7 +67,7 @@ const billingCommands = {
     this.verify.visible(element, 'Element is visible');
 
     return this.getCssProperty(element, property, function (res) {
-
+      
       const currentColor = colors.filter(val => val.code == res.value);
       if (Array.isArray(currentColor) && currentColor.length > 0) {
         console.log(res.value + ' : ' + currentColor[0].color + ' in Color!');
@@ -108,10 +108,10 @@ const billingCommands = {
       .verify.visible('@planNameEstimatedBill', 'this is test message')
   },
 
-  validareEstimatedBillNote: function () {
+  validateEstimatedBillNote: function () {
     return this.verify.visible('@noteEstimatedBill', 'Note for Estimated Bill is visible')
       .expect.element('@noteEstimatedBill').text.to.equal(noteText)
-  },
+  }
 }
 
 module.exports = {
@@ -151,7 +151,7 @@ module.exports = {
 
     //------ Current Plan Section -----//
     planName: {
-      selector: `(//h4)[1]`,
+      selector: `//H4[@id='billing__planName']`,
       locateStrategy: 'xpath',
     },
 
@@ -167,7 +167,7 @@ module.exports = {
     },
 
     includedMessages: {
-      selector: `(//DIV[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[1]`,
+      selector: `//*[@id = 'billing__textMessage__planCount']`,
       locateStrategy: 'xpath',
     },
 
@@ -177,7 +177,7 @@ module.exports = {
     },
 
     includedMembers: {
-      selector: `(//DIV[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[2]`,
+      selector: `//*[@id = 'billing__member__planCount']`,
       locateStrategy: 'xpath',
     },
 
@@ -187,7 +187,7 @@ module.exports = {
     },
 
     includedTextChannels: {
-      selector: `(//DIV[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[3]`,
+      selector: `//*[@id = 'billing__textChannel__planCount']`,
       locateStrategy: 'xpath',
     },
 
@@ -197,7 +197,7 @@ module.exports = {
     },
 
     integrationsStatus: {
-      selector: `(//DIV[@class='u-inline-grid u-text-center u-inline-grid--large']//strong)[4]`,
+      selector: `//*[@id = 'billing__integrationCount']`,
       locateStrategy: 'xpath',
     },
 
@@ -214,12 +214,12 @@ module.exports = {
     },
 
     usedTextMessage: {
-      selector: `(//*[local-name()='svg' ]//*[local-name()='text'])[2]`,
+      selector: `//*[@title ='Text Messages count']`,
       locateStrategy: 'xpath',
     },
 
     messageAnimator: {
-      selector: `(//*[local-name()='svg' ]//*[local-name()='path'])[6]`,
+      selector: `//*[contains(@style,'stroke-dashoffset')]`,
       locateStrategy: 'xpath',
     },
 
@@ -229,7 +229,7 @@ module.exports = {
     },
 
     usedMembers: {
-      selector: `(//*[local-name()='svg' ]//*[local-name()='text'])[3]`,
+      selector: `//*[@title ='Members count']`,
       locateStrategy: 'xpath',
     },
 
@@ -274,19 +274,18 @@ module.exports = {
     },
 
     additionalMemberQty: {
-      selector: `(//TBODY//TD[@class='u-text-center'])[1]`,
+      selector: `//*[@id = 'billingEstimate__addons__members__quantity']`,
       locateStrategy: 'xpath',
     },
 
     additionalMemberUnitPrice: {
-      selector: `(//TD[@class='u-text-center'])[5]`,
+      selector: `//*[@id = 'billingEstimate__addons__members__costPerUnit']`,
       locateStrategy: 'xpath',
     },
 
     additionalMemberTotal: {
-      selector: `(//TBODY//TD[@class='u-text-center'])[3]`,
+      selector: `//*[@id = 'billingEstimate__addons__members__total']`,
       locateStrategy: 'xpath',
-
     },
 
     additionalTextChannel: {
@@ -295,17 +294,17 @@ module.exports = {
     },
 
     additionalTextChannelQty: {
-      selector: `(//TBODY//TR[2]//TD[@class='u-text-center'])[1]`,
+      selector: `//*[@id = 'billingEstimate__addons__textChannel__quantity']`,
       locateStrategy: 'xpath',
     },
 
     additionalTextChannelUnitPrice: {
-      selector: `(//TBODY//TR[2]//TD[@class='u-text-center'])[2]`,
+      selector: `//*[@id = 'billingEstimate__addons__textChannel__costPerUnit']`,
       locateStrategy: 'xpath',
     },
 
     additionalTextChannelTotal: {
-      selector: `(//TBODY//TR[2]//TD[@class='u-text-center'])[3]`,
+      selector: `//*[@id = 'billingEstimate__addons__textChannel__total']`,
       locateStrategy: 'xpath',
 
     },
@@ -323,17 +322,17 @@ module.exports = {
     },
 
     additionalTextMessagesQty: {
-      selector: `(//TBODY//TR[3]//TD[@class='u-text-center'])[1]`,
+      selector: `//*[@id = 'billingEstimate__addons__textMessages__quantity']`,
       locateStrategy: 'xpath',
     },
 
     additionalTextMessagesUnitPrice: {
-      selector: `(//TBODY//TR[3]//TD[@class='u-text-center'])[2]`,
+      selector: `//*[@id = 'billingEstimate__addons__textMessages__costPerUnit']`,
       locateStrategy: 'xpath',
     },
 
     additionalTextMessagesTotal: {
-      selector: `(//TBODY//TR[3]//TD[@class='u-text-center'])[3]`,
+      selector: `//*[@id = 'billingEstimate__addons__textMessages__total']`,
       locateStrategy: 'xpath',
     },
 
@@ -350,22 +349,22 @@ module.exports = {
     },
 
     planNameEstimatedBill: {
-      selector: `(//*[@class = 'table table--condensed billing__estimate__table']//td)[1]`,
+      selector: `//*[@id = 'billingEstimate__plan__name']`,
       locateStrategy: 'xpath',
     },
 
     planEstimatedCost: {
-      selector: `(//*[@class = 'table table--condensed billing__estimate__table']//td)[2]`,
+      selector: `//*[@id = 'billingEstimate__plan__cost']`,
       locateStrategy: 'xpath',
     },
 
     addOnOveragesEstimatedBill: {
-      selector: `(//*[@class = 'table table--condensed billing__estimate__table']//td)[3]`,
+      selector: `//*[@class='table table--condensed billing__estimate__table']//TD[contains(text(),'Add-ons & Overages')]`,
       locateStrategy: 'xpath',
     },
 
     addOnOveragesEstimatedCost: {
-      selector: `(//*[@class = 'table table--condensed billing__estimate__table']//td)[4]`,
+      selector: `//*[@id = 'billingEstimate__addons__total']`,
       locateStrategy: 'xpath',
     },
 

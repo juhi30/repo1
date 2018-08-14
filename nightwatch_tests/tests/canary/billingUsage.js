@@ -76,8 +76,7 @@ module.exports = {
   'Validate Note in Estimated Bill Section': function (client) {
     const billing = client.page.BillingUsagePage();
 
-    billing.validareEstimatedBillNote();
-
+    billing.validateEstimatedBillNote();
     client.end(2000);
-  },
+ }
 }

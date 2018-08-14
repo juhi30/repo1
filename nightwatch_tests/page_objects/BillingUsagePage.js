@@ -263,6 +263,7 @@ module.exports = {
       selector: `//TH[text()='Unit Price']`,
       locateStrategy: 'xpath',
     },
+    
     total: {
       selector: `//TH[text()='Total']`,
       locateStrategy: 'xpath',
@@ -306,7 +307,6 @@ module.exports = {
     additionalTextChannelTotal: {
       selector: `//*[@id = 'billingEstimate__addons__textChannel__total']`,
       locateStrategy: 'xpath',
-
     },
 
     //Additional Text Messages
@@ -314,8 +314,8 @@ module.exports = {
     additionalTextMessages: {
       selector: `//TD[text()='Additional Text Messages']`,
       locateStrategy: 'xpath',
-    }
-    ,
+    },
+
     overageMessage: {
       selector: `//SPAN[@class='u-text-small u-text-muted']`,
       locateStrategy: 'xpath',

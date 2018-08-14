@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------------------------------------------------*/
 // tests for the billing page and elements it contains.
 // User is logged in as Member with Billing Permissions 
-// Member belongs to a billing oeganization
+// Member belongs to a billing organization
 /*--------------------------------------------------------------------------------------------------------*/
 
 module.exports = {

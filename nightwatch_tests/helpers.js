@@ -9,6 +9,14 @@ function returnElementText(client, selector) {
   })
 }
 
+// useful for clicking a specific element without needing a Page Object function
+// specific to that element's text (less brittle / more flexible)
+function clickSpanViaText(client, text) {
+  client.api.useXpath().waitForElementVisible(`//SPAN[contains(text(), '${text}')]`, `Span with text "${text}" is visible`)
+    .pause(1000)
+    .click(`//SPAN[contains(text(), '${text}')]`);
+}
+
 const randoNum = Math.ceil(Math.random() * 1000);
 
 const theDateObj = new Date();
@@ -30,6 +38,7 @@ const patientCreds = {
 };
 
 module.exports = {
+  clickSpanViaText,
   returnElementText,
   findTextOnPage,
   randoNum,

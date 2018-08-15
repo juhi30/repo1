@@ -1,3 +1,5 @@
+const path = require('path');
+
 const templatesCommands = {
 
   pause: function(time) {
@@ -35,6 +37,11 @@ const templatesCommands = {
     Clicking
   */
 
+  clickEditTemplateButton: function() {
+    return this.waitForElementVisible('@editTemplateButton', 'Edit Template button is visible')
+      .click('@editTemplateButton')
+  },
+
   clickCreateTemplateButton: function() {
     return this.waitForElementVisible('@createTemplateButton', 'Create Template button is visible')
       .click('@createTemplateButton')
@@ -46,6 +53,27 @@ const templatesCommands = {
       .click('@createTemplateSaveButton')
   },
 
+  clickDeleteButton: function() {
+    return this.waitForElementVisible('@deleteTemplateButton', 'Delete icon is visible')
+      .click('@deleteTemplateButton');
+  },
+
+  clickDeleteFinalButton: function() {
+    return this.waitForElementVisible('@deleteTemplateFinalButton', 'Delete Final button is visible')
+      .click('@deleteTemplateFinalButton');
+  },
+
+  clickUploadFileButton: function() {
+    return this.waitForElementVisible('@uploadFileButton', 'Upload file button is visible')
+      .click('@uploadFileButton');
+  },
+
+  // Will click the first one found
+  clickRemoveAttachmentIcon: function() {
+    return this.waitForElementVisible('@removeAttachmentIcon', 'Remove attachment icon is visible')
+      .click('@removeAttachmentIcon')
+  },
+
   /*
     Multistep functions
   */
@@ -54,12 +82,6 @@ const templatesCommands = {
     return this.waitForElementVisible('@templateTitleInput', 'Title input is visible')
       .setValue('@templateTitleInput', title)
       .setValue('@templateMessageInput', message)
-  },
-
-  addAttachment: function() {
-    return this.waitForElementVisible('@uploadFileButton')
-          // .setValue('input[type="file"]', require('path').resolve(pathToFile)) can use this method, with pathToFile argument, to add attachments
-      // .waitForElementVisible('@uploadedFile', 'Uploaded file is visible')
   },
 
   editFirstTemplate: function() {
@@ -90,6 +112,11 @@ const templatesCommands = {
       .click('@deleteTemplateButton')
       .waitForElementVisible('@deleteTemplateFinalButton', 'Final delete button is visible')
       .click('@deleteTemplateFinalButton')
+  },
+
+  // this function is magic, don't ask why it works. nobody knows. 
+  uploadFile: function(filePath) {
+    return this.setValue('input[type="file"]', path.resolve(filePath));
   }
 }
 
@@ -178,18 +205,10 @@ module.exports = {
       selector: `//DIV[contains(.,'Message is required')]`,
       locateStrategy: 'xpath',
     },
+
+    removeAttachmentIcon: {
+      selector: `//BUTTON[contains(@title, 'Close')]`,
+      locateStrategy: 'xpath'
+    }
   }
 };
-
-// this is a leftover comment regarding making attachments. keeping it here for reference
-
- //    we'll use something similar to this  //
-  //    fillOutNewTemplate: function(title, message, pathToFile) {
-  //      return this.setValue('@templateTitleInput', title)
-  //       .setValue('@templateMessageInput', message)
-  //       .setValue('input[type="file"]', require('path').resolve(pathToFile))
-  //       .waitForElementVisible('@uploadedFile', 'Uploaded file is visible')
-  //   },
-    
-  //      (test call of command with variable input)
-  //       .fillOutNewTemplate('auto test created template', 'this should be in the template\'s message body', 'test_files/sevenkbbuggy.PNG')

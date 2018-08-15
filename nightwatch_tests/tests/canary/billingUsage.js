@@ -1,82 +1,82 @@
-/*--------------------------------------------------------------------------------------------------------*/
-// tests for the billing page and elements it contains.
-// User is logged in as Member with Billing Permissions 
-// Member belongs to a billing organization
-/*--------------------------------------------------------------------------------------------------------*/
+// /*--------------------------------------------------------------------------------------------------------*/
+// // tests for the billing page and elements it contains.
+// // User is logged in as Member with Billing Permissions 
+// // Member belongs to a billing organization
+// /*--------------------------------------------------------------------------------------------------------*/
 
-module.exports = {
+// module.exports = {
 
-  'Login Page with Member Credentials': function (client) {
-    const login = client.page.LoginPage();
+//   'Login Page with Member Credentials': function (client) {
+//     const login = client.page.LoginPage();
 
-    login.navigate()
-      .enterMemberCreds('mkd', 'Test@123')
-      .submit()
-      .validateUrlChange();
-  },
+//     login.navigate()
+//       .enterMemberCreds('mkd', 'Test@123')
+//       .submit()
+//       .validateUrlChange();
+//   },
 
-  'Navigate to Billing page and verify Billing page accessibility': function (client) {
-    const billing = client.page.BillingUsagePage();
+//   'Navigate to Billing page and verify Billing page accessibility': function (client) {
+//     const billing = client.page.BillingUsagePage();
 
-    billing.navigate()
-      .validateUrlChange()
-      .pause(5000);
-  },
+//     billing.navigate()
+//       .validateUrlChange()
+//       .pause(5000);
+//   },
 
-  'Validate the Plan and various Sections available': function (client) {
-    const billing = client.page.BillingUsagePage();
+//   'Validate the Plan and various Sections available': function (client) {
+//     const billing = client.page.BillingUsagePage();
 
-    billing.validateSections();
-  },
+//     billing.validateSections();
+//   },
 
-  'Validate Products in Current Plan Section ': function (client) {
-    const billing = client.page.BillingUsagePage();
+//   'Validate Products in Current Plan Section ': function (client) {
+//     const billing = client.page.BillingUsagePage();
 
-    billing.validateCurrentPlan();
-  },
-
-
-  'Validate Integrations Component': function (client) {
-    const billing = client.page.BillingUsagePage();
-
-    billing.validateIntegrationsProduct();
-  },
+//     billing.validateCurrentPlan();
+//   },
 
 
-  'Validate Current Usage Section': function (client) {
-    const billing = client.page.BillingUsagePage();
+//   'Validate Integrations Component': function (client) {
+//     const billing = client.page.BillingUsagePage();
 
-    billing.validateCurrentUsage();
-  },
+//     billing.validateIntegrationsProduct();
+//   },
 
-  'Validate color of Text Message Animator': function (client) {
-    const billing = client.page.BillingUsagePage();
 
-    billing.validateColors('@messageAnimator', 'stroke');
-  },
+//   'Validate Current Usage Section': function (client) {
+//     const billing = client.page.BillingUsagePage();
 
-  'Validate color of Text Message Count': function (client) {
-    const billing = client.page.BillingUsagePage();
+//     billing.validateCurrentUsage();
+//   },
 
-    billing.validateColors('@usedTextMessage', 'fill');
-  },
+//   'Validate color of Text Message Animator': function (client) {
+//     const billing = client.page.BillingUsagePage();
 
-  'Validate Add-Ons and Overages Section': function (client) {
-    const billing = client.page.BillingUsagePage();
+//     billing.validateColors('@messageAnimator', 'stroke');
+//   },
 
-    billing.validateAddOnsOveragesSection();
-  },
+//   'Validate color of Text Message Count': function (client) {
+//     const billing = client.page.BillingUsagePage();
 
-  'Validate Estimated Bill Section': function (client) {
-    const billing = client.page.BillingUsagePage();
+//     billing.validateColors('@usedTextMessage', 'fill');
+//   },
 
-    billing.validateEstimatedBillSection();
-  },
+//   'Validate Add-Ons and Overages Section': function (client) {
+//     const billing = client.page.BillingUsagePage();
 
-  'Validate Note in Estimated Bill Section': function (client) {
-    const billing = client.page.BillingUsagePage();
+//     billing.validateAddOnsOveragesSection();
+//   },
 
-    billing.validateEstimatedBillNote();
-    client.end(2000);
- }
-}
+//   'Validate Estimated Bill Section': function (client) {
+//     const billing = client.page.BillingUsagePage();
+
+//     billing.validateEstimatedBillSection();
+//   },
+
+//   'Validate Note in Estimated Bill Section': function (client) {
+//     const billing = client.page.BillingUsagePage();
+
+//     billing.validateEstimatedBillNote();
+//     client.end(2000);
+//  }
+// }

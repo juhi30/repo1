@@ -16,26 +16,44 @@ module.exports = {
     template.navigate()
       .clickCreateTemplateButton()
       .fillTitleAndMessage('Normal template', 'Just a regular template with a regular template message')
-      .clickCreateTemplateSaveButton()
+      .clickCreateTemplateSaveButton();
   },
 
-  'Remove that template': function (client) {
+  'Remove the normal template': function (client) {
     const template = client.page.TemplatesPage();
 
-    template.deleteSpecificTemplate('Normal template')
-      .pause(2000); // giving time for the success toast to render
+    helper.clickSpanViaText(template, 'Normal template');
+
+    template.clickEditTemplateButton()
+      .clickDeleteButton()
+      .clickDeleteFinalButton();
+
+    helper.findTextOnPage(template, 'Template deleted successfully');
+  },
+
+  'Create a new template with an attachment < 600KB': function (client) {
+    const template = client.page.TemplatesPage();
+
+    template.pause(3000)
+      .clickCreateTemplateButton()
+      .fillTitleAndMessage('Template w/Attachment', 'This one will be less than 600kb')
+      .uploadFile('test_files/sevenkbbuggy.PNG')
+      .pause(3000)
+      .clickCreateTemplateSaveButton()
+      .pause(2000);
+
+    helper.findTextOnPage(template, 'Template created successfully');
+  },
+
+  'Remove the template with an attachment': function (client) {
+    const template = client.page.TemplatesPage();
+
+    helper.clickSpanViaText(template, 'Template w/Attachment');
+
+    template.clickEditTemplateButton()
+      .clickDeleteButton()
+      .clickDeleteFinalButton();
+
     helper.findTextOnPage(template, 'Template deleted successfully');
   }
-
-  // 'Create a new template with an attachment < 600KB': function (client) {
-  //   // do stuff
-  // },
-
-  // 'Edit that template with an attachment > 600 KB': function (client) {
-  //   // do stuff
-  // },
-
-  // 'Remove that template': function (client) {
-  //   // do stuff
-  // }
 }

@@ -67,7 +67,7 @@ const billingCommands = {
     this.verify.visible(element, 'Element is visible');
 
     return this.getCssProperty(element, property, function (res) {
-      
+
       const currentColor = colors.filter(val => val.code == res.value);
       if (Array.isArray(currentColor) && currentColor.length > 0) {
         console.log(res.value + ' : ' + currentColor[0].color + ' in Color!');
@@ -111,6 +111,108 @@ const billingCommands = {
   validateEstimatedBillNote: function () {
     return this.verify.visible('@noteEstimatedBill', 'Note for Estimated Bill is visible')
       .expect.element('@noteEstimatedBill').text.to.equal(noteText)
+  },
+
+  // verifyContactSection: function () {
+  //   return this.verify.visible(`@contactDetailSection`, 'Contact Detail section is visible')
+  // }, Not required as a separate function
+
+  printContactInformation: function () {
+    return this.elementText(`@contactInfo`, 'Test');
+  },
+
+  verifyContactInformation: function () {
+    return this.verify.visible('@contactInfo', 'Contact Info is visible');
+  }, // Merge the above two functions 
+
+  openBillingContactModal: function () {
+    this.click(`@updateContactDetails`)
+  },
+  // A generic function available for this, use that
+
+  verifyBillingContactModalElement: function () {
+    return this.waitForElementVisible('@updateContactModal', 'Modal is opened and visible')
+      .verify.visible(`@firstNameInput`, 'FirstName input field is visible')
+      .verify.visible(`@lastNameInput`, 'LastName input field is visible')
+      .verify.visible(`@phoneNumberInput`, 'Phone number input field is visible')
+      .verify.visible(`@emailAddrInput`, 'emailAddress field is available')
+      .verify.visible(`@billingLine1Input`, 'Billing Line 1 input field is available')
+      .verify.visible(`@billingLine2Input`, 'Billing Line 2 input field is available')
+      .verify.visible(`@cityInput`, 'City Input field is visible')
+      .verify.visible(`@stateInput`, 'state select type drop down is visible')
+      .verify.visible(`@zipInput`, 'Zip Input field is visible')
+      .verify.visible(`@cancelButton`, 'Cancel Button is visible')
+      .verify.visible(`@SaveButton`, 'The save billing contact button is visible')
+
+  },
+
+  updateContactOperation: function (element, elementValue) {
+    this.clearValue(element)
+      .setValue(element, elementValue)
+  }, // Generic function available
+
+  saveContactDetails: function () {
+    this.click('@SaveButton');
+  },
+
+  validateAvailableDetails: function (element) {
+    return this.verify.visible(element, 'Details are visible')
+      .elementText(element, 'are the available Details.')
+  },
+
+  validateUpdateLink: function (element) {
+    return this.verify.visible(element, 'Link to Update Details is visible')
+  },
+
+  openUpdateModal: function (element1, element2) {
+    return this.verify.visible(element1, 'Link to Update Details is visible')
+      .click(element1)
+      .verify.visible(element2, 'Update Modal is Opened')
+  },
+
+  updateDetails: function (element, newValue) {
+    return this.verify.visible(element, 'is visible')
+      .clearValue(element)
+      .setValue(element, newValue)
+  },
+
+  changePaymentMethod: function (element) {
+    //return this.waitForElementVisible(element, 'Radio Buttons are visible')
+    return this.click(element)
+  },
+
+  // validatePaymentMethod: function () {
+  //   let self = this;
+  //   this.getText('@paymentMethodDetails', function (tpObj) {
+  //     text = tpObj.value;
+  //     console.log(text);
+  //     if (text && text.match(/Credit/gi) && text.match(/Credit/gi).length) {
+  //       console.log('if');
+  //     } else {
+  //       console.log('else');
+  //     }
+  //   });
+  // },
+
+  billingHistory: function () {
+    return this.waitForElementVisible('@historyTable', 'Records are visible in the billing history section')
+      .verify.visible('@rowStatment', 'Row Statement is visible')
+      .verify.visible('@loadMore', 'load more link text is visible')
+      .verify.visible('@pdfModal', 'PDF Link is available for every record')
+
+  },
+
+  clickLoadMore: function () {
+    this.click('@loadMore');
+  },
+
+  viewLessVisibility: function () {
+    console.log("Number of Rows : " + rows)
+    return this.verify.visible('@viewLess', 'The View Less link text is visible')
+  },
+
+  printHistoryData: function () {
+    return this.elementText('@historyTable', ' : Is the Data available in History Section')
   }
 }
 
@@ -239,7 +341,7 @@ module.exports = {
     },
 
     usedTextChannels: {
-      selector: `(//*[local-name()='svg' ]//*[local-name()='text'])[4]`,
+      selector: `//*[@title ='Text Channels count']`,
       locateStrategy: 'xpath',
     },
 
@@ -263,7 +365,7 @@ module.exports = {
       selector: `//TH[text()='Unit Price']`,
       locateStrategy: 'xpath',
     },
-    
+
     total: {
       selector: `//TH[text()='Total']`,
       locateStrategy: 'xpath',
@@ -377,5 +479,229 @@ module.exports = {
       selector: `//*[@class = 'u-text-small u-text-muted'][contains(text(),'Note')]`,
       locateStrategy: 'xpath',
     },
+
+    //---------------------- Billing Contact Section //----------------------//
+    updateContactModal: {
+      selector: `//H3[@class='modal__header__title'][contains(text(),'Billing')]`,
+      locateStrategy: 'xpath',
+    },
+
+    contactInfo: {
+      selector: '(//DIV/P)[2]',
+      locateStrategy: 'xpath',
+    },
+
+    updateContactDetails: {
+      selector: `//SPAN[@class='button__text-wrapper'][contains(text(),'Update')]`,
+      locateStrategy: 'xpath',
+    },
+
+    firstNameInput: { // Use keyword contact with contact section fields that might be common with Payment section
+      selector: `//INPUT[@name='contactFirstName']`,
+      locateStrategy: 'xpath'
+    },
+
+    lastNameInput: {
+      selector: `//INPUT[@name='contactLastName']`,
+      locateStrategy: 'xpath',
+    },
+
+    phoneNumberInput: {
+      selector: `//INPUT[@name='contactPhone']`,
+      locateStrategy: 'xpath',
+    },
+
+    emailAddrInput: {
+      selector: `//INPUT[@name='contactEmail']`,
+      locateStrategy: 'xpath',
+    },
+
+    billingLine1Input: {
+      selector: `//INPUT[@name='street1']`,
+      locateStrategy: 'xpath'
+    },
+
+    billingLine2Input: {
+      selector: `//INPUT[@name='street2']`,
+      locateStrategy: 'xpath'
+    },
+
+    cityInput: {
+      selector: `//INPUT[@name='city']`,
+      locateStrategy: 'xpath',
+    },
+
+    stateInput: {
+      selector: `//SELECT[@name='state']`,
+      locateStrategy: 'xpath'
+    },
+
+    zipInput: {
+      selector: `//INPUT[@name='zip']`,
+      locateStrategy: 'xpath',
+    },
+
+    cancelButton: {
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'])[1]`,
+      locateStrategy: 'xpath'
+    },
+
+    SaveButton: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Billing Contact']`,
+      locateStrategy: 'xpath'
+    },
+
+    //---------------------- Payment Method Section //----------------------//
+    paymentMethodDetails: {
+      selector: `//*[@class = 'u-list u-list--space']`,
+      locateStrategy: 'xpath',
+    },
+
+    namePaymentMethod: {
+      selector: `//LI[@class ='u-font-weight-bold']`,
+      locateStrategy: 'xpath',
+    },
+
+    //Available Payment Details - Credit Card
+    creditCardNumber: {
+      selector: `//LI[contains(text(),'Credit Card Number')]`,
+      locateStrategy: 'xpath',
+    },
+
+    expirationDate: {
+      selector: `//LI[contains(text(),'Expiration Date')]`,
+      locateStrategy: 'xpath',
+    },
+
+    //Available Payment Details - Bank Account
+    bankName: {
+      selector: `//LI[contains(text(),'Bank Name')]`,
+      locateStrategy: 'xpath',
+    },
+
+    routingNumber: {
+      selector: `//LI[contains(text(),'Routing Number')]`,
+      locateStrategy: 'xpath',
+    },
+
+    accountNumber: {
+      selector: `//LI[contains(text(),'Account Number')]`,
+      locateStrategy: 'xpath',
+    },
+
+    changePaymentMethodLink: {
+      selector: `//SPAN[@class='button__text-wrapper'][contains(text(),'Change')]`,
+      locateStrategy: 'xpath',
+    },
+
+    //Update Billing Payment Method Modal
+    updatePaymentModal: {
+      selector: `//*[@class = 'modal__header__title']`,
+      locateStrategy: 'xpath',
+    },
+
+    radioCreditCard: {
+      selector: `//INPUT[contains(@id, 'paymentMethod')][@value='credit']`,
+      locateStrategy: 'xpath',
+    },
+
+    radioBankAccount: {
+      selector: `//INPUT[contains(@id, 'paymentMethod')][@value='bank']`,
+      locateStrategy: 'xpath',
+    },
+
+    paymentFirstNameInput: {
+      selector: `//INPUT[contains(@name, 'firstName')]`,
+      locateStrategy: 'xpath',
+    },
+
+    paymentLastNameInput: {
+      selector: `//INPUT[contains(@name, 'lastName')]`,
+      locateStrategy: 'xpath',
+    },
+
+    // Credit Card Form
+    creditCardInput: {
+      selector: `//INPUT[contains(@name, 'creditCardNumber')]`,
+      locateStrategy: 'xpath',
+    },
+
+    expirationMonthSelect: {
+      selector: `//SELECT[contains(@name, 'creditCardExpMonth')]`,
+      locateStrategy: 'xpath',
+    },
+
+    expirationYearSelect: {
+      selector: `//SELECT[contains(@name, 'creditCardExpYear')]`,
+      locateStrategy: 'xpath',
+    },
+
+    cvvInput: {
+      selector: `//INPUT[contains(@name, 'creditCardVerificationValue')]`,
+      locateStrategy: 'xpath',
+    },
+
+    creditCardZipInput: {
+      selector: `//INPUT[contains(@name, 'creditCardZip')]`,
+      locateStrategy: 'xpath',
+    },
+
+    // Bank Account Form
+    bankNameInput: {
+      selector: `//INPUT[contains(@name, 'bankName')]`,
+      locateStrategy: 'xpath',
+    },
+
+    bankAccountNumberInput: {
+      selector: `//INPUT[contains(@name, 'bankAccountNumber')]`,
+      locateStrategy: 'xpath',
+    },
+
+    bankRoutingNumberInput: {
+      selector: `//INPUT[contains(@name, 'bankRoutingNumber')]`,
+      locateStrategy: 'xpath',
+    },
+
+    bankAccountTypeSelect: {
+      selector: `//SELECT[contains(@name, 'activeBankAccountTypeId')]`,
+      locateStrategy: 'xpath',
+    },
+
+    cancelPaymentUpdateButton: {
+      selector: `(//span[@class='button__text-wrapper'][text()='Cancel'])[2]`,
+      locateStrategy: 'xpath',
+    },
+
+    savePaymentMethodButton: {
+      selector: `//span[@class='button__text-wrapper'][text()='Save Payment Method']`,
+      locateStrategy: 'xpath',
+    },
+
+     //---------------------- History Section //----------------------//
+     historyTable: {
+      selector: `//*[@id="app"]//div[2]//div[4]//div[2]/table`,
+      locateStrategy: 'xpath'
+    },
+
+    rowStatment: {
+      selector: `//DIV//P[@class='u-text-small u-text-muted u-m-b-small']`,
+      locateStrategy: 'xpath'
+    },
+
+    loadMore: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Load more']`,
+      locateStrategy: 'xpath'
+    },
+
+    viewLess: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='View less']`,
+      locateStrategy: 'xpath'
+    },
+
+    pdfModal: {
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='PDF'])[1]`,
+      locateStrategy: 'xpath'
+    },
+
   }
 }

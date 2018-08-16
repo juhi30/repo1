@@ -78,5 +78,18 @@ module.exports = {
 
     billing.validateEstimatedBillNote();
     client.end(2000);
- }
+  },
+
+  'Validate Available Payment Method Details': function (client) {
+    const billing = client.page.BillingUsagePage();
+
+    billing.validateAvailableDetails('@paymentMethodDetails')
+      .validateUpdateLink('@changePaymentMethodLink')
+  },
+
+  'Validate Update Payment Method link availability': function (client) {
+    const billing = client.page.BillingUsagePage();
+
+    billing.validateUpdateLink('@changePaymentMethodLink')
+  },
 }

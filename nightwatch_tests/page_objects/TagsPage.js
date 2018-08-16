@@ -65,19 +65,23 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     newTagButton: {
-      selector: `//BUTTON[contains(@title, 'Create Tag)]`,
-      locateStrategy: 'xpath',
+      selector: `//BUTTON[contains(@title, 'Create Tag')]`,
+      locateStrategy: 'xpath'
     },
 
-    firstTag: {
-      selector: `//SPAN[contains(.,'#Charleston')]`, 
+    // a tag that says "Charleston"...
+    charlestonTag: {
+      selector: `//SPAN[contains(.,'#Charleston')]`,
+      locateStrategy: 'xpath'
     },
 
+    // a tag that says "fake_tag"...
     fakeTag: {
       selector: `//SPAN[contains(.,'#fake_tag')]`,
       locateStrategy: 'xpath'
     },
 
+    // a tag that says "Edited_tag"...
     editedTag: {
       selector: `//SPAN[contains(.,'#Edited_tag')]`,
       locateStrategy: 'xpath'

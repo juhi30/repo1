@@ -23,13 +23,12 @@ module.exports = {
       .pause(5000);
   },
 
-  'Update Payment Method': function (client) {
+  'Verify Bank Account Update Modal': function(client) {
     const billing = client.page.BillingUsagePage();
 
     billing.openUpdateModal('@changePaymentMethodLink', '@updatePaymentModal')
       .pause(1000)
-      .changePaymentMethod()
-      //.updateDetails('@paymentFirstNameInput', 'New FirstName')
-      //.updateDetails('@paymentLastNameInput', 'New LastName')
+      .changePaymentMethod('@radioBankAccount')
+      .validateUpdateModalBankAccount()      
   }
 }

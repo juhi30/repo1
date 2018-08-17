@@ -176,18 +176,9 @@ const billingCommands = {
       .setValue(element, newValue)
   },
 
-  changePaymentMethod: function () {
-    execute("$('" + '@radioBankAccount' + "').click();");
-    //return this.waitForElementVisible(element, 'Radio Buttons are visible')
-    // this
-    // .click(`//INPUT[@value='bank']`)
-    // .pause(1000)
-    // .element('value', 'bank', function(response) {
-    //   client.assert.ok(response.value.ELEMENT, 'Checkbox response is OK');
-    //   client.elementIdSelected(response.value.ELEMENT, function(result){
-    //     client.verify.ok(result.value, 'Checkbox is selected');
-    //   });
-    // })
+  changePaymentMethod: function (element) {
+    return this.verify.visible(element, 'Radio button to select payment method is visible')
+     .click(element)
   },
 
   validateUpdateModalCC: function(){
@@ -198,6 +189,15 @@ const billingCommands = {
       .verify.visible('@expirationYearSelect', 'Expiration Year field is visible ')
       .verify.visible('@cvvInput', 'CVV field is visible')
       .verify.visible('@creditCardZipInput', 'Zip Code field is visible')
+  },
+
+  validateUpdateModalBankAccount: function(){
+    return this.verify.visible('@paymentFirstNameInput', 'First Name field is visible')
+      .verify.visible('@paymentLastNameInput', 'Last Name field is visible')
+      .verify.visible('@bankNameInput', 'Bank Name fiels is visible')
+      .verify.visible('@bankAccountNumberInput', 'Account Number field is visible')
+      .verify.visible('@bankRoutingNumberInput', 'Routing Number field is visible ')
+      .verify.visible('@bankAccountTypeSelect', 'Account Type field is visible')
   },
 
   billingHistory: function () {
@@ -607,12 +607,12 @@ module.exports = {
     },
 
     radioCreditCard: {
-      selector: `//INPUT[contains(@id, 'paymentMethod')][@value='credit']`,
+      selector: `//LABEL[contains(text(),'Credit Card')]`,
       locateStrategy: 'xpath',
     },
 
     radioBankAccount: {
-      selector: `//INPUT[contains(@id, 'paymentMethod')][@value='bank']`,
+      selector: `//LABEL[contains(text(),'Bank Account')]`,
       locateStrategy: 'xpath',
     },
 

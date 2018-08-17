@@ -100,4 +100,13 @@ module.exports = {
       .pause(1000)
       .validateUpdateModalCC()
   },  
+
+  'Verify Bank Account Update Modal': function(client) {
+    const billing = client.page.BillingUsagePage();
+
+    billing.openUpdateModal('@changePaymentMethodLink', '@updatePaymentModal')
+      .pause(1000)
+      .changePaymentMethod('@radioBankAccount')
+      .validateUpdateModalBankAccount()      
+  }
 }

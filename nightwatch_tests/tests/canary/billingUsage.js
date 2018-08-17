@@ -77,7 +77,31 @@ module.exports = {
     const billing = client.page.BillingUsagePage();
 
     billing.validateEstimatedBillNote();
-    client.end(2000);
+    //client.end(2000);
+  },
+
+  'verify contact information': function (client) {
+    const contact = client.page.BillingUsagePage();
+
+    contact.verifyContactInformation();
+  },
+
+  'Open and verify Billing Contact Modal': function (client) {
+    const contact = client.page.BillingUsagePage();
+
+    contact.openUpdateModal('@updateContactDetails', '@updateContactModal')
+    contact.verifyBillingContactModalElement();
+    contact.updateDetails('@contactFirstNameInput', 'Munish')
+    contact.updateDetails('@contactLastNameInput', 'Dutta')
+    contact.updateDetails('@phoneNumberInput', '9876543210')
+    contact.updateDetails('@emailAddrInput', 'email@fake.com')
+    contact.updateDetails('@billingLine1Input', 'Line1')
+    contact.updateDetails('@billingLine2Input', 'Line2')
+    contact.updateDetails('@cityInput', 'City')
+    contact.updateDetails('@stateInput', 'Alaska')
+    contact.updateDetails('@contactZipInput', '13245')
+
+    contact.saveContactDetails();
   },
 
   'Validate Available Payment Method Details': function (client) {

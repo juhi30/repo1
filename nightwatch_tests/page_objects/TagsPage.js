@@ -7,7 +7,7 @@ const tagCommands = {
 
   validateTagPageElements: function () {
     return this.waitForElementVisible('@newTagButton', 'New Tag button is visible')
-      .waitForElementVisible('@firstTag', 'First tag is visible')
+      .waitForElementVisible('@charlestonTag', 'First tag is visible')
   },
 
   validateCreateTagModal: function () {
@@ -83,20 +83,23 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     newTagButton: {
-      selector: `//BUTTON[contains(@title, 'Create Tag)]`,
+      selector: `//BUTTON[contains(@title, 'Create Tag')]`,
       locateStrategy: 'xpath',
     },
 
-    firstTag: {
+    // its a tag that says "Charleston"...
+    charlestonTag: {
       selector: `//SPAN[contains(.,'#Charleston')]`, 
       locateStrategy: 'xpath'
     },
 
+    // its a tag that says "fake_tag"...
     fakeTag: {
       selector: `//SPAN[contains(.,'#fake_tag')]`,
       locateStrategy: 'xpath'
     },
 
+    // its a tag that says "Edited_tag"...
     editedTag: {
       selector: `//SPAN[contains(.,'#Edited_tag')]`,
       locateStrategy: 'xpath'

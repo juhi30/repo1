@@ -54,15 +54,14 @@ module.exports = {
         const profile = client.page.ProfilePage();
 
         profile.navigate();
-
         tags.tagContainerCheck()
             .clickToToggleTag();
-
         profile.clickSaveProfileButton();
-
         tags.checkTagDeselected();
+        profile.clickSaveProfileButton();
+        // geoff, do you like this format ^ better? I kind of like this better. Grady agrees.
 
-        client.pause()
+        client.end(3000);
     }
 
 }

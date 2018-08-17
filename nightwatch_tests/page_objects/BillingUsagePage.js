@@ -113,50 +113,34 @@ const billingCommands = {
       .expect.element('@noteEstimatedBill').text.to.equal(noteText)
   },
 
-  // verifyContactSection: function () {
-  //   return this.verify.visible(`@contactDetailSection`, 'Contact Detail section is visible')
-  // }, Not required as a separate function
-
-  printContactInformation: function () {
-    return this.elementText(`@contactInfo`, 'Test');
-  },
-
   verifyContactInformation: function () {
-    return this.verify.visible('@contactInfo', 'Contact Info is visible');
-  }, // Merge the above two functions 
-
-  openBillingContactModal: function () {
-    this.click(`@updateContactDetails`)
+    return this.verify.visible('@contactInfo', 'Contact Info is visible')
+      .elementText(`@contactInfo`, 'Test');
   },
-  // A generic function available for this, use that
 
   verifyBillingContactModalElement: function () {
     return this.waitForElementVisible('@updateContactModal', 'Modal is opened and visible')
-      .verify.visible(`@firstNameInput`, 'FirstName input field is visible')
-      .verify.visible(`@lastNameInput`, 'LastName input field is visible')
+      .verify.visible(`@contactFirstNameInput`, 'FirstName input field is visible')
+      .verify.visible(`@contactLastNameInput`, 'LastName input field is visible')
       .verify.visible(`@phoneNumberInput`, 'Phone number input field is visible')
       .verify.visible(`@emailAddrInput`, 'emailAddress field is available')
       .verify.visible(`@billingLine1Input`, 'Billing Line 1 input field is available')
       .verify.visible(`@billingLine2Input`, 'Billing Line 2 input field is available')
       .verify.visible(`@cityInput`, 'City Input field is visible')
       .verify.visible(`@stateInput`, 'state select type drop down is visible')
-      .verify.visible(`@zipInput`, 'Zip Input field is visible')
-      .verify.visible(`@cancelButton`, 'Cancel Button is visible')
-      .verify.visible(`@SaveButton`, 'The save billing contact button is visible')
+      .verify.visible(`@contactZipInput`, 'Zip Input field is visible')
+      .verify.visible(`@contactCancelButton`, 'Cancel Button is visible')
+      .verify.visible(`@contactSaveButton`, 'The save billing contact button is visible')
 
   },
 
-  updateContactOperation: function (element, elementValue) {
-    this.clearValue(element)
-      .setValue(element, elementValue)
-  }, // Generic function available
-
   saveContactDetails: function () {
-    this.click('@SaveButton');
+    this.click('@contactSaveButton')
+    .pause(3000)
   },
 
   validateAvailableDetails: function (element) {
-    return this.verify.visible(element, 'Details are visible')
+    return this.waitForElementVisible(element, 'Details are visible')
       .elementText(element, 'are the available Details.')
   },
 
@@ -167,11 +151,11 @@ const billingCommands = {
   openUpdateModal: function (element1, element2) {
     return this.verify.visible(element1, 'Link to Update Details is visible')
       .click(element1)
-      .verify.visible(element2, 'Update Modal is Opened')
+      .waitForElementVisible(element2, 'Update Modal is Opened')
   },
 
   updateDetails: function (element, newValue) {
-    return this.verify.visible(element, 'is visible')
+    return this.verify.visible(element, element + 'is visible')
       .clearValue(element)
       .setValue(element, newValue)
   },
@@ -198,6 +182,11 @@ const billingCommands = {
       .verify.visible('@bankAccountNumberInput', 'Account Number field is visible')
       .verify.visible('@bankRoutingNumberInput', 'Routing Number field is visible ')
       .verify.visible('@bankAccountTypeSelect', 'Account Type field is visible')
+      .click('@cancelPaymentUpdateButton')
+  },
+
+  changePaymentMethod: function (element) {
+    return this.click(element)
   },
 
   billingHistory: function () {
@@ -205,7 +194,6 @@ const billingCommands = {
       .verify.visible('@rowStatment', 'Row Statement is visible')
       .verify.visible('@loadMore', 'load more link text is visible')
       .verify.visible('@pdfModal', 'PDF Link is available for every record')
-
   },
 
   clickLoadMore: function () {
@@ -213,7 +201,7 @@ const billingCommands = {
   },
 
   viewLessVisibility: function () {
-    console.log("Number of Rows : " + rows)
+    //console.log("Number of Rows : " + rows)
     return this.verify.visible('@viewLess', 'The View Less link text is visible')
   },
 
@@ -488,7 +476,7 @@ module.exports = {
 
     //---------------------- Billing Contact Section //----------------------//
     updateContactModal: {
-      selector: `//H3[@class='modal__header__title'][contains(text(),'Billing')]`,
+      selector: `//DIV[@class='modal__header']`,
       locateStrategy: 'xpath',
     },
 
@@ -502,12 +490,12 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    firstNameInput: { // Use keyword contact with contact section fields that might be common with Payment section
+    contactFirstNameInput: { // Use keyword contact with contact section fields that might be common with Payment section
       selector: `//INPUT[@name='contactFirstName']`,
       locateStrategy: 'xpath'
     },
 
-    lastNameInput: {
+    contactLastNameInput: {
       selector: `//INPUT[@name='contactLastName']`,
       locateStrategy: 'xpath',
     },
@@ -542,17 +530,17 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
-    zipInput: {
+    contactZipInput: {
       selector: `//INPUT[@name='zip']`,
       locateStrategy: 'xpath',
     },
 
-    cancelButton: {
+    contactCancelButton: {
       selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'])[1]`,
       locateStrategy: 'xpath'
     },
 
-    SaveButton: {
+    contactSaveButton: {
       selector: `//SPAN[@class='button__text-wrapper'][text()='Save Billing Contact']`,
       locateStrategy: 'xpath'
     },
@@ -674,17 +662,17 @@ module.exports = {
     },
 
     cancelPaymentUpdateButton: {
-      selector: `(//span[@class='button__text-wrapper'][text()='Cancel'])[2]`,
+      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'])[2]`,
       locateStrategy: 'xpath',
     },
 
     savePaymentMethodButton: {
-      selector: `//span[@class='button__text-wrapper'][text()='Save Payment Method']`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Save Payment Method']`,
       locateStrategy: 'xpath',
     },
 
-     //---------------------- History Section //----------------------//
-     historyTable: {
+    //---------------------- History Section //----------------------//
+    historyTable: {
       selector: `//*[@id="app"]//div[2]//div[4]//div[2]/table`,
       locateStrategy: 'xpath'
     },

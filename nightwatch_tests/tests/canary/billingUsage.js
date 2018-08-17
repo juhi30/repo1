@@ -77,7 +77,29 @@ module.exports = {
     const billing = client.page.BillingUsagePage();
 
     billing.validateEstimatedBillNote();
-    client.end(2000);
+  },
+
+  'Verify contact information': function (client) {
+    const contact = client.page.BillingUsagePage();
+
+    contact.verifyContactInformation();
+  },
+
+  'Open and verify Billing Contact Modal': function (client) {
+    const contact = client.page.BillingUsagePage();
+
+    contact.openUpdateModal('@updateContactDetails', '@updateContactModal')
+      .verifyBillingContactModalElement()
+      .updateDetails('@contactFirstNameInput', 'Munish')
+      .updateDetails('@contactLastNameInput', 'Dutta')
+      .updateDetails('@phoneNumberInput', '9876543210')
+      .updateDetails('@emailAddrInput', 'email@fake.com')
+      .updateDetails('@billingLine1Input', 'Line1')
+      .updateDetails('@billingLine2Input', 'Line2')
+      .updateDetails('@cityInput', 'City')
+      .updateDetails('@stateInput', 'Alaska')
+      .updateDetails('@contactZipInput', '13245')
+      .saveContactDetails()
   },
 
   'Validate Available Payment Method Details': function (client) {
@@ -93,20 +115,18 @@ module.exports = {
     billing.validateUpdateLink('@changePaymentMethodLink')
   },
 
-  'Verify CC Update Modal': function(client) {
+  'Verify CC Update Modal': function (client) {
     const billing = client.page.BillingUsagePage();
 
     billing.openUpdateModal('@changePaymentMethodLink', '@updatePaymentModal')
       .pause(1000)
       .validateUpdateModalCC()
-  },  
+  },
 
-  'Verify Bank Account Update Modal': function(client) {
+  'Verify Bank Account Update Modal': function (client) {
     const billing = client.page.BillingUsagePage();
 
-    billing.openUpdateModal('@changePaymentMethodLink', '@updatePaymentModal')
-      .pause(1000)
-      .changePaymentMethod('@radioBankAccount')
-      .validateUpdateModalBankAccount()      
+    billing.changePaymentMethod('@radioBankAccount')
+      .validateUpdateModalBankAccount()
   }
 }

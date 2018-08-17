@@ -23,55 +23,13 @@ module.exports = {
       .pause(5000);
   },
 
-  
+  'Update Payment Method': function (client) {
+    const billing = client.page.BillingUsagePage();
 
-   'Update Payment Method': function (client) {
-      const billing = client.page.BillingUsagePage();
-
-      billing.openUpdateModal('@changePaymentMethodLink', '@updatePaymentModal')
+    billing.openUpdateModal('@changePaymentMethodLink', '@updatePaymentModal')
       .pause(1000)
-      .changePaymentMethod('@radioBankAccount')
-      .updateDetails('@paymentFirstNameInput', 'New FirstName')
-      .updateDetails('@paymentLastNameInput', 'New LastName')
-     }, 
-
-  'verify contact section': function (client) {
-    const contact = client.page.BillingUsagePage();
-    contact.verifyContactSection();
-  },
-
-  'verify contact information': function (client) {
-    const contact = client.page.BillingUsagePage();
-
-    contact.verifyContactInformation();
-  },
-
-  'Open and verify Billing Contact Modal': function (client) {
-    const contact = client.page.BillingUsagePage();
-
-    contact.openBillingContactModal()
-    contact.verifyBillingContactModalElement();
-    contact.updateContactOperation('@firstNameInput', 'Munish')
-    contact.updateContactOperation('@lastNameInput', 'Dutta')
-    contact.updateContactOperation('@phoneNumberInput', '9876543210')
-    contact.updateContactOperation('@emailAddrInput', 'email@fake.com')
-    contact.updateContactOperation('@billingLine1Input', 'Line1')
-    contact.updateContactOperation('@billingLine2Input', 'Line2')
-    contact.updateContactOperation('@cityInput', 'City')
-    contact.updateContactOperation('@stateInput', 'Alaska')
-    contact.updateContactOperation('@zipInput', '13245')
-    contact.saveContactDetails();
-  },
-
-  'Verify Billing History Section': function (client) {
-    const history = client.page.BillingUsagePage();
-
-    history.billingHistory()
-    history.clickLoadMore()
-    history.pause(4000)
-    history.viewLessVisibility();
-    history.printHistoryData();
-  },
-
-
+      .changePaymentMethod()
+      //.updateDetails('@paymentFirstNameInput', 'New FirstName')
+      //.updateDetails('@paymentLastNameInput', 'New LastName')
+  }
 }

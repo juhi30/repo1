@@ -176,23 +176,29 @@ const billingCommands = {
       .setValue(element, newValue)
   },
 
-  changePaymentMethod: function (element) {
+  changePaymentMethod: function () {
+    execute("$('" + '@radioBankAccount' + "').click();");
     //return this.waitForElementVisible(element, 'Radio Buttons are visible')
-    return this.click(element)
+    // this
+    // .click(`//INPUT[@value='bank']`)
+    // .pause(1000)
+    // .element('value', 'bank', function(response) {
+    //   client.assert.ok(response.value.ELEMENT, 'Checkbox response is OK');
+    //   client.elementIdSelected(response.value.ELEMENT, function(result){
+    //     client.verify.ok(result.value, 'Checkbox is selected');
+    //   });
+    // })
   },
 
-  // validatePaymentMethod: function () {
-  //   let self = this;
-  //   this.getText('@paymentMethodDetails', function (tpObj) {
-  //     text = tpObj.value;
-  //     console.log(text);
-  //     if (text && text.match(/Credit/gi) && text.match(/Credit/gi).length) {
-  //       console.log('if');
-  //     } else {
-  //       console.log('else');
-  //     }
-  //   });
-  // },
+  validateUpdateModalCC: function(){
+    return this.verify.visible('@paymentFirstNameInput', 'First Name field is visible')
+      .verify.visible('@paymentLastNameInput', 'Last Name field is visible')
+      .verify.visible('@creditCardInput', 'Credit Card fiels is visible')
+      .verify.visible('@expirationMonthSelect', 'Expiration Month field is visible')
+      .verify.visible('@expirationYearSelect', 'Expiration Year field is visible ')
+      .verify.visible('@cvvInput', 'CVV field is visible')
+      .verify.visible('@creditCardZipInput', 'Zip Code field is visible')
+  },
 
   billingHistory: function () {
     return this.waitForElementVisible('@historyTable', 'Records are visible in the billing history section')

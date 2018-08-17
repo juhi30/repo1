@@ -92,4 +92,12 @@ module.exports = {
 
     billing.validateUpdateLink('@changePaymentMethodLink')
   },
+
+  'Verify CC Update Modal': function(client) {
+    const billing = client.page.BillingUsagePage();
+
+    billing.openUpdateModal('@changePaymentMethodLink', '@updatePaymentModal')
+      .pause(1000)
+      .validateUpdateModalCC()
+  },  
 }

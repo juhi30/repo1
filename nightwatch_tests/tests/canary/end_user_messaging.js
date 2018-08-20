@@ -39,6 +39,7 @@ module.exports = {
   'Find that thread and view the message from the patient': function(client) {
     const inbox = client.page.DirectInboxPage();
 
+    inbox.navigate();
     helpers.findTextOnPage(inbox, messageContent);
     client.end(2000);
   }

@@ -17,6 +17,12 @@ function clickSpanViaText(client, text) {
     .click(`//SPAN[contains(text(), '${text}')]`);
 }
 
+function clickDivViaText(client, text) {
+  client.api.useXpath().waitForElementVisible(`//DIV[contains(text(), '${text}')]`, `Div with text "${text}" is visible`)
+    .pause(1000)
+    .click(`//DIV[contains(text(), '${text}')]`);
+}
+
 const randoNum = Math.ceil(Math.random() * 1000);
 
 const theDateObj = new Date();

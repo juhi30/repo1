@@ -30,7 +30,7 @@ module.exports = {
       .clickLogoutButton();
   },
 
-  'Login as Keaton (a member) and witness thread in Direct Inbox': function(client) {
+  'Login as Keaton (a member) and witness that thread in Direct Inbox': function(client) {
     const login = client.page.LoginPage();
     const direct = client.page.DirectInboxPage();
 
@@ -47,6 +47,7 @@ module.exports = {
     const direct = client.page.DirectInboxPage();
 
     helpers.clickDivViaText(direct, messageContent);
+    direct.
 
   }
 }

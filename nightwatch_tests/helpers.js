@@ -28,11 +28,11 @@ const randoNum = Math.ceil(Math.random() * 1000);
 const theDateObj = new Date();
 const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleDateString();
 
-// This object reflects a Member who has full permissions
 const csrCreds = {
   username: 'ccr',
   password: 'bacon'
 };
+
 const memberCreds = {
   username: 'nightmember',
   password: 'Nightpass1'
@@ -49,6 +49,7 @@ module.exports = {
   findTextOnPage,
   randoNum,
   dateString,
+  csrCreds,
   memberCreds,
   patientCreds,
 }

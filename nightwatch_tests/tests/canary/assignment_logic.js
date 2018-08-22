@@ -47,7 +47,10 @@ module.exports = {
   'Assign thread to Scott, then logout': function(client) {
     const thread = client.page.ConvoThreadPage();
 
-    thread.searchForMemberToAssign('Scott Towels');
-    client.end();
+    thread.clickAssignIcon()
+      .clickMemberAssign()
+      .setValueMemberAssignSearchInput('Scott Towels');
+    helpers.clickSpanViaText('Scott Towels');
+    thread.clickAssign();
   }
 }

@@ -135,15 +135,21 @@ const convoThreadCommands = {
     return this.verify.containsText('@lastMessageBubble', 'this should be in the template\'s message body', 'Template is shown in convo thread')
   },
 
-  searchForMemberToAssign: function(name) {
+  clickAssignIcon: function() {
     return this.waitForElementVisible('@assignmentIcon', 'Assignment icon is visible')
       .click('@assignmentIcon')
-      .waitForElementVisible('@membersOption', 'Members option is visible')
-      .click('@membersOption')
-      .waitForElementVisible('@assignmentMemberSearchInput', 'Member search input is visible')
-      .setValue('@assignmentMemberSearchInput', name);
+  },
 
-      helpers.clickSpanViaText(this, 'Scott Towels');
+  clickMemberAssign: function() {
+    return this.waitForElementVisible('@membersOption', 'Members option is visible')
+    .click('@membersOption')
+  },
+
+  setValueMemberAssignSearchInput: function(name) {
+    return this.waitForElementVisible('@assignmentMemberSearchInput', 'Member search input is visible')
+      .setValue('@assignmentMemberSearchInput', name);
+  },
+     
   }
 }
 
@@ -308,22 +314,22 @@ module.exports = {
     /*------------------------------------------------------------------------*/
 
     membersOption: {
-      selector: `//SPAN[contains(text(), 'Members')]`,
+      selector: `//BUTTON[contains(@id, 'assign__members')]`,
       locateStrategy: 'xpath'
     },
 
     groupsOption: {
-      selector: `//SPAN[contains(text(), 'Groups')]`,
-      locateStrategy: 'xpath'
-    },
-
-    assignmentGroupSearchInput: {
-      selector: `//INPUT[contains(text(), 'Search Members')]`,
+      selector: `//BUTTON[contains(@id, 'assign__groups')]`,
       locateStrategy: 'xpath'
     },
 
     assignmentMemberSearchInput: {
-      selector: `//INPUT[contains(text(), 'Search Groups')]`,
+      selector: `//INPUT[contains(@placeholder, 'Search Members')]`,
+      locateStrategy: 'xpath'
+    },
+
+    assignmentGroupSearchInput: {
+      selector: `//INPUT[contains(@placeholder, 'Search Groups')]`,
       locateStrategy: 'xpath'
     }
   }

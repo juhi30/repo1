@@ -41,13 +41,13 @@ module.exports = {
     direct.navigate()
       .pause(2000);
     helpers.findTextOnPage(direct, messageContent);
+    helpers.clickDivViaText(direct, messageContent);
   },
 
   'Assign thread to Scott, then logout': function(client) {
-    const direct = client.page.DirectInboxPage();
+    const thread = client.page.ConvoThreadPage();
 
-    helpers.clickDivViaText(direct, messageContent);
-    direct.
+    thread.
 
   }
 }

@@ -5,18 +5,6 @@ const convoThreadCommands = {
     return this;
   },
 
-  clickElement: function(element) {
-    return this.waitForElementVisible(element, `${element} is visible`)
-      .click(element)
-  },
-
-  clickSpanText: function(text) {
-    const xpath = `//SPAN[contains(text(), ${text})]`;
-
-    return this.waitForElementVisible(xpath, `Span with text "${text}" is visible`)
-      .click(xpath)
-  },
-
   validatePageElements: function() {
     return this.waitForElementVisible('@messageInput', 'Conversation thread is visible')
       .verify.visible('@allCommunicationsDropdown', 'All Communications dropdown is visible')
@@ -32,6 +20,12 @@ const convoThreadCommands = {
 
   fillMessageInput: function(text) {
     return this.setValue('@messageInput', text)
+  },
+
+    // Clicking functions //
+  clickElement: function(element) {
+    return this.waitForElementVisible(element, `${element} is visible`)
+      .click(element)
   },
 
   clickSendMessage: function() {
@@ -72,6 +66,8 @@ const convoThreadCommands = {
     return this.waitForElementPresent('@applyFiltersButton', 'Apply Filters button is visible')
       .click('@applyFiltersButton')
   },
+
+  // Multistep functions //
 
   addNoteToThread: function(text) {
     return this.click('@addNoteButton')

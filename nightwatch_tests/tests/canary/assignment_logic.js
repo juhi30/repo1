@@ -37,7 +37,7 @@ module.exports = {
     login.pause(2000)
       .enterMemberCreds('nightkeaton', 'Chacoz123')
       .submit()
-      .verifyUrlChange();
+      .validateUrlChange();
     direct.navigate()
       .pause(2000);
     helpers.findTextOnPage(direct, messageContent);
@@ -47,7 +47,7 @@ module.exports = {
   'Assign thread to Scott, then logout': function(client) {
     const thread = client.page.ConvoThreadPage();
 
-    thread.
-
+    thread.searchForMemberToAssign('Scott Towels');
+    client.end();
   }
 }

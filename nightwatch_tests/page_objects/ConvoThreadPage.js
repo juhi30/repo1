@@ -1,21 +1,10 @@
+const helpers = require('../helpers');
+
 const convoThreadCommands = {
 
   pause: function(time) {
     this.api.pause(time);
     return this;
-  },
-
-  validatePageElements: function() {
-    return this.waitForElementVisible('@messageInput', 'Conversation thread is visible')
-      .verify.visible('@allCommunicationsDropdown', 'All Communications dropdown is visible')
-      .verify.visible('@addNoteButton', 'Add note button is visible')
-      .verify.visible('@searchConvobutton', 'Search Conversation button is visible')
-      .verify.visible('@lastMessageBubble', 'First message is visible')
-      .verify.visible('@messageInput', 'Message input is visible')
-      .verify.visible('@messageSendButton', 'Send message button is visible')
-      .verify.visible('@addFilePopupButton', 'Add file dropdown is visible')
-      .verify.visible('@messageToDropdown', 'Message TO dropdown is visible')
-      .verify.visible('@messageFromDropdown', 'Message FROM dropdown is visible')
   },
 
   fillMessageInput: function(text) {
@@ -68,6 +57,19 @@ const convoThreadCommands = {
   },
 
   // Multistep functions //
+
+  validatePageElements: function() {
+    return this.waitForElementVisible('@messageInput', 'Conversation thread is visible')
+      .verify.visible('@allCommunicationsDropdown', 'All Communications dropdown is visible')
+      .verify.visible('@addNoteButton', 'Add note button is visible')
+      .verify.visible('@searchConvobutton', 'Search Conversation button is visible')
+      .verify.visible('@lastMessageBubble', 'First message is visible')
+      .verify.visible('@messageInput', 'Message input is visible')
+      .verify.visible('@messageSendButton', 'Send message button is visible')
+      .verify.visible('@addFilePopupButton', 'Add file dropdown is visible')
+      .verify.visible('@messageToDropdown', 'Message TO dropdown is visible')
+      .verify.visible('@messageFromDropdown', 'Message FROM dropdown is visible')
+  },
 
   addNoteToThread: function(text) {
     return this.click('@addNoteButton')
@@ -131,8 +133,18 @@ const convoThreadCommands = {
 
   validateTemplateWasSent: function() {
     return this.verify.containsText('@lastMessageBubble', 'this should be in the template\'s message body', 'Template is shown in convo thread')
-  }
+  },
 
+  searchForMemberToAssign: function(name) {
+    return this.waitForElementVisible('@assignmentIcon', 'Assignment icon is visible')
+      .click('@assignmentIcon')
+      .waitForElementVisible('@membersOption', 'Members option is visible')
+      .click('@membersOption')
+      .waitForElementVisible('@assignmentMemberSearchInput', 'Member search input is visible')
+      .setValue('@assignmentMemberSearchInput', name);
+
+      helpers.clickSpanViaText(this, 'Scott Towels');
+  }
 }
 
 module.exports = {
@@ -290,5 +302,29 @@ module.exports = {
       selector: `//SPAN[contains(.,'Note')]`,
       locateStrategy: 'xpath',
     },
+
+    /*------------------------------------------------------------------------*/
+    // Assignment Container elements
+    /*------------------------------------------------------------------------*/
+
+    membersOption: {
+      selector: `//SPAN[contains(text(), 'Members')]`,
+      locateStrategy: 'xpath'
+    },
+
+    groupsOption: {
+      selector: `//SPAN[contains(text(), 'Groups')]`,
+      locateStrategy: 'xpath'
+    },
+
+    assignmentGroupSearchInput: {
+      selector: `//INPUT[contains(text(), 'Search Members')]`,
+      locateStrategy: 'xpath'
+    },
+
+    assignmentMemberSearchInput: {
+      selector: `//INPUT[contains(text(), 'Search Groups')]`,
+      locateStrategy: 'xpath'
+    }
   }
 };

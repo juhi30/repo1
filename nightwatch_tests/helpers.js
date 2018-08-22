@@ -45,6 +45,7 @@ const patientCreds = {
 
 module.exports = {
   clickSpanViaText,
+  clickDivViaText,
   returnElementText,
   findTextOnPage,
   randoNum,

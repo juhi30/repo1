@@ -59,7 +59,8 @@ module.exports = {
     billing.validateColors('@usedTextMessage', 'fill');
   },
 
-  'Validate Add-Ons and Overages Section': function (client) {
+  //TODO - To be uncommented after updating test cases as per new Billing Designs
+  /* 'Validate Add-Ons and Overages Section': function (client) {
     const billing = client.page.BillingUsagePage();
 
     billing.validateAddOnsOveragesSection();
@@ -69,15 +70,15 @@ module.exports = {
     const billing = client.page.BillingUsagePage();
 
     billing.validateEstimatedBillSection();
-  },
+  }, 
 
   'Validate Note in Estimated Bill Section': function (client) {
     const billing = client.page.BillingUsagePage();
 
     billing.validateEstimatedBillNote();
-  },
+  },*/
 
-  'Verify avaialble Contact Information': function (client) {
+  'Verify available Contact Information': function (client) {
     const contact = client.page.BillingUsagePage();
 
     contact.verifyContactInformation();

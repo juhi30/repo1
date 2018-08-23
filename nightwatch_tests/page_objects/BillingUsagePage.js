@@ -82,11 +82,11 @@ const billingCommands = {
       .verify.visible('@qty', 'Product Quantity Column Title is visible')
       .verify.visible('@unitPrice', 'UnitPrice Column Title is visible')
       .verify.visible('@total', 'Total Column Title is visible')
-      .verify.visible('@additionalMember', 'AddtionalMember Row is visible')
+      .verify.visible('@additionalMember', 'AdditionalMember Row is visible')
       .verify.visible('@additionalMemberQty', 'Quantity for additional members is visible')
       .verify.visible('@additionalMemberUnitPrice', 'Unit Price for additional members is visible')
       .verify.visible('@additionalMemberTotal', 'Total Amount for additional members is visible')
-      .verify.visible('@additionalTextChannel', 'AddtionalTextChannel Row is visible')
+      .verify.visible('@additionalTextChannel', 'AdditionalTextChannel Row is visible')
       .verify.visible('@additionalTextChannelQty', 'Quantity for additional Text Channels is visible')
       .verify.visible('@additionalTextChannelUnitPrice', 'Unit Price for additional Text Channels is visible')
       .verify.visible('@additionalTextChannelTotal', 'Total Price for additional Text Channels is visible')
@@ -159,6 +159,7 @@ const billingCommands = {
   openUpdateModal: function (element1, element2) {
     return this.waitForElementVisible(element1, 'Link to Update Details is visible')
       .click(element1)
+      .pause(1000)
       .waitForElementVisible(element2, 'Update Modal is Opened')
   },
 
@@ -176,7 +177,7 @@ const billingCommands = {
   validateUpdateModalCC: function () {
     return this.verify.visible('@paymentFirstNameInput', 'First Name field is visible')
       .verify.visible('@paymentLastNameInput', 'Last Name field is visible')
-      .verify.visible('@creditCardInput', 'Credit Card fiels is visible')
+      .verify.visible('@creditCardInput', 'Credit Card field is visible')
       .verify.visible('@expirationMonthSelect', 'Expiration Month field is visible')
       .verify.visible('@expirationYearSelect', 'Expiration Year field is visible ')
       .verify.visible('@cvvInput', 'CVV field is visible')
@@ -188,7 +189,7 @@ const billingCommands = {
   validateUpdateModalBankAccount: function () {
     return this.verify.visible('@paymentFirstNameInput', 'First Name field is visible')
       .verify.visible('@paymentLastNameInput', 'Last Name field is visible')
-      .verify.visible('@bankNameInput', 'Bank Name fiels is visible')
+      .verify.visible('@bankNameInput', 'Bank Name field is visible')
       .verify.visible('@bankAccountNumberInput', 'Account Number field is visible')
       .verify.visible('@bankRoutingNumberInput', 'Routing Number field is visible ')
       .verify.visible('@bankAccountTypeSelect', 'Account Type field is visible')

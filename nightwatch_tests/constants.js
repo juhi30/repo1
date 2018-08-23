@@ -1,4 +1,3 @@
-
 const colors = [
     {
       code: "rgb(130, 188, 0)",
@@ -31,5 +30,3 @@ module.exports = {
     colors,
     noteText,
 };
-
-   

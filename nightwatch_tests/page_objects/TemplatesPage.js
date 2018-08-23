@@ -1,3 +1,5 @@
+const path = require('path');
+
 const templatesCommands = {
 
   pause: function(time) {
@@ -5,6 +7,9 @@ const templatesCommands = {
     return this;
   },
 
+  /*
+    Validation
+  */
   renderPageElements: function() {
     return this.waitForElementVisible('@createTemplateButton', 'Create template button is visible')
       .verify.visible('@HIPAATemplate', 'HIPAA template is visible')
@@ -28,67 +33,91 @@ const templatesCommands = {
       .verify.containsText('@filterDropdown', 'All', 'All filter is active')
   },
 
-  clickCreateTemplate: function() {
-    return this.click('@createTemplateButton')
-      .waitForElementVisible('@createTemplateTitle', 'Create Template Popup is visible')
+  /*
+    Clicking
+  */
+
+  clickEditTemplateButton: function() {
+    return this.waitForElementVisible('@editTemplateButton', 'Edit Template button is visible')
+      .click('@editTemplateButton')
   },
 
-  validateCreateTemplatePopup: function() {
-    return this.waitForElementVisible('@createTemplateTitle', 'Title input is visible')
-      .verify.visible('@createTemplateMessage', 'Message input is visible')
-      .verify.visible('@createTemplateSaveButton', 'Create button is visible')
-      .verify.visible('@uploadFileButton', 'Upload File button is visible')
-      // .verify.visible('@cancelCreateButton', 'Cancel button (X) is visible') no good xpaths for svg close button
+  clickCreateTemplateButton: function() {
+    return this.waitForElementVisible('@createTemplateButton', 'Create Template button is visible')
+      .click('@createTemplateButton')
+      .waitForElementVisible('@templateTitleInput', 'Create Template Popup is visible')
+  },
+
+  clickCreateTemplateSaveButton: function() {
+    return this.waitForElementVisible('@createTemplateSaveButton', 'Save button is visible')
       .click('@createTemplateSaveButton')
-      .verify.visible('@nullTemplateTitle', 'Title validator is visible')
-      .verify.visible('@nullTemplateMessage', 'Message validator is visible')
-    // .click('@cancelCreateButton')
-    // .waitForElementNotPresent('@createTemplatePopup', 'Create template popup is hidden')
   },
 
-  // uploadToTemplate: function() {
-  // },
-
-//    we'll use something similar to this  //
-//    fillOutNewTemplate: function(title, message, pathToFile) {
-//      return this.setValue('@createTemplateTitle', title)
-//       .setValue('@createTemplateMessage', message)
-//       .setValue('input[type="file"]', require('path').resolve(pathToFile))
-//       .waitForElementVisible('@uploadedFile', 'Uploaded file is visible')
-//   },
-  
-//      (test call of command with variable input)
-//       .fillOutNewTemplate('auto test created template', 'this should be in the template\'s message body', 'test_files/sevenkbbuggy.PNG')
-
-  fillOutNewTemplate: function(title, message) {
-    return this.setValue('@createTemplateTitle', title)
-      .setValue('@createTemplateMessage', message)
-      // .setValue('input[type="file"]', require('path').resolve(pathToFile)) can use this method, with pathToFile argument, to add attachments
-      // .waitForElementVisible('@uploadedFile', 'Uploaded file is visible')
+  clickDeleteButton: function() {
+    return this.waitForElementVisible('@deleteTemplateButton', 'Delete icon is visible')
+      .click('@deleteTemplateButton');
   },
 
-  saveNewTemplate: function() {
-    return this.waitForElementVisible('@createTemplateSaveButton', 'Save template is visible')
-      .click('@createTemplateSaveButton')
-      .waitForElementNotPresent('@createTemplateTitle', 'Create template popup is hidden')
+  clickDeleteFinalButton: function() {
+    return this.waitForElementVisible('@deleteTemplateFinalButton', 'Delete Final button is visible')
+      .click('@deleteTemplateFinalButton');
   },
 
-  editTemplate: function() {
+  clickUploadFileButton: function() {
+    return this.waitForElementVisible('@uploadFileButton', 'Upload file button is visible')
+      .click('@uploadFileButton');
+  },
+
+  // Will click the first one found
+  clickRemoveAttachmentIcon: function() {
+    return this.waitForElementVisible('@removeAttachmentIcon', 'Remove attachment icon is visible')
+      .click('@removeAttachmentIcon')
+  },
+
+  /*
+    Multistep functions
+  */
+
+  fillTitleAndMessage: function(title, message) {
+    return this.waitForElementVisible('@templateTitleInput', 'Title input is visible')
+      .setValue('@templateTitleInput', title)
+      .setValue('@templateMessageInput', message)
+  },
+
+  editFirstTemplate: function() {
     return this.click('@firstTemplateEdit')
-      .waitForElementVisible('@createTemplateTitle', 'Edit template popup is visible')
+      .waitForElementVisible('@templateTitleInput', 'Edit template popup is visible')
       .verify.visible('@firstTemplateEditSaveButton', 'Save template button is visible')
-      .setValue('@createTemplateTitle', '* added from edit popup')
+      .setValue('@templateTitleInput', 'I changed the title')
+      .setValue('@templateTitleInput')
       .click('@firstTemplateEditSaveButton')
       .waitForElementNotPresent('@firstTemplateEditSaveButton', 'Edit template popup is not present')
   },
 
-  deleteTemplate: function() {
+  deleteFirstTemplate: function() {
     return this.waitForElementVisible('@deleteTemplateButton', 'Template delete button is visible')
       .click('@deleteTemplateButton')
       .waitForElementVisible('@deleteTemplateFinalButton', 'Delete template popup is visible')
       .click('@deleteTemplateFinalButton')
       .waitForElementNotVisible('@deleteTemplateFinalButton', 'Delete template popup is hidden')
   },
+
+  deleteSpecificTemplate: function(templateName) {
+    this.api.useXpath().waitForElementVisible(`//SPAN[contains(text(), '${templateName}')]`, `${templateName} template is visible`)
+      .click(`//SPAN[contains(text(), '${templateName}')]`);
+
+    return this.waitForElementVisible('@editTemplateButton', 'Edit Template button is visible')
+      .click('@editTemplateButton')
+      .waitForElementVisible('@deleteTemplateButton', 'Delete button is visible')
+      .click('@deleteTemplateButton')
+      .waitForElementVisible('@deleteTemplateFinalButton', 'Final delete button is visible')
+      .click('@deleteTemplateFinalButton')
+  },
+
+  // this function is magic, don't ask why it works. nobody knows. 
+  uploadFile: function(filePath) {
+    return this.setValue('input[type="file"]', path.resolve(filePath));
+  }
 }
 
 module.exports = {
@@ -118,30 +147,10 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    firstTestTemplate: {
-      selector: `//SPAN[contains(.,'Check in')]`,
-      locateStrategy: 'xpath',
-    },
-
     /*---------------------------------------------------------*/
 
-    firstTemplateEditButton: {
-      selector: `//SPAN[contains(.,'Edit Template')]`,
-      locateStrategy: 'xpath',
-    },
-
-    firstTemplateEditTitleInput: {
-      selector: `//INPUT[contains(@name, 'subject')]`,
-      locateStrategy: 'xpath',
-    },
-
-    firstTemplateEditMessageInput: {
-      selector: `//TEXTAREA[contains(@name, 'message')]`,
-      locateStrategy: 'xpath',
-    },
-
-    firstTemplateEditSaveButton: {
-      selector: `//SPAN[contains(.,'Update Template')]`,
+    editTemplateButton: {
+      selector: `//SPAN[contains(text(), 'Edit Template')]`,
       locateStrategy: 'xpath',
     },
 
@@ -167,23 +176,23 @@ module.exports = {
     // create template page
     /*---------------------------------------------------------*/
 
-    createTemplateTitle: {
+    templateTitleInput: {
       selector: `//INPUT[contains(@name, 'subject')]`,
       locateStrategy: 'xpath',
     },
 
-    createTemplateMessage: {
+    templateMessageInput: {
       selector: `//TEXTAREA[contains(@name, 'message')]`,
       locateStrategy: 'xpath',
     },
 
     createTemplateSaveButton: {
-      selector: `//SPAN[contains(.,'Upload File')]`,
+      selector: `//SPAN[contains(.,'Create Template')]`,
       locateStrategy: 'xpath'
     },
 
     uploadFileButton: {
-      selector: `//SPAN[contains(.,'Create Template')]`,
+      selector: `//SPAN[contains(.,'Upload File')]`,
       locateStrategy: 'xpath',
     },
 
@@ -196,5 +205,10 @@ module.exports = {
       selector: `//DIV[contains(.,'Message is required')]`,
       locateStrategy: 'xpath',
     },
+
+    removeAttachmentIcon: {
+      selector: `//BUTTON[contains(@title, 'Close')]`,
+      locateStrategy: 'xpath'
+    }
   }
 };

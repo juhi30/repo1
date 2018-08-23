@@ -135,15 +135,15 @@ const billingCommands = {
   updateBillingContact: function () {
     return this.updateDetails('@contactFirstNameInput', 'Edited_FN')
       .updateDetails('@contactLastNameInput', 'Edited_LN')
-      .updateDetails('@phoneNumberInput', '9876543210')
+      .updateDetails('@phoneNumberInput', '9876543211')
       .updateDetails('@emailAddrInput', 'test@email.com')
       .updateDetails('@billingLine1Input', 'Billing Line1')
       .updateDetails('@billingLine2Input', 'Billing Line2')
-      .updateDetails('@cityInput', 'City')
+      .updateDetails('@cityInput', 'Billing City')
       .updateDetails('@stateInput', 'Florida')
       .updateDetails('@contactZipInput', '13245')
       .click('@contactSaveButton')
-      .waitForElementNotVisible('@contactSaveButton', 'Update Modal is hidden')
+      .waitForElementVisible('@billingContactUpdateSuccessMessage', 'Update Modal is hidden, Success message displayed')
       .waitForElementVisible('@editedContactDetails', 'Edited Details exist, Edit successful')
   },
 
@@ -204,7 +204,7 @@ const billingCommands = {
       .updateDetails('@bankRoutingNumberInput', '123456789')
       .updateDetails('@bankAccountTypeSelect', 'Saving')
       .click('@savePaymentMethodButton')
-      .waitForElementNotVisible('@savePaymentMethodButton', 'Update Modal is hidden')
+      .waitForElementVisible('@updatePaymentSuccessMessage', 'Update Modal is hidden, Success message available')
       .waitForElementVisible('@bankName', 'Bank Name exists, Edit successful')
   },
 
@@ -228,6 +228,7 @@ const billingCommands = {
     return this.verify.visible('@pdfButton', 'PDF Link Text is available')
       .pause(1000)
       .click('@pdfButton')
+      .pause(1000)
       .waitForElementVisible('@pdfInvoice', 'Invoice Modal is open')
   }
 }
@@ -514,6 +515,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    billingContactUpdateSuccessMessage: {
+      selector: `//DIV[text()='Billing Contact updated successfully.']`,
+      locateStrategy: 'xpath',
+    },
+
     contactFirstNameInput: {
       selector: `//INPUT[@name='contactFirstName']`,
       locateStrategy: 'xpath'
@@ -692,6 +698,11 @@ module.exports = {
 
     savePaymentMethodButton: {
       selector: `//SPAN[@class='button__text-wrapper'][text()='Save Payment Method']`,
+      locateStrategy: 'xpath',
+    },
+
+    updatePaymentSuccessMessage: {
+      selector: `//DIV[text()='Payment Profile updated successfully.']`,
       locateStrategy: 'xpath',
     },
 

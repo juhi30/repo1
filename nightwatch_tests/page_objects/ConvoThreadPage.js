@@ -56,6 +56,11 @@ const convoThreadCommands = {
       .click('@applyFiltersButton')
   },
 
+  clickAssignButton: function() {
+    return this.waitForElementVisible('@assignButton', 'Assign button is visible')
+      .click('@assignButton')
+  },
+
   // Multistep functions //
 
   validatePageElements: function() {
@@ -145,11 +150,9 @@ const convoThreadCommands = {
     .click('@membersOption')
   },
 
-  setValueMemberAssignSearchInput: function(name) {
+  setValueOfMemberAssignSearchInput: function(name) {
     return this.waitForElementVisible('@assignmentMemberSearchInput', 'Member search input is visible')
       .setValue('@assignmentMemberSearchInput', name);
-  },
-     
   }
 }
 
@@ -330,6 +333,11 @@ module.exports = {
 
     assignmentGroupSearchInput: {
       selector: `//INPUT[contains(@placeholder, 'Search Groups')]`,
+      locateStrategy: 'xpath'
+    },
+
+    assignButton: {
+      selector: `//BUTTON[contains(@id, 'assign__final__button')]`,
       locateStrategy: 'xpath'
     }
   }

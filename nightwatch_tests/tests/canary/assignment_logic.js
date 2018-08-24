@@ -49,8 +49,10 @@ module.exports = {
 
     thread.clickAssignIcon()
       .clickMemberAssign()
-      .setValueMemberAssignSearchInput('Scott Towels');
-    helpers.clickSpanViaText('Scott Towels');
-    thread.clickAssign();
+      .setValueOfMemberAssignSearchInput('Scott Towels');
+    helpers.clickSpanViaText(thread, 'Scott Towels');
+    thread.clickAssignButton()
+      .pause(1000);
+    helpers.findTextOnPage(thread, 'Assignment updated.');
   }
 }

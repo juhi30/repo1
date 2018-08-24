@@ -10,7 +10,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .enterMemberCreds('mkd', 'Test@123')
+      .enterMemberCreds('plm', 'Test@123')
       .submit()
       .validateUrlChange();
   },
@@ -35,13 +35,11 @@ module.exports = {
     billing.validateCurrentPlan();
   },
 
-
   'Validate Integrations Component': function (client) {
     const billing = client.page.BillingUsagePage();
 
     billing.validateIntegrationsProduct();
   },
-
 
   'Validate Current Usage Section': function (client) {
     const billing = client.page.BillingUsagePage();
@@ -61,7 +59,8 @@ module.exports = {
     billing.validateColors('@usedTextMessage', 'fill');
   },
 
-  'Validate Add-Ons and Overages Section': function (client) {
+  //TODO - To be uncommented after updating test cases as per new Billing Designs
+  /* 'Validate Add-Ons and Overages Section': function (client) {
     const billing = client.page.BillingUsagePage();
 
     billing.validateAddOnsOveragesSection();
@@ -71,12 +70,85 @@ module.exports = {
     const billing = client.page.BillingUsagePage();
 
     billing.validateEstimatedBillSection();
-  },
+  }, 
 
   'Validate Note in Estimated Bill Section': function (client) {
     const billing = client.page.BillingUsagePage();
 
     billing.validateEstimatedBillNote();
+  },*/
+
+  'Verify available Contact Information': function (client) {
+    const contact = client.page.BillingUsagePage();
+
+    contact.verifyContactInformation();
+  },
+
+  'Validate Update Billing Contact link availability': function (client) {
+    const billing = client.page.BillingUsagePage();
+
+    billing.validateUpdateLink('@updateBillingContactButton')
+  },
+
+  'Update Billing Contact Details': function (client) {
+    const contact = client.page.BillingUsagePage();
+
+    contact.openUpdateModal('@updateBillingContactButton', '@updateContactModalHeader')
+      .verifyBillingContactModalElements()
+      .updateBillingContact();
+  },
+
+  'Validate Available Payment Method Details': function (client) {
+    const billing = client.page.BillingUsagePage();
+
+    billing.validateAvailableDetails('@availablePaymentMethodDetails');
+  },
+
+  'Validate Update Payment Method link availability': function (client) {
+    const billing = client.page.BillingUsagePage();
+
+    billing.validateUpdateLink('@changePaymentMethodButton');
+  },
+
+  'Verify CC Update Modal': function (client) {
+    const billing = client.page.BillingUsagePage();
+
+    billing.openUpdateModal('@changePaymentMethodButton', '@updatePaymentModalHeader')
+      .pause(1000)
+      .validateUpdateModalCC()
+      .pause(1000);
+  },
+
+  'Verify Bank Account Update Modal': function (client) {
+    const billing = client.page.BillingUsagePage();
+
+    billing.openUpdateModal('@changePaymentMethodButton', '@updatePaymentModalHeader')
+      .pause(1000)
+      .changePaymentMethod('@radioBankAccount')
+      .pause(1000)
+      .validateUpdateModalBankAccount()
+      .pause(1000);
+  },
+
+  'Update Payment from Credit Card to Bank Account': function (client) {
+    const billing = client.page.BillingUsagePage();
+    billing.openUpdateModal('@changePaymentMethodButton', '@updatePaymentModalHeader')
+      .pause(1000)
+      .changePaymentMethod('@radioBankAccount')
+      .pause(1000)
+      .updatePaymentToBank();
+  },
+
+  'Validate Billing History': function (client) {
+    const billing = client.page.BillingUsagePage();
+    billing.validateBillingHistory();
+  },
+
+  'Validate Invoice PDF': function (client) {
+    const billing = client.page.BillingUsagePage();
+    billing.validatePDFOpen();
+
     client.end(2000);
- }
+  },
 }
+

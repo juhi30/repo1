@@ -55,13 +55,45 @@ module.exports = {
     thread.clickAssignButton()
       .pause(2000);
     helpers.findTextOnPage(thread, 'Assignment updated.');
+    uni.pause(3000);
     uni.clickLogout();
   },
 
-  /*
-  whats left:
-    1. Login as scott, witness thread in Assigned To Me inbox
-    2. Mark assignemnt complete and logout
-    3. Login as Keaton and verify thread is back in Direct Inbox.
-  */
+  'Login as Scott, witness thread in Assigned to Me': function(client) {
+    const inbox = client.page.AssignedInboxPage();
+    const login = client.page.LoginPage();
+
+    login.pause(2000)
+      .enterMemberCreds('towels', 'Towels123')
+      .submit()
+      .validateUrlChange();
+    helpers.findTextOnPage(inbox, 'Kvothe Kingkiller');
+    helpers.clickSpanViaText(inbox, 'Kvothe Kingkiller');
+  },
+
+  'Mark the thread as unassigned, then logout': function(client) {
+    const thread = client.page.ConvoThreadPage();
+    const uni = client.page.UniversalElements();
+
+    thread.clickMoreOptionsIcon()
+      .pause(1000)
+      .clickAssignmentComplete()
+      .pause(5000);
+    helpers.findTextOnPage(thread, 'Looks like you\'re all caught up!');
+    uni.clickLogout();
+  },
+
+  'Login again as Keaton and verify that the thread is back in the Direct Inbox': function(client) {
+    const login = client.page.LoginPage();
+    const direct = client.page.DirectInboxPage();
+
+    login.pause(2000)
+      .enterMemberCreds('nightkeaton', 'Chacoz123')
+      .submit()
+      .validateUrlChange();
+    direct.navigate()
+      .pause(2000);
+    helpers.findTextOnPage(direct, 'Kvothe Kingkiller');
+    client.end(1000);
+  }
 }

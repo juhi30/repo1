@@ -150,6 +150,16 @@ const convoThreadCommands = {
     .click('@membersOption')
   },
 
+  clickMoreOptionsIcon: function() {
+    return this.waitForElementVisible('@moreOptionsIcon', 'More options icon is visible')
+      .click('@moreOptionsIcon')
+  },
+
+  clickAssignmentComplete: function() {
+    return this.waitForElementVisible('@assignmentCompleteOption', 'Assignment Complete option is visible')
+      .click('@assignmentCompleteOption')
+  },
+
   setValueOfMemberAssignSearchInput: function(name) {
     return this.waitForElementVisible('@assignmentMemberSearchInput', 'Member search input is visible')
       .setValue('@assignmentMemberSearchInput', name);

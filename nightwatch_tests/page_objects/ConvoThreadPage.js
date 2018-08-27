@@ -1,3 +1,5 @@
+const helpers = require('../helpers');
+
 const convoThreadCommands = {
 
   pause: function(time) {
@@ -5,33 +7,14 @@ const convoThreadCommands = {
     return this;
   },
 
+  fillMessageInput: function(text) {
+    return this.setValue('@messageInput', text)
+  },
+
+    // Clicking functions //
   clickElement: function(element) {
     return this.waitForElementVisible(element, `${element} is visible`)
       .click(element)
-  },
-
-  clickSpanText: function(text) {
-    const xpath = `//SPAN[contains(text(), ${text})]`;
-
-    return this.waitForElementVisible(xpath, `Span with text "${text}" is visible`)
-      .click(xpath)
-  },
-
-  validatePageElements: function() {
-    return this.waitForElementVisible('@messageInput', 'Conversation thread is visible')
-      .verify.visible('@allCommunicationsDropdown', 'All Communications dropdown is visible')
-      .verify.visible('@addNoteButton', 'Add note button is visible')
-      .verify.visible('@searchConvobutton', 'Search Conversation button is visible')
-      .verify.visible('@lastMessageBubble', 'First message is visible')
-      .verify.visible('@messageInput', 'Message input is visible')
-      .verify.visible('@messageSendButton', 'Send message button is visible')
-      .verify.visible('@addFilePopupButton', 'Add file dropdown is visible')
-      .verify.visible('@messageToDropdown', 'Message TO dropdown is visible')
-      .verify.visible('@messageFromDropdown', 'Message FROM dropdown is visible')
-  },
-
-  fillMessageInput: function(text) {
-    return this.setValue('@messageInput', text)
   },
 
   clickSendMessage: function() {
@@ -71,6 +54,26 @@ const convoThreadCommands = {
   clickApplyFiltersButton: function() {
     return this.waitForElementPresent('@applyFiltersButton', 'Apply Filters button is visible')
       .click('@applyFiltersButton')
+  },
+
+  clickAssignButton: function() {
+    return this.waitForElementVisible('@assignButton', 'Assign button is visible')
+      .click('@assignButton')
+  },
+
+  // Multistep functions //
+
+  validatePageElements: function() {
+    return this.waitForElementVisible('@messageInput', 'Conversation thread is visible')
+      .verify.visible('@allCommunicationsDropdown', 'All Communications dropdown is visible')
+      .verify.visible('@addNoteButton', 'Add note button is visible')
+      .verify.visible('@searchConvobutton', 'Search Conversation button is visible')
+      .verify.visible('@lastMessageBubble', 'First message is visible')
+      .verify.visible('@messageInput', 'Message input is visible')
+      .verify.visible('@messageSendButton', 'Send message button is visible')
+      .verify.visible('@addFilePopupButton', 'Add file dropdown is visible')
+      .verify.visible('@messageToDropdown', 'Message TO dropdown is visible')
+      .verify.visible('@messageFromDropdown', 'Message FROM dropdown is visible')
   },
 
   addNoteToThread: function(text) {
@@ -135,8 +138,32 @@ const convoThreadCommands = {
 
   validateTemplateWasSent: function() {
     return this.verify.containsText('@lastMessageBubble', 'this should be in the template\'s message body', 'Template is shown in convo thread')
-  }
+  },
 
+  clickAssignIcon: function() {
+    return this.waitForElementVisible('@assignmentIcon', 'Assignment icon is visible')
+      .click('@assignmentIcon')
+  },
+
+  clickMemberAssign: function() {
+    return this.waitForElementVisible('@membersOption', 'Members option is visible')
+    .click('@membersOption')
+  },
+
+  clickMoreOptionsIcon: function() {
+    return this.waitForElementVisible('@moreOptionsIcon', 'More options icon is visible')
+      .click('@moreOptionsIcon')
+  },
+
+  clickAssignmentComplete: function() {
+    return this.waitForElementVisible('@assignmentCompleteOption', 'Assignment Complete option is visible')
+      .click('@assignmentCompleteOption')
+  },
+
+  setValueOfMemberAssignSearchInput: function(name) {
+    return this.waitForElementVisible('@assignmentMemberSearchInput', 'Member search input is visible')
+      .setValue('@assignmentMemberSearchInput', name);
+  }
 }
 
 module.exports = {
@@ -294,5 +321,34 @@ module.exports = {
       selector: `//SPAN[contains(.,'Note')]`,
       locateStrategy: 'xpath',
     },
+
+    /*------------------------------------------------------------------------*/
+    // Assignment Container elements
+    /*------------------------------------------------------------------------*/
+
+    membersOption: {
+      selector: `//BUTTON[contains(@id, 'assign__members')]`,
+      locateStrategy: 'xpath'
+    },
+
+    groupsOption: {
+      selector: `//BUTTON[contains(@id, 'assign__groups')]`,
+      locateStrategy: 'xpath'
+    },
+
+    assignmentMemberSearchInput: {
+      selector: `//INPUT[contains(@placeholder, 'Search Members')]`,
+      locateStrategy: 'xpath'
+    },
+
+    assignmentGroupSearchInput: {
+      selector: `//INPUT[contains(@placeholder, 'Search Groups')]`,
+      locateStrategy: 'xpath'
+    },
+
+    assignButton: {
+      selector: `//BUTTON[contains(@id, 'assign__final__button')]`,
+      locateStrategy: 'xpath'
+    }
   }
 };

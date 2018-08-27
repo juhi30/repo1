@@ -1,5 +1,5 @@
 function findTextOnPage(client, text) {
-  client.verify.containsText('body', text);
+  client.api.useCss().verify.containsText('body', text);
 }
 
 function returnElementText(client, selector) {

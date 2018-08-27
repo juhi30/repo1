@@ -46,13 +46,22 @@ module.exports = {
 
   'Assign thread to Scott, then logout': function(client) {
     const thread = client.page.ConvoThreadPage();
+    const uni = client.page.UniversalElements();
 
     thread.clickAssignIcon()
       .clickMemberAssign()
       .setValueOfMemberAssignSearchInput('Scott Towels');
     helpers.clickSpanViaText(thread, 'Scott Towels');
     thread.clickAssignButton()
-      .pause(1000);
+      .pause(2000);
     helpers.findTextOnPage(thread, 'Assignment updated.');
-  }
+    uni.clickLogout();
+  },
+
+  /*
+  whats left:
+    1. Login as scott, witness thread in Assigned To Me inbox
+    2. Mark assignemnt complete and logout
+    3. Login as Keaton and verify thread is back in Direct Inbox.
+  */
 }

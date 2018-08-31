@@ -15,8 +15,6 @@ module.exports = {
         ooo.navigate()
             .validateUrlChange()
             .pause(5000)
-
-
     },
 
     'Create And Delete Event': function (client) {
@@ -30,15 +28,12 @@ module.exports = {
             .createEvent()
             .deleteEvent()
             .pause(5000)
-      
-
-    },
+       },
 
     'Logout': function (client) {
         const test = client.page.UniversalElements();
     
         test.clickLogout()
-
-    },
+     },
 
 }  

@@ -59,8 +59,7 @@ const outOfOfficeCommands = {
       .waitForElementVisible('@finalDeleteButton', 'Delete Event button is visible')
       .click('@finalDeleteButton')
       .waitForElementVisible('@eventDeletionSuccessMessage','deletion Success message is visible')
-  },
-
+  }, 
   
 }
 
@@ -141,7 +140,6 @@ module.exports = {
       selector: `//SELECT[contains(@id, 'toTime')]`,
       locateStrategy: 'xpath',
     },
-
 
     channels: {
       selector: `//DIV[@role='button']`,

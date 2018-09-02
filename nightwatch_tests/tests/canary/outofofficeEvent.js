@@ -20,12 +20,9 @@ module.exports = {
     'Create And Delete Event': function (client) {
         const ooo = client.page.OutOfOfficePage();
 
-        ooo.validateCreateEventButton()
-            .selectDate('@fromDateInput', '09/29/2018')
-            .selectTime('@fromTimeInput', '12:00am')
-            .selectDate('@toDateInput', '09/29/2019')
-            .selectTime('@toTimeInput', '11:59pm')
-            .createEvent()
+        ooo.validateCreateOOOEvent()
+             .createEvent()
+            .editEvent()
             .deleteEvent()
             .pause(5000)
        },
@@ -35,5 +32,4 @@ module.exports = {
     
         test.clickLogout()
      },
-
 }  

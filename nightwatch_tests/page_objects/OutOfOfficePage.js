@@ -27,8 +27,8 @@ const outOfOfficeCommands = {
   },
 
   selectChannel: function () {
-    return this.verify.visible('@textChannel1', 'Channel is visible')
-      .click('@textChannel1')
+    return this.verify.visible('@firstTextChannel', 'Channel is visible')
+      .click('@firstTextChannel')
       .pause(1000)
   },
 
@@ -138,8 +138,9 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
-    textChannel1: {
-      selector: `.//*[@id='app']//div[2]//form/div[3]/div[2]/div/div[1]/div/div/div[1]`,
+    //Need unique identifier
+    firstTextChannel: {
+      selector: `(//DIV[@role='button'])[1]`,
       locateStrategy: 'xpath',
     },
 

@@ -5,78 +5,54 @@ const outOfOfficeCommands = {
     return this;
   },
 
+  updateDetails: function (element, newValue) {
+    return this.verify.visible(element, element + 'is visible')
+      .clearValue(element)
+      .setValue(element, newValue)
+  },
+
   validateUrlChange: function () {
-    return this.waitForElementVisible('@outOfOfficeTitle', 6000, false, null, 'Out Of Office Page Opened successfully')
+    return this.waitForElementVisible('@outOfOfficeListPageTitle', 6000, false, null, 'Out Of Office Page Opened successfully')
       .verify.urlContains('out-of-office', 'Out of Office Page is opened')
       .pause(3000)
   },
 
-  validateCreateOOOEvent: function () {
-    return this.waitForElementVisible('@createOOOEventButton', 3000, false, null, 'Create Event Button is visible')
-      .click('@createOOOEventButton')
-      .waitForElementVisible('@pageHeader', 4000, false, null, 'Out of Office Page opened')
-      .setValue('@titleInput', 'Test Event')
-      .setValue('@messageTextArea', 'Test Event Sample')
-      .clearValue('@fromDateInput')
-      .setValue('@fromDateInput', '09/29/2018')
-      .clearValue('@toDateInput')
-      .setValue('@toDateInput', '09/29/2019')
-      .clearValue('@fromTimeInput')
-      .setValue('@fromTimeInput', '12:00am')
-      .clearValue('@toTimeInput')
-      .setValue('@toTimeInput', '11:59pm')     
-      .verify.visible('@textChannel1', 'Channel is visible')
+  verifyCreateOOOEventButton: function () {
+    return this.waitForElementVisible('@addOOOEventButton', 3000, false, null, 'Add Event Button is visible')
+  },
+
+  openOOOPage: function (element1, element2) {
+    return this.click(element1)
+      .waitForElementVisible(element2, 6000, false, null, 'Out of Office Page opened')
+  },
+
+  selectChannel: function () {
+    return this.verify.visible('@textChannel1', 'Channel is visible')
       .click('@textChannel1')
       .pause(1000)
   },
 
-  createEvent: function () {
-    return this.click('@createEventButton')
+  submit: function (element, notification) {
+    return this.click(element)
+      .waitForElementVisible(notification, 'Success message is visible')
       .pause(3000)
-      .waitForElementVisible('@eventCreateSuccessMessage','create Success message is visible') 
-  },
-
-  editEvent: function(){
-    return this.waitForElementVisible('@editOOOEvent', 'Edit Button is visible')
-      .click('@editOOOEvent')
-      .clearValue('@titleInput')
-      .setValue('@titleInput', 'New Test Event')
-      .clearValue('@messageTextArea')
-      .setValue('@messageTextArea', 'New Test Event Sample')
-      .clearValue('@fromDateInput')
-      .setValue('@fromDateInput', '10/28/2019')
-      .clearValue('@toDateInput')
-      .setValue('@toDateInput', '10/28/2020')
-      .clearValue('@toTimeInput')
-      .setValue('@toTimeInput', '11:00am')
-      .clearValue('@fromTimeInput')
-      .setValue('@fromTimeInput', '12:00am')
-      .click('@addMoreChannelsLinktext')
-      .waitForElementVisible('@textChannel2', 'Another Channel is visible')
-      .click('@textChannel2')
-      .pause(1000)
-      .click('@updateEventButton')
-      .waitForElementVisible('@eventUpdateSuccessMessage','Event Updated Success message is visible')
   },
 
   deleteEvent: function () {
-    return this.waitForElementVisible('@editOOOEvent', 'Edit Button is visible')
-      .click('@editOOOEvent')
-      .waitForElementVisible('@trashDeleteIcon', 'Delete Element is visible')
+    return this.waitForElementVisible('@trashDeleteIcon', 'Delete Element is visible')
       .click('@trashDeleteIcon')
       .waitForElementVisible('@cancelDeleteButton', 'cancel button is visible')
       .waitForElementVisible('@finalDeleteButton', 'Delete Event button is visible')
       .click('@finalDeleteButton')
-      .waitForElementVisible('@eventDeletionSuccessMessage','deletion Success message is visible')
+      .waitForElementVisible('@eventDeletionSuccessMessage', 'deletion Success message is visible')
       .pause(1000)
       .expect.element('@firstOOOEvent').to.not.be.present;
-  }, 
-  
+  }
 }
 
 module.exports = {
   commands: [outOfOfficeCommands],
-  url: function() {
+  url: function () {
     return this.api.launch_url + '/settings/organization/out-of-office';
   },
   elements: {
@@ -84,13 +60,13 @@ module.exports = {
     // OOO list view
     /*----------------------------------------------------*/
 
-    outOfOfficeTitle: {
+    outOfOfficeListPageTitle: {
       selector: `//DIV[text()='Out of Office']`,
       locateStrategy: 'xpath',
     },
 
-    createOOOEventButton: {
-      selector: `//BUTTON[contains(@title, 'Create Out of Office Event')]`,
+    addOOOEventButton: {
+      selector: `//BUTTON[(@title='Create Out of Office Event')]`,
       locateStrategy: 'xpath',
     },
 
@@ -108,8 +84,13 @@ module.exports = {
     // OOO title and message
     /*-----------------------------------------------------*/
 
-    pageHeader: {
-      selector: `//DIV[text()='Out of Office']`,
+    createEventPageHeader: {
+      selector: `//DIV[text()='Create Out of Office Event']`,
+      locateStrategy: 'xpath',
+    },
+
+    editEventPageHeader: {
+      selector: `//DIV[text()='Edit Out of Office Event']`,
       locateStrategy: 'xpath',
     },
 
@@ -162,11 +143,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    textChannel2:{
-      selector : `.//*[@id='app']//div[2]//form/div[3]/div[2]/div/div[1]/div/div/div[2]`,
-      locateStrategy:'xpath',
-    },
-
     /*-----------------------------------------------------*/
     // Save, update, and delete buttons
     /*-----------------------------------------------------*/
@@ -196,24 +172,24 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    eventCreateSuccessMessage : {
+    eventCreateSuccessMessage: {
       selector: `//DIV[text()='Out of Office created successfully.']`,
-      locateStrategy:'xpath',
+      locateStrategy: 'xpath',
     },
 
-    eventUpdateSuccessMessage :{
-      selector:`//DIV[text()='Out of Office updated successfully.']`,
-      locateStrategy:'xpath',
+    eventUpdateSuccessMessage: {
+      selector: `//DIV[text()='Out of Office updated successfully.']`,
+      locateStrategy: 'xpath',
     },
 
-    eventDeletionSuccessMessage :{
-      selector:`//DIV[text()='Out of Office deleted successfully.']`,
-      locateStrategy:'xpath',
+    eventDeletionSuccessMessage: {
+      selector: `//DIV[text()='Out of Office deleted successfully.']`,
+      locateStrategy: 'xpath',
     },
 
-    addMoreChannelsLinktext : {
-      selector:`//SPAN[text()='Add More Channels']`,
-      locateStrategy:'xpath',
+    editedTitle: {
+      selector: `//SPAN[text()='Edited_Title']`,
+      locateStrategy: 'xpath',
     },
-  },
+  }
 };

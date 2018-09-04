@@ -1,6 +1,6 @@
 module.exports = {
 
-    'Login Page with Member Credentials': function (client) {
+    'Login Page with Member Credentials': function(client) {
         const login = client.page.LoginPage();
 
         login.navigate()
@@ -9,7 +9,7 @@ module.exports = {
             .validateUrlChange();
     },
 
-    'Navigate to Out Of Office Page and verify OOO page accessibility': function (client) {
+    'Navigate to Out Of Office Page and verify OOO page accessibility': function(client) {
         const ooo = client.page.OutOfOfficePage();
 
         ooo.navigate()
@@ -17,13 +17,13 @@ module.exports = {
             .pause(3000)
     },
 
-    'Verify OOO Elements - Add Button': function (client) {
+    'Verify OOO Elements - Add Button': function(client) {
         const ooo = client.page.OutOfOfficePage();
 
         ooo.verifyCreateOOOEventButton()
     },
 
-    'Create OOO Event': function (client) {
+    'Create OOO Event': function(client) {
         const ooo = client.page.OutOfOfficePage();
 
         ooo.openOOOPage('@addOOOEventButton', '@createEventPageHeader')
@@ -37,7 +37,7 @@ module.exports = {
             .submit('@createEventButton', '@eventCreateSuccessMessage')
     },
 
-    'Update the Event Details ': function (client) {
+    'Update the Event Details ': function(client) {
         const ooo = client.page.OutOfOfficePage();
 
         ooo.openOOOPage('@editOOOEvent', '@editEventPageHeader')
@@ -51,14 +51,14 @@ module.exports = {
             .waitForElementVisible('@editedTitle', 3000, 'Edited Title visible')
     },
 
-    'verify Event Deletion': function (client) {
+    'verify Event Deletion': function(client) {
         const ooo = client.page.OutOfOfficePage();
 
         ooo.openOOOPage('@editOOOEvent', '@editEventPageHeader')
             .deleteEvent();
     },
 
-    'Logout': function (client) {
+    'Logout': function(client) {
         const test = client.page.UniversalElements();
 
         test.clickLogout()

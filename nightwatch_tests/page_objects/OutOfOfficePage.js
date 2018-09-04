@@ -1,44 +1,44 @@
 const outOfOfficeCommands = {
 
-  pause: function (time) {
+  pause: function(time) {
     this.api.pause(time);
     return this;
   },
 
-  updateDetails: function (element, newValue) {
-    return this.verify.visible(element, element + 'is visible')
+  updateDetails: function(element, newValue) {
+    return this.verify.visible(element, element + ' is visible')
       .clearValue(element)
       .setValue(element, newValue)
   },
 
-  validateUrlChange: function () {
+  validateUrlChange: function() {
     return this.waitForElementVisible('@outOfOfficeListPageTitle', 6000, false, null, 'Out Of Office Page Opened successfully')
       .verify.urlContains('out-of-office', 'Out of Office Page is opened')
       .pause(3000)
   },
 
-  verifyCreateOOOEventButton: function () {
+  verifyCreateOOOEventButton: function() {
     return this.waitForElementVisible('@addOOOEventButton', 3000, false, null, 'Add Event Button is visible')
   },
 
-  openOOOPage: function (element1, element2) {
+  openOOOPage: function(element1, element2) {
     return this.click(element1)
       .waitForElementVisible(element2, 6000, false, null, 'Out of Office Page opened')
   },
 
-  selectChannel: function () {
+  selectChannel: function() {
     return this.verify.visible('@firstTextChannel', 'Channel is visible')
       .click('@firstTextChannel')
       .pause(1000)
   },
 
-  submit: function (element, notification) {
+  submit: function(element, notification) {
     return this.click(element)
       .waitForElementVisible(notification, 'Success message is visible')
       .pause(3000)
   },
 
-  deleteEvent: function () {
+  deleteEvent: function() {
     return this.waitForElementVisible('@trashDeleteIcon', 'Delete Element is visible')
       .click('@trashDeleteIcon')
       .waitForElementVisible('@cancelDeleteButton', 'cancel button is visible')

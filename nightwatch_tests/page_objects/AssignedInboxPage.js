@@ -8,7 +8,7 @@ const commands = {
 module.exports = {
   commands: [commands],
   url: function() {
-    return this.api.launch_url + '/inbox/direct'
+    return this.api.launch_url + '/inbox'
   },
   elements: {
     // not much to see here yet kid

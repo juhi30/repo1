@@ -24,21 +24,27 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-            docker build -t rhino-ecr/rhinomatic:nightwatch-develop nightwatch_tests
+            docker build -t rhino-ecr/rhinomatic:nightwatch nightwatch_tests
       - run:
           name: Update ECR
           command: |
             # login
             $(aws ecr get-login --no-include-email)
             export accountId=$(aws sts get-caller-identity | jq '.Account' | sed "s/\"//g")
+
             baseUri=$accountId.dkr.ecr.$AWS_REGION.amazonaws.com/rhino-ecr/rhinomatic
-            docker tag rhino-ecr/rhinomatic:nightwatch-develop $baseUri:nightwatch-$CIRCLE_BRANCH
+            docker tag rhino-ecr/rhinomatic:nightwatch $baseUri:nightwatch-$CIRCLE_BRANCH
+
             # push tagged with either "nightwatch-master", "nightwatch-staging", or "nightwatch-develop"
             docker push $baseUri:nightwatch-$CIRCLE_BRANCH
+
+            # also tag the image with the SHA
+            docker tag $baseUri:nightwatch-$CIRCLE_BRANCH $baseUri:$CIRCLE_BRANCH-$CIRCLE_SHA1
+            docker push $baseUri:$CIRCLE_BRANCH-$CIRCLE_SHA1
  
             if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "develop" ]; then
               # always tag latest develop and master chrome builds with "latest"
-              docker tag $baseUri:$CIRCLE_SHA1 $baseUri:latest
+              docker tag $baseUri:$CIRCLE_BRANCH-$CIRCLE_SHA1 $baseUri:latest
               docker push $baseUri:latest
             fi
 

@@ -27,7 +27,6 @@ const noteText = 'Note: Charges are made on a monthly basis at the end of each b
 
 const messageAlertText = 'Message count reflects usage as of 11:00 PM EST on ';
 
-
 module.exports = {
     colors,
     noteText,

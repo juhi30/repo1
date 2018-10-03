@@ -71,7 +71,6 @@ const billingCommands = {
       text = tpObj.value;
       if (text && text.match(/Standard/gi) && text.match(/Standard/gi).length) {
         return self.expect.element('@integrationsProduct').to.be.present;
-
       } else {
         return self.expect.element('@integrationsProduct').to.not.be.present;
       }
@@ -245,12 +244,11 @@ const billingCommands = {
   historySection: function () {
     let self = this;
     this.getText('@NoBillingHistory', function (err, result) {
-
       if (err && !err.status) {
         console.log('No History Available')
       } else {
         return self.validateBillingHistory()
-        .validatePDFOpen();
+          .validatePDFOpen();
       }
     })
   }

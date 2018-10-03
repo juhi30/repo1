@@ -29,10 +29,10 @@ module.exports = {
     billing.validateSections();
   },
 
-  'Validate Products in Current Plan Section ': function (client) {
+  'Verify Current Subscription and Subscription Products': function (client) {
     const billing = client.page.BillingUsagePage();
 
-    billing.validateCurrentPlan();
+    billing.validateSubscription();
   },
 
   'Validate Integrations Component': function (client) {
@@ -44,39 +44,36 @@ module.exports = {
   'Validate Current Usage Section': function (client) {
     const billing = client.page.BillingUsagePage();
 
-    billing.validateCurrentUsage();
-  },
-
-  'Validate color of Text Message Animator': function (client) {
-    const billing = client.page.BillingUsagePage();
-
-    billing.validateColors('@messageAnimator', 'stroke');
-  },
-
-  'Validate color of Text Message Count': function (client) {
-    const billing = client.page.BillingUsagePage();
-
-    billing.validateColors('@usedTextMessage', 'fill');
-  },
-
-  //TODO - To be uncommented after updating test cases as per new Billing Designs
-  /* 'Validate Add-Ons and Overages Section': function (client) {
-    const billing = client.page.BillingUsagePage();
-
-    billing.validateAddOnsOveragesSection();
+    let self = billing;
+    billing.getText('@planName', function (tpObj) {
+      text = tpObj.value;
+      if (text && text.match(/Subscription Trial/gi) && text.match(/Subscription Trial/gi).length) {
+        self.expect.element('@currentUsageSection').to.not.be.present;
+      } else {
+        self.expect.element('@currentUsageSection').to.be.present;
+        self.validateCurrentUsage()
+          .validateColors('@messageAnimator', 'stroke')
+          .validateColors('@usedTextMessage', 'fill')
+          .validateMessageUpdateAlert()
+      }
+    });
   },
 
   'Validate Estimated Bill Section': function (client) {
     const billing = client.page.BillingUsagePage();
 
-    billing.validateEstimatedBillSection();
-  }, 
-
-  'Validate Note in Estimated Bill Section': function (client) {
-    const billing = client.page.BillingUsagePage();
-
-    billing.validateEstimatedBillNote();
-  },*/
+    let self = billing;
+    billing.getText('@planName', function (tpObj) {
+      text = tpObj.value;
+      if (text && text.match(/Subscription Trial/gi) && text.match(/Subscription Trial/gi).length) {
+        self.expect.element('@estimatedBillSection').to.not.be.present;
+      } else {
+        self.expect.element('@estimatedBillSection').to.be.present;
+        self.validateEstimatedBillSection()
+          .validateEstimatedBillNote()
+      }
+    });
+  },
 
   'Verify available Contact Information': function (client) {
     const contact = client.page.BillingUsagePage();
@@ -115,6 +112,8 @@ module.exports = {
 
     billing.openUpdateModal('@changePaymentMethodButton', '@updatePaymentModalHeader')
       .pause(1000)
+      .changePaymentMethod('@radioCreditCard')
+      .pause(1000)
       .validateUpdateModalCC()
       .pause(1000);
   },
@@ -132,6 +131,7 @@ module.exports = {
 
   'Update Payment from Credit Card to Bank Account': function (client) {
     const billing = client.page.BillingUsagePage();
+
     billing.openUpdateModal('@changePaymentMethodButton', '@updatePaymentModalHeader')
       .pause(1000)
       .changePaymentMethod('@radioBankAccount')
@@ -139,15 +139,10 @@ module.exports = {
       .updatePaymentToBank();
   },
 
-  'Validate Billing History': function (client) {
+  'Validate Billing History Section': function (client) {
     const billing = client.page.BillingUsagePage();
-    billing.validateBillingHistory();
-  },
 
-  'Validate Invoice PDF': function (client) {
-    const billing = client.page.BillingUsagePage();
-    billing.validatePDFOpen();
-
+    billing.historySection();
     client.end(2000);
   },
 }

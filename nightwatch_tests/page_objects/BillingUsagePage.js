@@ -241,16 +241,17 @@ const billingCommands = {
       .waitForElementVisible('@pdfInvoice', 40000, 'Invoice Modal is open')
   },
 
-  historySection: function () {
-    let self = this;
-    this.getText('@NoBillingHistory', function (err, result) {
-      if (err && !err.status) {
-        console.log('No History Available')
+  historySection: function() {
+    const self = this;
+    return this.getText('body', (bodyText) => {
+      if (bodyText.value.includes('No billing history for this organization.')) {
+        console.log('No History Available');
+        return self;
       } else {
         return self.validateBillingHistory()
           .validatePDFOpen();
       }
-    })
+    });
   }
 }
 

@@ -306,7 +306,7 @@ module.exports = {
     },
 
     offeredMessages: {
-      selector: `(//*[@id = 'billing__textMessage__planCount'])[3]`,
+      selector: `//*[contains(@id,'billing__messages__planCount')]`,
       locateStrategy: 'xpath',
     },
 
@@ -316,7 +316,7 @@ module.exports = {
     },
 
     offeredMembers: {
-      selector: `(//*[@id = 'billing__textMessage__planCount'])[2]`,
+      selector: `//*[contains(@id,'billing__members__planCount')]`,
       locateStrategy: 'xpath',
     },
 
@@ -326,7 +326,7 @@ module.exports = {
     },
 
     offeredTextChannels: {
-      selector: `(//*[@id = 'billing__textMessage__planCount'])[1]`,
+      selector: `//*[contains(@id,'billing__businessline__planCount')]`,
       locateStrategy: 'xpath',
     },
 
@@ -342,7 +342,7 @@ module.exports = {
 
     //------Products from New Plans introduced with 3.2.0------//
     offeredLocations: {
-      selector: `(//*[@id = 'billing__textMessage__planCount'])[3]`,
+      selector: `//*[contains(@id,'billing__locations__planCount')]`,
       locateStrategy: 'xpath',
     },
 
@@ -352,7 +352,7 @@ module.exports = {
     },
 
     offeredProviders: {
-      selector: `(//*[@id = 'billing__textMessage__planCount'])[2]`,
+      selector: `//*[contains(@id,'billing__providers__planCount')]`,
       locateStrategy: 'xpath',
     },
 
@@ -362,7 +362,7 @@ module.exports = {
     },
 
     offeredPhoneLines: {
-      selector: `(//*[@id = 'billing__textMessage__planCount'])[1]`,
+      selector: `//*[contains(@id,'billing__additionalphonelines__planCount')]`,
       locateStrategy: 'xpath',
     },
 

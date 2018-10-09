@@ -1,0 +1,19 @@
+# ---------------------------------------------------------------------------
+# This file adds configuration on top of docker-compose.yml
+# ---------------------------------------------------------------------------
+
+version: '2'
+services:
+
+  nw-chrome:
+    environment:
+      - LAUNCH_URL=https://dev.dev-rhinogram.com
+      - PORT=4444
+      - BROWSER_NAME=chrome
+      - SELENIUM_HOST=nw-chrome
+      - HEADLESS=true
+    volumes:
+      - ./tests:/home/selenium/nightwatch/tests
+      - ./test_files:/home/selenium/nightwatch/test_files
+      - ./reports:/home/selenium/nightwatch/reports
+      - ./nightwatch.conf.js:/home/selenium/nightwatch/nightwatch.conf.js

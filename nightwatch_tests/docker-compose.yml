@@ -1,0 +1,15 @@
+# -------------------------------------------------------------------------------------
+# This file, in addition to docker-compose.override.yml is used for local development.
+# -------------------------------------------------------------------------------------
+
+version: '2'
+services:
+
+  nw-chrome:
+    container_name: nw-chrome
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4444:4444
+    command: yarn nightwatch --group canary

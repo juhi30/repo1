@@ -11,6 +11,8 @@ if (fs.existsSync(envFile)) {
   dotenv.config({ path: envFile });
 }
 
+const headless = !!process.env.HEADLESS && process.env.HEADLESS === 'true';
+const options = headless ? { "args": ["headless"] } : undefined;
 
 module.exports = {
   "src_folders" : ["tests"],
@@ -38,7 +40,8 @@ module.exports = {
       "desiredCapabilities": {
         "browserName": process.env.BROWSER_NAME || "chrome",
         "javascriptEnabled": true,
-        "acceptSslCerts": true
+        "acceptSslCerts": true,
+        "chromeOptions": options
       }
     }
   }

@@ -33,7 +33,8 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.enterMemberCreds('nightkeaton', 'Chacoz123')
-      .submit();
+      .submit()
+      .validateUrlChange();
   },
 
   'Find that thread and view the message from the patient': function(client) {

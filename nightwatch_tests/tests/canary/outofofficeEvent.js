@@ -29,10 +29,10 @@ module.exports = {
         ooo.openOOOPage('@addOOOEventButton', '@createEventPageHeader')
             .updateDetails('@titleInput', 'Test Event')
             .updateDetails('@messageTextArea', 'Test Event Message')
-            .updateDetails('@fromDateInput', '09/29/2018')
-            .updateDetails('@toDateInput', '09/29/2019')
+            .updateDetails('@fromDateInput', '09/29/2020')
+            .updateDetails('@toDateInput', '09/30/2020')
             .updateDetails('@fromTimeInput', '12:00am')
-            .updateDetails('@toTimeInput', '11:59pm')
+            .updateDetails('@toTimeInput', '12:00am')
             .selectChannel()
             .submit('@createEventButton', '@eventCreateSuccessMessage')
     },
@@ -51,7 +51,7 @@ module.exports = {
             .waitForElementVisible('@editedTitle', 3000, 'Edited Title visible')
     },
 
-    'verify Event Deletion': function(client) {
+    'Verify Event Deletion': function(client) {
         const ooo = client.page.OutOfOfficePage();
 
         ooo.openOOOPage('@editOOOEvent', '@editEventPageHeader')

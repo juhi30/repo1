@@ -22,7 +22,7 @@ const colors = [
    ];
 
 const noteText = 'Note: Charges are made on a monthly basis at the end of each billing period. '+
-'The recurring charge date is based on the "next billing date" set during org creation. '+
+' The recurring charge date is based on the "next billing date" set during org creation. '+
 'Prices are subject to change.';
 
 const messageAlertText = 'Message count reflects usage as of 11:00 PM EST on ';

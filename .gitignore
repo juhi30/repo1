@@ -35,3 +35,4 @@ nightwatch_tests/selenium-debug.log
 nightwatch_tests/bin
 nightwatch_tests/tests_output
 nightwatch_tests/lib
+nightwatch_tests/package.json

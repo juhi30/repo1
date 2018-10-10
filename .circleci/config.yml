@@ -46,14 +46,7 @@ workflows:
               only:
                 - develop
     jobs:
-      - test:
-          filters:
-            branches:
-              only:
-                - develop
-      - canary-chrome:
-          requires:
-            - test
+      - canary-chrome
 
   general:
     jobs:

@@ -58,7 +58,9 @@ const tagCommands = {
 
   clickToToggleTag: function () {
     return this.waitForElementPresent('@youreItTag', 'youreIt_tag is visible')
-      .click('@youreItTag')
+      .click('@youreItTag', () => {
+        console.log('Clicked the youreIt tag');
+      })
   },
 
   checkTagSelected: function() {

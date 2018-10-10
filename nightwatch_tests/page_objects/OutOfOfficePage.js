@@ -21,6 +21,7 @@ const outOfOfficeCommands = {
     return this.waitForElementVisible('@addOOOEventButton', 3000, false, null, 'Add Event Button is visible')
   },
 
+  // todo: this should be broken up into more specific steps
   openOOOPage: function(element1, element2) {
     return this.click(element1)
       .waitForElementVisible(element2, 6000, false, null, 'Out of Office Page opened')
@@ -114,7 +115,7 @@ module.exports = {
     },
 
     fromTimeInput: {
-      selector: `//SELECT[contains(@id, 'fromTime')]`,
+      selector: `//SELECT[contains(@name, 'fromTime')]`,
       locateStrategy: 'xpath',
     },
 
@@ -129,7 +130,7 @@ module.exports = {
     },
 
     toTimeInput: {
-      selector: `//SELECT[contains(@id, 'toTime')]`,
+      selector: `//SELECT[contains(@name, 'toTime')]`,
       locateStrategy: 'xpath',
     },
 

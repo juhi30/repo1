@@ -1,25 +1,66 @@
 defaults: &defaults
-  working_directory: ~/app
+  working_directory: /home/selenium
   docker:
     - image: rhinogram/selenium-chrome:latest
 
 version: 2
 jobs:
-  canary:
+  canary-chrome:
     <<: *defaults
     steps:
       - setup_remote_docker
       - checkout
       - run:
+          name: Run Canary Tests
+          command: |
+            if [ "$CIRCLE_BRANCH" == "master" ]; then
+              LAUNCH_URL=https://app/rhinogram.com
+            elif [ "$CIRCLE_BRANCH" == "staging" ]; then
+              LAUNCH_URL=https://staging.rhinogram.com
+            else
+              LAUNCH_URL=https://dev.dev-rhinogram.com
+            fi
+            cd nightwatch_tests && BROWSER_NAME=chrome yarn canary
 
-  build:
+  test:
     <<: *defaults
     steps:
       - setup_remote_docker
       - checkout
-      - run: 
+      - run:
+          name: Yarn
+          command: yarn && (cd nightwatch_tests && yarn)
+      - run:
+          name: Lint
+          command: cd nightwatch_tests && yarn eslint .
 
 workflows:
   version: 2
 
+  hourly:
+    triggers:
+      - schedule:
+          cron: 0 * * * *
+          filters:
+            branches:
+              only:
+                - develop
+    jobs:
+      - test:
+          filters:
+            branches:
+              only:
+                - develop
+      - canary-chrome:
+          requires:
+            - test
 
+  general:
+    jobs:
+      - test:
+          filters:
+            branches:
+              ignore:
+                - develop
+                - staging
+                - master

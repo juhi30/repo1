@@ -25,7 +25,6 @@ module.exports = {
     endUserThread.fillInMessageInput(messageContent)
       .pause(1000) // waiting for Send button to activate
       .clickSend()
-      .clickSettingsDropdown()
       .clickLogoutButton();
   },
 
@@ -33,7 +32,8 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.enterMemberCreds('nightkeaton', 'Chacoz123')
-      .submit();
+      .submit()
+      .validateUrlChange();
   },
 
   'Find that thread and view the message from the patient': function(client) {

@@ -24,6 +24,7 @@ yarn-debug.log*
 yarn-error.log
 Session.vim
 .vscode
+package-lock.json
 
 # Test data
 screenshotter/src/screenshots

@@ -19,6 +19,7 @@
     "chromedriver": "2.38.x",
     "eslint": "5.1.x",
     "nightwatch": "0.9.x",
+    "nightwatch-slack-reporter": "0.0.2",
     "selenium-server-standalone-jar": "3.8.x"
   },
   "dependencies": {

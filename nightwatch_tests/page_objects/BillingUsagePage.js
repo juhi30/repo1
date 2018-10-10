@@ -118,7 +118,7 @@ const billingCommands = {
 
   validateEstimatedBillNote: function () {
     return this.verify.visible('@noteEstimatedBill', 'Note for Estimated Bill is visible')
-      .expect.element('@noteEstimatedBill').text.to.equal(noteText)
+      .expect.element('@noteEstimatedBill').text.to.deep.equal(noteText)
   },
 
   verifyContactInformation: function () {

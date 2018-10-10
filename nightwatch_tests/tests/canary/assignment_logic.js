@@ -28,7 +28,7 @@ module.exports = {
       .fillInMessageInput(messageContent)
       .pause(1000) // waiting for Send button to activate
       .clickSend()
-      .clickSettingsDropdown()
+      .pause(1000)
       .clickLogoutButton();
   },
 

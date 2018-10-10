@@ -15,7 +15,7 @@ services:
       - LAUNCH_URL=https://dev.dev-rhinogram.com
       - PORT=4444
       - BROWSER_NAME=chrome
-      - SELENIUM_HOST=localhost
+      # - SELENIUM_HOST=localhost
       - HEADLESS=true
     volumes:
       - ./nightwatch_tests:/home/selenium

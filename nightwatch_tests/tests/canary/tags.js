@@ -1,3 +1,5 @@
+// common failure scenario: ensure that the "youreIt" tag is disabled before this test runs (in the members profile)
+
 module.exports = {
 
     //Logs into app to start tests
@@ -42,7 +44,8 @@ module.exports = {
         profile.navigate();
 
         tags.tagContainerCheck()
-            .clickToToggleTag();
+            .clickToToggleTag()
+            .pause(500);
 
         profile.clickSaveProfileButton();
 
@@ -55,7 +58,8 @@ module.exports = {
 
         profile.navigate();
         tags.tagContainerCheck()
-            .clickToToggleTag();
+            .clickToToggleTag()
+            .pause(500);
         profile.clickSaveProfileButton();
         tags.checkTagDeselected();
         profile.clickSaveProfileButton();

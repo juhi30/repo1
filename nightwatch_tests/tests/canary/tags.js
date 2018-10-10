@@ -44,7 +44,8 @@ module.exports = {
         profile.navigate();
 
         tags.tagContainerCheck()
-            .clickToToggleTag();
+            .clickToToggleTag()
+            .pause(500);
 
         profile.clickSaveProfileButton();
 
@@ -57,7 +58,8 @@ module.exports = {
 
         profile.navigate();
         tags.tagContainerCheck()
-            .clickToToggleTag();
+            .clickToToggleTag()
+            .pause(500);
         profile.clickSaveProfileButton();
         tags.checkTagDeselected();
         profile.clickSaveProfileButton();

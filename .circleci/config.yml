@@ -1,5 +1,5 @@
 defaults: &defaults
-  working_directory: /home/selenium
+  working_directory: ~/app
   docker:
     - image: rhinogram/selenium-chrome:latest
 

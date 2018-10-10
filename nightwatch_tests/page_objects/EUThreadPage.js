@@ -63,7 +63,7 @@ module.exports = {
     },
 
     logoutButton: {
-      selector: `//DIV[contains(@class, 'dropdown__menu--right')]`,
+      selector: `//SPAN[contains(text(), 'Log Out')]`,
       locateStrategy: 'xpath',
     },
 

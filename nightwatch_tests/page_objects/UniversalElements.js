@@ -212,9 +212,7 @@ const universalElementsCommands = {
   },
 
   clickLogout: function() {
-    return this.waitForElementVisible('@settingsButton', 'Settings button is visible')
-      .click('@settingsButton')
-      .waitForElementVisible('@logoutButton', 'Logout button is visible')
+    return this.waitForElementVisible('@logoutButton', 'Logout button is visible')
       .pause(500)
       .click('@logoutButton')
       .waitForElementNotPresent('@logoutButton', 'Logout button no longer present')

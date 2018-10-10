@@ -25,7 +25,6 @@ module.exports = {
     endUserThread.fillInMessageInput(messageContent)
       .pause(1000) // waiting for Send button to activate
       .clickSend()
-      .clickSettingsDropdown()
       .clickLogoutButton();
   },
 

@@ -11,7 +11,7 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
-          name: Run Canary Tests
+          name: Run Chrome Canary Tests
           command: |
             if [ "$CIRCLE_BRANCH" == "master" ]; then
               LAUNCH_URL=https://app/rhinogram.com
@@ -21,6 +21,57 @@ jobs:
               LAUNCH_URL=https://dev.dev-rhinogram.com
             fi
             cd nightwatch_tests && BROWSER_NAME=chrome yarn canary
+
+  canary-firefox:
+    <<: *defaults
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Run Firefox Canary Tests
+          command: |
+            if [ "$CIRCLE_BRANCH" == "master" ]; then
+              LAUNCH_URL=https://app/rhinogram.com
+            elif [ "$CIRCLE_BRANCH" == "staging" ]; then
+              LAUNCH_URL=https://staging.rhinogram.com
+            else
+              LAUNCH_URL=https://dev.dev-rhinogram.com
+            fi
+            cd nightwatch_tests && BROWSER_NAME=firefox yarn canary
+
+  canary-safari:
+    <<: *defaults
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Run Safari Canary Tests
+          command: |
+            if [ "$CIRCLE_BRANCH" == "master" ]; then
+              LAUNCH_URL=https://app/rhinogram.com
+            elif [ "$CIRCLE_BRANCH" == "staging" ]; then
+              LAUNCH_URL=https://staging.rhinogram.com
+            else
+              LAUNCH_URL=https://dev.dev-rhinogram.com
+            fi
+            cd nightwatch_tests && BROWSER_NAME=safari yarn canary
+
+  canary-ie:
+    <<: *defaults
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Run Safari Internet Explorer Tests
+          command: |
+            if [ "$CIRCLE_BRANCH" == "master" ]; then
+              LAUNCH_URL=https://app/rhinogram.com
+            elif [ "$CIRCLE_BRANCH" == "staging" ]; then
+              LAUNCH_URL=https://staging.rhinogram.com
+            else
+              LAUNCH_URL=https://dev.dev-rhinogram.com
+            fi
+            cd nightwatch_tests && BROWSER_NAME='internet explorer' yarn canary
 
   test:
     <<: *defaults

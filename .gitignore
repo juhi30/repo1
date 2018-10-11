@@ -24,6 +24,7 @@ yarn-debug.log*
 yarn-error.log
 Session.vim
 .vscode
+package-lock.json
 
 # Test data
 screenshotter/src/screenshots
@@ -35,3 +36,4 @@ nightwatch_tests/selenium-debug.log
 nightwatch_tests/bin
 nightwatch_tests/tests_output
 nightwatch_tests/lib
+nightwatch_tests/package-lock.json

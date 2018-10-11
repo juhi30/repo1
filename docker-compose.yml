@@ -1,0 +1,20 @@
+# -------------------------------------------------------------------------------------
+# This file is used for local development.
+# -------------------------------------------------------------------------------------
+
+version: '2'
+services:
+
+  nw-chrome:
+    container_name: nw-chrome
+    image: rhinogram/selenium-chrome:latest
+    ports:
+      - 4444:4444
+    command: yarn canary
+    environment:
+      - LAUNCH_URL=https://dev.dev-rhinogram.com
+      - PORT=4444
+      - BROWSER_NAME=chrome
+      - HEADLESS=true
+    volumes:
+      - ./nightwatch_tests:/home/selenium

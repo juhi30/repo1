@@ -1,81 +1,59 @@
 defaults: &defaults
   working_directory: ~/app
   docker:
-    - image: rhinogram/node-awscli:8.11
+    - image: rhinogram/selenium-chrome:latest
 
 version: 2
 jobs:
-  buildAndUpdateEcr:
+  canary-chrome:
     <<: *defaults
     steps:
       - setup_remote_docker
       - checkout
       - run:
-          name: Configure AWS CLI
+          name: Run Chrome Canary Tests
           command: |
-            aws configure set region $AWS_REGION
-            if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "staging" ]; then
-              aws configure set aws_access_key_id $RHINOPROD_ACCESS_KEY
-              aws configure set aws_secret_access_key $RHINOPROD_SECRET_KEY
+            if [ "$CIRCLE_BRANCH" == "master" ]; then
+              LAUNCH_URL=https://app/rhinogram.com
+            elif [ "$CIRCLE_BRANCH" == "staging" ]; then
+              LAUNCH_URL=https://staging.rhinogram.com
             else
-              aws configure set aws_access_key_id $RHINODEV_ACCESS_KEY
-              aws configure set aws_secret_access_key $RHINODEV_SECRET_KEY
+              LAUNCH_URL=https://dev.dev-rhinogram.com
             fi
-      - run:
-          name: Build Docker Image
-          command: |
-            docker build -t rhino-ecr/rhinomatic:nightwatch nightwatch_tests
-      - run:
-          name: Update ECR
-          command: |
-            # login
-            $(aws ecr get-login --no-include-email)
-            export accountId=$(aws sts get-caller-identity | jq '.Account' | sed "s/\"//g")
+            cd nightwatch_tests && BROWSER_NAME=chrome yarn canary
 
-            baseUri=$accountId.dkr.ecr.$AWS_REGION.amazonaws.com/rhino-ecr/rhinomatic
-            docker tag rhino-ecr/rhinomatic:nightwatch $baseUri:nightwatch-$CIRCLE_BRANCH
-
-            # push tagged with either "nightwatch-master", "nightwatch-staging", or "nightwatch-develop"
-            docker push $baseUri:nightwatch-$CIRCLE_BRANCH
-
-            # also tag the image with the SHA
-            docker tag $baseUri:nightwatch-$CIRCLE_BRANCH $baseUri:$CIRCLE_BRANCH-$CIRCLE_SHA1
-            docker push $baseUri:$CIRCLE_BRANCH-$CIRCLE_SHA1
- 
-            if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "develop" ]; then
-              # always tag latest develop and master chrome builds with "latest"
-              docker tag $baseUri:$CIRCLE_BRANCH-$CIRCLE_SHA1 $baseUri:latest
-              docker push $baseUri:latest
-            fi
-
-  build:
+  test:
     <<: *defaults
     steps:
       - setup_remote_docker
       - checkout
       - run:
-          name: Build
-          command: docker build nightwatch_tests
+          name: Yarn
+          command: yarn && (cd nightwatch_tests && yarn)
+      - run:
+          name: Lint
+          command: cd nightwatch_tests && yarn eslint .
 
 workflows:
   version: 2
 
-  updateECR:
-    jobs:
-      - buildAndUpdateEcr:
+  nightly:
+    triggers:
+      - schedule:
+          cron: 0 0 * * *
           filters:
             branches:
               only:
-                - master
-                - staging
                 - develop
+    jobs:
+      - canary-chrome
 
   general:
     jobs:
-      - build:
+      - test:
           filters:
             branches:
               ignore:
-                - master
-                - staging
                 - develop
+                - staging
+                - master

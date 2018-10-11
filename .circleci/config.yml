@@ -40,13 +40,21 @@ workflows:
   nightly:
     triggers:
       - schedule:
-          cron: '0 * * * *'
+          cron: '0 0 * * *'
           filters:
             branches:
               only:
                 - develop
     jobs:
       - canary-chrome
+
+  merge:
+    jobs:
+      - canary-chrome:
+          filters:
+            branches:
+              only:
+                - develop
 
   general:
     jobs:

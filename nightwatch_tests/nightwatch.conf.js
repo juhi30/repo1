@@ -12,7 +12,7 @@ if (fs.existsSync(envFile)) {
 }
 
 const headless = !!process.env.HEADLESS && process.env.HEADLESS === 'true';
-const options = headless ? { "args": ["headless"] } : undefined;
+const options = headless ? { "args": ["headless", "no-sandbox", "disable-gpu"] } : undefined;
 
 module.exports = {
   "src_folders" : ["tests"],

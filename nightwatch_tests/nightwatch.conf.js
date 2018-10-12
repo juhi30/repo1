@@ -41,7 +41,9 @@ module.exports = {
         "browserName": process.env.BROWSER_NAME || "chrome",
         "javascriptEnabled": true,
         "acceptSslCerts": true,
-        "chromeOptions": options
+        "chromeOptions": {
+          "args": ["headless", "no-sandbox", "disable-gpu"]
+        }
       }
     }
   }

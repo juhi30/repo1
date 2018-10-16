@@ -12,9 +12,6 @@ const BUCKET = `nightwatch-results-${process.env.CIRCLE_BRANCH}`;
 (async function deploy() {
   try {
     const templateParams = [{
-      key: 'GitBranch',
-      value: process.env.CIRCLE_BRANCH,
-    }, {
       key: 'BucketName',
       value: BUCKET,
     }];

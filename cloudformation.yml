@@ -2,13 +2,6 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: Nightwatch test results
 
 Parameters:
-  GitBranch:
-    Type: String
-    AllowedValues:
-      - develop
-      - staging
-      - master
-
   BucketName:
     Type: String
     Description: Name of the S3 Bucket to upload test results to

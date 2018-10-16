@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Nightwatch test results
+
+Parameters:
+  GitBranch:
+    Type: String
+    AllowedValues:
+      - develop
+      - staging
+      - master
+
+  BucketName:
+    Type: String
+    Description: Name of the S3 Bucket to upload test results to
+
+Mappings:
+  HostingInfo:
+    '657744331605':
+      HostedZoneId: ZUBUSJ5IX1NV7
+      HostedZoneName: dev-rhinogram.com.
+    '072388548512':
+      HostedZoneId: Z1CEZNAGE8MGUU
+      HostedZoneName: rhinogram.com.
+
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties: 
+      AccessControl: PublicRead
+      BucketName: !Ref 'BucketName'
+      Tags:
+        - Key: Name
+          Value: !Ref 'BucketName'
+      VersioningConfiguration:
+        Status: Enabled 
+      WebsiteConfiguration:
+        ErrorDocument: report.html
+        IndexDocument: report.html
+      CorsConfiguration:
+        CorsRules:
+          - AllowedMethods:
+              - GET
+            AllowedOrigins:
+              - '*'
+
+
+Outputs:
+  Bucket:
+    Description: S3 Bucket
+    Value: !Ref Bucket
+
+  URL:
+    Description: S3 Website URL
+    Value: !GetAtt Bucket.WebsiteURL

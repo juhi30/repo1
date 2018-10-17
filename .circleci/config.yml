@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Deploy Test Results
           command: |
-            node deploy
+            yarn && node deploy
             aws s3 sync \
               nightwatch_tests/reports \
               s3://nightwatch-results-$CIRCLE_BRANCH \

@@ -16,6 +16,19 @@ Automated tools for testing.
   **to run a test group**: run 'nightwatch --group canary' or 'nightwatch --group e2e' from the nightwatch\_tests directory.
 
   **to run a specific test**: run 'nightwatch tests/pathToTestFile.js' (also from the nightwatch\_tests directory).
+
+  #### Debug develop canary tests
+  - Setup your `~/.aws/credentials` file with a `rhinodev` profile:
+  ```bash
+  [rhinodev]
+  aws_access_key_id=<your aws access key>
+  aws_secret_access_key=<your aws secret key>
+  region=us-east-1
+  output=json
+  ```
+  - If AWS CLI is not installed on your local machine do: `brew install awscli`
+  - Confirm that the CLI works by typing: `aws --version`
+  - Run: `yarn getLatestReports`. This will download the latest reports to `nightwatch_tests/reports-develop`
   
   ### Helpful links
   

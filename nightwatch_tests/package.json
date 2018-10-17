@@ -8,12 +8,12 @@
   },
   "scripts": {
     "test": "nightwatch --skipgroup deprecated",
-    "canary": "yarn && nightwatch --group canary",
+    "canary": "yarn && nightwatch --group canary || echo \"Some test(s) have failed. Check the slack channel, nightwatch_reporter\"",
     "clean": "rm -rf lib/*",
     "build": "yarn clean && node_modules/.bin/babel tests --out-dir lib/tests && node_modules/.bin/babel page_objects --out-dir lib/page_objects && node_modules/.bin/babel helpers.js --out-dir lib/ && node_modules/.bin/babel global.js --out-dir lib/"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Rhinogram, LLC",
+  "license": "UNLICENSED",
   "devDependencies": {
     "babel": "6.23.x",
     "chromedriver": "2.38.x",

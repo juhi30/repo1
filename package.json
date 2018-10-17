@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Automated tools for testing.",
   "scripts": {
-    "nightwatch": "cd nightwatch_tests && yarn test"
+    "getLatestReports": "AWS_PROFILE=rhinodev ./bin/getLatestReports.sh",
+    "nightwatch": "cd nightwatch_tests && yarn test",
+    "postinstall": "chmod -R +x bin"
   },
   "repository": {
     "type": "git",

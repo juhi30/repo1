@@ -20,8 +20,7 @@ jobs:
             else
               export LAUNCH_URL=https://dev.dev-rhinogram.com
             fi
-            cd nightwatch_tests
-            BROWSER_NAME=chrome yarn canary || echo "Some test(s) have failed. Check the slack channel, nightwatch_reporter"
+            cd nightwatch_tests && BROWSER_NAME=chrome yarn canary
       - run:
           name: Deploy Test Results
           command: |

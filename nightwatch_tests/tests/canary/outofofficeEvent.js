@@ -48,7 +48,7 @@ module.exports = {
             .updateDetails('@toDateInput', '10/28/2020')
             .updateDetails('@toTimeInput', '11:00am')
             .submit('@updateEventButton', '@eventUpdateSuccessMessage')
-            .waitForElementVisible('@editedTitle', 3000, 'Edited Title visible')
+            .waitForElementPresent('@editedTitle', 10000, 'Edited Title visible')
     },
 
     'Verify Event Deletion': function(client) {

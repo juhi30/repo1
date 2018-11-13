@@ -22,7 +22,7 @@ module.exports = {
   'Remove the normal template': function (client) {
     const template = client.page.TemplatesPage();
 
-    helper.clickSpanViaText(template, 'Normal template');
+    // helper.clickSpanViaText(template, 'Normal template');
 
     template.clickEditTemplateButton()
       .clickDeleteButton()
@@ -48,7 +48,7 @@ module.exports = {
   'Remove the template with an attachment': function (client) {
     const template = client.page.TemplatesPage();
 
-    helper.clickSpanViaText(template, 'Template w/Attachment');
+    // helper.clickSpanViaText(template, 'Template w/Attachment');
 
     template.clickEditTemplateButton()
       .clickDeleteButton()

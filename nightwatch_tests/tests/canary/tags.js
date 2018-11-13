@@ -34,38 +34,39 @@ module.exports = {
             .editTag()
             .navigate()
             .deleteTag();
+
+        client.end(3000);
     },
 
     // if/else statement should be made so if the tag gets deleted it will create a new version, else continue with test
-    'Attach tag to logged in Member and verify': function (client) {
-        const tags = client.page.TagsPage();
-        const profile = client.page.ProfilePage();
+    // 'Attach tag to logged in Member and verify': function (client) {
+    //     const tags = client.page.TagsPage();
+    //     const profile = client.page.ProfilePage();
 
-        profile.navigate();
+    //     profile.navigate();
 
-        tags.tagContainerCheck()
-            .clickToToggleTag()
-            .pause(500);
+    //     tags.tagContainerCheck()
+    //         .clickToToggleTag()
+    //         .pause(500);
 
-        profile.clickSaveProfileButton();
+    //     profile.clickSaveProfileButton();
 
-        tags.checkTagSelected();
-    },
+    //     tags.checkTagSelected();
+    // },
 
-    'Remove tag from logged in Member': function (client) {
-        const tags = client.page.TagsPage();
-        const profile = client.page.ProfilePage();
+    // 'Remove tag from logged in Member': function (client) {
+    //     const tags = client.page.TagsPage();
+    //     const profile = client.page.ProfilePage();
 
-        profile.navigate();
-        tags.tagContainerCheck()
-            .clickToToggleTag()
-            .pause(500);
-        profile.clickSaveProfileButton();
-        tags.checkTagDeselected();
-        profile.clickSaveProfileButton();
-        // geoff, do you like this format ^ better? I kind of like this better. Grady agrees.
+    //     profile.navigate();
+    //     tags.tagContainerCheck()
+    //         .clickToToggleTag()
+    //         .pause(500);
+    //     profile.clickSaveProfileButton();
+    //     tags.checkTagDeselected();
+    //     profile.clickSaveProfileButton();
 
-        client.end(3000);
-    }
+    //     client.end(3000);
+    // }
 
 }

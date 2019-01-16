@@ -6,20 +6,30 @@
 
 module.exports = {
 
-    'Login Page with Member Credentials': function (client) {
-      const login = client.page.LoginPage();
-  
-      login.navigate()
-        .enterMemberCreds('plm', 'Test@123')
-        .submit()
-        .validateUrlChange();
-    },
-  
-    'Navigate to Audit Logs page and verify Audit Logs page accessibility': function (client) {
-      const auditLogs = client.page.AuditLogsPage();
-  
-      auditLogs.navigate()
-        .validateUrlChange()
-        .pause(5000);
-    },
-  }
+  'Login Page with Member Credentials': function (client) {
+    const login = client.page.LoginPage();
+
+    login.navigate()
+      .enterMemberCreds('duttamunish', 'Test@123')
+      .submit()
+      .validateUrlChange();
+  },
+
+  'Navigate to Audit Logs page and verify Audit Logs page accessibility': function (client) {
+    const auditLogs = client.page.AuditLogsPage();
+
+    auditLogs.navigate()
+      .validateUrlChange()
+      .pause(5000);
+  },
+
+  'Verify the UI View of the Audit Log Page' : function (client){
+    const auditLogs = client.page.AuditLogsPage();
+
+    auditLogs.verifyPageTitle()
+    .verifyFiltersVisibility()
+    .VerifyPaginationVisibility()
+    .verifyColumnVisibility()
+    .verifyExpandAllVisibility()
+  },
+}

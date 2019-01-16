@@ -50,7 +50,57 @@ const auditLogsCommands = {
 
   verifyExpandAllVisibility: function(){
     return this.waitForElementVisible('@expandAllButton','Expand All Button is visible')
-  }, 
+  },
+
+  clickSettingsDropdown: function () {
+    return this.waitForElementVisible('@settingsDropdown', 'Settings dropdown is visible')
+      .click('@settingsDropdown');
+  },
+
+  validateAuditLogsMenuOption: function () {
+    return this.verify.visible('@auditLogsOption', 'Audit Log is available')
+  },
+
+  clickAuditLogsMenuOption: function () {
+    return this.waitForElementVisible('@auditLogsOption', 'Audit Log option is available')
+      .click('@auditLogsOption');
+  },
+
+  validateAddedTagEntry: function () {
+    return this.verify.visible('@tagEntry', 'Tag entry is visible')
+      .verify.visible('@dateAndTime', 'Date and Time is visible')
+      .verify.containsText('@member', 'Night Member', 'Member name is Night Member')
+      .verify.visible('@contact', 'Contact name should not be visible')
+      .verify.containsText('@category', 'Tag', 'Category should be Tag')
+      .verify.containsText('@action', 'Add', 'Action should be Add')
+      .verify.containsText('@linkText', 'Details', 'Link text should be Details')
+      .click('@linkText')
+      .verify.containsText('@tagName', 'fake_tag', 'Added tag name should be fake_tag')
+  },
+
+  validateEditedTagEntry: function () {
+    return this.verify.visible('@tagEntry', 'Tag entry is visible')
+      .verify.visible('@dateAndTime', 'Date and Time is visible')
+      .verify.containsText('@member', 'Night Member', 'Member name is Night Member')
+      .verify.visible('@contact', 'Contact name should not be visible')
+      .verify.containsText('@category', 'Tag', 'Category should be Tag')
+      .verify.containsText('@action', 'Edit', 'Action should be Add')
+      .verify.containsText('@linkText', 'Details', 'Link text should be Details')
+      .click('@linkText')
+      .verify.containsText('@tagName', 'Edited_tag', 'Edited tag name should be Edited_tag')
+  },
+
+  validateDeletedTagEntry: function () {
+    return this.verify.visible('@tagEntry', 'Tag entry is visible')
+      .verify.visible('@dateAndTime', 'Date and Time is visible')
+      .verify.containsText('@member', 'Night Member', 'Member name is Night Member')
+      .verify.visible('@contact', 'Contact name should not be visible')
+      .verify.containsText('@category', 'Tag', 'Category should be Tag')
+      .verify.containsText('@action', 'Delete', 'Action should be Add')
+      .verify.containsText('@linkText', 'Details', 'Link text should be Details')
+      .click('@linkText')
+      .verify.containsText('@tagName', 'Edited_tag', 'Deleted tag name should be Edited_tag')
+  },
 }
 
 module.exports = {
@@ -135,5 +185,58 @@ module.exports = {
       selector : `//button[@class='button expand-all__button button--link']`,
       locateStrategy : 'xpath',
     },
-   }
+
+    //*********------- Audit Logs Menu option ------*********//
+
+    settingsDropdown: {
+      selector: `//*[@id="cuke-main-settings"]/div/button`,
+      locateStrategy: 'xpath',
+    },
+
+    auditLogsOption: {
+      selector: `//DIV[@class = 'dropdown__menu__item__content__label']/span[text()='Audit Log']`,
+      locateStrategy: 'xpath',
+    },
+
+    //*********-------Tag entry ------*********//
+    tagEntry: {
+      selector: `//DIV[@class = 'rt-tbody']/DIV[1]`,
+      locateStrategy: 'xpath',
+    },
+
+    dateAndTime: {
+      selector: `//DIV[@class = 'rt-tbody']/DIV[1]/DIV[1]/DIV[1]`,
+      locateStrategy: 'xpath',
+    },
+
+    member: {
+      selector: `//DIV[@class = 'rt-tbody']/DIV[1]/DIV[1]/DIV[2]`,
+      locateStrategy: 'xpath',
+    },
+
+    contact: {
+      selector: `//DIV[@class = 'rt-tbody']/DIV[1]/DIV[1]/DIV[3]`,
+      locateStrategy: 'xpath',
+    },
+
+    category: {
+      selector: `//DIV[@class = 'rt-tbody']/DIV[1]/DIV[1]/DIV[4]`,
+      locateStrategy: 'xpath',
+    },
+
+    action: {
+      selector: `//DIV[@class = 'rt-tbody']/DIV[1]/DIV[1]/DIV[5]`,
+      locateStrategy: 'xpath',
+    },
+
+    linkText: {
+      selector: `//DIV[@class = 'rt-tbody']/DIV[1]/DIV[1]/DIV[6]`,
+      locateStrategy: 'xpath',
+    },
+
+    tagName: {
+      selector: `//DIV[@class = 'rt-tbody']/DIV[1]//DIV[@class = 'u-inline-grid expand-row__detail u-inline-grid--small']//div[2]`,
+      locateStrategy: 'xpath',
+    }
+  }
 }

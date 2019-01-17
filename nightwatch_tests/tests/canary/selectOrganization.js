@@ -20,7 +20,7 @@ module.exports = {
   'Search for organization and validate that contacts page': function(client) {
     const selectOrganization = client.page.SelectOrganizationPage();
 
-    selectOrganization.searchForOrganization('another routing').validateUrlChange();
+    selectOrganization.searchForOrganization('Rhino India Scrum Team').validateUrlChange();
 
     client.end(3000);
   }

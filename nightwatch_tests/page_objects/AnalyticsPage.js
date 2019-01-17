@@ -20,6 +20,17 @@ const analyticsCommands = {
         
     },
 
+    validateTotalMessageCountGraph: function() {
+        let totalMessageCount = '';
+        return this.waitForElementVisible('@totalMessageCountGraph', 'Total Message Count Graph is visible')
+          .verify.visible('@totalMessageCountLabel', 'Total Message Count Label is present on this graph')
+          .getValue('@totalMessageCountGraphCount', function(count) {   
+            totalMessageCount = count.value;
+          })
+          .verify.visible('@totalMessageCountGraphCount', `Total Message Count(${totalMessageCount}) is visible`)
+          .verify.visible('@totlaMessageCountGraphAvgCount', 'Total Message Count Average ${totalMessageCount} is visible');
+    }
+
 }
 
 module.exports = {
@@ -89,5 +100,26 @@ module.exports = {
           selector: `//INPUT[@name= 'endDate']`,
           locateStrategy: 'xpath',
         },
+
+        totalMessageCountGraph: {
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Total Message Count']//parent::div//parent::div//CANVAS`,
+            locateStrategy: 'xpath',
+        },
+
+        totalMessageCountLabel: {
+          selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='Total Message Count']`,
+          locateStrategy: 'xpath',
+        },
+
+        totalMessageCountGraphCount: {
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Total Message Count']//parent::div//DIV[@class= 'header__subtitle primary']`,
+            locateStrategy: 'xpath',
+        },
+
+        totlaMessageCountGraphAvgCount: {
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Total Message Count']//parent::div//DIV[@class= 'header__subtitle primary']//SPAN[@class='subtitle--muted']`,
+            locateStrategy: 'xpath',
+        },
+
     }
 }

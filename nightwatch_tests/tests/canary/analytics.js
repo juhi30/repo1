@@ -17,7 +17,7 @@ module.exports = {
   'Select Org and Go To Contacts Page': function (client) {
     const selectOrganization = client.page.SelectOrganizationPage();
 
-    selectOrganization.searchForOrganization('another routing').validateUrlChange();
+    selectOrganization.searchForOrganization('Rhino India Scrum Team').validateUrlChange();
   },
 
   'Check if Analytics Icon Visible': function (client) {
@@ -39,6 +39,13 @@ module.exports = {
     const analytics = client.page.AnalyticsPage();
 
     analytics.validateDatePickerAndOptions()
+    .pause(5000);
+  },
+
+  'Validate Total Message Count Graph': function (client) {
+    const analytics = client.page.AnalyticsPage();
+
+    analytics.validateTotalMessageCountGraph()
     .pause(5000);
   },
 

@@ -66,37 +66,35 @@ const auditLogsCommands = {
       .click('@auditLogsOption');
   },
 
-  validateAddedTagEntry: function () {
+  validateTagEntry: function(action, tagName) {
     return this.verify.visible('@auditEntry', 'Tag entry is visible')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
       .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
       .verify.visible('@contact', 'Contact name should not be visible')
       .verify.containsText('@category', 'Tag', 'Category should be Tag')
-      .verify.containsText('@action', 'Add', 'Action should be Add')
+      .verify.containsText('@action', action, 'Action should be ' + action)
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
       .click('@linkText')
-      .verify.containsText('@tagName', 'fake_tag', 'Added tag name should be fake_tag')
+      .verify.containsText('@staticField', tagName, action + 'ed tag name should be ' + tagName)
   },
 
-  validateEditedTagEntry: function () {
-    return this.verify.visible('@auditEntry', 'Tag entry is visible')
+  validateBillingEntry: function () {
+    return this.verify.visible('@auditEntry', 'Billing entry is visible')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
       .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
       .verify.visible('@contact', 'Contact name should not be visible')
-      .verify.containsText('@category', 'Tag', 'Category should be Tag')
-      .verify.containsText('@action', 'Edit', 'Action should be Add')
+      .verify.containsText('@category', 'Billing', 'Category should be Billing')
+      .verify.containsText('@action', 'Edit', 'Action should be Edit')
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
-      .click('@linkText')
-      .verify.containsText('@tagName', 'Edited_tag', 'Edited tag name should be Edited_tag')
   },
 
-  validateDeletedTagEntry: function () {
-    return this.verify.visible('@auditEntry', 'Tag entry is visible')
+  validateEventEntry: function (action, eventName) {
+    return this.verify.visible('@auditEntry', 'Event entry is visible')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
       .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
       .verify.visible('@contact', 'Contact name should not be visible')
-      .verify.containsText('@category', 'Tag', 'Category should be Tag')
-      .verify.containsText('@action', 'Delete', 'Action should be Add')
+      .verify.containsText('@category', 'Out of Office', 'Category should be Out of Office')
+      .verify.containsText('@action', action, 'Action should be ' + action)
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
       .click('@linkText')
       .verify.containsText('@tagName', 'Edited_tag', 'Deleted tag name should be Edited_tag')
@@ -120,6 +118,7 @@ const auditLogsCommands = {
       .verify.containsText('@category', 'Billing', 'Category should be Billing')
       .verify.containsText('@action', 'Edit', 'Action should be Edit')
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
+      .verify.containsText('@staticField', eventName, action + 'ed event name should be ' + eventName)
   },
 }
 
@@ -254,7 +253,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    tagName: {
+    staticField: {
       selector: `//DIV[@class = 'rt-tbody']/DIV[1]//DIV[@class = 'u-inline-grid expand-row__detail u-inline-grid--small']//div[2]`,
       locateStrategy: 'xpath',
     }

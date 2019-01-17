@@ -149,7 +149,7 @@ const billingCommands = {
       .updateDetails('@billingLine1Input', 'Billing Line1')
       .updateDetails('@billingLine2Input', 'Billing Line2')
       .updateDetails('@cityInput', 'Billing City')
-      .updateDetails('@stateInput', 'Florida')
+      .selectValue('@stateInput', 'Florida')
       .updateDetails('@contactZipInput', '13245')
       .click('@contactSaveButton')
       .waitForElementVisible('@billingContactUpdateSuccessMessage', 40000, 'Update Modal is hidden, Success message displayed')
@@ -175,6 +175,11 @@ const billingCommands = {
   updateDetails: function (element, newValue) {
     return this.verify.visible(element, element + ' is visible')
       .clearValue(element)
+      .setValue(element, newValue)
+  },
+
+  selectValue: function (element, newValue) {
+    return this.verify.visible(element, element + ' is visible')
       .setValue(element, newValue)
   },
 
@@ -211,7 +216,7 @@ const billingCommands = {
       .updateDetails('@paymentLastNameInput', 'Choudhary')
       .updateDetails('@bankAccountNumberInput', '12345678989')
       .updateDetails('@bankRoutingNumberInput', '123456789')
-      .updateDetails('@bankAccountTypeSelect', 'Saving')
+      .selectValue('@bankAccountTypeSelect', 'Saving')
       .click('@savePaymentMethodButton')
       .waitForElementVisible('@updatePaymentSuccessMessage', 40000, 'Update Modal is hidden, Success message available')
       .waitForElementVisible('@bankName', 'Bank Name exists, Edit successful')

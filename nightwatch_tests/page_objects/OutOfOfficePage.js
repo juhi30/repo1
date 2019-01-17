@@ -11,6 +11,11 @@ const outOfOfficeCommands = {
       .setValue(element, newValue)
   },
 
+  selectValue: function (element, newValue) {
+    return this.verify.visible(element, element + ' is visible')
+      .setValue(element, newValue)
+  },
+
   validateUrlChange: function() {
     return this.waitForElementVisible('@outOfOfficeListPageTitle', 6000, false, null, 'Out Of Office Page Opened successfully')
       .verify.urlContains('out-of-office', 'Out of Office Page is opened')
@@ -37,6 +42,33 @@ const outOfOfficeCommands = {
     return this.click(element)
       .waitForElementVisible(notification, 'Success message is visible')
       .pause(3000)
+  },
+
+  createEvent: function() {
+    return this.updateDetails('@titleInput', 'Test Event')
+      .updateDetails('@messageTextArea', 'Test Event Message')
+      .updateDetails('@fromDateInput', '09/29/2020')
+      .updateDetails('@toDateInput', '09/30/2020')
+      .selectValue('@fromTimeInput', '12:00am')
+      .selectValue('@toTimeInput', '12:00am')
+      .selectChannel()
+      .submit('@createEventButton', '@eventCreateSuccessMessage')
+  },
+
+  clickFirstEvent: function() {
+    return this.waitForElementVisible('@firstOOOEvent', 3000, false, null, 'First Event is visible')
+      .click('@firstOOOEvent')
+  },
+
+  updateEvent: function () {
+    return this.updateDetails('@titleInput', 'Edited_Title')
+      .updateDetails('@messageTextArea', 'New Test Event Sample')
+      .updateDetails('@fromDateInput', '10/28/2019')
+      .selectValue('@fromTimeInput', '12:00am')
+      .updateDetails('@toDateInput', '10/28/2020')
+      .selectValue('@toTimeInput', '11:00am')
+      .submit('@updateEventButton', '@eventUpdateSuccessMessage')
+      .waitForElementPresent('@editedTitle', 10000, 'Edited Title visible')
   },
 
   deleteEvent: function() {

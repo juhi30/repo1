@@ -10,7 +10,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .enterMemberCreds()
+      .enterMemberCreds('duttamunish', 'Test@123')
       .submit()
       .validateUrlChange();
   },
@@ -60,7 +60,8 @@ module.exports = {
     const tags = client.page.TagsPage();
 
     tags.validateCreateTagModal()
-      .createNewTag();
+      .createNewTag()
+      .pause(5000);
 
   },
 
@@ -80,6 +81,7 @@ module.exports = {
 
     tags.navigate()
       .editTag()
+      .pause(5000);
   },
 
   'Verify the Audit log entry for edition of existing tag': function (client) {
@@ -97,7 +99,8 @@ module.exports = {
     const tags = client.page.TagsPage();
 
     tags.navigate()
-      .deleteTag();
+      .deleteTag()
+      .pause(5000);
   },
 
   'Verify the Audit log entry for deletion of existing tag': function (client) {
@@ -108,4 +111,52 @@ module.exports = {
       .pause(5000)
       .validateDeletedTagEntry();
   },
+
+  // Test case for auditing Billing entries
+  'Navigate to Billing page and verify Billing page accessibility': function (client) {
+    const billing = client.page.BillingUsagePage();
+
+    billing.navigate()
+      .validateUrlChange()
+      .pause(5000);
+  },
+
+  'Update Billing Contact Details': function (client) {
+    const contact = client.page.BillingUsagePage();
+
+    contact.openUpdateModal('@updateBillingContactButton', '@updateContactModalHeader')
+      .updateBillingContact()
+      .pause(5000);
+  },
+
+  'Verify the Audit log entry for updating Billing contact': function (client) {
+    const auditLogs = client.page.AuditLogsPage();
+
+    auditLogs.navigate()
+      .validateUrlChange()
+      .pause(5000)
+      .validateBillingEntry()
+  },
+
+  'Add/Update payment method': function (client) {
+    const billing = client.page.BillingUsagePage();
+    billing.navigate()
+      .validateUrlChange()
+      .pause(5000)
+      .openUpdateModal('@changePaymentMethodButton', '@updatePaymentModalHeader')
+      .pause(1000)
+      .changePaymentMethod('@radioBankAccount')
+      .pause(1000)
+      .updatePaymentToBank()
+      .pause(5000);
+  },
+
+  'Verify the Audit log entry for add/update Payment method': function (client) {
+    const auditLogs = client.page.AuditLogsPage();
+
+    auditLogs.navigate()
+      .validateUrlChange()
+      .pause(5000)
+      .validateBillingEntry();
+  }
 }

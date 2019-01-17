@@ -67,9 +67,9 @@ const auditLogsCommands = {
   },
 
   validateAddedTagEntry: function () {
-    return this.verify.visible('@tagEntry', 'Tag entry is visible')
+    return this.verify.visible('@auditEntry', 'Tag entry is visible')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', 'Night Member', 'Member name is Night Member')
+      .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
       .verify.visible('@contact', 'Contact name should not be visible')
       .verify.containsText('@category', 'Tag', 'Category should be Tag')
       .verify.containsText('@action', 'Add', 'Action should be Add')
@@ -79,9 +79,9 @@ const auditLogsCommands = {
   },
 
   validateEditedTagEntry: function () {
-    return this.verify.visible('@tagEntry', 'Tag entry is visible')
+    return this.verify.visible('@auditEntry', 'Tag entry is visible')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', 'Night Member', 'Member name is Night Member')
+      .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
       .verify.visible('@contact', 'Contact name should not be visible')
       .verify.containsText('@category', 'Tag', 'Category should be Tag')
       .verify.containsText('@action', 'Edit', 'Action should be Add')
@@ -91,15 +91,25 @@ const auditLogsCommands = {
   },
 
   validateDeletedTagEntry: function () {
-    return this.verify.visible('@tagEntry', 'Tag entry is visible')
+    return this.verify.visible('@auditEntry', 'Tag entry is visible')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', 'Night Member', 'Member name is Night Member')
+      .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
       .verify.visible('@contact', 'Contact name should not be visible')
       .verify.containsText('@category', 'Tag', 'Category should be Tag')
       .verify.containsText('@action', 'Delete', 'Action should be Add')
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
       .click('@linkText')
       .verify.containsText('@tagName', 'Edited_tag', 'Deleted tag name should be Edited_tag')
+  },
+
+  validateBillingEntry: function () {
+    return this.verify.visible('@auditEntry', 'Billing entry is visible')
+      .verify.visible('@dateAndTime', 'Date and Time is visible')
+      .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
+      .verify.visible('@contact', 'Contact name should not be visible')
+      .verify.containsText('@category', 'Billing', 'Category should be Billing')
+      .verify.containsText('@action', 'Edit', 'Action should be Edit')
+      .verify.containsText('@linkText', 'Details', 'Link text should be Details')
   },
 }
 
@@ -198,8 +208,8 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    //*********-------Tag entry ------*********//
-    tagEntry: {
+    //*********-------Audit entry ------*********//
+    auditEntry: {
       selector: `//DIV[@class = 'rt-tbody']/DIV[1]`,
       locateStrategy: 'xpath',
     },

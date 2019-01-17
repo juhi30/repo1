@@ -23,7 +23,7 @@ module.exports = {
 
   "selenium" : {
     "start_process" : true,
-    "server_path" : "./node_modules/selenium-server-standalone-jar/jar/selenium-server-standalone-3.8.1.jar",
+    "server_path" : "./node_modules/selenium-server-standalone-jar/jar/selenium-server-standalone-3.141.5.jar",
     "log_path" : "",
     "port" : process.env.PORT || 4444,
     "cli_args" : {
@@ -37,13 +37,12 @@ module.exports = {
       "launch_url" : process.env.LAUNCH_URL || "http://localhost:3000",
       "selenium_port"  : process.env.PORT || 4444,
       "selenium_host"  : process.env.SELENIUM_HOST || "127.0.0.1",
+      "silent" : true,
       "desiredCapabilities": {
         "browserName": process.env.BROWSER_NAME || "chrome",
         "javascriptEnabled": true,
         "acceptSslCerts": true,
-        "chromeOptions": {
-          "args": ["headless", "no-sandbox", "disable-gpu"]
-        }
+        "chromeOptions": { "args": [ "window-size=1280,800" ] }
       }
     }
   }

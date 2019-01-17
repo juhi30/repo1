@@ -218,6 +218,13 @@ const universalElementsCommands = {
       .waitForElementNotPresent('@logoutButton', 'Logout button no longer present')
   },
 
+  clickSelectOrganization: function(){
+    return this.waitForElementVisible('@SelectOrgButton','Select Organization Button is visible')
+    .pause(3000)
+    .click('@SelectOrgButton')
+    .waitForElementNotPresent('@SelectOrgButton','Select Organization Button is no longer present')
+  },
+
   searchByName: function(name) {
     return this.waitForElementVisible('@searchButton', 'Search field is visible')
       .click('@searchButton')
@@ -411,6 +418,11 @@ module.exports = {
     logoutButton: {
       selector: `(//SPAN[@class='button__text-wrapper' and contains(text(), 'Log Out')])`,
       locateStrategy: 'xpath',
+    },
+
+    SelectOrgButton : {
+      selector : `//span[@class='button__text-wrapper'][text()='Select Organization']`,
+      locateStrategy : 'xpath',
     },
   }
 };

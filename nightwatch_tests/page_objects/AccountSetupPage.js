@@ -5,12 +5,18 @@ const accountSetupCommands = {
         return this;
     },
 
+    validateUrlChange: function () {
+        return this.waitForElementNotPresent('@createOrgButton', false, null, 'Create Organization button is no longer visible, page changes to inbox')
+            .verify.urlContains('contacts')  // maybe some timeout issues happening here working as of 9/20/1
+    },
+
     clickBillingToggle: function () {
         return this.waitForElementPresent('@billingToggle', 'Billing toggle is present')
             .click('@billingToggle')
             .waitForElementNotPresent('@newBillingRadio', 'Billing options are hidden')
     },
 
+    //Creating Without Billing organization
     fillInOrgBasicInformation: function (name, address, city, state, zip) {
         return this.waitForElementPresent('@orgNameInput', 'Organization inputs are present')
             .setValue('@orgNameInput', name)
@@ -18,6 +24,15 @@ const accountSetupCommands = {
             .setValue('@cityInput', city)
             .setValue('@stateDropdown', state)
             .setValue('@zipInput', zip)
+    },
+
+    //Creating Billing Organization
+    enterSubscriptionDetails: function () {
+        
+    },
+
+    enterBillingInfo: function () {
+
     },
 
     clickCreateOrganizaton: function () {
@@ -126,7 +141,10 @@ module.exports = {
         // Sales Information
         /*---------------------------------------------------------*/
 
-        // currently will not be used for automated testing    
+        plans: {
+            selector : `//*[@id="app"]//div[2]//div[5]/div[3]//button/span`,
+            locateStrategy : 'xpath',
+        },    
 
         /*---------------------------------------------------------*/
         // Payment Information
@@ -137,7 +155,7 @@ module.exports = {
         /*---------------------------------------------------------*/
 
         createOrgButton: {
-            selector: `//BUTTON[contains(text(), 'Create Organization')]`,
+            selector: `//SPAN[text()='Create Organization']`,
             locateStrategy: 'xpath',
         },
     }

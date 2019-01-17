@@ -97,6 +97,27 @@ const auditLogsCommands = {
       .verify.containsText('@action', action, 'Action should be ' + action)
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
       .click('@linkText')
+      .verify.containsText('@tagName', 'Edited_tag', 'Deleted tag name should be Edited_tag')
+  },
+
+  checkAddOrgEntry: function(){
+    return this.waitForElementVisible('@categoryFilter','selecting Category Type')
+    .setValue('@categoryFilter', 'Organization')
+    .waitForElementVisible('@actionFilter','Selecting Action Type')
+    .setValue('@actionFilter','Add')
+    .verify.visible('@auditEntry','add entry for the org is available')
+    .click('@linkText')
+    .elementText('@auditEntry',' :: Entry Details')
+  },
+  
+  validateBillingEntry: function () {
+    return this.verify.visible('@auditEntry', 'Billing entry is visible')
+      .verify.visible('@dateAndTime', 'Date and Time is visible')
+      .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
+      .verify.visible('@contact', 'Contact name should not be visible')
+      .verify.containsText('@category', 'Billing', 'Category should be Billing')
+      .verify.containsText('@action', 'Edit', 'Action should be Edit')
+      .verify.containsText('@linkText', 'Details', 'Link text should be Details')
       .verify.containsText('@staticField', eventName, action + 'ed event name should be ' + eventName)
   },
 }
@@ -110,42 +131,42 @@ module.exports = {
 
     //*********------ Page Title -----*********//
     auditLogPageTitle: {
-      selector: `//div[text()='Audit Log']`,
+      selector: `//DIV[text()='Audit Log']`,
       locateStrategy: 'xpath',
     },
 
     filtersLabel : {
-      selector : `//div[text()='FILTER LOG BY:']`,
+      selector : `//DIV[text()='FILTER LOG BY:']`,
       locateStrategy : 'xpath',
     },
 
     datePicker : {
-      selector : `//div[@class='daterange__dropdown']//button`,
+      selector : `//DIV[@class='daterange__dropdown']//button`,
       locateStrategy : 'xpath',
     },
 
     memberFilter : {
-      selector : `//span[text()='Member(s)']`,
+      selector : `//SPAN[text()='Member(s)']`,
       locateStrategy : 'xpath',
     },
 
     contactFilter : {
-      selector : `//span[text()='Contact(s)']`,
+      selector : `//SPAN[text()='Contact(s)']`,
       locateStrategy : 'xpath',
     },
 
     categoryFilter : {
-      selector : `//span[text()='Category']`,
+      selector : `//SPAN[text()='Category']`,
       locateStrategy : 'xpath',
     },
 
     actionFilter : {
-      selector : `//span[text()='Action']`,
+      selector : `//SPAN[text()='Action']`,
       locateStrategy : 'xpath',
     },
 
     topPagination : {
-      selector : `    //div[@class="row"]//div[@class='u-m-t-small u-text-right u-text-small audit-log__pagination']`,
+      selector : `    //DIV[@class="row"]//div[@class='u-m-t-small u-text-right u-text-small audit-log__pagination']`,
       locateStrategy : 'xpath',
     },
 
@@ -155,32 +176,32 @@ module.exports = {
     },
 
     dateColumn : {
-      selector : `//div[@class='rt-resizable-header-content'][text()='Date']`,
+      selector : `//DIV[@class='rt-resizable-header-content'][text()='Date']`,
       locateStrategy : 'xpath'
     },
 
     memberColumn : {
-      selector : `//div[@class='rt-resizable-header-content'][text()='Member']`,
+      selector : `//DIV[@class='rt-resizable-header-content'][text()='Member']`,
       locateStrategy : 'xpath'
     },
 
     contactColumn : {
-      selector : `//div[@class='rt-resizable-header-content'][text()='Contact']`,
+      selector : `//DIV[@class='rt-resizable-header-content'][text()='Contact']`,
       locateStrategy : 'xpath'
     },
 
     categoryColumn : {
-      selector : `//div[@class='rt-resizable-header-content'][text()='Category']`,
+      selector : `//DIV[@class='rt-resizable-header-content'][text()='Category']`,
       locateStrategy : 'xpath'
     },
 
     actionColumn : {
-      selector : `//div[@class='rt-resizable-header-content'][text()='Action']`,
+      selector : `//DIV[@class='rt-resizable-header-content'][text()='Action']`,
       locateStrategy : 'xpath'
     },
 
     expandAllButton : {
-      selector : `//button[@class='button expand-all__button button--link']`,
+      selector : `//BUTTON[@class='button expand-all__button button--link']`,
       locateStrategy : 'xpath',
     },
 

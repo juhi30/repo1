@@ -71,10 +71,16 @@ const loginCommands = {
   },
 
   //need more appropiate name or refactor
-  validateUrlChange: function() {
-    return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
+  validateUrlChangeAdmin: function() {
+    return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to Organization List')
+      .verify.urlContains('selectorg')  // maybe some timeout issues happening here working as of 9/20/1
+  },
+
+  validateUrlChangeMember: function() {
+    return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox page')
       .verify.urlContains('inbox')  // maybe some timeout issues happening here working as of 9/20/1
   },
+
 
   fillInNewPasswordInput: function(password) {
     return this.waitForElementVisible('@newPasswordInput', 'New password input is visible')

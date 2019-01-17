@@ -53,7 +53,7 @@ module.exports = {
     const tags = client.page.TagsPage();
 
     tags.navigate()
-      .validateTagPageElements();
+      .validateNewTagButton();
   },
 
   'Validate new Tag modal and create new Tag': function (client) {
@@ -71,7 +71,7 @@ module.exports = {
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)
-      .validateAddedTagEntry();
+      .validateTagEntry('Add', 'fake_tag');
   },
 
   // Test cases for auditing edition of existing Tag
@@ -90,7 +90,7 @@ module.exports = {
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)
-      .validateEditedTagEntry();
+      .validateTagEntry('Edit', 'Edited_tag');
   },
 
   // Test cases for auditing edition of existing Tag
@@ -109,7 +109,7 @@ module.exports = {
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)
-      .validateDeletedTagEntry();
+      .validateTagEntry('Delete', 'Edited_tag');
   },
 
   // Test case for auditing Billing entries
@@ -158,5 +158,68 @@ module.exports = {
       .validateUrlChange()
       .pause(5000)
       .validateBillingEntry();
-  }
+  },
+
+  // Test cases for auditing New OOO Event
+  'Create OOO Event': function (client) {
+    const ooo = client.page.OutOfOfficePage();
+    ooo.navigate()
+      .validateUrlChange()
+      .pause(3000)
+      .openOOOPage('@addOOOEventButton', '@createEventPageHeader')
+      .createEvent()
+      .pause(3000)
+  },
+
+  'Verify the Audit log entry for new added Event': function (client) {
+    const auditLogs = client.page.AuditLogsPage();
+
+    auditLogs.navigate()
+      .validateUrlChange()
+      .pause(5000)
+      .validateEventEntry('Add', 'Test Event');
+  },
+
+  'Update the Event Details ': function (client) {
+    const ooo = client.page.OutOfOfficePage();
+
+    ooo.navigate()
+      .validateUrlChange()
+      .pause(3000)
+      .clickFirstEvent()
+      .pause(2000)
+      .openOOOPage('@editOOOEvent', '@editEventPageHeader')
+      .updateEvent()
+      .pause(3000)
+  },
+
+  'Verify the Audit log entry of edited Event': function (client) {
+    const auditLogs = client.page.AuditLogsPage();
+
+    auditLogs.navigate()
+      .validateUrlChange()
+      .pause(5000)
+      .validateEventEntry('Edit', 'Edited_Title');
+  },
+
+  'Delete Event': function (client) {
+    const ooo = client.page.OutOfOfficePage();
+
+    ooo.navigate()
+      .validateUrlChange()
+      .pause(3000)
+      .clickFirstEvent()
+      .pause(2000)
+      .openOOOPage('@editOOOEvent', '@editEventPageHeader')
+      .deleteEvent()
+  },
+
+  'Verify the Audit log entry of deleted Event': function (client) {
+    const auditLogs = client.page.AuditLogsPage();
+
+    auditLogs.navigate()
+      .validateUrlChange()
+      .pause(5000)
+      .validateEventEntry('Delete', 'Edited_Title');
+  },
 }

@@ -5,7 +5,6 @@
 
 module.exports = {
 
-<<<<<<< HEAD
   'Login Page with CCR Credentials': function (client) {
     const login = client.page.LoginPage();
 
@@ -79,16 +78,3 @@ module.exports = {
   },
 
 }
-=======
-    'Login Page with CCR Credentials': function (client) {
-      const login = client.page.LoginPage();
-  
-      login.navigate()
-        .enterMemberCreds('ccr', 'bacon')
-        .submit()
-        .validateUrlChange('selectorg');
-    },
-  
-  }
-  
->>>>>>> 3c1cd45085beb7d43a707c086648e596fcf63d4e

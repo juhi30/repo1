@@ -57,6 +57,19 @@ const contactsCommands = {
     return this.waitForElementVisible('@addContactButtonModal', 'Add new contact button is visible')
       .click('@addNewContactButton')
   },
+
+  validateAnalyticsIconVisibility: function() {
+    return this.waitForElementVisible('@pageHeader', 'Page header is visible')
+      .verify.visible('@analyticsIcon', 'Analytics icon is visible');
+  },
+
+  validateAnalyticsPageNavigation: function() {
+    return this.click('@analyticsIcon');
+  },
+
+  validateUrlChange: function(url) {
+    return this.verify.urlContains(url);
+  },
 }
 
 module.exports = {
@@ -106,6 +119,20 @@ module.exports = {
 
     searchInputInAddContactModal: {
       selector: `//INPUT[contains(@name, 'nonMembers')]`,
+      locateStrategy: 'xpath',
+    },
+
+    /*-----------------------------------------------------------*/
+    // Header Elements
+    /*-----------------------------------------------------------*/
+
+    pageHeader: {
+      selector: `//HEADER[contains(@class, 'app-header')]`,
+      locateStrategy: 'xpath',
+    },
+
+    analyticsIcon: {
+      selector: `//BUTTON[contains(@id, 'nav-analytics')]`,
       locateStrategy: 'xpath',
     },
   }

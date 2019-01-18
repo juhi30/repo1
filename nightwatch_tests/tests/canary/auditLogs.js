@@ -49,25 +49,19 @@ module.exports = {
   },
 
   // Test cases for auditing New Tag entry
-  'Go to Tags page and validate elements': function (client) {
-    const tags = client.page.TagsPage();
 
+  'Verify the Audit log entry for new added tag': function (client) {
+    const tags = client.page.TagsPage();
+    const auditLogs = client.page.AuditLogsPage();
+
+    // create new tag
     tags.navigate()
-      .validateNewTagButton();
-  },
-
-  'Validate new Tag modal and create new Tag': function (client) {
-    const tags = client.page.TagsPage();
-
-    tags.validateCreateTagModal()
+      .validateNewTagButton()
+      .validateCreateTagModal()
       .createNewTag()
       .pause(5000);
 
-  },
-
-  'Verify the Audit log entry for new added tag': function (client) {
-    const auditLogs = client.page.AuditLogsPage();
-
+    // verify Audit log entry  
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)
@@ -76,17 +70,16 @@ module.exports = {
 
   // Test cases for auditing edition of existing Tag
 
-  'Validate edit Tag modal': function (client) {
+  'Verify the Audit log entry for edition of existing tag': function (client) {
     const tags = client.page.TagsPage();
+    const auditLogs = client.page.AuditLogsPage();
 
+    // Edit tag
     tags.navigate()
       .editTag()
       .pause(5000);
-  },
 
-  'Verify the Audit log entry for edition of existing tag': function (client) {
-    const auditLogs = client.page.AuditLogsPage();
-
+    // verify Audit Log entry
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)
@@ -95,17 +88,16 @@ module.exports = {
 
   // Test cases for auditing edition of existing Tag
 
-  'Validate delete Tag modal': function (client) {
+  'Verify the Audit log entry for deletion of existing tag': function (client) {
     const tags = client.page.TagsPage();
+    const auditLogs = client.page.AuditLogsPage();
 
+    // Delete tag
     tags.navigate()
       .deleteTag()
       .pause(5000);
-  },
 
-  'Verify the Audit log entry for deletion of existing tag': function (client) {
-    const auditLogs = client.page.AuditLogsPage();
-
+    // Verify Audit Log entry
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)
@@ -113,33 +105,31 @@ module.exports = {
   },
 
   // Test case for auditing Billing entries
-  'Navigate to Billing page and verify Billing page accessibility': function (client) {
-    const billing = client.page.BillingUsagePage();
-
-    billing.navigate()
-      .validateUrlChange()
-      .pause(5000);
-  },
-
-  'Update Billing Contact Details': function (client) {
-    const contact = client.page.BillingUsagePage();
-
-    contact.openUpdateModal('@updateBillingContactButton', '@updateContactModalHeader')
-      .updateBillingContact()
-      .pause(5000);
-  },
 
   'Verify the Audit log entry for updating Billing contact': function (client) {
+    const billing = client.page.BillingUsagePage();
     const auditLogs = client.page.AuditLogsPage();
 
+    // Update Billing Contact Details
+    billing.navigate()
+      .validateUrlChange()
+      .pause(5000)
+      .openUpdateModal('@updateBillingContactButton', '@updateContactModalHeader')
+      .updateBillingContact()
+      .pause(5000);
+
+    // Verify Audit Log entry
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)
       .validateBillingEntry()
   },
 
-  'Add/Update payment method': function (client) {
+  'Verify the Audit log entry for add/update Payment method': function (client) {
     const billing = client.page.BillingUsagePage();
+    const auditLogs = client.page.AuditLogsPage();
+
+    // Add/Update payment method
     billing.navigate()
       .validateUrlChange()
       .pause(5000)
@@ -149,11 +139,8 @@ module.exports = {
       .pause(1000)
       .updatePaymentToBank()
       .pause(5000);
-  },
 
-  'Verify the Audit log entry for add/update Payment method': function (client) {
-    const auditLogs = client.page.AuditLogsPage();
-
+    // Verify Audit Log entry
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)
@@ -161,28 +148,31 @@ module.exports = {
   },
 
   // Test cases for auditing New OOO Event
-  'Create OOO Event': function (client) {
+
+  'Verify the Audit log entry for new added Event': function (client) {
     const ooo = client.page.OutOfOfficePage();
+    const auditLogs = client.page.AuditLogsPage();
+
+    // Create OOO Event
     ooo.navigate()
       .validateUrlChange()
       .pause(3000)
       .openOOOPage('@addOOOEventButton', '@createEventPageHeader')
       .createEvent()
       .pause(3000)
-  },
 
-  'Verify the Audit log entry for new added Event': function (client) {
-    const auditLogs = client.page.AuditLogsPage();
-
+    // Verify Audit Log entry
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)
       .validateEventEntry('Add', 'Test Event');
   },
 
-  'Update the Event Details ': function (client) {
+  'Verify the Audit log entry of edited Event': function (client) {
     const ooo = client.page.OutOfOfficePage();
+    const auditLogs = client.page.AuditLogsPage();
 
+    // Update the Event Details
     ooo.navigate()
       .validateUrlChange()
       .pause(3000)
@@ -191,19 +181,19 @@ module.exports = {
       .openOOOPage('@editOOOEvent', '@editEventPageHeader')
       .updateEvent()
       .pause(3000)
-  },
 
-  'Verify the Audit log entry of edited Event': function (client) {
-    const auditLogs = client.page.AuditLogsPage();
-
+    // Verify Audit Log entry
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)
       .validateEventEntry('Edit', 'Edited_Title');
   },
 
-  'Delete Event': function (client) {
+  'Verify the Audit log entry of deleted Event': function (client) {
     const ooo = client.page.OutOfOfficePage();
+    const auditLogs = client.page.AuditLogsPage();
+
+    // Delete Event
 
     ooo.navigate()
       .validateUrlChange()
@@ -212,11 +202,8 @@ module.exports = {
       .pause(2000)
       .openOOOPage('@editOOOEvent', '@editEventPageHeader')
       .deleteEvent()
-  },
 
-  'Verify the Audit log entry of deleted Event': function (client) {
-    const auditLogs = client.page.AuditLogsPage();
-
+    // Verify Audit Log entry
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)

@@ -15,12 +15,12 @@
   "author": "Rhinogram, LLC",
   "license": "UNLICENSED",
   "devDependencies": {
-  "babel": "6.23.x",
-  "chromedriver": "^2.45.0",
-  "eslint": "5.1.x",
-  "nightwatch": "0.9.x",
-  "selenium-server-standalone-jar": "^3.141.5",
-  "nightwatch-slack-reporter": "0.0.2"
+    "babel": "6.23.x",
+    "chromedriver": "2.38.x",
+    "eslint": "5.1.x",
+    "nightwatch": "0.9.x",
+    "nightwatch-slack-reporter": "0.0.2",
+    "selenium-server-standalone-jar": "3.8.x"
   },
   "dependencies": {
     "babel-preset-env": "1.7.x",

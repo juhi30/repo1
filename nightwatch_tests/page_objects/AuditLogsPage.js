@@ -100,7 +100,7 @@ const auditLogsCommands = {
   },
 
   validateTemplateEntry: function (action, templateTitle) {
-    return this.verify.visible('@auditEntry', 'Event entry is visible')
+    return this.verify.visible('@auditEntry', 'Template entry is visible')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
       .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
       .verify.visible('@contact', 'Contact name should not be visible')
@@ -111,12 +111,28 @@ const auditLogsCommands = {
       .verify.containsText('@staticField', templateTitle, action + 'ed template title should be ' + templateTitle)
   },
 
-  checkAuditEntry: function(){
-    return this.waitForElementVisible('@categoryFilter','selecting Category Type')
-    .waitForElementVisible('@actionFilter','Selecting Action Type')
-    .verify.visible('@auditEntry','add entry for the org is available')
+  checkAuditOrgEntry: function(category,action,orgName){
+    return this.verify.visible('@auditEntry', 'Event entry is visible')
+    .verify.visible('@dateAndTime', 'Date and Time is visible')
+    .verify.containsText('@member', 'mccr', 'Member name is mccr')
+    .verify.visible('@contact', 'Contact name should not be visible')
+    .verify.containsText('@category', category , 'Category should be' + category)
+    .verify.containsText('@action', action, 'Action should be ' + action)
+    .verify.containsText('@linkText', 'Details', 'Link text should be Details')
     .click('@linkText')
-    .elementText('@auditEntry',' :: Entry Details')
+    .verify.containsText('@staticField', orgName, action + ' Organization Name should be ' + orgName)
+  },
+
+  checkAuditChannelEntry: function(category,action,channelName){
+    return this.verify.visible('@auditEntry', 'Channel entry is visible')
+    .verify.visible('@dateAndTime', 'Date and Time is visible')
+    .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
+    .verify.visible('@contact', 'Contact name should not be visible')
+    .verify.containsText('@category', category , 'Category should be' + category)
+    .verify.containsText('@action', action, 'Action should be ' + action)
+    .verify.containsText('@linkText', 'Details', 'Link text should be Details')
+    .click('@linkText')
+    .verify.containsText('@staticField', channelName, action + ' Channel Name should be ' + channelName)
   },
 }
 

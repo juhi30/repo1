@@ -285,7 +285,7 @@ module.exports = {
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)
-      .checkAuditEntry()
+      .checkAuditChannelEntry('Channel','Add','Rhino Secure test1')
   },
 
   'Logout from application': function(client) {
@@ -324,6 +324,6 @@ module.exports = {
       auditLogs.navigate()
         .validateUrlChange()
         .pause(5000)
-        .checkAuditEntry();
+        .checkAuditOrgEntry('Organization','Add','Without Billing Org');
     },
 }

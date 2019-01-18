@@ -10,7 +10,7 @@ module.exports = {
     login.navigate()
       .enterMemberCreds('duttamunish', 'Test@123')
       .submit()
-      .validateUrlChangeMember();
+      .validateUrlChange();
   },
 
   'Validate the audit log option is available on setting Menu': function (client) {
@@ -278,7 +278,7 @@ module.exports = {
       .navigateToCreateChannels()
     create.createNewSecureChannel()
       .pause(5000)
-    route.selectDefaultRoutes('Mahima')
+    route.selectDefaultRoutes('m 1')
     create.clickCreateChannel()
     .pause(3000)
 

@@ -76,7 +76,7 @@ const loginCommands = {
       .verify.urlContains('selectorg')  // maybe some timeout issues happening here working as of 9/20/1
   },
 
-  validateUrlChangeMember: function() {
+  validateUrlChange: function() {
     return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox page')
       .verify.urlContains('inbox')  // maybe some timeout issues happening here working as of 9/20/1
   },

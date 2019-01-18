@@ -26,15 +26,6 @@ const accountSetupCommands = {
             .setValue('@zipInput', zip)
     },
 
-    //Creating Billing Organization
-    enterSubscriptionDetails: function () {
-        
-    },
-
-    enterBillingInfo: function () {
-
-    },
-
     clickCreateOrganizaton: function () {
         return this.waitForElementPresent('@createOrgButton', 'Create organization button is present')
             .click('@createOrgButton')

@@ -100,11 +100,9 @@ const auditLogsCommands = {
       .verify.containsText('@tagName', 'Edited_tag', 'Deleted tag name should be Edited_tag')
   },
 
-  checkAddOrgEntry: function(){
+  checkAuditEntry: function(){
     return this.waitForElementVisible('@categoryFilter','selecting Category Type')
-    .setValue('@categoryFilter', 'Organization')
     .waitForElementVisible('@actionFilter','Selecting Action Type')
-    .setValue('@actionFilter','Add')
     .verify.visible('@auditEntry','add entry for the org is available')
     .click('@linkText')
     .elementText('@auditEntry',' :: Entry Details')

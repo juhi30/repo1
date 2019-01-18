@@ -4,6 +4,15 @@ const universalElementsCommands = {
     this.api.pause(time);
     return this;
   },
+  
+  // searchOrganization: function(org){
+  //   return this.waitForElementVisible('@orgPageTitle','organization list page is visible')
+  //   .waitForElementVisible('@searchOrg','Input Field for searching an organization is visible')
+  //   .setValue(org)
+  //   .verify.waitForElementNotPresent('@searchOrg','Input Field for searching an organization is no longer visible')
+  //   .verify.waitForElementVisible('@orgSearchResult','Search Result is visible ')
+  //   .click('@orgSearchResult')
+  //   },
 
   validateUniversalElements: function() {
     return this.waitForElementVisible('@myProfileButton', 'My Profile button is visible')
@@ -424,5 +433,21 @@ module.exports = {
       selector : `//span[@class='button__text-wrapper'][text()='Select Organization']`,
       locateStrategy : 'xpath',
     },
+
+    // searchOrg : {
+    //   selector : `//input[@name='search']`,
+    //   locateStrategy : 'xpath',
+    // },
+
+    // orgSearchResult : {
+    //   selector : `//div[@tabindex='0']`,
+    //   locateStrategy: 'xpath',
+    // },
+
+    // orgPageTitle : {
+    //   selector : `//div[@class='app-page__header__title']`,
+    //   locateStrategy: 'xpath',
+    // },
+
   }
 };

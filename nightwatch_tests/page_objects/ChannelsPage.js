@@ -16,7 +16,7 @@ const channelsCommands = {
 
   navigateToCreateChannels: function() {
     return this.waitForElementVisible('@addChannelButton', 'add channel button is present')
-      click('@addChannelButton')
+      .click('@addChannelButton')
   },
 
   navigateToEditChannels: function() {

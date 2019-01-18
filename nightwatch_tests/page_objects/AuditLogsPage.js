@@ -3,10 +3,10 @@ let text = '';
 
 const auditLogsCommands = {
 
-  // pause: function (time) {
-  //   this.api.pause(time);
-  //   return this;
-  // },
+  pause: function (time) {
+    this.api.pause(time);
+    return this;
+  },
 
   elementText: function (ele, message) {
     return this.getText(ele, function (tpObj) {
@@ -96,7 +96,7 @@ const auditLogsCommands = {
       .verify.containsText('@action', action, 'Action should be ' + action)
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
       .click('@linkText')
-      .verify.containsText('@staticField', eventName, action + 'ed tag name should be ' + eventName)
+      .verify.containsText('@staticField', eventName, action + 'ed Event should be ' + eventName)
   },
 
   validateTemplateEntry: function (action, templateTitle) {

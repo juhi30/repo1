@@ -92,6 +92,7 @@ const templatesCommands = {
   editFirstTemplate: function(title, message) {
     return this.waitForElementVisible('@templateTitleInput', 'Edit template popup is visible')
       .verify.visible('@firstTemplateEditSaveButton', 'Save template button is visible')
+      .clearValue('@templateTitleInput')
       .setValue('@templateTitleInput', title)
       .setValue('@templateMessageInput', message)
       .click('@firstTemplateEditSaveButton')

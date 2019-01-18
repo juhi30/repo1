@@ -8,7 +8,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .enterMemberCreds('test1', 'Test@123')
+      .enterMemberCreds('duttamunish', 'Test@123')
       .submit()
       .validateUrlChangeMember();
   },
@@ -266,4 +266,64 @@ module.exports = {
       .pause(5000)
       .validateTemplateEntry('Delete', 'Edited_Template');
   },
+
+  // Test case for auditing new channel add of Rhino secure type
+  'Verify the Audit log entry when user adds channels of Rhino secure type': function (client) {
+    const createChannel = client.page.ChannelsPage();
+    const route = client.page.ChannelRouteMemberContainer();
+    const create = client.page.ChannelsCreateEditPage();
+    const auditLogs = client.page.AuditLogsPage();
+
+    createChannel.navigate()
+      .navigateToCreateChannels()
+    create.createNewSecureChannel()
+      .pause(5000)
+    route.selectDefaultRoutes('Mahima')
+    create.clickCreateChannel()
+    .pause(3000)
+
+    auditLogs.navigate()
+      .validateUrlChange()
+      .pause(5000)
+      .checkAuditEntry()
+  },
+
+  'Logout from application': function(client) {
+    const logout = client.page.UniversalElements();
+
+    logout.clickLogout()
+      .pause(2000)
+  },
+
+  'Login Page with CCR Credentials': function (client) {
+  const login = client.page.LoginPage();
+
+  login.navigate()
+    .enterMemberCreds('mccr', 'bacon')
+    .pause(1000)
+    .submit()
+    .pause(1000)
+    .validateUrlChangeAdmin();
+  },
+
+  'Verify the Audit Log Entry for an organization created using the Without Billing Customer flow'
+    : function (client) {
+      const auditLogs = client.page.AuditLogsPage();
+      const addOrg = client.page.AccountSetupPage();
+
+      addOrg.navigate()
+        .pause(2000)
+        .fillInOrgBasicInformation('Without Billing Org', 'line1', 'city', 'Alaska', '12345')
+        .clickBillingToggle()
+        .clickCreateOrganizaton()
+        .pause(2000)
+        .validateUrlChange()
+        .pause(2000)
+
+      // verify Audit log entry  
+      auditLogs.navigate()
+        .validateUrlChange()
+        .pause(5000)
+        .checkAuditEntry();
+    },
 }

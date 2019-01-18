@@ -111,11 +111,9 @@ const auditLogsCommands = {
       .verify.containsText('@staticField', templateTitle, action + 'ed template title should be ' + templateTitle)
   },
 
-  checkAddOrgEntry: function(){
+  checkAuditEntry: function(){
     return this.waitForElementVisible('@categoryFilter','selecting Category Type')
-    .setValue('@categoryFilter', 'Organization')
     .waitForElementVisible('@actionFilter','Selecting Action Type')
-    .setValue('@actionFilter','Add')
     .verify.visible('@auditEntry','add entry for the org is available')
     .click('@linkText')
     .elementText('@auditEntry',' :: Entry Details')

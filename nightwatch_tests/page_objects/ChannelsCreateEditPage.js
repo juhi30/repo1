@@ -4,13 +4,13 @@ const editChannelsCommands = {
         this.api.pause(time);
         return this;
     },
-    
-    validateCreateEls: function() {
+
+    validateCreateEls: function () {
         return this.waitForElementVisible('@channelNameInput', 'create channel is visible')
             .verify.visible('')
     },
 
-    validateEditEls: function() {
+    validateEditEls: function () {
         return this.waitForElementVisible('@channelNameInput', 'Edit channel is visible')
             .waitForElementVisible('@backButton', 'back button is visible')
             .verify.visible('@newNumberRadio', 'new number radio is visible')
@@ -18,7 +18,7 @@ const editChannelsCommands = {
             .verify.visible('@forwardNumberInput', 'forward number input is visible')
     },
 
-    validateEditAndCreateEls: function() {
+    validateEditAndCreateEls: function () {
         return this.waitForElementVisible('@channelNameInput', 'channel name input is visible')
             .verify.visible('@channelPurposeInput', 'channel purpose is visible')
             .verify.visible('@channelTimezoneDropdown', 'timezone dropdown is visible')
@@ -26,20 +26,20 @@ const editChannelsCommands = {
             .verify.visible('@updateChannelButton', 'update channel button is visible')
     },
 
-    createNewSecureChannel: function() {
+    createNewSecureChannel: function () {
         return this.waitForElementVisible('@secureChannelRadio', 'secure channel radio is visible')
             .click('@secureChannelRadio')
-            .setValue('@channelNameInput', 'Rhino Secure test')
-            .setValue('@channelPurposeInput', 'automatic testing')
+            .setValue('@channelNameInput', 'Rhino Secure test1')
+            .setValue('@channelPurposeInput', 'Automation testing')
             .setValue('@channelTimezoneDropdown', 'e')
 
     },
 
-    clickCreateChannel: function() {
+    clickCreateChannel: function () {
         return this.waitForElementVisible('@createChannelButton', 'create channel button is visible')
             .click('@createChannelButton')
     },
-    
+
 }
 
 module.exports = {
@@ -54,7 +54,7 @@ module.exports = {
         /*-----------------------------------------------------*/
 
         backButton: {
-            selector: `//BUTTON[contains(@title, 'Go back')]`, 
+            selector: `//BUTTON[contains(@title, 'Go back')]`,
             locateStrategy: 'xpath'
         },
 
@@ -118,7 +118,7 @@ module.exports = {
         /*-----------------------------------------------------*/
 
         channelForwardingToggle: {
-            selector: `//LABEL[contains(@for,'allowChannelReroute')]`, 
+            selector: `//LABEL[contains(@for,'allowChannelReroute')]`,
             locateStrategy: 'xpath'
         }
     }

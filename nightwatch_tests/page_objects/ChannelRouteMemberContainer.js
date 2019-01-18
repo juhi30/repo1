@@ -24,6 +24,17 @@ const channelRouteCommands = {
             .waitForElementVisible('@firstMember', 'first member is visible')
             .click('@firstMember')
     },
+
+    selectDefaultRoutes : function(search){
+        return this.waitForElementVisible('@membersButton', 'members button is visible')
+        .click('@groupsButton')
+        .waitForElementVisible('@membersButton', 'members button is visible')
+        .click('@membersButton')
+        .setValue('@memberInput' , search)
+        .waitForElementVisible('@result','Result set is visible')
+        .click('@result')
+
+    } 
 }
 
 module.exports = {
@@ -75,6 +86,11 @@ module.exports = {
         firstGroup: {
             selector: `//SPAN[contains(., 'QA Inbox & Chat Group')]`,
             locateStrategy: 'xpath'
+        },
+
+        result : {
+            selector : `//div[@class='resource-group']//span`,
+            locateStrategy : 'xpath',
         },
     }
 };

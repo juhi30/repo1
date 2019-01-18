@@ -14,10 +14,10 @@ module.exports = {
       .validateUrlChange('selectorg');
   },
 
-  'Select Org and Go To Contacts Page': function (client) {
-    const selectOrganization = client.page.SelectOrganizationPage();
+  'Select One Org For Analytics': function (client) {
+    const universalElements = client.page.UniversalElements();
 
-    selectOrganization.searchForOrganization('Rhino India Scrum Team').validateUrlChange();
+    universalElements.searchForOrganization('Rhino India Scrum Team');
   },
 
   'Check if Analytics Icon Visible': function (client) {
@@ -42,10 +42,38 @@ module.exports = {
     .pause(5000);
   },
 
+  'Check Default option in Date Range Datepicker': function (client) {
+    const analytics = client.page.AnalyticsPage();
+
+    analytics.validateDefaultOptionInDateRangeDropdown()
+    .pause(2000);
+  },
+
   'Validate Total Message Count Graph': function (client) {
     const analytics = client.page.AnalyticsPage();
 
     analytics.validateTotalMessageCountGraph()
+    .pause(5000);
+  },
+
+  'Validate Peak Message Time Graph': function (client) {
+    const analytics = client.page.AnalyticsPage();
+
+    analytics.validatePeakTimeGraph()
+    .pause(5000);
+  },
+
+  'Validate New Inbound Contacts Graph': function (client) {
+    const analytics = client.page.AnalyticsPage();
+
+    analytics.validateNewInboundContactsGraph()
+    .pause(5000);
+  },
+
+  'Validate Response Time Graph': function (client) {
+    const analytics = client.page.AnalyticsPage();
+
+    analytics.validateResponseTimeGraph()
     .pause(5000);
   },
 

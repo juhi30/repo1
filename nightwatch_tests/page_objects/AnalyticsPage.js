@@ -1,3 +1,5 @@
+const helpers = require('../helpers');
+
 const analyticsCommands = {
 
     pause: function (time) {
@@ -9,7 +11,7 @@ const analyticsCommands = {
         return this.waitForElementVisible('@dateRangeDropdown', 'DateRange dropdown is visible')
           .click('@dateRangeDropdown')
           .waitForElementVisible('@dateRangeDropdownMenus', 'DateRange dropdown is opened after click')
-          .verify.visible('@yesterdayOption', 'All contacts option is visible')
+          .verify.visible('@yesterdayOption', 'Yesterday option is visible')
           .verify.visible('@lastSevenDaysOption', 'Last 7 days option is visible')
           .verify.visible('@lastThirtyDaysOption', 'Last 30 days is visible')
           .verify.visible('@lastNintyDaysOption', 'Last 90 days option is visible')
@@ -21,15 +23,47 @@ const analyticsCommands = {
     },
 
     validateTotalMessageCountGraph: function() {
-        let totalMessageCount = '';
+        const self = this;
         return this.waitForElementVisible('@totalMessageCountGraph', 'Total Message Count Graph is visible')
           .verify.visible('@totalMessageCountLabel', 'Total Message Count Label is present on this graph')
-          .getValue('@totalMessageCountGraphCount', function(count) {   
-            totalMessageCount = count.value;
+          .getText('@totalMessageCountGraphCount', function (tpObj) {
+             self.verify.visible('@totalMessageCountGraphCount', `Total Message Count ${tpObj.value} is visible`);
+          });
+          
+    },
+
+    validatePeakTimeGraph: function() {
+        const self = this;
+        return this.waitForElementVisible('@peakMessageTimeGraph', 'Peak Message Time Graph is visible')
+          .verify.visible('@peakMessageTimeGraphLabel', 'Peak Message Time Label is present on this graph')
+          .getText('@peakMessageTimeGraphTime', function (tpObj) {
+             self.verify.visible('@peakMessageTimeGraphTime', `Peak Message Time (${tpObj.value}) is visible`);
           })
-          .verify.visible('@totalMessageCountGraphCount', `Total Message Count(${totalMessageCount}) is visible`)
-          .verify.visible('@totlaMessageCountGraphAvgCount', 'Total Message Count Average ${totalMessageCount} is visible');
-    }
+          
+    },
+
+    validateNewInboundContactsGraph: function() {
+        const self = this;
+        return this.waitForElementVisible('@newInboundContactsGraph', 'New Inbound Contacts Graph is visible')
+          .verify.visible('@newInboundContactsGraphLabel', 'New Inbound Contacts Label is present on this graph')
+          .getText('@newInboundContactsGraphTotalCount', function (tpObj) {
+             self.verify.visible('@newInboundContactsGraphTotalCount', `New Inbound Contacts total Count(${tpObj.value}) is visible`);
+          });
+    },
+
+    validateResponseTimeGraph: function() {
+        const self = this;
+        return this.waitForElementVisible('@responseTimeGraph', 'Response Time Graph is visible')
+          .verify.visible('@responseTimeGraphLabel', 'Response Time Label is present on this graph')
+          .getText('@responseTimeGraphAverageMinutes', function (tpObj) {
+             self.verify.visible('@responseTimeGraphAverageMinutes', `Response Time Average Minutes (${tpObj.value}) is visible`);
+          });
+          
+    },
+
+    validateDefaultOptionInDateRangeDropdown: function() {
+        return this.waitForElementVisible('@dateRangeDropdownLabel', `The default date selection in the date picker is '${helpers.defaultDateRange()}'`);
+    },
 
 }
 
@@ -116,9 +150,54 @@ module.exports = {
             locateStrategy: 'xpath',
         },
 
-        totlaMessageCountGraphAvgCount: {
-            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Total Message Count']//parent::div//DIV[@class= 'header__subtitle primary']//SPAN[@class='subtitle--muted']`,
+        dateRangeDropdownLabel: {
+            selector: `//DIV[@class= 'daterange__dropdown']//SPAN[@class='dropdown__toggle__text' and text() = '${helpers.defaultDateRange()}']`,
             locateStrategy: 'xpath',
+        },
+
+        peakMessageTimeGraph: {
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Peak Message Time']//parent::div//parent::div//CANVAS`,
+            locateStrategy: 'xpath',
+        },
+
+        peakMessageTimeGraphLabel: {
+          selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='Peak Message Time']`,
+          locateStrategy: 'xpath',
+        },
+
+        peakMessageTimeGraphTime: {
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Peak Message Time']//parent::div//DIV[@class= 'header__subtitle secondary']`,
+            locateStrategy: 'xpath',
+        },
+
+        responseTimeGraphAverageMinutes: {
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Response Time']//parent::div//DIV[@class= 'header__subtitle secondary']`,
+            locateStrategy: 'xpath',
+        },
+
+        responseTimeGraph: {
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Response Time']//parent::div//parent::div//CANVAS`,
+            locateStrategy: 'xpath',
+        },
+
+        responseTimeGraphLabel: {
+          selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='Response Time']`,
+          locateStrategy: 'xpath',
+        },
+
+        newInboundContactsGraphTotalCount: {
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'New Inbound Contacts']//parent::div//DIV[@class= 'header__subtitle primary']`,
+            locateStrategy: 'xpath',
+        },
+
+        newInboundContactsGraph: {
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'New Inbound Contacts']//parent::div//parent::div//CANVAS`,
+            locateStrategy: 'xpath',
+        },
+
+        newInboundContactsGraphLabel: {
+          selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='New Inbound Contacts']`,
+          locateStrategy: 'xpath',
         },
 
     }

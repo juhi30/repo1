@@ -74,6 +74,11 @@ const templatesCommands = {
       .click('@removeAttachmentIcon')
   },
 
+  clickFirstTemplate: function() {
+    return this.waitForElementVisible('@firstTemplate', 3000, false, null, 'First Template is visible')
+      .click('@firstTemplate')
+  },
+
   /*
     Multistep functions
   */
@@ -84,12 +89,11 @@ const templatesCommands = {
       .setValue('@templateMessageInput', message)
   },
 
-  editFirstTemplate: function() {
-    return this.click('@firstTemplateEdit')
-      .waitForElementVisible('@templateTitleInput', 'Edit template popup is visible')
+  editFirstTemplate: function(title, message) {
+    return this.waitForElementVisible('@templateTitleInput', 'Edit template popup is visible')
       .verify.visible('@firstTemplateEditSaveButton', 'Save template button is visible')
-      .setValue('@templateTitleInput', 'I changed the title')
-      .setValue('@templateTitleInput')
+      .setValue('@templateTitleInput', title)
+      .setValue('@templateMessageInput', message)
       .click('@firstTemplateEditSaveButton')
       .waitForElementNotPresent('@firstTemplateEditSaveButton', 'Edit template popup is not present')
   },
@@ -154,6 +158,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    firstTemplateEditSaveButton: {
+      selector: `//SPAN[contains(text(), 'Update Template')]`,
+      locateStrategy: 'xpath',
+    },
+
     /*---------------------------------------------------------*/
 
     deleteTemplateButton: {
@@ -209,6 +218,11 @@ module.exports = {
     removeAttachmentIcon: {
       selector: `//BUTTON[contains(@title, 'Close')]`,
       locateStrategy: 'xpath'
-    }
+    },
+
+    firstTemplate: {
+      selector: `//DIV[@role='button'][1]`, //check this is working only needed to access Edit page
+      locateStrategy: 'xpath',
+    },
   }
 };

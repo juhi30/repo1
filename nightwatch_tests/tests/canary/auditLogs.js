@@ -1,7 +1,5 @@
 /*--------------------------------------------------------------------------------------------------------*/
-// tests for the billing page and elements it contains.
-// User is logged in as Member with Billing Permissions 
-// Member belongs to a billing organization
+// tests for the audit log page and elements it contains
 /*--------------------------------------------------------------------------------------------------------*/
 
 module.exports = {
@@ -10,9 +8,9 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .enterMemberCreds('duttamunish', 'Test@123')
+      .enterMemberCreds('test1', 'Test@123')
       .submit()
-      .validateUrlChange();
+      .validateUrlChangeMember();
   },
 
   'Validate the audit log option is available on setting Menu': function (client) {
@@ -22,7 +20,7 @@ module.exports = {
       .validateAuditLogsMenuOption();
   },
 
-  'Navigate to Audit Log page after Clicking on audit log option is available on setting Menu': function (client) {
+  'Navigate to Audit Log page after Clicking on audit log option available on setting Menu': function (client) {
     const auditLogs = client.page.AuditLogsPage();
 
     auditLogs.clickSettingsDropdown()
@@ -208,5 +206,64 @@ module.exports = {
       .validateUrlChange()
       .pause(5000)
       .validateEventEntry('Delete', 'Edited_Title');
+  },
+
+  // Test cases for auditing New Template entry
+
+  'Verify the Audit log entry for new added template': function (client) {
+    const template = client.page.TemplatesPage();
+    const auditLogs = client.page.AuditLogsPage();
+
+    // create new template
+    template.navigate()
+      .clickCreateTemplateButton()
+      .fillTitleAndMessage('Test Template', 'Just a regular template with a regular template message')
+      .clickCreateTemplateSaveButton()
+      .pause(3000);
+
+    // verify Audit log entry  
+    auditLogs.navigate()
+      .validateUrlChange()
+      .pause(5000)
+      .validateTemplateEntry('Add', 'Test Template');
+  },
+
+  'Verify the Audit log entry for edit template': function (client) {
+    const template = client.page.TemplatesPage();
+    const auditLogs = client.page.AuditLogsPage();
+
+    // Edit template
+    template.navigate()
+      .pause(3000)
+      .clickFirstTemplate()
+      .clickEditTemplateButton()
+      .editFirstTemplate('Edited_Template', 'Just a regular template with a regular template message')
+      .pause(3000);
+
+    // verify Audit log entry  
+    auditLogs.navigate()
+      .validateUrlChange()
+      .pause(5000)
+      .validateTemplateEntry('Edit', 'Edited_Template');
+  },
+
+  'Verify the Audit log entry for delete template': function (client) {
+    const template = client.page.TemplatesPage();
+    const auditLogs = client.page.AuditLogsPage();
+
+    // Delete template
+    template.navigate()
+      .pause(3000)
+      .clickFirstTemplate()
+      .clickEditTemplateButton()
+      .clickDeleteButton()
+      .clickDeleteFinalButton()
+      .pause(3000);
+
+    // verify Audit log entry  
+    auditLogs.navigate()
+      .validateUrlChange()
+      .pause(5000)
+      .validateTemplateEntry('Delete', 'Edited_Template');
   },
 }

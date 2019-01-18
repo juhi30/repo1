@@ -1,13 +1,12 @@
-const { colors, noteText, messageAlertText } = require('../constants');
 
 let text = '';
 
 const auditLogsCommands = {
 
-  pause: function (time) {
-    this.api.pause(time);
-    return this;
-  },
+  // pause: function (time) {
+  //   this.api.pause(time);
+  //   return this;
+  // },
 
   elementText: function (ele, message) {
     return this.getText(ele, function (tpObj) {
@@ -97,7 +96,19 @@ const auditLogsCommands = {
       .verify.containsText('@action', action, 'Action should be ' + action)
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
       .click('@linkText')
-      .verify.containsText('@tagName', 'Edited_tag', 'Deleted tag name should be Edited_tag')
+      .verify.containsText('@staticField', eventName, action + 'ed tag name should be ' + eventName)
+  },
+
+  validateTemplateEntry: function (action, templateTitle) {
+    return this.verify.visible('@auditEntry', 'Event entry is visible')
+      .verify.visible('@dateAndTime', 'Date and Time is visible')
+      .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
+      .verify.visible('@contact', 'Contact name should not be visible')
+      .verify.containsText('@category', 'Template', 'Category should be Template')
+      .verify.containsText('@action', action, 'Action should be ' + action)
+      .verify.containsText('@linkText', 'Details', 'Link text should be Details')
+      .click('@linkText')
+      .verify.containsText('@staticField', templateTitle, action + 'ed template title should be ' + templateTitle)
   },
 
   checkAddOrgEntry: function(){
@@ -108,17 +119,6 @@ const auditLogsCommands = {
     .verify.visible('@auditEntry','add entry for the org is available')
     .click('@linkText')
     .elementText('@auditEntry',' :: Entry Details')
-  },
-  
-  validateBillingEntry: function () {
-    return this.verify.visible('@auditEntry', 'Billing entry is visible')
-      .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
-      .verify.visible('@contact', 'Contact name should not be visible')
-      .verify.containsText('@category', 'Billing', 'Category should be Billing')
-      .verify.containsText('@action', 'Edit', 'Action should be Edit')
-      .verify.containsText('@linkText', 'Details', 'Link text should be Details')
-      .verify.containsText('@staticField', eventName, action + 'ed event name should be ' + eventName)
   },
 }
 

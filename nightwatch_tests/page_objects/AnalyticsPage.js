@@ -9,8 +9,8 @@ const analyticsCommands = {
         return this;
     },
 
-    getTextCallback: function(tpObj) {
-
+    getTextCallback: function(element, message1, message2, result) {
+        this.verify.visible(element, `${message1} ${result.value} ${message2}`);
     },
 
     validateDatePickerAndOptions: function() {
@@ -29,41 +29,29 @@ const analyticsCommands = {
     },
 
     validateTotalMessageCountGraph: function() {
-        const self = this;
         return this.waitForElementVisible('@totalMessageCountGraph', 'Total Message Count Graph is visible')
           .verify.visible('@totalMessageCountLabel', 'Total Message Count Label is present on this graph')
-          .getText('@totalMessageCountGraphCount', function (tpObj) {
-             self.verify.visible('@totalMessageCountGraphCount', `Total Message Count ${tpObj.value} is visible`);
-          });
-          
+          .getText('@totalMessageCountGraphCount', this.getTextCallback.bind(this, '@totalMessageCountGraphCount', 'Total Message Count', 'is visible'));          
     },
 
     validatePeakTimeGraph: function() {
-        const self = this;
         return this.waitForElementVisible('@peakMessageTimeGraph', 'Peak Message Time Graph is visible')
           .verify.visible('@peakMessageTimeGraphLabel', 'Peak Message Time Label is present on this graph')
-          .getText('@peakMessageTimeGraphTime', function (tpObj) {
-             self.verify.visible('@peakMessageTimeGraphTime', `Peak Message Time (${tpObj.value}) is visible`);
-          })
+          .getText('@peakMessageTimeGraphTime', this.getTextCallback.bind(this, '@totalMessageCountGraphCount', 'Peak Message Time', 'is visible'));
           
     },
 
     validateNewInboundContactsGraph: function() {
-        const self = this;
         return this.waitForElementVisible('@newInboundContactsGraph', 'New Inbound Contacts Graph is visible')
           .verify.visible('@newInboundContactsGraphLabel', 'New Inbound Contacts Label is present on this graph')
-          .getText('@newInboundContactsGraphTotalCount', function (tpObj) {
-             self.verify.visible('@newInboundContactsGraphTotalCount', `New Inbound Contacts total Count(${tpObj.value}) is visible`);
-          });
+          .getText('@newInboundContactsGraphTotalCount', this.getTextCallback.bind(this, '@newInboundContactsGraphTotalCount', 'New Inbound Contacts total Count', 'is visible'));
+
     },
 
     validateResponseTimeGraph: function() {
-        const self = this;
         return this.waitForElementVisible('@responseTimeGraph', 'Response Time Graph is visible')
           .verify.visible('@responseTimeGraphLabel', 'Response Time Label is present on this graph')
-          .getText('@responseTimeGraphAverageMinutes', function (tpObj) {
-             self.verify.visible('@responseTimeGraphAverageMinutes', `Response Time Average Minutes (${tpObj.value}) is visible`);
-          });
+          .getText('@responseTimeGraphAverageMinutes', this.getTextCallback.bind(this, '@responseTimeGraphAverageMinutes', 'Response Time Average Minutes', 'is visible'));
           
     },
 

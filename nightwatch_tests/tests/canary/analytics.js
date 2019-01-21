@@ -1,3 +1,5 @@
+const helpers = require('../../helpers');
+
 /*--------------------------------------------------------------------------------------------------------*/
 // tests for the Analytics page and elements it contains.
 // User is logged in as CCR 
@@ -17,14 +19,14 @@ module.exports = {
   'Select One Org For Analytics': function (client) {
     const universalElements = client.page.UniversalElements();
 
-    universalElements.searchForOrganization('Rhino India Scrum Team');
+    universalElements.searchForOrganization(helpers.organizationSearchStringForAnalytics);
   },
 
   'Check if Analytics Icon Visible': function (client) {
     const contacts = client.page.ContactsPage();
 
     contacts.validateAnalyticsIconVisibility()
-      .pause(5000);
+      .pause(1000);
   },
 
   'Click Icon and Go To Analytics Page': function (client) {
@@ -32,14 +34,14 @@ module.exports = {
 
     contacts.validateAnalyticsPageNavigation()
     .validateUrlChange('analytics')
-    .pause(5000);
+    .pause(1000);
   },
 
   'Validate Datepicker and Options Available': function (client) {
     const analytics = client.page.AnalyticsPage();
 
     analytics.validateDatePickerAndOptions()
-    .pause(5000);
+    .pause(1000);
   },
 
   'Check Default option in Date Range Datepicker': function (client) {
@@ -53,28 +55,28 @@ module.exports = {
     const analytics = client.page.AnalyticsPage();
 
     analytics.validateTotalMessageCountGraph()
-    .pause(5000);
+    .pause(2000);
   },
 
   'Validate Peak Message Time Graph': function (client) {
     const analytics = client.page.AnalyticsPage();
 
     analytics.validatePeakTimeGraph()
-    .pause(5000);
+    .pause(2000);
   },
 
   'Validate New Inbound Contacts Graph': function (client) {
     const analytics = client.page.AnalyticsPage();
 
     analytics.validateNewInboundContactsGraph()
-    .pause(5000);
+    .pause(2000);
   },
 
   'Validate Response Time Graph': function (client) {
     const analytics = client.page.AnalyticsPage();
 
     analytics.validateResponseTimeGraph()
-    .pause(5000);
+    .pause(2000);
   },
 
 }

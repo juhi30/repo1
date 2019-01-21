@@ -79,7 +79,7 @@ const loginCommands = {
   validateUrlChange: function(url) {
     const nextPageUrl = url ? url : 'inbox'; 
     return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
-      .verify.urlContains(nextPageUrl)  // maybe some timeout issues happening here working as of 9/20/1
+      .verify.urlContains(nextPageUrl);
   },
   
   fillInNewPasswordInput: function(password) {

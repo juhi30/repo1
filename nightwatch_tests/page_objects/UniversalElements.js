@@ -1,3 +1,5 @@
+const helpers = require('../helpers');
+
 const universalElementsCommands = {
 
   pause: function(time) {
@@ -433,7 +435,7 @@ module.exports = {
     },
 
     organizationDropdownFirstResult: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = 'Rhino India Scrum Team' ]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${helpers.organizationSearchStringForAnalytics}' ]`,
       locateStrategy: 'xpath',
     },
   }

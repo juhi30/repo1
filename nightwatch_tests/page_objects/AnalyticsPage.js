@@ -1,10 +1,16 @@
 const helpers = require('../helpers');
 
+const { dateRangePickerOptions, analyticsChartsNames } = helpers;
+
 const analyticsCommands = {
 
     pause: function (time) {
         this.api.pause(time);
         return this;
+    },
+
+    getTextCallback: function(tpObj) {
+
     },
 
     validateDatePickerAndOptions: function() {
@@ -96,32 +102,32 @@ module.exports = {
         },
 
         yesterdayOption: {
-          selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='Yesterday']`,
+          selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.yesterday}']`,
           locateStrategy: 'xpath',
         },
 
         lastSevenDaysOption: {
-          selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='Last 7 Days']`,
+          selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.last7Days}']`,
           locateStrategy: 'xpath',
         },
 
         lastThirtyDaysOption: {
-          selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='Last 30 Days']`,
+          selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.last30Days}']`,
           locateStrategy: 'xpath',
         },
 
         lastNintyDaysOption: {
-          selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='Last 90 Days']`,
+          selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.last90Days}']`,
           locateStrategy: 'xpath',
         },
 
         lastTwelveMonthsOption: {
-          selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='Last 12 Months']`,
+          selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.last12Months}']`,
           locateStrategy: 'xpath',
         },
 
         customRangeOption: {
-          selector: `//DIV[@class= 'date-range__label' and text() = 'Custom Range']`,
+          selector: `//DIV[@class= 'date-range__label' and text() = '${dateRangePickerOptions.customRange}']`,
           locateStrategy: 'xpath',
         },
 
@@ -136,17 +142,17 @@ module.exports = {
         },
 
         totalMessageCountGraph: {
-            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Total Message Count']//parent::div//parent::div//CANVAS`,
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.totalMessageCount}']//parent::div//parent::div//CANVAS`,
             locateStrategy: 'xpath',
         },
 
         totalMessageCountLabel: {
-          selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='Total Message Count']`,
+          selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='${analyticsChartsNames.totalMessageCount}']`,
           locateStrategy: 'xpath',
         },
 
         totalMessageCountGraphCount: {
-            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Total Message Count']//parent::div//DIV[@class= 'header__subtitle primary']`,
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.totalMessageCount}']//parent::div//DIV[@class= 'header__subtitle primary']`,
             locateStrategy: 'xpath',
         },
 
@@ -156,47 +162,47 @@ module.exports = {
         },
 
         peakMessageTimeGraph: {
-            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Peak Message Time']//parent::div//parent::div//CANVAS`,
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.peakMessageTime}']//parent::div//parent::div//CANVAS`,
             locateStrategy: 'xpath',
         },
 
         peakMessageTimeGraphLabel: {
-          selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='Peak Message Time']`,
+          selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='${analyticsChartsNames.peakMessageTime}']`,
           locateStrategy: 'xpath',
         },
 
         peakMessageTimeGraphTime: {
-            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Peak Message Time']//parent::div//DIV[@class= 'header__subtitle secondary']`,
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.peakMessageTime}']//parent::div//DIV[@class= 'header__subtitle secondary']`,
             locateStrategy: 'xpath',
         },
 
         responseTimeGraphAverageMinutes: {
-            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Response Time']//parent::div//DIV[@class= 'header__subtitle secondary']`,
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.responseTime}']//parent::div//DIV[@class= 'header__subtitle secondary']`,
             locateStrategy: 'xpath',
         },
 
         responseTimeGraph: {
-            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'Response Time']//parent::div//parent::div//CANVAS`,
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.responseTime}']//parent::div//parent::div//CANVAS`,
             locateStrategy: 'xpath',
         },
 
         responseTimeGraphLabel: {
-          selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='Response Time']`,
+          selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='${analyticsChartsNames.responseTime}']`,
           locateStrategy: 'xpath',
         },
 
         newInboundContactsGraphTotalCount: {
-            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'New Inbound Contacts']//parent::div//DIV[@class= 'header__subtitle primary']`,
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.newInboundContacts}']//parent::div//DIV[@class= 'header__subtitle primary']`,
             locateStrategy: 'xpath',
         },
 
         newInboundContactsGraph: {
-            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = 'New Inbound Contacts']//parent::div//parent::div//CANVAS`,
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.newInboundContacts}']//parent::div//parent::div//CANVAS`,
             locateStrategy: 'xpath',
         },
 
         newInboundContactsGraphLabel: {
-          selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='New Inbound Contacts']`,
+          selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='${analyticsChartsNames.newInboundContacts}']`,
           locateStrategy: 'xpath',
         },
 

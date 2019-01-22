@@ -14,7 +14,7 @@ module.exports = {
     login.navigate()
       .enterMemberCreds()
       .submit()
-      .validateUrlChange()
+      .validateUrlChange('inbox')
   },
 
   'Universal Elements render': function(client) {

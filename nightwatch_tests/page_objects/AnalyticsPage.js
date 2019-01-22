@@ -37,7 +37,7 @@ const analyticsCommands = {
     validatePeakTimeGraph: function() {
         return this.waitForElementVisible('@peakMessageTimeGraph', 'Peak Message Time Graph is visible')
           .verify.visible('@peakMessageTimeGraphLabel', 'Peak Message Time Label is present on this graph')
-          .getText('@peakMessageTimeGraphTime', this.getTextCallback.bind(this, '@totalMessageCountGraphCount', 'Peak Message Time', 'is visible'));
+          .getText('@peakMessageTimeGraphTime', this.getTextCallback.bind(this, '@peakMessageTimeGraphTime', 'Peak Message Time', 'is visible'));
           
     },
 

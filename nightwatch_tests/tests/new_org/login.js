@@ -4,6 +4,7 @@
   // properly and shows error when login incorrectly and transfers properly when login is correct
 
 /*--------------------------------------------------------------------------------------------------------*/
+const newOrgConfig = require('../../conf/new_org.conf');
 
 module.exports = {
     'Login Page Initial Render': function(client) {
@@ -29,7 +30,7 @@ module.exports = {
       const login = client.page.LoginPage();
   
       login.navigate()
-        .fillInUsername('nightmember')
+        .fillInUsername(newOrgConfig.ccrLogin)
         .submit()
         .validateError()
   
@@ -40,7 +41,7 @@ module.exports = {
       const login = client.page.LoginPage();
   
       login.navigate()
-        .fillInPassword('justsomepassword')
+        .fillInPassword(newOrgConfig.ccrPassword)
         .submit()
         .validateError()
   
@@ -51,9 +52,9 @@ module.exports = {
       const login = client.page.LoginPage();
   
       login.navigate()
-        .enterMemberCreds()
+        .enterCSRCreds(newOrgConfig.ccrLogin, newOrgConfig.ccrPassword)
         .submit()
-        .validateUrlChange()
+        .validateUrlChange('selectorg')
   
       client.end(3000);
     },

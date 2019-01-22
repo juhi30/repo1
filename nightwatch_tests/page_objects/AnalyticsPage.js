@@ -160,12 +160,12 @@ module.exports = {
         },
 
         peakMessageTimeGraphTime: {
-            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.peakMessageTime}']//parent::div//DIV[@class= 'header__subtitle secondary']`,
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.peakMessageTime}']//parent::div//DIV[contains( @class, 'header__subtitle')]`,
             locateStrategy: 'xpath',
         },
 
         responseTimeGraphAverageMinutes: {
-            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.responseTime}']//parent::div//DIV[@class= 'header__subtitle secondary']`,
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.responseTime}']//parent::div//DIV[contains(@class,  'header__subtitle')]`,
             locateStrategy: 'xpath',
         },
 
@@ -180,7 +180,7 @@ module.exports = {
         },
 
         newInboundContactsGraphTotalCount: {
-            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.newInboundContacts}']//parent::div//DIV[@class= 'header__subtitle primary']`,
+            selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.newInboundContacts}']//parent::div//DIV[contains(@class, 'header__subtitle')]`,
             locateStrategy: 'xpath',
         },
 

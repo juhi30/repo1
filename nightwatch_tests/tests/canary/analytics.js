@@ -37,18 +37,21 @@ module.exports = {
     .pause(1000);
   },
 
-  'Validate Datepicker and Options Available': function (client) {
-    const analytics = client.page.AnalyticsPage();
-
-    analytics.validateDatePickerAndOptions()
-    .pause(1000);
-  },
-
   'Check Default option in Date Range Datepicker': function (client) {
     const analytics = client.page.AnalyticsPage();
 
     analytics.validateDefaultOptionInDateRangeDropdown()
     .pause(2000);
+  },
+
+  'Validate Datepicker and Options Available': function (client) {
+    const analytics = client.page.AnalyticsPage();
+
+    analytics.validateDatePickerAndOptions()
+    .pause(1000);
+
+    client.url('http://localhost:3000/analytics?from=2010-01-21&to=2019-02-20&activeKey=6');
+
   },
 
   'Validate Total Message Count Graph': function (client) {

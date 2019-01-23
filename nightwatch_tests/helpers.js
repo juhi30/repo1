@@ -63,6 +63,8 @@ const analyticsChartsNames = {
   newInboundContacts: 'New Inbound Contacts',
 };
 
+const analyticsDataUrl = '/analytics?from=2010-01-21&to=2019-02-20&activeKey=6';
+
 function defaultDateRange() {
   const startDate = moment().subtract(30, 'days').format('MMM DD, YYYY');
   const endDate = moment().subtract(1, 'days').format('MMM DD, YYYY');
@@ -83,4 +85,5 @@ module.exports = {
   dateRangePickerOptions,
   analyticsChartsNames,
   organizationSearchStringForAnalytics,
+  analyticsDataUrl,
 }

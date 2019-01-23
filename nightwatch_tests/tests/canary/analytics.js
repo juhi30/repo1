@@ -50,7 +50,7 @@ module.exports = {
     analytics.validateDatePickerAndOptions()
     .pause(1000);
 
-    client.url('http://localhost:3000/analytics?from=2010-01-21&to=2019-02-20&activeKey=6');
+    client.url(`${process.env.LAUNCH_URL}/analytics?from=2010-01-21&to=2019-02-20&activeKey=6`);
 
   },
 

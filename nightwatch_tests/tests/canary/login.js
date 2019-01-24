@@ -53,7 +53,7 @@ module.exports = {
     login.navigate()
       .enterMemberCreds()
       .submit()
-      .validateUrlChange()
+      .validateUrlChange('inbox')
 
     client.end(3000);
   },

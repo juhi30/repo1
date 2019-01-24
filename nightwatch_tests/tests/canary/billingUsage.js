@@ -12,7 +12,7 @@ module.exports = {
     login.navigate()
       .enterMemberCreds('plm', 'Test@123')
       .submit()
-      .validateUrlChange();
+      .validateUrlChange('inbox');
   },
 
   'Navigate to Billing page and verify Billing page accessibility': function (client) {

@@ -6,7 +6,7 @@ module.exports = {
         login.navigate()
             .enterMemberCreds('testmkd1', 'Test@123')
             .submit()
-            .validateUrlChange();
+            .validateUrlChange('inbox');
     },
 
     'Navigate to Out Of Office Page and verify OOO page accessibility': function(client) {

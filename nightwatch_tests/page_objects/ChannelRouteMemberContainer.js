@@ -89,7 +89,7 @@ module.exports = {
         },
 
         result : {
-            selector : `//div[@class='resource-group']//span`,
+            selector : `//DIV[@class='resource-group']//span`,
             locateStrategy : 'xpath',
         },
     }

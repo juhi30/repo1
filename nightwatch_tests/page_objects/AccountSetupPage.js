@@ -6,7 +6,7 @@ const accountSetupCommands = {
     },
 
     validateUrlChange: function () {
-        return this.waitForElementNotPresent('@createOrgButton', false, null, 'Create Organization button is no longer visible, page changes to inbox')
+        return this.waitForElementNotPresent('@createOrgButton', false, null, 'Create Organization button is no longer visible, page changes to Contacts')
             .verify.urlContains('contacts')  // maybe some timeout issues happening here working as of 9/20/1
     },
 

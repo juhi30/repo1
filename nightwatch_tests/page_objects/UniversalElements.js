@@ -5,6 +5,11 @@ const universalElementsCommands = {
     return this;
   },
 
+  searchOrg : function(org){
+    return this.waitForElementVisible('@searchInputForOrg','Input Org Search is visible')
+    .setValue(org)
+  },
+
   validateUniversalElements: function() {
     return this.waitForElementVisible('@myProfileButton', 'My Profile button is visible')
       .verify.visible('@myProfileButton', 'Profile button is visible')
@@ -421,9 +426,13 @@ module.exports = {
     },
 
     SelectOrgButton : {
-      selector : `//span[@class='button__text-wrapper'][text()='Select Organization']`,
+      selector : `//SPAN[@class='button__text-wrapper'][text()='Select Organization']`,
       locateStrategy : 'xpath',
     },
 
+    searchInputForOrg: {
+      selector: `//INPUT[@placeholder='Search organizations']`,
+      locateStrategy: 'xpath',
+    },
   }
 };

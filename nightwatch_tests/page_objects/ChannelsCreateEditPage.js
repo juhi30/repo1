@@ -29,7 +29,7 @@ const editChannelsCommands = {
     createNewSecureChannel: function () {
         return this.waitForElementVisible('@secureChannelRadio', 'secure channel radio is visible')
             .click('@secureChannelRadio')
-            .setValue('@channelNameInput', 'Rhino Secure test1')
+            .setValue('@channelNameInput', 'Rhino Secure test2')
             .setValue('@channelPurposeInput', 'Automation testing')
             .setValue('@channelTimezoneDropdown', 'e')
 

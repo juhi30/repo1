@@ -5,12 +5,24 @@ const groupsPageCommands = {
     return this;
   },
 
-  verifyGroupEls: function() {
-    return this.waitForElementPresent('@createButton', 'Create Button is visible')
+  elementText: function (ele, message) {
+    return this.getText(ele, function (tpObj) {
+      text = tpObj.value;
+      console.log(text, message);
+    });
+  },
+
+  verifyGroupEls: function(grpName,purpose) {
+    return this.waitForElementPresent('@groupPageTitle', 'group Page Title is visible')
+      .verify.visible('@createButton', 'Create Button is visible')
       .click('@createButton')
       .waitForElementPresent('@teamOption', 'Team option is visible')
       .verify.visible('@patientOption', 'Patient option is visible')
       .verify.visible('@patientAndTeamOption', 'Patient and team option is visible')
+      .click('@patientAndTeamOption')
+      .setValue('@nameInput',grpName)
+      .verify.visible('@purposeInput' , 'Purpose Input Field is visible')
+      .setValue('@purposeInput',purpose)
   }
 }
 
@@ -20,6 +32,12 @@ module.exports = {
     return this.api.launch_url + '/settings/organization/groups'
   },
   elements: {
+
+    groupPageTitle:{
+      selector : `//DIV[@class='app-page__header__title'][text()='Groups']`,
+      locateStrategy: 'xpath',
+    },
+
     createButton: {
       selector: `//BUTTON[@title, 'Create Group']`,
       locateStrategy: 'xpath'
@@ -41,7 +59,7 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
-    // Group Details
+    // Group Details    
     nameInput: {
       selector: `//INPUT[contains(@name, 'name')]`,
       locateStrategy: 'xpath'

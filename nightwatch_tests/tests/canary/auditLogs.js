@@ -8,7 +8,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .enterMemberCreds('duttamunish', 'Test@123')
+      .enterMemberCreds('response', 'Test@123')
       .submit()
       .validateUrlChange();
   },
@@ -147,66 +147,67 @@ module.exports = {
 
   // Test cases for auditing New OOO Event
 
-  'Verify the Audit log entry for new added Event': function (client) {
-    const ooo = client.page.OutOfOfficePage();
-    const auditLogs = client.page.AuditLogsPage();
+  // 'Verify the Audit log entry for new added Event': function (client) {
+  //   const ooo = client.page.OutOfOfficePage();
+  //   const auditLogs = client.page.AuditLogsPage();
 
-    // Create OOO Event
-    ooo.navigate()
-      .validateUrlChange()
-      .pause(3000)
-      .openOOOPage('@addOOOEventButton', '@createEventPageHeader')
-      .createEvent()
-      .pause(3000)
+  //   // Create OOO Event
+  //   ooo.navigate()
+  //     .validateUrlChange()
+  //     .pause(3000)
+  //     .openOOOPage('@addOOOEventButton', '@createEventPageHeader')
+  //     .createEvent()
+  //     .pause(5000)
 
-    // Verify Audit Log entry
-    auditLogs.navigate()
-      .validateUrlChange()
-      .pause(5000)
-      .validateEventEntry('Add', 'Test Event');
-  },
+  //   // Verify Audit Log entry
+  //   auditLogs.navigate()
+  //     .validateUrlChange()
+  //     .pause(5000)
+  //     .validateEventEntry('Add', 'Test Event');
+  // },
 
-  'Verify the Audit log entry of edited Event': function (client) {
-    const ooo = client.page.OutOfOfficePage();
-    const auditLogs = client.page.AuditLogsPage();
+  // 'Verify the Audit log entry of edited Event': function (client) {
+  //   const ooo = client.page.OutOfOfficePage();
+  //   const auditLogs = client.page.AuditLogsPage();
 
-    // Update the Event Details
-    ooo.navigate()
-      .validateUrlChange()
-      .pause(3000)
-      .clickFirstEvent()
-      .pause(2000)
-      .openOOOPage('@editOOOEvent', '@editEventPageHeader')
-      .updateEvent()
-      .pause(3000)
+  //   // Update the Event Details
+  //   ooo.navigate()
+  //     .validateUrlChange()
+  //     .pause(3000)
+  //     .clickFirstEvent()
+  //     .pause(2000)
+  //     .openOOOPage('@editOOOEvent', '@editEventPageHeader')
+  //     .updateEvent()
+  //     .pause(5000)
 
-    // Verify Audit Log entry
-    auditLogs.navigate()
-      .validateUrlChange()
-      .pause(5000)
-      .validateEventEntry('Edit', 'Edited_Title');
-  },
+  //   // Verify Audit Log entry
+  //   auditLogs.navigate()
+  //     .validateUrlChange()
+  //     .pause(5000)
+  //     .validateEventEntry('Edit', 'Edited_Title');
+  // },
 
-  'Verify the Audit log entry of deleted Event': function (client) {
-    const ooo = client.page.OutOfOfficePage();
-    const auditLogs = client.page.AuditLogsPage();
+  // 'Verify the Audit log entry of deleted Event': function (client) {
+  //   const ooo = client.page.OutOfOfficePage();
+  //   const auditLogs = client.page.AuditLogsPage();
 
-    // Delete Event
+  //   // Delete Event
 
-    ooo.navigate()
-      .validateUrlChange()
-      .pause(3000)
-      .clickFirstEvent()
-      .pause(2000)
-      .openOOOPage('@editOOOEvent', '@editEventPageHeader')
-      .deleteEvent()
+  //   ooo.navigate()
+  //     .validateUrlChange()
+  //     .pause(3000)
+  //     .clickFirstEvent()
+  //     .pause(2000)
+  //     .openOOOPage('@editOOOEvent', '@editEventPageHeader')
+  //     .deleteEvent()
+  //     .pause(5000)
 
-    // Verify Audit Log entry
-    auditLogs.navigate()
-      .validateUrlChange()
-      .pause(5000)
-      .validateEventEntry('Delete', 'Edited_Title');
-  },
+  //   // Verify Audit Log entry
+  //   auditLogs.navigate()
+  //     .validateUrlChange()
+  //     .pause(5000)
+  //     .validateEventEntry('Delete', 'Edited_Title');
+  // },
 
   // Test cases for auditing New Template entry
 
@@ -278,14 +279,14 @@ module.exports = {
       .navigateToCreateChannels()
     create.createNewSecureChannel()
       .pause(5000)
-    route.selectDefaultRoutes('m 1')
+    route.selectDefaultRoutes('test')
     create.clickCreateChannel()
     .pause(3000)
 
     auditLogs.navigate()
       .validateUrlChange()
       .pause(5000)
-      .checkAuditChannelEntry('Channel','Add','Rhino Secure test1')
+      .checkAuditChannelEntry('Channel','Add','Rhino Secure test2','test user')
   },
 
   'Logout from application': function(client) {
@@ -295,35 +296,35 @@ module.exports = {
       .pause(2000)
   },
 
-  'Login Page with CCR Credentials': function (client) {
-  const login = client.page.LoginPage();
+  // 'Login Page with CCR Credentials': function (client) {
+  // const login = client.page.LoginPage();
 
-  login.navigate()
-    .enterMemberCreds('mccr', 'bacon')
-    .pause(1000)
-    .submit()
-    .pause(1000)
-    .validateUrlChangeAdmin();
-  },
+  // login.navigate()
+  //   .enterMemberCreds('mccr', 'bacon')
+  //   .pause(1000)
+  //   .submit()
+  //   .pause(1000)
+  //   .validateUrlChangeAdmin();
+  // },
 
-  'Verify the Audit Log Entry for an organization created using the Without Billing Customer flow'
-    : function (client) {
-      const auditLogs = client.page.AuditLogsPage();
-      const addOrg = client.page.AccountSetupPage();
+  // 'Verify the Audit Log Entry for an organization created using the Without Billing Customer flow'
+  //   : function (client) {
+  //     const auditLogs = client.page.AuditLogsPage();
+  //     const addOrg = client.page.AccountSetupPage();
 
-      addOrg.navigate()
-        .pause(2000)
-        .fillInOrgBasicInformation('Without Billing Org', 'line1', 'city', 'Alaska', '12345')
-        .clickBillingToggle()
-        .clickCreateOrganizaton()
-        .pause(2000)
-        .validateUrlChange()
-        .pause(2000)
+  //     addOrg.navigate()
+  //       .pause(2000)
+  //       .fillInOrgBasicInformation('Without Billing Org', 'line1', 'city', 'Alaska', '12345')
+  //       .clickBillingToggle()
+  //       .clickCreateOrganizaton()
+  //       .pause(2000)
+  //       .validateUrlChange()
+  //       .pause(2000)
 
-      // verify Audit log entry  
-      auditLogs.navigate()
-        .validateUrlChange()
-        .pause(5000)
-        .checkAuditOrgEntry('Organization','Add','Without Billing Org');
-    },
+  //     // verify Audit log entry  
+  //     auditLogs.navigate()
+  //       .validateUrlChange()
+  //       .pause(5000)
+  //       .checkAuditOrgEntry('Organization','Add','Without Billing Org','mccr');
+  //   },
 }

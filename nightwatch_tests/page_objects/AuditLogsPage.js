@@ -68,7 +68,7 @@ const auditLogsCommands = {
   validateTagEntry: function(action, tagName) {
     return this.verify.visible('@auditEntry', 'Tag entry is visible')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
+      .verify.containsText('@member', 'test user', 'Member name is test user')
       .verify.visible('@contact', 'Contact name should not be visible')
       .verify.containsText('@category', 'Tag', 'Category should be Tag')
       .verify.containsText('@action', action, 'Action should be ' + action)
@@ -80,7 +80,7 @@ const auditLogsCommands = {
   validateBillingEntry: function () {
     return this.verify.visible('@auditEntry', 'Billing entry is visible')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
+      .verify.containsText('@member', 'test user', 'Member name is test user')
       .verify.visible('@contact', 'Contact name should not be visible')
       .verify.containsText('@category', 'Billing', 'Category should be Billing')
       .verify.containsText('@action', 'Edit', 'Action should be Edit')
@@ -90,7 +90,7 @@ const auditLogsCommands = {
   validateEventEntry: function (action, eventName) {
     return this.verify.visible('@auditEntry', 'Event entry is visible')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
+      .verify.containsText('@member', 'test user', 'Member name is test user')
       .verify.visible('@contact', 'Contact name should not be visible')
       .verify.containsText('@category', 'Out of Office', 'Category should be Out of Office')
       .verify.containsText('@action', action, 'Action should be ' + action)
@@ -102,7 +102,7 @@ const auditLogsCommands = {
   validateTemplateEntry: function (action, templateTitle) {
     return this.verify.visible('@auditEntry', 'Template entry is visible')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
+      .verify.containsText('@member', 'test user', 'Member name is test user')
       .verify.visible('@contact', 'Contact name should not be visible')
       .verify.containsText('@category', 'Template', 'Category should be Template')
       .verify.containsText('@action', action, 'Action should be ' + action)
@@ -111,10 +111,10 @@ const auditLogsCommands = {
       .verify.containsText('@staticField', templateTitle, action + 'ed template title should be ' + templateTitle)
   },
 
-  checkAuditOrgEntry: function(category,action,orgName){
+  checkAuditOrgEntry: function(category,action,orgName,member){
     return this.verify.visible('@auditEntry', 'Event entry is visible')
     .verify.visible('@dateAndTime', 'Date and Time is visible')
-    .verify.containsText('@member', 'mccr', 'Member name is mccr')
+    .verify.containsText('@member', member, 'Member name is '+member)
     .verify.visible('@contact', 'Contact name should not be visible')
     .verify.containsText('@category', category , 'Category should be' + category)
     .verify.containsText('@action', action, 'Action should be ' + action)
@@ -123,10 +123,10 @@ const auditLogsCommands = {
     .verify.containsText('@staticField', orgName, action + ' Organization Name should be ' + orgName)
   },
 
-  checkAuditChannelEntry: function(category,action,channelName){
+  checkAuditChannelEntry: function(category,action,channelName,member){
     return this.verify.visible('@auditEntry', 'Channel entry is visible')
     .verify.visible('@dateAndTime', 'Date and Time is visible')
-    .verify.containsText('@member', 'Munish Dutta', 'Member name is Munish Dutta')
+    .verify.containsText('@member', member, 'Member name is '+member)
     .verify.visible('@contact', 'Contact name should not be visible')
     .verify.containsText('@category', category , 'Category should be' + category)
     .verify.containsText('@action', action, 'Action should be ' + action)
@@ -180,12 +180,12 @@ module.exports = {
     },
 
     topPagination : {
-      selector : `    //DIV[@class="row"]//div[@class='u-m-t-small u-text-right u-text-small audit-log__pagination']`,
+      selector : `//DIV[@class="row"]//div[@class='audit-log__pagination__wrapper']`,
       locateStrategy : 'xpath',
     },
 
     bottomPagination : {
-      selector : `//div[@class='box responsive-table audit-log__grid']//div[3][@class='u-m-t-small u-text-right u-text-small audit-log__pagination']`,
+      selector : `//DIV[@class='box responsive-table audit-log__grid']//DIV[3][@class='u-text-right u-text-small audit-log__pagination']`,
       locateStrategy : 'xpath',
     },
 

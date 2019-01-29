@@ -11,7 +11,7 @@ module.exports = {
     const login = client.page.LoginPage();
 
     login.navigate()
-      .enterMemberCreds('ccr', 'bacon')
+      .enterCSRCreds()
       .submit()
       .validateUrlChange('selectorg');
   },
@@ -50,6 +50,7 @@ module.exports = {
     analytics.validateDatePickerAndOptions()
     .pause(1000);
 
+    // This line is added to get the analytics specific date range, which have some data, so that graphs can be tested with data in it
     client.url(`${process.env.LAUNCH_URL}${helpers.analyticsDataUrl}`);
 
   },

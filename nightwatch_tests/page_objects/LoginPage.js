@@ -70,12 +70,18 @@ const loginCommands = {
       .verify.valueContains('@passwordInput', '', 'password input testing')
   },
 
-  //need more appropiate name or refactor
-  validateUrlChange: function() {
-    return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
-      .verify.urlContains('inbox')  // maybe some timeout issues happening here working as of 9/20/1
-  },
+  // //need more appropiate name or refactor
+  // validateUrlChange: function() {
+  //   return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
+  //     .verify.urlContains('inbox')  // maybe some timeout issues happening here working as of 9/20/1
+  // },
 
+  validateUrlChange: function(url) {
+    const nextPageUrl = url ? url : 'inbox'; 
+    return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
+      .verify.urlContains(nextPageUrl);
+  },
+  
   fillInNewPasswordInput: function(password) {
     return this.waitForElementVisible('@newPasswordInput', 'New password input is visible')
       .setValue('@newPasswordInput', password);

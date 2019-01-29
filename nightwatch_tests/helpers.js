@@ -1,3 +1,5 @@
+const moment = require('moment-timezone');
+
 function findTextOnPage(client, text) {
   client.api.useCss().verify.containsText('body', text);
 }
@@ -43,6 +45,32 @@ const patientCreds = {
   password: 'Nightpass2'
 };
 
+const organizationSearchStringForAnalytics = 'Rhino India Scrum Team';
+
+const dateRangePickerOptions = {
+  yesterday: 'Yesterday',
+  last7Days: 'Last 7 Days',
+  last30Days: 'Last 30 Days',
+  last90Days: 'Last 90 Days',
+  last12Months: 'Last 12 Months',
+  customRange: 'Custom Range',
+};
+
+const analyticsChartsNames = {
+  totalMessageCount: 'Total Message Count',
+  peakMessageTime: 'Peak Message Time',
+  responseTime: 'Response Time',
+  newInboundContacts: 'New Inbound Contacts',
+};
+
+const analyticsDataUrl = '/analytics?from=2010-01-21&to=2019-02-20&activeKey=6';
+
+function defaultDateRange() {
+  const startDate = moment().subtract(30, 'days').format('MMM DD, YYYY');
+  const endDate = moment().subtract(1, 'days').format('MMM DD, YYYY');
+  return `Last 30 Days (${startDate} - ${endDate})`;
+}
+
 module.exports = {
   clickSpanViaText,
   clickDivViaText,
@@ -53,4 +81,9 @@ module.exports = {
   csrCreds,
   memberCreds,
   patientCreds,
+  defaultDateRange,
+  dateRangePickerOptions,
+  analyticsChartsNames,
+  organizationSearchStringForAnalytics,
+  analyticsDataUrl,
 }

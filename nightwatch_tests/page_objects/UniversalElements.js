@@ -1,3 +1,5 @@
+const helpers = require('../helpers');
+
 const universalElementsCommands = {
 
   pause: function(time) {
@@ -224,6 +226,16 @@ const universalElementsCommands = {
       .waitForElementVisible('@searchModalInput', 'Search input is visible')
       .setValue('@searchModalInput', name)
   },
+
+  searchForOrganization: function(orgName) {
+    return this.waitForElementVisible('@searchInputForOrg', 'Search Input is visible')
+      .setValue('@searchInputForOrg', orgName)
+      .waitForElementVisible('@organizationDropdownFirstResult', 'First result is visible')
+      .click('@organizationDropdownFirstResult')
+      .pause(500)
+      .verify.urlContains('contacts', 'Contacts page is visible')
+  },
+
 }
 
 module.exports = {
@@ -410,6 +422,20 @@ module.exports = {
 
     logoutButton: {
       selector: `(//SPAN[@class='button__text-wrapper' and contains(text(), 'Log Out')])`,
+      locateStrategy: 'xpath',
+    },
+
+    /*----------------------------------------------*/
+    // Select Organization Page elements
+    /*----------------------------------------------*/
+
+    searchInputForOrg: {
+      selector: `//input[@placeholder='Search organizations']`,
+      locateStrategy: 'xpath',
+    },
+
+    organizationDropdownFirstResult: {
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${helpers.organizationSearchStringForAnalytics}' ]`,
       locateStrategy: 'xpath',
     },
   }

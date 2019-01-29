@@ -85,7 +85,7 @@ module.exports = {
         },
 
         dateRangeDropdownMenus: {
-          selector: `//DIV[contains(@class, 'dropdown__menu__scroll')]`,
+          selector: `//DIV[contains(@class, 'analytics__wrapper')]//DIV[contains(@class, 'dropdown__menu__scroll')]`,
           locateStrategy: 'xpath',
         },
 

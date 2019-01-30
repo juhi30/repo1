@@ -45,7 +45,7 @@ const patientCreds = {
   password: 'Nightpass2'
 };
 
-const organizationSearchStringForAnalytics = 'Rhino India Scrum Team';
+const organizationSearchStringForAnalytics = 'routing tester';
 
 const dateRangePickerOptions = {
   yesterday: 'Yesterday',
@@ -63,11 +63,42 @@ const analyticsChartsNames = {
   newInboundContacts: 'New Inbound Contacts',
 };
 
+const analyticsOpenConversationUI = {
+  conversationGridLabel: 'Conversation Activity',
+  defautlTabLabel: 'Open',
+  totalOpenConversationLabel: 'Total Open',
+  filterLastMessagedByLabel: 'Filter Last Messaged By: ',
+  contactFilterButton: 'Contact',
+  practiceFilterButton: 'Practice',
+  timeOpenColumn: 'Time Open',
+  lastMessageColumn: 'Last Message',
+  assignmentColumn: 'Assignment',
+  contactColumn: 'Contact',
+  openTableMessage: 'All conversations currently open with contacts.',
+  contactFilter: '- Practice',
+  practiceFilter: '- Contact',
+};
+
+const analyticsClosedConversationUI = {
+  closedTab: 'Closed',
+  totalClosedConversationLabel: 'Total Closed',
+  closedTableMessage: 'Conversations closed with contacts.',
+  dateClosedColumn: 'Date Closed',
+  closedByColumn: 'Closed By',
+};
+
 const analyticsDataUrl = '/analytics?from=2010-01-21&to=2019-02-20&activeKey=6';
 
-function defaultDateRange() {
-  const startDate = moment().subtract(30, 'days').format('MMM DD, YYYY');
-  const endDate = moment().subtract(1, 'days').format('MMM DD, YYYY');
+const logoutButton = 'Log Out';
+
+const memberCredsForConversationGrid = {
+  username: 'jcash',
+  password: 'Test@123',
+};
+
+function defaultDateRange(startDays, endDays) {
+  const startDate = moment().subtract(startDays, 'days').format('MMM DD, YYYY');
+  const endDate = moment().subtract(endDays, 'days').format('MMM DD, YYYY');
   return `Last 30 Days (${startDate} - ${endDate})`;
 }
 
@@ -86,4 +117,8 @@ module.exports = {
   analyticsChartsNames,
   organizationSearchStringForAnalytics,
   analyticsDataUrl,
+  analyticsOpenConversationUI,
+  analyticsClosedConversationUI,
+  logoutButton,
+  memberCredsForConversationGrid,
 }

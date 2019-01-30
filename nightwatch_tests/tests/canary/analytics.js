@@ -50,7 +50,6 @@ module.exports = {
     analytics.validateDatePickerAndOptions()
     .pause(1000);
 
-    // This line is added to get the analytics specific date range, which have some data, so that graphs can be tested with data in it
     client.url(`${process.env.LAUNCH_URL}${helpers.analyticsDataUrl}`);
 
   },
@@ -80,6 +79,60 @@ module.exports = {
     const analytics = client.page.AnalyticsPage();
 
     analytics.validateResponseTimeGraph()
+    .pause(2000);
+  },
+
+  'Validate Conversation Grid Open Conversations': function (client) {
+    const analytics = client.page.AnalyticsPage();
+    client.execute('var conversationGridElement = document.getElementsByClassName("convo-grid");' +
+          'conversationGridElement[0].scrollIntoView(true);');
+    analytics.validateOpenConversations()
+    .pause(2000);
+  },
+
+  'Validate Open Conversations Contact Navigation': function (client) {
+    const analytics = client.page.AnalyticsPage();
+
+    analytics.validateOpenConvoContactNavigation()
+    .pause(2000);
+  },
+
+  'Verify Contact and Practice Filters on Open Conversation': function(client) {
+    client.url(`${process.env.LAUNCH_URL}/analytics`);
+    const analytics = client.page.AnalyticsPage();
+    
+    client.execute('var conversationGridElement = document.getElementsByClassName("convo-grid");' +
+          'conversationGridElement[0].scrollIntoView(true);');
+    analytics.validateFiltersOnConversations()
+    .pause(2000);
+
+  },
+
+  'Validate Closed Conversations Contact Navigation': function (client) {
+    const analytics = client.page.AnalyticsPage();
+    
+    analytics.validateClosedConvoContactNavigation()
+    .pause(2000);
+  },
+
+  'Validate Conversation Grid Closed Conversations': function (client) {
+    const analytics = client.page.AnalyticsPage();
+
+    analytics.validateClosedConversations()
+    .pause(2000);
+  },
+
+  'Validate Closed Conversations DateRangePicker': function (client) {
+    const analytics = client.page.AnalyticsPage();
+
+    analytics.validateClosedConvoDatePickerAndOptions()
+    .pause(2000);
+  },
+
+  'Validate Datepicker Default Option in Conversation Grid': function(client) {
+    const analytics = client.page.AnalyticsPage();
+
+    analytics.validateDefaultDateRangeInConvoGrid()
     .pause(2000);
   },
 

@@ -45,7 +45,7 @@ const patientCreds = {
   password: 'Nightpass2'
 };
 
-const organizationSearchStringForAnalytics = 'routing tester';
+const organizationSearchStringForAnalytics = 'Rhino India Scrum Team';
 
 const dateRangePickerOptions = {
   yesterday: 'Yesterday',
@@ -89,8 +89,6 @@ const analyticsClosedConversationUI = {
 
 const analyticsDataUrl = '/analytics?from=2010-01-21&to=2019-02-20&activeKey=6';
 
-const logoutButton = 'Log Out';
-
 const memberCredsForConversationGrid = {
   username: 'jcash',
   password: 'Test@123',
@@ -119,6 +117,5 @@ module.exports = {
   analyticsDataUrl,
   analyticsOpenConversationUI,
   analyticsClosedConversationUI,
-  logoutButton,
   memberCredsForConversationGrid,
 }

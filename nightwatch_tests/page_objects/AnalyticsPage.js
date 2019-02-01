@@ -76,7 +76,8 @@ const analyticsCommands = {
 
     validateClosedConversations: function() {
         const self = this;
-        return this.click('@closedTab')
+        return this.waitForElementVisible('@closedTab')
+          .click('@closedTab')
           .waitForElementVisible('@closedConversationDatePicker', 'Date Range Picker is visible')
           .verify.visible('@closedTableMessage', `Closed Conversation Table Message "${analyticsClosedConversationUI.closedTableMessage}" is visible`)
           .waitForElementVisible('@firstRowConversation', 'First Row of Conversations is visible', function(result) {

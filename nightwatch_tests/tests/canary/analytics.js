@@ -98,7 +98,7 @@ module.exports = {
   },
 
   'Verify Contact and Practice Filters on Open Conversation': function(client) {
-    client.url(`${process.env.LAUNCH_URL}/analytics`);
+    client.url(`${process.env.LAUNCH_URL}${helpers.analyticsDataUrl}`);
     const analytics = client.page.AnalyticsPage();
     
     client.execute('var conversationGridElement = document.getElementsByClassName("convo-grid");' +
@@ -116,6 +116,7 @@ module.exports = {
   },
 
   'Validate Conversation Grid Closed Conversations': function (client) {
+    client.url(`${process.env.LAUNCH_URL}${helpers.analyticsDataUrl}`);
     const analytics = client.page.AnalyticsPage();
 
     analytics.validateClosedConversations()

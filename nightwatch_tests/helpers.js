@@ -31,7 +31,7 @@ const theDateObj = new Date();
 const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleDateString();
 
 const csrCreds = {
-  username: 'ccr',
+  username: 'ccrnightwatch',
   password: 'bacon'
 };
 
@@ -90,7 +90,7 @@ const analyticsClosedConversationUI = {
 const analyticsDataUrl = '/analytics?from=2010-01-21&to=2019-02-20&activeKey=6';
 
 const memberCredsForConversationGrid = {
-  username: 'jcash',
+  username: 'analyticsmember',
   password: 'Test@123',
 };
 

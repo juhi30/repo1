@@ -20,9 +20,10 @@ const accountSetupCommands = {
             .setValue('@zipInput', zip)
     },
 
-    clickCreateOrganizaton: function () {
+    clickCreateOrganization: function () {
         return this.waitForElementPresent('@createOrgButton', 'Create organization button is present')
             .click('@createOrgButton')
+            .waitForElementVisible('@contactsPage','CCR Landed on org contact page')
     }
 }
 
@@ -137,8 +138,13 @@ module.exports = {
         /*---------------------------------------------------------*/
 
         createOrgButton: {
-            selector: `//BUTTON[contains(text(), 'Create Organization')]`,
+            selector: `//*[contains(text(), 'Create Organization')]`,
             locateStrategy: 'xpath',
+        },
+
+        contactsPage: {
+            selector: `//*[text()='This area is restricted!']`,
+            locateStrategy: 'xpath'
         },
     }
 }

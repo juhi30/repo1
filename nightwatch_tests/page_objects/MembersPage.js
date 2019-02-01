@@ -1,7 +1,7 @@
 const membersCommands = {
   clickAddMember: function() {
-    return this.waitForElementVisible('@addMemberButton', 'Add member button visible')
-      .click('@addMemberButton');
+    return this.waitForElementVisible('@createMemberButton', 'Add member button visible')
+      .click('@createMemberButton');
   },
 
   deactivateMember: function() {

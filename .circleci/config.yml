@@ -17,6 +17,9 @@ jobs:
           name: Configure AWS CLI
           command: yarn rhinodeploy config
       - run:
+          name: Get Env File
+          command: yarn rhinodeploy envs -f e2e.env -l ./nightwatch_tests
+      - run:
           name: Build and Upload Docker Image to ECR
           command: |
             docker build -t rhino-ecr/nightwatch nightwatch_tests
@@ -51,7 +54,13 @@ jobs:
             else
               export LAUNCH_URL=https://dev.dev-rhinogram.com
             fi
-            cd nightwatch_tests && BROWSER_NAME=chrome yarn canary
+            cd nightwatch_tests
+            yarn
+            BROWSER_NAME=chrome yarn canary
+      - store_test_results:
+          path: ~/nightwatch-chrome
+      - store_artifacts:
+          path: ~/nightwatch-chrome
 
   lint:
     <<: *defaults

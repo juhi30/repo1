@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "nightwatch --skipgroup deprecated",
-    "canary": "nightwatch --group canary || echo \"Some test(s) have failed. Check the slack channel, nightwatch_reporter\"",
+    "canary": "nightwatch --group canary",
     "clean": "rm -rf lib/*",
     "build": "yarn clean && yarn && node_modules/.bin/babel tests --out-dir lib/tests && node_modules/.bin/babel page_objects --out-dir lib/page_objects && node_modules/.bin/babel helpers.js --out-dir lib/ && node_modules/.bin/babel globals.js --out-dir lib/"
   },
@@ -24,7 +24,7 @@
     "chromedriver": "2.38.x",
     "dotenv": "6.0.x",
     "moment-timezone": "0.5.23",
-    "nightwatch": "0.9.x",
+    "nightwatch": "1.0.18",
     "nightwatch-html-reporter": "2.0.5",
     "nightwatch-slack-reporter": "0.0.2",
     "selenium-server-standalone-jar": "3.8.x",

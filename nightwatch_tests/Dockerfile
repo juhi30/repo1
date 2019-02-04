@@ -10,9 +10,8 @@ ADD tests /app/tests
 
 ADD .babelrc .eslintrc .jshintrc constants.js globals.js helpers.js magellan.json nightwatch.conf.js package.json yarn.lock /app/
 
+RUN sudo chown -R seluser:seluser /app/
 WORKDIR /app
-
-RUN sudo yarn build
-RUN sudo chown -R 755 /app
+RUN yarn build
 
 CMD yarn canary

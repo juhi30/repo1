@@ -56,7 +56,7 @@ Automated tools for testing.
   ### Common ways of locating elements via xpath
     **This will find an input with the title of "Go Back"**
     //INPUT[contains(@title, 'Go Back')] (this is for an input with the title='Go Back')
-    
+
     **This will find a span containing the text "Check in"**
     //SPAN[contains(text(), 'Check in')] (this is for a span with the text 'Check in')
 

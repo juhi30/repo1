@@ -3,25 +3,19 @@
   "version": "1.0.0",
   "description": "Automated tools for testing.",
   "scripts": {
-    "getLatestReports": "AWS_PROFILE=rhinodev ./bin/getLatestReports.sh",
-    "nightwatch": "cd nightwatch_tests && yarn test",
-    "postinstall": "chmod -R +x bin"
+    "nightwatch": "cd nightwatch_tests && yarn test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rhinogram/rhinomatic.git"
   },
-  "author": "",
+  "author": "Rhinogram, LLC",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/rhinogram/rhinomatic/issues"
   },
   "homepage": "https://github.com/rhinogram/rhinomatic#readme",
-  "dependencies": {
-    "nightwatch-html-reporter": "^2.0.5",
-    "rhinocloud-sdk": "1.0.xx"
-  },
   "devDependencies": {
-    "nightwatch-slack-reporter": "0.0.2"
+    "rhinodeploy-cli": "git+https://ab1e60bc7d1ea8f0cef2d98a042749dee2741f8c:x-oauth-basic@github.com/rhinogram/rhinodeploy.git#cli"
   }
 }

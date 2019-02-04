@@ -1,5 +1,5 @@
 options = {
-    slack_message: function (results, options) { 
+    slack_message: function (results, options) {
         return {
             text: 'Test completed, passed ' + results.passed + ', failed ' + results.failed,
             username: 'Nightwatch',

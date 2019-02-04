@@ -5,37 +5,57 @@ defaults: &defaults
 
 version: 2
 jobs:
+  updateECR:
+    working_directory: ~/app
+    docker:
+      - image: node-awscli:8.11
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: yarn
+      - run:
+          name: Configure AWS CLI
+          command: yarn rhinodeploy config
+      - run:
+          name: Build and Upload Docker Image to ECR
+          command: |
+            docker build -t rhino-ecr/nightwatch nightwatch_tests
+            # aws profile
+            if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "staging" ]; then
+              profile=rhinoprod
+            else
+              profile=rhinodev
+            fi
+            # vars
+            account=$(aws sts get-caller-identity --profile $profile | jq '.Account' | sed "s/\"//g")
+            uri=$account.dkr.ecr.$AWS_REGION.amazonaws.com/rhino-ecr/nightwatch
+            # tag the docker image to upload
+            docker tag rhino-ecr/nightwatch $uri:$CIRCLE_BRANCH
+            # login
+            $(aws ecr get-login --no-include-email --profile $profile)
+            # upload
+            docker push $uri:$CIRCLE_BRANCH
+
+
   canary-chrome:
     <<: *defaults
     steps:
-      - setup_remote_docker
       - checkout
       - run:
           name: Run Chrome Canary Tests
           command: |
             if [ "$CIRCLE_BRANCH" == "master" ]; then
-              export LAUNCH_URL=https://app/rhinogram.com
+              export LAUNCH_URL=https://app.rhinogram.com
             elif [ "$CIRCLE_BRANCH" == "staging" ]; then
               export LAUNCH_URL=https://staging.rhinogram.com
             else
               export LAUNCH_URL=https://dev.dev-rhinogram.com
             fi
             cd nightwatch_tests && BROWSER_NAME=chrome yarn canary
-      - run:
-          name: Deploy Test Results
-          command: |
-            yarn && node deploy
-            aws s3 sync \
-              nightwatch_tests/reports \
-              s3://nightwatch-results-$CIRCLE_BRANCH \
-              --acl public-read \
-              --cache-control max-age=300 \
-              --storage-class REDUCED_REDUNDANCY
 
-  test:
+  lint:
     <<: *defaults
     steps:
-      - setup_remote_docker
       - checkout
       - run:
           name: Yarn
@@ -48,20 +68,23 @@ jobs:
 workflows:
   version: 2
 
-  nightly:
-    triggers:
-      - schedule:
-          cron: '0 5 * * *'
+  merge:
+    jobs:
+      - lint:
           filters:
             branches:
               only:
                 - develop
-    jobs:
-      - canary-chrome
-
-  merge:
-    jobs:
       - canary-chrome:
+          requires:
+            - lint
+          filters:
+            branches:
+              only:
+                - develop
+      - updateECR:
+          requires:
+            - canary-chrome
           filters:
             branches:
               only:
@@ -69,7 +92,7 @@ workflows:
 
   general:
     jobs:
-      - test:
+      - lint:
           filters:
             branches:
               ignore:

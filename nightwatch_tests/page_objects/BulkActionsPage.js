@@ -9,8 +9,7 @@ const bulkActionCommands = {
     return this;
   },
 
-  //---------------A generic function ---------------------
-
+  //---------------A generic function ---------------------//
   valueCompare: function (ele, option) {
     return this.getText(ele, function (tpObj) {
       let res = '';
@@ -29,7 +28,7 @@ const bulkActionCommands = {
     });
   },
 
-  inboxPageUIView: function (title) {
+  validatePageUI: function (title) {
     let self = this;
     return this.getText('body', (bodyText) => {
       if (bodyText.value.includes('Looks like you')) {
@@ -110,7 +109,6 @@ module.exports = {
     },
 
      //.....................Other page objects..................//
-
     inboxPageTitle: {
       selector: `//div[@class='bulk-action__header__title']`,
       locateStrategy: 'xpath',

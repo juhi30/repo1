@@ -38,6 +38,11 @@ jobs:
             $(aws ecr get-login --no-include-email --profile $profile)
             # upload
             docker push $uri:$CIRCLE_BRANCH
+            # add a "latest" tag for develop and master
+            if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "develop" ]; then
+              docker tag $uri:$CIRCLE_BRANCH $uri:latest
+              docker push $uri:latest
+            fi
 
 
   canary-chrome:

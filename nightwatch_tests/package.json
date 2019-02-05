@@ -24,7 +24,7 @@
     "chromedriver": "2.38.x",
     "dotenv": "6.0.x",
     "moment-timezone": "0.5.23",
-    "nightwatch": "1.0.18",
+    "nightwatch": "0.9.x",
     "nightwatch-html-reporter": "2.0.5",
     "nightwatch-slack-reporter": "0.0.2",
     "selenium-server-standalone-jar": "3.8.x",

@@ -17,6 +17,10 @@ services:
       - PORT=4444
       - BROWSER_NAME=chrome
       - HEADLESS=true
+    env_file: ./nightwatch_tests/e2e.env
     volumes:
       - ./nightwatch_tests/tests:/app/tests
       - ./nightwatch_tests/page_objects:/app/page_objects
+      - ./nightwatch_tests/node_modules:/app/node_modules
+      - ./nightwatch_tests/package.json:/app/package.json
+      - ./nightwatch_tests/yarn.lock:/app/yarn.lock

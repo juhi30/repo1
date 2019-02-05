@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Build and Upload Docker Image to ECR
           command: |
-            docker build -t rhino-ecr/nightwatch nightwatch_tests
+            docker build -t rhino-ecr/nightwatch:chrome -f nightwatch_tests/chrome.Dockerfile nightwatch_tests
             # aws profile
             if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "staging" ]; then
               profile=rhinoprod
@@ -33,14 +33,14 @@ jobs:
             account=$(aws sts get-caller-identity --profile $profile | jq '.Account' | sed "s/\"//g")
             uri=$account.dkr.ecr.$AWS_REGION.amazonaws.com/rhino-ecr/nightwatch
             # tag the docker image to upload
-            docker tag rhino-ecr/nightwatch $uri:$CIRCLE_BRANCH
+            docker tag rhino-ecr/nightwatch:chrome $uri:chrome-$CIRCLE_BRANCH
             # login
             $(aws ecr get-login --no-include-email --profile $profile)
             # upload
-            docker push $uri:$CIRCLE_BRANCH
+            docker push $uri:chrome-$CIRCLE_BRANCH
             # add a "latest" tag for develop and master
             if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "develop" ]; then
-              docker tag $uri:$CIRCLE_BRANCH $uri:latest
+              docker tag $uri:chrome-$CIRCLE_BRANCH $uri:latest
               docker push $uri:latest
             fi
 

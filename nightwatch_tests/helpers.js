@@ -31,7 +31,7 @@ const theDateObj = new Date();
 const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleDateString();
 
 const csrCreds = {
-  username: 'ccr',
+  username: 'ccrnightwatch',
   password: 'bacon'
 };
 
@@ -63,11 +63,40 @@ const analyticsChartsNames = {
   newInboundContacts: 'New Inbound Contacts',
 };
 
+const analyticsOpenConversationUI = {
+  conversationGridLabel: 'Conversation Activity',
+  defautlTabLabel: 'Open',
+  totalOpenConversationLabel: 'Total Open',
+  filterLastMessagedByLabel: 'Filter Last Messaged By: ',
+  contactFilterButton: 'Contact',
+  practiceFilterButton: 'Practice',
+  timeOpenColumn: 'Time Open',
+  lastMessageColumn: 'Last Message',
+  assignmentColumn: 'Assignment',
+  contactColumn: 'Contact',
+  openTableMessage: 'All conversations currently open with contacts.',
+  contactFilter: '- Practice',
+  practiceFilter: '- Contact',
+};
+
+const analyticsClosedConversationUI = {
+  closedTab: 'Closed',
+  totalClosedConversationLabel: 'Total Closed',
+  closedTableMessage: 'Conversations closed with contacts.',
+  dateClosedColumn: 'Date Closed',
+  closedByColumn: 'Closed By',
+};
+
 const analyticsDataUrl = '/analytics?from=2010-01-21&to=2019-02-20&activeKey=6';
 
-function defaultDateRange() {
-  const startDate = moment().subtract(30, 'days').format('MMM DD, YYYY');
-  const endDate = moment().subtract(1, 'days').format('MMM DD, YYYY');
+const memberCredsForConversationGrid = {
+  username: 'analyticsmember',
+  password: 'Test@123',
+};
+
+function defaultDateRange(startDays, endDays) {
+  const startDate = moment().subtract(startDays, 'days').format('MMM DD, YYYY');
+  const endDate = moment().subtract(endDays, 'days').format('MMM DD, YYYY');
   return `Last 30 Days (${startDate} - ${endDate})`;
 }
 
@@ -86,4 +115,7 @@ module.exports = {
   analyticsChartsNames,
   organizationSearchStringForAnalytics,
   analyticsDataUrl,
+  analyticsOpenConversationUI,
+  analyticsClosedConversationUI,
+  memberCredsForConversationGrid,
 }

@@ -3,6 +3,8 @@ const testConstants = require('../../feeder');
 module.exports = {
 
     addWithoutBillingOrg: function (client) {
+      client.maximizeWindow()
+
       const setup = client.page.AccountSetupPage();
   
       setup.navigate()
@@ -10,5 +12,7 @@ module.exports = {
         .fillInOrgBasicInformation(testConstants.name, testConstants.address, testConstants.city, 
             testConstants.state, testConstants.zip)
             .clickCreateOrganization()
+            .getOrgId()
+
     },    
   }

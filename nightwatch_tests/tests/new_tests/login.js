@@ -9,6 +9,7 @@ const newOrgConfig = require('../../feeder');
 module.exports = {
 
   renderLoginPage: function(client) {
+    client.maximizeWindow()
     const login = client.page.LoginPage();
 
     login.navigate()

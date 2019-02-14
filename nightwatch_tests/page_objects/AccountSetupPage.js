@@ -1,150 +1,168 @@
+
 const accountSetupCommands = {
 
-    pause: function (time) {
-        this.api.pause(time);
-        return this;
-    },
+  getOrgId: function () {
+    return this.waitForElementVisible('@orgId', 5000, 'Org Id is visible')
+      .getText('@orgId', function (tpObj) {
+        console.log('========================', tpObj);
+        tpObj = tpObj.value.replace("ORGANIZATION (#", "");
+        tpObj = tpObj.replace(")", "");
+        console.log('+++++++++++++++++++++++', tpObj)
+        process.env.ORGANIZATION_ID = tpObj
+      });
+  },
 
-    clickBillingToggle: function () {
-        return this.waitForElementPresent('@billingToggle', 'Billing toggle is present')
-            .click('@billingToggle')
-            .waitForElementNotPresent('@newBillingRadio', 'Billing options are hidden')
-    },
+  pause: function (time) {
+    this.api.pause(time);
+    return this;
+  },
 
-    fillInOrgBasicInformation: function (name, address, city, state, zip) {
-        return this.waitForElementPresent('@orgNameInput', 'Organization inputs are present')
-            .setValue('@orgNameInput', name)
-            .setValue('@addressLineOneInput', address)
-            .setValue('@cityInput', city)
-            .setValue('@stateDropdown', state)
-            .setValue('@zipInput', zip)
-    },
+  clickBillingToggle: function () {
+    return this.waitForElementPresent('@billingToggle', 'Billing toggle is present')
+      .click('@billingToggle')
+      .waitForElementNotPresent('@newBillingRadio', 'Billing options are hidden')
+  },
 
-    clickCreateOrganization: function () {
-        return this.waitForElementPresent('@createOrgButton', 'Create organization button is present')
-            .click('@createOrgButton')
-            .waitForElementVisible('@contactsPage','CCR Landed on org contact page')
-    }
+  fillInOrgBasicInformation: function (name, address, city, state, zip) {
+    return this.waitForElementPresent('@orgNameInput', 'Organization inputs are present')
+      .setValue('@orgNameInput', name)
+      .setValue('@addressLineOneInput', address)
+      .setValue('@cityInput', city)
+      .setValue('@stateDropdown', state)
+      .setValue('@zipInput', zip)
+  },
+
+  clickCreateOrganization: function () {
+    return this.waitForElementPresent('@createOrgButton', 'Create organization button is present')
+      .click('@createOrgButton')
+      .waitForElementVisible('@contactsPage', 'CCR Landed on org contact page')
+  },
+
 }
 
 module.exports = {
-    commands: [accountSetupCommands],
+  commands: [accountSetupCommands],
 
-    url: function () {
-        return this.api.launch_url + '/accountsetup'
+  url: function () {
+    return this.api.launch_url + '/accountsetup'
+  },
+
+  elements: {
+
+    /*---------------------------------------------------------*/
+    // Organization Information
+    /*---------------------------------------------------------*/
+
+    // Not in use when creating org without billing
+    // existingBillingRadio: {
+    //     selector: ``,
+    //     locateStrategy: 'xpath',
+    // },
+
+    orgId: {
+      selector: `//*[@class='app-navigation__org']//SPAN[contains(text(),'Organization')]`,
+      locateStrategy: 'xpath',
     },
 
-    elements: {
+    newBillingRadio: {
+      selector: `//LABEL[contains(@for, 'selectedBillingOpt')]`, // used to verify billing options are hidden
+      locateStrategy: 'xpath',
+    },
 
-        /*---------------------------------------------------------*/
-        // Organization Information
-        /*---------------------------------------------------------*/
+    orgNameInput: {
+      selector: `//INPUT[contains(@id, 'name')]`,
+      locateStrategy: 'xpath',
+    },
 
-        // Not in use when creating org without billing
-        // existingBillingRadio: {
-        //     selector: ``,
-        //     locateStrategy: 'xpath',
-        // },
+    parentCompanyInput: {
+      selector: `//INPUT[contains(@id, 'parentCompany')]`,
+      locateStrategy: 'xpath',
+    },
 
-        newBillingRadio: {
-            selector: `//LABEL[contains(@for, 'selectedBillingOpt')]`, // used to verify billing options are hidden
-            locateStrategy: 'xpath',
-        },
+    addressLineOneInput: {
+      selector: `//INPUT[contains(@id, 'street1')]`,
+      locateStrategy: 'xpath',
+    },
 
-        orgNameInput: {
-            selector: `//INPUT[contains(@id, 'name')]`,
-            locateStrategy: 'xpath',
-        },
+    addressLineTwoInput: {
+      selector: `//INPUT[contains(@id, 'street2')]`,
+      locateStrategy: 'xpath',
+    },
 
-        parentCompanyInput: {
-            selector: `//INPUT[contains(@id, 'parentCompany')]`,
-            locateStrategy: 'xpath',
-        },
+    cityInput: {
+      selector: `//INPUT[contains(@id, 'city')]`,
+      locateStrategy: 'xpath',
+    },
 
-        addressLineOneInput: {
-            selector: `//INPUT[contains(@id, 'street1')]`,
-            locateStrategy: 'xpath',
-        },
+    stateDropdown: {
+      selector: `//SELECT[contains(@id, 'state')]`,
+      locateStrategy: 'xpath',
+    },
 
-        addressLineTwoInput: {
-            selector: `//INPUT[contains(@id, 'street2')]`,
-            locateStrategy: 'xpath',
-        },
+    zipInput: {
+      selector: `//INPUT[contains(@id, 'zip')]`,
+      locateStrategy: 'xpath',
+    },
 
-        cityInput: {
-            selector: `//INPUT[contains(@id, 'city')]`,
-            locateStrategy: 'xpath',
-        },
+    orgPhoneInput: {
+      selector: `//INPUT[contains(@id, 'businessPhone')]`,
+      locateStrategy: 'xpath',
+    },
 
-        stateDropdown: {
-            selector: `//SELECT[contains(@id, 'state')]`,
-            locateStrategy: 'xpath',
-        },
+    orgEmailInput: {
+      selector: `//INPUT[contains(@id, 'businessEmail')]`,
+      locateStrategy: 'xpath',
+    },
 
-        zipInput: {
-            selector: `//INPUT[contains(@id, 'zip')]`,
-            locateStrategy: 'xpath',
-        },
+    /*---------------------------------------------------------*/
+    // Contact information
+    /*---------------------------------------------------------*/
 
-        orgPhoneInput: {
-            selector: `//INPUT[contains(@id, 'businessPhone')]`,
-            locateStrategy: 'xpath',
-        },
+    contactNameInput: {
+      selector: `//INPUT[contains(@id, 'orgContactName')]`,
+      locateStrategy: 'xpath',
+    },
 
-        orgEmailInput: {
-            selector: `//INPUT[contains(@id, 'businessEmail')]`,
-            locateStrategy: 'xpath',
-        },
+    contactPhoneInput: {
+      selector: `//INPUT[contains(@id, 'orgContactPhone')]`,
+      locateStrategy: 'xpath',
+    },
 
-        /*---------------------------------------------------------*/
-        // Contact information
-        /*---------------------------------------------------------*/
+    contactEmailInput: {
+      selector: `//INPUT[contains(@id, 'orgContactEmail')]`,
+      locateStrategy: 'xpath',
+    },
+    /*---------------------------------------------------------*/
+    // Billing Toggle
+    /*---------------------------------------------------------*/
 
-        contactNameInput: {
-            selector: `//INPUT[contains(@id, 'orgContactName')]`,
-            locateStrategy: 'xpath',
-        },
+    billingToggle: {
+      selector: `//LABEL[contains(@for, 'billingChecked')]`,
+      locateStrategy: 'xpath',
+    },
 
-        contactPhoneInput: {
-            selector: `//INPUT[contains(@id, 'orgContactPhone')]`,
-            locateStrategy: 'xpath',
-        },
+    /*---------------------------------------------------------*/
+    // Sales Information
+    /*---------------------------------------------------------*/
 
-        contactEmailInput: {
-            selector: `//INPUT[contains(@id, 'orgContactEmail')]`,
-            locateStrategy: 'xpath',
-        },
-        /*---------------------------------------------------------*/
-        // Billing Toggle
-        /*---------------------------------------------------------*/
+    // currently will not be used for automated testing    
 
-        billingToggle: {
-            selector: `//LABEL[contains(@for, 'billingChecked')]`,
-            locateStrategy: 'xpath',
-        },
+    /*---------------------------------------------------------*/
+    // Payment Information
+    /*---------------------------------------------------------*/
 
-        /*---------------------------------------------------------*/
-        // Sales Information
-        /*---------------------------------------------------------*/
+    // currently will not be used for automated testing
 
-        // currently will not be used for automated testing    
+    /*---------------------------------------------------------*/
 
-        /*---------------------------------------------------------*/
-        // Payment Information
-        /*---------------------------------------------------------*/
+    createOrgButton: {
+      selector: `//*[contains(text(), 'Create Organization')]`,
+      locateStrategy: 'xpath',
+    },
 
-        // currently will not be used for automated testing
-
-        /*---------------------------------------------------------*/
-
-        createOrgButton: {
-            selector: `//*[contains(text(), 'Create Organization')]`,
-            locateStrategy: 'xpath',
-        },
-
-        contactsPage: {
-            selector: `//*[text()='This area is restricted!']`,
-            locateStrategy: 'xpath'
-        },
-    }
+    contactsPage: {
+      selector: `//*[text()='Import Contacts']`,
+      locateStrategy: 'xpath'
+    },
+  }
 }

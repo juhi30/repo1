@@ -26,6 +26,7 @@
     "babel-preset-env": "1.7.x",
     "browserstack-automate": "^1.0.2",
     "dotenv": "6.0.x",
+    "moment-timezone": "^0.5.23",
     "nightwatch-html-reporter": "^2.0.5",
     "request": "2.88.0",
     "testarmada-magellan": "10.0.x",

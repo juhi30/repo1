@@ -2,12 +2,12 @@ const testConstants = require('../../feeder');
 
 module.exports = {
 
-    addMember: function (client) {
+    'Add a new Member': function (client) {
       const members = client.page.MembersPage();
   
       members.navigate()
         .clickAddMember()
-        console.log('Add Member steps')
+        .createMember()
     },
 
     'Edit Member': function (client) {

@@ -1,5 +1,5 @@
 const helpers = require('../helpers');
-const testConstants = require('../../feeder');
+const testConstants = require('../feeder');
 
 const universalElementsCommands = {
 
@@ -229,10 +229,11 @@ const universalElementsCommands = {
   },
 
   searchForOrganization: function(orgName, param2) {
+    const clickableElement = param2 ? param2 : '@organizationDropdownFirstResult'
     return this.waitForElementVisible('@searchInputForOrg', 'Search Input is visible')
       .setValue('@searchInputForOrg', orgName)
-      .waitForElementVisible(param2 ? param2 : '@organizationDropdownFirstResult', 'First result is visible')
-      .click('@organizationDropdownFirstResult')
+      .waitForElementVisible(clickableElement, 'First result is visible')
+      .click(clickableElement)
       .pause(500)
       .verify.urlContains('contacts', 'Contacts page is visible')
   },
@@ -440,9 +441,9 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    organizationDropdownFirstResult: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${helpers.organizationSearchStringForAnalytics}' ]`,
-      locateStrategy: 'xpath',
-    },
+     organizationSearchResult: {
+       selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.name}' ]`,
+       locateStrategy: 'xpath',
+     },
   }
 };

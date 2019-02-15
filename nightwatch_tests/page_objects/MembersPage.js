@@ -1,3 +1,5 @@
+const testConstants = require('../feeder');
+
 const membersCommands = {
   clickAddMember: function() {
     return this.waitForElementVisible('@createMemberButton', 'Add member button visible')
@@ -8,6 +10,23 @@ const membersCommands = {
     return this.waitForElementVisible('@deactivateButton', 'Deactivate button is visible')
       .click('@deactivateButton')
   },
+
+  enterDetails: function(element, value) {
+    return this.waitForElementVisible('@createMemberPageTitle', 'Create Member page is open')
+    .setValue(element, value)
+  },
+
+  createMember: function() {
+    return this.enterDetails('@memberFirstName', testConstants.memberFirstName)
+    .enterDetails('@memberLastName', testConstants.memberLastName)
+    .enterDetails('@memberUsername', testConstants.memberUsername)
+    .click('@adminRole')
+    .click('@billingAdminRole')
+    .click('@memberRole')
+    .click('@memberAdminRole')
+    .click('@createButton')
+    .waitForElementVisible('@createSuccessMessage', 'Member created successfully.')
+  }
 }
 
 module.exports = {
@@ -94,6 +113,60 @@ module.exports = {
     reactivateInModal: {
       selector: `//SPAN[contains(text(), 'Reactivate')]`,
       locateStrategy: 'xpath'
+    },
+
+    /*----------------------------------------------------*/
+    // Create Member Form
+    /*----------------------------------------------------*/
+
+    createMemberPageTitle: {
+      selector: `//*[@class = 'app-page__header__title'][text()='Create Member']`,
+      locateStrategy: 'xpath',
+    },
+
+    memberFirstName: {
+      selector: `//*[contains(@id,'firstName')]`,
+      locateStrategy: 'xpath',
+    },
+
+    memberLastName: {
+      selector: `//*[contains(@id,'lastName')]`,
+      locateStrategy: 'xpath',
+    },
+
+    memberUsername: {
+      selector: `//*[contains(@id,'username')]`,
+      locateStrategy: 'xpath',
+    },
+
+    adminRole: {
+      selector: `//*[(text()='Admin')]`,
+      locateStrategy: 'xpath',
+    },
+
+    billingAdminRole: {
+      selector: `//*[(text()='Billing Admin')]`,
+      locateStrategy: 'xpath',
+    },
+
+    memberRole: {
+      selector: `//*[(text()='Member')]`,
+      locateStrategy: 'xpath',
+    },
+
+    memberAdminRole: {
+      selector: `//*[(text()='Member Admin')]`,
+      locateStrategy: 'xpath',
+    },
+
+    createButton: {
+      selector: `//*[@class='button__text-wrapper'][text()= 'Create Member']`,
+      locateStrategy: 'xpath'
+    },
+
+    createSuccessMessage: {
+      selector: `//*[text()='Member created successfully.']`,
+      locateStrategy: 'xpath',
     },
   }
 };

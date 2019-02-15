@@ -4,11 +4,10 @@ const accountSetupCommands = {
   getOrgId: function () {
     return this.waitForElementVisible('@orgId', 5000, 'Org Id is visible')
       .getText('@orgId', function (tpObj) {
-        console.log('========================', tpObj);
         tpObj = tpObj.value.replace("ORGANIZATION (#", "");
         tpObj = tpObj.replace(")", "");
-        console.log('+++++++++++++++++++++++', tpObj)
         process.env.ORGANIZATION_ID = tpObj
+        console.log('Org Id of the newly created org is ==', tpObj);
       });
   },
 

@@ -11,7 +11,8 @@ const tagCommands = {
   },
 
   validateCreateTagModal: function () {
-    return this.click('@newTagButton')
+    return this.waitForElementVisible('@newTagButton', 'Create tag icon is visible')
+      .click('@newTagButton')
       .waitForElementVisible('@createTagButton', 'Create Tag modal is visible')
       .waitForElementVisible('@tagNameInput', 'Tag name input is visible')
       .waitForElementVisible('@tagCategoryLocation', 'Location category is visible')

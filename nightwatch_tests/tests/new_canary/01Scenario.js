@@ -36,6 +36,14 @@ module.exports = {
       .createGroup()
   },
 
+  'Creating office for this new org': function(client){
+    const office = client.page.Office();
+
+    office.validatePageElements()
+    .validateCreateOfficeForm()
+    .createOffice()
+  },
+
   // 'Creating OOO Event for this new Org': function (client) {
   //   const ooo = client.page.OutOfOfficePage();
 

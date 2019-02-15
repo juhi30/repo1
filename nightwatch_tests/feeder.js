@@ -27,7 +27,7 @@ module.exports = {
     officeAddress : '128 Hester St',
     officecity : 'Charleston',
     officestate : 'South Carolina',
-    officeZipCodd : '29403',
+    officeZipCode : '29403',
 
 
     //OOO Details

@@ -5,7 +5,7 @@ module.exports = {
     ccrPassword: process.env.CCR_PASSWORD,
     
     //Org Setup Details
-    name: 'Random Test6',
+    name: 'Random Test8',
     address: 'Test Address',
     city: 'Test City',
     state: 'Alaska',
@@ -14,7 +14,7 @@ module.exports = {
     // New Member Details
     memberFirstName: 'Testmember1',
     memberLastName: 'Choudhary',
-    memberUsername: 'tdytdytf6',
+    memberUsername: 'hgfyfyff',
     memberPassword: 'Test@123',
 
     //New Group Details

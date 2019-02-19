@@ -6,9 +6,16 @@ require('browserstack-automate').Nightwatch();
 
 // Check if nightwatch_tests/e2e.env exists,
 // and load the env vars if it does.
-const envFile = `${__dirname}/e2e.env`;
-if (fs.existsSync(envFile)) {
-  dotenv.config({ path: envFile });
+const devEnvFile = `${__dirname}/e2e.env`;
+const prodEnvFile = `${__dirname}/prod.env`;
+
+if (process.env.NODE_ENV === 'production' && !!fs.existsSync(prodEnvFile)) {
+
+  console.log('======prod====', process.env.NODE_ENV);
+  dotenv.config({ path: prodEnvFile });
+} else if (!!fs.existsSync(devEnvFile)) {
+  console.log('======edv====',  process.env.NODE_ENV);
+  dotenv.config({ path: devEnvFile });
 }
 
 const headless = !!process.env.HEADLESS && process.env.HEADLESS === 'true';

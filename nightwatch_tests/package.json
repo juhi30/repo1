@@ -32,6 +32,7 @@
     "testarmada-magellan": "10.0.x",
     "testarmada-magellan-local-executor": "2.0.x",
     "testarmada-magellan-nightwatch-plugin": "7.0.x",
-    "testarmada-nightwatch-extra": "4.1.x"
+    "testarmada-nightwatch-extra": "4.1.x",
+    "dotenv": "6.0.x"
   }
 }

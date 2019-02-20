@@ -9,10 +9,9 @@ module.exports = {
   
       setup.navigate()
         .clickBillingToggle()
-        .fillInOrgBasicInformation(testConstants.name, testConstants.address, testConstants.city, 
+        .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city, 
             testConstants.state, testConstants.zip)
             .clickCreateOrganization()
             .getOrgId()
-
     },    
   }

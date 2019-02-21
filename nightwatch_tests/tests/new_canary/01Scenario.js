@@ -39,8 +39,8 @@ module.exports = {
   'Creating office for this new org': function(client){
     const office = client.page.Office();
 
-    office.validatePageElements()
-    .validateCreateOfficeForm()
+    office.navigate()
+    .officeDetailForm()
     .createOffice()
   },
 

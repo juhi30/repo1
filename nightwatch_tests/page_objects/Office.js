@@ -7,13 +7,11 @@ const officeCommands = {
       return this;
     },
 
-    validatePageElements: function(){
+    officeDetailForm: function(){
         return this.waitForElementVisible('@officePageTitle','Office title page is visible')
-        .verify.visible('@addOffice','add office icon is visible')
-    },
-
-    validateCreateOfficeForm: function(){
-        return this.waitForElementVisible('@officeCreatepageTitle','Office creation page is visible and opened')
+        .verify.visible('@createOffice','add office icon is visible')
+        .click('@createOffice')
+        .waitForElementVisible('@officeCreatepageTitle','Office creation page is visible and opened')
         .verify.visible('@officeName','Office name input is visible')
         .setValue('@officeName',testConstant.officeName)
         .verify.visible('@officeAddressLine1','Office address line1 input is visible')
@@ -30,6 +28,7 @@ const officeCommands = {
     createOffice: function(){
         return this.verify.visible('@createOfficeButton','Create Office Button is visible')
         .click('@createOfficeButton')
+        .waitForElementVisible('@successMessage','Office Creation Success Message is visible')
     }
 
 
@@ -43,7 +42,7 @@ module.exports = {
     },
     elements: {
         officePageTitle : {
-            selector : `//div[@class='app-page__header__title'][text()='Offices']`,
+            selector : `//DIV[@class='app-page__header__title'][text()='Offices']`,
             locateStrategy: 'xpath',
         },
 
@@ -52,7 +51,7 @@ module.exports = {
             locateStrategy: 'xpath',
         },
 
-        addOffice : {
+        createOffice : {
             selector: `//BUTTON[@title='Create Office']`,
             locateStrategy: 'xpath',
         },
@@ -90,7 +89,12 @@ module.exports = {
         createOfficeButton: {
             selector: `//SPAN[@class='button__text-wrapper'][text()='Create Office']`,
             locateStrategy: 'xpath',
-        }
+        },
+
+        successMessage : {
+            selector : `//DIV[text()='Office created successfully.']`,
+            locateStrategy: 'xpath',
+        },
 
     }
 }

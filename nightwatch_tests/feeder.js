@@ -1,5 +1,3 @@
-
-
 module.exports = {
     ccrLogin: process.env.CCR_USERNAME,
     ccrPassword: process.env.CCR_PASSWORD,
@@ -38,5 +36,6 @@ module.exports = {
     oooFromTime: '12:00am',
     oooToTime : '12:00am',
 
-
+    //Tags Details
+    tagName : 'fake_tag1',
 };

@@ -1,3 +1,5 @@
+const testConstant = require('../feeder')
+
 const tagCommands = {
 
   pause: function (time) {
@@ -22,7 +24,7 @@ const tagCommands = {
   },
 
   createNewTag: function () {
-    return this.setValue('@tagNameInput', 'fake_tag')
+    return this.setValue('@tagNameInput', testConstant.tagName)
       .click('@tagCategoryCustom')
       .pause(1000)
       .click('@createTagButton')

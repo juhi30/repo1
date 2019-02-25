@@ -14,5 +14,6 @@ module.exports = {
     abortOnAssertionFailure: false,
     waitForConditionPollInterval: 300,
     waitForConditionTimeout: 45000,
-    retryAssertionTimeout: 5000
+    retryAssertionTimeout: 5000,
+    asyncHookTimeout : 100000,
 }

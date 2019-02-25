@@ -16,53 +16,52 @@ module.exports = {
     setup.getOrgId()
   },
 
-  'Create a Member for this new Org': function (client) {
-    member["Add a new Member"](client)
-  },
+//  'Create a Member for this new Org': function (client) {
+//     member["Add a new Member"](client)
+//   },
 
-  'Add a New Phone Type Channel for this Org': function (client) {
-    const channel = client.page.NewChannelSetup();
+//   'Add a New Phone Type Channel for this Org': function (client) {
+//     const channel = client.page.NewChannelSetup();
 
-    channel.navigate()
-    .clickAddChannel()
-    .newPhoneNumberChannelCreation()
-  },
+//     channel.navigate()
+//     .clickAddChannel()
+//     .newPhoneNumberChannelCreation()
+//   },
 
-  'Creating Patient Type Group for this new Org': function (client) {
-    const group = client.page.GroupsPage();
+//   'Creating Patient Type Group for this new Org': function (client) {
+//     const group = client.page.GroupsPage();
 
-    group.navigate()
-      .verifyGroupEls()
-      .createGroup()
-  },
+//     group.navigate()
+//       .verifyGroupEls()
+//       .createGroup()
+//   },
 
-  'Creating Office for this new org': function (client) {
-    const office = client.page.Office();
+//   'Creating Office for this new org': function (client) {
+//     const office = client.page.Office();
 
-    office.navigate()
-      .clickAddOffice()
-      .createOfficeForm()
-      .clickCreateOffice()
-  },
+//     office.navigate()
+//       .clickAddOffice()
+//       .createOfficeForm()
+//       .clickCreateOffice()
+//   },
 
-  'Creating OOO Event for this new Org': function (client) {
-    const ooo = client.page.OutOfOfficePage();
+//   'Creating OOO Event for this new Org': function (client) {
+//     const ooo = client.page.OutOfOfficePage();
 
-    ooo.navigate()
-      .validateUrlChange()
-      .pause(3000)
-      .verifyCreateOOOEventButton()
-      .openOOOPage('@addOOOEventButton', '@createEventPageHeader')
-      .updateDetails('@titleInput', testConstants.oooTitle)
-      .updateDetails('@messageTextArea', testConstants.oooMessage)
-      .updateDetails('@fromDateInput', testConstants.oooFromDate)
-      .updateDetails('@toDateInput', testConstants.oooToDate)
-      .updateDetails('@fromTimeInput', testConstants.oooFromTime)
-      .updateDetails('@toTimeInput', testConstants.oooToTime)
-      .selectChannel()
-      .submit('@createEventButton', '@eventCreateSuccessMessage')
-  },
-
+//     ooo.navigate()
+//       .validateUrlChange()
+//       .pause(3000)
+//       .verifyCreateOOOEventButton()
+//       .openOOOPage('@addOOOEventButton', '@createEventPageHeader')
+//       .updateDetails('@titleInput', testConstants.oooTitle)
+//       .updateDetails('@messageTextArea', testConstants.oooMessage)
+//       .updateDetails('@fromDateInput', testConstants.oooFromDate)
+//       .updateDetails('@toDateInput', testConstants.oooToDate)
+//       .updateDetails('@fromTimeInput', testConstants.oooFromTime)
+//       .updateDetails('@toTimeInput', testConstants.oooToTime)
+//       .selectChannel()
+//       .submit('@createEventButton', '@eventCreateSuccessMessage')
+//   },
 
   'Creating a Tags for this new Org': function (client) {
     const tags = client.page.TagsPage();
@@ -71,6 +70,6 @@ module.exports = {
       .validateCreateTagModal()
       .createNewTag();
 
-      client.end(2000);
+      client.end(100000);
   },
 }

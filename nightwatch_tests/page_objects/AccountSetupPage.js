@@ -2,7 +2,7 @@
 const accountSetupCommands = {
 
   getOrgId: function () {
-    return this.waitForElementVisible('@orgId', 5000, 'Org Id is visible')
+    return this.waitForElementVisible('@orgId', 'Org Id is visible')
       .getText('@orgId', function (tpObj) {
         tpObj = tpObj.value.replace("ORGANIZATION (#", "");
         tpObj = tpObj.replace(")", "");
@@ -25,9 +25,13 @@ const accountSetupCommands = {
   fillInOrgBasicInformation: function (name, address, city, state, zip) {
     return this.waitForElementPresent('@orgNameInput', 'Organization inputs are present')
       .setValue('@orgNameInput', name)
+      .waitForElementVisible('@addressLineOneInput', 'Address Line 1 is visible')
       .setValue('@addressLineOneInput', address)
+      .waitForElementVisible('@cityInput', 'City field is visible')
       .setValue('@cityInput', city)
+      .waitForElementVisible('@stateDropdown', 'State dropdown is visible')
       .setValue('@stateDropdown', state)
+      .waitForElementVisible('@zipInput', 'Zip field is visible')
       .setValue('@zipInput', zip)
   },
 

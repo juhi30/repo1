@@ -9,6 +9,11 @@ module.exports = {
     city: 'Test City',
     state: 'Alaska',
     zip: '12345',
+    subsDate: '02/25/2019',
+    billingContactFirstName: 'manish',
+    billingContactLastName: 'dutta',
+    billingEmail: 'test@test.com',
+    billingAddressLine1: 'line1',
 
     // New Member Details 
     memberFirstName: 'TestMember',
@@ -33,8 +38,8 @@ module.exports = {
     oooFromDate: '09/29/2020',
     oooToDate: '09/30/2020',
     oooFromTime: '12:00am',
-    oooToTime : '12:00am',
+    oooToTime: '12:00am',
 
     //Tags Details
-    tagName : 'fake_tag1',
+    tagName: 'fake_tag1',
 };

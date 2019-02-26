@@ -11,7 +11,7 @@ module.exports = {
 
     login.renderLoginPage(client)
     login.ccrLogin(client)
-    accountSetup.addWithoutBillingOrg(client)
+    accountSetup.addBillingOrg(client)
     //org.searchForOrganization(testConstants.orgName, '@organizationSearchResult')
     setup.getOrgId()
   },

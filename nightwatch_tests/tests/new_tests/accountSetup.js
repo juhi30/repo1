@@ -2,7 +2,7 @@ const testConstants = require('../../feeder');
 
 module.exports = {
 
-  addWithoutBillingOrg: function (client) {
+  addBillingOrg: function (client) {
     client.maximizeWindow()
 
     const setup = client.page.AccountSetupPage();

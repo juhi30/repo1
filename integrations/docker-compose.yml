@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+  rhinomessenger:
+    container_name: integrationstest
+    image: rhinogram/node-8.11:latest
+    working_dir: /app
+    volumes:
+      - ./src:/app/src
+      - ./yarn.lock:/app/yarn.lock
+      - ./package.json:/app/package.json
+      - ./.babelrc:/app/.babelrc
+      - ./.eslintrc:/app/.eslintrc
+      - ./.eslintignore:/app/.eslintignore
+      - ~/.aws/credentials:/root/.aws/credentials
+      - ./node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=local
+      - AWS_PROFILE=rhinodev
+    ports:
+    command: yarn test # optional override of CMD in Dockerfile
+    networks:
+      - rhinogram
+
+networks:
+  rhinogram:
+    external: true

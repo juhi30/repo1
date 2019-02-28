@@ -1,0 +1,337 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Integrations Test functionality
+
+Parameters:
+  GitBranch:
+    Type: String
+    Description: Name of the Git Branch
+
+  Image:
+    Type: String
+    Description: Docker image to deploy containers from
+
+  ContainerPort:
+    Type: Number
+    Description: Port of the docker container (internal) to map to the host (external)
+    Default: 1337
+
+  NewRelicLicenseKey:
+    Type: String
+    Description: The License key found under Account Settings in NR
+    Default: 'no_license'
+
+
+Mappings:
+  EnvironmentByBranch:
+    develop:
+      Environment: development
+    staging:
+      Environment: production
+    master:
+      Environment: production
+
+  VPC:
+    us-east-1:
+      develop: vpc-ed1e5b95
+      staging: vpc-0c7069c6ddc991c23
+      master: vpc-a109b3d8
+
+  PublicSubnet1:
+    us-east-1:
+      develop: subnet-ceba0fe1
+      staging: subnet-0423387791b1f17f4
+      master: subnet-4289f90a
+
+  PublicSubnet2:
+    us-east-1:
+      develop: subnet-79ccbd32
+      staging: subnet-0a4ff352eb9ed2565
+      master: subnet-5ebd0e04
+
+  PublicSubnet3:
+    us-east-1:
+      develop: subnet-a982ffcd
+      staging: subnet-0fca88be3c9e6ca92
+      master: subnet-19a41f35
+
+  CertArnByRegionAndEnv:
+    us-east-1:
+      '657744331605': arn:aws:acm:us-east-1:657744331605:certificate/0175fe31-0ac3-417e-9d8e-f097f52c9b28
+      '072388548512': arn:aws:acm:us-east-1:072388548512:certificate/c06057b8-60c7-475b-b23f-a7af2e272921
+
+  LogBucketByAccount:
+    us-east-1:
+      '657744331605': rhinodev-logs
+      '072388548512': rhinoprod-logs
+
+  DeletionPrevention:
+    us-east-1:
+      develop: 'false'
+      staging: 'false'
+      master: 'true'
+    
+  HostedZoneByAccount:
+    '657744331605':
+      name: dev-rhinogram.com.
+      id: ZUBUSJ5IX1NV7
+    '072388548512':
+      name: rhinogram.com.
+      id: Z1CEZNAGE8MGUU
+
+  SubdomainByGitBranch:
+    subdomain:
+      develop: messenger
+      staging: staging-messenger
+      master: messenger
+
+
+Conditions:
+  NoNewRelic: !Equals [ !Ref 'NewRelicLicenseKey', 'no_license' ]
+
+
+Resources:
+  Task:
+    DependsOn: ContainerRole
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Cpu: 256
+      Memory: 1GB
+      Family: integrationstests
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: !GetAtt ContainerRole.Arn
+      ContainerDefinitions:
+        - DisableNetworking: false
+          Environment:
+            - Name: NODE_ENV
+              Value: !FindInMap [EnvironmentByBranch, !Ref 'GitBranch', Environment]
+
+            - Name: AWS_REGION
+              Value: !Ref 'AWS::Region'
+
+            - Name: !If [NoNewRelic, 'NO_NR', 'NEW_RELIC_LICENSE_KEY']
+              Value: !If [NoNewRelic, 'true', !Ref 'NewRelicLicenseKey']
+
+            - Name: NEW_RELIC_APP_NAME
+              Value: !Join ['-', [integrationstests, !Ref 'GitBranch']]
+          Essential: true
+          Image: !Ref 'Image'
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              'awslogs-group': !Ref LogGroup
+              'awslogs-region': !Ref 'AWS::Region'
+              'awslogs-stream-prefix': !Join ['-', [integrationstests, !Ref 'GitBranch']]
+          Name: integrationstests
+          PortMappings:
+            - ContainerPort: !Ref 'ContainerPort'
+              HostPort: !Ref 'ContainerPort'
+              Protocol: tcp
+
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Join ['-', [!Ref 'GitBranch', integrationstests]]
+      RetentionInDays: 30
+
+  ContainerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - ecs-tasks.amazonaws.com
+              Action:
+                - sts:AssumeRole
+      Path: '/'
+      RoleName: !Join ['-', [integrationstests, !Ref 'GitBranch', container, role]]
+      Policies:
+        - PolicyName: !Join ['-', [integrationstests, !Ref 'GitBranch', container, policy]]
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:*
+                  - sqs:*
+                  - ecr:*
+                Resource: '*'
+              - Effect: Deny
+                Action:
+                  - sqs:DeleteQueue
+                  - sqs:RemovePermission
+                  - ecr:DeleteRepository
+                Resource: '*'
+
+  VpcSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupName: !Join ['-', [integrationstests, !Ref 'GitBranch', sg]]
+      GroupDescription: !Join [' ', ['Vpc-wide security group used to restrict ALB traffic to', integrationstests, !Ref 'GitBranch']] 
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+        - CidrIpv6: ::/0
+          IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+      SecurityGroupIngress:
+        - SourceSecurityGroupId: !GetAtt LoadBalancerSecurityGroup.GroupId
+          FromPort: 3000
+          ToPort: 9500
+          IpProtocol: tcp
+        - SourceSecurityGroupId: !GetAtt  LoadBalancerSecurityGroup.GroupId
+          IpProtocol: '-1'
+      VpcId: !FindInMap [VPC, !Ref 'AWS::Region', !Ref 'GitBranch']
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    DependsOn:
+      - LoadBalancer
+    Properties:
+      HealthCheckIntervalSeconds: 10
+      HealthCheckPath: /status
+      HealthCheckPort: traffic-port
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      Matcher:
+        HttpCode: 200-299
+      Name: !Join ['-', [integrationstests, !Ref 'GitBranch', 'tg']]
+      Port: !Ref 'ContainerPort' # should be overriden with dynamic port mapping
+      Protocol: HTTP
+      TargetType: ip
+      UnhealthyThresholdCount: 2
+      VpcId: !FindInMap [VPC, !Ref 'AWS::Region', !Ref 'GitBranch']
+
+  Service:
+    Type: AWS::ECS::Service
+    DependsOn:
+      - LoadBalancer
+      - Task
+      - TargetGroup
+      - ALBListener
+    Properties: 
+      Cluster: !Ref 'GitBranch'
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 50
+      DesiredCount: 1
+      HealthCheckGracePeriodSeconds: 6
+      LaunchType: FARGATE
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups: 
+            - !GetAtt VpcSecurityGroup.GroupId
+          Subnets:
+            - !FindInMap [PublicSubnet1, !Ref 'AWS::Region', !Ref 'GitBranch']
+            - !FindInMap [PublicSubnet2, !Ref 'AWS::Region', !Ref 'GitBranch']
+            - !FindInMap [PublicSubnet3, !Ref 'AWS::Region', !Ref 'GitBranch']
+      LoadBalancers:
+        - ContainerName: integrationstests
+          ContainerPort: !Ref 'ContainerPort'
+          TargetGroupArn: !Ref TargetGroup
+      ServiceName: integrationstests
+      TaskDefinition: !Ref Task
+
+  LoadBalancerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Join [' ', [Security group restricted to the, !Ref 'GitBranch', cluster for, integrationstests]]
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: '-1'
+        - CidrIpv6: ::/0
+          IpProtocol: '-1'
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 443
+          IpProtocol: tcp
+          ToPort: 443
+        - CidrIpv6: ::/0
+          FromPort: 443
+          ToPort: 443
+          IpProtocol: tcp
+      VpcId: !FindInMap [VPC, !Ref 'AWS::Region', !Ref 'GitBranch']
+
+  LoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      LoadBalancerAttributes:
+        - Key: deletion_protection.enabled
+          Value: !FindInMap [DeletionPrevention, !Ref 'AWS::Region', !Ref 'GitBranch']
+        - Key: access_logs.s3.bucket
+          Value: !FindInMap [LogBucketByAccount, !Ref 'AWS::Region', !Ref 'AWS::AccountId']
+        - Key: access_logs.s3.prefix
+          Value: !Join ['/', [integrationstests, !Ref 'GitBranch']]
+      Name: !Join ['-', [integrationstests, !Ref 'GitBranch', 'alb']]
+      Scheme: internet-facing
+      SecurityGroups:
+        - !Ref LoadBalancerSecurityGroup
+      Subnets:
+        - !FindInMap [PublicSubnet1, !Ref 'AWS::Region', !Ref 'GitBranch']
+        - !FindInMap [PublicSubnet2, !Ref 'AWS::Region', !Ref 'GitBranch']
+        - !FindInMap [PublicSubnet3, !Ref 'AWS::Region', !Ref 'GitBranch']
+      Type: application
+
+  Route53Record:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneName: !FindInMap [HostedZoneByAccount, !Ref 'AWS::AccountId', name]
+      Comment: !Join [' ', ['Zone apex alias targeted to', integrationstests, !Ref 'GitBranch']]
+      Name: !Join ['.', [!FindInMap [SubdomainByGitBranch, subdomain, !Ref 'GitBranch'], !FindInMap [HostedZoneByAccount, !Ref 'AWS::AccountId', name]]]
+      Type: A
+      AliasTarget:
+        HostedZoneId: !GetAtt LoadBalancer.CanonicalHostedZoneID
+        DNSName: !GetAtt LoadBalancer.DNSName
+
+  ListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      ListenerArn: !Ref ALBListener
+      Priority: 1
+      Conditions:
+        - Field: path-pattern
+          Values: [/]
+      Actions:
+        - TargetGroupArn: !Ref TargetGroup
+          Type: forward
+
+  ALBListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+      - Type: forward
+        TargetGroupArn: !Ref TargetGroup
+      LoadBalancerArn: !Ref LoadBalancer
+      Port: 443
+      Protocol: HTTPS
+      Certificates:
+      - CertificateArn: !FindInMap [CertArnByRegionAndEnv, !Ref 'AWS::Region', !Ref 'AWS::AccountId']
+
+Outputs:
+  Task:
+    Description: Task Definition
+    Value: !Ref Task
+
+  Service:
+    Description: ECS Service
+    Value: !Ref Service
+
+  TargetGroup:
+    Description: Target Group associated with ALB
+    Value: !Ref TargetGroup
+  
+  LoadBalancer:
+    Description: Application Load Balancer
+    Value: !Ref LoadBalancer
+
+  DNSName:
+    Description: The URL endpoint(s) for making HTTP requests to this service
+    Value: !Join ['', ['https://', !Ref Route53Record]]

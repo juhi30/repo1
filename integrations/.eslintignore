@@ -1,0 +1,5 @@
+# node_modules in the project root are ignored by default
+lib/
+src/*.env
+src/env.js
+deploy.js

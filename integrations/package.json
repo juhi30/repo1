@@ -1,0 +1,56 @@
+{
+  "name": "integrationstests",
+  "version": "0.0.1",
+  "license": "UNLICENSED",
+  "author": "Rhinogram, LLC",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhinogram/rhinodatagenerator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rhinogram/rhinodatagenerator/issues"
+  },
+  "homepage": "https://github.com/rhinogram/rhinodatagenerator#readme",
+  "engines": {
+    "node": "8.x",
+    "npm": "5.x",
+    "yarn": "1.x"
+  },
+  "scripts": {
+    "build:production": "node_modules/.bin/babel src --out-dir lib --copy-files --source-maps",
+    "docker:dev": "docker-compose up",
+    "docker:dev:rebuild": "docker-compose up --build",
+    "docker:down": "docker-compose down",
+    "build": "node_modules/.bin/babel src --out-dir lib --delete-dir-on-start --ignore src/tests --source-maps",
+    "lint": "eslint src",
+    "test": "jest"
+  },
+  "main": "lib/serve.js",
+  "devDependencies": {
+    "@babel/cli": "7.2.3",
+    "@babel/core": "7.2.2",
+    "@babel/node": "7.2.2",
+    "@babel/preset-env": "7.3.1",
+    "jest": "24.0.0",
+    "nodemon": "1.18.9",
+    "rhinocloud-sdk": "1.1.0",
+    "rhinodeploy": "git+https://ab1e60bc7d1ea8f0cef2d98a042749dee2741f8c:x-oauth-basic@github.com/rhinogram/rhinodeploy.git#ecs",
+    "rhinodeploy-cli": "git+https://ab1e60bc7d1ea8f0cef2d98a042749dee2741f8c:x-oauth-basic@github.com/rhinogram/rhinodeploy.git#cli",
+    "rhinosecure": "git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinosecure#1.0.19"
+  },
+  "dependencies": {
+    "axios": "0.18.0",
+    "body-parser": "^1.18.3",
+    "colors": "1.3.3",
+    "debug": "4.1.1",
+    "dotenv": "6.2.0",
+    "eslint-config-rhinogram": "https://github.com/rhinogram/eslint-config-rhinogram.git#0.0.15",
+    "express": "4.16.4",
+    "moment-timezone": "0.5.23",
+    "node-bandwidth": "^2.6.5",
+    "rhinotilities": "git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#1.0.9",
+    "source-map-support": "0.5.10",
+    "twilio": "^3.27.1"
+  }
+}

@@ -9,6 +9,7 @@ import * as AWS from 'rhinotilities/lib/objects/AWS';
 
 // Used for checking if a sub object/nested object has ANY props/keys
 export function pushtoqueue(message, handler) {
+  console.log(process.env.AWS_SQS_LINER_QUEUE_URL);
   const queue = new Queue({
     url: process.env.AWS_SQS_LINER_QUEUE_URL,
     longPollTimeout: 5,
@@ -20,5 +21,5 @@ export function pushtoqueue(message, handler) {
   }
   const date = new Date();
   console.log('putting data to queue');
-  return queue.enqueue(message, 'inbound', 'job', message.orgId);
+  return queue.enqueue(message, 'inbound', undefined, message.orgId);
 }

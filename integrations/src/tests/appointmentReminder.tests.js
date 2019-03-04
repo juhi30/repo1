@@ -15,7 +15,7 @@ const USER_TYPE_PATIENT = 18;
 let createdPatient;
 let createdAppointment;
 
-const orgId = 1;
+const orgId = parseInd(process.env.ORG_ID, 10);
 const patientExternalId = '678';
 const appointmentExternalId = '34572356';
 

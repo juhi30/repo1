@@ -16,7 +16,7 @@ let createdPatient;
 let createdOther;
 let createdAppointment;
 
-const orgId = 1;
+const orgId = parseInt(process.env.ORG_ID, 10);
 const patientExternalId = 'c3ba714d-47e7-4eb4-8713-b60730179c89';
 const guardianExtrenalId = '2833d372-4a2d-462b-b302-a0d9b54b49fc';
 
@@ -37,6 +37,7 @@ describe('integration tests', () => {
     jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getUserByExternalId(orgId, patientExternalId).then((response) => {
+      console.log(response);
       expect(response.data.externalIds.emrId).toBe(patientExternalId);
       createdPatient = response.data;
       done();
@@ -57,7 +58,9 @@ describe('integration tests', () => {
       messageType: 'USER',
       orgId,
     };
-    await rhinoliner.pushtoqueue(user).then(() => {
+    console.log(user);
+    await rhinoliner.pushtoqueue(user).then((response) => {
+      console.log(response);
       done();
     });
   });
@@ -66,6 +69,7 @@ describe('integration tests', () => {
     jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getUserByExternalId(orgId, patientExternalId).then((response) => {
+      console.log(response.data);
       expect(response.data.externalIds.emrId).toBe(patientExternalId);
       expect(response.data.firstName).toBe('Joe');
       createdPatient = response.data;
@@ -104,7 +108,6 @@ describe('integration tests', () => {
 
   test('create appointment', async (done) => {
     jest.setTimeout(30000);
-    console.log(orgId);
     const appointment = {
       startDate: '2019-04-09T12:30:00.000Z',
       endDate: '2019-04-09T12:45:00.000Z',

@@ -20,13 +20,13 @@ jobs:
             else
               export LAUNCH_URL=https://dev.dev-rhinogram.com
             fi
-            cd nightwatch_tests && BROWSER_NAME=chrome yarn canary
+              BROWSER_NAME=chrome yarn canary
       - run:
           name: Deploy Test Results
           command: |
             yarn && node deploy
             aws s3 sync \
-              nightwatch_tests/reports \
+              reports \
               s3://nightwatch-results-$CIRCLE_BRANCH \
               --acl public-read \
               --cache-control max-age=300 \
@@ -39,10 +39,10 @@ jobs:
       - checkout
       - run:
           name: Yarn
-          command: yarn && (cd nightwatch_tests && yarn)
+          command: yarn
       - run:
           name: Lint
-          command: cd nightwatch_tests && yarn eslint .
+          command: yarn eslint .
 
 
 workflows:

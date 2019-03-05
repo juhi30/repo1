@@ -8,6 +8,8 @@ Automated tools for testing.
 
   Tests should be placed in a group underneath a folder named appropriatly inside the src/test folder.
 
+  If you want to have test suites ran in order and have a pre run step and a post run step like create and delete org you should look at the src/test/newOrgCanary
+
   ### Installation and running the suite
   
 

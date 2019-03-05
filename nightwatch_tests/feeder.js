@@ -1,7 +1,10 @@
+const moment = require('moment-timezone');
+
 module.exports = {
 
     ccrLogin: process.env.CCR_USERNAME,
     ccrPassword: process.env.CCR_PASSWORD,
+    planName: process.env.PLAN,
 
     //Org Setup Details
     orgName: 'Test Org ' + Math.random().toString(36).substring(7),
@@ -9,7 +12,7 @@ module.exports = {
     city: 'Test City',
     state: 'Alaska',
     zip: '12345',
-    subsDate: '02/25/2019',
+    subsDate: moment.utc().format('MM/DD/YYYY'),
     billingContactFirstName: 'manish',
     billingContactLastName: 'dutta',
     billingEmail: 'test@test.com',

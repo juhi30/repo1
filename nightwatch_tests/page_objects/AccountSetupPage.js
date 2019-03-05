@@ -1,3 +1,5 @@
+const testConstants = require("../feeder");
+
 const accountSetupCommands = {
 
   getOrgId: function () {
@@ -37,6 +39,15 @@ const accountSetupCommands = {
   setSubscriptionDate: function (date) {
     return this.waitForElementVisible('@ActivationDate', 'Subscription Activation Date picker is visible')
       .setValue('@ActivationDate', date)
+  },
+
+  setPlan : function(){
+    console.log('Plan Name:: ', testConstants.planName);
+    return this.waitForElementVisible('@planList', 'Plan list is visible')
+    .click('@planList')
+    .waitForElementVisible('@planName', 'Plan selection list is visible')
+    .pause(1000)
+    .click('@planName')
   },
 
   billingContactDetails: function (firstName, LastName, email, line1, city, state, zip) {
@@ -242,6 +253,17 @@ module.exports = {
 
     orgCreateSucessMessage: {
       selector: `//DIV[text()='Organization created successfully.']`,
+      locateStrategy: 'xpath',
+    },
+
+    planList: {
+      selector: `//*[@id="app"]//div[2]//div[3]//button/span`,
+      locateStrategy: 'xpath',
+    },
+
+    planName: {
+   // selector : `//span[@class='u-text-overflow'][text()='Basic Plan New']`,
+      selector: `SPAN[@class='u-text-overflow'][text()='${testConstants.planName}']`,
       locateStrategy: 'xpath',
     },
   }

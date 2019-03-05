@@ -63,13 +63,13 @@ module.exports = {
 //       .submit('@createEventButton', '@eventCreateSuccessMessage')
 //   },
 
-  'Creating a Tags for this new Org': function (client) {
-    const tags = client.page.TagsPage();
+  // 'Creating a Tags for this new Org': function (client) {
+  //   const tags = client.page.TagsPage();
 
-    tags.navigate()
-      .validateCreateTagModal()
-      .createNewTag();
+  //   tags.navigate()
+  //     .validateCreateTagModal()
+  //     .createNewTag();
 
-      client.end(100000);
-  },
+  //     client.end(100000);
+  // },
 }

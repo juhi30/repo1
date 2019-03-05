@@ -2,10 +2,17 @@
   "name": "rhinomatic",
   "version": "1.0.0",
   "description": "Automated tools for testing.",
+  "main": "index.js",
+  "directories": {
+    "test": "src/test"
+  },
   "scripts": {
-    "getLatestReports": "AWS_PROFILE=rhinodev ./bin/getLatestReports.sh",
-    "nightwatch": "cd nightwatch_tests && yarn test",
-    "postinstall": "chmod -R +x bin"
+    "test": "jest",
+    "test-canary": "jest src/test/newOrgCanary",
+    "test-existing-canary": "jest src/test/existingOrgCanary",
+    "test-integration": "jest src/test/integrations",
+    "clean": "rm -rf lib/*",
+    "build": "yarn clean && node_modules/.bin/babel src --out-dir lib"
   },
   "repository": {
     "type": "git",
@@ -17,11 +24,32 @@
     "url": "https://github.com/rhinogram/rhinomatic/issues"
   },
   "homepage": "https://github.com/rhinogram/rhinomatic#readme",
-  "dependencies": {
-    "nightwatch-html-reporter": "^2.0.5",
-    "rhinocloud-sdk": "1.0.xx"
-  },
   "devDependencies": {
-    "nightwatch-slack-reporter": "0.0.2"
+    "axios": "0.18.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^24.1.0",
+    "babel-preset-env": "^1.7.0",
+    "body-parser": "^1.18.3",
+    "browserstack-automate": "^1.0.2",
+    "chromedriver": "2.46.0",
+    "cross-env": "^5.2.0",
+    "dotenv": "6.0.x",
+    "eslint": "5.1.x",
+    "express": "4.16.4",
+    "geckodriver": "^1.16.0",
+    "jest": "^24.1.0",
+    "jest-html-reporter": "^2.4.4",
+    "moment-timezone": "^0.5.23",
+    "nightwatch": "^1.0.19",
+    "nightwatch-api": "latest",
+    "request": "2.88.0",
+    "rhinocloud-sdk": "1.0.xx",
+    "rhinotilities": "git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#1.0.9",
+    "selenium-server-standalone-jar": "3.141.5",
+    "testarmada-magellan": "10.0.x",
+    "testarmada-magellan-local-executor": "2.0.x",
+    "testarmada-magellan-nightwatch-plugin": "7.0.x",
+    "testarmada-nightwatch-extra": "4.1.x"
   }
 }

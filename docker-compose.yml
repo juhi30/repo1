@@ -17,4 +17,4 @@ services:
       - BROWSER_NAME=chrome
       - HEADLESS=true
     volumes:
-      - ./nightwatch_tests:/home/selenium
+      - .:/home/selenium

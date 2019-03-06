@@ -7,7 +7,8 @@ module.exports = {
     planName: process.env.PLAN,
 
     //Org Setup Details
-    orgName: 'Test Org ' + Math.random().toString(36).substring(7),
+    //orgName: 'Test Org ' + Math.random().toString(36).substring(7),
+    orgName : 'India Test Org', //to be removed , only for testing
     address: 'Test Address',
     city: 'Test City',
     state: 'Alaska',

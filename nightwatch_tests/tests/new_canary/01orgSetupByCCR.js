@@ -12,7 +12,7 @@ module.exports = {
     login.renderLoginPage(client)
     login.ccrLogin(client)
     accountSetup.addBillingOrg(client)
-    //org.searchForOrganization(testConstants.orgName, '@organizationSearchResult')
+   //org.searchForOrganization(testConstants.orgName, '@organizationSearchResult')
     setup.getOrgId()
   },
 

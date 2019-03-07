@@ -28,9 +28,12 @@ jobs:
           command: |
             if [ "$CIRCLE_BRANCH" == "master" ]; then
               export APP_URL=https://app/rhinogram.com
+              export NODE_ENV=production
             elif [ "$CIRCLE_BRANCH" == "staging" ]; then
               export APP_URL=https://staging.rhinogram.com
+              export NODE_ENV=staging
             else
+              export NODE_ENV=development
               export APP_URL=https://dev.dev-rhinogram.com
             fi
               BROWSER_NAME=chrome yarn test

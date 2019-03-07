@@ -14,11 +14,11 @@ jobs:
           name: Run Chrome Canary Tests
           command: |
             if [ "$CIRCLE_BRANCH" == "master" ]; then
-              export LAUNCH_URL=https://app/rhinogram.com
+              export APP_URL=https://app/rhinogram.com
             elif [ "$CIRCLE_BRANCH" == "staging" ]; then
-              export LAUNCH_URL=https://staging.rhinogram.com
+              export APP_URL=https://staging.rhinogram.com
             else
-              export LAUNCH_URL=https://dev.dev-rhinogram.com
+              export APP_URL=https://dev.dev-rhinogram.com
             fi
               BROWSER_NAME=chrome yarn test
       - run:

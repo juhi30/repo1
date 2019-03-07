@@ -14,7 +14,7 @@ module.exports = {
     "start_process" : true,
     "server_path" : "./node_modules/selenium-server-standalone-jar/jar/selenium-server-standalone-3.141.5.jar",
     "log_path" : "",
-    "port" : process.env.PORT || 4444,
+    "port" : process.env.SELENIUM_PORT || 4444,
     "cli_args" : {
       "webdriver.chrome.driver" : "./node_modules/chromedriver/bin/chromedriver",
       "webdriver.gecko.driver": "./node_modules/geckodriver/bin/geckodriver"
@@ -23,15 +23,15 @@ module.exports = {
 
   "test_settings" : {
     "default" : {
-      "launch_url" : process.env.LAUNCH_URL || "http://localhost:3000",
-      "selenium_port"  : process.env.PORT || 4444,
+      "launch_url" : process.env.APP_URL || "http://localhost:3000",
+      "selenium_port"  : process.env.SELENIUM_PORT || 4444,
       "selenium_host"  : process.env.SELENIUM_HOST || "127.0.0.1",
       "desiredCapabilities": {
         "browserName": process.env.BROWSER_NAME || "chrome",
         "javascriptEnabled": true,
         "acceptSslCerts": true,
         "chromeOptions": {
-          "args": ["headless", "no-sandbox", "disable-gpu"]
+          "args": [ "headless", "no-sandbox", "disable-gpu"]
         }
       }
     }

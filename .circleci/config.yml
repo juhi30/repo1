@@ -20,7 +20,7 @@ jobs:
             else
               export APP_URL=https://dev.dev-rhinogram.com
             fi
-              BROWSER_NAME=chrome yarn test
+              BROWSER_NAME=chrome yarn && yarn test
       - run:
           name: Deploy Test Results
           command: |

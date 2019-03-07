@@ -10,6 +10,19 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
+      - run: yarn
+      - run:
+          name: Set AWS Keys
+          command: yarn rhinodeploy config
+      - run:
+          name: Get Secrets
+          command: |
+            if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "staging" ]; then
+              configFile=prod.env
+            else
+              configFile=dev.env
+            fi
+            yarn rhinodeploy envs -f $configFile -l ./src
       - run:
           name: Run Chrome Canary Tests
           command: |
@@ -20,7 +33,7 @@ jobs:
             else
               export APP_URL=https://dev.dev-rhinogram.com
             fi
-              BROWSER_NAME=chrome yarn && yarn test
+              BROWSER_NAME=chrome yarn test
       - run:
           name: Deploy Test Results
           command: |

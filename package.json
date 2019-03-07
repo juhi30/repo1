@@ -10,7 +10,7 @@
     "test": "jest",
     "test-canary": "jest src/test/newOrgCanary",
     "test-existing-canary": "jest src/test/existingOrgCanary",
-    "test-integration": "jest src/test/integrations",
+    "test-integrations": "jest src/test/integrations",
     "clean": "rm -rf lib/*",
     "build": "yarn clean && node_modules/.bin/babel src --out-dir lib"
   },
@@ -46,6 +46,7 @@
     "request": "2.88.0",
     "rhinocloud-sdk": "1.0.xx",
     "rhinotilities": "git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#1.0.9",
+    "rhinodeploy-cli": "git+https://ab1e60bc7d1ea8f0cef2d98a042749dee2741f8c:x-oauth-basic@github.com/rhinogram/rhinodeploy.git#cli",
     "selenium-server-standalone-jar": "3.141.5",
     "testarmada-magellan": "10.0.x",
     "testarmada-magellan-local-executor": "2.0.x",

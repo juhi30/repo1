@@ -1,3 +1,4 @@
+const testConstants = require("../toolboxes/feeder.toolbox");
 
 const accountSetupCommands = {
 
@@ -35,9 +36,35 @@ const accountSetupCommands = {
       .setValue('@zipInput', zip)
   },
 
+  setSubscriptionDate: function (date) {
+    return this.waitForElementVisible('@ActivationDate', 'Subscription Activation Date picker is visible')
+      .setValue('@ActivationDate', date)
+  },
+
+  setPlan: function () {
+    return this.waitForElementVisible('@planList', 'Plan list is visible')
+      .click('@planList')
+      .waitForElementVisible('@planName', 'Plan selection list is visible')
+      .pause(1000)
+      .click('@planName')
+  },
+
+  billingContactDetails: function (firstName, LastName, email, line1, city, state, zip) {
+    return this.verify.visible('@billingBoxTitle', 'Billing contact details form is visible')
+      .click('@billingFirstName')
+      .setValue('@billingFirstName', firstName)
+      .setValue('@billingLastName', LastName)
+      .setValue('@billingEmail', email)
+      .setValue('@billingAddressLine1', line1)
+      .setValue('@billingCity', city)
+      .setValue('@BillingState', state)
+      .setValue('@BillingZip', zip)
+  },
+
   clickCreateOrganization: function () {
     return this.waitForElementPresent('@createOrgButton', 'Create organization button is present')
       .click('@createOrgButton')
+      .waitForElementVisible('@orgCreateSucessMessage', 'Organization created successfully')
       .waitForElementVisible('@contactsPage', 'CCR Landed on org contact page')
   },
 
@@ -58,8 +85,8 @@ module.exports = {
 
     // Not in use when creating org without billing
     // existingBillingRadio: {
-    //     selector: ``,
-    //     locateStrategy: 'xpath',
+    // selector: ``,
+    // locateStrategy: 'xpath',
     // },
 
     orgId: {
@@ -148,15 +175,70 @@ module.exports = {
     // Sales Information
     /*---------------------------------------------------------*/
 
-    // currently will not be used for automated testing    
+    // currently will not be used for automated testing
 
     /*---------------------------------------------------------*/
     // Payment Information
     /*---------------------------------------------------------*/
 
-    // currently will not be used for automated testing
+    ActivationDate: {
+      selector: `//INPUT[contains(@id, 'startBillingDate')]`,
+      locateStrategy: 'xpath',
+    },
 
     /*---------------------------------------------------------*/
+    //Billing Contact Details
+    /*---------------------------------------------------------*/
+
+    billingBoxTitle: {
+      selector: `//DIV[@class='box__title'][text()='Billing Contact']`,
+      locateStrategy: 'xpath',
+    },
+
+    billingFirstName: {
+      selector: `//INPUT[contains(@id, 'billingContactFirstName')]`,
+      locateStrategy: 'xpath',
+    },
+
+    billingLastName: {
+      selector: `//INPUT[contains(@id, 'billingContactLastName')]`,
+      locateStrategy: 'xpath',
+    },
+    
+    billingPhoneNumber: {
+      selector: `//INPUT[contains(@id, 'billingContactPhone')]`,
+      locateStrategy: 'xpath',
+    },
+
+    billingEmail: {
+      selector: `//INPUT[contains(@id, 'billingContactEmail')]`,
+      locateStrategy: 'xpath',
+    },
+
+    billingAddressLine1: {
+      selector: `//INPUT[contains(@id, 'billingStreet1')]`,
+      locateStrategy: 'xpath',
+    },
+
+    billingAddressLine2: {
+      selector: `//INPUT[contains(@id, 'billingStreet2')]`,
+      locateStrategy: 'xpath',
+    },
+
+    billingCity: {
+      selector: `//INPUT[contains(@id, 'billingCity')]`,
+      locateStrategy: 'xpath',
+    },
+
+    BillingState: {
+      selector: `//SELECT[contains(@id,'billingState')]`,
+      locateStrategy: 'xpath',
+    },
+
+    BillingZip: {
+      selector: `//INPUT[contains(@id, 'billingZip')]`,
+      locateStrategy: 'xpath',
+    },
 
     createOrgButton: {
       selector: `//*[contains(text(), 'Create Organization')]`,
@@ -165,7 +247,22 @@ module.exports = {
 
     contactsPage: {
       selector: `//*[text()='Import Contacts']`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
+    },
+
+    orgCreateSucessMessage: {
+      selector: `//DIV[text()='Organization created successfully.']`,
+      locateStrategy: 'xpath',
+    },
+
+    planList: {
+      selector: `//*[text()='Plans']//parent::DIV//BUTTON`,
+      locateStrategy: 'xpath',
+    },
+
+    planName: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='${testConstants.planName}']`,
+      locateStrategy: 'xpath',
     },
   }
 }

@@ -13,26 +13,26 @@ const membersCommands = {
 
   enterDetails: function(element, value) {
     return this.waitForElementVisible('@createMemberPageTitle', 'Create Member page is open')
-      .setValue(element, value)
+    .setValue(element, value)
   },
 
   createMember: function() {
     return this.enterDetails('@memberFirstName', testConstants.memberFirstName)
-      .enterDetails('@memberLastName', testConstants.memberLastName)
-      .enterDetails('@memberUsername', testConstants.memberUsername)
-      .click('@adminRole')
-      .click('@billingAdminRole')
-      .click('@memberRole')
-      .click('@memberAdminRole')
-      .click('@createButton')
-      .waitForElementVisible('@createSuccessMessage', 'Member created successfully.')
+    .enterDetails('@memberLastName', testConstants.memberLastName)
+    .enterDetails('@memberUsername', testConstants.memberUsername)
+    .click('@adminRole')
+    .click('@billingAdminRole')
+    .click('@memberRole')
+    .click('@memberAdminRole')
+    .click('@createButton')
+    .waitForElementVisible('@createSuccessMessage', 'Member created successfully.')
   }
 }
 
 module.exports = {
   commands: [membersCommands],
   url: function () {
-    return this.api.launch_url + '/settings/organization/members'
+      return this.api.launch_url + '/settings/organization/members'
   },
   elements: {
 
@@ -75,7 +75,7 @@ module.exports = {
       selector: `//SPAN[contains(text(), 'Create')]`,
       locateStrategy: 'xpath'
     },
-
+    
     confirmTempPassword: {
       selector: `//SPAN[contains(text(), 'Yes')]`,
       locateStrategy: 'xpath'
@@ -99,7 +99,7 @@ module.exports = {
       selector: `//SPAN[contains(@title, 'Close')]`,
       locateStrategy: 'xpath'
     },
-
+    
     cancelInModal: {
       selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[2]`,
       locateStrategy: 'xpath'

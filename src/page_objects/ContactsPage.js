@@ -1,10 +1,5 @@
 const contactsCommands = {
 
-  pause: function(time) {
-    this.api.pause(time);
-    return this;
-  },
-
   validateContactsElements: function() {
     return this.waitForElementVisible('@filterDropdown', 'Filter dropdown button is visible')
       .click('@filterDropdown')

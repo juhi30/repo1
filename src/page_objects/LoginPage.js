@@ -2,20 +2,20 @@
 const helpers = require('../toolboxes/helpers.toolbox');
 
 const loginCommands = {
-  
-  validateForm: function() {
+
+  validateForm: function () {
     return this.waitForElementVisible('@usernameInput', 'Username input is visible')
       .verify.visible('@usernameInput', 'Username input is visible')
       .verify.visible('@passwordInput', 'password input is visible')
       .verify.containsText('@loginButton', 'Log In', 'Login button is visible')
   },
 
-  fillInUsername: function(username) {
+  fillInUsername: function (username) {
     return this.waitForElementVisible('@usernameInput', 'Username input visible')
       .setValue('@usernameInput', username)
   },
 
-  fillInPassword: function(password) {
+  fillInPassword: function (password) {
     return this.waitForElementVisible('@passwordInput', 'Password input visible')
       .setValue('@passwordInput', password)
   },
@@ -26,13 +26,13 @@ const loginCommands = {
       .setValue('@passwordInput', password ? password : helpers.csrCreds.password)
   },
 
-  enterMemberCreds: function(username, password) {
-    return this.waitForElementVisible('@usernameInput','Username input visible')
+  enterMemberCreds: function (username, password) {
+    return this.waitForElementVisible('@usernameInput', 'Username input visible')
       .setValue('@usernameInput', username ? username : helpers.memberCreds.username)
       .setValue('@passwordInput', password ? password : helpers.memberCreds.password)
   },
 
-  enterPatientCreds: function(username, password) {
+  enterPatientCreds: function (username, password) {
     return this.waitForElementVisible('@usernameInput', 'Username input visible')
       .setValue('@usernameInput', username ? username : helpers.patientCreds.username)
       .setValue('@passwordInput', password ? password : helpers.patientCreds.password)
@@ -71,12 +71,12 @@ const loginCommands = {
   //     .verify.urlContains('inbox')  // maybe some timeout issues happening here working as of 9/20/1
   // },
 
-  validateUrlChange: function(url) {
-    const nextPageUrl = url ? url : 'inbox'; 
+  validateUrlChange: function (url) {
+    const nextPageUrl = url ? url : 'inbox';
     return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
       .verify.urlContains(nextPageUrl);
   },
-  
+
   fillInNewPasswordInput: function(password) {
     return this.waitForElementVisible('@newPasswordInput', 'New password input is visible')
       .setValue('@newPasswordInput', password);
@@ -90,12 +90,20 @@ const loginCommands = {
   clickSaveAndContinueButton: function() {
     return this.waitForElementVisible('@saveAndContinueButton', 'Save and Continue button is visible')
       .click('@saveAndContinueButton');
+  },
+
+  validateUrlChange_CCR: function (url) {
+    return this.verify.urlContains(url);
+  },
+
+  validatePageError: function (url, message) {
+    return this.verify.urlContains(url,message)
   }
 }
 
 module.exports = {
   commands: [loginCommands],
-  url: function() {
+  url: function () {
     return this.api.launch_url + '/login'
   },
   elements: {
@@ -105,7 +113,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
     passwordInput: {
-      selector: `//INPUT[contains(@name, 'password')]`,      
+      selector: `//INPUT[contains(@name, 'password')]`,
       locateStrategy: 'xpath',
     },
     loginButton: {

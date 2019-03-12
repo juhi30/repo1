@@ -1,14 +1,23 @@
+const moment = require('moment-timezone');
+
 module.exports = {
 
     ccrLogin: process.env.CCR_USERNAME,
     ccrPassword: process.env.CCR_PASSWORD,
+    planName: process.env.PLAN,
 
     //Org Setup Details
-    orgName: 'Test Org ' + Math.random().toString(36).substring(7),
+    //orgName: 'Test Org ' + Math.random().toString(36).substring(7),
+    orgName: 'AutomationTestOrg', //to be removed , only for testing
     address: 'Test Address',
     city: 'Test City',
     state: 'Alaska',
     zip: '12345',
+    subsDate: moment.utc().format('MM/DD/YYYY'),
+    billingContactFirstName: 'manish',
+    billingContactLastName: 'dutta',
+    billingEmail: 'test@test.com',
+    billingAddressLine1: 'line1',
 
     // New Member Details 
     memberFirstName: 'TestMember',
@@ -35,10 +44,14 @@ module.exports = {
     oooFromTime: '12:00am',
     oooToTime: '12:00am',
 
-    // New Phone Type Channel Details
-    numberForNewPhoneChannel: 819,
-    chooseANumber: '+18192004430',
-    forwardingNumber: '(454) 657-6879',
-    channelName: 'Test Channel',
-    timeZone: 'Eastern Time (UTC -05:00) - New York',
-};
+    //Tags Details
+    tagName: 'fake_tag1',
+
+    //Role Details
+    roleName: 'CreatedRole',
+    rolePurpose: 'All testing',
+    roleMember1: 'Munish Dutta',
+    roleMember2: 'Ankita Singh',
+    newRoleName: 'DeletedRole',
+    roleNewPurpose: 'testing Few permissions',
+}

@@ -3,11 +3,6 @@ const testConstants = require('../toolboxes/feeder.toolbox');
 
 const universalElementsCommands = {
 
-  pause: function(time) {
-    this.api.pause(time);
-    return this;
-  },
-
   validateUniversalElements: function() {
     return this.waitForElementVisible('@myProfileButton', 'My Profile button is visible')
       .verify.visible('@myProfileButton', 'Profile button is visible')
@@ -228,16 +223,23 @@ const universalElementsCommands = {
       .setValue('@searchModalInput', name)
   },
 
-  searchForOrganization: function(orgName, param2) {
-    const clickableElement = param2 ? param2 : '@organizationDropdownFirstResult'
+  searchForOrganization: function(orgName) { 
     return this.waitForElementVisible('@searchInputForOrg', 'Search Input is visible')
-      .setValue('@searchInputForOrg', orgName)
-      .waitForElementVisible(clickableElement, 'First result is visible')
+      .setValue('@searchInputForOrg', orgName)     
+  },
+
+  loginInOrg: function(param2){
+    const clickableElement = param2 ? param2 : '@organizationDropdownFirstResult'
+   return this.waitForElementVisible(clickableElement, 'First result is visible')
       .click(clickableElement)
-      .pause(500)
       .verify.urlContains('contacts', 'Contacts page is visible')
   },
 
+  switchOrganization: function(url, message){
+    return this.waitForElementVisible('@selectOrganizationButton','Select organization button is visible')
+            .click('@selectOrganizationButton')
+            .urlContains(url,message)
+    },
 }
 
 module.exports = {
@@ -450,5 +452,10 @@ module.exports = {
       selector: `//SPAN[text()='No organizations found']`,
       locateStrategy: 'xpath',
     },
+
+    selectOrganizationButton : {
+      selector: `//SPAN[@class='button__text-wrapper'][contains(text(),'Select Organization')]`,
+      locateStrategy: 'xpath',
+    }
   }
 };

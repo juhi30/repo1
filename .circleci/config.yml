@@ -38,6 +38,7 @@ jobs:
             fi
               BROWSER_NAME=chrome yarn test
       - run:
+          when: always
           name: Deploy Test Results
           command: |
             yarn && node deploy

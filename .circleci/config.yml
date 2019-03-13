@@ -5,7 +5,7 @@ defaults: &defaults
 
 version: 2
 jobs:
-  canary-chrome:
+  rhinomatic:
     <<: *defaults
     steps:
       - setup_remote_docker
@@ -24,7 +24,7 @@ jobs:
             fi
             yarn rhinodeploy envs -f $configFile -l ./src
       - run:
-          name: Run Chrome Canary Tests
+          name: Run Integration Tests
           command: |
             if [ "$CIRCLE_BRANCH" == "master" ]; then
               export APP_URL=https://app/rhinogram.com
@@ -43,7 +43,7 @@ jobs:
             yarn && node deploy
             aws s3 sync \
               reports \
-              s3://nightwatch-results-$CIRCLE_BRANCH \
+              s3://rhinomatic-results-$CIRCLE_BRANCH \
               --acl public-read \
               --cache-control max-age=300 \
               --storage-class REDUCED_REDUNDANCY
@@ -73,11 +73,11 @@ workflows:
               only:
                 - develop
     jobs:
-      - canary-chrome
+      - rhinomatic
 
   merge:
     jobs:
-      - canary-chrome:
+      - rhinomatic:
           filters:
             branches:
               only:

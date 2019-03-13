@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Nightwatch test results
+Description: Rhinmatic Test Results
 
 Parameters:
   BucketName:

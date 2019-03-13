@@ -38,9 +38,9 @@ jobs:
             fi
               BROWSER_NAME=chrome yarn test
       - store_test_results:
-          path: results/test-results.xml
+          path: results/test-report.xml
       - store_artifacts:
-          path: results/test-results.html
+          path: results/test-report.html
       - run:
           name: Deploy Test Results
           command: |

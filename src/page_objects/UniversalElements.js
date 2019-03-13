@@ -228,17 +228,18 @@ const universalElementsCommands = {
       .setValue('@searchInputForOrg', orgName)     
   },
 
-  loginInOrg: function(param2){
-    const clickableElement = param2 ? param2 : '@organizationDropdownFirstResult'
-   return this.waitForElementVisible(clickableElement, 'First result is visible')
-      .click(clickableElement)
-      .verify.urlContains('contacts', 'Contacts page is visible')
+  loginInOrg: function(){
+   return this.waitForElementVisible('@organizationSearchResult', 'Organization search result is visible')
+      .click('@organizationSearchResult')
+      .verify.urlContains('selectorg', 'selectorg page is visible')
+      .waitForElementVisible('@selectOrganizationButton','CCR logged in to selected org')
+
   },
 
   switchOrganization: function(url, message){
     return this.waitForElementVisible('@selectOrganizationButton','Select organization button is visible')
             .click('@selectOrganizationButton')
-            .urlContains(url,message)
+            .verify.urlContains(url,message)
     },
 }
 
@@ -438,13 +439,8 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    organizationDropdownFirstResult: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${helpers.organizationSearchStringForAnalytics}' ]`,
-      locateStrategy: 'xpath',
-    },
-
      organizationSearchResult: {
-       selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgName}' ]`,
+       selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgName1}' ]`,
        locateStrategy: 'xpath',
      },
 

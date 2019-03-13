@@ -7,15 +7,15 @@ describe('switch organization as ccr ', () => {
         const org = client.page.UniversalElements()
         const login = client.page.LoginPage();
 
-        login.navigate()
+        await login.navigate()
             .fillInUsername(testConstants.ccrLogin)
             .fillInPassword(testConstants.ccrPassword)
             .submit()
-            .validateUrlChange_CCR('/selectorg')
+            .validateUrlChange_CCR('selectorg',' navigated to select organization list page')
 
         await org.searchForOrganization(testConstants.orgName1)
             .loginInOrg('@organizationSearchResult')
-            .switchOrganization('/selectorg','Switched to organization lists page..!')
+            .switchOrganization('selectorg','Switched to organization lists page..!')
             .searchForOrganization(testConstants.orgName2)
             .loginInOrg('@organizationSearchResultNew')
     });

@@ -48,13 +48,6 @@ const rolescommands = {
             .click('@deleteContactsAndConversation')
             .click('@viewContactsAndConversation')
             .click('@viewAnalyticsDashboard')
-            .click('@addMoreMembersButton')
-            .waitForElementVisible('@memberSearch', 'search box is visible..')
-            .setValue('@memberSearch', testConstants.roleMember1)
-            .waitForElementVisible('@memberSearchResult', testConstants.roleMember1 + ' is visible')
-            .click('@memberSearchResult')
-            .click('@createRoleButton')
-            .waitForElementVisible('@roleCreationSuccessMessage', 'role creation message is visible.')
     },
 
     verifyRoleUpdation: function () {
@@ -90,8 +83,6 @@ const rolescommands = {
             .setValue('@memberSearch', testConstants.roleMember2)
             .waitForElementVisible('@newMemberSearchResult', testConstants.roleMember2 + ' is visible')
             .click('@newMemberSearchResult')
-            .click('@updateRoleButton')
-            .waitForElementVisible('@roleUpdationSuccessMessage', ' role is updated and message is visible.')
     },
 
     verifyRoleDeletion: function () {
@@ -105,8 +96,35 @@ const rolescommands = {
             .waitForElementVisible('@confirmDeleteButton', ' confirm delete button is visible now.')
             .click('@confirmDeleteButton')
             .waitForElementVisible('@roleDeletionSuccessMessage', 'Role Deleted successfully - Message is visible.')
-    }
+    },
 
+    editRole: function(){
+        return this.waitForElementVisible('@adminRole', '@adminRole' + ' is visible')
+            .click('@adminRole')
+            .waitForElementVisible('@editRoleButton', ' edit role button is visible.')
+            .click('@editRoleButton')
+            .waitForElementVisible('@editRolePageTitle','role opened in edit mode!')
+    },
+
+    addMemberToRole: function () {
+        return this.click('@addMoreMembersButton')
+            .waitForElementVisible('@memberSearch', 'search box is visible..')
+            .setValue('@memberSearch', testConstants.roleMember1)
+            .waitForElementVisible('@memberSearchResult', testConstants.roleMember1 + ' is visible')
+            .click('@memberSearchResult')
+    },
+
+    createRole:function(){
+        return this.verify.waitForElementVisible('@createRoleButton','create role button is visible')
+        .click('@createRoleButton')
+        .waitForElementVisible('@roleCreationSuccessMessage', 'role creation message is visible.')
+    },
+
+    verifyUpdateRole: function () {
+        return this.verify.visible('@updateRoleButton', 'update Role Button is visible')
+            .click('@updateRoleButton')
+            .waitForElementVisible('@roleUpdationSuccessMessage', ' role is updated and message is visible.')
+    },
 }
 
 module.exports = {
@@ -116,6 +134,33 @@ module.exports = {
     },
 
     elements: {
+
+        //Admin Roles that are already created
+        adminRole: {
+            selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.adminRole}']`,
+            locateStrategy: 'xpath',
+        },
+
+        billingRole: {
+            selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.billingRole}']`,
+            locateStrategy: 'xpath',
+        },
+
+        memberRole: {
+            selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.memberRole}']`,
+            locateStrategy: 'xpath',
+        },
+
+        memberAdminRole: {
+            selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.memberAdminRole}']`,
+            locateStrategy: 'xpath',
+        },
+
+        templatesRole: {
+            selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.templateRole}']`,
+            locateStrategy: 'xpath',
+        },
+
         rolesPageTitle: {
             selector: `//DIV[@class='app-page__header__title'][text()='Roles']`,
             locateStrategy: 'xpath',
@@ -128,6 +173,11 @@ module.exports = {
 
         createRolesPageTitle: {
             selector: `//DIV[@class='app-page__header__title'][text()='Create Role']`,
+            locateStrategy: 'xpath',
+        },
+
+        editRolePageTitle:{
+            selector: `//DIV[@class='app-page__header__title'][text()='Edit Role']`,
             locateStrategy: 'xpath',
         },
 

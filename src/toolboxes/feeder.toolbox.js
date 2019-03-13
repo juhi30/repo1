@@ -8,7 +8,8 @@ module.exports = {
 
     //Org Setup Details
     //orgName: 'Test Org ' + Math.random().toString(36).substring(7),
-    orgName: 'AutomationTestOrg', //to be removed , only for testing
+    orgName1: 'AutomationTestOrg', //to be removed , only for testing
+    orgName2:'delete test org',
     address: 'Test Address',
     city: 'Test City',
     state: 'Alaska',
@@ -47,6 +48,13 @@ module.exports = {
     //Tags Details
     tagName: 'fake_tag1',
 
+    // New Phone Type Channel Details
+   numberForNewPhoneChannel: 819,
+   chooseANumber: '+18192004430',
+   forwardingNumber: '(454) 657-6879',
+   channelName: 'Test Channel',
+   timeZone: 'Eastern Time (UTC -05:00) - New York',
+
     //Role Details
     roleName: 'CreatedRole',
     rolePurpose: 'All testing',
@@ -54,4 +62,9 @@ module.exports = {
     roleMember2: 'Ankita Singh',
     newRoleName: 'DeletedRole',
     roleNewPurpose: 'testing Few permissions',
+    adminRole : 'Admin',
+    billingRole: 'Billing Admin',
+    memberRole: 'Member',
+    memberAdminRole: 'Member Admin',
+    templateRole: 'Member Templates'
 }

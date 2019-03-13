@@ -92,8 +92,10 @@ const loginCommands = {
       .click('@saveAndContinueButton');
   },
 
-  validateUrlChange_CCR: function (url) {
-    return this.verify.urlContains(url);
+  validateUrlChange_CCR: function (url,message) {
+    const nextPageUrl = url ? url : 'selectorg';
+    return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
+      .verify.urlContains(nextPageUrl,message);
   },
 
   validatePageError: function (url, message) {

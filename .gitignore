@@ -33,3 +33,7 @@ selenium-debug.log
 bin
 lib
 reports*
+
+results/
+
+\.results/

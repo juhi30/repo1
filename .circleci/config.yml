@@ -37,12 +37,16 @@ jobs:
               export APP_URL=https://dev.dev-rhinogram.com
             fi
               BROWSER_NAME=chrome yarn test
+      - store_test_results:
+          path: results/test-results.xml
+      - store_artifacts:
+          path: results/test-results.html
       - run:
           name: Deploy Test Results
           command: |
             yarn && node deploy
             aws s3 sync \
-              reports \
+              results \
               s3://rhinomatic-results-$CIRCLE_BRANCH \
               --acl public-read \
               --cache-control max-age=300 \

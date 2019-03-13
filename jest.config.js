@@ -10,14 +10,14 @@ module.exports = {
         "default",
         ["./node_modules/jest-html-reporter", {
             "pageTitle": "Rhinomatic Quatlity Automation Report",
-            "outputPath": "./test-report.html",
+            "outputPath": "./results/test-report.html",
             "includeFailureMessage": true,
         }],
         [ "jest-junit", { 
-            "outputName": "./test-report.xml", 
+            "outputName": "test-report.xml", 
             "suiteName": "Rhinomatic Quatlity Automation Report",
             "usePathForSuiteName": "true",
-            "outputDirectory": ".",
+            "outputDirectory": "results",
         }]
     ]
 };

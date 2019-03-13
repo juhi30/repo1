@@ -37,10 +37,6 @@ jobs:
               export APP_URL=https://dev.dev-rhinogram.com
             fi
               BROWSER_NAME=chrome yarn test
-      - store_test_results:
-          path: results/test-report.xml
-      - store_artifacts:
-          path: results/test-report.html
       - run:
           name: Deploy Test Results
           command: |
@@ -51,6 +47,11 @@ jobs:
               --acl public-read \
               --cache-control max-age=300 \
               --storage-class REDUCED_REDUNDANCY
+      - store_test_results:
+          path: results/test-report.xml
+      - store_artifacts:
+          path: results/test-report.html
+     
 
   test:
     <<: *defaults

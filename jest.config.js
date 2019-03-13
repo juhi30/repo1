@@ -9,13 +9,15 @@ module.exports = {
     reporters: [
         "default",
         ["./node_modules/jest-html-reporter", {
-            "pageTitle": "Rhinomatic Quatlity Automation Report",
+            "pageTitle": "Rhinomatic Quality Automation Report",
             "outputPath": "./results/test-report.html",
-            "includeFailureMessage": true,
+            "includeFailureMsg": true,
+            "includeConsoleLog": true,
+            "logo": "https://www.rhinogram.com/wp-content/uploads/2018/08/Rhinogram.png" 
         }],
         [ "jest-junit", { 
             "outputName": "test-report.xml", 
-            "suiteName": "Rhinomatic Quatlity Automation Report",
+            "suiteName": "Rhinomatic Quality Automation Report",
             "usePathForSuiteName": "true",
             "outputDirectory": "results",
         }]

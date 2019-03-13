@@ -12,8 +12,8 @@ services:
       - 4444:4444
     command: yarn canary
     environment:
-      - LAUNCH_URL=https://dev.dev-rhinogram.com
-      - PORT=4444
+      - APP_URL=https://dev.dev-rhinogram.com
+      - SELENIUM_PORT=4444
       - BROWSER_NAME=chrome
       - HEADLESS=true
     volumes:

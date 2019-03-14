@@ -7,13 +7,8 @@ const accountSetupCommands = {
         tpObj = tpObj.value.replace("ORGANIZATION (#", "");
         tpObj = tpObj.replace(")", "");
         process.env.ORGANIZATION_ID = tpObj
-        console.log('Org Id of the newly created org is ==', tpObj);
+        console.log('Org Id of the newly created org is ==', process.env.ORGANIZATION_ID);
       });
-  },
-
-  pause: function (time) {
-    this.api.pause(time);
-    return this;
   },
 
   clickBillingToggle: function () {

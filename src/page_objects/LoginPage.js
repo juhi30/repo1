@@ -78,8 +78,8 @@ const loginCommands = {
   },
   
   fillInNewPasswordInput: function(password) {
-    return this.waitForElementVisible('@newPasswordInput', 'New password input is visible')
-      .setValue('@newPasswordInput', password);
+    return this.waitForElementVisible('@passwordInput', 'New password input is visible')
+      .setValue('@passwordInput', password);
   },
 
   fillInConfirmPasswordInput: function(password) {
@@ -129,19 +129,14 @@ module.exports = {
 
     //------ below are elements found when logging in with a temporary password -----//
 
-    newPasswordInput: {
-      selector: `//INPUT[contains(@name, 'password')]`,
-      locateStrategy: 'xpath'
-    },
-
     confirmPasswordInput: {
       selector: `//INPUT[contains(@name, 'confirmPassword')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     saveAndContinueButton: {
       selector: `//SPAN[contains(.,'Save and Continue')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
   }
 };

@@ -14,18 +14,18 @@ const officeCommands = {
       .waitForElementVisible('@officeCreatepageTitle', 'New Office setup page is open')
   },
 
-  createOfficeForm: function () {
+  createOfficeForm: function (name, address, city, state, zip) {
     return this.verify.visible('@officeName', 'Office name input is visible')
-      .setValue('@officeName', testConstant.officeName)
+      .setValue('@officeName', name)
       .verify.visible('@officeAddressLine1', 'Office address line1 input is visible')
       .verify.visible('@officeAddressLine2', 'Office address line2 input is visible')
-      .setValue('@officeAddressLine1', testConstant.officeAddress)
+      .setValue('@officeAddressLine1',address)
       .verify.visible('@officeCity', 'Office city input is visible')
-      .setValue('@officeCity', testConstant.officecity)
+      .setValue('@officeCity', city)
       .verify.visible('@officeState', 'Office state input is visible')
-      .setValue('@officeState', testConstant.officestate)
+      .setValue('@officeState', state)
       .verify.visible('@officeZip', 'Office zip input is visible')
-      .setValue('@officeZip', testConstant.officeZipCode)
+      .setValue('@officeZip', zip)
   },
 
   clickCreateOffice: function () {

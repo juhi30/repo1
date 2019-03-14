@@ -7,10 +7,10 @@
     "test": "src/test"
   },
   "scripts": {
-    "test": "mkdir results && jest",
-    "test-canary": "jest src/test/newOrgCanary",
-    "test-existing-canary": "jest src/test/existingOrgCanary",
-    "test-integrations": "jest src/test/integrations",
+    "test": "mkdir -p results && jest",
+    "test-canary": "mkdir -p results && jest src/test/newOrgCanary",
+    "test-existing-canary": "mkdir -p results && jest src/test/existingOrgCanary",
+    "test-integrations": "mkdir -p results && jest src/test/integrations",
     "clean": "rm -rf lib/* results",
     "build": "yarn clean && node_modules/.bin/babel src --out-dir lib"
   },

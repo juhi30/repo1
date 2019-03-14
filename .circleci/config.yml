@@ -49,9 +49,9 @@ jobs:
               --cache-control max-age=300 \
               --storage-class REDUCED_REDUNDANCY
       - store_test_results:
-          path: results/test-report.xml
+          path: results/junit
       - store_artifacts:
-          path: results/test-report.html
+          path: results
      
 
   test:

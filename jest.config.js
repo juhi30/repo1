@@ -19,7 +19,7 @@ module.exports = {
             "outputName": "test-report.xml", 
             "suiteName": "Rhinomatic Quality Automation Report",
             "usePathForSuiteName": "true",
-            "outputDirectory": "results",
+            "outputDirectory": "results/junit",
         }]
     ]
 };

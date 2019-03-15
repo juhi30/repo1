@@ -3,7 +3,8 @@ const testConstants = require('../toolboxes/feeder.toolbox');
 const membersCommands = {
   clickAddMember: function() {
     return this.waitForElementVisible('@createMemberButton', 'Add member button visible')
-      .click('@createMemberButton');
+      .click('@createMemberButton')
+      .waitForElementVisible('@createMemberPageTitle', 'Create Member page is open')
   },
 
   deactivateMember: function() {
@@ -12,21 +13,26 @@ const membersCommands = {
   },
 
   enterDetails: function(element, value) {
-    return this.waitForElementVisible('@createMemberPageTitle', 'Create Member page is open')
-    .setValue(element, value)
+    return this.setValue(element, value)
+  },
+
+  setMemberRoles: function (roleName) {
+    return this.click(roleName)
   },
 
   createMember: function() {
-    return this.enterDetails('@memberFirstName', testConstants.memberFirstName)
-    .enterDetails('@memberLastName', testConstants.memberLastName)
-    .enterDetails('@memberUsername', testConstants.memberUsername)
-    .click('@adminRole')
-    .click('@billingAdminRole')
-    .click('@memberRole')
-    .click('@memberAdminRole')
-    .click('@createButton')
+    return this.click('@createButton')
     .waitForElementVisible('@createSuccessMessage', 'Member created successfully.')
-  }
+  },
+
+  getTempPassword: function () {
+       return this.getAttribute('@tempPassword', 'value', function (tpObj) {
+           global.TEMP_PASSWORD = tpObj.value;
+           console.log('Temp password is ==', global.TEMP_PASSWORD);
+         });
+     },
+  
+
 }
 
 module.exports = {
@@ -136,6 +142,11 @@ module.exports = {
 
     memberUsername: {
       selector: `//*[contains(@id,'username')]`,
+      locateStrategy: 'xpath',
+    },
+
+    tempPassword: {
+      selector: `//*[contains(@id,'tempPassword')]`,
       locateStrategy: 'xpath',
     },
 

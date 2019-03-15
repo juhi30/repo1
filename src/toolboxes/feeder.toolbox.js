@@ -4,7 +4,7 @@ module.exports = {
     ccrPassword: process.env.CCR_PASSWORD,
 
     //Org Setup Details
-    orgName: 'Test Org ' + Math.random().toString(36).substring(7),
+    orgName: 'Testing_8',
     address: 'Test Address',
     city: 'Test City',
     state: 'Alaska',
@@ -13,7 +13,7 @@ module.exports = {
     // New Member Details 
     memberFirstName: 'TestMember',
     memberLastName: 'LastName',
-    memberUsername: 'TestMember_' + Math.random().toString(36).substring(7),
+    memberUsername: 'TestMember_8',
     memberPassword: 'Test@123',
 
     //New Group Details

@@ -3,11 +3,6 @@ const testConstants = require('../toolboxes/feeder.toolbox');
 
 const universalElementsCommands = {
 
-  pause: function(time) {
-    this.api.pause(time);
-    return this;
-  },
-
   validateUniversalElements: function() {
     return this.waitForElementVisible('@myProfileButton', 'My Profile button is visible')
       .verify.visible('@myProfileButton', 'Profile button is visible')
@@ -216,7 +211,6 @@ const universalElementsCommands = {
 
   clickLogout: function() {
     return this.waitForElementVisible('@logoutButton', 'Logout button is visible')
-      .pause(500)
       .click('@logoutButton')
       .waitForElementNotPresent('@logoutButton', 'Logout button no longer present')
   },
@@ -228,13 +222,15 @@ const universalElementsCommands = {
       .setValue('@searchModalInput', name)
   },
 
-  searchForOrganization: function(orgName, param2) {
-    const clickableElement = param2 ? param2 : '@organizationDropdownFirstResult'
+  searchForOrganization: function(orgName) {
     return this.waitForElementVisible('@searchInputForOrg', 'Search Input is visible')
       .setValue('@searchInputForOrg', orgName)
-      .waitForElementVisible(clickableElement, 'First result is visible')
-      .click(clickableElement)
-      .pause(500)
+      .waitForElementVisible('@organizationSearchResult', 'First result is visible')
+  },
+
+  ccrOrgLogin: function() {
+    return this.click('@organizationSearchResult')
+      .waitForElementVisible('@goBackToSelectNewOrg','CCR login to Org succesful')
       .verify.urlContains('contacts', 'Contacts page is visible')
   },
 
@@ -436,11 +432,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    organizationDropdownFirstResult: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${helpers.organizationSearchStringForAnalytics}' ]`,
-      locateStrategy: 'xpath',
-    },
-
      organizationSearchResult: {
        selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgName}' ]`,
        locateStrategy: 'xpath',
@@ -448,6 +439,11 @@ module.exports = {
 
      noSearchResult: {
       selector: `//SPAN[text()='No organizations found']`,
+      locateStrategy: 'xpath',
+    },
+
+    goBackToSelectNewOrg: {
+      selector: `//SPAN[text()='Select Organization']`,
       locateStrategy: 'xpath',
     },
   }

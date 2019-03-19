@@ -44,13 +44,13 @@ jobs:
             yarn && node deploy
             aws s3 sync \
               results \
-              s3://rhinomatic-results-$CIRCLE_BRANCH \
+              s3://rhinomatic-results-$CIRCLE_BRANCH/ \
               --acl public-read \
               --cache-control max-age=300 \
               --storage-class REDUCED_REDUNDANCY
             aws s3 sync \
               results \
-              s3://rhinomatic-results-$CIRCLE_BRANCH/$CIRCLE_JOB \
+              s3://rhinomatic-results-$CIRCLE_BRANCH/CIRCLE_BUILD_NUM \
               --acl public-read \
               --cache-control max-age=300 \
               --storage-class REDUCED_REDUNDANCY

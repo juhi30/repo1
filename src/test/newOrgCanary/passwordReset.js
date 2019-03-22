@@ -5,14 +5,9 @@ describe('Forgot password process.', () => {
     test('Send an email for reset password', async () => {
         const fpass = client.page.ForgotPassword();
 
-        fpass.verifyForgotPasswordProcess(testConstants.memberUsername);
+        fpass.verifyForgotPasswordProcess(testConstants.memberUsername)
+            .enterInvalidInput(testConstants.invalidUsername)
+            .enterInvalidInput(testConstants.invalidEmail)        
 
     });
-
-    test('check reset password link', async () => {
-        const email =  client.page.DisposableEmail();
-
-        email.checkEmail()
-        .verifyResetPasswordLink()
-    })
-})
+});

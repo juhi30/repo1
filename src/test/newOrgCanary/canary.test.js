@@ -48,5 +48,7 @@ afterAll(async (done) => {
 });
 
 import './login'
+import './switchOrg'
+import './passwordReset'
 // import './member'
 // import './office'

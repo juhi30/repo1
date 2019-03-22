@@ -5,6 +5,7 @@ module.exports = {
 
     //Org Setup Details
     orgName: 'AutomationTestOrg',
+    orgName2: 'India Test Org',
     address: 'Test Address',
     city: 'Test City',
     state: 'Alaska',
@@ -13,7 +14,9 @@ module.exports = {
     // New Member Details 
     memberFirstName: 'Munish',
     memberLastName: 'Dutta',
-    memberUsername: 'MunishD',
+    invalidUsername: 'test',
+    invalidEmail: 'test@test.com',
+    memberUsername: 'mkd',
     memberPassword: 'Test@123',
 
     //New Group Details
@@ -41,4 +44,17 @@ module.exports = {
     forwardingNumber: '(454) 657-6879',
     channelName: 'Test Channel',
     timeZone: 'Eastern Time (UTC -05:00) - New York',
+
+    //Role Details
+    roleName: 'CreatedRole',
+    rolePurpose: 'All testing',
+    roleMember1: 'Munish Dutta',
+    roleMember2: 'Ankita Singh',
+    newRoleName: 'DeletedRole',
+    roleNewPurpose: 'testing Few permissions',
+    adminRole: 'Admin',
+    billingRole: 'Billing Admin',
+    memberRole: 'Member',
+    memberAdminRole: 'Member Admin',
+    templateRole: 'Member Templates'
 };

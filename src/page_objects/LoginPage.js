@@ -89,7 +89,13 @@ const loginCommands = {
   clickSaveAndContinueButton: function() {
     return this.waitForElementVisible('@saveAndContinueButton', 'Save and Continue button is visible')
       .click('@saveAndContinueButton');
-  }
+  },
+
+  validateUrlChange_CCR: function (url,message) {
+    const nextPageUrl = url ? url : 'selectorg';
+    return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
+      .verify.urlContains(nextPageUrl,message);
+  },
 }
 
 module.exports = {

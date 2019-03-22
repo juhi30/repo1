@@ -19,7 +19,7 @@ const forgotPassword = {
         return this.waitForElementVisible('@usernameInput', 'forgot password page opened..!')
             .setValue('@usernameInput', invalid)
             .click('@getNewPassword')
-            .waitForElementVisible('@emailSentSuccessMessage', 'email for password reset link is sent!')
+            .waitForElementVisible('@errorMessage','Please contact your office administrator to reset your password.')
     }
 }
 
@@ -65,5 +65,10 @@ module.exports = {
             selector: `//SPAN[@class='button__text-wrapper'][contains(text(),'Save and Continue')]`,
             locateStrategy: 'xpath',
         },
+
+        errorMessage: {
+            selector:`//P[contains(text(),'Please contact your office administrator to reset your password.')]`,
+            locateStrategy: 'xpath',
+        }
     }
 }

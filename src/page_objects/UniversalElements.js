@@ -234,6 +234,13 @@ const universalElementsCommands = {
       .verify.urlContains('contacts', 'Contacts page is visible')
   },
 
+  selectOrganization: function(){
+    return this.waitForElementVisible('@goBackToSelectNewOrg','Select Organization button is visible')
+    .click('@goBackToSelectNewOrg')
+    .waitForElementVisible('@organizationSearchResult', 'First result is visible')
+
+  }
+
 }
 
 module.exports = {

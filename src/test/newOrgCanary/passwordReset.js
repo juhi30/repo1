@@ -4,10 +4,11 @@ const testConstants = require('../../toolboxes/feeder.toolbox');
 describe('Forgot password process.', () => {
     test('Send an email for reset password', async () => {
         const fpass = client.page.ForgotPassword();
+        const login =  client.page.LoginPage();
 
-        fpass.verifyForgotPasswordProcess(testConstants.memberUsername)
-            .enterInvalidInput(testConstants.invalidUsername)
-            .enterInvalidInput(testConstants.invalidEmail)        
+        await login.navigate();
+
+        await fpass.verifyForgotPasswordProcess(testConstants.memberUsername)  
 
     });
 });

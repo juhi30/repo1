@@ -19,8 +19,7 @@ const forgotPassword = {
         return this.waitForElementVisible('@usernameInput', 'forgot password page opened..!')
             .setValue('@usernameInput', invalid)
             .click('@getNewPassword')
-            .waitForElementVisible('@errorMessage','Please contact your office administrator to reset your password.')
-    }
+    },
 }
 
 module.exports = {

@@ -16,7 +16,7 @@ module.exports = {
     memberLastName: 'Dutta',
     invalidUsername: 'test',
     invalidEmail: 'test@test.com',
-    memberUsername: 'mkd',
+    memberUsername: 'MunishD',
     memberPassword: 'Test@123',
 
     //New Group Details

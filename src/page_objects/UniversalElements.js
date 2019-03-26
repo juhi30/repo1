@@ -238,9 +238,12 @@ const universalElementsCommands = {
     return this.waitForElementVisible('@goBackToSelectNewOrg','Select Organization button is visible')
     .click('@goBackToSelectNewOrg')
     .waitForElementVisible('@organizationSearchResult', 'First result is visible')
+  },
 
-  }
-
+  validatePageError: function(ele,url){
+    return this.waitForElementNotPresent(ele,'Page Cannot be Accessible after logout')
+    .verify.urlContains(url)
+  },
 }
 
 module.exports = {
@@ -281,7 +284,7 @@ module.exports = {
     },
 
     contactsButton: {
-      selector: `//BUTTON[contains(text(), 'Contacts')]`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Contacts']`,
       locateStrategy: 'xpath'
     },
 

@@ -88,7 +88,8 @@ const loginCommands = {
 
   clickSaveAndContinueButton: function() {
     return this.waitForElementVisible('@saveAndContinueButton', 'Save and Continue button is visible')
-      .click('@saveAndContinueButton');
+      .click('@saveAndContinueButton')
+      .waitForElementVisible('@passwordUpdateSuccessMessage','password updated successfully.')
   },
 
   validateUrlChange_CCR: function (url,message) {
@@ -141,6 +142,11 @@ module.exports = {
 
     saveAndContinueButton: {
       selector: `//SPAN[contains(.,'Save and Continue')]`,
+      locateStrategy: 'xpath',
+    },
+
+    passwordUpdateSuccessMessage: {
+      selector: `//DIV[text()='Password updated successfully.']`,
       locateStrategy: 'xpath',
     },
   }

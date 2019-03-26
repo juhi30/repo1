@@ -32,23 +32,21 @@ beforeAll(async () => {
 // DELETE MY NEW ORG HERE 
 afterAll(async (done) => {
 
-  // try {
-  //   console.log('Login...');
-  //   const cookie = await loginApi.login();
-  //   console.log('Deleting Org ==', process.env.ORGANIZATION_ID)
-  //   const archiveResponse = await deleteOrg.archiveOrganization(process.env.ORGANIZATION_ID, cookie);
-  //   console.log('======== Organization Archive Response =======', archiveResponse)
-  //   const deleteResponse = await deleteOrg.deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-  //   console.log('====== Organization Deleted =======', deleteResponse);
-  //   done();
-  // } catch (err) {
-  //   console.log(err);
-  //   done(err);
-  // }
+  try {
+    console.log('Login...');
+    const cookie = await loginApi.login();
+    console.log('Deleting Org ==', process.env.ORGANIZATION_ID)
+    //const archiveResponse = await deleteOrg.archiveOrganization(process.env.ORGANIZATION_ID, cookie);
+    console.log('======== Organization Archive Response =======', archiveResponse)
+    //const deleteResponse = await deleteOrg.deleteOrganization(process.env.ORGANIZATION_ID, cookie);
+    console.log('====== Organization Deleted =======',deleteResponse);
+    done();
+  } catch (err) {
+    console.log(err);
+    done(err);
+  }
 });
 
 import './login'
 import './switchOrg'
 import './passwordReset'
-// import './member'
-// import './office'

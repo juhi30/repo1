@@ -12,21 +12,21 @@ beforeAll(async () => {
   //const org = client.page.UniversalElements();
 
   await login.navigate()
-    // .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
-    // .submit()
-    // .pause(2000)
+    .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
+    .submit()
+    .pause(2000)
 
   //Use Search to avoid creating org again n again
   //  .validateUrlChange('/selectorg')
   // await org.searchForOrganization(testConstants.orgName)
   //   .ccrOrgLogin()
 
-  // setup.navigate()
-  //   .clickBillingToggle()
-  //   .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
-  //     testConstants.state, testConstants.zip)
-  //   .clickCreateOrganization()
-  //   .getOrgId()
+  setup.navigate()
+    .clickBillingToggle()
+    .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
+      testConstants.state, testConstants.zip)
+    .clickCreateOrganization()
+    .getOrgId()
 });
 
 // DELETE MY NEW ORG HERE 
@@ -37,9 +37,9 @@ afterAll(async (done) => {
     const cookie = await loginApi.login();
     console.log('Deleting Org ==', process.env.ORGANIZATION_ID)
     //const archiveResponse = await deleteOrg.archiveOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('======== Organization Archive Response =======')
+    console.log('======== Organization Archive Response =======', archiveResponse)
     //const deleteResponse = await deleteOrg.deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======');
+    console.log('====== Organization Deleted =======', deleteResponse);
     done();
   } catch (err) {
     console.log(err);

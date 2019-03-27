@@ -16,7 +16,7 @@ describe('Login Page Tests Cases', () => {
 
     await login.navigate()
       .submit()
-      .validateError()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
 
   });
 
@@ -26,7 +26,7 @@ describe('Login Page Tests Cases', () => {
     await login.navigate()
       .fillInUsername(testConstants.ccrLogin)
       .submit()
-      .validateError()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
 
   });
 
@@ -36,7 +36,7 @@ describe('Login Page Tests Cases', () => {
     await login.navigate()
       .fillInPassword(testConstants.ccrPassword)
       .submit()
-      .validateError()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
   });
 
   test('login with username and password as ccr', async () => {
@@ -61,7 +61,7 @@ describe('Login Page Tests Cases', () => {
     const contacts = client.page.ContactsPage();
 
     contacts.navigate();
-    login.validatePageError('@contactsButton','login');
+    login.validatePageError('@contactsButton', 'login');
 
   });
 
@@ -94,7 +94,7 @@ describe('Login Page Tests Cases', () => {
     await login.navigate()
       .enterMemberCreds(testConstants.memberUsername, global.TEMP_PASSWORD)
       .submit()
-      .validateError()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
   });
 
   test('login as member with New temporary password', async () => {
@@ -112,6 +112,103 @@ describe('Login Page Tests Cases', () => {
       .validateUrlChange()
       .pause(2000)
 
-    await  logout.clickLogout()
+    await logout.clickLogout()
+  });
+});
+
+describe('Member Login Page Tests', () => {
+
+  test('Try to login with valid name and valid password', async () => {
+    const login = client.page.LoginPage();
+    await login.navigate()
+      .enterMemberCreds(testConstants.validUserName2, testConstants.validPassword1)
+      .submit()
+      .validateUrlChange()
+      .logOut()
+  });
+
+  test('Try to login with invalid password for valid name', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .fillInUsername(testConstants.validUserName1)
+      .fillInPassword(testConstants.invalidPassword1)
+      .submit()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
+  });
+
+  test('Try to login with valid password for invalid name', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .fillInUsername(testConstants.invalidUsername2)
+      .fillInPassword(testConstants.validPassword1)
+      .submit()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
+  });
+
+  test('Try to login with empty name and empty password', async () => {
+    const login = client.page.LoginPage();
+    await login.navigate()
+      .submit()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
+  });
+
+  test('Try to login with invalid username for forgotten password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .inputsForForgottenPassword(testConstants.invalidUsername)
+      .waitForElementVisible('@warningMessage1')
+  });
+
+  test('Try to login with valid  username for forgotten password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .inputsForForgottenPassword(testConstants.validUserName1)
+      .waitForElementVisible('@successMessage')
+  });
+
+  test('Try to login with valid email for forgotten password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .inputsForForgottenPassword(testConstants.validEmailName2)
+      .waitForElementVisible('@successMessage')
+  });
+
+  test('Try to login with invalid email for forgotten password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .inputsForForgottenPassword(testConstants.invalidEmailname)
+      .waitForElementVisible('@warningMessage1')
+  });
+
+  test('Switch from one organization to another organization', async () => {
+    const org = client.page.UniversalElements()
+    const login = client.page.LoginPage();
+
+
+    await login.navigate()
+      .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
+      .submit()
+      .validateUrlChange_CCR('selectorg', ' navigated to select organization list page')
+
+    await org.searchForOrganization(testConstants.orgName)
+      .ccrOrgLogin('@organizationSearchResult')
+      .selectOrganization()
+      .searchForOrganization(testConstants.orgName2)
+      .ccrOrgLogin('@organizationSearchResultNew')
+      .clickLogout()
+  });
+
+  test('Send an email for reset password', async () => {
+    const fpass = client.page.ForgotPassword();
+    const login = client.page.LoginPage();
+
+    await login.navigate();
+    await fpass.verifyForgotPasswordProcess(testConstants.memberUsername)
   });
 });

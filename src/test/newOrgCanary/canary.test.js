@@ -16,7 +16,7 @@ beforeAll(async () => {
     // .submit()
     // .pause(2000)
 
-  // //Use Search to avoid creating org again n again
+  //Use Search to avoid creating org again n again
   //  .validateUrlChange('/selectorg')
   // await org.searchForOrganization(testConstants.orgName)
   //   .ccrOrgLogin()
@@ -37,9 +37,9 @@ afterAll(async (done) => {
     const cookie = await loginApi.login();
     console.log('Deleting Org ==', process.env.ORGANIZATION_ID)
     //const archiveResponse = await deleteOrg.archiveOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('======== Organization Archive Response =======', archiveResponse)
+    console.log('======== Organization Archive Response =======')
     //const deleteResponse = await deleteOrg.deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======',deleteResponse);
+    console.log('====== Organization Deleted =======');
     done();
   } catch (err) {
     console.log(err);
@@ -48,5 +48,3 @@ afterAll(async (done) => {
 });
 
 import './login'
-import './switchOrg'
-import './passwordReset'

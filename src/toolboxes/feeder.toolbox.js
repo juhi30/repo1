@@ -2,7 +2,7 @@ module.exports = {
 
     ccrLogin: process.env.CCR_USERNAME,
     ccrPassword: process.env.CCR_PASSWORD,
-
+    memberUsername : process.env.MEMBER_USERNAME,
     //Org Setup Details
     orgName: 'AutomationTestOrg',
     orgName2: 'India Test Org',
@@ -11,12 +11,39 @@ module.exports = {
     state: 'Alaska',
     zip: '12345',
 
+    validUserName1: 'ankitas',
+    invalidPassword1: 'xxx',
+    invalidUsername2: 'aaa',
+    validPassword1: 'Test@123',
+    validUserName2: 'ankitas',
+    validUserName3: 'ankitas',
+    validPassword2: 'Test@123',
+    invalidUsername: 'test',
+    validUserName: 'ankitas',
+    validEmailName2: 'ankita@test.com',
+    invalidEmailname: 'hrrr@test.com',
+
+    validUserName4: 'testMember',
+    validPassword3: 'Test@123',
+    validUserName5: 'testMember2',
+    validPassword4: 'Test@123',
+
+    //details for password reset
+    member: 'Member 1',
+
+    //details for office addition
+    officeName: 'Mount Pleasant Office',
+    officeAddress: '128 Hester St',
+    officeCity: 'Charleston',
+    officeState: 'South Carolina',
+    zipCode: '29403',
+
+
     // New Member Details 
     memberFirstName: 'Munish',
     memberLastName: 'Dutta',
     invalidUsername: 'test',
     invalidEmail: 'test@test.com',
-    memberUsername: 'MunishD',
     memberPassword: 'Test@123',
 
     //New Group Details
@@ -42,7 +69,7 @@ module.exports = {
     numberForNewPhoneChannel: 819,
     chooseANumber: '+18192004430',
     forwardingNumber: '(454) 657-6879',
-    channelName: 'Test Channel',
+    channelName: 'Automation Test Channel1',
     timeZone: 'Eastern Time (UTC -05:00) - New York',
 
     //Role Details

@@ -13,6 +13,8 @@ export function pushtoqueue(message, handler) {
     url: process.env.AWS_SQS_LINER_INBOUND_URL,
     longPollTimeout: 5,
     maxMessagesPerRequest: 5,
+    accessKeyId: process.env.AWS_KEY,
+    secretAccessKey: process.env.AWS_SECRET,
     isFifo: true,
   });
   if (handler !== undefined) {
@@ -20,5 +22,5 @@ export function pushtoqueue(message, handler) {
   }
   const date = new Date();
   console.log('putting data to queue');
-  return queue.enqueue(message, 'inbound', 'job', message.orgId);
+  return queue.sendMessage(message, 'inbound', 'job', message.orgId);
 }

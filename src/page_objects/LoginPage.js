@@ -52,11 +52,6 @@ const loginCommands = {
       .click('@loginButton')
   },
 
-  logOut: function () {
-    return this.waitForElementVisible('@logOutButton', 'logOut button is visible')
-      .click('@logOutButton')
-  },
-
   submitForFirstTime: function () {
     return this.waitForElementVisible('@loginButton', 'Login button is visible')
       .click('@loginButton')
@@ -91,10 +86,10 @@ const loginCommands = {
       .verify.urlContains(nextPageUrl, message);
   },
 
-  inputsForForgottenPassword: function (inputValue) {
-    return this.waitForElementVisible('@forgotPasswordLink', 'forgot password button is visible')
+  resetPassword: function (inputValue) {
+    return this.waitForElementVisible('@forgotPasswordLink', 'Forgot password button is visible')
       .click('@forgotPasswordLink')
-      .waitForElementVisible('@getNewPassword', 'get new password button is visible')
+      .waitForElementVisible('@getNewPassword', 'User landed on Forgot Password page')
       .setValue('@usernameInput', inputValue)
       .click('@getNewPassword')
   },
@@ -141,13 +136,13 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    warningMessage1: {
+    contactAdminMsg: {
       selector: `//P[text()='Please contact your office administrator to reset your password.']`,
       locateStrategy: 'xpath',
     },
 
-    successMessage: {
-      selector: `//P[@class='app-login__text u-m-b-large']`,
+    successEmailMessage: {
+      selector: `//P[contains(text(),'Success! An email was sent to ')]`,
       locateStrategy: 'xpath',
     },
 

@@ -3,43 +3,7 @@ const testConstants = require('../../toolboxes/feeder.toolbox');
 
 describe('Login Page Tests Cases', () => {
 
-  test('Existing Org Canary Page Initial Render', async () => {
-    client.maximizeWindow();
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .validateForm()
-  });
-
-  test('login with NO username and NO password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
-
-  });
-
-  test('login with username and No password as CCR', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .fillInUsername(testConstants.ccrLogin)
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
-
-  });
-
-  test('Try to login with NO username and password as ccr', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .fillInPassword(testConstants.ccrPassword)
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
-  });
-
-  test('login with username and password as ccr', async () => {
+  test('Login as CCR', async () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
@@ -49,58 +13,142 @@ describe('Login Page Tests Cases', () => {
       .validateUrlChange_CCR('/selectorg')
   });
 
+  test('Switch organization as a CCR', async () => {
+    const org = client.page.UniversalElements();
+    const setup = client.page.AccountSetupPage();
+
+    await org.searchForOrganization(testConstants.orgName)
+      .ccrOrgLogin()
+    await setup.getOrgId()
+
+    //Go back to Org Listing page
+    await org.selectOrganization()
+      //Search the next Org
+
+      .searchForOrganization(testConstants.orgName2, '@org2SearchResult')
+      .ccrOrgLogin('@org2SearchResult')
+    await setup.getOrgId()
+  });
+
   test('logout as CCR', async () => {
     const logout = client.page.UniversalElements();
 
     await logout.clickLogout();
-
   });
 
   test('Attempt to access a page after logging out', async () => {
-    const login = client.page.UniversalElements();
     const contacts = client.page.ContactsPage();
+    const login = client.page.LoginPage();
 
-    contacts.navigate();
-    login.validatePageError('@contactsButton', 'login');
-
+    await contacts.navigate()
+      .expect.element('@addContactButton').to.not.be.present;
+    await login.verify.visible('@usernameInput', 'User is still on the login page.')
   });
 
-  test('login as ccr into the organization and create temporary password for the member ', async () => {
-    const search = client.page.UniversalElements();
+  test('Login with valid username and password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .enterMemberCreds(testConstants.memberUsername, testConstants.memberPassword)
+      .submit()
+      .validateUrlChange()
+  });
+
+  test('logout as Member', async () => {
+    const logout = client.page.UniversalElements();
+
+    await logout.clickLogout();
+  });
+
+  test('Login with valid username and invalid password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .fillInUsername(testConstants.memberUsername)
+      .fillInPassword(testConstants.state)
+      .submit()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+  });
+
+  test('Login with invalid username and valid password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .fillInUsername(testConstants.state)
+      .fillInPassword(testConstants.memberPassword)
+      .submit()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+  });
+
+  test('Login with empty username and password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .submit()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+  });
+
+  test('Use invalid username for forgotten password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .resetPassword(testConstants.state)
+      .waitForElementVisible('@contactAdminMsg', 'Message to contact admin is visible.')
+  });
+
+  test('Use valid username for forgotten password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .resetPassword(testConstants.memberUsername)
+      .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.')
+  });
+
+  test('Use invalid email for forgotten password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .resetPassword(testConstants.invalidEmail)
+      .waitForElementVisible('@contactAdminMsg', 'Message to contact admin is visible.')
+  });
+
+  test('Use valid email for forgotten password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .resetPassword(testConstants.memberEmail)
+      .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.')
+  });
+
+  test('Unused reset password token is invalidated if another reset request is sent', async () => {
+    const universal = client.page.UniversalElements();
     const login = client.page.LoginPage();
     const member = client.page.MembersPage();
 
     await login.navigate()
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit()
-    await search.searchForOrganization(testConstants.orgName)
+    await universal.searchForOrganization(testConstants.orgName)
       .ccrOrgLogin()
     await member.navigate()
-      .selectMember('@memberSelector')
-      .verifyTempPasswordCreation()
+      .selectMember()
+      .createTempPassword()
       .getTempPassword()
 
     client.refresh();
 
-    await member.verifyTempPasswordCreation()
+    await member.createTempPassword()
       .getNewTempPassword()
-      .pause(5000)
-    await search.clickLogout()
-  });
+      .waitForElementNotPresent('@UpdateSuccessMessage', 'Update toast notification no longer visible')
+    await universal.clickLogout()
 
-  test('login as member with old temporary password', async () => {
-    const login = client.page.LoginPage();
-
+    //Login as Member with Old Password reset token
     await login.navigate()
       .enterMemberCreds(testConstants.memberUsername, global.TEMP_PASSWORD)
       .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
-  });
-
-  test('login as member with New temporary password', async () => {
-    const login = client.page.LoginPage();
-    const logout = client.page.UniversalElements();
-
+      .waitForElementVisible('@errorPrompt', 'Error message is visible, old token did not work. ')
+ 
+      //Login as Member with New Password reset token
     await login.navigate()
       .enterMemberCreds(testConstants.memberUsername, global.TEMP_NEW_PASSWORD)
       .submit()
@@ -108,107 +156,8 @@ describe('Login Page Tests Cases', () => {
       .fillInNewPasswordInput(testConstants.memberPassword)
       .fillInConfirmPasswordInput(testConstants.memberPassword)
       .clickSaveAndContinueButton()
-      .pause(2000)
       .validateUrlChange()
-      .pause(2000)
-
-    await logout.clickLogout()
-  });
-});
-
-describe('Member Login Page Tests', () => {
-
-  test('Try to login with valid name and valid password', async () => {
-    const login = client.page.LoginPage();
-    await login.navigate()
-      .enterMemberCreds(testConstants.validUserName2, testConstants.validPassword1)
-      .submit()
-      .validateUrlChange()
-      .logOut()
-  });
-
-  test('Try to login with invalid password for valid name', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .fillInUsername(testConstants.validUserName1)
-      .fillInPassword(testConstants.invalidPassword1)
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
-  });
-
-  test('Try to login with valid password for invalid name', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .fillInUsername(testConstants.invalidUsername2)
-      .fillInPassword(testConstants.validPassword1)
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
-  });
-
-  test('Try to login with empty name and empty password', async () => {
-    const login = client.page.LoginPage();
-    await login.navigate()
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible! ')
-  });
-
-  test('Try to login with invalid username for forgotten password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .inputsForForgottenPassword(testConstants.invalidUsername)
-      .waitForElementVisible('@warningMessage1')
-  });
-
-  test('Try to login with valid  username for forgotten password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .inputsForForgottenPassword(testConstants.validUserName1)
-      .waitForElementVisible('@successMessage')
-  });
-
-  test('Try to login with valid email for forgotten password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .inputsForForgottenPassword(testConstants.validEmailName2)
-      .waitForElementVisible('@successMessage')
-  });
-
-  test('Try to login with invalid email for forgotten password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .inputsForForgottenPassword(testConstants.invalidEmailname)
-      .waitForElementVisible('@warningMessage1')
-  });
-
-  test('Switch from one organization to another organization', async () => {
-    const org = client.page.UniversalElements()
-    const login = client.page.LoginPage();
-
-
-    await login.navigate()
-      .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
-      .submit()
-      .validateUrlChange_CCR('selectorg', ' navigated to select organization list page')
-
-    await org.searchForOrganization(testConstants.orgName)
-      .ccrOrgLogin('@organizationSearchResult')
-      .selectOrganization()
-      .searchForOrganization(testConstants.orgName2)
-      .ccrOrgLogin('@organizationSearchResultNew')
-      .clickLogout()
-  });
-
-  test('Send an email for reset password', async () => {
-    const fpass = client.page.ForgotPassword();
-    const login = client.page.LoginPage();
-
-    await login.navigate();
-    await fpass.verifyForgotPasswordProcess(testConstants.memberUsername)
+      .waitForElementNotPresent('@passwordUpdateSuccessMessage')
+    await universal.clickLogout()
   });
 });

@@ -222,14 +222,16 @@ const universalElementsCommands = {
       .setValue('@searchModalInput', name)
   },
 
-  searchForOrganization: function(orgName) {
+  searchForOrganization: function(orgName, orgName2SearchResult) {
+    const clickableElement = orgName2SearchResult ? orgName2SearchResult : '@organizationSearchResult'
     return this.waitForElementVisible('@searchInputForOrg', 'Search Input is visible')
       .setValue('@searchInputForOrg', orgName)
-      .waitForElementVisible('@organizationSearchResult', 'First result is visible')
+      .waitForElementVisible(clickableElement, 'First result is visible')
   },
 
-  ccrOrgLogin: function() {
-    return this.click('@organizationSearchResult')
+  ccrOrgLogin: function(orgName2SearchResult) {
+    const clickableElement = orgName2SearchResult ? orgName2SearchResult : '@organizationSearchResult'
+    return this.click(clickableElement)
       .waitForElementVisible('@goBackToSelectNewOrg','CCR login to Org succesful')
       .verify.urlContains('contacts', 'Contacts page is visible')
   },
@@ -237,7 +239,7 @@ const universalElementsCommands = {
   selectOrganization: function(){
     return this.waitForElementVisible('@goBackToSelectNewOrg','Select Organization button is visible')
     .click('@goBackToSelectNewOrg')
-    .waitForElementVisible('@organizationSearchResult', 'First result is visible')
+    .waitForElementVisible('@searchInputForOrg', 'User landed back on Org listing page')
   },
 
   validatePageError: function(ele,url){
@@ -446,6 +448,11 @@ module.exports = {
        selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgName}' ]`,
        locateStrategy: 'xpath',
      },
+
+     org2SearchResult: {
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgName2}' ]`,
+      locateStrategy: 'xpath',
+    },
 
      noSearchResult: {
       selector: `//SPAN[text()='No organizations found']`,

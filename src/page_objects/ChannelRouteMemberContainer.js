@@ -1,9 +1,9 @@
 const channelRouteCommands = {
 
-    pause: function (time) {
-        this.api.pause(time);
-        return this;
-    },
+    // pause: function (time) {
+    //     this.api.pause(time);
+    //     return this;
+    // },
 
     validateChannelRoutes: function () {
         return this.waitForElementVisible('@membersButton', 'members button is visible')
@@ -32,9 +32,9 @@ module.exports = {
     //     return this.api.launch_url + '/settings/organization/channels'
     // },
     elements: {
-        
-        /*-------------------------Member container select only-------------------------------*/ 
-        
+
+        /*-------------------------Member container select only-------------------------------*/
+
         addMemberButton: {
             selector: `//SPAN[@class='button__text-wrapper'][text()='Add More Members']`,
             locateStrategy: 'xpath'
@@ -46,8 +46,8 @@ module.exports = {
         },
 
         /*------------------------------------------------------------------*/
-        
-        membersButton: {    
+
+        membersButton: {
             selector: `//SPAN[@class='button__text-wrapper'][text()='Members']`,
             locateStrategy: 'xpath'
         },

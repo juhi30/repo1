@@ -1,4 +1,3 @@
-const testConstants = require('../../toolboxes/feeder.toolbox');
 const editChannelsCommands = {
 
   validateCreateEls: function () {
@@ -50,21 +49,20 @@ const editChannelsCommands = {
       .click('@firstMember')
   },
 
-  // updateWebFormOnChannels: function (element, newValue) {
-  //   return this.waitForElementVisible(element, element + ' : element is visible')
+  // validateChannel: function (element, validationMessage) {
+  //   return this.waitForElementVisible(element, element + ' : is visible')
   //     .clearValue(element)
-  //     .setValue(element, newValue)
-  //     .click('@updateChannelButton')
+  //     .click('@submitButton')
+  //     .waitForElementVisible(validationMessage, validationMessage + 'validation message is visible')
   // },
 
-  validateAndUpdateWebform: function (element, newValue) {
+  updateWebform: function (element, newValue) {
     return this.waitForElementVisible(element, element + ' : is visible')
       .clearValue(element)
       .setValue(element, newValue)
       .waitForElementVisible('@submitButton', 'submit button is visible')
       .click('@submitButton')
-  }
-
+  },
 }
 
 module.exports = {

@@ -7,6 +7,7 @@ describe('Tests for Tags on Channels page', () => {
     //     const channel = client.page.ChannelsPage();
 
     //    await channel.navigate()
+
     //         .addChannels()
     //     // const tag = client.page.TagsPage();
     //     // await tag.createNewTag()
@@ -19,16 +20,15 @@ describe('Tests for Tags on Channels page', () => {
         const channel1 = client.page.ChannelsCreateEditPage();
 
         await channel.navigate()
-        channel.navigateToEditChannels()
-        
-        await channel1.validateAndUpdateWebform('@formTitle', testConstants.formTitleName);
-        channel1.validateAndUpdateWebform('@titleSubtext', testConstants.titleSubtext);
-        channel1.validateAndUpdateWebform('@phonePlaceholder', testConstants.phonePlaceholder);
-        channel1.validateAndUpdateWebform('@phoneHelpText', testConstants.phoneHelpText);
-        channel1.validateAndUpdateWebform('@messagePlaceholder', testConstants.messagePlaceHolder);
-        channel1.validateAndUpdateWebform('@submitButton', testConstants.submitButton);
-        channel1.validateAndUpdateWebform('@callToActionButton', testConstants.callToActionButton);
-        channel1.validateAndUpdateWebform('@confirmationText', testConstants.callToActionButton);
+        await channel.navigateToEditChannels()
+        await channel1.updateWebform('@formTitle', testConstants.formTitleName);
+        await channel1.updateWebform('@titleSubtext', testConstants.titleSubtext);
+        await channel1.updateWebform('@phonePlaceholder', testConstants.phonePlaceholder);
+        await channel1.updateWebform('@phoneHelpText', testConstants.phoneHelpText);
+        await channel1.updateWebform('@messagePlaceholder', testConstants.messagePlaceHolder);
+        await channel1.updateWebform('@submitButton', testConstants.submitButton);
+        await channel1.updateWebform('@callToActionButton', testConstants.callToActionButton);
+        await channel1.updateWebform('@confirmationText', testConstants.callToActionButton);
 
     });
 });

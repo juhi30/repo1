@@ -13,5 +13,10 @@ beforeAll(async () => {
 
 afterAll(async () => {
   // close the webdriver session after all tests run
-  await closeSession();
+  try {
+    await closeSession();
+  } catch(err) {
+    console.log('==== await closeSession();=', err);
+  }
+ 
 });

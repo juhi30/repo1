@@ -27,52 +27,46 @@ beforeAll(async () => {
       if (err) throw err;
       var f = imap.seq.fetch('2:2', { bodies: ['HEADER.FIELDS (FROM)','TEXT'] });
       await f.on('message', async function(msg, seqno) {
-        console.log('Message #%d', seqno);
+        //console.log('Message #%d', seqno);
         var prefix = '(#' + seqno + ') ';
          msg.on('body', async function(stream, info) {
           if (info.which === 'TEXT')
-            console.log(prefix + 'Body [%s] found, %d total bytes', inspect(info.which), info.size);
+          //console.log(prefix + 'Body [%s] found, %d total bytes', inspect(info.which), info.size);
           var buffer = '', count = 0;
-          await stream.on('data', function(chunk) {
+          await stream.on('data', async function(chunk) {
             count += chunk.length;
             buffer = chunk.toString('utf8');
             const isLink = buffer.includes('Let\'s Get Started');
             if (isLink) {
               var anchorTag = buffer.match(/<a [^>]+>Let's Get Started<\/a>/);
               var hrefValue = anchorTag[0].match(/href="([^"]*)/)[1];
-              //console.log('getting hreaf value----', hrefValue);
+              //await console.log('getting hreaf value----', hrefValue);
             }
           });
-          await stream.once('end', function() {
-            if (info.which !== 'TEXT')
-              console.log(prefix + 'Parsed header: %s', inspect(Imap.parseHeader(buffer)));
-            else
-              console.log(prefix + 'Body [%s] Finished', inspect(info.which));
-          });
-        });
-        await msg.once('attributes', function(attrs) {
-          console.log(prefix + 'Attributes: %s', inspect(attrs, false, 8));
-        });
-        await msg.once('end', function() {
-          console.log(prefix + 'Finished');
+          // await stream.once('end', async function() {
+          //   if (info.which !== 'TEXT')
+          //     await console.log(prefix + 'Parsed header: %s', inspect(Imap.parseHeader(buffer)));
+          //   else
+          //   await console.log(prefix + 'Body [%s] Finished', inspect(info.which));
+          // });
         });
       });
-      await f.once('error', function(err) {
-        console.log('Fetch error: ' + err);
+      await f.once('error', async function(err) {
+        await Promise.resolve('Fetch error: ' + err);
       });
       await f.once('end', async function() {
-        console.log('Done fetching all messages!');
+        await Promise.resolve('Done fetching all messages!');
          await imap.end();
       });
     });
   });
    
-  await imap.once('error', function(err) {
-    console.log(err);
+  await imap.once('error', async function(err) {
+    await console.log(err);
   });
    
-  await imap.once('end', function() {
-    console.log('Connection ended');
+  await imap.once('end', async function() {
+    await Promise.resolve('Connection ended');
   });
    
   await imap.connect();

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mkdir -p results && jest",
-    "test-canary": "mkdir -p results && jest src/test/newOrgCanary",
+    "test-canary": "mkdir -p results && jest src/test/newOrgCanary --detectOpenHandles",
     "test-existing-canary": "mkdir -p results && jest src/test/existingOrgCanary",
     "test-integrations": "mkdir -p results && jest src/test/integrations",
     "clean": "rm -rf lib/* results",

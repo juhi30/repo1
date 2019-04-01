@@ -34,6 +34,7 @@ describe('Members Page', () => {
     .fillInNewPasswordInput(testConstants.memberPassword)
     .fillInConfirmPasswordInput(testConstants.memberPassword)
     .clickSaveAndContinueButton()
-    .validateUrlChange()    
+    .validateUrlChange()
+    .pause(2000)  
   });
 });

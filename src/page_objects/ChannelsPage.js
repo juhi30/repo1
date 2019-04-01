@@ -18,8 +18,6 @@ const channelsCommands = {
   verifyUpdatedChannel: function (updatedChannel) {
     return this.waitForElementVisible(updatedChannel, updatedChannel + ' Created Channel is visible in the channel list.')
       .click(updatedChannel)
-      .waitForElementVisible('@editChannel', 'Summary Panel opened.')
-      .click('@editChannel')
   },
 }
 

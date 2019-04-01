@@ -110,6 +110,74 @@ describe('Automated Tests: Channels', () => {
             .waitForElementNotPresent('@channelUpdateSuccessMessage')
     });
 
+    test('Tags creation for newPhone type and Rhino secure type', async () => {
+        const channel = client.page.ChannelsPage();
+        const update = client.page.ChannelsCreateEditPage();
+
+        await channel.navigate()
+            .channelEditMode('@updatedChannelTitle')
+
+        await update.addtag(testConstants.tagNameNewPhoneType, '@customTag')
+            .pause(2000)
+            .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
+            .checkSuccessMessage('@channelUpdateSuccessMessage')
+
+        await channel.channelEditMode('@updatedRhinoSecureChannelTitle')
+
+        await update.addtag(testConstants.tagNameRhinoType, '@customTag')
+            .pause(2000)
+            .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
+            .checkSuccessMessage('@channelUpdateSuccessMessage')
+    });
+
+    test('validation on Web Form fields', async () => {
+        const channel = client.page.ChannelsPage();
+        const channel1 = client.page.ChannelsCreateEditPage();
+
+
+        await channel.channelEditMode('@updatedChannelTitle')
+
+        await channel1.webFormValidation('@formTitle')
+            .webFormValidation('@titleSubtext')
+            .webFormValidation('@phonePlaceholder')
+            .webFormValidation('@phoneHelpText')
+            .webFormValidation('@messagePlaceholder')
+            .webFormValidation('@submitButton')
+            .webFormValidation('@callToActionButton')
+            .webFormValidation('@confirmationText')
+
+            .createUpdateChannel('@updateChannelButton')
+
+            .checkForValidation('@titleValidationMessage')
+            .checkForValidation('@titleSubtextValidation')
+            .checkForValidation('@phonePlaceholderMessage')
+            .checkForValidation('@phoneHelpTextMessage')
+            .checkForValidation('@messagePlaceholderValidation')
+            .checkForValidation('@buttonTitleMessage')
+            .checkForValidation('@actionButtonTitleMessage')
+            .checkForValidation('@confirmationTextMessage')
+    });
+
+    test('Updation on Web Form fields', async () => {
+        const channel = client.page.ChannelsPage();
+        const channel1 = client.page.ChannelsCreateEditPage();
+
+        channel.navigate()
+        await channel.channelEditMode('@updatedChannelTitle')
+
+        await channel1.updateWebform('@formTitle', testConstants.formTitleName)
+            .updateWebform('@titleSubtext', testConstants.titleSubtext)
+            .updateWebform('@phonePlaceholder', testConstants.phonePlaceholder)
+            .updateWebform('@phoneHelpText', testConstants.phoneHelpText)
+            .updateWebform('@messagePlaceholder', testConstants.messagePlaceHolder)
+            .updateWebform('@submitButton', testConstants.submitButton)
+            .updateWebform('@callToActionButton', testConstants.callToActionButton)
+            .updateWebform('@confirmationText', testConstants.callToActionButton)
+            .pause(2000)
+            .waitForElementVisible('@updateChannelButton', 'update button is visible')
+            .click('@updateChannelButton')
+    });
+
     test('Channel Deletion', async () => {
         const channel = client.page.ChannelsPage();
         const deletechannel = client.page.ChannelsCreateEditPage();
@@ -123,5 +191,6 @@ describe('Automated Tests: Channels', () => {
             .channelEditMode('@updatedRhinoSecureChannelTitle')
 
         await deletechannel.deleteChannels()
+            .pause(2000)
     });
 });

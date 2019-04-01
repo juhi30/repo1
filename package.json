@@ -47,7 +47,7 @@
     "request": "2.88.0",
     "rhinocloud-sdk": "1.0.xx",
     "rhinodeploy-cli": "git+https://ab1e60bc7d1ea8f0cef2d98a042749dee2741f8c:x-oauth-basic@github.com/rhinogram/rhinodeploy.git#cli",
-    "rhinotilities": "git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#1.0.14",
+    "rhinotilities": "git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#1.0.15",
     "selenium-server-standalone-jar": "3.141.5",
     "testarmada-magellan": "10.0.x",
     "testarmada-magellan-local-executor": "2.0.x",

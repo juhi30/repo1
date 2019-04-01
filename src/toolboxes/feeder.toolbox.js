@@ -4,20 +4,20 @@ module.exports = {
     ccrPassword: process.env.CCR_PASSWORD,
 
     //Org Setup Details
-    orgName: 'Testing_8',
+    orgName: 'AutomationTestOrg',
     address: 'Test Address',
     city: 'Test City',
     state: 'Alaska',
     zip: '12345',
 
     // New Member Details 
-    memberFirstName: 'TestMember',
-    memberLastName: 'LastName',
-    memberUsername: 'TestMember_8',
+    memberFirstName: 'Munish',
+    memberLastName: 'Dutta',
+    memberUsername: 'MunishD',
     memberPassword: 'Test@123',
 
     //New Group Details
-    groupName: 'TestGroup',
+    groupName: 'AutomationTestGroup',
     purpose: 'Testing',
 
     //Office Details
@@ -39,6 +39,11 @@ module.exports = {
     numberForNewPhoneChannel: 819,
     chooseANumber: '+18192004430',
     forwardingNumber: '(454) 657-6879',
-    channelName: 'Test Channel',
+    channelName: 'Automation Test Channel1',
+    channelPurpose : 'test Automation',
     timeZone: 'Eastern Time (UTC -05:00) - New York',
+    rhinoChannelName : 'RhinoSecure Automation channel',
+    newChannelName : 'Automation Test Channel New',
+    newPurpose: 'New change in purpose',
+    rhinoChannelNewName : 'New RhinoSecure Channel',
 };

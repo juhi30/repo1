@@ -10,7 +10,7 @@ beforeAll(async () => {
   const login = client.page.LoginPage();
   const setup = client.page.AccountSetupPage();
   //const org = client.page.UniversalElements();
-
+  
   await login.navigate()
     .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
     .submit()
@@ -21,7 +21,7 @@ beforeAll(async () => {
   // await org.searchForOrganization(testConstants.orgName)
   //   .ccrOrgLogin()
 
-  setup.navigate()
+  await setup.navigate()
     .clickBillingToggle()
     .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
       testConstants.state, testConstants.zip)
@@ -47,5 +47,6 @@ afterAll(async (done) => {
   }
 });
 
-import './member'
-import './office'
+ import './member'
+ import './office'
+ import './channels'

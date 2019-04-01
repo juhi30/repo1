@@ -1,62 +1,69 @@
+const testConstants = require('../toolboxes/feeder.toolbox');
+
 const channelsCommands = {
 
-  pause: function(time) {
-    this.api.pause(time);
-    return this;
+  validateChannelsEls: function () {
+    return this
+      .waitForElementPresent('@channelsPageTitle', 'Channels Page Opened.')
+      .waitForElementVisible('@addChannelButton', 'add channel button is present')
   },
 
-  validateChannelsEls: function() {
-    return this.waitForElementVisible('@addChannelButton', 'add channel button is present')
-      .waitForElementVisible('@firstChannelContainer', 'first channel is visible')
-      .click('@firstChannelContainer')
-      .waitForElementVisible('@summaryPanel', 'summary panel is visible')
-      .waitForElementVisible('@editChannel', 'edit channel button is visible')
-      .click('@firstChannelContainer')
-  },
-
-  navigateToCreateChannels: function() {
-    return this.waitForElementVisible('@addChannelButton', 'add channel button is present')
-      click('@addChannelButton')
-  },
-
-  navigateToEditChannels: function() {
-    return this.waitForElementVisible('@addChannelButton', 'add channel button is present')
-      .waitForElementVisible('@firstChannelContainer', 'first channel is visible')
-      .click('@firstChannelContainer')
-      .waitForElementVisible('@editChannel', 'edit channel button is visible')
+  channelEditMode: function (channel) {
+    return this.waitForElementVisible(channel, channel + ' Created Channel is visible in the channel list.')
+      .click(channel)
+      .waitForElementVisible('@editChannel', 'Summary Panel opened.')
       .click('@editChannel')
-  }
+  },
+
+  verifyUpdatedChannel: function (updatedChannel) {
+    return this.waitForElementVisible(updatedChannel, updatedChannel + ' Created Channel is visible in the channel list.')
+      .click(updatedChannel)
+      .waitForElementVisible('@editChannel', 'Summary Panel opened.')
+      .click('@editChannel')
+  },
 }
 
 module.exports = {
   commands: [channelsCommands],
-  url: function() {
+  url: function () {
     return this.api.launch_url + '/settings/organization/channels'
   },
+
   elements: {
 
-    /*-----------------------------------------------------*/
-    // main page elements
-    /*-----------------------------------------------------*/
+    channelsPageTitle: {
+      selector: `//DIV[@class='app-page__header__title'][contains(text(),'Channels')]`,
+      locateStrategy: 'xpath',
+    },
 
     addChannelButton: {
-      selector: `//BUTTON[contains(@title,'Create Channel')]`, 
+      selector: `//BUTTON[contains(@title,'Create Channel')]`,
       locateStrategy: 'xpath',
     },
 
-    firstChannelContainer: {
-      selector: `//SPAN[contains(text(),'QA Test channel')]`, // first channel listed to access channel summary container
+    channelTitle: {
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.channelName}')]`,
       locateStrategy: 'xpath',
     },
 
-    summaryPanel: {
-      selector: `//DIV[@class='summary-panel__content']`,
-      locateStrategy: 'xpath'
+    rhinoSecureChannelTitle: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.rhinoChannelName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    updatedChannelTitle: {
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.newChannelName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    updatedRhinoSecureChannelTitle: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.rhinoChannelNewName}')]`,
+      locateStrategy: 'xpath',
     },
 
     editChannel: {
-      selector: `//SPAN[contains(text(),'Edit Channel')]`,
-      locateStrategy: 'xpath'
-    },  
+      selector: `//SPAN[@class='button__text-wrapper'][contains(text(),'Edit Channel')]`,
+      locateStrategy: 'xpath',
+    }
   }
 };

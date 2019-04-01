@@ -49,19 +49,21 @@ const editChannelsCommands = {
       .click('@firstMember')
   },
 
-  // validateChannel: function (element, validationMessage) {
-  //   return this.waitForElementVisible(element, element + ' : is visible')
-  //     .clearValue(element)
-  //     .click('@submitButton')
-  //     .waitForElementVisible(validationMessage, validationMessage + 'validation message is visible')
-  // },
+  validateChannel: function (element) {
+    return this.waitForElementVisible(element, element + ' : is visible')
+      .clearValue(element)
+      .setValue(element, ' ')
+      .click('@updateChannel')
+  },
+
+  checkForValidation: function (validationMessage) {
+    return this.waitForElementVisible(validationMessage, validationMessage + ': is visible')
+  },
 
   updateWebform: function (element, newValue) {
     return this.waitForElementVisible(element, element + ' : is visible')
       .clearValue(element)
       .setValue(element, newValue)
-      .waitForElementVisible('@submitButton', 'submit button is visible')
-      .click('@submitButton')
   },
 }
 
@@ -125,9 +127,14 @@ module.exports = {
       selector: `//TEXTAREA[@name='confirmationText']`,
       locateStrategy: 'xpath',
     },
+
+    updateChannel: {
+      selector: `//SPAN[text()='Update Channel']`,
+      locateStrategy: 'xpath',
+    },
     // ---------- web form confirmation elements -----
     validateTitleMessage: {
-      selector: `//DIV[@class='form__validation-message'][text()='Title is required.']`,
+      selector: `//DIV[contains(text(),'Title is required.')]`,
       locateStrategy: 'xpath',
     },
 

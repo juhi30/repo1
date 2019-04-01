@@ -15,7 +15,40 @@ describe('Tests for Tags on Channels page', () => {
 
     // });
 
-    test('Validation messages on Web Form fields', async () => {
+    test('validation on Web Form fields', async () => {
+        const channel = client.page.ChannelsPage();
+        const channel1 = client.page.ChannelsCreateEditPage();
+
+        await channel.navigate()
+        await channel.navigateToEditChannels()
+        await channel1.validateChannel('@formTitle');
+        await channel1.checkForValidation('@validateTitleMessage');
+
+        await channel1.validateChannel('@titleSubtext');
+        await channel1.checkForValidation('@validateTitleSubtextMessage');
+
+        await channel1.validateChannel('@phonePlaceholder');
+        await channel1.checkForValidation('@validatePhonePlaceholderMessage');
+
+        await channel1.validateChannel('@phoneHelpText');
+        await channel1.checkForValidation('@validateHelperTextMessage');
+
+        await channel1.validateChannel('@messagePlaceholder');
+        await channel1.checkForValidation('@validateMessagePlaceholderMessage');
+
+        await channel1.validateChannel('@submitButton');
+        await channel1.checkForValidation('@validateButtonTitleMessage');
+
+        await channel1.validateChannel('@callToActionButton');
+        await channel1.checkForValidation('@validateActionButtonTitleMessage');
+
+        await channel1.validateChannel('@confirmationText');
+        await channel1.checkForValidation('@validateConfirmationTextMessage');
+
+
+    });
+
+    test('Updation on Web Form fields', async () => {
         const channel = client.page.ChannelsPage();
         const channel1 = client.page.ChannelsCreateEditPage();
 
@@ -29,6 +62,7 @@ describe('Tests for Tags on Channels page', () => {
         await channel1.updateWebform('@submitButton', testConstants.submitButton);
         await channel1.updateWebform('@callToActionButton', testConstants.callToActionButton);
         await channel1.updateWebform('@confirmationText', testConstants.callToActionButton);
-
+        await channel1.waitForElementVisible('@updateChannel', 'update button is visible')
+            .click('@updateChannel')
     });
 });

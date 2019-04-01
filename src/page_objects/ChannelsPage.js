@@ -41,7 +41,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    channelTitle: {
+    channelName: {
       selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.channelName}')]`,
       locateStrategy: 'xpath',
     },

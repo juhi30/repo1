@@ -19,42 +19,37 @@ describe('Automated Tests: Channels', () => {
 
     test('Required Fields and validations', async () => {
         const channel = client.page.ChannelsPage();
-        const field = client.page.ChannelsCreateEditPage();
+        const setup = client.page.ChannelsCreateEditPage();
 
-
-        await channel.navigate()
-        await channel.pause(5000)
-        await channel.validateChannelsEls()
-
-        await field.navigate()
-            .selectChannelCategory('@newPhoneType')
-            .createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
-            .verifyValidations('@channelNameValidation')
-            .verifyValidations('@timezoneValidation')
-            .verifyValidations('@channelRouteValidation')
-
-        await field.navigate()
-            .selectChannelCategory('@rhinoSecureType')
-            .createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
-            .verifyValidations('@channelNameValidation')
-            .verifyValidations('@timezoneValidation')
-            .verifyValidations('@channelRouteValidation')
-    });
-
-    test('Channel CRUDing - New Phone type channel creation with member Route', async () => {
-        const channel = client.page.ChannelsPage();
-        const newPhone = client.page.ChannelsCreateEditPage();
-        const route = client.page.ChannelRouteMemberContainer();
 
         await channel.navigate()
             .validateChannelsEls()
+
+        await setup.navigate()
+            .selectChannelCategory('@newPhoneType')
+            .createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
+            .waitForElementVisible('@channelNameValidation', 'Validation message for channel Name is visible')
+            .verify.visible('@timezoneValidation', 'Validation message for TimeZone is visible')
+            .verify.visible('@channelRouteValidation', 'validation message for Channel Route is visible')
+
+        await setup.navigate()
+            .selectChannelCategory('@rhinoSecureType')
+            .createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
+            .waitForElementVisible('@channelNameValidation', 'Validation message for channel Name is visible')
+            .verify.visible('@timezoneValidation', 'Validation message for TimeZone is visible')
+            .verify.visible('@channelRouteValidation', 'validation message for Channel Route is visible')
+    });
+
+    test('Channel Create - New Phone type with member Route', async () => {
+        const newPhone = client.page.ChannelsCreateEditPage();
+        const route = client.page.ChannelRouteMemberContainer();
 
         await newPhone.navigate()
             .validateCreateEls()
             .selectChannelCategory('@newPhoneType')
             .pause(2000)
             .addNumber(testConstants.numberForNewPhoneChannel, testConstants.forwardingNumber)
-            .verifyChannelCreation(testConstants.channelName, testConstants.channelPurpose, testConstants.timeZone)
+            .channelDetails(testConstants.channelName, testConstants.channelPurpose, testConstants.timeZone)
 
         await route.routeSearch('@memberInput', testConstants.memberFirstName, '@memberResult')
             .pause(2000)
@@ -63,26 +58,23 @@ describe('Automated Tests: Channels', () => {
             .checkSuccessMessage('@channelCreateSuccessMessage')
     });
 
-    test('Channel CRUDing - Rhinosecure channel creation with group route', async () => {
-        const channel = client.page.ChannelsPage();
+    test('Channel Create - Rhinosecure channel with group route', async () => {
         const rhino = client.page.ChannelsCreateEditPage();
         const route = client.page.ChannelRouteMemberContainer();
-
-        await channel.navigate()
-            .validateChannelsEls()
 
         await rhino.navigate()
             .validateCreateEls()
             .selectChannelCategory('@rhinoSecureType')
-            .verifyChannelCreation(testConstants.rhinoChannelName, testConstants.channelPurpose, testConstants.timeZone)
+            .channelDetails(testConstants.rhinoChannelName, testConstants.channelPurpose, testConstants.timeZone)
 
         await route.selectGroupRoute()
             .routeSearch('@groupInput', testConstants.groupName, '@groupResult')
             .pause(2000)
 
         await rhino.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
-            .checkSuccessMessage('@channelCreateSuccessMessage')
             .pause(2000)
+            .checkSuccessMessage('@channelCreateSuccessMessage')
+            .waitForElementNotPresent('@channelCreateSuccessMessage')
     });
 
     test('Channel Edit - New phone type', async () => {
@@ -91,14 +83,15 @@ describe('Automated Tests: Channels', () => {
 
         await channel.navigate()
 
-            .channelEditMode('@channelTitle')
+            .channelEditMode('@channelName')
 
-        await update.verifyChannelUpdation(testConstants.newChannelName, testConstants.newPurpose)
+        await update.editChannelDetailsSection(testConstants.newChannelName, testConstants.newPurpose)
             .enableDisableToggles('@availabilityHoursToggle')
             .enableDisableToggles('@webFormAddOnnToggle')
-
+            .enableDisableToggles('@channelForwardingToggle')
         update.createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
             .checkSuccessMessage('@channelUpdateSuccessMessage')
+            .waitForElementNotPresent('@channelUpdateSuccessMessage')
     });
 
     test('Channel Edit - Rhinosecure', async () => {
@@ -108,11 +101,13 @@ describe('Automated Tests: Channels', () => {
         await channel.navigate()
             .channelEditMode('@rhinoSecureChannelTitle')
 
-        await update.verifyChannelUpdation(testConstants.rhinoChannelNewName, testConstants.newPurpose)
+        await update.editChannelDetailsSection(testConstants.rhinoChannelNewName, testConstants.newPurpose)
             .enableDisableToggles('@availabilityHoursToggle')
+            .enableDisableToggles('@channelForwardingToggle')
             .pause(2000)
             .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
             .checkSuccessMessage('@channelUpdateSuccessMessage')
+            .waitForElementNotPresent('@channelUpdateSuccessMessage')
     });
 
     test('Channel Deletion', async () => {

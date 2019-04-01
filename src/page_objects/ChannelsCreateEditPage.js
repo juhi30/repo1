@@ -23,7 +23,7 @@ const editChannelsCommands = {
             .setValue('@forwardNumberInput', forwardingNumber)
     },
 
-    verifyChannelCreation: function (channelName, purpose, timezone) {
+    channelDetails: function (channelName, purpose, timezone) {
         return this.waitForElementVisible('@channelNameInput', 'channel name input is visible')
             .setValue('@channelNameInput', channelName)
             .verify.visible('@channelPurposeInput', 'channel purpose is visible')
@@ -34,7 +34,7 @@ const editChannelsCommands = {
             .click('@channelDSTCheckbox')
     },
 
-    verifyChannelUpdation: function (newChannelName, newPurpose) {
+    editChannelDetailsSection: function (newChannelName, newPurpose) {
         return this.waitForElementVisible('@editChannelPageTitle', 'Channel Opened in edit Mode.')
             .clearValue('@channelNameInput')
             .setValue('@channelNameInput', newChannelName)
@@ -63,11 +63,6 @@ const editChannelsCommands = {
             .waitForElementVisible('@confirmDeleteChannel', 'confirm delete button is visible')
             .click('@confirmDeleteChannel')
     },
-
-    verifyValidations: function (validation) {
-        return this.waitForElementVisible(validation, validation + ' message is visible.')
-    },
-
 }
 
 module.exports = {

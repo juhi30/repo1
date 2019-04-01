@@ -53,5 +53,8 @@
     "testarmada-magellan-local-executor": "2.0.x",
     "testarmada-magellan-nightwatch-plugin": "7.0.x",
     "testarmada-nightwatch-extra": "4.1.x"
+  },
+  "dependencies": {
+    "imap": "^0.8.19"
   }
 }

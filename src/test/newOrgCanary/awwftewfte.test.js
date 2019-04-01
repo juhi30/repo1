@@ -40,7 +40,7 @@ beforeAll(async () => {
             if (isLink) {
               var anchorTag = buffer.match(/<a [^>]+>Let's Get Started<\/a>/);
               var hrefValue = anchorTag[0].match(/href="([^"]*)/)[1];
-              console.log('getting hreaf value----', hrefValue);
+              //console.log('getting hreaf value----', hrefValue);
             }
           });
           await stream.once('end', function() {

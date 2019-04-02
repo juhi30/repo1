@@ -9,24 +9,26 @@ beforeAll(async () => {
   client.maximizeWindow()
   const login = client.page.LoginPage();
   const setup = client.page.AccountSetupPage();
-  //const org = client.page.UniversalElements();
+  const org = client.page.UniversalElements();
 
   await login.navigate()
     .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
     .submit()
     .pause(2000)
+    .validateUrlChange('/selectorg')
 
-  // //Use Search to avoid creating org again n again
-  //  .validateUrlChange('/selectorg')
+  // //Use Search to avoid creating org again n again 
   // await org.searchForOrganization(testConstants.orgName)
   //   .ccrOrgLogin()
+
+  // await org.clickLogout()
 
   setup.navigate()
     .clickBillingToggle()
     .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
       testConstants.state, testConstants.zip)
     .clickCreateOrganization()
-    .getOrgId();
+    .getOrgId()
 });
 
 // DELETE MY NEW ORG HERE 
@@ -46,7 +48,6 @@ afterAll(async (done) => {
     done(err);
   }
 });
-
 
 import './member'
 import './office'

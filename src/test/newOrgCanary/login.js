@@ -1,5 +1,6 @@
 import { client } from 'nightwatch-api';
 const testConstants = require('../../toolboxes/feeder.toolbox');
+const gmail = require('../../services/Gmail.service');
 
 describe('Login Page Tests Cases', () => {
 
@@ -23,8 +24,8 @@ describe('Login Page Tests Cases', () => {
 
     //Go back to Org Listing page
     await org.selectOrganization()
-      //Search the next Org
 
+    //Search the next Org
       .searchForOrganization(testConstants.orgName2, '@org2SearchResult')
       .ccrOrgLogin('@org2SearchResult')
     await setup.getOrgId()
@@ -120,6 +121,24 @@ describe('Login Page Tests Cases', () => {
       .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.')
   });
 
+  test('Login to gmail using iMap', async (done) => {
+    try {
+      gmail.fetchPasswordResetLink().then((result) => {
+        process.env.NEW_HREF = result.hrefValue
+        console.log('>>>>>>>>>>>', process.env.NEW_HREF)
+        done()
+      })
+    }
+    catch (err) {
+      console.log('=====err===', err);
+    }
+  });
+
+  test('navigate to the reset password link received in email', async () => {
+    await client
+    .url(process.env.NEW_HREF)
+  });
+
   test('Unused reset password token is invalidated if another reset request is sent', async () => {
     const universal = client.page.UniversalElements();
     const login = client.page.LoginPage();
@@ -147,8 +166,8 @@ describe('Login Page Tests Cases', () => {
       .enterMemberCreds(testConstants.memberUsername, global.TEMP_PASSWORD)
       .submit()
       .waitForElementVisible('@errorPrompt', 'Error message is visible, old token did not work. ')
- 
-      //Login as Member with New Password reset token
+
+    //Login as Member with New Password reset token
     await login.navigate()
       .enterMemberCreds(testConstants.memberUsername, global.TEMP_NEW_PASSWORD)
       .submit()

@@ -4,7 +4,7 @@ module.exports = {
     ccrPassword: process.env.CCR_PASSWORD,
 
     //Org Setup Details
-    orgName: 'AutomationTestOrg',
+    orgName: 'TestingForDelete_2',
     orgName2: 'India Test Org',
     address: 'Test Address',
     city: 'Test City',
@@ -19,11 +19,11 @@ module.exports = {
     zipCode: '29403',
 
     // New Member Details 
-    memberFirstName: 'TestMember',
+    memberFirstName: 'TestMember_436',
     memberLastName: 'LastName',
-    memberUsername: 'TestMember',
+    memberUsername: 'TestMember_436',
     memberPassword: 'Test@123',
-    memberEmail: 'rhinogramtests@gmail.com',
+    memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
 
     //New Group Details

@@ -4,16 +4,16 @@ module.exports = {
     ccrPassword: process.env.CCR_PASSWORD,
 
     //Org Setup Details
-    orgName: 'AutomationTestOrg',
+    orgName: 'Testing_8',
     address: 'Test Address',
     city: 'Test City',
     state: 'Alaska',
     zip: '12345',
 
     // New Member Details 
-    memberFirstName: 'Munish',
-    memberLastName: 'Dutta',
-    memberUsername: 'MunishD',
+    memberFirstName: 'TestMember',
+    memberLastName: 'LastName',
+    memberUsername: 'TestMember_8',
     memberPassword: 'Test@123',
 
     //New Group Details

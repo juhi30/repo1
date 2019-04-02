@@ -48,9 +48,9 @@ module.exports = {
     rhinoChannelNewName : 'New RhinoSecure Channel',
 
     //New Tag Creation Details 
-    tagNameNewPhoneType: 'Automation tag1',
+    tagNameNewPhoneType: 'AutomationTestTag4',
     customTag: 'Custom',
-    tagNameRhinoType : 'Automation tag2',
+    tagNameRhinoType : 'AutomationTestTag3',
 
     //Web Form Addition Details
     formTitleName: 'Send Message via web form.',

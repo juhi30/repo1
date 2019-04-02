@@ -1,7 +1,7 @@
 import { client } from 'nightwatch-api';
 const testConstants = require('../../toolboxes/feeder.toolbox');
-//const loginApi = require('../../services/Login.Service');
-//const deleteOrg = require('../../services/Organization.Service');
+const loginApi = require('../../services/Login.Service');
+const deleteOrg = require('../../services/Organization.Service');
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
@@ -12,10 +12,11 @@ beforeAll(async () => {
   
   await login.navigate()
     .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
-    .submit();
+    .submit()
+    .pause(2000)
+    .validateUrlChange('/selectorg')
 
   // //Use Search to avoid creating org again n again
-  //  .validateUrlChange('/selectorg')
   // await org.searchForOrganization(testConstants.orgName)
   //   .ccrOrgLogin()
 

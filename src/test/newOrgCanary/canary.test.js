@@ -47,5 +47,5 @@ afterAll(async (done) => {
 });
 
  import './member'
- import './office'
+ //import './office'
  import './channels'

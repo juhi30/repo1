@@ -58,7 +58,7 @@ describe('Automated Tests: Channels', () => {
             .checkSuccessMessage('@channelCreateSuccessMessage')
     });
 
-    test('Channel Create - Rhinosecure channel with group route', async () => {
+    test('Channel Create - Rhinosecure channel with member route', async () => {
         const rhino = client.page.ChannelsCreateEditPage();
         const route = client.page.ChannelRouteMemberContainer();
 
@@ -67,8 +67,11 @@ describe('Automated Tests: Channels', () => {
             .selectChannelCategory('@rhinoSecureType')
             .channelDetails(testConstants.rhinoChannelName, testConstants.channelPurpose, testConstants.timeZone)
 
-        await route.selectGroupRoute()
-            .routeSearch('@groupInput', testConstants.groupName, '@groupResult')
+        // await route.selectGroupRoute()
+        //     .routeSearch('@groupInput', testConstants.groupName, '@groupResult')
+        //     .pause(2000)
+
+        await route.routeSearch('@memberInput', testConstants.memberFirstName, '@memberResult')
             .pause(2000)
 
         await rhino.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')

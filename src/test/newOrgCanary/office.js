@@ -11,6 +11,7 @@ describe('Office Page', () => {
             .clickAddOffice()
             .createOfficeForm(testConstants.officeName, testConstants.officeAddress, testConstants.officecity, testConstants.officestate, testConstants.zip)
             .clickCreateOffice()
+            .waitForElementNotPresent('@officeCreationSuccessMessage')
 
         await logout.clickLogout()
 

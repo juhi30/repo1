@@ -37,6 +37,7 @@ function fetchPasswordResetLink () {
                 //var anchorTag = buffer.match(/<a [^>]+>Let's Get Started<\/a>/);
                var anchorTag = buffer.match(/<a [^>]+>here<\/a>/);
                 hrefValue = anchorTag[0].match(/href="([^"]*)/)[1];
+                hrefValue = hrefValue.replace('amp;', '');
               }
             });
             stream.on('end', function() {

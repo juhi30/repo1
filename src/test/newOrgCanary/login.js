@@ -25,7 +25,7 @@ describe('Login Page Tests Cases', () => {
     //Go back to Org Listing page
     await org.selectOrganization()
 
-    //Search the next Org
+      //Search the next Org
       .searchForOrganization(testConstants.orgName2, '@org2SearchResult')
       .ccrOrgLogin('@org2SearchResult')
     await setup.getOrgId()
@@ -135,8 +135,10 @@ describe('Login Page Tests Cases', () => {
   });
 
   test('navigate to the reset password link received in email', async () => {
+    const login = client.page.LoginPage();
     await client
-    .url(process.env.NEW_HREF)
+      .url(process.env.NEW_HREF)
+    login.waitForElementVisible('@confirmPasswordInput', 'User landed on reset password page.')
   });
 
   test('Unused reset password token is invalidated if another reset request is sent', async () => {

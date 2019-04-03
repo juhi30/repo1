@@ -27,7 +27,7 @@ module.exports = {
     invalidEmail: 'test@test.com',
 
     //New Group Details
-    groupName: 'TestGroup',
+    groupName: 'AutomationTestGroup',
     purpose: 'Testing',
 
     //OOO Details

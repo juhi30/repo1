@@ -5,7 +5,6 @@ const deleteOrg = require('../../services/Organization.Service');
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
-
   client.maximizeWindow()
   const login = client.page.LoginPage();
   const setup = client.page.AccountSetupPage();
@@ -20,7 +19,6 @@ beforeAll(async () => {
   // //Use Search to avoid creating org again n again 
   // await org.searchForOrganization(testConstants.orgName)
   //   .ccrOrgLogin()
-
   // await org.clickLogout()
 
   setup.navigate()
@@ -49,6 +47,7 @@ afterAll(async (done) => {
   }
 });
 
-import './member'
-import './office'
-import './login'
+ import './member'
+ import './office'
+ import './login'
+ import './channels'

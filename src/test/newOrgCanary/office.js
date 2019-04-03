@@ -14,6 +14,5 @@ describe('Office Page', () => {
             .waitForElementNotPresent('@officeCreationSuccessMessage')
 
         await logout.clickLogout()
-
     });
 }); 

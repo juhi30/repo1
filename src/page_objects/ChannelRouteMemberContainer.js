@@ -1,29 +1,31 @@
+const testConstants = require('../toolboxes/feeder.toolbox');
+
 const channelRouteCommands = {
 
-    pause: function (time) {
-        this.api.pause(time);
-        return this;
-    },
 
     validateChannelRoutes: function () {
         return this.waitForElementVisible('@membersButton', 'members button is visible')
             .verify.visible('@groupsButton', 'groups button is visible')
             .verify.visible('@memberInput', 'search input is visible')
-            .verify.visible('@firstMember', 'first member is visible')
+            .verify.visible('@memberResult', 'first member is visible')
     },
 
-    selectChannelRoutes: function () {
+    selectMemberRoute: function () {
         return this.waitForElementVisible('@membersButton', 'members button is visible')
-            .click('@groupsButton')
-            .waitForElementVisible('@firstGroup', 'first group is visible')
-            .click('@firstGroup')
-            .waitForElementVisible('@membersButton', 'members button is visible')
             .click('@membersButton')
-            .waitForElementVisible('@memberInput', 'member input is visible')
-            .setValue('@memberInput', 'night')
-            .waitForElementVisible('@firstMember', 'first member is visible')
-            .click('@firstMember')
     },
+
+    selectGroupRoute: function () {
+        return this.waitForElementVisible('@groupsButton', 'group button is visible')
+            .click('@groupsButton')
+    },
+
+    routeSearch: function (searchInput, routeName, result) {
+        return this.waitForElementVisible(searchInput, searchInput + ' is visible')
+            .setValue(searchInput, routeName)
+            .waitForElementVisible(result, result + ' is visible')
+            .click(result)
+    }
 }
 
 module.exports = {
@@ -32,9 +34,9 @@ module.exports = {
     //     return this.api.launch_url + '/settings/organization/channels'
     // },
     elements: {
-        
-        /*-------------------------Member container select only-------------------------------*/ 
-        
+
+        /*-------------------------Member container select only-------------------------------*/
+
         addMemberButton: {
             selector: `//SPAN[@class='button__text-wrapper'][text()='Add More Members']`,
             locateStrategy: 'xpath'
@@ -46,35 +48,35 @@ module.exports = {
         },
 
         /*------------------------------------------------------------------*/
-        
-        membersButton: {    
+
+        membersButton: {
             selector: `//SPAN[@class='button__text-wrapper'][text()='Members']`,
-            locateStrategy: 'xpath'
+            locateStrategy: 'xpath',
         },
 
         groupsButton: {
             selector: `//SPAN[@class='button__text-wrapper'][text()='Groups']`,
-            locateStrategy: 'xpath'
+            locateStrategy: 'xpath',
         },
 
         memberInput: {
             selector: `//INPUT[contains(@id, 'preloadedMembers')]`,
-            locateStrategy: 'xpath'
+            locateStrategy: 'xpath',
         },
 
         groupInput: {
             selector: `//INPUT[contains(@id, 'search')]`,
-            locateStrategy: 'xpath'
+            locateStrategy: 'xpath',
         },
 
-        firstMember: {
-            selector: `//SPAN[contains(., 'Night Member')]`,
-            locateStrategy: 'xpath'
+        memberResult: {
+            selector: `//SPAN[contains(., '${testConstants.memberFirstName}')]`,
+            locateStrategy: 'xpath',
         },
 
-        firstGroup: {
-            selector: `//SPAN[contains(., 'QA Inbox & Chat Group')]`,
-            locateStrategy: 'xpath'
+        groupResult: {
+            selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.groupName}')]`,
+            locateStrategy: 'xpath',
         },
     }
 };

@@ -35,6 +35,13 @@ describe('Members Page', () => {
     .fillInNewPasswordInput(testConstants.memberPassword)
     .fillInConfirmPasswordInput(testConstants.memberPassword)
     .clickSaveAndContinueButton()
-    .validateUrlChange()    
+    .validateUrlChange()
+    .pause(6000)
+  });
+
+  test('Logout as member', async () => {
+    const logout = client.page.UniversalElements();
+
+    await logout.clickLogout();    
   });
 });

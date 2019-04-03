@@ -7,7 +7,7 @@ const accountSetupCommands = {
         tpObj = tpObj.value.replace("ORGANIZATION (#", "");
         tpObj = tpObj.replace(")", "");
         process.env.ORGANIZATION_ID = tpObj
-        console.log('Org Id of the newly created org is ==', process.env.ORGANIZATION_ID);
+        console.log('Org Id is ==', process.env.ORGANIZATION_ID);
       });
   },
 

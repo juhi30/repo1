@@ -11,7 +11,8 @@ describe('Office Page', () => {
             .clickAddOffice()
             .createOfficeForm(testConstants.officeName, testConstants.officeAddress, testConstants.officecity, testConstants.officestate, testConstants.zip)
             .clickCreateOffice()
-            .pause(3000)
-            await logout.clickLogout();
+            .waitForElementNotPresent('@officeCreationSuccessMessage')
+
+        await logout.clickLogout()
     });
 }); 

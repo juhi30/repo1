@@ -10,6 +10,7 @@ describe('Members Page', () => {
     .enterDetails('@memberFirstName', testConstants.memberFirstName)
     .enterDetails('@memberLastName', testConstants.memberLastName)
     .enterDetails('@memberUsername', testConstants.memberUsername)
+    .enterDetails('@memberEmailAddress', testConstants.memberEmail)
     .getTempPassword()
     .setMemberRoles('@adminRole')
     .setMemberRoles('@memberRole')

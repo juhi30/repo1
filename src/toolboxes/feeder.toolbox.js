@@ -45,4 +45,10 @@ module.exports = {
     channelName: 'Automation Test Channel1',
     timeZone: 'Eastern Time (UTC -05:00) - New York',
 
+    //Templates Details
+    templateTitle : 'test_automation_template',
+    templateMessage : 'this is automation testing message',
+    filePath:'/home/munish/Desktop/automated-testing.png', 
+    newTemplate: 'new_test_automation_template',
+    newTempleteMessage : 'this is automation testing new message'
 };

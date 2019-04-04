@@ -1,22 +1,18 @@
 const path = require('path');
+const testConstants = require('../toolboxes/feeder.toolbox');
 
 const templatesCommands = {
-
-  pause: function(time) {
-    this.api.pause(time);
-    return this;
-  },
 
   /*
     Validation
   */
-  renderPageElements: function() {
+  renderPageElements: function () {
     return this.waitForElementVisible('@createTemplateButton', 'Create template button is visible')
       .verify.visible('@HIPAATemplate', 'HIPAA template is visible')
       .verify.visible('@firstTestTemplate', 'First test template is visible')
   },
 
-  validateSMSFilter: function() {
+  validateSMSFilter: function () {
     return this.verify.visible('@filterDropdown', 'Channel filter is visible')
       .click('@filterDropdown')
       .waitForElementVisible('@filterTextingChannel', 'Filter choices are visible')
@@ -25,7 +21,7 @@ const templatesCommands = {
       .verify.containsText('@filterDropdown', 'Texting', 'Texting filter is active')
   },
 
-  validateChannelFilter: function() {
+  validateChannelFilter: function () {
     return this.click('@filterDropdown')
       .waitForElementVisible('@filterAll', 'All channel filter is visible')
       .click('@filterAll')
@@ -34,95 +30,80 @@ const templatesCommands = {
   },
 
   /*
-    Clicking
-  */
+   Clicking and checking Success Message.
+ */
 
-  clickEditTemplateButton: function() {
-    return this.waitForElementVisible('@editTemplateButton', 'Edit Template button is visible')
-      .click('@editTemplateButton')
-  },
-
-  clickCreateTemplateButton: function() {
-    return this.waitForElementVisible('@createTemplateButton', 'Create Template button is visible')
-      .click('@createTemplateButton')
-      .waitForElementVisible('@templateTitleInput', 'Create Template Popup is visible')
-  },
-
-  clickCreateTemplateSaveButton: function() {
-    return this.waitForElementVisible('@createTemplateSaveButton', 'Save button is visible')
-      .click('@createTemplateSaveButton')
-  },
-
-  clickDeleteButton: function() {
-    return this.waitForElementVisible('@deleteTemplateButton', 'Delete icon is visible')
-      .click('@deleteTemplateButton');
-  },
-
-  clickDeleteFinalButton: function() {
-    return this.waitForElementVisible('@deleteTemplateFinalButton', 'Delete Final button is visible')
-      .click('@deleteTemplateFinalButton');
-  },
-
-  clickUploadFileButton: function() {
-    return this.waitForElementVisible('@uploadFileButton', 'Upload file button is visible')
-      .click('@uploadFileButton');
-  },
-
-  // Will click the first one found
-  clickRemoveAttachmentIcon: function() {
-    return this.waitForElementVisible('@removeAttachmentIcon', 'Remove attachment icon is visible')
-      .click('@removeAttachmentIcon')
+  clickCreateUpdateButton: function (element, successMessage) {
+    return this.waitForElementVisible(element, element + ' button is visible')
+      .click(element)
+      .waitForElementVisible(successMessage, successMessage + ' is visible.')
   },
 
   /*
     Multistep functions
   */
 
-  fillTitleAndMessage: function(title, message) {
+  fillTitleAndMessage: function (title, message) {
     return this.waitForElementVisible('@templateTitleInput', 'Title input is visible')
       .setValue('@templateTitleInput', title)
       .setValue('@templateMessageInput', message)
   },
 
-  editFirstTemplate: function() {
-    return this.click('@firstTemplateEdit')
-      .waitForElementVisible('@templateTitleInput', 'Edit template popup is visible')
-      .verify.visible('@firstTemplateEditSaveButton', 'Save template button is visible')
-      .setValue('@templateTitleInput', 'I changed the title')
-      .setValue('@templateTitleInput')
-      .click('@firstTemplateEditSaveButton')
-      .waitForElementNotPresent('@firstTemplateEditSaveButton', 'Edit template popup is not present')
+  templateEditMode: function (templateName) {
+    return this.waitForElementVisible(templateName, templateName + ' is visible')
+      .click(templateName)
+      .waitForElementVisible('@editTemplateButton', 'Edit template button is visible.')
+      .click('@editTemplateButton')
   },
 
-  deleteFirstTemplate: function() {
-    return this.waitForElementVisible('@deleteTemplateButton', 'Template delete button is visible')
+  updateTemplate: function (newTitle, newMessage) {
+    return this.click('@editTemplateButton')
+      .waitForElementVisible('@templateTitleInput', 'Created template is opened in edit mode.')
+      .clearValue('@templateTitleInput')
+      .setValue('@templateTitleInput', newTitle)
+      .clearValue('@templateMessageInput')
+      .setValue('@templateMessageInput', newMessage)
+  },
+
+  updateSystemTemplate: function () {
+    return this.waitForElementVisible('@editTemplateButton', 'Edit template button is visible.')
+      .click('@editTemplateButton')
+      .waitForElementVisible('@templateTitleInput', 'Created template is opened in edit mode.')
+      .clearValue('@templateTitleInput')
+      .setValue('@templateTitleInput', newTitle)
+      .clearValue('@templateMessageInput')
+      .setValue('@templateMessageInput', newMessage)
+  },
+
+  deleteSystemTemplate: function () {
+    return this.waitForElementVisible('@editTemplateButton', 'Edit template button is visible.')
+      .click('@editTemplateButton')
+      .waitForElementVisible('@deleteTemplateButton', 'Template delete button is visible')
       .click('@deleteTemplateButton')
       .waitForElementVisible('@deleteTemplateFinalButton', 'Delete template popup is visible')
       .click('@deleteTemplateFinalButton')
       .waitForElementNotVisible('@deleteTemplateFinalButton', 'Delete template popup is hidden')
   },
 
-  deleteSpecificTemplate: function(templateName) {
-    this.api.useXpath().waitForElementVisible(`//SPAN[contains(text(), '${templateName}')]`, `${templateName} template is visible`)
-      .click(`//SPAN[contains(text(), '${templateName}')]`);
-
+  deleteTemplate: function () {
     return this.waitForElementVisible('@editTemplateButton', 'Edit Template button is visible')
       .click('@editTemplateButton')
       .waitForElementVisible('@deleteTemplateButton', 'Delete button is visible')
       .click('@deleteTemplateButton')
       .waitForElementVisible('@deleteTemplateFinalButton', 'Final delete button is visible')
       .click('@deleteTemplateFinalButton')
+      .waitForElementVisible('@deleteTemplateSuccessMessage', 'template deletion is successfull.')
   },
 
   // this function is magic, don't ask why it works. nobody knows. 
-  uploadFile: function(filePath) {
+  uploadFile: function (filePath) {
     return this.setValue('input[type="file"]', path.resolve(filePath));
   }
 }
 
 module.exports = {
   commands: [templatesCommands],
-  url: function() {
+  url: function () {
     return this.api.launch_url + '/settings/organization/templates'
   },
   elements: {
@@ -172,6 +153,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    templateTitle: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.templateTitle}')]`,
+      locateStrategy: 'xpath',
+    },
+
     /*---------------------------------------------------------*/
     // create template page
     /*---------------------------------------------------------*/
@@ -208,7 +194,31 @@ module.exports = {
 
     removeAttachmentIcon: {
       selector: `//BUTTON[contains(@title, 'Close')]`,
-      locateStrategy: 'xpath'
-    }
+      locateStrategy: 'xpath',
+    },
+
+    updateTemplateButton: {
+      selector: `//SPAN[contains(.,'Update Template')]`,
+      locateStrategy: 'xpath',
+    },
+
+    /*---------------------------------------------------------*/
+    // Template Success Message
+    /*---------------------------------------------------------*/
+
+    createTemplateSuccessMessage: {
+      selector: `//DIV[@text()='Template created successfully.']`,
+      locateStrategy: 'xpath',
+    },
+
+    updateTemplateSuccessMessage: {
+      selector: `//DIV[@text()='Template updated successfully.']`,
+      locateStrategy: 'xpath',
+    },
+
+    deleteTemplateSuccessMessage: {
+      selector: `//DIV[@text()='Template deleted successfully.']`,
+      locateStrategy: 'xpath',
+    },
   }
 };

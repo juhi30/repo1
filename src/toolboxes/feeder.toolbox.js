@@ -4,7 +4,7 @@ module.exports = {
     ccrPassword: process.env.CCR_PASSWORD,
 
     //Org Setup Details
-    orgName: 'TestingForDelete_2',
+    orgName: 'AutomationTestOrg',
     orgName2: 'India Test Org',
     address: 'Test Address',
     city: 'Test City',
@@ -19,9 +19,10 @@ module.exports = {
     zipCode: '29403',
 
     // New Member Details 
-    memberFirstName: 'TestMember_436',
-    memberLastName: 'LastName',
-    memberUsername: 'TestMember_436',
+    memberFirstName: 'Munish',
+    memberLastName: 'Dutta',
+    memberName: 'Munish Dutta',
+    memberUsername: 'MunishD',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
@@ -50,5 +51,7 @@ module.exports = {
     templateMessage : 'this is automation testing message',
     filePath:'/home/munish/Desktop/automated-testing.png', 
     newTemplate: 'new_test_automation_template',
-    newTempleteMessage : 'this is automation testing new message'
+    newTempleteMessage : 'this is automation testing new message',
+    hipaaTitle: 'HIPAA Consent Request',
+    hipaaMessage : 'Hi! You can now text or call us at this number! Just like phone calls and voicemails, texting may not always be 100% secure depending on the mobile service you use. Knowing that, would you like us to communicate with you via text?',
 };

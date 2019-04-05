@@ -9,7 +9,6 @@ const templatesCommands = {
   renderPageElements: function () {
     return this.waitForElementVisible('@createTemplateButton', 'Create template button is visible')
       .verify.visible('@HIPAATemplate', 'HIPAA template is visible')
-      .verify.visible('@firstTestTemplate', 'First test template is visible')
   },
 
   validateSMSFilter: function () {
@@ -25,7 +24,7 @@ const templatesCommands = {
     return this.click('@filterDropdown')
       .waitForElementVisible('@filterAll', 'All channel filter is visible')
       .click('@filterAll')
-      // .waitForElementPresent('@filterDropdown', 'Dropdown choices are closed')
+      .waitForElementPresent('@filterDropdown', 'Dropdown choices are closed')
       .verify.containsText('@filterDropdown', 'All', 'All filter is active')
   },
 
@@ -33,9 +32,20 @@ const templatesCommands = {
    Clicking and checking Success Message.
  */
 
+  clickUploadFileButton: function () {
+    return this.waitForElementVisible('@uploadFileButton', ' Upload File button is visible.')
+      .click('@uploadFileButton')
+  },
+
+  clickCreateTemplateButton: function () {
+    return this.click('@createTemplateButton')
+      .waitForElementVisible('@templateTitleInput', 'Create Template page is opened.')
+  },
+
   clickCreateUpdateButton: function (element, successMessage) {
     return this.waitForElementVisible(element, element + ' button is visible')
       .click(element)
+      .pause(1000)
       .waitForElementVisible(successMessage, successMessage + ' is visible.')
   },
 
@@ -57,42 +67,33 @@ const templatesCommands = {
   },
 
   updateTemplate: function (newTitle, newMessage) {
-    return this.click('@editTemplateButton')
-      .waitForElementVisible('@templateTitleInput', 'Created template is opened in edit mode.')
+    return this.waitForElementVisible('@templateTitleInput', 'Created template is opened in edit mode.')
       .clearValue('@templateTitleInput')
       .setValue('@templateTitleInput', newTitle)
       .clearValue('@templateMessageInput')
       .setValue('@templateMessageInput', newMessage)
   },
 
-  updateSystemTemplate: function () {
-    return this.waitForElementVisible('@editTemplateButton', 'Edit template button is visible.')
-      .click('@editTemplateButton')
-      .waitForElementVisible('@templateTitleInput', 'Created template is opened in edit mode.')
-      .clearValue('@templateTitleInput')
-      .setValue('@templateTitleInput', newTitle)
+  updateSystemTemplate: function (newMessage) {
+    return this.waitForElementVisible('@templateTitleInput', 'Created template is opened in edit mode.')
       .clearValue('@templateMessageInput')
       .setValue('@templateMessageInput', newMessage)
   },
 
-  deleteSystemTemplate: function () {
-    return this.waitForElementVisible('@editTemplateButton', 'Edit template button is visible.')
-      .click('@editTemplateButton')
-      .waitForElementVisible('@deleteTemplateButton', 'Template delete button is visible')
-      .click('@deleteTemplateButton')
-      .waitForElementVisible('@deleteTemplateFinalButton', 'Delete template popup is visible')
-      .click('@deleteTemplateFinalButton')
-      .waitForElementNotVisible('@deleteTemplateFinalButton', 'Delete template popup is hidden')
+  revertToOriginalSystemTemplate: function(hipaaMessage){
+    return this.waitForElementVisible('@revertToOriginalButton','revert to original button is visible.')
+    .click('@revertToOriginalButton')
+    .waitForElementVisible('@hipaaMessage','HIPAA System template message is reverted and visible.')
+    .assert.containsText('@hipaaMessage',hipaaMessage)
   },
 
-  deleteTemplate: function () {
-    return this.waitForElementVisible('@editTemplateButton', 'Edit Template button is visible')
-      .click('@editTemplateButton')
-      .waitForElementVisible('@deleteTemplateButton', 'Delete button is visible')
+  deleteTemplate: function (successMessage) {
+    return this.waitForElementVisible('@deleteTemplateButton', 'Delete button is visible')
       .click('@deleteTemplateButton')
       .waitForElementVisible('@deleteTemplateFinalButton', 'Final delete button is visible')
       .click('@deleteTemplateFinalButton')
       .waitForElementVisible('@deleteTemplateSuccessMessage', 'template deletion is successfull.')
+      .waitForElementVisible(successMessage, successMessage + ' is visible')
   },
 
   // this function is magic, don't ask why it works. nobody knows. 
@@ -202,22 +203,31 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    revertToOriginalButton : {
+      selector : `//SPAN[contains(text(),'Revert to original')]`,
+      locateStrategy: 'xpath',
+    },
+
+    hipaaMessage: {
+      selector: `//TEXTAREA[contains(@id,'message')]`,
+      locateStrategy: 'xpath',
+    },
     /*---------------------------------------------------------*/
     // Template Success Message
     /*---------------------------------------------------------*/
 
     createTemplateSuccessMessage: {
-      selector: `//DIV[@text()='Template created successfully.']`,
+      selector: `//DIV[text()='Template created successfully.']`,
       locateStrategy: 'xpath',
     },
 
     updateTemplateSuccessMessage: {
-      selector: `//DIV[@text()='Template updated successfully.']`,
+      selector: `//DIV[text()='Template updated successfully.']`,
       locateStrategy: 'xpath',
     },
 
     deleteTemplateSuccessMessage: {
-      selector: `//DIV[@text()='Template deleted successfully.']`,
+      selector: `//DIV[text()='Template deleted successfully.']`,
       locateStrategy: 'xpath',
     },
   }

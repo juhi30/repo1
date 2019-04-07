@@ -22,7 +22,7 @@ module.exports = {
     memberFirstName: 'Munish',
     memberLastName: 'Dutta',
     memberName: 'Munish Dutta',
-    memberUsername: 'MunishD',
+    memberUsername: 'MunishD1',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
@@ -54,4 +54,7 @@ module.exports = {
     newTempleteMessage : 'this is automation testing new message',
     hipaaTitle: 'HIPAA Consent Request',
     hipaaMessage : 'Hi! You can now text or call us at this number! Just like phone calls and voicemails, texting may not always be 100% secure depending on the mobile service you use. Knowing that, would you like us to communicate with you via text?',
+    allFilter: 'All',
+    textingFilter: 'Texting',
+    favFilter: 'Favorite',
 };

@@ -11,21 +11,14 @@ const templatesCommands = {
       .verify.visible('@HIPAATemplate', 'HIPAA template is visible')
   },
 
-  validateSMSFilter: function () {
-    return this.verify.visible('@filterDropdown', 'Channel filter is visible')
+  validateChannelFilter: function (filter, filterValue) {
+    return this.waitForElementVisible('@filterDropdown', ' Template Filter is visible')
       .click('@filterDropdown')
-      .waitForElementVisible('@filterTextingChannel', 'Filter choices are visible')
-      .click('@filterTextingChannel')
+      .waitForElementVisible(filter, filter + ' is visible')
+      .click(filter)
+      .pause(1000)
       .waitForElementPresent('@filterDropdown', 'Dropdown choices are closed')
-      .verify.containsText('@filterDropdown', 'Texting', 'Texting filter is active')
-  },
-
-  validateChannelFilter: function () {
-    return this.click('@filterDropdown')
-      .waitForElementVisible('@filterAll', 'All channel filter is visible')
-      .click('@filterAll')
-      .waitForElementPresent('@filterDropdown', 'Dropdown choices are closed')
-      .verify.containsText('@filterDropdown', 'All', 'All filter is active')
+      .verify.containsText('@filterDropdown', filterValue, filterValue + ' is active')
   },
 
   /*
@@ -59,6 +52,28 @@ const templatesCommands = {
       .setValue('@templateMessageInput', message)
   },
 
+  markAsFavorite: function (favOpt, filter, templateName) {
+    return this.waitForElementVisible(favOpt, 'Favorite Icon is visible')
+      .click(favOpt)
+      .waitForElementPresent('@filterDropdown', 'filter dropdown is available')
+      .click('@filterDropdown')
+      .pause(1000)
+      .waitForElementVisible(filter, filter + ' is visible')
+      .click(filter)
+      .waitForElementVisible(templateName, templateName + ' is marked as favorite')
+  },
+
+  markAsUnfavorite: function (favOpt, filter, templateName) {
+    return this.waitForElementVisible('@filterDropdown', 'filter dropdown is available')
+      .click('@filterDropdown')
+      .pause(1000)
+      .waitForElementVisible(filter, filter + ' is visible')
+      .click(filter)
+      .waitForElementVisible(templateName, templateName + ' favorited template is visible')
+      .click(favOpt)
+      .waitForElementVisible('@noResultFound', templateName + ' template is marked as unfavorited.')
+  },
+
   templateEditMode: function (templateName) {
     return this.waitForElementVisible(templateName, templateName + ' is visible')
       .click(templateName)
@@ -80,11 +95,17 @@ const templatesCommands = {
       .setValue('@templateMessageInput', newMessage)
   },
 
-  revertToOriginalSystemTemplate: function(hipaaMessage){
-    return this.waitForElementVisible('@revertToOriginalButton','revert to original button is visible.')
-    .click('@revertToOriginalButton')
-    .waitForElementVisible('@hipaaMessage','HIPAA System template message is reverted and visible.')
-    .assert.containsText('@hipaaMessage',hipaaMessage)
+  revertToOriginalSystemTemplate: function (hipaaMessage) {
+    return this.waitForElementVisible('@revertToOriginalButton', 'revert to original button is visible.')
+      .click('@revertToOriginalButton')
+      .waitForElementVisible('@hipaaMessage', 'HIPAA System template message is reverted and visible.')
+      .assert.containsText('@hipaaMessage', hipaaMessage)
+  },
+
+  validateTemplateSearch: function (templateName, result) {
+    return this.waitForElementVisible('@templateSearch', 'Template Search is visible.')
+      .setValue('@templateSearch', templateName)
+      .waitForElementVisible(result, result + ' is visible.')
   },
 
   deleteTemplate: function (successMessage) {
@@ -115,17 +136,32 @@ module.exports = {
     },
 
     filterDropdown: {
-      selector: `//BUTTON[contains(@class, 'app-page__header__filter__button')]`,
+      selector: `//SPAN[@class='dropdown__toggle__text']`,
       locateStrategy: 'xpath',
     },
 
     filterAll: {
-      selector: `//SPAN[contains(.,'All')]`,
+      selector: `//DIV[@class='dropdown__menu__item__content__label']//SPAN[text()='All']`,
+      locateStrategy: 'xpath',
+    },
+
+    favoriteFilter: {
+      selector: `//DIV[@class='dropdown__menu__item__content__label']//SPAN[contains(text(),'Favorite')]`,
       locateStrategy: 'xpath',
     },
 
     filterTextingChannel: {
       selector: `//SPAN[contains(.,'Texting')]`,
+      locateStrategy: 'xpath',
+    },
+
+    favoriteOption: {
+      selector: `//*[@class='resource has-right-column']//descendant :: *[contains(text(),'${testConstants.templateTitle}')]// ancestor :: DIV[@class='resource has-right-column']//*[@class='resource__right resource__right--no-flex']//DIV//BUTTON//SPAN`,
+      locateStrategy: 'xpath',
+    },
+
+    favoriteOptionforHIPAA: {
+      selector: `//*[@class='resource has-right-column']//descendant :: *[contains(text(),'HIPAA')]// ancestor :: DIV[@class='resource has-right-column']//*[@class='resource__right resource__right--no-flex']//DIV//BUTTON//SPAN`,
       locateStrategy: 'xpath',
     },
 
@@ -203,8 +239,8 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    revertToOriginalButton : {
-      selector : `//SPAN[contains(text(),'Revert to original')]`,
+    revertToOriginalButton: {
+      selector: `//SPAN[contains(text(),'Revert to original')]`,
       locateStrategy: 'xpath',
     },
 
@@ -228,6 +264,27 @@ module.exports = {
 
     deleteTemplateSuccessMessage: {
       selector: `//DIV[text()='Template deleted successfully.']`,
+      locateStrategy: 'xpath',
+    },
+
+    templateSearch: {
+      selector: `//INPUT[contains(@id , 'search')]`,
+      locateStrategy: 'xpath',
+    },
+
+    searchResult: {
+      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[contains(text(),'${testConstants.templateTitle}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    /* Search result after updating the template */
+    updatedSearchResult: {
+      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[contains(text(),'${testConstants.newTemplate}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    noResultFound: {
+      selector: `//DIV[@class='search__no-results'][contains(text(),'No results')]`,
       locateStrategy: 'xpath',
     },
   }

@@ -55,7 +55,7 @@ module.exports = {
     },
 
     updatedRhinoSecureChannelTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.rhinoChannelNewName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.newRhinoChannel}')]`,
       locateStrategy: 'xpath',
     },
 

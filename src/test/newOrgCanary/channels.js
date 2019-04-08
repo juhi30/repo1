@@ -71,7 +71,7 @@ describe('Automated Tests: Channels', () => {
         //     .routeSearch('@groupInput', testConstants.groupName, '@groupResult')
         //     .pause(2000)
 
-        await route.routeSearch('@memberInput', testConstants.memberFirstName, '@memberResult')
+        await route.routeSearch('@memberInput', testConstants.memberName, '@memberResult')
             .pause(2000)
 
         await rhino.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
@@ -104,7 +104,7 @@ describe('Automated Tests: Channels', () => {
         await channel.navigate()
             .channelEditMode('@rhinoSecureChannelTitle')
 
-        await update.editChannelDetailsSection(testConstants.rhinoChannelNewName, testConstants.newPurpose)
+        await update.editChannelDetailsSection(testConstants.newRhinoChannel, testConstants.newPurpose)
             .enableDisableToggles('@availabilityHoursToggle')
             .enableDisableToggles('@channelForwardingToggle')
             .pause(2000)
@@ -120,7 +120,7 @@ describe('Automated Tests: Channels', () => {
         await channel.navigate()
             .channelEditMode('@updatedChannelTitle')
 
-        await update.addtag(testConstants.tagNameNewPhoneType, '@customTag')
+        await update.addtag(testConstants.newPhoneTypeTag, '@customTag')
             .pause(2000)
             .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
             .checkSuccessMessage('@channelUpdateSuccessMessage')

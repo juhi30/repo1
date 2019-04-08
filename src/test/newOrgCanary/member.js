@@ -11,7 +11,7 @@ describe('Members Page', () => {
       .enterDetails('@memberFirstName', testConstants.memberFirstName)
       .enterDetails('@memberLastName', testConstants.memberLastName)
       .enterDetails('@memberUsername', testConstants.memberUsername)
-      //.enterDetails('@memberEmailAddress', testConstants.memberEmail)
+      .enterDetails('@memberEmailAddress', testConstants.memberEmail)
       .getTempPassword()
       .setMemberRoles('@adminRole')
       .setMemberRoles('@memberRole')
@@ -37,11 +37,5 @@ describe('Members Page', () => {
       .clickSaveAndContinueButton()
       .validateUrlChange()
       .pause(2000)
-  });
-
-  test('Logout as member', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
   });
 });

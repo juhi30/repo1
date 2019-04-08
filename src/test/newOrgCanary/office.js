@@ -3,14 +3,6 @@ const testConstants = require('../../toolboxes/feeder.toolbox');
 
 describe('Office Page', () => {
 
-    test('login as member', async () => {
-        const login = client.page.LoginPage();
-        await login.navigate()
-            .enterCSRCreds(testConstants.memberUsername, testConstants.memberPassword)
-            .submit()
-            .validateUrlChange()
-    });
-
     test('To add the office by Admin Member', async () => {
 
         const office = client.page.Office();

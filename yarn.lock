@@ -6697,9 +6697,9 @@ rhinocloud-sdk@1.0.xx:
   version "1.0.0"
   resolved "git+https://ab1e60bc7d1ea8f0cef2d98a042749dee2741f8c:x-oauth-basic@github.com/rhinogram/rhinodeploy.git#a580fd5a45fce9dc0495dffac3bf3a3d83c4e158"
 
-"rhinotilities@git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#1.0.15":
+"rhinotilities@git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#1.0.17":
   version "1.0.0"
-  resolved "git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#b48e6ff00af3278fc6c1e72d94bbdc708d752d58"
+  resolved "git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#084dd2407824c488f13728b04275bf9b71da2ea9"
   dependencies:
     aws-sdk "2.425.0"
     bunyan "1.8.12"

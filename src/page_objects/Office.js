@@ -1,4 +1,4 @@
-const testConstant = require('../toolboxes/feeder.toolbox')
+const testConstants = require('../toolboxes/feeder.toolbox')
 
 const officeCommands = {
 
@@ -9,26 +9,41 @@ const officeCommands = {
       .waitForElementVisible('@officeCreatepageTitle', 'New Office setup page is open')
   },
 
-  createOfficeForm: function (name, address, city, state, zip) {
-    return this.verify.visible('@officeName', 'Office name input is visible')
-      .setValue('@officeName', name)
-      .verify.visible('@officeAddressLine1', 'Office address line1 input is visible')
-      .verify.visible('@officeAddressLine2', 'Office address line2 input is visible')
-      .setValue('@officeAddressLine1',address)
-      .verify.visible('@officeCity', 'Office city input is visible')
-      .setValue('@officeCity', city)
-      .verify.visible('@officeState', 'Office state input is visible')
-      .setValue('@officeState', state)
-      .verify.visible('@officeZip', 'Office zip input is visible')
-      .setValue('@officeZip', zip)
+  createOfficeForm: function (inputField, newValue) {
+    return this.waitForElementVisible(inputField, inputField + ': is visible')
+      .setValue(inputField, newValue)
   },
 
-  clickCreateOffice: function () {
-    return this.verify.visible('@createOfficeButton', 'Create Office Button is visible')
-      .click('@createOfficeButton')
-      .waitForElementVisible('@officeCreationSuccessMessage', 'Office created successfully')
+  checkVisibilityOfEditPage: function () {
+    return this.waitForElementVisible('@officesTitle', 'officeToBeEdited is visible')
+      .click('@officeToBeEdited')
+      .waitForElementVisible('@editOfficeButton', 'edit office button is visible')
+      .click('@editOfficeButton')
+      .waitForElementVisible('@editOfficeTitle', 'edit office page is opened.')
+  },
+
+  editOfficeForm: function (value, updatedValue) {
+    return this.waitForElementVisible(value, value + ': is visible')
+      .clearValue(value)
+      .setValue(value, updatedValue)
+  },
+
+  deleteOfficeForm: function () {
+    return this.waitForElementVisible('@officesTitle', 'officeToBeDeleted is visible')
+      .click('@officeToBeDeleted')
+      .waitForElementVisible('@editOfficeButton', 'edit office button is visible')
+      .click('@editOfficeButton')
+      .waitForElementVisible('@editOfficeTitle', 'edit office page is opened.')
+      .click('@deleteOfficeButton')
+      .waitForElementVisible('@sureDeleteButton', 'delete sure office button is visible')
+      .click('@sureDeleteButton')
+  },
+
+  successMessageVerification: function (element) {
+    return this.waitForElementVisible(element, element + ': is successfully done')
   },
 }
+
 
 module.exports = {
   commands: [officeCommands],
@@ -90,5 +105,56 @@ module.exports = {
       selector: `//DIV[text()='Office created successfully.']`,
       locateStrategy: 'xpath',
     },
+
+    editOfficeButton: {
+      selector: `//SPAN[contains(text(),'Edit Office')]`,
+      locateStrategy: 'xpath',
+    },
+
+    editOfficeTitle: {
+      selector: `//DIV[contains(text(),'Edit Office')]`,
+      locateStrategy: 'xpath',
+    },
+
+    updateOfficeButton: {
+      selector: `//SPAN[text()='Update Office']`,
+      locateStrategy: 'xpath',
+    },
+
+    officeUpdationSuccessMessage: {
+      selector: `//DIV[text()='Office updated successfully.']`,
+      locateStrategy: 'xpath',
+    },
+
+    deleteOfficeButton: {
+      selector: `//BUTTON[@title='Delete Office']`,
+      locateStrategy: 'xpath',
+    },
+
+    sureDeleteButton: {
+      selector: `//SPAN[text()='Yes, delete office']`,
+      locateStrategy: 'xpath',
+    },
+
+    officeDeletionSuccessMessage: {
+      selector: `//DIV[text()='Office deleted successfully.']`,
+      locateStrategy: 'xpath',
+    },
+
+    officeToBeEdited: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.officeName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    officesTitle: {
+      selector: `//DIV[text()='Offices']`,
+      locateStrategy: 'xpath',
+    },
+
+    officeToBeDeleted: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.newOfficeName}')]`,
+      locateStrategy: 'xpath',
+    }
+
   }
 }

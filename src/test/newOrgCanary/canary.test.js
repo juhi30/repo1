@@ -9,19 +9,18 @@ beforeAll(async () => {
   const login = client.page.LoginPage();
   const setup = client.page.AccountSetupPage();
   const org = client.page.UniversalElements();
-
   await login.navigate()
     .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
     .submit()
     .pause(2000)
     .validateUrlChange('/selectorg')
 
-  // //Use Search to avoid creating org again n again 
-  // await org.searchForOrganization(testConstants.orgName)
-  //   .ccrOrgLogin()
-  // await org.clickLogout()
+  //  //Use Search to avoid creating org again n again 
+  //   await org.searchForOrganization(testConstants.orgName)
+  //     .ccrOrgLogin()
+  //await org.clickLogout()
 
-  setup.navigate()
+  await setup.navigate()
     .clickBillingToggle()
     .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
       testConstants.state, testConstants.zip)
@@ -39,7 +38,7 @@ afterAll(async (done) => {
     const archiveResponse = await deleteOrg.archiveOrganization(process.env.ORGANIZATION_ID, cookie);
     console.log('======== Organization Archive Response =======', archiveResponse);
     const deleteResponse = await deleteOrg.deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======');
+    console.log('====== Organization Deleted =======', deleteResponse);
     done();
   } catch (err) {
     console.log(err);
@@ -47,7 +46,8 @@ afterAll(async (done) => {
   }
 });
 
- import './member'
- import './office'
- import './login'
- import './channels'
+import './member'
+// import './office'
+// import './login'
+// import './channels'
+//import './somethingfirst'

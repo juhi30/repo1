@@ -4,8 +4,7 @@ function login() {
     const RHINO_API_BASE_URL = process.env.API_BASE_URL;
     const USERNAME = process.env.CCR_USERNAME;
     const PASSWORD = process.env.CCR_PASSWORD;
-
-
+    
     var options = {
         method: 'POST',
         url: RHINO_API_BASE_URL + '/login',

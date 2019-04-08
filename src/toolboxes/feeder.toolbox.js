@@ -4,25 +4,25 @@ module.exports = {
     ccrPassword: process.env.CCR_PASSWORD,
 
     //Org Setup Details
-    orgName: 'AutomationTestOrg',
-    orgName2: 'India Test Org',
+    orgName: 'Testing_NewCanary',
+    orgName2: process.env.EXISTING_ORG_NAME,
     address: 'Test Address',
     city: 'Test City',
     state: 'Alaska',
     zip: '12345',
 
     //details for office addition
-    officeName: 'Mount Pleasant Office',
+    officeName: 'Mount Pleasant Office5',
     officeAddress: '128 Hester St',
     officeCity: 'Charleston',
     officeState: 'South Carolina',
     zipCode: '29403',
 
     // New Member Details 
-    memberFirstName: 'Munish',
-    memberLastName: 'Dutta',
-    memberName: 'Munish Dutta',
-    memberUsername: 'MunishD1',
+    memberFirstName: 'Testing_NewCanary',
+    memberLastName: 'LastName5',
+    memberName: 'Testing_NewCanary LastName5',
+    memberUsername: 'Testing_NewCanary5',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
@@ -44,12 +44,12 @@ module.exports = {
     chooseANumber: '+18192004430',
     forwardingNumber: '(454) 657-6879',
     channelName: 'Automation Test Channel1',
+    channelPurpose : 'test Automation',
     timeZone: 'Eastern Time (UTC -05:00) - New York',
 
     //Templates Details
     templateTitle : 'test_automation_template',
-    templateMessage : 'this is automation testing message',
-    filePath:'/home/munish/Desktop/automated-testing.png', 
+    templateMessage : 'this is automation testing message', 
     newTemplate: 'new_test_automation_template',
     newTempleteMessage : 'this is automation testing new message',
     hipaaTitle: 'HIPAA Consent Request',
@@ -57,4 +57,13 @@ module.exports = {
     allFilter: 'All',
     textingFilter: 'Texting',
     favFilter: 'Favorite',
+    rhinoChannelName : 'RhinoSecure Automation channel',
+    newChannelName : 'Automation Test Channel New',
+    newPurpose: 'New change in purpose',
+    rhinoChannelNewName : 'New RhinoSecure Channel',
+
+    //Tags Data
+    tagNameNewPhoneType: 'NewPhoneTypetag',
+    tagNameRhinoType: 'RhinoSecureTypeTag',
+    customTag: 'Custom'
 };

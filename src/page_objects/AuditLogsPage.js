@@ -98,25 +98,12 @@ const auditLogsCommands = {
     return this.waitForElementVisible('@auditEntry', 'Template entry is visible')
       .waitForElementVisible('@linkText','Details Link text is visible')
       .click('@linkText')
-      .verify.containsText('@staticField', templateTitle, 'Template Title is ' + templateTitle)
+       .verify.containsText('@staticField', templateTitle, 'Template Title is ' + templateTitle)
       .verify.containsText('@member', member, 'Member name is' + member)
       .verify.containsText('@category', category, 'Category should be ' + category)
       .verify.containsText('@action', action, 'Action should be ' + action)
       .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-      .verify.containsText('@staticField', templateTitle + 'title name should be ' + templateTitle)
-      .elementText('@eventDetails', ' == details')
-  },
-
-  validateSystemTemplateEntry : function(templateTitle, member, action, category){
-    return this.waitForElementVisible('@auditEntry', 'SystemTemplate entry is visible')
-      .waitForElementVisible('@linkText', 'Details', 'Link text should be Details')
-      .click('@linkText')
-      .verify.containsText('@systemStaticField', templateTitle, 'Template Title is ' + templateTitle)
-      .verify.containsText('@member', member, 'Member name is' + member)
-      .verify.containsText('@category', category, 'Category should be ' + category)
-      .verify.containsText('@action', action, 'Action should be ' + action)
-      .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-      .verify.containsText('@systemStaticField', templateTitle + 'title name should be ' + templateTitle)
+      .verify.containsText('@staticField', templateTitle, ' title name should be ' + templateTitle)
       .elementText('@eventDetails', ' == details')
   },
 
@@ -277,12 +264,7 @@ module.exports = {
     },
 
     staticField: {
-      selector: `//STRONG[contains(text(),'${testConstants.templateTitle}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    systemStaticField: {
-      selector: `//strong[contains(text(),'${testConstants.hipaaTitle}')]`,
+      selector: `//DIV[@class='expand-row__span']/STRONG`,
       locateStrategy: 'xpath',
     },
 

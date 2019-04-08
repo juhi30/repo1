@@ -1,5 +1,5 @@
-const path = require('path');
 const testConstants = require('../toolboxes/feeder.toolbox');
+const helper = require('../toolboxes/helpers.toolbox');
 
 const templatesCommands = {
 
@@ -25,9 +25,13 @@ const templatesCommands = {
    Clicking and checking Success Message.
  */
 
-  clickUploadFileButton: function () {
-    return this.waitForElementVisible('@uploadFileButton', ' Upload File button is visible.')
+  addAttachment: async function () {
+    this.waitForElementVisible('@uploadFileButton', ' Upload File button is visible.')
       .click('@uploadFileButton')
+      .waitForElementNotVisible('@uploadFileButton', 'Uplaod Photo modal is open')
+      .pause(2000)
+    await helper.uploadFile(this, 'rhinogram.png')
+    return this.pause(2000)
   },
 
   clickCreateTemplateButton: function () {
@@ -116,11 +120,6 @@ const templatesCommands = {
       .waitForElementVisible('@deleteTemplateSuccessMessage', 'template deletion is successfull.')
       .waitForElementVisible(successMessage, successMessage + ' is visible')
   },
-
-  // this function is magic, don't ask why it works. nobody knows. 
-  uploadFile: function (filePath) {
-    return this.setValue('input[type="file"]', path.resolve(filePath));
-  }
 }
 
 module.exports = {
@@ -161,7 +160,7 @@ module.exports = {
     },
 
     favoriteOptionforHIPAA: {
-      selector: `//*[@class='resource has-right-column']//descendant :: *[contains(text(),'HIPAA')]// ancestor :: DIV[@class='resource has-right-column']//*[@class='resource__right resource__right--no-flex']//DIV//BUTTON//SPAN`,
+      selector: `//*[@class='resource has-right-column']//descendant :: *[contains(text(),'${testConstants.hipaaTitle}')]// ancestor :: DIV[@class='resource has-right-column']//*[@class='resource__right resource__right--no-flex']//DIV//BUTTON//SPAN`,
       locateStrategy: 'xpath',
     },
 

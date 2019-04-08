@@ -20,11 +20,13 @@ describe('Test Automation - Templates', () => {
             .renderPageElements()
             .clickCreateTemplateButton()
             .fillTitleAndMessage(testConstants.templateTitle, testConstants.templateMessage)
+            // .addAttachment()
             .clickCreateUpdateButton('@createTemplateSaveButton', '@createTemplateSuccessMessage')
             .navigate()
             .validateTemplateSearch(testConstants.templateTitle, '@searchResult')
 
         await entry.navigate()
+            .pause(2000)
             .validateTemplateEntry(testConstants.templateTitle, testConstants.memberName, 'Add', 'Template')
     });
 
@@ -87,16 +89,16 @@ describe('Test Automation - Templates', () => {
             .updateSystemTemplate(testConstants.newTempleteMessage)
             .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage')
 
-            await entry.navigate()
-            .validateSystemTemplateEntry(testConstants.hipaaTitle, testConstants.memberName, 'Edit', 'Template')
-            
-            await systemtemplate.navigate()
+        await entry.navigate()
+            .validateTemplateEntry(testConstants.hipaaTitle, testConstants.memberName, 'Edit', 'Template')
+
+        await systemtemplate.navigate()
             .templateEditMode('@HIPAATemplate')
             .revertToOriginalSystemTemplate(testConstants.hipaaMessage)
             .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage')
 
         await entry.navigate()
-            .validateSystemTemplateEntry(testConstants.hipaaTitle, testConstants.memberName, 'Edit', 'Template')
+            .validateTemplateEntry(testConstants.hipaaTitle, testConstants.memberName, 'Edit', 'Template')
     });
 
     test('Mark the HIPAA template as favorite', async () => {

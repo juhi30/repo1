@@ -11,10 +11,6 @@ import * as AWS from 'rhinotilities/lib/objects/AWS';
 export function pushtoqueue(message, handler) {
   const queue = new Queue({
     url: process.env.AWS_SQS_LINER_INBOUND_URL,
-    longPollTimeout: 5,
-    maxMessagesPerRequest: 5,
-    accessKeyId: process.env.AWS_KEY,
-    secretAccessKey: process.env.AWS_SECRET,
     isFifo: true,
   });
   if (handler !== undefined) {

@@ -38,10 +38,4 @@ describe('Members Page', () => {
     .validateUrlChange()
     .pause(6000)
   });
-
-  test('Logout as member', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();    
-  });
 });

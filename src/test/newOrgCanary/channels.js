@@ -181,19 +181,4 @@ describe('Automated Tests: Channels', () => {
             .click('@updateChannelButton')
     });
 
-    test('Channel Deletion', async () => {
-        const channel = client.page.ChannelsPage();
-        const deletechannel = client.page.ChannelsCreateEditPage();
-
-        await channel.navigate()
-            .channelEditMode('@updatedChannelTitle')
-
-        await deletechannel.deleteChannels()
-            .pause(2000)
-        await channel.navigate()
-            .channelEditMode('@updatedRhinoSecureChannelTitle')
-
-        await deletechannel.deleteChannels()
-            .pause(2000)
-    });
 });

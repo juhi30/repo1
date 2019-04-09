@@ -8,7 +8,7 @@ describe('Members Page', () => {
 
     await member.navigate()
       .clickAddMember()
-      .enterDetails('@memberFirstName', testConstants.memberFirstName)
+      .enterDetails('@memberFirstName', testConstants.memberName)
       .enterDetails('@memberLastName', testConstants.memberLastName)
       .enterDetails('@memberUsername', testConstants.memberUsername)
       .enterDetails('@memberEmailAddress', testConstants.memberEmail)

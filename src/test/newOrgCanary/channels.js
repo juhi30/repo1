@@ -51,7 +51,7 @@ describe('Automated Tests: Channels', () => {
             .addNumber(testConstants.numberForNewPhoneChannel, testConstants.forwardingNumber)
             .channelDetails(testConstants.channelName, testConstants.channelPurpose, testConstants.timeZone)
 
-        await route.routeSearch('@memberInput', testConstants.memberFirstName, '@memberResult')
+        await route.routeSearch('@memberInput', testConstants.memberName, '@memberResult')
             .pause(2000)
 
         await newPhone.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')

@@ -37,3 +37,5 @@ describe('Existing Canary Login Page Tests', () => {
            .validateError()
   });
 });
+
+import './messenging';

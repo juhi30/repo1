@@ -41,4 +41,13 @@ module.exports = {
     forwardingNumber: '(454) 657-6879',
     channelName: 'Test Channel',
     timeZone: 'Eastern Time (UTC -05:00) - New York',
+
+    //new member details for existing org canary
+    memberUsernameExistingOrg: 'dallman',
+    memberPasswordExistingOrg: 'Test@123',
+
+    //bot contact details for existing org canary
+    botContactName: 'April Appointmentson',
+    testBotReplyMessage: 'Test Reply from Bot Contact',
+    testBotInboundMessage: 'Test Inbound Message From Bot',
 };

@@ -234,6 +234,13 @@ const universalElementsCommands = {
       .verify.urlContains('contacts', 'Contacts page is visible')
   },
 
+  clickContacts: function() {
+    return this.waitForElementVisible('@contactsButton', 'Contacts button is visible')
+      .click('@contactsButton')
+      .pause(500)
+      .verify.urlContains('contacts', 'Contacts page is visible')
+  },
+
 }
 
 module.exports = {
@@ -274,7 +281,7 @@ module.exports = {
     },
 
     contactsButton: {
-      selector: `//BUTTON[contains(text(), 'Contacts')]`,
+      selector: `//SPAN[contains(text(), 'Contacts')]`,
       locateStrategy: 'xpath'
     },
 

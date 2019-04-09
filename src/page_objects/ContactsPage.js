@@ -1,9 +1,8 @@
-const contactsCommands = {
+const testConstants = require('../toolboxes/feeder.toolbox');
 
-  pause: function(time) {
-    this.api.pause(time);
-    return this;
-  },
+let randomNumber = Math.floor(Math.random() * 1000000);
+
+const contactsCommands = {
 
   validateContactsElements: function() {
     return this.waitForElementVisible('@filterDropdown', 'Filter dropdown button is visible')
@@ -47,10 +46,37 @@ const contactsCommands = {
   },
 
   searchForContact: function(contactName) {
-    return this.setValue('@addContactDropdownInput', contactName)
+    return this.waitForElementVisible('@searchContactInput', 'Search Contacts Bar is visible')
+      .click('@searchContactInput')
+      .setValue('@addContactDropdownInput', contactName)
       .waitForElementVisible('@addContactDropdownFirstResult', 'First result is visible')
       .click('@addContactDropdownFirstResult')
-      .waitForElementVisible('@profileContainer', 'Profile summary is visible')
+      .waitForElementVisible('@profileInboxContainer', 'Profile summary is visible')
+  },
+
+  sendOutboundMessageAndGetReply: function(handlerMessage, message) {
+    const handlerRandomizedMessage = `${handlerMessage} ${randomNumber}`;
+    return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
+      .setValue('@inboxMessageArea', handlerRandomizedMessage)
+      .pause(1000)
+      .click('@sendMessageButton')
+      .pause(3000)
+      .setValue('@inboxMessageArea', message)
+      .pause(1000)
+      .click('@sendMessageButton')
+      .pause(5000)
+      .waitForElementVisible('@replyMessage', 'Reply is received from bot contact to the channel')
+      .pause(2000);
+
+  },
+
+  getInboundMessage: function(message) {
+    const randomizedMessage = `${message} ${randomNumber}`;
+    return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
+      .pause(4000)
+      .waitForElementVisible('@inboundMessage', 'Inbound Message is received')
+      .pause(2000);
+
   },
 
   clickAddNewContact: function() {
@@ -70,6 +96,10 @@ const contactsCommands = {
   validateUrlChange: function(url) {
     return this.verify.urlContains(url);
   },
+
+  getRandomNumber: function() {
+    return randomNumber;
+  }
 }
 
 module.exports = {
@@ -85,7 +115,7 @@ module.exports = {
 
     filterDropdown: {
       selector: `//BUTTON[contains(@title, 'Filter contacts')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     allContactsOption: {
@@ -95,17 +125,17 @@ module.exports = {
 
     patientOption: {
       selector: `//SPAN[contains(.,'Patient')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     unknownOption: {
       selector: `//SPAN[contains(.,'Unknown')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     otherOption: {
       selector: `//SPAN[contains(.,'Other')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     /*-----------------------------------------------------------*/
@@ -114,11 +144,51 @@ module.exports = {
 
     addContactButton: {
       selector: `//BUTTON[contains(@title, 'Add New Contact')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     searchInputInAddContactModal: {
       selector: `//INPUT[contains(@name, 'nonMembers')]`,
+      locateStrategy: 'xpath',
+    },
+
+    addContactDropdownFirstResult: {
+      selector: `//DIV[contains(@class, 'modal')]//DIV[contains(@class, 'resource__intro__title-wrapper')]//SPAN[contains(text(), ${testConstants.botContactName.split(' ')[1]})]`,
+      locateStrategy: 'xpath',
+    },
+
+    searchContactInput: {
+      selector: `//SPAN[contains(text(), 'Search users')]`,
+      locateStrategy: 'xpath',
+    },
+
+    addContactDropdownInput: {
+      selector: `//DIV[contains(@class, 'modal')]//INPUT`,
+      locateStrategy: 'xpath',
+    },
+
+    profileInboxContainer: {
+      selector: `//DIV[contains(@class, 'convo__inner')]`,
+      locateStrategy: 'xpath',
+    },
+
+    inboxMessageArea: {
+      selector: `//DIV[contains(@class, 'convo__message__textarea')]//TEXTAREA`,
+      locateStrategy: 'xpath',
+    },
+
+    sendMessageButton: {
+      selector: `//BUTTON[contains(@class, 'convo__message__send')]`,
+      locateStrategy: 'xpath',
+    },
+
+    replyMessage: {
+      selector: `//DIV[text() = '${testConstants.testBotReplyMessage} ${randomNumber}']`,
+      locateStrategy: 'xpath',
+    },
+
+    inboundMessage: {
+      selector: `//DIV[text() = '${testConstants.testBotInboundMessage} ${randomNumber}']`,
       locateStrategy: 'xpath',
     },
 

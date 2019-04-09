@@ -35,9 +35,9 @@ module.exports = {
 
     // New Member Details 
     memberFirstName: 'Ankita',
-    memberLastName: 'Singh9',
-    memberName: 'Ankita Singh9',
-    memberUsername: 'A9',
+    memberLastName: 'Singh10',
+    memberName: 'Ankita Singh10',
+    memberUsername: 'A10    ',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',

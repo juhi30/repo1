@@ -150,7 +150,7 @@ describe('Automated Tests: Channels', () => {
             .webFormValidation('@confirmationText')
 
             .createUpdateChannel('@updateChannelButton')
-
+            .pause(2000)
             .checkForValidation('@titleValidationMessage')
             .checkForValidation('@titleSubtextValidation')
             .checkForValidation('@phonePlaceholderMessage')

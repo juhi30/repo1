@@ -1,5 +1,6 @@
 import { client } from 'nightwatch-api';
 const testConstants = require('../../toolboxes/feeder.toolbox');
+const helpers = require('../../toolboxes/helpers.toolbox');
 
 describe('Test Automation - Templates', () => {
     test('Login as Member', async () => {

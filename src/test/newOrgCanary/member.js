@@ -10,6 +10,7 @@ describe('Members Page', () => {
     .enterDetails('@memberFirstName', testConstants.memberFirstName)
     .enterDetails('@memberLastName', testConstants.memberLastName)
     .enterDetails('@memberUsername', testConstants.memberUsername)
+    .enterDetails('@memberEmailAddress', testConstants.memberEmail)
     .getTempPassword()
     .setMemberRoles('@adminRole')
     .setMemberRoles('@memberRole')
@@ -34,6 +35,7 @@ describe('Members Page', () => {
     .fillInNewPasswordInput(testConstants.memberPassword)
     .fillInConfirmPasswordInput(testConstants.memberPassword)
     .clickSaveAndContinueButton()
-    .validateUrlChange()    
+    .validateUrlChange()
+    .pause(3000)
   });
 });

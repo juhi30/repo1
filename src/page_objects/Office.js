@@ -2,11 +2,6 @@ const testConstant = require('../toolboxes/feeder.toolbox')
 
 const officeCommands = {
 
-  pause: function (time) {
-    this.api.pause(time);
-    return this;
-  },
-
   clickAddOffice: function () {
     return this.waitForElementVisible('@officePageTitle', 'Offices page is open')
       .verify.visible('@addOfficeIcon', 'Add office icon is visible')

@@ -4,28 +4,31 @@ module.exports = {
     ccrPassword: process.env.CCR_PASSWORD,
 
     //Org Setup Details
-    orgName: 'Testing_8',
+    orgName: 'Testing_NewCanary',
+    orgName2: process.env.EXISTING_ORG_NAME,
     address: 'Test Address',
     city: 'Test City',
     state: 'Alaska',
     zip: '12345',
 
-    // New Member Details 
-    memberFirstName: 'TestMember',
-    memberLastName: 'LastName',
-    memberUsername: 'TestMember_8',
-    memberPassword: 'Test@123',
-
-    //New Group Details
-    groupName: 'TestGroup',
-    purpose: 'Testing',
-
-    //Office Details
+    //details for office addition
     officeName: 'Mount Pleasant Office',
     officeAddress: '128 Hester St',
-    officecity: 'Charleston',
-    officestate: 'South Carolina',
-    officeZipCode: '29403',
+    officeCity: 'Charleston',
+    officeState: 'South Carolina',
+    zipCode: '29403',
+
+    // New Member Details 
+    memberFirstName: 'Testing_NewCanary',
+    memberLastName: 'LastName',
+    memberUsername: 'Testing_NewCanary',
+    memberPassword: 'Test@123',
+    memberEmail: process.env.GMAIL_USERNAME,
+    invalidEmail: 'test@test.com',
+
+    //New Group Details
+    groupName: 'AutomationTestGroup',
+    purpose: 'Testing',
 
     //OOO Details
     oooTitle: 'Test Event',
@@ -39,10 +42,30 @@ module.exports = {
     numberForNewPhoneChannel: 819,
     chooseANumber: '+18192004430',
     forwardingNumber: '(454) 657-6879',
-    channelName: 'Test Channel',
+    channelName: 'Automation Test Channel1',
+    channelPurpose : 'test Automation',
     timeZone: 'Eastern Time (UTC -05:00) - New York',
 
-    //new member details for existing org canary
+    rhinoChannelName : 'RhinoSecure Automation channel',
+    newChannelName : 'Automation Test Channel New',
+    newPurpose: 'New change in purpose',
+    rhinoChannelNewName : 'New RhinoSecure Channel',
+
+    //Tags
+    tagNameNewPhoneType: 'Test_1',
+    tagNameRhinoType: 'Test_2',
+
+    //Web Form Addition Details
+   formTitleName: 'Send Message via web form.',
+   titleSubtext: 'Text or Call us.',
+   phonePlaceholder: 'Enter Phone Number',
+   phoneHelpText: 'This will be used in response to question.',
+   messagePlaceHolder: 'Enter your question here.',
+   submitButton: 'Do send your message.',
+   callToActionButton: 'Send Message',
+   confirmationText: 'The message has been submitted successfully!',
+
+   //member details for existing org canary
     memberUsernameExistingOrg: 'dallman',
     memberPasswordExistingOrg: 'Test@123',
 

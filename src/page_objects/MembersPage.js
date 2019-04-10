@@ -22,35 +22,53 @@ const membersCommands = {
 
   createMember: function() {
     return this.click('@createButton')
-    .waitForElementVisible('@createSuccessMessage', 'Member created successfully.')
+      .waitForElementVisible('@createSuccessMessage', 'Member created successfully.')
   },
 
   getTempPassword: function () {
-       return this.getAttribute('@tempPassword', 'value', function (tpObj) {
-           global.TEMP_PASSWORD = tpObj.value;
-           console.log('Temp password is ==', global.TEMP_PASSWORD);
-         });
-     },
-  
+    return this.getAttribute('@tempPassword', 'value', function (tpObj) {
+      global.TEMP_PASSWORD = tpObj.value;
+      console.log('Temp password is ==', global.TEMP_PASSWORD);
+    });
+  },
 
+  getNewTempPassword: function () {
+    return this.getAttribute('@tempPassword', 'value', function (tpObj) {
+      global.TEMP_NEW_PASSWORD = tpObj.value;
+      console.log('Temp password is ==', global.TEMP_NEW_PASSWORD);
+    });
+  },
+
+  selectMember: function () {
+    return this.waitForElementVisible('@selectMemberFromList', 'member name is visible')
+    .click('@selectMemberFromList')
+  },
+
+  createTempPassword: function () {
+    return this.waitForElementVisible('@createTempPassword', 'Create temp password text is visible.')
+      .click('@createTempPassword')
+      .waitForElementVisible('@confirmTempPassword', 'Confirm password button is visible.')
+      .click('@confirmTempPassword')
+      .waitForElementVisible('@tempPassword', 'temporary password is visible.')
+      .waitForElementVisible('@UpdateSuccessMessage', 'Member is updated successfully with new temporary password.')
+  },
 }
 
 module.exports = {
   commands: [membersCommands],
   url: function () {
-      return this.api.launch_url + '/settings/organization/members'
+    return this.api.launch_url + '/settings/organization/members'
   },
   elements: {
 
     createMemberButton: {
       selector: `//BUTTON[contains(@title, 'Create Member')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
-    firstMemberSelector: {
-      selector: `(//DIV[@role='button'])[1]`, // dynamic element count used, might need better way to access the members
-      locateStrategy: 'xpath'
-
+    selectMemberFromList: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.memberFirstName}')]`,
+      locateStrategy: 'xpath',
     },
 
     /*----------------------------------------------------*/
@@ -59,42 +77,42 @@ module.exports = {
 
     closeSummaryButton: {
       selector: `//SPAN[contains(@title, 'Close')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     goToConvoButton: {
       selector: `//SPAN[contains(text(), 'Go to Conversation')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     editMemberButton: {
       selector: `//SPAN[contains(text(), 'Edit Member')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     activateMember: {
       selector: `//SPAN[contains(text(), 'Activate')]`, //Only visible if member is deactivated
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     createTempPassword: {
       selector: `//SPAN[contains(text(), 'Create')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
-    
+
     confirmTempPassword: {
       selector: `//SPAN[contains(text(), 'Yes')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     cancelTempPassword: {
       selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[1]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     deactivateMemberButton: {
       selector: `(//SPAN[@class='button__text-wrapper'][text()='Deactivate'][text()='Deactivate'])[1]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     /*----------------------------------------------------*/
@@ -103,22 +121,22 @@ module.exports = {
 
     closeDeactivateModal: {
       selector: `//SPAN[contains(@title, 'Close')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
-    
+
     cancelInModal: {
       selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[2]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     deactivateInModal: {
       selector: `(//SPAN[@class='button__text-wrapper'][text()='Deactivate'][text()='Deactivate'])[2]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     reactivateInModal: {
       selector: `//SPAN[contains(text(), 'Reactivate')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     /*----------------------------------------------------*/
@@ -142,6 +160,11 @@ module.exports = {
 
     memberUsername: {
       selector: `//*[contains(@id,'username')]`,
+      locateStrategy: 'xpath',
+    },
+
+    memberEmailAddress: {
+      selector: `//INPUT[contains(@id,'loginEmail')]`,
       locateStrategy: 'xpath',
     },
 
@@ -177,6 +200,11 @@ module.exports = {
 
     createSuccessMessage: {
       selector: `//*[text()='Member created successfully.']`,
+      locateStrategy: 'xpath',
+    },
+
+    UpdateSuccessMessage: {
+      selector : `//*[text()='Member updated successfully.']`,
       locateStrategy: 'xpath',
     },
   }

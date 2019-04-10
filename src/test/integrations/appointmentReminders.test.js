@@ -15,7 +15,7 @@ const USER_TYPE_PATIENT = 18;
 let createdPatient;
 let createdAppointment;
 
-const orgId = process.env.ORG_ID;
+const orgId = process.env.EXISTING_ORG_ID;
 const patientExternalId = process.env.APPOINTMENT_PATIENT_EXTERNAL_ID;
 const appointmentExternalId = '34572356';
 

@@ -15,9 +15,8 @@ function sleep(ms) {
 }
 
 describe('messsenging tests', () => {
-  test('Existing Org Canary Page Initial Render', async () => {
+  test('Existing Org Canary Page Login With Member', async () => {
     const login = client.page.LoginPage();
-    const universalPage = client.page.UniversalElements();
 
     await login.navigate()
       .validateForm()

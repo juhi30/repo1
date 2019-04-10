@@ -11,8 +11,6 @@ import * as AWS from 'rhinotilities/lib/objects/AWS';
 export function pushtoqueue(message, handler) {
   const queue = new Queue({
     url: process.env.AWS_SQS_LINER_INBOUND_URL,
-    longPollTimeout: 5,
-    maxMessagesPerRequest: 5,
     isFifo: true,
   });
   if (handler !== undefined) {
@@ -20,5 +18,5 @@ export function pushtoqueue(message, handler) {
   }
   const date = new Date();
   console.log('putting data to queue');
-  return queue.enqueue(message, 'inbound', 'job', message.orgId);
+  return queue.sendMessage(message, 'inbound', 'job', message.orgId);
 }

@@ -1,10 +1,6 @@
+const testConstants = require('./../toolboxes/feeder.toolbox')
+
 const tagCommands = {
-
-  pause: function (time) {
-    this.api.pause(time);
-    return this;
-  },
-
   validateTagPageElements: function () {
     return this.waitForElementVisible('@newTagButton', 'New Tag button is visible')
       .waitForElementVisible('@charlestonTag', 'First tag is visible')
@@ -22,12 +18,12 @@ const tagCommands = {
   },
 
   createNewTag: function () {
-    return this.setValue('@tagNameInput', 'fake_tag')
-      .click('@tagCategoryCustom')
-      .pause(1000)
+    return this.waitForElementVisible('@tagNameInput', 'tag name input is visible')
+      .setValue('@tagNameInput', testConstants.tagName)
+      .click('@tagCategory')
       .click('@createTagButton')
-      .waitForElementNotVisible('@createTagButton', 'New Tag Modal is hidden')
-      .waitForElementVisible('@fakeTag', 'New tag exists')
+      .pause(5000)
+      .waitForElementVisible('@selectTag', 'Created tag is visible')
   },
 
   editTag: function () {
@@ -64,11 +60,11 @@ const tagCommands = {
       })
   },
 
-  checkTagSelected: function() {
+  checkTagSelected: function () {
     return this.verify.cssProperty('@youreItTag', 'color', 'rgba(0, 117, 201, 1)', 'Tag is selected and highlighted')
   },
 
-  checkTagDeselected: function() {
+  checkTagDeselected: function () {
     return this.verify.cssProperty('@youreItTag', 'color', 'rgba(64, 64, 64, 1)', 'Tag is deselected')
 
   },
@@ -92,20 +88,20 @@ module.exports = {
 
     // its a tag that says "Charleston"...
     charlestonTag: {
-      selector: `//SPAN[contains(.,'#Charleston')]`, 
-      locateStrategy: 'xpath'
+      selector: `//SPAN[contains(.,'#Charleston')]`,
+      locateStrategy: 'xpath',
     },
 
     // its a tag that says "fake_tag"...
     fakeTag: {
       selector: `//SPAN[contains(.,'#fake_tag')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     // its a tag that says "Edited_tag"...
     editedTag: {
       selector: `//SPAN[contains(.,'#Edited_tag')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     /*------------------------------------------------------------*/
@@ -113,27 +109,32 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     tagNameInput: {
-      selector: `//INPUT[contains(@id,'tagName')]`, 
+      selector: `//INPUT[contains(@id,'tagName')]`,
       locateStrategy: 'xpath',
     },
 
-    tagCategoryLocation: {
-      selector: `//LABEL[contains(text(),'Location')]`,
+    tagCategory: {
+      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'${testConstants.tagCategory}')]`,
       locateStrategy: 'xpath',
     },
 
-    tagCategoryDepartment: {
-      selector: `//LABEL[contains(text(),'Department')]`,
+    selectTag: {
+      selector: `//SPAN[contains(.,'${testConstants.tagName}')]`,
       locateStrategy: 'xpath',
     },
 
-    tagCategoryRole: {
-      selector: `//LABEL[contains(text(),'Role')]`,
-      locateStrategy: 'xpath',
-    },
+    // selectTag: {
+    //   selector: `//DIV[@class='u-inline-grid'][contains(text(),'${testConstants.selectedTag}')]`,
+    //   locateStrategy: 'xpath',
+    // },
 
-    tagCategoryCustom: {
-      selector: `//LABEL[contains(text(),'Custom')]`,
+    // selectTag:{
+    //   selector:`//SPAN[contains(.,'#India')]`,
+    //   locateStrategy:'xpath',
+    // },
+
+    channelsTagTitle: {
+      selector: `//DIV[text()='Channel Tags']`,
       locateStrategy: 'xpath',
     },
 
@@ -164,15 +165,15 @@ module.exports = {
     /*------------------------------------------------------------*/
     // xpaths for assigned tags
     /*------------------------------------------------------------*/
-    
+
     newTagContainerButton: {
       selector: `//SPAN[contains(text(),'Create New Tag')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     youreItTag: {
       selector: `//SPAN[contains(.,'#youreIt_tag')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
   }

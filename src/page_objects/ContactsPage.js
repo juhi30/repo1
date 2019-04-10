@@ -1,6 +1,6 @@
 const testConstants = require('../toolboxes/feeder.toolbox');
 
-let randomNumber = Math.floor(Math.random() * 1000000);
+const randomNumber = Math.floor(Math.random() * 1000000);
 
 const contactsCommands = {
 

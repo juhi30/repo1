@@ -65,5 +65,15 @@ module.exports = {
     //Tags Data
     tagNameNewPhoneType: 'NewPhoneTypetag',
     tagNameRhinoType: 'RhinoSecureTypeTag',
-    customTag: 'Custom'
+    customTag: 'Custom',
+    
+    //Web Form Addition Details
+   formTitleName: 'Send Message via web form.',
+   titleSubtext: 'Text or Call us.',
+   phonePlaceholder: 'Enter Phone Number',
+   phoneHelpText: 'This will be used in response to question.',
+   messagePlaceHolder: 'Enter your question here.',
+   submitButton: 'Do send your message.',
+   callToActionButton: 'Send Message',
+   confirmationText: 'The message has been submitted successfully!',
 };

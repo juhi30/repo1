@@ -11,14 +11,14 @@ const templatesCommands = {
       .verify.visible('@HIPAATemplate', 'HIPAA template is visible')
   },
 
-  validateChannelFilter: function (filter, filterValue) {
+  validateChannelFilter: function (filter, activeFilterValue) {
     return this.waitForElementVisible('@filterDropdown', ' Template Filter is visible')
       .click('@filterDropdown')
       .waitForElementVisible(filter, filter + ' is visible')
       .click(filter)
       .pause(1000)
       .waitForElementPresent('@filterDropdown', 'Dropdown choices are closed')
-      .verify.containsText('@filterDropdown', filterValue, filterValue + ' is active')
+      .verify.containsText('@filterDropdown', activeFilterValue, activeFilterValue + ' is active')
   },
 
   /*

@@ -9,7 +9,7 @@ describe('Office Page', () => {
 
         await office.navigate()
             .clickAddOffice()
-            .createOfficeForm(testConstants.officeName, testConstants.officeAddress, testConstants.officecity, testConstants.officestate, testConstants.zip)
+            .createOfficeForm(testConstants.officeName, testConstants.officeAddress, testConstants.officeCity, testConstants.officeState, testConstants.zipCode)
             .clickCreateOffice()
             .waitForElementNotPresent('@officeCreationSuccessMessage')
 

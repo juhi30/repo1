@@ -196,4 +196,10 @@ describe('Automated Tests: Channels', () => {
         await deletechannel.deleteChannels()
             .pause(2000)
     });
+
+    test('logout as ccr', async () => {
+        const logout = client.page.UniversalElements();
+
+        await logout.clickLogout();
+    })
 });

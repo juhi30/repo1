@@ -23,8 +23,6 @@ describe('Test Automation - Templates', () => {
             .fillTitleAndMessage(testConstants.templateTitle, testConstants.templateMessage)
             // .addAttachment()
             .clickCreateUpdateButton('@createTemplateSaveButton', '@createTemplateSuccessMessage')
-            .navigate()
-            .validateTemplateSearch(testConstants.templateTitle, '@searchResult')
 
         await entry.navigate()
             .pause(2000)
@@ -38,9 +36,7 @@ describe('Test Automation - Templates', () => {
         await edit.navigate()
             .templateEditMode('@templateTitle')
             .updateTemplate(testConstants.newTemplate, testConstants.newTempleteMessage)
-            .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage')
-            .navigate()
-            .validateTemplateSearch(testConstants.newTemplate, '@updatedSearchResult')
+            .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage')            
 
         await entry.navigate()
             .validateTemplateEntry(testConstants.newTemplate, testConstants.memberName, 'Edit', 'Template')
@@ -67,6 +63,13 @@ describe('Test Automation - Templates', () => {
 
         await entry.navigate()
             .validateTemplateEntry(testConstants.newTemplate, testConstants.memberName, 'Edit', 'Template Action')
+    });
+
+    test('Search Template', async () => {
+        const search = client.page.TemplatesPage();
+
+        await search.navigate()
+        .validateTemplateSearch(testConstants.newTemplate, '@updatedSearchResult')
     });
 
     test('delete Template', async () => {

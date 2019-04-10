@@ -72,6 +72,7 @@ const editChannelsCommands = {
 
   checkForValidation: function (validationMessage) {
     return this.waitForElementVisible(validationMessage, validationMessage + ': is visible')
+    .pause(1000)
   },
 
   updateWebform: function (element, newValue) {

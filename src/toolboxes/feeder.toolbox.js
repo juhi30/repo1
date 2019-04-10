@@ -45,4 +45,10 @@ module.exports = {
     channelName: 'Automation Test Channel1',
     timeZone: 'Eastern Time (UTC -05:00) - New York',
 
+    //Preferences Details
+    chooseChannel: 'Automation Test Channel1',
+    systemTimeOutValue: '20',
+    editEvent: 'Edit',
+    orgCategory: 'Org Preferences',
+
 };

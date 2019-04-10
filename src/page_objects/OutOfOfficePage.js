@@ -1,4 +1,3 @@
-const path = require('path');
 const testConstants = require('../toolboxes/feeder.toolbox');
 
 const outOfOfficeCommands = {

@@ -28,7 +28,6 @@ describe('Login Page Tests Cases', () => {
       //Search the next Org
       .searchForOrganization(testConstants.orgName2, '@org2SearchResult')
       .ccrOrgLogin('@org2SearchResult')
-    await setup.getOrgId()
   });
 
   test('logout as CCR', async () => {

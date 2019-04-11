@@ -14,9 +14,6 @@ const USER_TYPE_PATIENT = 18;
 
 let createdPatient;
 let createdAppointment;
-let createdAppointment1;
-let createdAppointment2;
-let createdAppointment3;
 
 const orgId = process.env.EXISTING_ORG_ID;
 const patientExternalId = process.env.APPOINTMENT_PATIENT_EXTERNAL_ID;
@@ -209,7 +206,65 @@ describe('appointment reminder tests', () => {
     });
   });
 
-  test('send incoming confirmation text', (done) => {
+  test('send incoming confirmation text', async (done) => {
+    jest.setTimeout(30000);
+    const message = {
+      to: process.env.TEST_BANDWIDTH_NUMBER_ORG,
+      from: createdPatient.phones[0].number,
+      media: [],
+      text: '1',
+      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464'
+    }
+
+    // reset to uncomfirmed
+    await rhinoapi.updateAppointment(createdAppointment.id, { appointmentStatusTypeId: 81 });
+
+    rhinoapi.postIncomingBandwidthMessage(message).then((response) => {
+      done();
+    });
+  });
+
+  test('find confirmed appointment', async (done) => {
+    jest.setTimeout(30000);
+    await sleep(10000);
+
+    rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
+      expect(response.data.externalId).toBe(appointmentExternalId);
+      expect(response.data.userId).toBe(createdPatient.id);
+      expect(response.data.appointmentStatusTypeId).toBe(82); // confirmed
+      expect(response.data.appointmentStatusUpdatedByTypeId).toBe(89); // codified
+      done();
+    });
+  });
+
+  test('send incoming cancellation text', (done) => {
+    jest.setTimeout(30000);
+    const message = {
+      to: process.env.TEST_BANDWIDTH_NUMBER_ORG,
+      from: createdPatient.phones[0].number,
+      media: [],
+      text: '2',
+      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464'
+    }
+
+    rhinoapi.postIncomingBandwidthMessage(message).then((response) => {
+      done();
+    });
+  });
+
+  test('find cancelled appointment', async (done) => {
+    jest.setTimeout(30000);
+    await sleep(10000);
+    rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
+      expect(response.data.externalId).toBe(appointmentExternalId);
+      expect(response.data.userId).toBe(createdPatient.id);
+      expect(response.data.appointmentStatusTypeId).toBe(83); // cancelled
+      expect(response.data.appointmentStatusUpdatedByTypeId).toBe(89); // codified
+      done();
+    });
+  });
+
+  test('send incoming confirmation text to already cancelled appointment', (done) => {
     jest.setTimeout(30000);
     const message = {
       to: process.env.TEST_BANDWIDTH_NUMBER_ORG,
@@ -224,13 +279,13 @@ describe('appointment reminder tests', () => {
     });
   });
 
-  test('find confirmed appointment', async (done) => {
+  test('find cancelled appointment', async (done) => {
     jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(appointmentExternalId);
       expect(response.data.userId).toBe(createdPatient.id);
-      expect(response.data.appointmentStatusTypeId).toBe(82); // confirmed
+      expect(response.data.appointmentStatusTypeId).toBe(83); // cancelled
       expect(response.data.appointmentStatusUpdatedByTypeId).toBe(89); // codified
       done();
     });

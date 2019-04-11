@@ -32,6 +32,11 @@ export async function postAppointmentReminderMessage(message) {
   return axios.post(`${process.env.API_BASE_URL}/rhinocron/events/apptReminderMessage`, message);
 }
 
+export async function updateAppointment(appointmentId, appointment) {
+  axios.defaults.headers.common.Authorization = `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}`;
+  return axios.patch(`${process.env.API_BASE_URL}/rhinocron/appointments/${appointmentId}`, appointment);
+}
+
 export async function postIncomingBandwidthMessage(message) {
   axios.defaults.headers.common.Authorization = `Basic ${Buffer.from(process.env.BANDWIDTH_WEBHOOK_AUTH).toString('base64')}`;
   return axios.post(`${process.env.API_BASE_URL}/webhooks/bandwidth/messaging`, message);

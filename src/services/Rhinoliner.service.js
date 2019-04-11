@@ -3,8 +3,6 @@ import crypto from 'crypto';
 
 // import * as logger from 'rhinotilities/lib/loggers/logger';
 import Queue from 'rhinotilities/lib/objects/Queue';
-
-
 import * as AWS from 'rhinotilities/lib/objects/AWS';
 
 // Used for checking if a sub object/nested object has ANY props/keys
@@ -17,6 +15,5 @@ export function pushtoqueue(message, handler) {
     queue.startPolling(handler);
   }
   const date = new Date();
-  console.log('putting data to queue');
   return queue.sendMessage(message, 'inbound', 'job', message.orgId);
 }

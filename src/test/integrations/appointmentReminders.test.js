@@ -14,6 +14,9 @@ const USER_TYPE_PATIENT = 18;
 
 let createdPatient;
 let createdAppointment;
+let createdAppointment1;
+let createdAppointment2;
+let createdAppointment3;
 
 const orgId = process.env.EXISTING_ORG_ID;
 const patientExternalId = process.env.APPOINTMENT_PATIENT_EXTERNAL_ID;
@@ -45,7 +48,6 @@ describe('appointment reminder tests', () => {
       typeId: USER_TYPE_PATIENT,
       orgId,
     };
-    console.log(user);
     rhinoliner.pushtoqueue(user);
     await sleep(15000);
   });
@@ -55,7 +57,6 @@ describe('appointment reminder tests', () => {
     rhinoapi.getUserByExternalId(orgId, patientExternalId).then((response) => {
       expect(response.data.externalIds.emrId).toBe(patientExternalId);
       createdPatient = response.data;
-      console.log(createdPatient);
       done();
     });
   });
@@ -175,18 +176,62 @@ describe('appointment reminder tests', () => {
     jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
-      console.log(response.data);
       expect(response.data.externalId).toBe(appointmentExternalId);
       createdAppointment = response.data;
       done();
     });
   });
 
-  test('find appointment again ', async (done) => {
+  test('find scheduled appointments ', async (done) => {
     jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getScheduledAppointments(orgId).then((response) => {
-      console.log(response.data);
+      done();
+    });
+  });
+
+  test('send appointment reminder message', (done) => {
+    jest.setTimeout(30000);
+
+    const message = {
+      userId: createdPatient.id,
+      appointmentId: createdAppointment.id,
+      channelId: Number(process.env.EXISTING_ORG_CHANNEL_ID),
+      messageText: 'Outgoing reminder test',
+      phoneId: createdPatient.phones[0].id,
+      phoneNumber: createdPatient.phones[0].number,
+      appointmentEventTypeId: 65, // reminder
+      appointmentReminderResponseTypeId: 80, // confirm/cancel
+    };
+
+    rhinoapi.postAppointmentReminderMessage(message).then((response) => {
+      done();
+    });
+  });
+
+  test('send incoming confirmation text', (done) => {
+    jest.setTimeout(30000);
+    const message = {
+      to: process.env.TEST_BANDWIDTH_NUMBER_ORG,
+      from: createdPatient.phones[0].number,
+      media: [],
+      text: '1',
+      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464'
+    }
+
+    rhinoapi.postIncomingBandwidthMessage(message).then((response) => {
+      done();
+    });
+  });
+
+  test('find confirmed appointment', async (done) => {
+    jest.setTimeout(30000);
+    await sleep(10000);
+    rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
+      expect(response.data.externalId).toBe(appointmentExternalId);
+      expect(response.data.userId).toBe(createdPatient.id);
+      expect(response.data.appointmentStatusTypeId).toBe(82); // confirmed
+      expect(response.data.appointmentStatusUpdatedByTypeId).toBe(89); // codified
       done();
     });
   });

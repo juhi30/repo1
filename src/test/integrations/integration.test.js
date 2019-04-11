@@ -51,11 +51,6 @@ describe('integration tests', () => {
       birthday: createdPatient.patientDetails.birthday,
       sex: createdPatient.patientDetails.sex,
       ssn: createdPatient.ssn,
-      phones: [{
-        number: '+18039574927',
-        typeId: 3,
-        label: 'Cell Phone',
-      }],
       homeEmail: 'shannon@rhinogram.com',
       messageType: 'USER',
       orgId,

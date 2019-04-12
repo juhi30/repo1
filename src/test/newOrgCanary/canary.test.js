@@ -47,7 +47,7 @@ afterAll(async (done) => {
   }
 });
 
- import './member'
- import './office'
- import './login'
- import './channels'
+import './member'
+import './login'
+import './channels'
+import './office'

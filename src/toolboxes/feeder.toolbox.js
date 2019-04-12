@@ -18,10 +18,24 @@ module.exports = {
     officeState: 'South Carolina',
     zipCode: '29403',
 
+    addEvent: 'Add',
+    category: 'Office Location',
+    editEvent: 'Edit',
+    deleteEvent: 'Delete',
+
+    //officeToBeEdited: 'Mount Pleasant Office new',
+
+    newOfficeName: 'American Megatrends',
+    newOfficeAddress: '123 St George Road',
+    newOfficeCity: 'Boston',
+    newOfficeState: 'Hawaii',
+    newZipCode: '12345',
+
     // New Member Details 
     memberFirstName: 'Testing_NewCanary',
     memberLastName: 'LastName',
     memberUsername: 'Testing_NewCanary',
+    memberName: 'Testing_NewCanary LastName',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
@@ -55,12 +69,12 @@ module.exports = {
     tagNameRhinoType: 'Test_2',
 
     //Web Form Addition Details
-   formTitleName: 'Send Message via web form.',
-   titleSubtext: 'Text or Call us.',
-   phonePlaceholder: 'Enter Phone Number',
-   phoneHelpText: 'This will be used in response to question.',
-   messagePlaceHolder: 'Enter your question here.',
-   submitButton: 'Do send your message.',
-   callToActionButton: 'Send Message',
-   confirmationText: 'The message has been submitted successfully!',
+    formTitleName: 'Send Message via web form.',
+    titleSubtext: 'Text or Call us.',
+    phonePlaceholder: 'Enter Phone Number',
+    phoneHelpText: 'This will be used in response to question.',
+    messagePlaceHolder: 'Enter your question here.',
+    submitButton: 'Do send your message.',
+    callToActionButton: 'Send Message',
+    confirmationText: 'The message has been submitted successfully!',
 };

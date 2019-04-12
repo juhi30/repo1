@@ -31,8 +31,8 @@ function sleep(ms) {
 }
 
 describe('appointment reminder tests', () => {
+  jest.setTimeout(30000);
   test('create patients', async () => {
-    jest.setTimeout(30000);
     const user = {
       externalId: patientExternalId,
       firstName: 'April',
@@ -52,7 +52,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('find patient', async (done) => {
-    jest.setTimeout(30000);
     rhinoapi.getUserByExternalId(orgId, patientExternalId).then((response) => {
       expect(response.data.externalIds.emrId).toBe(patientExternalId);
       createdPatient = response.data;
@@ -61,7 +60,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('configure reply handler for known user', (done) => {
-    jest.setTimeout(30000);
     const config = {
       number: process.env.TEST_BANDWIDTH_NUMBER_PATIENT,
       config: { handler: 'reply', config: ['1'] },
@@ -72,7 +70,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('create appointment', async (done) => {
-    jest.setTimeout(30000);
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 5);
     startDate.setDate(startDate.getDate() + 1);
@@ -97,7 +94,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('create appointment 1', async (done) => {
-    jest.setTimeout(30000);
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 35);
     startDate.setDate(startDate.getDate() + 1);
@@ -122,7 +118,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('create appointment 2', async (done) => {
-    jest.setTimeout(30000);
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 65);
     startDate.setDate(startDate.getDate() + 1);
@@ -147,7 +142,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('create appointment 3', async (done) => {
-    jest.setTimeout(30000);
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 95);
     startDate.setDate(startDate.getDate() + 1);
@@ -172,7 +166,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('find appointments', async (done) => {
-    jest.setTimeout(30000);
     await sleep(10000);
     await rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(appointmentExternalId);
@@ -192,7 +185,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('find scheduled appointments ', async (done) => {
-    jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getScheduledAppointments(orgId).then((response) => {
       done();
@@ -200,8 +192,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('send appointment reminder message with confirm/cancel', (done) => {
-    jest.setTimeout(30000);
-
     const message = {
       userId: createdPatient.id,
       appointmentId: createdAppointment.id,
@@ -219,7 +209,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('send incoming confirmation text', async (done) => {
-    jest.setTimeout(30000);
     const message = {
       to: process.env.TEST_BANDWIDTH_NUMBER_ORG,
       from: createdPatient.phones[0].number,
@@ -237,7 +226,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('find confirmed appointment', async (done) => {
-    jest.setTimeout(30000);
     await sleep(10000);
 
     rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
@@ -250,7 +238,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('send incoming cancellation text', (done) => {
-    jest.setTimeout(30000);
     const message = {
       to: process.env.TEST_BANDWIDTH_NUMBER_ORG,
       from: createdPatient.phones[0].number,
@@ -265,7 +252,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('find cancelled appointment', async (done) => {
-    jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(appointmentExternalId);
@@ -277,7 +263,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('send incoming confirmation text to already cancelled appointment', (done) => {
-    jest.setTimeout(30000);
     const message = {
       to: process.env.TEST_BANDWIDTH_NUMBER_ORG,
       from: createdPatient.phones[0].number,
@@ -292,7 +277,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('find cancelled appointment', async (done) => {
-    jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(appointmentExternalId);
@@ -323,7 +307,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('send incoming cancellation text to confirm only appointment', async (done) => {
-    jest.setTimeout(30000);
     const message = {
       to: process.env.TEST_BANDWIDTH_NUMBER_ORG,
       from: createdPatient.phones[0].number,
@@ -348,7 +331,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('send incoming confirmation text to confirm only appointment', async (done) => {
-    jest.setTimeout(30000);
     const message = {
       to: process.env.TEST_BANDWIDTH_NUMBER_ORG,
       from: createdPatient.phones[0].number,
@@ -370,8 +352,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('send appointment reminder message with cancel only', (done) => {
-    jest.setTimeout(30000);
-
     const message = {
       userId: createdPatient.id,
       appointmentId: createdAppointment2.id,
@@ -389,7 +369,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('send incoming confirmation text to cancel only appointment', async (done) => {
-    jest.setTimeout(30000);
     const message = {
       to: process.env.TEST_BANDWIDTH_NUMBER_ORG,
       from: createdPatient.phones[0].number,
@@ -414,7 +393,6 @@ describe('appointment reminder tests', () => {
   });
 
   test('send incoming cancellation text to cancel only appointment', async (done) => {
-    jest.setTimeout(30000);
     const message = {
       to: process.env.TEST_BANDWIDTH_NUMBER_ORG,
       from: createdPatient.phones[0].number,

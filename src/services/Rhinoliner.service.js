@@ -15,5 +15,5 @@ export function pushtoqueue(message, handler) {
     queue.startPolling(handler);
   }
   const date = new Date();
-  return queue.sendMessage(message, 'inbound', 'job', message.orgId);
+  return queue.sendMessage(message);
 }

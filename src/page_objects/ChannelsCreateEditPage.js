@@ -341,8 +341,8 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    customTag: {
-      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'${testConstants.customTag}')]`,
+    tagCategory: {
+      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'${testConstants.tagCategory}')]`,
       locateStrategy: 'xpath',
     },
 

@@ -120,14 +120,14 @@ describe('Automated Tests: Channels', () => {
         await channel.navigate()
             .channelEditMode('@updatedChannelTitle')
 
-        await update.addtag(testConstants.tagNameNewPhoneType, '@customTag')
+        await update.addtag(testConstants.tagNameNewPhoneType, '@tagCategory')
             .pause(2000)
             .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
             .checkSuccessMessage('@channelUpdateSuccessMessage')
 
         await channel.channelEditMode('@updatedRhinoSecureChannelTitle')
 
-        await update.addtag(testConstants.tagNameRhinoType, '@customTag')
+        await update.addtag(testConstants.tagNameRhinoType, '@tagCategory')
             .pause(2000)
             .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
             .checkSuccessMessage('@channelUpdateSuccessMessage')

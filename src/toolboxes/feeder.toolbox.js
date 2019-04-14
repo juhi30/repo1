@@ -11,31 +11,11 @@ module.exports = {
     state: 'Alaska',
     zip: '12345',
 
-    //details for office addition
-    officeName: 'Mount Pleasant Office',
-    officeAddress: '128 Hester St',
-    officeCity: 'Charleston',
-    officeState: 'South Carolina',
-    zipCode: '29403',
-
-    addEvent: 'Add',
-    category: 'Office Location',
-    editEvent: 'Edit',
-    deleteEvent: 'Delete',
-
-    //officeToBeEdited: 'Mount Pleasant Office new',
-
-    newOfficeName: 'American Megatrends',
-    newOfficeAddress: '123 St George Road',
-    newOfficeCity: 'Boston',
-    newOfficeState: 'Hawaii',
-    newZipCode: '12345',
-
     // New Member Details 
-    memberFirstName: 'Testing_NewCanary',
+    memberFirstName: 'Testing_NewCanary_376',
     memberLastName: 'LastName',
-    memberUsername: 'Testing_NewCanary',
-    memberName: 'Testing_NewCanary LastName',
+    memberUsername: 'Testing_NewCanary_376',
+    memberName: 'Testing_NewCanary_376 LastName',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
@@ -67,6 +47,8 @@ module.exports = {
     //Tags
     tagNameNewPhoneType: 'Test_1',
     tagNameRhinoType: 'Test_2',
+    tagCategory: 'Custom',
+
 
     //Web Form Addition Details
     formTitleName: 'Send Message via web form.',
@@ -77,4 +59,22 @@ module.exports = {
     submitButton: 'Do send your message.',
     callToActionButton: 'Send Message',
     confirmationText: 'The message has been submitted successfully!',
+
+     //details for office addition
+     officeName: 'Mount Pleasant Office',
+     officeAddress: '128 Hester St',
+     officeCity: 'Charleston',
+     officeState: 'South Carolina',
+     zipCode: '29403',
+ 
+     addEvent: 'Add',
+     category: 'Office Location',
+     editEvent: 'Edit',
+     deleteEvent: 'Delete',
+ 
+     newOfficeName: 'American Megatrends',
+     newOfficeAddress: '123 St George Road',
+     newOfficeCity: 'Boston',
+     newOfficeState: 'Hawaii',
+     newZipCode: '12345', 
 };

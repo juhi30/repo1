@@ -1,20 +1,11 @@
-const outOfOfficeCommands = {
+const testConstants = require('../toolboxes/feeder.toolbox');
 
-  pause: function(time) {
-    this.api.pause(time);
-    return this;
-  },
+const outOfOfficeCommands = {
 
   updateDetails: function(element, newValue) {
     return this.verify.visible(element, element + ' is visible')
       .clearValue(element)
       .setValue(element, newValue)
-  },
-
-  validateUrlChange: function() {
-    return this.waitForElementVisible('@outOfOfficeListPageTitle', 6000, false, null, 'Out Of Office Page Opened successfully')
-      .verify.urlContains('out-of-office', 'Out of Office Page is opened')
-      .pause(3000)
   },
 
   verifyCreateOOOEventButton: function() {
@@ -27,6 +18,17 @@ const outOfOfficeCommands = {
       .waitForElementVisible(element2, 6000, false, null, 'Out of Office Page opened')
   },
 
+  clickAddEvent: function() {
+    return this.waitForElementVisible('@addOOOEventButton', 'Add Event Button is visible')
+      .click('@addOOOEventButton')
+      .waitForElementVisible('@createEventPageHeader', 'Create Event page is open') 
+  },
+
+  enterDetails: function (element, value) {
+    return this.waitForElementVisible(element, element + ' is visible')
+      .setValue(element, value)
+  },
+
   selectChannel: function() {
     return this.verify.visible('@firstTextChannel', 'Channel is visible')
       .click('@firstTextChannel')
@@ -37,6 +39,26 @@ const outOfOfficeCommands = {
     return this.click(element)
       .waitForElementVisible(notification, 'Success message is visible')
       .pause(3000)
+  },
+
+  eventEditMode: function (event) {
+    return this.waitForElementVisible(event, event + ' Created event is visible in the event list.')
+      .click(event)
+      .waitForElementVisible('@editEvent', 'Summary Panel opened.')
+      .click('@editEvent')
+      .waitForElementVisible('@editEventPageTitle', 'Channel Opened in edit Mode.')
+  },
+
+  editEventDetails: function (element, newValue) {
+    return this.waitForElementVisible(element, element + ' is visible')
+      .clearValue(element)
+      .setValue(element, newValue)
+  },
+
+  selectDate: function (element, dateValue) {
+    return this.waitForElementVisible(element, element + ' is visible')
+      .setValue(element, dateValue)
+      // .driver.executeScript("document.getElementById('from').setAttribute('value','02/08/2017')")
   },
 
   deleteEvent: function() {
@@ -191,6 +213,26 @@ module.exports = {
 
     editedTitle: {
       selector: `//SPAN[text()='Edited_Title']`,
+      locateStrategy: 'xpath',
+    },
+
+    eventName: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.oooTitle}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    updatedEventName: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.newEventTitle}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    editEvent: {
+      selector: `//SPAN[@class='button__text-wrapper'][contains(text(),'Edit Event')]`,
+      locateStrategy: 'xpath',
+    },
+
+    editEventPageTitle: {
+      selector: `//DIV[@class='app-page__header__title'][contains(text(),'Edit Out of Office Event')]`,
       locateStrategy: 'xpath',
     },
   }

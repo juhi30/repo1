@@ -14,6 +14,7 @@ describe('Automated Tests: Channels', () => {
       .pause(2000)
 
     await org.searchForOrganization(testConstants.orgName)
+    .pause(2000)
       .ccrOrgLogin()
       .pause(2000)
   });
@@ -199,5 +200,11 @@ describe('Automated Tests: Channels', () => {
 //     await deletechannel.deleteChannels()
 //         .pause(2000)
 // });
+
+  test('logout as CCR', async () => {
+    const logout = client.page.UniversalElements();
+
+    await logout.clickLogout();
+  });
 
 });

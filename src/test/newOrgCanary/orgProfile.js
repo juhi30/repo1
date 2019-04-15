@@ -37,7 +37,7 @@ describe('Organization Profile Edit as ccr', () => {
 
         await entry.navigate()
            .pause(4000)
-           .validateOrgUpdateEntry(testConstants.orgNewName, testConstants.ccrLogin, 'Edit', 'Org Profile')
+           .validateAuditEntry('ccr', 'Org Profile', 'Edit', testConstants.orgNewName, '')
     });
 
     test('logout as CCR', async () => {
@@ -80,6 +80,6 @@ describe('Organisation profile edit as member', () => {
 
         await entry.navigate()
         .pause(2000)
-        .validateOrgUpdateEntry(testConstants.orgNewName, testConstants.memberFirstName, 'Edit', 'Org Profile')
+        .validateAuditEntry(memberFirstName, 'Org Profile', 'Edit', testConstants.orgNewName, '')
     });
 });

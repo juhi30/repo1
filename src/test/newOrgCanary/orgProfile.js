@@ -36,8 +36,8 @@ describe('Organization Profile Edit as ccr', () => {
         const entry = client.page.AuditLogs();
 
         await entry.navigate()
-           .pause(4000)
-           .validateAuditEntry('ccr', 'Org Profile', 'Edit', testConstants.orgNewName, '')
+		   .pause(3000)
+		   .validateEventEntry('Edit', testConstants.orgNewName)
     });
 
     test('logout as CCR', async () => {
@@ -56,6 +56,14 @@ describe('Organisation profile edit as member', () => {
           .submit()
           .validateUrlChange()
     });  
+
+    // When the org is being updated for the first time
+    test('Add Photo', async () => {
+        const orgProfile = client.page.OrgProfilePage();
+
+        await orgProfile.navigate()
+        .addUpdateLogo('@addLogoButton')
+    });
 
     test('Edit Organization Profile as member', async () => {
         const orgProfile = client.page.OrgProfilePage();
@@ -79,7 +87,7 @@ describe('Organisation profile edit as member', () => {
         const entry = client.page.AuditLogs();
 
         await entry.navigate()
-        .pause(2000)
-        .validateAuditEntry(memberFirstName, 'Org Profile', 'Edit', testConstants.orgNewName, '')
+        .pause(3000)
+        .validateEventEntry('Edit', testConstants.orgNewName)
     });
 });

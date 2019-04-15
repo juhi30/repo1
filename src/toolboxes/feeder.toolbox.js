@@ -19,10 +19,10 @@ module.exports = {
     zipCode: '29403',
 
     // New Member Details 
-    memberFirstName: 'Dallman',
+    memberFirstName: 'Testing_NewCanary_1',
     memberLastName: 'LastName',
-    memberUsername: 'dallman',
-    memberPassword: 'bacon',
+    memberUsername: 'Testing_NewCanary_1',
+    memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
 
@@ -37,6 +37,13 @@ module.exports = {
     oooToDate: '09/30/2020',
     oooFromTime: '12:00am',
     oooToTime: '12:00am',
+    newEventTitle: 'Edit Title',
+    newEventMessage: 'Edit Message',
+    newFromDate: '04/09/2019',
+    newToDate: '04/10/2019',
+    newFromTime: '11:00am',
+    newToTime: '08:00pm',
+
 
     // New Phone Type Channel Details
     numberForNewPhoneChannel: 819,
@@ -83,3 +90,4 @@ module.exports = {
     integrationType: 'Sikka',
 
 };
+

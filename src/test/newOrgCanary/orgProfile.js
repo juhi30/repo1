@@ -33,7 +33,7 @@ describe('Organization Profile Edit as ccr', () => {
 
     test('Check audit logs entry for org update', async () => {
         
-        const entry = client.page.AuditLogs();
+        const entry = client.page.AuditLogsPage();
 
         await entry.navigate()
 		   .pause(3000)
@@ -84,7 +84,7 @@ describe('Organisation profile edit as member', () => {
 
     test('Check audit logs entry for org update', async () => {
             
-        const entry = client.page.AuditLogs();
+        const entry = client.page.AuditLogsPage();
 
         await entry.navigate()
         .pause(3000)

@@ -1,6 +1,14 @@
+const testConstants = require('../toolboxes/feeder.toolbox');
 let text = '';
 
 const auditLogsCommands = {
+
+    elementText: function (ele, message) {
+        return this.getText(ele, function (tpObj) {
+            text = tpObj.value;
+            console.log(text, message);
+        });
+    },
 
     validateUrlChange: function () {
         return this.waitForElementNotPresent('@auditLogPageTitle', 6000, false, null, 'Audit Logs page opened successfully')
@@ -74,29 +82,54 @@ const auditLogsCommands = {
             .verify.containsText('@linkText', 'Details', 'Link text should be Details')
     },
 
-    validateAuditEntry: function (member, category, action, eventName, contact) {
-        return this.verify.visible('@auditEntry', category + ' entry is visible')
-            .verify.containsText('@linkText', 'Details', 'Link text should be Details')
+    validateEventEntry: function (action, entryTitle, memberName, category) {
+        return this.waitForElementVisible('@auditEntry', 'Event entry is visible')
+            .waitForElementVisible('@linkText', 'Details Link text is visible')
             .click('@linkText')
             .verify.visible('@dateAndTime', 'Date and Time is visible')
-            .verify.containsText('@member', member, 'Member name is ' + member)
-            .verify.containsText('@contact', contact, 'Contact name should not be visible')
+            .verify.containsText('@member', memberName, 'Member name is ' + memberName)
             .verify.containsText('@category', category, 'Category should be ' + category)
             .verify.containsText('@action', action, 'Action should be ' + action)
             .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-            .verify.containsText('@staticField', eventName, action + 'ed Event should be ' + eventName)
+            .verify.containsText('@staticField', entryTitle, entryTitle + ' is visible')
     },
 
-    validateTemplateEntry: function (action, templateTitle) {
-        return this.verify.visible('@auditEntry', 'Template entry is visible')
-            .verify.visible('@dateAndTime', 'Date and Time is visible')
-            .verify.containsText('@member', 'test user', 'Member name is test user')
-            .verify.visible('@contact', 'Contact name should not be visible')
-            .verify.containsText('@category', 'Template', 'Category should be Template')
-            .verify.containsText('@action', action, 'Action should be ' + action)
-            .verify.containsText('@linkText', 'Details', 'Link text should be Details')
+    validateEventEntryWithNoDataFound: function (action, entryTitle, memberName, category) {
+        return this.waitForElementVisible('@auditEntry', 'Event entry is visible')
+            .waitForElementVisible('@linkText', 'Details Link text is visible')
             .click('@linkText')
-            .verify.containsText('@staticField', templateTitle, action + 'ed template title should be ' + templateTitle)
+            .verify.visible('@dateAndTime', 'Date and Time is visible')
+            .verify.containsText('@member', memberName, 'Member name is ' + memberName)
+            .verify.containsText('@category', category, 'Category should be ' + category)
+            .verify.containsText('@action', action, 'Action should be ' + action)
+            .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
+            .verify.containsText('@staticFieldWithNoDataFound', entryTitle, entryTitle + ' is visible')
+    },
+
+    validateTemplateEntry: function (templateTitle, member, action, category) {
+        return this.waitForElementVisible('@auditEntry', 'Template entry is visible')
+            .waitForElementVisible('@linkText', 'Details Link text is visible')
+            .click('@linkText')
+            .verify.containsText('@staticField', templateTitle, 'Template Title is ' + templateTitle)
+            .verify.containsText('@member', member, 'Member name is' + member)
+            .verify.containsText('@category', category, 'Category should be ' + category)
+            .verify.containsText('@action', action, 'Action should be ' + action)
+            .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
+            .verify.containsText('@staticField', templateTitle + 'title name should be ' + templateTitle)
+            .elementText('@eventDetails', ' == details')
+    },
+
+    validateSystemTemplateEntry: function (templateTitle, member, action, category) {
+        return this.waitForElementVisible('@auditEntry', 'SystemTemplate entry is visible')
+            .waitForElementVisible('@linkText', 'Details', 'Link text should be Details')
+            .click('@linkText')
+            .verify.containsText('@systemStaticField', templateTitle, 'Template Title is ' + templateTitle)
+            .verify.containsText('@member', member, 'Member name is' + member)
+            .verify.containsText('@category', category, 'Category should be ' + category)
+            .verify.containsText('@action', action, 'Action should be ' + action)
+            .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
+            .verify.containsText('@systemStaticField', templateTitle + 'title name should be ' + templateTitle)
+            .elementText('@eventDetails', ' == details')
     },
 
     checkAuditOrgEntry: function (category, action, orgName, member) {
@@ -179,27 +212,27 @@ module.exports = {
 
         dateColumn: {
             selector: `//DIV[@class='rt-resizable-header-content'][text()='Date']`,
-            locateStrategy: 'xpath'
+            locateStrategy: 'xpath',
         },
 
         memberColumn: {
             selector: `//DIV[@class='rt-resizable-header-content'][text()='Member']`,
-            locateStrategy: 'xpath'
+            locateStrategy: 'xpath',
         },
 
         contactColumn: {
             selector: `//DIV[@class='rt-resizable-header-content'][text()='Contact']`,
-            locateStrategy: 'xpath'
+            locateStrategy: 'xpath',
         },
 
         categoryColumn: {
             selector: `//DIV[@class='rt-resizable-header-content'][text()='Category']`,
-            locateStrategy: 'xpath'
+            locateStrategy: 'xpath',
         },
 
         actionColumn: {
             selector: `//DIV[@class='rt-resizable-header-content'][text()='Action']`,
-            locateStrategy: 'xpath'
+            locateStrategy: 'xpath',
         },
 
         expandAllButton: {
@@ -256,8 +289,50 @@ module.exports = {
         },
 
         staticField: {
-            selector: `//DIV[@class = 'expand-row__span']/STRONG`,
+            selector: `//DIV[@class='expand-row__span']/STRONG`,
             locateStrategy: 'xpath',
-        }
+        },
+
+        staticFieldWithNoDataFound: {
+            selector: `//SPAN[text()='${testConstants.noDataFound}']`,
+            locateStrategy: 'xpath',
+        },
+
+        systemStaticField: {
+            selector: `//strong[contains(text(),'${testConstants.hipaaTitle}')]`,
+            locateStrategy: 'xpath',
+        },
+
+        /*********-------Action Items ------*********/
+
+        addAction: {
+            selector: `//SPAN[contains(text(),'Add')]`,
+            locateStrategy: 'xpath',
+        },
+
+        deleteAction: {
+            selector: `//SPAN[contains(text(),'Delete')]`,
+            locateStrategy: 'xpath',
+        },
+
+        editAction: {
+            selector: `//SPAN[contains(text(),'Edit')]`,
+            locateStrategy: 'xpath',
+        },
+
+        mergeAction: {
+            selector: `//SPAN[contains(text(),'Merge')]`,
+            locateStrategy: 'xpath',
+        },
+
+        viewAction: {
+            selector: `//SPAN[contains(text(),'View')]`,
+            locateStrategy: 'xpath',
+        },
+
+        eventDetails: {
+            selector: `//DIV[@class='expand-row u-list']`,
+            locateStrategy: 'xpath',
+        },
     }
 }

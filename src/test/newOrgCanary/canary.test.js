@@ -53,4 +53,6 @@ import './member'
 import './login'
 import './channels'
 import './office'
+import './outofoffice'
 import './preferences'
+

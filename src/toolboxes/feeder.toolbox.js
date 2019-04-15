@@ -19,9 +19,9 @@ module.exports = {
     zipCode: '29403',
 
     // New Member Details 
-    memberFirstName: 'Testing_NewCanary',
+    memberFirstName: 'Testing_NewCanary_1',
     memberLastName: 'LastName',
-    memberUsername: 'Testing_NewCanary',
+    memberUsername: 'Testing_NewCanary_1',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
@@ -37,6 +37,13 @@ module.exports = {
     oooToDate: '09/30/2020',
     oooFromTime: '12:00am',
     oooToTime: '12:00am',
+    newEventTitle: 'Edit Title',
+    newEventMessage: 'Edit Message',
+    newFromDate: '04/09/2019',
+    newToDate: '04/10/2019',
+    newFromTime: '11:00am',
+    newToTime: '08:00pm',
+
 
     // New Phone Type Channel Details
     numberForNewPhoneChannel: 819,
@@ -62,12 +69,12 @@ module.exports = {
     tagNameRhinoType: 'Test_2',
 
     //Web Form Addition Details
-    formTitleName: 'Send Message via web form.',
-    titleSubtext: 'Text or Call us.',
-    phonePlaceholder: 'Enter Phone Number',
-    phoneHelpText: 'This will be used in response to question.',
-    messagePlaceHolder: 'Enter your question here.',
-    submitButton: 'Do send your message.',
-    callToActionButton: 'Send Message',
-    confirmationText: 'The message has been submitted successfully!',
+   formTitleName: 'Send Message via web form.',
+   titleSubtext: 'Text or Call us.',
+   phonePlaceholder: 'Enter Phone Number',
+   phoneHelpText: 'This will be used in response to question.',
+   messagePlaceHolder: 'Enter your question here.',
+   submitButton: 'Do send your message.',
+   callToActionButton: 'Send Message',
+   confirmationText: 'The message has been submitted successfully!',
 };

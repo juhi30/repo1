@@ -4,7 +4,7 @@ module.exports = {
     ccrPassword: process.env.CCR_PASSWORD,
 
     //Org Setup Details
-    orgName: 'Testing_NewCanary',
+    orgName: 'Roshni Org',
     orgName2: process.env.EXISTING_ORG_NAME,
     address: 'Test Address',
     city: 'Test City',
@@ -19,10 +19,10 @@ module.exports = {
     zipCode: '29403',
 
     // New Member Details 
-    memberFirstName: 'Testing_NewCanary',
+    memberFirstName: 'Dallman',
     memberLastName: 'LastName',
-    memberUsername: 'Testing_NewCanary',
-    memberPassword: 'Test@123',
+    memberUsername: 'dallman',
+    memberPassword: 'bacon',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
 
@@ -63,4 +63,23 @@ module.exports = {
    submitButton: 'Do send your message.',
    callToActionButton: 'Send Message',
    confirmationText: 'The message has been submitted successfully!',
+
+   //Org Profile New Info for Mandatory Fields
+    orgNewName : 'new Org Name',
+    orgNewAddress: 'New Addres',
+    orgNewCity : 'New City',
+    orgNewState: 'New State',
+    orgNewZip: '12345',
+
+    //Org Profile New Info for Non Mandatory Fields
+    orgNewAddress2: 'New Address Line 2',
+    orgNewPhone: '(454) 657-6879',
+    orgNewEmail: 'roshni@gmail.com',
+    orgNewcontactName: 'roshni',
+    orgNewcontactPhone: '(454) 657-6879',
+    orgNewcontactEmail: 'kashyap@gmail.com',
+
+    //Org Profile Integration Type Information
+    integrationType: 'Sikka',
+
 };

@@ -51,3 +51,4 @@ afterAll(async (done) => {
  import './office'
  import './login'
  import './channels'
+ import  './orgProfile'

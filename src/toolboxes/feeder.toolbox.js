@@ -4,8 +4,8 @@ module.exports = {
     ccrPassword: process.env.CCR_PASSWORD,
 
     //Org Setup Details
-    orgName: 'TestingForDelete_2',
-    orgName2: 'India Test Org',
+    orgName: 'Testing_NewCanary',
+    orgName2: process.env.EXISTING_ORG_NAME,
     address: 'Test Address',
     city: 'Test City',
     state: 'Alaska',
@@ -19,9 +19,9 @@ module.exports = {
     zipCode: '29403',
 
     // New Member Details 
-    memberFirstName: 'TestMember_436',
+    memberFirstName: 'Testing_NewCanary',
     memberLastName: 'LastName',
-    memberUsername: 'TestMember_436',
+    memberUsername: 'Testing_NewCanary',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
@@ -43,12 +43,31 @@ module.exports = {
     chooseANumber: '+18192004430',
     forwardingNumber: '(454) 657-6879',
     channelName: 'Automation Test Channel1',
+    channelPurpose : 'test Automation',
     timeZone: 'Eastern Time (UTC -05:00) - New York',
+    rhinoChannelName : 'RhinoSecure Automation channel',
+    newChannelName : 'Automation Test Channel New',
+    newPurpose: 'New change in purpose',
+    rhinoChannelNewName : 'New RhinoSecure Channel',
 
     //Preferences Details
-    chooseChannel: 'Automation Test Channel1',
+    chooseChannel: 'Automation Test Channel New',
     systemTimeOutValue: '20',
     editEvent: 'Edit',
     orgCategory: 'Org Preferences',
+    noDataFound: 'No Data Found',
 
+    //Tags
+    tagNameNewPhoneType: 'Test_1',
+    tagNameRhinoType: 'Test_2',
+
+    //Web Form Addition Details
+    formTitleName: 'Send Message via web form.',
+    titleSubtext: 'Text or Call us.',
+    phonePlaceholder: 'Enter Phone Number',
+    phoneHelpText: 'This will be used in response to question.',
+    messagePlaceHolder: 'Enter your question here.',
+    submitButton: 'Do send your message.',
+    callToActionButton: 'Send Message',
+    confirmationText: 'The message has been submitted successfully!',
 };

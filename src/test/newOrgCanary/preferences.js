@@ -11,12 +11,10 @@ describe('Preferences Page', () => {
         await preference.navigate()
             .checkOrgPreferences()
             .pause(2000)
-            // .setTimeoutValue()
             .successMessage()
 
         await checkAuditLogs.navigate()
-            .validateEventEntry(testConstants.editEvent, testConstants.orgName, testConstants.ccrLogin, testConstants.orgCategory)
-
+            .validateEventEntry(testConstants.editEvent, testConstants.noDataFound, testConstants.ccrLogin, testConstants.orgCategory)
         await logout.clickLogout()
 
     });

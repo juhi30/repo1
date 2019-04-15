@@ -1,9 +1,5 @@
+const helper = require('../toolboxes/helpers.toolbox')
 const orgProfileCommands = {
-
-  pause: function(time) {
-    this.api.pause(time);
-    return this;
-  },
 
   renderPageElements: function() {
     return this.waitForElementVisible('@addLogoButton', 'Add logo button is visible')
@@ -52,6 +48,17 @@ const orgProfileCommands = {
   validateSaveToast: function() {
     return this.waitForElementVisible('@saveToast', 'Save toast is visible')
   },
+
+  addLogo: async function() {
+    this.waitForElementVisible('@addLogoButton', 'Add Logo button visible')
+    .click('@addLogoButton')
+    .waitForElementNotVisible('@uploadPhotoButton', 'Uplaod Photo modal is open')
+    .pause(2000)
+    await helper.uploadFile(this, 'rhinogram.png')
+    return this.pause(5000)
+    .click('@doneUploadPhoto')
+    .pause(5000)
+  }
 }
 
 module.exports = {
@@ -59,11 +66,12 @@ module.exports = {
   url: function() {
     return this.api.launch_url + '/settings/organization/profile'
   },
+
   elements: {
 
     addLogoButton: {
-      selector: `//SPAN[contains(.,'Update')]`,
-      locateStrategy: 'xpath'
+      selector: `//SPAN[contains(.,'Add Logo')]`,
+      locateStrategy: 'xpath',
     },
 
     /*----------------------------------------------------------------------------*/
@@ -75,6 +83,11 @@ module.exports = {
 
     closeUploadPhotoIcon: {
       selector: `//BUTTON[contains(@title, 'Close')]`,
+      locateStrategy: 'xpath',
+    },
+
+    doneUploadPhoto: {
+      selector: `//*[contains(text(),'Done')]`,
       locateStrategy: 'xpath',
     },
 

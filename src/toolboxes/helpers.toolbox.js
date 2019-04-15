@@ -1,4 +1,5 @@
 const moment = require('moment-timezone');
+const path = require('path');
 
 function findTextOnPage(client, text) {
   client.api.useCss().verify.containsText('body', text);
@@ -9,6 +10,11 @@ function returnElementText(client, selector) {
     console.log(result);
     return result;
   })
+}
+
+//Use to uplaod attachments
+async function uploadFile(client, fileName) {
+  client.setValue('input[type="file"]', path.resolve()+'/src/assets/' + fileName)
 }
 
 // useful for clicking a specific element without needing a Page Object function
@@ -118,4 +124,5 @@ module.exports = {
   analyticsOpenConversationUI,
   analyticsClosedConversationUI,
   memberCredsForConversationGrid,
+  uploadFile,
 }

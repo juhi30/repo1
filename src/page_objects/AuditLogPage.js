@@ -91,7 +91,7 @@ const auditLogsCommands = {
             .verify.containsText('@category', category, 'Category should be ' + category)
             .verify.containsText('@action', action, 'Action should be ' + action)
             .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-            .verify.containsText('@staticField', entryTitle, entryTitle + ' is visible')
+            .verify.containsText('@staticFieldWithNoDataFound', entryTitle, entryTitle + ' is visible')
     },
 
     validateTemplateEntry: function (templateTitle, member, action, category) {
@@ -278,6 +278,11 @@ module.exports = {
 
         staticField: {
             selector: `//DIV[@class='expand-row__span']/STRONG`,
+            locateStrategy: 'xpath',
+        },
+
+        staticFieldWithNoDataFound: {
+            selector: `//SPAN[text()='${testConstants.noDataFound}']`,
             locateStrategy: 'xpath',
         },
 

@@ -10,13 +10,6 @@ const preferencesCommands = {
       .click('@closeByAssignee')
   },
 
-  setTimeoutValue: function () {
-    return this.waitForElementVisible('@systemTimeOut', 'system time out is visible')
-      .clearValue('@systemTimeOut')
-      .pause(1000)
-      .setValue('@systemTimeOut', 20)
-  },
-
   successMessage: function () {
     return this.waitForElementVisible('@updatePreferences', 'update preferences is visible')
       .click('@updatePreferences')

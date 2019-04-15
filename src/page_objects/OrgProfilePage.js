@@ -35,7 +35,7 @@ const orgProfileCommands = {
     return this.updateDetails('@orgNameInput', name)
       .updateDetails('@addressOneInput', address)
       .updateDetails('@cityInput', city)
-      .setDetails('@stateInput', state)
+      .setValue('@stateInput', state)
       .updateDetails('@zipInput', zip)
     },
 

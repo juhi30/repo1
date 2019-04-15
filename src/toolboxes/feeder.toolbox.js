@@ -38,6 +38,12 @@ module.exports = {
     oooToDate: '09/30/2020',
     oooFromTime: '12:00am',
     oooToTime: '12:00am',
+    newEventTitle: 'Edit Title',
+    newEventMessage: 'Edit Message',
+    newFromDate: '04/09/2019',
+    newToDate: '04/10/2019',
+    newFromTime: '11:00am',
+    newToTime: '08:00pm',
 
     // New Phone Type Channel Details
     numberForNewPhoneChannel: 819,
@@ -62,11 +68,11 @@ module.exports = {
     newPurpose: 'New change in purpose',
     rhinoChannelNewName : 'New RhinoSecure Channel',
 
-    //Tags Data
-    tagNameNewPhoneType: 'NewPhoneTypetag',
-    tagNameRhinoType: 'RhinoSecureTypeTag',
+    //Tags
+    tagNameNewPhoneType: 'Test_1',
+    tagNameRhinoType: 'Test_2',
     customTag: 'Custom',
-    
+
     //Web Form Addition Details
    formTitleName: 'Send Message via web form.',
    titleSubtext: 'Text or Call us.',

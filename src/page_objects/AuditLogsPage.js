@@ -1,12 +1,11 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
 let text = '';
 
 const auditLogsCommands = {
 
-  elementText: function (ele, message) {
+  elementText: function (ele) {
     return this.getText(ele, function (tpObj) {
       text = tpObj.value;
-      console.log(text, message);
+      console.log(text);
     });
   },
 
@@ -60,75 +59,18 @@ const auditLogsCommands = {
       .click('@auditLogsOption');
   },
 
-  validateTagEntry: function (action, tagName) {
-    return this.verify.visible('@auditEntry', 'Tag entry is visible')
-      .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', 'test user', 'Member name is test user')
-      .verify.visible('@contact', 'Contact name should not be visible')
-      .verify.containsText('@category', 'Tag', 'Category should be Tag')
-      .verify.containsText('@action', action, 'Action should be ' + action)
+  validateAuditEntry: function (member, category, action, Name, contact) {
+    return this.waitForElementVisible('@auditEntry', category + ' entry is visible')
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
       .click('@linkText')
-      .verify.containsText('@staticField', tagName, action + 'ed tag name should be ' + tagName)
-  },
-
-  validateBillingEntry: function () {
-    return this.verify.visible('@auditEntry', 'Billing entry is visible')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', 'test user', 'Member name is test user')
-      .verify.visible('@contact', 'Contact name should not be visible')
-      .verify.containsText('@category', 'Billing', 'Category should be Billing')
-      .verify.containsText('@action', 'Edit', 'Action should be Edit')
-      .verify.containsText('@linkText', 'Details', 'Link text should be Details')
-  },
-
-  validateEventEntry: function (action, eventName) {
-    return this.verify.visible('@auditEntry', 'Event entry is visible')
-      .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', 'test user', 'Member name is test user')
-      .verify.visible('@contact', 'Contact name should not be visible')
-      .verify.containsText('@category', 'Out of Office', 'Category should be Out of Office')
-      .verify.containsText('@action', action, 'Action should be ' + action)
-      .verify.containsText('@linkText', 'Details ', 'Link text should be Details')
-      .click('@linkText')
-      .verify.containsText('@staticField', eventName, action + 'ed Event should be ' + eventName)
-  },
-
-  validateTemplateEntry: function (templateTitle, member, action, category) {
-    return this.waitForElementVisible('@auditEntry', 'Template entry is visible')
-      .waitForElementVisible('@linkText','Details Link text is visible')
-      .click('@linkText')
-       .verify.containsText('@staticField', templateTitle, 'Template Title is ' + templateTitle)
-      .verify.containsText('@member', member, 'Member name is' + member)
+      .verify.containsText('@member', member, 'Member name is ' + member)
+      .verify.containsText('@contact', contact, 'Contact name should not be visible')
       .verify.containsText('@category', category, 'Category should be ' + category)
       .verify.containsText('@action', action, 'Action should be ' + action)
       .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-      .verify.containsText('@staticField', templateTitle, ' title name should be ' + templateTitle)
-      .elementText('@eventDetails', ' == details')
-  },
-
-  checkAuditOrgEntry: function (category, action, orgName, member) {
-    return this.verify.visible('@auditEntry', 'Event entry is visible')
-      .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', member, 'Member name is ' + member)
-      .verify.visible('@contact', 'Contact name should not be visible')
-      .verify.containsText('@category', category, 'Category should be' + category)
-      .verify.containsText('@action', action, 'Action should be ' + action)
-      .verify.containsText('@linkText', 'Details', 'Link text should be Details')
-      .click('@linkText')
-      .verify.containsText('@staticField', orgName, action + ' Organization Name should be ' + orgName)
-  },
-
-  checkAuditChannelEntry: function (category, action, channelName, member) {
-    return this.verify.visible('@auditEntry', 'Channel entry is visible')
-      .verify.visible('@dateAndTime', 'Date and Time is visible')
-      .verify.containsText('@member', member, 'Member name is ' + member)
-      .verify.visible('@contact', 'Contact name should not be visible')
-      .verify.containsText('@category', category, 'Category should be' + category)
-      .verify.containsText('@action', action, 'Action should be ' + action)
-      .verify.containsText('@linkText', 'Details', 'Link text should be Details')
-      .click('@linkText')
-      .verify.containsText('@staticField', channelName, action + ' Channel Name should be ' + channelName)
+      .verify.containsText('@staticField', Name, action + 'ed Event should be ' + Name)
+      .elementText('@eventDetails')
   },
 }
 
@@ -264,34 +206,7 @@ module.exports = {
     },
 
     staticField: {
-      selector: `//DIV[@class='expand-row__span']/STRONG`,
-      locateStrategy: 'xpath',
-    },
-
-    /*********-------Action Items ------*********/
-
-    addAction: {
-      selector: `//SPAN[contains(text(),'Add')]`,
-      locateStrategy: 'xpath',
-    },
-
-    deleteAction: {
-      selector: `//SPAN[contains(text(),'Delete')]`,
-      locateStrategy: 'xpath',
-    },
-
-    editAction: {
-      selector: `//SPAN[contains(text(),'Edit')]`,
-      locateStrategy: 'xpath',
-    },
-
-    mergeAction: {
-      selector: `//SPAN[contains(text(),'Merge')]`,
-      locateStrategy: 'xpath',
-    },
-
-    viewAction: {
-      selector: `//SPAN[contains(text(),'View')]`,
+      selector: `//DIV[@class = 'expand-row__span']/STRONG`,
       locateStrategy: 'xpath',
     },
 

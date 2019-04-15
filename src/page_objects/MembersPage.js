@@ -13,7 +13,8 @@ const membersCommands = {
   },
 
   enterDetails: function(element, value) {
-    return this.setValue(element, value)
+    return this.waitForElementVisible(element, element + ' is visible')
+    .setValue(element, value)
   },
 
   setMemberRoles: function (roleName) {

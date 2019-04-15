@@ -23,7 +23,7 @@ beforeAll(async () => {
 
   // await org.clickLogout()
 
-  setup.navigate()
+  await setup.navigate()
     .clickBillingToggle()
     .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
       testConstants.state, testConstants.zip)

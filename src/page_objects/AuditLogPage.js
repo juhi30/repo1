@@ -91,6 +91,18 @@ const auditLogsCommands = {
             .verify.containsText('@category', category, 'Category should be ' + category)
             .verify.containsText('@action', action, 'Action should be ' + action)
             .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
+            .verify.containsText('@staticField', entryTitle, entryTitle + ' is visible')
+    },
+
+    validateEventEntryWithNoDataFound: function (action, entryTitle, memberName, category) {
+        return this.waitForElementVisible('@auditEntry', 'Event entry is visible')
+            .waitForElementVisible('@linkText', 'Details Link text is visible')
+            .click('@linkText')
+            .verify.visible('@dateAndTime', 'Date and Time is visible')
+            .verify.containsText('@member', memberName, 'Member name is ' + memberName)
+            .verify.containsText('@category', category, 'Category should be ' + category)
+            .verify.containsText('@action', action, 'Action should be ' + action)
+            .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
             .verify.containsText('@staticFieldWithNoDataFound', entryTitle, entryTitle + ' is visible')
     },
 

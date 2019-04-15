@@ -1,20 +1,7 @@
 const testConstant = require('../toolboxes/feeder.toolbox')
 const preferencesCommands = {
 
-  checkOrgPreferences: function () {
-    return this.waitForElementVisible('@organisationPreferencesTitle', 'organization preferences title is visible')
-      .click('@selectChannel')
-      .waitForElementVisible('@globalSound', 'global sound is available')
-      .click('@globalSound')
-      .waitForElementVisible('@closeByAssignee', 'close by assignee is visible')
-      .click('@closeByAssignee')
-  },
 
-  successMessage: function () {
-    return this.waitForElementVisible('@updatePreferences', 'update preferences is visible')
-      .click('@updatePreferences')
-      .waitForElementVisible('@updationSuccessfulMessage', 'success message is visible')
-  },
 }
 
 module.exports = {
@@ -33,7 +20,7 @@ module.exports = {
     },
 
     selectChannel: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][text()='${testConstant.chooseChannel}']`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][text()='${testConstant.newChannelName}']`,
       locateStrategy: 'xpath',
     },
 

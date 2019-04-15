@@ -58,7 +58,6 @@ module.exports = {
     rhinoChannelNewName : 'New RhinoSecure Channel',
 
     //Preferences Details
-    chooseChannel: 'Automation Test Channel New',
     systemTimeOutValue: '20',
     editEvent: 'Edit',
     orgCategory: 'Org Preferences',
@@ -69,12 +68,12 @@ module.exports = {
     tagNameRhinoType: 'Test_2',
 
     //Web Form Addition Details
-   formTitleName: 'Send Message via web form.',
-   titleSubtext: 'Text or Call us.',
-   phonePlaceholder: 'Enter Phone Number',
-   phoneHelpText: 'This will be used in response to question.',
-   messagePlaceHolder: 'Enter your question here.',
-   submitButton: 'Do send your message.',
-   callToActionButton: 'Send Message',
-   confirmationText: 'The message has been submitted successfully!',
+    formTitleName: 'Send Message via web form.',
+    titleSubtext: 'Text or Call us.',
+    phonePlaceholder: 'Enter Phone Number',
+    phoneHelpText: 'This will be used in response to question.',
+    messagePlaceHolder: 'Enter your question here.',
+    submitButton: 'Do send your message.',
+    callToActionButton: 'Send Message',
+    confirmationText: 'The message has been submitted successfully!',
 };

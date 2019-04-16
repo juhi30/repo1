@@ -64,7 +64,7 @@ const editChannelsCommands = {
       .click('@confirmDeleteChannel')
   },
 
-  webFormValidation: function (element) {
+  clearWebFormFields: function (element) {
     return this.waitForElementVisible(element, element + ' : is visible')
       .pause(1000)
       .clearValue(element)
@@ -343,8 +343,8 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    customTag: {
-      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'${testConstants.customTag}')]`,
+    tagCategory: {
+      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'${testConstants.tagCategory}')]`,
       locateStrategy: 'xpath',
     },
 

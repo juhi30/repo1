@@ -179,6 +179,7 @@ describe('Login Page Tests Cases', () => {
       .clickSaveAndContinueButton()
       .validateUrlChange()
       .waitForElementNotPresent('@passwordUpdateSuccessMessage')
+   
     await universal.clickLogout()
   });
 });

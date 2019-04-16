@@ -62,7 +62,7 @@ describe('Test Automation - Templates', () => {
             .markAsUnfavorite('@favoriteOption', '@favoriteFilter', '@templateTitle')
 
         await entry.navigate()
-        .validateAuditEntry(testConstants.memberName, 'Template Action', 'Edit', testConstants.newTemplate, '')
+            .validateAuditEntry(testConstants.memberName, 'Template Action', 'Edit', testConstants.newTemplate, '')
     });
 
     test('Search Template', async () => {
@@ -81,7 +81,7 @@ describe('Test Automation - Templates', () => {
             .deleteTemplate('@deleteTemplateSuccessMessage')
 
         await entry.navigate()
-        .validateAuditEntry(testConstants.memberName, 'Template', 'Delete', testConstants.newTemplate, '')
+            .validateAuditEntry(testConstants.memberName, 'Template', 'Delete', testConstants.newTemplate, '')
     });
 
     test('handling system template', async () => {
@@ -94,7 +94,7 @@ describe('Test Automation - Templates', () => {
             .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage')
 
         await entry.navigate()
-        .validateAuditEntry(testConstants.memberName, 'Template', 'Edit', testConstants.hipaaTitle, '')
+            .validateAuditEntryWithNoDataFound('Edit', testConstants.noDataFound, testConstants.memberName, 'Template')
 
         await systemtemplate.navigate()
             .templateEditMode('@HIPAATemplate')
@@ -102,7 +102,7 @@ describe('Test Automation - Templates', () => {
             .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage')
 
         await entry.navigate()
-        .validateAuditEntry(testConstants.memberName, 'Template', 'Edit', testConstants.hipaaTitle, '')
+            .validateAuditEntry(testConstants.memberName, 'Template', 'Edit', testConstants.hipaaTitle, '')
     });
 
     test('Mark the HIPAA template as favorite', async () => {
@@ -114,7 +114,7 @@ describe('Test Automation - Templates', () => {
             .markAsFavorite('@favoriteOptionforHIPAA', '@favoriteFilter', '@HIPAATemplate')
 
         await entry.navigate()
-        .validateAuditEntry(testConstants.memberName, 'Template Action', 'Edit', testConstants.hipaaTitle, '')
+            .validateAuditEntry(testConstants.memberName, 'Template Action', 'Edit', testConstants.hipaaTitle, '')
     });
 
     test('Mark the HIPAA template as Unfavorite', async () => {
@@ -125,7 +125,7 @@ describe('Test Automation - Templates', () => {
             .markAsUnfavorite('@favoriteOptionforHIPAA', '@favoriteFilter', '@HIPAATemplate')
 
         await entry.navigate()
-        .validateAuditEntry(testConstants.memberName, 'Template Action', 'Edit', testConstants.hipaaTitle, '')
+            .validateAuditEntry(testConstants.memberName, 'Template Action', 'Edit', testConstants.hipaaTitle, '')
     });
 
     test('Filtering of Templates', async () => {

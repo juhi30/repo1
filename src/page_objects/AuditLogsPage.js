@@ -59,6 +59,19 @@ const auditLogsCommands = {
       .click('@auditLogsOption');
   },
 
+  validateAuditEntryWithNoDataFound: function (action, Name, member, category) {
+    return this.waitForElementVisible('@auditEntry', 'Event entry is visible')
+      .waitForElementVisible('@linkText', 'Details Link text is visible')
+      .click('@linkText')
+      .verify.visible('@dateAndTime', 'Date and Time is visible')
+      .verify.containsText('@member', member, 'Member name is ' + member)
+      .verify.containsText('@category', category, 'Category should be ' + category)
+      .verify.containsText('@action', action, 'Action should be ' + action)
+      .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
+      .verify.containsText('@noDataFound', Name, Name + ' is visible')
+      .elementText('@eventDetails')
+  },
+
   validateAuditEntry: function (member, category, action, Name, contact) {
     return this.waitForElementVisible('@auditEntry', category + ' entry is visible')
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
@@ -213,6 +226,11 @@ module.exports = {
     eventDetails: {
       selector: `//DIV[@class='expand-row u-list']`,
       locateStrategy: 'xpath',
+    },
+
+    noDataFound: {
+        selector: `//SPAN[contains(text(),'No Data Found')]`,
+        locateStrategy: 'xpath',
     },
   }
 }

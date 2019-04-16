@@ -17,12 +17,12 @@ module.exports = {
     officeCity: 'Charleston',
     officeState: 'South Carolina',
     zipCode: '29403',
-
+    
     // New Member Details 
-    memberFirstName: 'Testing_NewCanary',
-    memberLastName: 'LastName5',
-    memberName: 'Testing_NewCanary LastName5',
-    memberUsername: 'Testing_NewCanary5',
+    memberName: 'Testing_NewCanary_1 LastName',
+    memberFirstName: 'Testing_NewCanary_1',
+    memberLastName: 'LastName',
+    memberUsername: 'Testing_NewCanary_1',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
@@ -68,18 +68,43 @@ module.exports = {
     newPurpose: 'New change in purpose',
     rhinoChannelNewName : 'New RhinoSecure Channel',
 
+    //Preferences Details
+    systemTimeOutValue: '20',
+    editEvent: 'Edit',
+    orgCategory: 'Org Preferences',
+    noDataFound: 'No Data Found',
+
     //Tags
     tagNameNewPhoneType: 'Test_1',
     tagNameRhinoType: 'Test_2',
-    customTag: 'Custom',
+    tagCategory: 'Custom',
+
 
     //Web Form Addition Details
-   formTitleName: 'Send Message via web form.',
-   titleSubtext: 'Text or Call us.',
-   phonePlaceholder: 'Enter Phone Number',
-   phoneHelpText: 'This will be used in response to question.',
-   messagePlaceHolder: 'Enter your question here.',
-   submitButton: 'Do send your message.',
-   callToActionButton: 'Send Message',
-   confirmationText: 'The message has been submitted successfully!',
+    formTitleName: 'Send Message via web form.',
+    titleSubtext: 'Text or Call us.',
+    phonePlaceholder: 'Enter Phone Number',
+    phoneHelpText: 'This will be used in response to question.',
+    messagePlaceHolder: 'Enter your question here.',
+    submitButton: 'Do send your message.',
+    callToActionButton: 'Send Message',
+    confirmationText: 'The message has been submitted successfully!',
+
+     //details for office addition
+     officeName: 'Mount Pleasant Office',
+     officeAddress: '128 Hester St',
+     officeCity: 'Charleston',
+     officeState: 'South Carolina',
+     zipCode: '29403',
+ 
+     addEvent: 'Add',
+     category: 'Office Location',
+     editEvent: 'Edit',
+     deleteEvent: 'Delete',
+ 
+     newOfficeName: 'American Megatrends',
+     newOfficeAddress: '123 St George Road',
+     newOfficeCity: 'Boston',
+     newOfficeState: 'Hawaii',
+     newZipCode: '12345', 
 };

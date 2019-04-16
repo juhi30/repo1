@@ -11,14 +11,8 @@ module.exports = {
     state: 'Alaska',
     zip: '12345',
 
-    //details for office addition
-    officeName: 'Mount Pleasant Office',
-    officeAddress: '128 Hester St',
-    officeCity: 'Charleston',
-    officeState: 'South Carolina',
-    zipCode: '29403',
-
     // New Member Details 
+    memberName: 'Testing_NewCanary_1 LastName',
     memberFirstName: 'Testing_NewCanary_1',
     memberLastName: 'LastName',
     memberUsername: 'Testing_NewCanary_1',
@@ -66,6 +60,8 @@ module.exports = {
     //Tags
     tagNameNewPhoneType: 'Test_1',
     tagNameRhinoType: 'Test_2',
+    tagCategory: 'Custom',
+
 
     //Web Form Addition Details
     formTitleName: 'Send Message via web form.',
@@ -76,4 +72,22 @@ module.exports = {
     submitButton: 'Do send your message.',
     callToActionButton: 'Send Message',
     confirmationText: 'The message has been submitted successfully!',
+
+     //details for office addition
+     officeName: 'Mount Pleasant Office',
+     officeAddress: '128 Hester St',
+     officeCity: 'Charleston',
+     officeState: 'South Carolina',
+     zipCode: '29403',
+ 
+     addEvent: 'Add',
+     category: 'Office Location',
+     editEvent: 'Edit',
+     deleteEvent: 'Delete',
+ 
+     newOfficeName: 'American Megatrends',
+     newOfficeAddress: '123 St George Road',
+     newOfficeCity: 'Boston',
+     newOfficeState: 'Hawaii',
+     newZipCode: '12345', 
 };

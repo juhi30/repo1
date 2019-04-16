@@ -44,4 +44,5 @@ describe('Members Page', () => {
 
     await logout.clickLogout();
   });
+
 });

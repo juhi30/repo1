@@ -12,10 +12,10 @@ module.exports = {
     zip: '12345',
 
     // New Member Details 
-    memberFirstName: 'Testing_NewCanary_376',
+    memberName: 'Testing_NewCanary_1 LastName',
+    memberFirstName: 'Testing_NewCanary_1',
     memberLastName: 'LastName',
-    memberUsername: 'Testing_NewCanary_376',
-    memberName: 'Testing_NewCanary_376 LastName',
+    memberUsername: 'Testing_NewCanary_1',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
@@ -31,6 +31,13 @@ module.exports = {
     oooToDate: '09/30/2020',
     oooFromTime: '12:00am',
     oooToTime: '12:00am',
+    newEventTitle: 'Edit Title',
+    newEventMessage: 'Edit Message',
+    newFromDate: '04/09/2019',
+    newToDate: '04/10/2019',
+    newFromTime: '11:00am',
+    newToTime: '08:00pm',
+
 
     // New Phone Type Channel Details
     numberForNewPhoneChannel: 819,
@@ -43,6 +50,12 @@ module.exports = {
     newChannelName : 'Automation Test Channel New',
     newPurpose: 'New change in purpose',
     rhinoChannelNewName : 'New RhinoSecure Channel',
+
+    //Preferences Details
+    systemTimeOutValue: '20',
+    editEvent: 'Edit',
+    orgCategory: 'Org Preferences',
+    noDataFound: 'No Data Found',
 
     //Tags
     tagNameNewPhoneType: 'Test_1',

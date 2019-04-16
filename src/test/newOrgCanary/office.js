@@ -2,7 +2,6 @@ import { client } from 'nightwatch-api';
 const testConstants = require('../../toolboxes/feeder.toolbox');
 
 describe('Office Page', () => {
-
     test('To add the office by ccr', async () => {
 
         const office = client.page.OfficePage();

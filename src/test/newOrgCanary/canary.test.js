@@ -16,9 +16,11 @@ beforeAll(async () => {
     .pause(2000)
     .validateUrlChange('/selectorg')
 
-  // //Use Search to avoid creating org again n again 
+  //Use Search to avoid creating org again n again 
   // await org.searchForOrganization(testConstants.orgName)
   //   .ccrOrgLogin()
+  //   .pause(2000)
+
   // await org.clickLogout()
 
   await setup.navigate()
@@ -39,7 +41,7 @@ afterAll(async (done) => {
     const archiveResponse = await deleteOrg.archiveOrganization(process.env.ORGANIZATION_ID, cookie);
     console.log('======== Organization Archive Response =======');
     const deleteResponse = await deleteOrg.deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======');
+    console.log('====== Organization Deleted =======', deleteResponse);
     done();
   } catch (err) {
     console.log(err);
@@ -53,3 +55,6 @@ import './channels'
 import './office'
 import './tags'
 import './outofoffice'
+import './template'
+import './preferences'
+

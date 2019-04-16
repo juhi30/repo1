@@ -11,10 +11,8 @@ describe('Automated Tests: Channels', () => {
       .submit()
       .pause(2000)
       .validateUrlChange('/selectorg')
-      .pause(2000)
 
     await org.searchForOrganization(testConstants.orgName)
-    .pause(2000)
       .ccrOrgLogin()
       .pause(2000)
   });
@@ -122,14 +120,14 @@ describe('Automated Tests: Channels', () => {
     await channel.navigate()
       .channelEditMode('@updatedChannelTitle')
 
-    await update.addtag(testConstants.tagNameNewPhoneType, '@customTag')
+    await update.addtag(testConstants.tagNameNewPhoneType, '@tagCategory')
       .pause(2000)
       .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
       .checkSuccessMessage('@channelUpdateSuccessMessage')
 
     await channel.channelEditMode('@updatedRhinoSecureChannelTitle')
 
-    await update.addtag(testConstants.tagNameRhinoType, '@customTag')
+    await update.addtag(testConstants.tagNameRhinoType, '@tagCategory')
       .pause(2000)
       .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
       .checkSuccessMessage('@channelUpdateSuccessMessage')
@@ -183,28 +181,26 @@ describe('Automated Tests: Channels', () => {
       .click('@updateChannelButton')
   });
 
-  //Commenting as channels are required to create OOO
+  test('Channel Deletion', async () => {
+    const channel = client.page.ChannelsPage();
+    const deletechannel = client.page.ChannelsCreateEditPage();
 
-//   test('Channel Deletion', async () => {
-//     const channel = client.page.ChannelsPage();
-//     const deletechannel = client.page.ChannelsCreateEditPage();
+    await channel.navigate()
+      .channelEditMode('@updatedChannelTitle')
 
-//     await channel.navigate()
-//         .channelEditMode('@updatedChannelTitle')
+    await deletechannel.deleteChannels()
+      .pause(2000)
+    await channel.navigate()
+      .channelEditMode('@updatedRhinoSecureChannelTitle')
 
-//     await deletechannel.deleteChannels()
-//         .pause(2000)
-//     await channel.navigate()
-//         .channelEditMode('@updatedRhinoSecureChannelTitle')
-
-//     await deletechannel.deleteChannels()
-//         .pause(2000)
-// });
+    await deletechannel.deleteChannels()
+      .pause(2000)
+  });
 
   test('logout as CCR', async () => {
     const logout = client.page.UniversalElements();
 
     await logout.clickLogout();
   });
-
+  
 });

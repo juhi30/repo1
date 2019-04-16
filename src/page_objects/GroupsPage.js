@@ -19,7 +19,7 @@ const groupsPageCommands = {
       .click('@patientOption')
       .setValue('@nameInput', testConstant.groupName)
       .setValue('@purposeInput', testConstant.purpose)
-      .setValue('@groupMemberInput', testConstant.memberFirstName)
+      .setValue('@groupMemberInput', testConstant.memberName)
       .pause(2000)
       .click('@memberNameSearchResult')
       .pause(1000)
@@ -84,7 +84,7 @@ module.exports = {
     // AvailabilityHoursContainer is a separate page object
 
     memberNameSearchResult: {
-      selector: `//SPAN[(@class='resource__intro__title__content')][contains(text(),'${testConstant.memberFirstName}')]`,
+      selector: `//SPAN[(@class='resource__intro__title__content')][contains(text(),'${testConstant.memberName}')]`,
       locateStrategy: 'xpath',
     },
   }

@@ -41,7 +41,7 @@ afterAll(async (done) => {
     const archiveResponse = await deleteOrg.archiveOrganization(process.env.ORGANIZATION_ID, cookie);
     console.log('======== Organization Archive Response =======', archiveResponse);
     const deleteResponse = await deleteOrg.deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======');
+    console.log('====== Organization Deleted =======', deleteResponse);
     done();
   } catch (err) {
     console.log(err);
@@ -54,5 +54,6 @@ import './login'
 import './channels'
 import './office'
 import './outofoffice'
+import './template'
 import './preferences'
 

@@ -66,12 +66,15 @@ const editChannelsCommands = {
 
   clearWebFormFields: function (element) {
     return this.waitForElementVisible(element, element + ' : is visible')
+      .pause(1000)
       .clearValue(element)
+      .pause(1000)
       .setValue(element, ' ')
   },
 
   checkForValidation: function (validationMessage) {
     return this.waitForElementVisible(validationMessage, validationMessage + ': is visible')
+      .pause(1000)
   },
 
   updateWebform: function (element, newValue) {
@@ -80,15 +83,14 @@ const editChannelsCommands = {
       .setValue(element, newValue)
   },
 
-  addtag: function(name,category){
-    return this.waitForElementVisible('@createNewTag','create new tag button is visible')
-    .click('@createNewTag')
-    .waitForElementVisible('@tagNameInput', 'Add tag modal is open')
-    .setValue('@tagNameInput', name)
-    .click(category)
-    .waitForElementVisible('@createTagButton','Create tag Button is visible.')
-    .click('@createTagButton')
-    //.waitForElementNotPresent('@createTagButton','Create Tag button is no longer visible.')
+  addtag: function (name, category) {
+    return this.waitForElementVisible('@createNewTag', 'create new tag button is visible')
+      .click('@createNewTag')
+      .waitForElementVisible('@tagNameInput', 'Add tag modal is open')
+      .setValue('@tagNameInput', name)
+      .click(category)
+      .waitForElementVisible('@createTagButton', 'Create tag Button is visible.')
+      .click('@createTagButton')
   },
 }
 
@@ -331,8 +333,8 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    createNewTag : {
-      selector : `//SPAN[@class='button__text-wrapper'][contains(text(),'Create New Tag')]`,
+    createNewTag: {
+      selector: `//SPAN[@class='button__text-wrapper'][contains(text(),'Create New Tag')]`,
       locateStrategy: 'xpath',
     },
 
@@ -346,8 +348,8 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    createTagButton : {
-      selector:`//SPAN[@class='button__text-wrapper'][contains(text(),'Create Tag')]`,
+    createTagButton: {
+      selector: `//SPAN[@class='button__text-wrapper'][contains(text(),'Create Tag')]`,
       locateStrategy: 'xpath',
     }
   }

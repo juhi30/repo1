@@ -57,4 +57,10 @@ describe('OOO Event Page', () => {
 			.pause(3000)
 			.validateAuditEntry('ccr', 'Out of Office', 'Delete', testConstants.newEventTitle, '')
 	});
+
+	test('Logout as CCR', async () => {
+		const logout = client.page.UniversalElements();
+	
+		await logout.clickLogout();    
+	  });
 });

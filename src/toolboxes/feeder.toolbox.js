@@ -11,6 +11,13 @@ module.exports = {
     state: 'Alaska',
     zip: '12345',
 
+    //details for office addition
+    officeName: 'Mount Pleasant Office5',
+    officeAddress: '128 Hester St',
+    officeCity: 'Charleston',
+    officeState: 'South Carolina',
+    zipCode: '29403',
+    
     // New Member Details 
     memberName: 'Testing_NewCanary_1 LastName',
     memberFirstName: 'Testing_NewCanary_1',
@@ -38,7 +45,6 @@ module.exports = {
     newFromTime: '11:00am',
     newToTime: '08:00pm',
 
-
     // New Phone Type Channel Details
     numberForNewPhoneChannel: 819,
     chooseANumber: '+18192004430',
@@ -46,6 +52,17 @@ module.exports = {
     channelName: 'Automation Test Channel1',
     channelPurpose : 'test Automation',
     timeZone: 'Eastern Time (UTC -05:00) - New York',
+
+    //Templates Details
+    templateTitle : 'test_automation_template',
+    templateMessage : 'this is automation testing message', 
+    newTemplate: 'new_test_automation_template',
+    newTempleteMessage : 'this is automation testing new message',
+    hipaaTitle: 'HIPAA Consent Request',
+    hipaaMessage : 'Hi! You can now text or call us at this number! Just like phone calls and voicemails, texting may not always be 100% secure depending on the mobile service you use. Knowing that, would you like us to communicate with you via text?',
+    allFilter: 'All',
+    textingFilter: 'Texting',
+    favFilter: 'Favorite',
     rhinoChannelName : 'RhinoSecure Automation channel',
     newChannelName : 'Automation Test Channel New',
     newPurpose: 'New change in purpose',

@@ -73,7 +73,7 @@ module.exports = {
     },
 
     selectMember:{
-      selector:`//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.memberFirstName}')]`,
+      selector:`//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.memberName}')]`,
       locateStrategy:'xpath',
     },
 

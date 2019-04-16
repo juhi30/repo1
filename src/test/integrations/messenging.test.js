@@ -16,8 +16,8 @@ function sleep(ms) {
 }
 
 describe('messsenging tests', () => {
-  jest.setTimeout(30000);
   test('configure echo handler for known user', (done) => {
+    jest.setTimeout(30000);
     const config = {
       number: process.env.TEST_BANDWIDTH_NUMBER_PATIENT,
       config: { handler: 'echo', config: ['+18039574927'] },
@@ -28,6 +28,7 @@ describe('messsenging tests', () => {
   });
 
   test('configure reply handler for unknown user', (done) => {
+    jest.setTimeout(30000);
     const config = {
       number: process.env.TEST_BANDWIDTH_NUMBER_UNKNOWN,
       config: { handler: 'reply', config: ['I love Rhinogram!'] },
@@ -38,12 +39,14 @@ describe('messsenging tests', () => {
   });
 
   test('send messenge from known user', (done) => {
+    jest.setTimeout(30000);
     sendMessage(process.env.TEST_BANDWIDTH_NUMBER_PATIENT, process.env.TEST_BANDWIDTH_NUMBER_ORG, 'Do i still have an appointment tomorrow!').then(() => {
       done();
     });
   });
 
   test('send messenge from unknown user', (done) => {
+    jest.setTimeout(30000);
     sendMessage(process.env.TEST_BANDWIDTH_NUMBER_UNKNOWN, process.env.TEST_BANDWIDTH_NUMBER_ORG, 'Hello, my name is Shannon, can I get a consult with Dr. Phill?').then(() => {
       done();
     });

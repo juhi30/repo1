@@ -1,5 +1,9 @@
-const helper = require('../toolboxes/helpers.toolbox')
 const orgProfileCommands = {
+
+  pause: function(time) {
+    this.api.pause(time);
+    return this;
+  },
 
   renderPageElements: function() {
     return this.waitForElementVisible('@updateLogoButton', 'Update logo button is visible')
@@ -109,7 +113,6 @@ module.exports = {
   url: function() {
     return this.api.launch_url + '/settings/organization/profile'
   },
-
   elements: {
 
     updateLogoButton: {
@@ -131,11 +134,6 @@ module.exports = {
 
     closeUploadPhotoIcon: {
       selector: `//BUTTON[contains(@title, 'Close')]`,
-      locateStrategy: 'xpath',
-    },
-
-    doneUploadPhoto: {
-      selector: `//*[contains(text(),'Done')]`,
       locateStrategy: 'xpath',
     },
 

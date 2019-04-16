@@ -11,15 +11,15 @@ export const USER_TYPE_PATIENT = 18;
 followRedirects.maxRedirects = 10;
 followRedirects.maxBodyLength = 500 * 1024 * 1024 * 1024;
 
-const orgId = process.env.EXISTING_ORG_ID;
+const orgId = process.env.ORG_ID;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 describe('user matching tests', () => {
-  jest.setTimeout(30000);
   test('create patients', async () => {
+    jest.setTimeout(30000);
     let user = {
       externalId: '1',
       firstName: 'Joe',
@@ -46,6 +46,7 @@ describe('user matching tests', () => {
   });
 
   test('find created patient 1', async (done) => {
+    jest.setTimeout(30000);
     rhinoapi.getUserByExternalId(orgId, '1').then((response) => {
       expect(response.data.externalIds.emrId).toBe('1');
       expect(response.data.firstName).toBe('Joe');
@@ -56,6 +57,7 @@ describe('user matching tests', () => {
   });
 
   test('find created patient 2', async (done) => {
+    jest.setTimeout(30000);
     rhinoapi.getUserByExternalId(orgId, '2').then((response) => {
       expect(response.data.externalIds.emrId).toBe('2');
       expect(response.data.firstName).toBe('Joe');
@@ -68,6 +70,7 @@ describe('user matching tests', () => {
 
 
   test('try match with no ext id and no birthday with patient joe', async (done) => {
+    jest.setTimeout(30000);
     const user = {
       firstName: 'Joe',
       lastName: 'Johnson',

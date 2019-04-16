@@ -5,7 +5,7 @@ describe('Existing Canary Login Page Tests', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-    .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+      .validateForm()
 
   });
 
@@ -14,7 +14,7 @@ describe('Existing Canary Login Page Tests', () => {
 
     await login.navigate()
       .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+      .validateError()
 
   });
 
@@ -24,7 +24,7 @@ describe('Existing Canary Login Page Tests', () => {
     await login.navigate()
            .fillInUsername('nightmember')
            .submit()
-           .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+           .validateError()
 
   });
 
@@ -34,6 +34,6 @@ describe('Existing Canary Login Page Tests', () => {
     await login.navigate()
            .fillInPassword('justsomepassword')
           .submit()
-          .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+           .validateError()
   });
 });

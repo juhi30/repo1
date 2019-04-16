@@ -15,7 +15,7 @@ let createdPatient;
 let createdOther;
 let createdAppointment;
 
-const orgId = process.env.EXISTING_ORG_ID;
+const orgId = process.env.ORG_ID;
 const patientExternalId = 'c3ba714d-47e7-4eb4-8713-b60730179c89';
 const guardianExtrenalId = '2833d372-4a2d-462b-b302-a0d9b54b49fc';
 
@@ -24,14 +24,15 @@ function sleep(ms) {
 }
 
 describe('integration tests', () => {
-  jest.setTimeout(30000);
   test('send CSV data', (done) => {
+    jest.setTimeout(30000);
     rhinofeeder.sendCSVData('./resources/fakeDataSmall.csv', orgId, 'users').then((message) => {
       done();
     });
   });
 
   test('find patient', async (done) => {
+    jest.setTimeout(30000);
     await sleep(20000);
     rhinoapi.getUserByExternalId(orgId, patientExternalId).then((response) => {
       expect(response.data.externalIds.emrId).toBe(patientExternalId);
@@ -41,6 +42,7 @@ describe('integration tests', () => {
   });
 
   test('update patient', async (done) => {
+    jest.setTimeout(30000);
     const user = {
       externalId: createdPatient.externalIds.emrId,
       firstName: 'Joe',
@@ -59,6 +61,7 @@ describe('integration tests', () => {
   });
 
   test('find updated patient', async (done) => {
+    jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getUserByExternalId(orgId, patientExternalId).then((response) => {
       expect(response.data.externalIds.emrId).toBe(patientExternalId);
@@ -69,6 +72,7 @@ describe('integration tests', () => {
   });
 
   test('create other patient', async (done) => {
+    jest.setTimeout(30000);
     const user = {
       externalId: OTHER_EXTERNAL_ID,
       firstName: 'Other',
@@ -85,6 +89,7 @@ describe('integration tests', () => {
   });
 
   test('find other patient', async (done) => {
+    jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getUserByExternalId(orgId, OTHER_EXTERNAL_ID).then((response) => {
       expect(response.data.externalIds.emrId).toBe(OTHER_EXTERNAL_ID);
@@ -96,6 +101,7 @@ describe('integration tests', () => {
   });
 
   test('create appointment', async (done) => {
+    jest.setTimeout(30000);
     const appointment = {
       startDate: '2019-04-09T12:30:00.000Z',
       endDate: '2019-04-09T12:45:00.000Z',
@@ -112,6 +118,7 @@ describe('integration tests', () => {
   });
 
   test('find appointment', async (done) => {
+    jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getApointmentByExternalId(orgId, '1455971411', createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe('1455971411');
@@ -122,6 +129,7 @@ describe('integration tests', () => {
   });
 
   test('confirm appointment', async (done) => {
+    jest.setTimeout(30000);
     const appointment = {
       startDate: '2019-04-09T12:30:00.000Z',
       endDate: '2019-04-09T12:45:00.000Z',
@@ -138,6 +146,7 @@ describe('integration tests', () => {
   });
 
   test('find confirmed appointment', async (done) => {
+    jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getApointmentByExternalId(orgId, '1455971411', createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe('1455971411');
@@ -150,6 +159,7 @@ describe('integration tests', () => {
 
 
   test('delete appointment', async (done) => {
+    jest.setTimeout(30000);
     const appointment = {
       startDate: '2019-04-09T12:30:00.000Z',
       endDate: '2019-04-09T12:45:00.000Z',
@@ -166,6 +176,7 @@ describe('integration tests', () => {
   });
 
   test('find deleted appointment', async (done) => {
+    jest.setTimeout(30000);
     await sleep(10000);
     rhinoapi.getApointmentByExternalId(orgId, '1455971411', createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe('1455971411');
@@ -178,6 +189,7 @@ describe('integration tests', () => {
   });
 
   test('create connected party between two patients', async (done) => {
+    jest.setTimeout(30000);
     const connectedParty = {
       fromUserExternalId: patientExternalId,
       toUserExternalId: guardianExtrenalId,
@@ -192,12 +204,14 @@ describe('integration tests', () => {
 
 
   test('verify connected party between two patients', async (done) => {
+    jest.setTimeout(30000);
     await sleep(10000);
     // TODO: implement me
     done();
   });
 
   test('create connected party between an other and a patient', async (done) => {
+    jest.setTimeout(30000);
     const connectedParty = {
       fromUserExternalId: patientExternalId,
       toUserExternalId: OTHER_EXTERNAL_ID,
@@ -211,6 +225,7 @@ describe('integration tests', () => {
   });
 
   test('verify connected party between an other and a patient', async (done) => {
+    jest.setTimeout(30000);
     // TODO: implement me
     done();
   });

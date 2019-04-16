@@ -30,6 +30,7 @@ package-lock.json
 coverage
 reports
 selenium-debug.log
+selenium-server.log
 bin
 lib
 reports*

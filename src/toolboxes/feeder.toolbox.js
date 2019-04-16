@@ -57,24 +57,30 @@ module.exports = {
     newPurpose: 'New change in purpose',
     rhinoChannelNewName : 'New RhinoSecure Channel',
 
+    //Preferences Details
+    systemTimeOutValue: '20',
+    editEvent: 'Edit',
+    orgCategory: 'Org Preferences',
+    noDataFound: 'No Data Found',
+
     //Tags
     tagNameNewPhoneType: 'Test_1',
     tagNameRhinoType: 'Test_2',
 
     //Web Form Addition Details
-   formTitleName: 'Send Message via web form.',
-   titleSubtext: 'Text or Call us.',
-   phonePlaceholder: 'Enter Phone Number',
-   phoneHelpText: 'This will be used in response to question.',
-   messagePlaceHolder: 'Enter your question here.',
-   submitButton: 'Do send your message.',
-   callToActionButton: 'Send Message',
-   confirmationText: 'The message has been submitted successfully!',
+    formTitleName: 'Send Message via web form.',
+    titleSubtext: 'Text or Call us.',
+    phonePlaceholder: 'Enter Phone Number',
+    phoneHelpText: 'This will be used in response to question.',
+    messagePlaceHolder: 'Enter your question here.',
+    submitButton: 'Do send your message.',
+    callToActionButton: 'Send Message',
+    confirmationText: 'The message has been submitted successfully!',
 
-   //Org Profile New Info for Mandatory Fields
-    orgNewName : 'new Org Name',
+    //Org Profile New Info for Mandatory Fields
+    orgNewName: 'new Org Name',
     orgNewAddress: 'New Addres',
-    orgNewCity : 'New City',
+    orgNewCity: 'New City',
     orgNewState: 'New State',
     orgNewZip: '12345',
 

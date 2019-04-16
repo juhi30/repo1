@@ -16,12 +16,14 @@ beforeAll(async () => {
     .pause(2000)
     .validateUrlChange('/selectorg')
 
-  // //Use Search to avoid creating org again n again 
+  //Use Search to avoid creating org again n again 
   // await org.searchForOrganization(testConstants.orgName)
   //   .ccrOrgLogin()
+  //   .pause(2000)
+
   // await org.clickLogout()
 
-  setup.navigate()
+  await setup.navigate()
     .clickBillingToggle()
     .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
       testConstants.state, testConstants.zip)
@@ -47,10 +49,11 @@ afterAll(async (done) => {
   }
 });
 
- import './member'
- import './office'
- import './login'
- import './channels'
- import './outofoffice'
- import './orgProfile'
+import './member'
+import './login'
+import './channels'
+import './office'
+import './outofoffice'
+import './orgProfile'
+import './preferences'
 

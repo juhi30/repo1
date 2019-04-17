@@ -19,9 +19,9 @@ module.exports = {
     zipCode: '29403',
 
     // New Member Details 
-    memberFirstName: 'Testing_NewCanary_1',
+    memberFirstName: 'Testing_NewCanary',
     memberLastName: 'LastName',
-    memberUsername: 'Testing_NewCanary_1',
+    memberUsername: 'Testing_NewCanary',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',

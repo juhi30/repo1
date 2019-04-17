@@ -151,6 +151,7 @@ describe('Login Page Tests Cases', () => {
     await universal.searchForOrganization(testConstants.orgName)
       .ccrOrgLogin()
     await member.navigate()
+      .pause(1000)
       .selectMember()
       .createTempPassword()
       .getTempPassword()
@@ -178,6 +179,7 @@ describe('Login Page Tests Cases', () => {
       .clickSaveAndContinueButton()
       .validateUrlChange()
       .waitForElementNotPresent('@passwordUpdateSuccessMessage')
+      
     await universal.clickLogout()
   });
 });

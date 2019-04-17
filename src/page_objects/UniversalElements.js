@@ -232,6 +232,7 @@ const universalElementsCommands = {
   ccrOrgLogin: function(orgName2SearchResult) {
     const clickableElement = orgName2SearchResult ? orgName2SearchResult : '@organizationSearchResult'
     return this.click(clickableElement)
+      .click('@menuButton')
       .waitForElementVisible('@goBackToSelectNewOrg','CCR login to Org successful')
       .verify.urlContains('contacts', 'Contacts page is visible')
   },
@@ -461,6 +462,11 @@ module.exports = {
 
     goBackToSelectNewOrg: {
       selector: `//SPAN[text()='Select Organization']`,
+      locateStrategy: 'xpath',
+    },
+
+    menuButton: {
+      selector: `//*[@id='app-header__menu']`,
       locateStrategy: 'xpath',
     },
   }

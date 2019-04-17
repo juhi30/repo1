@@ -33,7 +33,6 @@ const accountSetupCommands = {
   clickCreateOrganization: function () {
     return this.waitForElementPresent('@createOrgButton', 'Create organization button is present')
       .click('@createOrgButton')
-      .waitForElementVisible('@contactsPage', 'CCR Landed on org contact page')
   },
 
 }
@@ -160,7 +159,12 @@ module.exports = {
 
     contactsPage: {
       selector: `//*[text()='Import Contacts']`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
+    },
+
+    menuButton: {
+      selector: `//*[@id='app-header__menu']`,
+      locateStrategy: 'xpath',
     },
   }
 }

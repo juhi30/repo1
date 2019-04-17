@@ -49,13 +49,19 @@ afterAll(async (done) => {
   }
 });
 
+//CCR Flow
 import './member'
 import './login'
 import './channels'
+
+//Member Flow
 import './office'
 import './tags'
 import './outofoffice'
-import './orgProfile'
 import './template'
 import './preferences'
+
+//Member + CCR flow. This should be the last test case
+import './orgProfile'
+
 

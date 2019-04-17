@@ -1,10 +1,5 @@
 const orgProfileCommands = {
 
-  pause: function(time) {
-    this.api.pause(time);
-    return this;
-  },
-
   renderPageElements: function() {
     return this.waitForElementVisible('@updateLogoButton', 'Update logo button is visible')
       .verify.visible('@orgNameInput', 'Name input is visible')
@@ -69,7 +64,7 @@ const orgProfileCommands = {
       .setValue(element, newValue)
   },
 
-  checkVisibilityForCCR: function () {
+  verifyBillingIdAndIntegrationOptions: function () {
      return this.verify.visible('@orgContactBillingNumberInput', 'Billing Customer Id is visible')
      .verify.visible('@integrationToggle', 'Enable Integration Option is visible')
   },
@@ -103,8 +98,6 @@ const orgProfileCommands = {
     return this.pause(5000)
     .click('@doneUploadPhoto')
     .pause(5000)
-    .click('@saveOrgProfileButton')
-    .waitForElementVisible('@orgUpdateSuccessMessage', 'Success message displayed')
   }
 }
 

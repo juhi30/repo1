@@ -39,7 +39,7 @@ afterAll(async (done) => {
     const cookie = await loginApi.login();
     console.log('Deleting Org ==', process.env.ORGANIZATION_ID);
     const archiveResponse = await deleteOrg.archiveOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('======== Organization Archive Response =======', archiveResponse);
+    console.log('======== Organization Archive Response =======');
     const deleteResponse = await deleteOrg.deleteOrganization(process.env.ORGANIZATION_ID, cookie);
     console.log('====== Organization Deleted =======', deleteResponse);
     done();
@@ -53,6 +53,7 @@ import './member'
 import './login'
 import './channels'
 import './office'
+import './tags'
 import './outofoffice'
 import './orgProfile'
 import './template'

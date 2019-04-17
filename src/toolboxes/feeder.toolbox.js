@@ -17,7 +17,7 @@ module.exports = {
     officeCity: 'Charleston',
     officeState: 'South Carolina',
     zipCode: '29403',
-    
+
     // New Member Details 
     memberName: 'Testing_NewCanary_1 LastName',
     memberFirstName: 'Testing_NewCanary_1',
@@ -50,23 +50,23 @@ module.exports = {
     chooseANumber: '+18192004430',
     forwardingNumber: '(454) 657-6879',
     channelName: 'Automation Test Channel1',
-    channelPurpose : 'test Automation',
+    channelPurpose: 'test Automation',
     timeZone: 'Eastern Time (UTC -05:00) - New York',
 
     //Templates Details
-    templateTitle : 'test_automation_template',
-    templateMessage : 'this is automation testing message', 
+    templateTitle: 'test_automation_template',
+    templateMessage: 'this is automation testing message',
     newTemplate: 'new_test_automation_template',
-    newTempleteMessage : 'this is automation testing new message',
+    newTempleteMessage: 'this is automation testing new message',
     hipaaTitle: 'HIPAA Consent Request',
-    hipaaMessage : 'Hi! You can now text or call us at this number! Just like phone calls and voicemails, texting may not always be 100% secure depending on the mobile service you use. Knowing that, would you like us to communicate with you via text?',
+    hipaaMessage: 'Hi! You can now text or call us at this number! Just like phone calls and voicemails, texting may not always be 100% secure depending on the mobile service you use. Knowing that, would you like us to communicate with you via text?',
     allFilter: 'All',
     textingFilter: 'Texting',
     favFilter: 'Favorite',
-    rhinoChannelName : 'RhinoSecure Automation channel',
-    newChannelName : 'Automation Test Channel New',
+    rhinoChannelName: 'RhinoSecure Automation channel',
+    newChannelName: 'Automation Test Channel New',
     newPurpose: 'New change in purpose',
-    rhinoChannelNewName : 'New RhinoSecure Channel',
+    rhinoChannelNewName: 'New RhinoSecure Channel',
 
     //Preferences Details
     systemTimeOutValue: '20',
@@ -90,21 +90,31 @@ module.exports = {
     callToActionButton: 'Send Message',
     confirmationText: 'The message has been submitted successfully!',
 
-     //details for office addition
-     officeName: 'Mount Pleasant Office',
-     officeAddress: '128 Hester St',
-     officeCity: 'Charleston',
-     officeState: 'South Carolina',
-     zipCode: '29403',
- 
-     addEvent: 'Add',
-     category: 'Office Location',
-     editEvent: 'Edit',
-     deleteEvent: 'Delete',
- 
-     newOfficeName: 'American Megatrends',
-     newOfficeAddress: '123 St George Road',
-     newOfficeCity: 'Boston',
-     newOfficeState: 'Hawaii',
-     newZipCode: '12345', 
+    //Tags
+    locationName: 'LocationTag',
+    departmentName: 'DepartmentTag',
+    roleName: 'roleTag',
+    customName: 'customTag',
+    newLocation: 'newLocation',
+    newDepartment: 'newDepartment',
+    newRole: 'newRole',
+    newCustom: 'newCustom',
+
+    //details for office addition
+    officeName: 'Mount Pleasant Office',
+    officeAddress: '128 Hester St',
+    officeCity: 'Charleston',
+    officeState: 'South Carolina',
+    zipCode: '29403',
+
+    addEvent: 'Add',
+    category: 'Office Location',
+    editEvent: 'Edit',
+    deleteEvent: 'Delete',
+
+    newOfficeName: 'American Megatrends',
+    newOfficeAddress: '123 St George Road',
+    newOfficeCity: 'Boston',
+    newOfficeState: 'Hawaii',
+    newZipCode: '12345',
 };

@@ -72,7 +72,7 @@ const auditLogsCommands = {
       .elementText('@eventDetails')
   },
 
-  validateAuditEntry: function (member, category, action, Name, contact) {
+  validateAuditEntry: function (member, category, action, Name, contact='') {
     return this.waitForElementVisible('@auditEntry', category + ' entry is visible')
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
       .click('@linkText')

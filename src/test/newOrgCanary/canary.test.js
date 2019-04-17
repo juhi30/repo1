@@ -13,7 +13,7 @@ beforeAll(async () => {
   await login.navigate()
     .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
     .submit()
-    .pause(2000)
+    .pause(3000)
     .validateUrlChange('/selectorg')
 
   //Use Search to avoid creating org again n again 
@@ -28,6 +28,7 @@ beforeAll(async () => {
     .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
       testConstants.state, testConstants.zip)
     .clickCreateOrganization()
+    .pause(1000)
     .getOrgId()
 });
 
@@ -41,7 +42,7 @@ afterAll(async (done) => {
     const archiveResponse = await deleteOrg.archiveOrganization(process.env.ORGANIZATION_ID, cookie);
     console.log('======== Organization Archive Response =======');
     const deleteResponse = await deleteOrg.deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======', deleteResponse);
+    console.log('====== Organization Deleted =======');
     done();
   } catch (err) {
     console.log(err);

@@ -8,14 +8,15 @@ describe('Organisation profile edit as member', () => {
         const entry = client.page.AuditLogPage();
 
         await orgProfile.navigate()
-        .renderPageElements()
-        .updateOrgProfileMandatoryFields(testConstants.orgNewName, testConstants.orgNewAddress, testConstants.orgNewCity, testConstants.orgNewState, testConstants.orgNewZip)
-        .updateOrgProfileOtherFields(testConstants.orgNewAddress2, testConstants.orgNewPhone, testConstants.orgNewEmail, testConstants.orgNewcontactName, testConstants.orgNewcontactPhone, testConstants.orgNewcontactEmail)
-        .clickSaveProfile()
+        .renderPageElements('@addLogoButton');
+        
+        await orgProfile.updateOrgProfileMandatoryFields(testConstants.orgNewName, testConstants.orgNewAddress, testConstants.orgNewCity, testConstants.orgNewState, testConstants.orgNewZip)
+            .updateOrgProfileOtherFields(testConstants.orgNewAddress2, testConstants.orgNewPhone, testConstants.orgNewEmail, testConstants.orgNewcontactName, testConstants.orgNewcontactPhone, testConstants.orgNewcontactEmail)
+            .clickSaveProfile()
 
         await entry.navigate()
         .pause(3000)
-        .validateEventEntryWithNoDataFound('Edit', testConstants.orgNewName, testConstants.memberName, 'Org Profile')
+        .validateEventEntryWithNoDataFound('Edit', testConstants.noDataFound, testConstants.memberName, 'Org Profile')
     });
 
     test('Add Photo', async () => {
@@ -24,7 +25,6 @@ describe('Organisation profile edit as member', () => {
 
         await orgProfile.navigate()
         .addUpdateLogo('@addLogoButton')
-        .clickSaveProfile()
 
         await entry.navigate()
         .pause(3000)
@@ -36,8 +36,7 @@ describe('Organisation profile edit as member', () => {
         const entry = client.page.AuditLogPage();
 
         await orgProfile.navigate()
-        .addUpdateLogo('@addLogoButton')
-        .clickSaveProfile()
+        .addUpdateLogo('@updateLogoButton')
 
         await entry.navigate()
         .pause(3000)
@@ -73,8 +72,9 @@ describe('Organization Profile Edit as CCR', () => {
         const entry = client.page.AuditLogPage();
 
         await orgProfile.navigate()
-        .renderPageElements()
-        .verifyBillingIdAndIntegrationOptions()
+        .renderPageElements('@updateLogoButton');
+
+        await orgProfile.verifyBillingIdAndIntegrationOptions()
         .updateOrgProfileMandatoryFields(testConstants.orgNewName, testConstants.orgNewAddress, testConstants.orgNewCity, testConstants.orgNewState, testConstants.orgNewZip)
         .updateOrgProfileOtherFields(testConstants.orgNewAddress2, testConstants.orgNewPhone, testConstants.orgNewEmail, testConstants.orgNewcontactName, testConstants.orgNewcontactPhone, testConstants.orgNewcontactEmail)
         .enableDisableToggles('@integrationToggle')

@@ -1,7 +1,9 @@
+const helper = require('../toolboxes/helpers.toolbox')
+
 const orgProfileCommands = {
 
-  renderPageElements: function() {
-    return this.waitForElementVisible('@updateLogoButton', 'Update logo button is visible')
+  renderPageElements: function(logoElement) {
+    return this.waitForElementVisible(logoElement, 'Update logo button is visible')
       .verify.visible('@orgNameInput', 'Name input is visible')
       .verify.visible('@addressOneInput', 'Address input is visible')
       .verify.visible('@addressTwoInput', 'Address Line 2 input is visible')
@@ -98,6 +100,8 @@ const orgProfileCommands = {
     return this.pause(5000)
     .click('@doneUploadPhoto')
     .pause(5000)
+    .click('@saveOrgProfileButton')
+    .waitForElementVisible('@orgUpdateSuccessMessage', 'Success message displayed')
   }
 }
 
@@ -116,6 +120,11 @@ module.exports = {
     addLogoButton : {
       selector: `//SPAN[contains(.,'Add Logo')]`,
       locateStrategy : 'xpath',
+    },
+
+    doneUploadPhoto: {
+      selector: `//SPAN[text()='Done']`,
+      locateStrategy: 'xpath',
     },
 
     /*----------------------------------------------------------------------------*/

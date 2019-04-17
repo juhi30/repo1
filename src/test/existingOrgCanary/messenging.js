@@ -56,6 +56,19 @@ describe('messsenging tests', () => {
       await contacts.getInboundMessage(testConstants.testBotInboundMessage);
       done();
     });
-  }); 
+  });
+
+  test('Search Facebook Unknown Contact', async () => {
+    const contacts = client.page.ContactsPage();
+
+    await contacts.searchForContact(testConstants.facebookContactName);
+  });
+
+  test('Outbound Message from Facebook Channel', async (done) => {
+    const contacts = client.page.ContactsPage();
+    jest.setTimeout(30000);
+    await contacts.sendOutboundMessageToFbContact(testConstants.facebookPutboundMessage);
+    done();
+  });
 
 });

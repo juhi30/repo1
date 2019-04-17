@@ -73,4 +73,6 @@ module.exports = {
     botContactName: 'April Appointmentson',
     testBotReplyMessage: 'Test Reply from Bot Contact',
     testBotInboundMessage: 'Test Inbound Message From Bot',
+    facebookContactName: 'Heena Choudhary',
+    facebookPutboundMessage: 'Outbound Message to FB Contact',
 };

@@ -70,11 +70,23 @@ const contactsCommands = {
 
   },
 
+  sendOutboundMessageToFbContact: function(message) {
+    const randomizedMessage = `${message} ${randomNumber}`;
+    return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
+      .setValue('@inboxMessageArea', randomizedMessage)
+      .pause(1000)
+      .click('@sendMessageButton')
+      .pause(3000)
+      .waitForElementVisible('@fbContactMessage', 'Message is sent to facebook contact')
+      .pause(2000);
+
+  },
+
   getInboundMessage: function(message) {
     const randomizedMessage = `${message} ${randomNumber}`;
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .pause(4000)
-      .waitForElementVisible('@inboundMessage', 'Inbound Message is received')
+      .waitForElementVisible('@inboundMessage', 'Inbound Message is received from Bot Contact')
       .pause(2000);
 
   },
@@ -189,6 +201,11 @@ module.exports = {
 
     inboundMessage: {
       selector: `//DIV[text() = '${testConstants.testBotInboundMessage} ${randomNumber}']`,
+      locateStrategy: 'xpath',
+    },
+
+    fbContactMessage: {
+      selector: `//DIV[text() = '${testConstants.facebookPutboundMessage} ${randomNumber}']`,
       locateStrategy: 'xpath',
     },
 

@@ -55,6 +55,7 @@ import './channels'
 import './office'
 import './tags'
 import './outofoffice'
+import './orgProfile'
 import './template'
 import './preferences'
 

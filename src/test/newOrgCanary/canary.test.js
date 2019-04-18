@@ -13,7 +13,7 @@ beforeAll(async () => {
   await login.navigate()
     .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
     .submit()
-    .pause(3000)
+    .pause(2000)
     .validateUrlChange('/selectorg')
 
   //Use Search to avoid creating org again n again 

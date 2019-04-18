@@ -36,11 +36,11 @@ describe('Organisation profile edit as member', () => {
         const entry = client.page.AuditLogPage();
 
         await orgProfile.navigate()
-        .addUpdateLogo('@updateLogoButton')
+            .addUpdateLogo('@updateLogoButton')
 
         await entry.navigate()
-        .pause(3000)
-        .validateEventEntry('Edit', testConstants.orgNewName, testConstants.memberName, 'Org Profile')
+            .pause(3000)
+            .validateEventEntry('Edit', testConstants.orgNewName, testConstants.memberName, 'Org Profile')
     });
 
     test('logout as a Member', async () => {
@@ -55,16 +55,21 @@ describe('Organization Profile Edit as CCR', () => {
     test('login as CCR into the organization', async () => {
         const login = client.page.LoginPage();
         const org = client.page.UniversalElements();
+        const setup = client.page.AccountSetupPage();
     
         await login.navigate()
           .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
           .submit()
           .pause(2000)
           .validateUrlChange('/selectorg')
+
+        org.waitForElementVisible('@searchInputForOrg', 'Search Input is visible');
     
-        await org.searchForOrganization(testConstants.orgName)
-          .ccrOrgLogin()
-          .pause(2000)
+        org.searchForOrganization(testConstants.orgNewName, '@newOrgSearchResult')
+            .ccrOrgLogin('@newOrgSearchResult')
+
+        setup.pause(1000)
+            .getOrgId()
       });
 
     test('Edit Organization Profile as CCR', async () => {
@@ -72,14 +77,14 @@ describe('Organization Profile Edit as CCR', () => {
         const entry = client.page.AuditLogPage();
 
         await orgProfile.navigate()
-        .renderPageElements('@updateLogoButton');
+            .renderPageElements('@updateLogoButton');
 
         await orgProfile.verifyBillingIdAndIntegrationOptions()
-        .updateOrgProfileMandatoryFields(testConstants.orgNewName, testConstants.orgNewAddress, testConstants.orgNewCity, testConstants.orgNewState, testConstants.orgNewZip)
-        .updateOrgProfileOtherFields(testConstants.orgNewAddress2, testConstants.orgNewPhone, testConstants.orgNewEmail, testConstants.orgNewcontactName, testConstants.orgNewcontactPhone, testConstants.orgNewcontactEmail)
-        .enableDisableToggles('@integrationToggle')
-        .updateIntegrationValue(testConstants.orgNewIntegration)
-        .clickSaveProfile();
+            .updateOrgProfileMandatoryFields(testConstants.orgNewName, testConstants.orgNewAddress, testConstants.orgNewCity, testConstants.orgNewState, testConstants.orgNewZip)
+            .updateOrgProfileOtherFields(testConstants.orgNewAddress2, testConstants.orgNewPhone, testConstants.orgNewEmail, testConstants.orgNewcontactName, testConstants.orgNewcontactPhone, testConstants.orgNewcontactEmail)
+            .enableDisableToggles('@integrationToggle')
+            .updateIntegrationValue(testConstants.orgNewIntegration)
+            .clickSaveProfile();
 
         await entry.navigate()
         .pause(3000)

@@ -22,7 +22,7 @@ module.exports = {
     memberName: 'Testing_NewCanary_1 LastName',
     memberFirstName: 'Testing_NewCanary_1',
     memberLastName: 'LastName',
-    memberUsername: 'Testing_NewCanary_1',
+    memberUsername: 'Testing_NewCanary_123',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
@@ -119,7 +119,7 @@ module.exports = {
     newZipCode: '12345',
 
     //Org Profile New Info for Mandatory Fields
-    orgNewName: 'Testing New Org',
+    orgNewName: 'Testing_NewCanary_Org',
     orgNewAddress: 'New Test Address',
     orgNewCity: 'New City',
     orgNewState: 'New State',

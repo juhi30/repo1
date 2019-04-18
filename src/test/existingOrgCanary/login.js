@@ -5,6 +5,7 @@ describe('Existing Canary Login Page Tests', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
+    .submit()
     .waitForElementVisible('@errorPrompt', 'Error message is visible.')
 
   });

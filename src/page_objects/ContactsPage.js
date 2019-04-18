@@ -165,7 +165,7 @@ module.exports = {
     },
 
     addContactDropdownFirstResult: {
-      selector: `//DIV[contains(@class, 'modal')]//DIV[contains(@class, 'resource__intro__title-wrapper')]//SPAN[contains(text(), ${testConstants.botContactName.split(' ')[1]})]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), ${process.env.BOT_CONTACT_NAME.split(' ')[1]})]`,
       locateStrategy: 'xpath',
     },
 
@@ -205,7 +205,7 @@ module.exports = {
     },
 
     fbContactMessage: {
-      selector: `//DIV[text() = '${testConstants.facebookPutboundMessage} ${randomNumber}']`,
+      selector: `//DIV[text() = '${testConstants.facebookOutboundMessage} ${randomNumber}']`,
       locateStrategy: 'xpath',
     },
 

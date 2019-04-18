@@ -69,10 +69,8 @@ module.exports = {
     memberUsernameExistingOrg: 'dallman',
     memberPasswordExistingOrg: 'Test@123',
 
-    //bot contact details for existing org canary
-    botContactName: 'April Appointmentson',
+    //bot messages details for existing org canary
     testBotReplyMessage: 'Test Reply from Bot Contact',
     testBotInboundMessage: 'Test Inbound Message From Bot',
-    facebookContactName: 'Heena Choudhary',
-    facebookPutboundMessage: 'Outbound Message to FB Contact',
+    facebookOutboundMessage: 'Outbound Message to FB Contact',
 };

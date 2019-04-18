@@ -21,18 +21,17 @@ describe('messsenging tests', () => {
     await login.navigate()
       .validateForm()
       .enterMemberCreds(testConstants.memberUsernameExistingOrg, testConstants.memberPasswordExistingOrg)
-      .submit();  
+      .submit();
   });
 
   test('Send Outbound Message To Contact and Get Reply', async () => {
     const contacts = client.page.ContactsPage();
 
-    await contacts.searchForContact(testConstants.botContactName)
+    await contacts.searchForContact(process.env.BOT_CONTACT_NAME)
       .sendOutboundMessageAndGetReply(`handler add reply ${testConstants.testBotReplyMessage}`, 'Hi Bot Contact');
   });
 
   test('configure echo handler for bot contact to get inbound message',async (done) => {
-    jest.setTimeout(30000);
     const config = {
       number: process.env.TEST_BANDWIDTH_CHANNEL_NUMBER,
       config: { handler: 'echo' },
@@ -45,7 +44,6 @@ describe('messsenging tests', () => {
   test('Get Inbound Message from Contact', async (done) => {
     const contacts = client.page.ContactsPage();
     const randomNumber = contacts.getRandomNumber();
-    jest.setTimeout(30000);
     const body = {
       from: process.env.TEST_BANDWIDTH_NUMBER_PATIENT,
       to: process.env.TEST_BANDWIDTH_CHANNEL_NUMBER,
@@ -61,13 +59,12 @@ describe('messsenging tests', () => {
   test('Search Facebook Unknown Contact', async () => {
     const contacts = client.page.ContactsPage();
 
-    await contacts.searchForContact(testConstants.facebookContactName);
+    await contacts.searchForContact(process.env.FACEBOOK_CONTACT_NAME);
   });
 
   test('Outbound Message from Facebook Channel', async (done) => {
     const contacts = client.page.ContactsPage();
-    jest.setTimeout(30000);
-    await contacts.sendOutboundMessageToFbContact(testConstants.facebookPutboundMessage);
+    await contacts.sendOutboundMessageToFbContact(testConstants.facebookOutboundMessage);
     done();
   });
 

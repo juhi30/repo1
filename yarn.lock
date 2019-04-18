@@ -1205,10 +1205,6 @@ babel-plugin-transform-es2015-sticky-regex@^6.22.0, babel-plugin-transform-es201
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-sticky-regex/-/babel-plugin-transform-es2015-sticky-regex-6.24.1.tgz#00c1cdb1aca71112cdf0cf6126c2ed6b457ccdbc"
   integrity sha1-AMHNsaynERLN8M9hJsLta0V8zbw=
-  dependencies:
-    babel-helper-regex "^6.24.1"
-    babel-runtime "^6.22.0"
-    babel-types "^6.24.1"
 
 babel-plugin-transform-es2015-template-literals@^6.22.0:
   version "6.22.0"
@@ -3569,14 +3565,6 @@ image-size@^0.3.5:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.3.5.tgz#83240eab2fb5b00b04aab8c74b0471e9cba7ad8c"
   integrity sha1-gyQOqy+1sAsEqrjHSwRx6cunrYw=
-
-imap@^0.8.19:
-  version "0.8.19"
-  resolved "https://registry.yarnpkg.com/imap/-/imap-0.8.19.tgz#3678873934ab09cea6ba48741f284da2af59d8d5"
-  integrity sha1-NniHOTSrCc6mukh0HyhNoq9Z2NU=
-  dependencies:
-    readable-stream "1.1.x"
-    utf7 ">=1.0.2"
 
 import-local@^2.0.0:
   version "2.0.0"
@@ -6697,9 +6685,9 @@ rhinocloud-sdk@1.0.xx:
   version "1.0.0"
   resolved "git+https://ab1e60bc7d1ea8f0cef2d98a042749dee2741f8c:x-oauth-basic@github.com/rhinogram/rhinodeploy.git#a580fd5a45fce9dc0495dffac3bf3a3d83c4e158"
 
-"rhinotilities@git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#1.0.17":
+"rhinotilities@git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#1.0.14":
   version "1.0.0"
-  resolved "git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#084dd2407824c488f13728b04275bf9b71da2ea9"
+  resolved "git+https://18c4f4a191d4d4b355f3b7c03814a85c8e514b78@github.com/rhinogram/rhinotilities#3289e1bd8e9e6bbbf2b3ad3d4baf9ea43163237d"
   dependencies:
     aws-sdk "2.425.0"
     bunyan "1.8.12"
@@ -6848,11 +6836,6 @@ selenium-server-standalone-jar@3.141.5:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.6.0.tgz#7e74256fbaa49c75aa7c7a205cc22799cac80004"
   integrity sha512-RS9R6R35NYgQn++fkDWaOmqGoj4Ek9gGs+DPxNUZKuwE183xjJroKvyo1IzVFeXvUrvmALy6FWD5xrdJT25gMg==
-
-semver@~5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
-  integrity sha1-myzl094C0XxgEq0yaqa00M9U+U8=
 
 send@0.16.2:
   version "0.16.2"
@@ -7800,13 +7783,6 @@ user-home@^2.0.0:
   integrity sha1-nHC/2Babwdy/SGBODwS4tJzenp8=
   dependencies:
     os-homedir "^1.0.0"
-
-utf7@>=1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/utf7/-/utf7-1.0.2.tgz#955f490aae653ba220b9456a0a8776c199360991"
-  integrity sha1-lV9JCq5lO6IguUVqCod2wZk2CZE=
-  dependencies:
-    semver "~5.3.0"
 
 utf8-byte-length@^1.0.1:
   version "1.0.4"

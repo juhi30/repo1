@@ -16,12 +16,14 @@ beforeAll(async () => {
     .pause(2000)
     .validateUrlChange('/selectorg')
 
-  // //Use Search to avoid creating org again n again 
+  //Use Search to avoid creating org again n again 
   // await org.searchForOrganization(testConstants.orgName)
   //   .ccrOrgLogin()
+  //   .pause(2000)
+
   // await org.clickLogout()
 
-  setup.navigate()
+  await setup.navigate()
     .clickBillingToggle()
     .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
       testConstants.state, testConstants.zip)
@@ -37,9 +39,9 @@ afterAll(async (done) => {
     const cookie = await loginApi.login();
     console.log('Deleting Org ==', process.env.ORGANIZATION_ID);
     const archiveResponse = await deleteOrg.archiveOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('======== Organization Archive Response =======', archiveResponse);
+    console.log('======== Organization Archive Response =======');
     const deleteResponse = await deleteOrg.deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======');
+    console.log('====== Organization Deleted =======', deleteResponse);
     done();
   } catch (err) {
     console.log(err);
@@ -47,7 +49,13 @@ afterAll(async (done) => {
   }
 });
 
- import './member'
- import './office'
- import './login'
- import './channels'
+import './member'
+import './login'
+import './channels'
+import './office'
+import './tags'
+import './outofoffice'
+import './orgProfile'
+import './template'
+import './preferences'
+

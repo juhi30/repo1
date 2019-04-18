@@ -232,7 +232,7 @@ const universalElementsCommands = {
   ccrOrgLogin: function(orgName2SearchResult) {
     const clickableElement = orgName2SearchResult ? orgName2SearchResult : '@organizationSearchResult'
     return this.click(clickableElement)
-      .waitForElementVisible('@goBackToSelectNewOrg','CCR login to Org succesful')
+      .waitForElementVisible('@goBackToSelectNewOrg','CCR login to Org successful')
       .verify.urlContains('contacts', 'Contacts page is visible')
   },
 

@@ -6,6 +6,7 @@ const loginCommands = {
     return this.waitForElementVisible('@usernameInput', 'Username input is visible')
       .verify.visible('@usernameInput', 'Username input is visible')
       .verify.visible('@passwordInput', 'password input is visible')
+      .waitForElementVisible('@loginButton', 'Login button is visible')
       .verify.containsText('@loginButton', 'Log In', 'Login button is visible')
   },
 

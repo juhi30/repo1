@@ -5,9 +5,7 @@ describe('Existing Canary Login Page Tests', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-    .submit()
-    .waitForElementVisible('@errorPrompt', 'Error message is visible.')
-
+      .validateForm()
   });
 
   test('Try to login with NO name and NO password', async () => {
@@ -15,7 +13,7 @@ describe('Existing Canary Login Page Tests', () => {
 
     await login.navigate()
       .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+      .validateForm()
 
   });
 
@@ -25,7 +23,7 @@ describe('Existing Canary Login Page Tests', () => {
     await login.navigate()
            .fillInUsername('nightmember')
            .submit()
-           .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+           .validateForm()
 
   });
 
@@ -35,6 +33,6 @@ describe('Existing Canary Login Page Tests', () => {
     await login.navigate()
            .fillInPassword('justsomepassword')
           .submit()
-          .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+           .validateForm()
   });
 });

@@ -17,36 +17,41 @@ const tagCommands = {
       .waitForElementVisible('@tagCategoryCustom', 'Custom category is visible')
   },
 
-  createNewTag: function () {
-    return this.waitForElementVisible('@tagNameInput', 'tag name input is visible')
-      .setValue('@tagNameInput', testConstants.tagName)
-      .click('@tagCategory')
+  createNewTag: function (tagType, tagName, tag) {
+    return this.waitForElementVisible('@newTagButton', 'add tag button is visible.')
+      .pause(3000)
+      .click('@newTagButton')
+      .pause(3000)
+      .waitForElementVisible('@tagNameInput', 'tag name input is visible')
+      .setValue('@tagNameInput', tagName)
+      .click(tagType)
+      .waitForElementVisible('@createTagButton', 'Create Tag Button is visible.')
       .click('@createTagButton')
-      .pause(5000)
-      .waitForElementVisible('@selectTag', 'Created tag is visible')
+      .pause(2000)
+      .waitForElementVisible(tag, ' Created tag is visible')
   },
 
-  editTag: function () {
-    return this.waitForElementVisible('@fakeTag', 'last tag is visible')
-      .click('@fakeTag')
+  editTag: function (tag, newValue, newTag) {
+    return this.waitForElementVisible(tag, 'Last tag is visible')
+      .click(tag)
       .waitForElementVisible('@updateTagButton', 'Edit tag modal is visible')
       .click('@tagNameInput')
       .clearValue('@tagNameInput')
-      .setValue('@tagNameInput', 'Edited_tag')
+      .setValue('@tagNameInput', newValue)
       .click('@updateTagButton')
       .waitForElementNotVisible('@updateTagButton', 'Edit Tag Modal is hidden')
-      .waitForElementVisible('@editedTag', 'Edited tag exists')
+      .waitForElementVisible(newTag, newTag + ' Edited tag exists')
   },
 
-  deleteTag: function () {
-    return this.waitForElementVisible('@editedTag', 'last tag is visible')
-      .click('@editedTag')
+  deleteTag: function (editedTag) {
+    return this.waitForElementVisible(editedTag, 'last tag is visible')
+      .click(editedTag)
       .waitForElementVisible('@deleteTagTrashIcon', 'Trash Icon is visible')
       .click('@deleteTagTrashIcon')
       .waitForElementVisible('@deleteTagConfirmButton', 'Delete confirm is visible')
       .click('@deleteTagConfirmButton')
       .waitForElementNotVisible('@updateTagButton', 'Edit Tag Modal is hidden')
-      .waitForElementNotPresent('@editedTag', 'Tag is deleted')
+      .waitForElementNotPresent(editedTag, 'Tag is deleted')
   },
 
   tagContainerCheck: function () {
@@ -93,14 +98,44 @@ module.exports = {
     },
 
     // its a tag that says "fake_tag"...
-    fakeTag: {
-      selector: `//SPAN[contains(.,'#fake_tag')]`,
+    locationTag: {
+      selector: `//SPAN[contains(.,'${testConstants.locationName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    departmentTag: {
+      selector: `//SPAN[contains(.,'${testConstants.departmentName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    roleTag: {
+      selector: `//SPAN[contains(.,'${testConstants.roleName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    customTag: {
+      selector: `//SPAN[contains(.,'${testConstants.customName}')]`,
       locateStrategy: 'xpath',
     },
 
     // its a tag that says "Edited_tag"...
-    editedTag: {
-      selector: `//SPAN[contains(.,'#Edited_tag')]`,
+    locationEditedTag: {
+      selector: `//SPAN[contains(.,'${testConstants.newLocation}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    departmentEditedTag: {
+      selector: `//SPAN[contains(.,'${testConstants.newDepartment}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    roleEditedTag: {
+      selector: `//SPAN[contains(.,'${testConstants.newRole}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    customEditedTag: {
+      selector: `//SPAN[contains(.,'${testConstants.newCustom}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -113,10 +148,26 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    tagCategory: {
-      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'${testConstants.tagCategory}')]`,
+    tagCategoryLocation: {
+      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'Location')]`,
       locateStrategy: 'xpath',
     },
+
+    tagCategoryDepartment: {
+      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'Department')]`,
+      locateStrategy: 'xpath',
+    },
+
+    tagCategoryRole: {
+      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'Role')]`,
+      locateStrategy: 'xpath'
+    },
+
+    tagCategoryCustom: {
+      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'Custom')]`,
+      locateStrategy: 'xpath'
+    },
+
 
     selectTag: {
       selector: `//SPAN[contains(.,'${testConstants.tagName}')]`,
@@ -178,3 +229,4 @@ module.exports = {
 
   }
 }
+

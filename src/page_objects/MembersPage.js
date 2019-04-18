@@ -13,7 +13,8 @@ const membersCommands = {
   },
 
   enterDetails: function(element, value) {
-    return this.setValue(element, value)
+    return this.waitForElementVisible(element, element + ' is visible')
+    .setValue(element, value)
   },
 
   setMemberRoles: function (roleName) {
@@ -67,7 +68,7 @@ module.exports = {
     },
 
     selectMemberFromList: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.memberFirstName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.memberName}')]`,
       locateStrategy: 'xpath',
     },
 

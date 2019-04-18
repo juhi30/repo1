@@ -70,7 +70,7 @@ module.exports = {
         },
 
         memberResult: {
-            selector: `//SPAN[contains(., '${testConstants.memberFirstName}')]`,
+            selector: `//SPAN[contains(., '${testConstants.memberName}')]`,
             locateStrategy: 'xpath',
         },
 

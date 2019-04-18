@@ -1,128 +1,130 @@
-const path = require('path');
+const testConstants = require('../toolboxes/feeder.toolbox');
+const helper = require('../toolboxes/helpers.toolbox');
 
 const templatesCommands = {
-
-  pause: function(time) {
-    this.api.pause(time);
-    return this;
-  },
 
   /*
     Validation
   */
-  renderPageElements: function() {
+  renderPageElements: function () {
     return this.waitForElementVisible('@createTemplateButton', 'Create template button is visible')
       .verify.visible('@HIPAATemplate', 'HIPAA template is visible')
-      .verify.visible('@firstTestTemplate', 'First test template is visible')
   },
 
-  validateSMSFilter: function() {
-    return this.verify.visible('@filterDropdown', 'Channel filter is visible')
+  validateChannelFilter: function (filter, activeFilterValue) {
+    return this.waitForElementVisible('@filterDropdown', ' Template Filter is visible')
       .click('@filterDropdown')
-      .waitForElementVisible('@filterTextingChannel', 'Filter choices are visible')
-      .click('@filterTextingChannel')
+      .waitForElementVisible(filter, filter + ' is visible')
+      .click(filter)
+      .pause(1000)
       .waitForElementPresent('@filterDropdown', 'Dropdown choices are closed')
-      .verify.containsText('@filterDropdown', 'Texting', 'Texting filter is active')
-  },
-
-  validateChannelFilter: function() {
-    return this.click('@filterDropdown')
-      .waitForElementVisible('@filterAll', 'All channel filter is visible')
-      .click('@filterAll')
-      // .waitForElementPresent('@filterDropdown', 'Dropdown choices are closed')
-      .verify.containsText('@filterDropdown', 'All', 'All filter is active')
+      .verify.containsText('@filterDropdown', activeFilterValue, activeFilterValue + ' is active')
   },
 
   /*
-    Clicking
-  */
+   Clicking and checking Success Message.
+ */
 
-  clickEditTemplateButton: function() {
-    return this.waitForElementVisible('@editTemplateButton', 'Edit Template button is visible')
-      .click('@editTemplateButton')
+  addAttachment: async function () {
+    this.waitForElementVisible('@uploadFileButton', ' Upload File button is visible.')
+      .click('@uploadFileButton')
+      .waitForElementNotVisible('@uploadFileButton', 'Uplaod Photo modal is open')
+      .pause(2000)
+    await helper.uploadFile(this, 'rhinogram.png')
+    return this.pause(2000)
   },
 
-  clickCreateTemplateButton: function() {
-    return this.waitForElementVisible('@createTemplateButton', 'Create Template button is visible')
-      .click('@createTemplateButton')
-      .waitForElementVisible('@templateTitleInput', 'Create Template Popup is visible')
+  clickCreateTemplateButton: function () {
+    return this.click('@createTemplateButton')
+      .waitForElementVisible('@templateTitleInput', 'Create Template page is opened.')
   },
 
-  clickCreateTemplateSaveButton: function() {
-    return this.waitForElementVisible('@createTemplateSaveButton', 'Save button is visible')
-      .click('@createTemplateSaveButton')
-  },
-
-  clickDeleteButton: function() {
-    return this.waitForElementVisible('@deleteTemplateButton', 'Delete icon is visible')
-      .click('@deleteTemplateButton');
-  },
-
-  clickDeleteFinalButton: function() {
-    return this.waitForElementVisible('@deleteTemplateFinalButton', 'Delete Final button is visible')
-      .click('@deleteTemplateFinalButton');
-  },
-
-  clickUploadFileButton: function() {
-    return this.waitForElementVisible('@uploadFileButton', 'Upload file button is visible')
-      .click('@uploadFileButton');
-  },
-
-  // Will click the first one found
-  clickRemoveAttachmentIcon: function() {
-    return this.waitForElementVisible('@removeAttachmentIcon', 'Remove attachment icon is visible')
-      .click('@removeAttachmentIcon')
+  clickCreateUpdateButton: function (element, successMessage) {
+    return this.waitForElementVisible(element, element + ' button is visible')
+      .click(element)
+      .pause(1000)
+      .waitForElementVisible(successMessage, successMessage + ' is visible.')
   },
 
   /*
     Multistep functions
   */
 
-  fillTitleAndMessage: function(title, message) {
+  fillTitleAndMessage: function (title, message) {
     return this.waitForElementVisible('@templateTitleInput', 'Title input is visible')
       .setValue('@templateTitleInput', title)
       .setValue('@templateMessageInput', message)
   },
 
-  editFirstTemplate: function() {
-    return this.click('@firstTemplateEdit')
-      .waitForElementVisible('@templateTitleInput', 'Edit template popup is visible')
-      .verify.visible('@firstTemplateEditSaveButton', 'Save template button is visible')
-      .setValue('@templateTitleInput', 'I changed the title')
-      .setValue('@templateTitleInput')
-      .click('@firstTemplateEditSaveButton')
-      .waitForElementNotPresent('@firstTemplateEditSaveButton', 'Edit template popup is not present')
+  markAsFavorite: function (favOpt, filter, templateName) {
+    return this.waitForElementVisible(favOpt, 'Favorite Icon is visible')
+      .click(favOpt)
+      .waitForElementPresent('@filterDropdown', 'filter dropdown is available')
+      .click('@filterDropdown')
+      .pause(1000)
+      .waitForElementVisible(filter, filter + ' is visible')
+      .click(filter)
+      .waitForElementVisible(templateName, templateName + ' is marked as favorite')
   },
 
-  deleteFirstTemplate: function() {
-    return this.waitForElementVisible('@deleteTemplateButton', 'Template delete button is visible')
-      .click('@deleteTemplateButton')
-      .waitForElementVisible('@deleteTemplateFinalButton', 'Delete template popup is visible')
-      .click('@deleteTemplateFinalButton')
-      .waitForElementNotVisible('@deleteTemplateFinalButton', 'Delete template popup is hidden')
+  markAsUnfavorite: function (favOpt, filter, templateName) {
+    return this.waitForElementVisible('@filterDropdown', 'filter dropdown is available')
+      .click('@filterDropdown')
+      .pause(1000)
+      .waitForElementVisible(filter, filter + ' is visible')
+      .click(filter)
+      .waitForElementVisible(templateName, templateName + ' favorited template is visible')
+      .click(favOpt)
+      .waitForElementVisible('@noResultFound', templateName + ' template is marked as unfavorited.')
   },
 
-  deleteSpecificTemplate: function(templateName) {
-    this.api.useXpath().waitForElementVisible(`//SPAN[contains(text(), '${templateName}')]`, `${templateName} template is visible`)
-      .click(`//SPAN[contains(text(), '${templateName}')]`);
-
-    return this.waitForElementVisible('@editTemplateButton', 'Edit Template button is visible')
+  templateEditMode: function (templateName) {
+    return this.waitForElementVisible(templateName, templateName + ' is visible')
+      .click(templateName)
+      .waitForElementVisible('@editTemplateButton', 'Edit template button is visible.')
       .click('@editTemplateButton')
-      .waitForElementVisible('@deleteTemplateButton', 'Delete button is visible')
+  },
+
+  updateTemplate: function (newTitle, newMessage) {
+    return this.waitForElementVisible('@templateTitleInput', 'Created template is opened in edit mode.')
+      .clearValue('@templateTitleInput')
+      .setValue('@templateTitleInput', newTitle)
+      .clearValue('@templateMessageInput')
+      .setValue('@templateMessageInput', newMessage)
+  },
+
+  updateSystemTemplate: function (newMessage) {
+    return this.waitForElementVisible('@templateTitleInput', 'Created template is opened in edit mode.')
+      .clearValue('@templateMessageInput')
+      .setValue('@templateMessageInput', newMessage)
+  },
+
+  revertToOriginalSystemTemplate: function (hipaaMessage) {
+    return this.waitForElementVisible('@revertToOriginalButton', 'revert to original button is visible.')
+      .click('@revertToOriginalButton')
+      .waitForElementVisible('@hipaaMessage', 'HIPAA System template message is reverted and visible.')
+      .assert.containsText('@hipaaMessage', hipaaMessage)
+  },
+
+  validateTemplateSearch: function (templateName, result) {
+    return this.waitForElementVisible('@templateSearch', 'Template Search is visible.')
+      .setValue('@templateSearch', templateName)
+      .waitForElementVisible(result, result + ' is visible.')
+  },
+
+  deleteTemplate: function (successMessage) {
+    return this.waitForElementVisible('@deleteTemplateButton', 'Delete button is visible')
       .click('@deleteTemplateButton')
       .waitForElementVisible('@deleteTemplateFinalButton', 'Final delete button is visible')
       .click('@deleteTemplateFinalButton')
+      .waitForElementVisible('@deleteTemplateSuccessMessage', 'template deletion is successfull.')
+      .waitForElementVisible(successMessage, successMessage + ' is visible')
   },
-
-  // this function is magic, don't ask why it works. nobody knows. 
-  uploadFile: function(filePath) {
-    return this.setValue('input[type="file"]', path.resolve(filePath));
-  }
 }
 
 module.exports = {
   commands: [templatesCommands],
-  url: function() {
+  url: function () {
     return this.api.launch_url + '/settings/organization/templates'
   },
   elements: {
@@ -133,17 +135,32 @@ module.exports = {
     },
 
     filterDropdown: {
-      selector: `//BUTTON[contains(@class, 'app-page__header__filter__button')]`,
+      selector: `//SPAN[@class='dropdown__toggle__text']`,
       locateStrategy: 'xpath',
     },
 
     filterAll: {
-      selector: `//SPAN[contains(.,'All')]`,
+      selector: `//DIV[@class='dropdown__menu__item__content__label']//SPAN[text()='All']`,
+      locateStrategy: 'xpath',
+    },
+
+    favoriteFilter: {
+      selector: `//DIV[@class='dropdown__menu__item__content__label']//SPAN[contains(text(),'Favorite')]`,
       locateStrategy: 'xpath',
     },
 
     filterTextingChannel: {
       selector: `//SPAN[contains(.,'Texting')]`,
+      locateStrategy: 'xpath',
+    },
+
+    favoriteOption: {
+      selector: `//*[@class='resource has-right-column']//descendant :: *[contains(text(),'${testConstants.templateTitle}')]// ancestor :: DIV[@class='resource has-right-column']//*[@class='resource__right resource__right--no-flex']//DIV//BUTTON//SPAN`,
+      locateStrategy: 'xpath',
+    },
+
+    favoriteOptionforHIPAA: {
+      selector: `//*[@class='resource has-right-column']//descendant :: *[contains(text(),'${testConstants.hipaaTitle}')]// ancestor :: DIV[@class='resource has-right-column']//*[@class='resource__right resource__right--no-flex']//DIV//BUTTON//SPAN`,
       locateStrategy: 'xpath',
     },
 
@@ -169,6 +186,11 @@ module.exports = {
 
     HIPAATemplate: {
       selector: `//SPAN[contains(.,'HIPAA Consent Request')]`,
+      locateStrategy: 'xpath',
+    },
+
+    templateTitle: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.templateTitle}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -208,7 +230,61 @@ module.exports = {
 
     removeAttachmentIcon: {
       selector: `//BUTTON[contains(@title, 'Close')]`,
-      locateStrategy: 'xpath'
-    }
+      locateStrategy: 'xpath',
+    },
+
+    updateTemplateButton: {
+      selector: `//SPAN[contains(.,'Update Template')]`,
+      locateStrategy: 'xpath',
+    },
+
+    revertToOriginalButton: {
+      selector: `//SPAN[contains(text(),'Revert to original')]`,
+      locateStrategy: 'xpath',
+    },
+
+    hipaaMessage: {
+      selector: `//TEXTAREA[contains(@id,'message')]`,
+      locateStrategy: 'xpath',
+    },
+    /*---------------------------------------------------------*/
+    // Template Success Message
+    /*---------------------------------------------------------*/
+
+    createTemplateSuccessMessage: {
+      selector: `//DIV[text()='Template created successfully.']`,
+      locateStrategy: 'xpath',
+    },
+
+    updateTemplateSuccessMessage: {
+      selector: `//DIV[text()='Template updated successfully.']`,
+      locateStrategy: 'xpath',
+    },
+
+    deleteTemplateSuccessMessage: {
+      selector: `//DIV[text()='Template deleted successfully.']`,
+      locateStrategy: 'xpath',
+    },
+
+    templateSearch: {
+      selector: `//INPUT[contains(@id , 'search')]`,
+      locateStrategy: 'xpath',
+    },
+
+    searchResult: {
+      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[contains(text(),'${testConstants.templateTitle}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    /* Search result after updating the template */
+    updatedSearchResult: {
+      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[contains(text(),'${testConstants.newTemplate}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    noResultFound: {
+      selector: `//DIV[@class='search__no-results'][contains(text(),'No results')]`,
+      locateStrategy: 'xpath',
+    },
   }
 };

@@ -24,7 +24,6 @@ beforeAll(async () => {
       testConstants.state, testConstants.zip)
     .clickCreateOrganization()
     .waitForElementNotVisible('@createOrgButton', 'Create Org button not visible')
-    .click('@menuButton')
     .pause(1000)
     .getOrgId()
 });

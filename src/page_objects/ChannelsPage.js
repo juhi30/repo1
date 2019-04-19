@@ -26,7 +26,7 @@ module.exports = {
   url: function () {
     return this.api.launch_url + '/settings/organization/channels'
   },
-
+  
   elements: {
 
     channelsPageTitle: {

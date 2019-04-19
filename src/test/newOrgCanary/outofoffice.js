@@ -2,7 +2,7 @@ import { client } from 'nightwatch-api';
 const testConstants = require('../../toolboxes/feeder.toolbox');
 
 describe('OOO Event Page', () => {
-	test('Add an OOO event by CCR', async () => {
+	test('Add an OOO event by Member', async () => {
 		const outOfOffice = client.page.OutOfOfficePage();
 		const auditLogs = client.page.AuditLogsPage();
 
@@ -21,10 +21,10 @@ describe('OOO Event Page', () => {
 		await auditLogs.navigate()
 			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
 			.pause(3000)
-			.validateAuditEntry('ccr', 'Out of Office', 'Add', testConstants.oooTitle, '')
+			.validateAuditEntry(testConstants.memberName, 'Out of Office', 'Add', testConstants.oooTitle, '')
 	});
 
-	test('Edit an OOO event by CCR', async () => {
+	test('Edit an OOO event by Member', async () => {
 		const outOfOffice = client.page.OutOfOfficePage();
 		const auditLogs = client.page.AuditLogsPage();
 
@@ -41,10 +41,10 @@ describe('OOO Event Page', () => {
 		await auditLogs.navigate()
 			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
 			.pause(3000)
-			.validateAuditEntry('ccr', 'Out of Office', 'Edit', testConstants.newEventTitle, '')
+			.validateAuditEntry(testConstants.memberName, 'Out of Office', 'Edit', testConstants.newEventTitle, '')
 	});
 
-	test('Delete created event by CCR', async () => {
+	test('Delete created event by Member', async () => {
 		const outOfOffice = client.page.OutOfOfficePage();
 		const auditLogs = client.page.AuditLogsPage();
 
@@ -55,6 +55,6 @@ describe('OOO Event Page', () => {
 		await auditLogs.navigate()
 			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
 			.pause(3000)
-			.validateAuditEntry('ccr', 'Out of Office', 'Delete', testConstants.newEventTitle, '')
+			.validateAuditEntry(testConstants.memberName, 'Out of Office', 'Delete', testConstants.newEventTitle, '')
 	});
 });

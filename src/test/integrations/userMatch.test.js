@@ -11,7 +11,7 @@ export const USER_TYPE_PATIENT = 18;
 followRedirects.maxRedirects = 10;
 followRedirects.maxBodyLength = 500 * 1024 * 1024 * 1024;
 
-const orgId = process.env.EXISTING_ORG_ID;
+const orgId = process.env.ORG_ID;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -82,7 +82,6 @@ describe('user matching tests', () => {
   });
 
   test('try match with no birthday with patient joe', async (done) => {
-    jest.setTimeout(30000);
     const user = {
       externalId: '1',
       firstName: 'Joe',
@@ -99,7 +98,6 @@ describe('user matching tests', () => {
   });
 
   test('try match with ext id present but wrong first name with patient joe', async (done) => {
-    jest.setTimeout(30000);
     const user = {
       externalId: '1',
       firstName: 'Joeseph',
@@ -116,7 +114,6 @@ describe('user matching tests', () => {
   });
 
   test('try match with no ext id with other joe', async (done) => {
-    jest.setTimeout(30000);
     const user = {
       firstName: 'Joe',
       lastName: 'Johnson',
@@ -131,7 +128,6 @@ describe('user matching tests', () => {
   });
 
   test('try match joe with no ext id and wrong birthday with patient joe', async (done) => {
-    jest.setTimeout(30000);
     const user = {
       firstName: 'Joe',
       lastName: 'Johnson',
@@ -147,7 +143,6 @@ describe('user matching tests', () => {
   });
 
   test('try match joe with no ext id but by first last and birthday with patient joe', async (done) => {
-    jest.setTimeout(30000);
     const user = {
       firstName: 'Joe',
       lastName: 'Johnson',

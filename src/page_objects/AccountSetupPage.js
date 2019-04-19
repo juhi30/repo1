@@ -162,10 +162,5 @@ module.exports = {
       selector: `//*[text()='Import Contacts']`,
       locateStrategy: 'xpath',
     },
-
-    menuButton: {
-      selector: `//*[@id='app-header__menu']`,
-      locateStrategy: 'xpath',
-    },
   }
 }

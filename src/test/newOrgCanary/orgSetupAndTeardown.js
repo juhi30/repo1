@@ -5,7 +5,6 @@ const deleteOrg = require('../../services/Organization.Service');
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
-    //client.maximizeWindow()
   const login = client.page.LoginPage();
   const setup = client.page.AccountSetupPage();
   const org = client.page.UniversalElements();
@@ -46,8 +45,8 @@ afterAll(async (done) => {
   }
 });
 
-describe('Test Canary', () => {
-    test('Testing test canary', async () => {
+describe('Navigate to Member page after org Setup', () => {
+    test('Navigating', async () => {
       const member = client.page.MembersPage();
       
       await member.navigate()

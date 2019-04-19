@@ -135,5 +135,10 @@ module.exports = {
 
     //Org Profile Integration Type Information
     integrationType: 'Sikka',
+
+    groupName: 'group 2',
+    newPhoneTypeChannelName: 'channel3',
+    createdTag: '#Test_1',
+    rhinoSecureChannelName: 'Rhinosecure_Channel4',
 };
 

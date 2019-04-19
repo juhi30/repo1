@@ -38,7 +38,7 @@ const orgProfileCommands = {
       .updateDetails('@cityInput', city)
       .setValue('@stateInput', state)
       .updateDetails('@zipInput', zip)
-    },
+  },
 
   updateOrgProfileOtherFields: function (address2, phone, email, contactName, contactPhone, contactEmail) {
     return this.updateDetails('@addressTwoInput', address2)
@@ -47,7 +47,7 @@ const orgProfileCommands = {
       .updateDetails('@orgContactNameInput', contactName)
       .updateDetails('@orgContactPhoneInput', contactPhone)
       .updateDetails('@orgContactEmailInput', contactEmail)
-    },
+  },
 
   enableDisableToggles: function (toggleSetup) {
     return this.waitForElementVisible(toggleSetup, toggleSetup + ' toggle is visible.')
@@ -57,7 +57,7 @@ const orgProfileCommands = {
 
   updateIntegrationValue: function(integrationType) {
     return this.verify.visible('@integrationDropdown', 'Integration dropdown is visible')
-    .setValue('@integrationDropdown', integrationType)
+      .setValue('@integrationDropdown', integrationType)
   },
 
   updateDetails: function (element, newValue) {
@@ -67,8 +67,8 @@ const orgProfileCommands = {
   },
 
   verifyBillingIdAndIntegrationOptions: function () {
-     return this.verify.visible('@orgContactBillingNumberInput', 'Billing Customer Id is visible')
-     .verify.visible('@integrationToggle', 'Enable Integration Option is visible')
+    return this.verify.visible('@orgContactBillingNumberInput', 'Billing Customer Id is visible')
+      .verify.visible('@integrationToggle', 'Enable Integration Option is visible')
   },
 
   setNewValues: function(name, address, city) {
@@ -80,7 +80,7 @@ const orgProfileCommands = {
 
   clickSaveProfile: function() {
     return this.click('@saveOrgProfileButton')
-    .waitForElementVisible('@orgUpdateSuccessMessage', 'Success message displayed')
+      .waitForElementVisible('@orgUpdateSuccessMessage', 'Success message displayed')
   },
 
   renderValidators: function() {
@@ -93,15 +93,15 @@ const orgProfileCommands = {
 
   addUpdateLogo: async function(element) {
     this.waitForElementVisible(element, 'Add/Update Logo button visible')
-    .click(element)
-    .waitForElementNotVisible('@uploadPhotoButton', 'Upload Photo modal is open')
-    .pause(2000)
+      .click(element)
+      .waitForElementNotVisible('@uploadPhotoButton', 'Upload Photo modal is open')
+      .pause(2000)
     await helper.uploadFile(this, 'rhinogram.png')
     return this.pause(5000)
-    .click('@doneUploadPhoto')
-    .pause(5000)
-    .click('@saveOrgProfileButton')
-    .waitForElementVisible('@orgUpdateSuccessMessage', 'Success message displayed')
+      .click('@doneUploadPhoto')
+      .pause(5000)
+      .click('@saveOrgProfileButton')
+      .waitForElementVisible('@orgUpdateSuccessMessage', 'Success message displayed')
   }
 }
 

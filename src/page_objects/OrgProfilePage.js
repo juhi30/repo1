@@ -1,12 +1,9 @@
+const helper = require('../toolboxes/helpers.toolbox')
+
 const orgProfileCommands = {
 
-  pause: function(time) {
-    this.api.pause(time);
-    return this;
-  },
-
-  renderPageElements: function() {
-    return this.waitForElementVisible('@updateLogoButton', 'Update logo button is visible')
+  renderPageElements: function(logoElement) {
+    return this.waitForElementVisible(logoElement, 'Update logo button is visible')
       .verify.visible('@orgNameInput', 'Name input is visible')
       .verify.visible('@addressOneInput', 'Address input is visible')
       .verify.visible('@addressTwoInput', 'Address Line 2 input is visible')
@@ -69,7 +66,7 @@ const orgProfileCommands = {
       .setValue(element, newValue)
   },
 
-  checkVisibilityForCCR: function () {
+  verifyBillingIdAndIntegrationOptions: function () {
      return this.verify.visible('@orgContactBillingNumberInput', 'Billing Customer Id is visible')
      .verify.visible('@integrationToggle', 'Enable Integration Option is visible')
   },
@@ -123,6 +120,11 @@ module.exports = {
     addLogoButton : {
       selector: `//SPAN[contains(.,'Add Logo')]`,
       locateStrategy : 'xpath',
+    },
+
+    doneUploadPhoto: {
+      selector: `//SPAN[text()='Done']`,
+      locateStrategy: 'xpath',
     },
 
     /*----------------------------------------------------------------------------*/

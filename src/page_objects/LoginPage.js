@@ -80,12 +80,6 @@ const loginCommands = {
       .waitForElementVisible('@passwordUpdateSuccessMessage','password updated successfully.')
   },
 
-  validateUrlChange_CCR: function (url, message) {
-    const nextPageUrl = url ? url : 'selectorg';
-    return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
-      .verify.urlContains(nextPageUrl, message);
-  },
-
   resetPassword: function (inputValue) {
     return this.waitForElementVisible('@forgotPasswordLink', 'Forgot password button is visible')
       .click('@forgotPasswordLink')

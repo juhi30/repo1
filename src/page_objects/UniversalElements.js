@@ -454,6 +454,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    newOrgSearchResult: {
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgNewName}' ]`,
+      locateStrategy: 'xpath',
+    },
+
      noSearchResult: {
       selector: `//SPAN[text()='No organizations found']`,
       locateStrategy: 'xpath',

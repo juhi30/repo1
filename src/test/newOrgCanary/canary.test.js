@@ -28,6 +28,7 @@ beforeAll(async () => {
     .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
       testConstants.state, testConstants.zip)
     .clickCreateOrganization()
+    .pause(1000)
     .getOrgId()
 });
 
@@ -41,7 +42,7 @@ afterAll(async (done) => {
     const archiveResponse = await deleteOrg.archiveOrganization(process.env.ORGANIZATION_ID, cookie);
     console.log('======== Organization Archive Response =======');
     const deleteResponse = await deleteOrg.deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======', deleteResponse);
+    console.log('====== Organization Deleted =======');
     done();
   } catch (err) {
     console.log(err);
@@ -49,13 +50,19 @@ afterAll(async (done) => {
   }
 });
 
+//CCR Flow
 import './member'
 import './login'
 import './channels'
+
+//Member Flow
 import './office'
 import './tags'
 import './outofoffice'
-import './orgProfile'
 import './template'
 import './preferences'
+
+//Member + CCR flow. This should be the last test case
+import './orgProfile'
+
 

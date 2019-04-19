@@ -15,7 +15,7 @@ let createdPatient;
 let createdOther;
 let createdAppointment;
 
-const orgId = process.env.ORG_ID;
+const orgId = process.env.EXISTING_ORG_ID;
 const patientExternalId = 'c3ba714d-47e7-4eb4-8713-b60730179c89';
 const guardianExtrenalId = '2833d372-4a2d-462b-b302-a0d9b54b49fc';
 

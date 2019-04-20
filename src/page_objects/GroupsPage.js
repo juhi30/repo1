@@ -80,7 +80,7 @@ module.exports = {
     },
 
     groupTimezone: {
-      selector: `//LABEL[@class='rhinoswitcher__label'][contains(@for,'afterHoursEnabled')]`,
+      selector: `//SELECT[contains(@id,'timeZoneId')]`,
       locateStrategy: 'xpath',
     },
 

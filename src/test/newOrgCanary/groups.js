@@ -131,6 +131,5 @@ describe(' Automated Test Cases - Groups', () => {
         await channel.createUpdateChannel('@createChannelButton', 'Create Channel button is visible')
             .pause(1000)
             .checkSuccessMessage('@channelCreateSuccessMessage')
-
     });
 });

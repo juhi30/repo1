@@ -6,15 +6,6 @@ const entry = client.page.AuditLogsPage();
 const channel = client.page.ChannelsCreateEditPage();
 
 describe(' Automated Test Cases - Groups', () => {
-    test('Login as Member', async () => {
-        const login = client.page.LoginPage();
-
-        await login.navigate()
-            .fillInUsername(testConstants.memberUsername)
-            .fillInPassword(testConstants.memberPassword)
-            .submit()
-            .validateUrlChange()
-    });
 
     test('Create Groups - Patient Type', async () => {
 
@@ -32,7 +23,6 @@ describe(' Automated Test Cases - Groups', () => {
             .validateAuditEntry(testConstants.memberName, 'Group', 'Add', testConstants.patientTypeGroup)
 
     });
-
 
     test('Add Channel Routes to patient Type Group', async () => {
         await group.navigate()

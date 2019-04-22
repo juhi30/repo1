@@ -61,8 +61,8 @@ import './tags'
 import './outofoffice'
 import './template'
 import './preferences'
+import './groups'
 
 //Member + CCR flow. This should be the last test case
 import './orgProfile'
-import './groups'
 

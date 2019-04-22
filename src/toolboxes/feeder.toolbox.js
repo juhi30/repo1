@@ -83,9 +83,19 @@ module.exports = {
     noDataFound: 'No Data Found',
 
     //Tags
+     // Used on Channels Page
     tagNameNewPhoneType: 'Test_1',
     tagNameRhinoType: 'Test_2',
     tagCategory: 'Custom',
+    // Used on Tags Page
+    locationName: 'LocationTag', 
+    departmentName: 'DepartmentTag',
+    roleName: 'roleTag',
+    customName: 'customTag',
+    newLocation: 'newLocation',
+    newDepartment: 'newDepartment',
+    newRole: 'newRole',
+    newCustom: 'newCustom',
 
 
     //Web Form Addition Details
@@ -97,16 +107,6 @@ module.exports = {
     submitButton: 'Do send your message.',
     callToActionButton: 'Send Message',
     confirmationText: 'The message has been submitted successfully!',
-
-    //Tags
-    locationName: 'LocationTag',
-    departmentName: 'DepartmentTag',
-    roleName: 'roleTag',
-    customName: 'customTag',
-    newLocation: 'newLocation',
-    newDepartment: 'newDepartment',
-    newRole: 'newRole',
-    newCustom: 'newCustom',
 
     //details for office addition
     officeName: 'Mount Pleasant Office',

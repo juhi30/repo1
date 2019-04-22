@@ -160,7 +160,7 @@ module.exports = {
 
     contactsPage: {
       selector: `//*[text()='Import Contacts']`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
   }
 }

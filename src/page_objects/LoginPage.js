@@ -58,6 +58,12 @@ const loginCommands = {
       .waitForElementNotPresent('@usernameInput', 'Username input no longer present');
   },
 
+  validateError: function() {
+    return this.waitForElementVisible('@errorPrompt', 'Error logging in prompt is visible')
+      .verify.valueContains('@usernameInput', '', 'username input testing ')
+      .verify.valueContains('@passwordInput', '', 'password input testing')
+  },
+
   validateUrlChange: function (url) {
     const nextPageUrl = url ? url : 'inbox';
     return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')

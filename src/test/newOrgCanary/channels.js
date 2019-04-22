@@ -7,6 +7,7 @@ describe('Automated Tests: Channels', () => {
     const org = client.page.UniversalElements();
 
     await login.navigate()
+      .waitForElementVisible('@loginButton', 'Login button is visible')
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit()
       .pause(2000)

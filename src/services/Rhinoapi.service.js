@@ -41,3 +41,47 @@ export async function postIncomingBandwidthMessage(message) {
 return axios.post(`${process.env.API_BASE_URL}/webhooks/bandwidth/messaging`, message,
   { headers: { Authorization: `Basic ${Buffer.from(process.env.BANDWIDTH_WEBHOOK_AUTH).toString('base64')}` }});
 }
+
+export async function archiveOrganization(organizationId, cookie) {
+  const response =  await axios({
+    method: 'post',
+    url: `${process.env.API_BASE_URL}/organization/archive/${organizationId}`,
+    headers: {
+      'content-type': 'application/json',
+      token: process.env.RG_DEV_TOKEN,
+      Cookie: cookie,
+    }
+  });
+
+  return response.body;
+}
+
+export async function deleteOrganization(organizationId, cookie) {
+  const response = await axios({
+    method: 'delete',
+    url: `${process.env.API_BASE_URL}/organization/${organizationId}`,
+    headers:
+    {
+      'content-type': 'application/json',
+      token: process.env.RG_DEV_TOKEN,
+      Cookie: cookie,
+    }
+  });
+
+  return response.body;
+}
+
+export async function login() {
+  const USERNAME = process.env.CCR_USERNAME;
+  const PASSWORD = process.env.CCR_PASSWORD;
+
+  const response = await axios.post(`${process.env.API_BASE_URL}/login`,
+      { username: USERNAME, password: PASSWORD },
+      {
+          headers: {
+              'content-type': 'application/json'
+          }
+      });
+
+  return response.headers['set-cookie'][0];
+}

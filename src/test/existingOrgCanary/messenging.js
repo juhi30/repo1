@@ -31,26 +31,29 @@ describe('messsenging tests', () => {
       .sendOutboundMessageAndGetReply(`handler add reply ${testConstants.testBotReplyMessage}`, 'Hi Bot Contact');
   });
 
-  test('configure echo handler for bot contact to get inbound message',async (done) => {
+  test('configure forward handler for bot contact to get inbound message', async (done) => {
+    const contacts = client.page.ContactsPage();
+    const randomNumber = contacts.getRandomNumber();
     const config = {
-      number: process.env.TEST_BANDWIDTH_CHANNEL_NUMBER,
-      config: { handler: 'echo' },
-    };
-    messengerbot.configureHandler(config).then((response) => {
-      done();
-    });
+     number: process.env.TEST_BANDWIDTH_NUMBER_PATIENT,
+     config: { handler: 'forward', config: [process.env.TEST_BANDWIDTH_CHANNEL_NUMBER] },
+   };
+    
+    messengerbot.configureHandler(config).then(async (response) => {
+     done();
+   });
   });
 
   test('Get Inbound Message from Contact', async (done) => {
     const contacts = client.page.ContactsPage();
     const randomNumber = contacts.getRandomNumber();
-    const body = {
-      from: process.env.TEST_BANDWIDTH_NUMBER_PATIENT,
-      to: process.env.TEST_BANDWIDTH_CHANNEL_NUMBER,
+
+    const config = {
+      to: process.env.TEST_BANDWIDTH_NUMBER_PATIENT,
       text: `${testConstants.testBotInboundMessage} ${randomNumber}`,
       media: null,
     };
-    messengerbot.sendMessage(body).then(async (response) => {
+    messengerbot.sendMessage(config).then(async (response) => {
       await contacts.getInboundMessage(testConstants.testBotInboundMessage);
       done();
     });

@@ -8,5 +8,5 @@ export async function configureHandler(config) {
 }
 
 export async function sendMessage(config) {
-  return axios.post(`${process.env.MESSENGER_BASE_URL}/sendMessage`, config);
+  return axios.post(`${process.env.MESSENGER_BASE_URL}/handleMessage`, config);
 }

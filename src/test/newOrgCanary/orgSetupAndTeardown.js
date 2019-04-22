@@ -44,12 +44,3 @@ afterAll(async (done) => {
     done(err);
   }
 });
-
-describe('Navigate to Member page after org Setup', () => {
-    test('Navigating', async () => {
-      const member = client.page.MembersPage();
-      
-      await member.navigate()
-    });
-  });
-  

@@ -110,7 +110,7 @@ module.exports = {
       selector: `//INPUT[contains(@name, 'password')]`,
       locateStrategy: 'xpath',
     },
-    
+
     loginButton: {
       selector: `//SPAN[contains(.,'Log In')]`, //Will change after Alpha
       locateStrategy: 'xpath',

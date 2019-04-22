@@ -1,5 +1,4 @@
 
-import fs from 'fs';
 import axios from 'axios';
 
 export async function findUserByUser(orgId, user) {
@@ -42,7 +41,7 @@ return axios.post(`${process.env.API_BASE_URL}/webhooks/bandwidth/messaging`, me
   { headers: { Authorization: `Basic ${Buffer.from(process.env.BANDWIDTH_WEBHOOK_AUTH).toString('base64')}` }});
 }
 
-export async function postRhinolinerUser(data) {
-  return axios.post(`${process.env.API_BASE_URL}/rhinoliner/users`, data,
-    { headers: { Authorization: `Basic ${Buffer.from(process.env.RHINOLINER_BASIC_AUTH).toString('base64')}` }});
+export async function postRhinolinerUser(user, orgId) {
+  return axios.post(`${process.env.API_BASE_URL}/rhinoliner/users`, { userData: user, orgId },
+    { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` }});
 }

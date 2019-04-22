@@ -51,6 +51,7 @@ afterAll(async (done) => {
 });
 
 //CCR Flow
+import './orgSetupAndTeardown'
 import './member'
 import './login'
 import './channels'

@@ -145,13 +145,14 @@ describe('Login Page Tests Cases', () => {
     const member = client.page.MembersPage();
 
     await login.navigate()
-    .pause(1000)
+      .pause(1000)
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit()
     await universal.searchForOrganization(testConstants.orgName)
       .ccrOrgLogin()
+      
     await member.navigate()
-    .pause(1000)
+      .pause(1000)
       .selectMember()
       .createTempPassword()
       .getTempPassword()

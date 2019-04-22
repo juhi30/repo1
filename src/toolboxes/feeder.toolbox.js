@@ -24,6 +24,10 @@ module.exports = {
     memberLastName: 'LastName',
     memberUsername: 'Testing_NewCanary_123',
     memberPassword: 'Test@123',
+
+    newMemberUsername: 'Testing_NewCanary_NewUserName_123',
+    newMemberPassword: 'Hello@123',
+
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
 
@@ -136,9 +140,9 @@ module.exports = {
     //Org Profile Integration Type Information
     integrationType: 'Sikka',
 
-    groupName: 'group 2',
-    newPhoneTypeChannelName: 'channel3',
-    createdTag: '#Test_1',
-    rhinoSecureChannelName: 'Rhinosecure_Channel4',
+    //Member's profile info and has to be removed except groupName
+    tagForMemberPage: 'Test_3',
+    createdTag: '#Test_3',
+    tagNameForProfile: 'Test_3',
 };
 

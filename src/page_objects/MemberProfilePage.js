@@ -13,24 +13,20 @@ const profileCommands = {
     return this.waitForElementVisible(validationMessage, validationMessage + ': is visible')
   },
 
-  changeUsername: function () {
+  changeUserName: function (newUserName) {
     return this.waitForElementVisible('@loginInformationTitle', 'login information title is visible')
-      .clearValue('@usernameInput')
-      .setValue('@usernameInput', 'b16')
+      .clearValue('@userNameInput')
+      .setValue('@userNameInput', newUserName)
   },
 
-  changePassword: function () {
+  changePassword: function (currentPass, newPass) {
     return this.waitForElementVisible('@changePasswordButton', 'change password button is visible')
       .click('@changePasswordButton')
-      .setValue('@currentPassInput', 'Hello@123')
-      .setValue('@newPassInput', 'Hello@123')
-      .setValue('@confirmPassInput', 'Hello@123')
+      .setValue('@currentPassInput', currentPass)
+      .setValue('@newPassInput', newPass)
+      .setValue('@confirmPassInput', newPass)
       .waitForElementVisible('@updatePassButton', 'Update password button is visible')
       .click('@updatePassButton')
-  },
-
-  updatePassword: function () {
-    return this.waitForElementVisible('@changePasswordButton', 'change password button is visible')
   },
 
   checkMemberPermissions: function (element) {
@@ -48,18 +44,18 @@ const profileCommands = {
       .click('@createTagButton')
       .pause(1000)
       .waitForElementVisible('@addCreatedTag', 'created tag is visible')
-      .click('@addCreatedTag')
   },
 
   displayChannels: function (element) {
     return this.waitForElementVisible(element, element + ': is visible and routed to member')
   },
 
-  addGroups: function () {
+  addGroup: function () {
     return this.waitForElementVisible('@addMoreGroups', 'add groups option is visible')
       .click('@addMoreGroups')
       .waitForElementVisible('@selectGroup', 'select group is visible')
       .click('@selectGroup')
+
   },
 
   addAvailabilityHours: function () {
@@ -159,7 +155,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    usernameInput: {
+    userNameInput: {
       selector: `//INPUT[contains(@id, 'username')]`,
       locateStrategy: 'xpath',
     },
@@ -310,7 +306,7 @@ module.exports = {
     },
 
     selectGroup: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.groupName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.patientTypeGroup}']`,
       locateStrategy: 'xpath',
     },
 
@@ -325,12 +321,12 @@ module.exports = {
     },
 
     newPhoneTypeChannel: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][text()='${testConstants.newPhoneTypeChannelName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][text()='${testConstants.newChannelName}']`,
       locateStrategy: 'xpath',
     },
 
     rhinoSecureTypeChannel: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.rhinoSecureChannelName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.rhinoChannelNewName}']`,
       locateStrategy: 'xpath',
     },
 

@@ -1,16 +1,16 @@
 import { client } from 'nightwatch-api';
 const testConstants = require('../../toolboxes/feeder.toolbox')
 const profilePage = client.page.MemberProfilePage();
-const logout = client.page.UniversalElements();
+const checkAuditLogs = client.page.AuditLogsPage();
 
 describe('Automated Tests: Member Profile', () => {
 
-  test('check required fields and validations on the profile page', async () => {
+  test('Required fields and validations on the profile page', async () => {
 
     await profilePage.navigate()
       .clearAllRequiredFields('@firstNameInput')
       .clearAllRequiredFields('@lastNameInput')
-      .clearAllRequiredFields('@usernameInput')
+      .clearAllRequiredFields('@userNameInput')
 
       .clickSaveProfileButton()
 
@@ -19,19 +19,24 @@ describe('Automated Tests: Member Profile', () => {
       .checkForValidation('@nullUsernameValidator')
   });
 
-  test('check for change username and password and on the profile page', async () => {
+  test('Change username and password and on the profile page', async () => {
 
     await profilePage.navigate()
-      .changeUsername()
-
+      .changeUserName(testConstants.newMemberUsername)
       .clickSaveProfileButton()
       .successMessage('@saveProfileSuccessMessage')
+
       .pause(1000)
-      .changePassword()
+
+      .changePassword(testConstants.memberPassword, testConstants.newMemberPassword)
       .successMessage('@passwordUpdationSuccessMessage')
+
+    await checkAuditLogs.navigate()
+      .validateAuditEntry(testConstants.memberName, 'Member', 'Edit', testConstants.memberName, '')
+
   });
 
-  test('check for member permissions on the profile page', async () => {
+  test('Member permissions on the profile page', async () => {
 
     await profilePage.navigate()
       .checkMemberPermissions('@billingAdminSettingsCheck')
@@ -40,41 +45,59 @@ describe('Automated Tests: Member Profile', () => {
       .checkMemberPermissions('@memberAdminSettingsCheck')
       .clickSaveProfileButton()
       .successMessage('@saveProfileSuccessMessage')
+
+    await checkAuditLogs.navigate()
+      .validateAuditEntry(testConstants.memberName, 'Member', 'Edit', testConstants.memberName, '')
+
   });
 
-  test('check for tags addition or removal on the profile page', async () => {
+  test('Tags addition or removal on the profile page', async () => {
 
     await profilePage.navigate()
-      .addTag(testConstants.tagNameNewPhoneType, '@customTag')
+      .addTag(testConstants.tagForMemberPage, '@customTag')
+
+    await checkAuditLogs.navigate()
+      .validateAuditEntry(testConstants.memberName, 'Tag', 'Add', testConstants.memberName, '')
+
   });
 
-  test('check for display of channels on the profile page', async () => {
+  test('Display of channels on the profile page', async () => {
 
     await profilePage.navigate()
       .displayChannels('@newPhoneTypeChannel')
       .displayChannels('@rhinoSecureTypeChannel')
   });
 
-  test('check for group addition or removal on the profile page', async () => {
+  test('Group addition or removal on the profile page', async () => {
 
     await profilePage.navigate()
-      .addGroups()
+      .addGroup()
       .clickSaveProfileButton()
       .successMessage('@saveProfileSuccessMessage')
+
+    await checkAuditLogs.navigate()
+      .validateAuditEntry(testConstants.memberName, 'Member', 'Edit', testConstants.memberName, '')
   });
 
-  test('check for member availability hours on the profile page', async () => {
+  test('Member availability hours on the profile page', async () => {
 
     await profilePage.navigate()
       .addAvailabilityHours('@availabilityHoursButton')
       .clickSaveProfileButton()
       .successMessage('@saveProfileSuccessMessage')
+
+    await checkAuditLogs.navigate()
+      .validateAuditEntry(testConstants.memberName, 'Member', 'Edit', testConstants.memberName, '')
+
   });
 
-  test('Update photo for profile page', async () => {
+  test('Add photo on the profile page', async () => {
 
     await profilePage.navigate()
       .addUpdateLogo('@addPhotoButton')
+
+    await checkAuditLogs.navigate()
+      .validateAuditEntry(testConstants.memberName, 'Member', 'Edit', testConstants.memberName, '')
 
   });
 });

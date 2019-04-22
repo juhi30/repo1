@@ -30,6 +30,8 @@ beforeAll(async () => {
     .clickCreateOrganization()
     .pause(1000)
     .getOrgId()
+
+  
 });
 
 // DELETE MY NEW ORG HERE 
@@ -55,7 +57,7 @@ import './member'
 import './login'
 import './channels'
 
- //Member Flow
+//Member Flow
 import './office'
 import './tags'
 import './outofoffice'

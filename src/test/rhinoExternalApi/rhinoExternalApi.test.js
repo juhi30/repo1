@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as rhinoExternalApi from '../../services/RhinoExternalApi.service';
 
+// TODO: This is temporary until we have the create/teardown org helps to easily use.  Will convert at that point.
 const rand = Date.now().toString();
 
 const user = {
@@ -33,18 +34,14 @@ let postedUser;
 describe('rhino-external-api tests', () => {
   jest.setTimeout(30000);
   test('post patient', async (done) => {
-    const resp = await axios.post(`${process.env.RHINO_EXTERNAL_API_BASE_URL}/user`, user,
-      { headers: { Authorization: `Basic ${Buffer.from(`${process.env.RHINO_EXTERNAL_API_BASIC_AUTH}`).toString('base64')}` } });
-
+    const resp = await rhinoExternalApi.postUser(user);
     postedUser = resp.data;
     console.log('RESP', resp.data);
     done();
   });
 
   test('get patient by userId', async (done) => {
-    const resp = await axios.get(`${process.env.RHINO_EXTERNAL_API_BASE_URL}/user?id=${postedUser.id}`,
-      { headers: { Authorization: `Basic ${Buffer.from(`${process.env.RHINO_EXTERNAL_API_BASIC_AUTH}`).toString('base64')}` } });
-
+    const resp = await rhinoExternalApi.getUserById(postedUser.id);
     console.log('RESP', resp.data);
     done();
   });

@@ -2,7 +2,18 @@ import { client } from 'nightwatch-api';
 const testConstants = require('../../toolboxes/feeder.toolbox');
 
 describe('Office Page', () => {
-    test('To add the office by ccr', async () => {
+
+    test('Login as Member', async () => {
+        const login = client.page.LoginPage();
+    
+        await login.navigate()
+          .fillInUsername(testConstants.memberUsername)
+          .fillInPassword(testConstants.memberPassword)
+          .submit()
+          .validateUrlChange()
+      });
+
+    test('To add the office by Member', async () => {
 
         const office = client.page.OfficePage();
         const checkAuditLogs = client.page.AuditLogPage();
@@ -19,10 +30,10 @@ describe('Office Page', () => {
 
         await checkAuditLogs.navigate()
             .pause(2000)
-            .validateEventEntry(testConstants.addEvent, testConstants.officeName, testConstants.ccrLogin, testConstants.category)
+            .validateEventEntry(testConstants.addEvent, testConstants.officeName, testConstants.memberName, testConstants.category)
     });
 
-    test('To edit the office by ccr', async () => {
+    test('To edit the office by Member', async () => {
 
         const office = client.page.OfficePage();
         const checkAuditLogs = client.page.AuditLogPage();
@@ -39,11 +50,11 @@ describe('Office Page', () => {
 
         await checkAuditLogs.navigate()
             .pause(2000)
-            .validateEventEntry(testConstants.editEvent, testConstants.newOfficeName, testConstants.ccrLogin, testConstants.category)
+            .validateEventEntry(testConstants.editEvent, testConstants.newOfficeName, testConstants.memberName, testConstants.category)
 
     });
 
-    test('To delete the office by ccr ', async () => {
+    test('To delete the office by Member ', async () => {
 
         const office = client.page.OfficePage();
         const checkAuditLogs = client.page.AuditLogPage();
@@ -55,8 +66,6 @@ describe('Office Page', () => {
 
         await checkAuditLogs.navigate()
             .pause(2000)
-            .validateEventEntry(testConstants.deleteEvent, testConstants.newOfficeName, testConstants.ccrLogin, testConstants.category)
-
-        await logout.clickLogout()
+            .validateEventEntry(testConstants.deleteEvent, testConstants.newOfficeName, testConstants.memberName, testConstants.category)
     });
 }); 

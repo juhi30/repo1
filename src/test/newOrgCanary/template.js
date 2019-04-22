@@ -3,17 +3,7 @@ const testConstants = require('../../toolboxes/feeder.toolbox');
 const helpers = require('../../toolboxes/helpers.toolbox');
 
 describe('Test Automation - Templates', () => {
-    test('Login as Member', async () => {
-        const login = client.page.LoginPage();
-
-        await login.navigate()
-            .enterMemberCreds(testConstants.memberUsername, testConstants.memberPassword)
-            .submit()
-            .pause(2000)
-            .validateUrlChange('inbox')
-    });
-
-    test('Create Template', async () => {
+    test('Create Template as a Member', async () => {
         const template = client.page.TemplatesPage();
         const entry = client.page.AuditLogsPage();
 
@@ -132,10 +122,10 @@ describe('Test Automation - Templates', () => {
         const filter = client.page.TemplatesPage();
 
         await filter.navigate()
-            .validateChannelFilter('@filterAll', testConstants.allFilter)
+            .validateTemplateFilter('@filterAll', testConstants.allFilter)
             .pause(1000)
-            .validateChannelFilter('@filterTextingChannel', testConstants.textingFilter)
+            .validateTemplateFilter('@filterTextingChannel', testConstants.textingFilter)
             .pause(1000)
-            .validateChannelFilter('@favoriteFilter', testConstants.favFilter)
+            .validateTemplateFilter('@favoriteFilter', testConstants.favFilter)
     });
 });

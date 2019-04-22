@@ -14,7 +14,8 @@ describe('Preferences Page', () => {
             .waitForElementVisible('@updationSuccessfulMessage', 'success message is visible')
             .pause(1000)
         await checkAuditLogs.navigate()
-            .validateEventEntryWithNoDataFound(testConstants.editEvent, testConstants.noDataFound, testConstants.ccrLogin, testConstants.orgCategory)
+            .pause(1000)
+            .validateEventEntryWithNoDataFound(testConstants.editEvent, testConstants.noDataFound, testConstants.memberName, testConstants.orgCategory)
 
     });
 
@@ -30,8 +31,8 @@ describe('Preferences Page', () => {
             .waitForElementVisible('@updationSuccessfulMessage', 'success message is visible')
             .pause(1000)
         await checkAuditLogs.navigate()
-            .validateEventEntry(testConstants.editEvent, testConstants.orgName, testConstants.ccrLogin, testConstants.orgCategory)
-
+            .pause(1000)
+            .validateEventEntry(testConstants.editEvent, testConstants.orgName, testConstants.memberName, testConstants.orgCategory)
     });
 
     test('To check organization system time out for the preferences', async () => {
@@ -42,12 +43,13 @@ describe('Preferences Page', () => {
         await preference.navigate()
             .waitForElementVisible('@systemTimeOut', 'System time out textfield is visible')
             .clearValue('@systemTimeOut')
-            .setValue('@systemTimeOut', 15)
+            .setValue('@systemTimeOut', 1)
             .click('@updatePreferences')
             .waitForElementVisible('@updationSuccessfulMessage', 'success message is visible')
 
         await checkAuditLogs.navigate()
-            .validateEventEntry(testConstants.editEvent, testConstants.orgName, testConstants.ccrLogin, testConstants.orgCategory)
+            .pause(1000)
+            .validateEventEntry(testConstants.editEvent, testConstants.orgName, testConstants.memberName, testConstants.orgCategory)
     });
 
     test('To check closing conversation options for the preferences', async () => {
@@ -63,8 +65,7 @@ describe('Preferences Page', () => {
             .waitForElementVisible('@updationSuccessfulMessage', 'success message is visible')
 
         await checkAuditLogs.navigate()
-            .validateEventEntry(testConstants.editEvent, testConstants.orgName, testConstants.ccrLogin, testConstants.orgCategory)
-
-        await logout.clickLogout()
+            .pause(1000)
+            .validateEventEntry(testConstants.editEvent, testConstants.orgName, testConstants.memberName, testConstants.orgCategory)
     });
 }); 

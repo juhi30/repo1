@@ -11,7 +11,7 @@ describe('Login Page Tests Cases', () => {
       .fillInUsername(testConstants.ccrLogin)
       .fillInPassword(testConstants.ccrPassword)
       .submit()
-      .validateUrlChange_CCR('/selectorg')
+      .validateUrlChange('selectorg')
   });
 
   test('Switch organization as a CCR', async () => {
@@ -143,13 +143,17 @@ describe('Login Page Tests Cases', () => {
     const universal = client.page.UniversalElements();
     const login = client.page.LoginPage();
     const member = client.page.MembersPage();
+    const org = client.page.UniversalElements();
 
     await login.navigate()
+      .pause(1000)
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit()
+    await org.waitForElementVisible('@searchInputForOrg', 'Search Org field is visible')
     await universal.searchForOrganization(testConstants.orgName)
       .ccrOrgLogin()
     await member.navigate()
+      .pause(1000)
       .selectMember()
       .createTempPassword()
       .getTempPassword()
@@ -177,7 +181,11 @@ describe('Login Page Tests Cases', () => {
       .clickSaveAndContinueButton()
       .validateUrlChange()
       .waitForElementNotPresent('@passwordUpdateSuccessMessage')
-   
-    await universal.clickLogout()
+  });
+
+  test('logout as Member', async () => {
+    const logout = client.page.UniversalElements();
+
+    await logout.clickLogout();
   });
 });

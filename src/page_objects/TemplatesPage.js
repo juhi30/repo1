@@ -11,7 +11,7 @@ const templatesCommands = {
       .verify.visible('@HIPAATemplate', 'HIPAA template is visible')
   },
 
-  validateChannelFilter: function (filter, activeFilterValue) {
+  validateTemplateFilter: function (filter, activeFilterValue) {
     return this.waitForElementVisible('@filterDropdown', ' Template Filter is visible')
       .click('@filterDropdown')
       .waitForElementVisible(filter, filter + ' is visible')

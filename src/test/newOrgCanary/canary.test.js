@@ -9,6 +9,7 @@ import './office'
 import './tags'
 import './outofoffice'
 import './template'
+import './memberPreferences'
 import './preferences'
 
 //Member + CCR flow. This should be the last test case

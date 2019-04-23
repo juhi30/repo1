@@ -135,5 +135,10 @@ module.exports = {
 
     //Org Profile Integration Type Information
     integrationType: 'Sikka',
+
+    //Member preferences Group
+    patientTypeGroup: 'Patient Automation Test Group',
+    teamTypeGroup: 'Team Automation Test Group',
+    patientAndTeamType: 'patient and Team Type Automation Group',
 };
 

@@ -34,35 +34,42 @@ let postedUser;
 describe('rhino-external-api tests', () => {
   jest.setTimeout(30000);
   test('post patient', async (done) => {
-    const resp = await rhinoExternalApi.postUser(user);
-    postedUser = resp.data;
-    console.log('RESP', resp.data);
+    const response = await rhinoExternalApi.postUser(user);
+    postedUser = response.data;
+    expect(response.data.externalId).toBe(user.externalId);
+    expect(response.data.firstName).toBe(user.firstName);
+    expect(response.data.lastName).toBe(user.externalId);
+    expect(response.data.sex).toBe(user.sex);
+    expect(response.data.phones[0].number).toBe(user.phones[0].number);
+    expect(response.data.phones[0].type).toBe(user.phones[0].type);
+    expect(response.data.emails[0].address).toBe(user.emails[0].address);
+    expect(response.data.emails[0].type).toBe(user.emails[0].type);
     done();
   });
 
   test('get patient by userId', async (done) => {
-    const resp = await rhinoExternalApi.getUserById(postedUser.id);
-    console.log('RESP', resp.data);
+    const response = await rhinoExternalApi.getUserById(postedUser.id);
+    expect(response.data).toEqual(postedUser);
     done();
   });
 
   test('get patient by externalId', async (done) => {
-    const resp = await rhinoExternalApi.getUserByExternalId(postedUser.externalId);
-    const resp2 = await rhinoExternalApi.getUserByExternalIdPath(postedUser.externalId);
-
-    console.log('RESP', resp.data);
+    const response = await rhinoExternalApi.getUserByExternalId(postedUser.externalId);
+    const response2 = await rhinoExternalApi.getUserByExternalIdPath(postedUser.externalId);
+    expect(response.data).toEqual(postedUser);
+    expect(response2.data).toEqual(postedUser);
     done();
   });
 
   test('search patient by first, last, dob', async (done) => {
-    const resp = await rhinoExternalApi.searchByFirstLastDob(postedUser.firstName, postedUser.lastName, postedUser.dob);
-    console.log('RESP', resp.data);
+    const response = await rhinoExternalApi.searchByFirstLastDob(postedUser.firstName, postedUser.lastName, postedUser.birthday);
+    expect(response.data).toEqual([postedUser]);
     done();
   });
 
   test('search patient by first, last, phone', async (done) => {
-    const resp = await rhinoExternalApi.searchByFirstLastDob(postedUser.firstName, postedUser.lastName, postedUser.phones[0]);
-    console.log('RESP', resp.data);
+    const response = await rhinoExternalApi.searchByFirstLastPhones(postedUser.firstName, postedUser.lastName, postedUser.phones[0].number);
+    expect(response.data).toEqual([postedUser]);
     done();
   });
 
@@ -71,11 +78,10 @@ describe('rhino-external-api tests', () => {
       ...postedUser,
       preferredName: 'Brandt',
     };
-
-    const resp = await rhinoExternalApi.putUserByExternalId(putUser.externalId, putUser);
-    const resp2 = await rhinoExternalApi.putUserById(putUser.id, putUser);
-
-    console.log('RESP', resp.data);
+    const response = await rhinoExternalApi.putUserByExternalId(putUser.externalId, putUser);
+    const response2 = await rhinoExternalApi.putUserById(putUser.id, putUser);
+    expect(response.data).toEqual(putUser);
+    expect(response2.data).toEqual(putUser);
     done();
   });
 });

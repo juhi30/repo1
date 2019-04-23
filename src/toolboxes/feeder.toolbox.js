@@ -28,12 +28,12 @@ module.exports = {
     invalidEmail: 'test@test.com',
 
     //New Group Details
-    patientTypeGroup: 'Patient Automation Test Group2',
-    teamTypeGroup : 'Team Automation Test Group2',
-    patientAndTeamType : 'patient and Team Type Automation Group2',
-    updatedpatientAndTeamType: 'patient and Team Type Automation Group_New',
-    updatedPatientTypeGroup : 'patient to Patient And Team Type Group_New',
-    updatedTeamTypeGroup : 'Team to Patient And Team Type Group_New',
+    patientTypeGroup: 'Patient Group',
+    teamTypeGroup : 'Team Group',
+    patientAndTeamType : 'patient and Team Group',
+    updatedpatientAndTeamType: 'New patient and Team Group',
+    updatedPatientTypeGroup : 'New Patient Group',
+    updatedTeamTypeGroup : 'New Team Group',
     purpose: 'Testing',
     newGroupPurpose: 'Group Automation Testing',
     patientGroupChannel : 'patient Group Channel',

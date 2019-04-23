@@ -32,7 +32,7 @@ describe('Member Preferences Page', () => {
   });
 
   test('Update Member Preferences Page after adding Group On Patient and Team', async () => {
-    await memberPrefrences.clickEventOnMemberPreferencesPage('@groupNotificationLinkOnPatientAndTeamMsgs','click on group notification for Patient and Team messages')
+    await memberPrefrences.clickEventOnMemberPreferencesPage('@individualGroupNotificationLinkForPatientAndTeam','click on group notification for Patient and Team messages')
       .clickEventOnMemberPreferencesPage('@checkTeamAndPatientGroupNotificationOnMobile','Selection on group for Patient and Team messages')
       .clickEventOnMemberPreferencesPage('@updatePrefrencesButton', 'Update Member Preferences Page')
       .waitForElementVisible('@updationSuccessfulMessage', 'success message is visible')

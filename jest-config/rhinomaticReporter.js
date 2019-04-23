@@ -6,8 +6,6 @@ class RhinomaticReporter {
   }
 
   getLastError() {
-    console.log("test my reporter");
-      console.log(this);
       if (this._shouldFail) {
         process.exit(1);
       }

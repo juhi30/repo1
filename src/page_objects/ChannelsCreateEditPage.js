@@ -64,7 +64,7 @@ const editChannelsCommands = {
       .click('@confirmDeleteChannel')
   },
 
-  clearWebFormFields: function (element) {
+  webFormValidation: function (element) {
     return this.waitForElementVisible(element, element + ' : is visible')
       .pause(1000)
       .clearValue(element)

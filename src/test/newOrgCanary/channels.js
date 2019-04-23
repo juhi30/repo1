@@ -7,6 +7,7 @@ describe('Automated Tests: Channels', () => {
     const org = client.page.UniversalElements();
 
     await login.navigate()
+      .waitForElementVisible('@loginButton', 'Login button is visible')
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit()
       .pause(2000)
@@ -181,21 +182,21 @@ describe('Automated Tests: Channels', () => {
       .click('@updateChannelButton')
   });
 
-  test('Channel Deletion', async () => {
-    const channel = client.page.ChannelsPage();
-    const deletechannel = client.page.ChannelsCreateEditPage();
+  // test('Channel Deletion', async () => {
+  //   const channel = client.page.ChannelsPage();
+  //   const deletechannel = client.page.ChannelsCreateEditPage();
 
-    await channel.navigate()
-      .channelEditMode('@updatedChannelTitle')
+  //   await channel.navigate()
+  //     .channelEditMode('@updatedChannelTitle')
 
-    await deletechannel.deleteChannels()
-      .pause(2000)
-    await channel.navigate()
-      .channelEditMode('@updatedRhinoSecureChannelTitle')
+  //   await deletechannel.deleteChannels()
+  //     .pause(2000)
+  //   await channel.navigate()
+  //     .channelEditMode('@updatedRhinoSecureChannelTitle')
 
-    await deletechannel.deleteChannels()
-      .pause(2000)
-  });
+  //   await deletechannel.deleteChannels()
+  //     .pause(2000)
+  // });
 
   test('logout as CCR', async () => {
     const logout = client.page.UniversalElements();

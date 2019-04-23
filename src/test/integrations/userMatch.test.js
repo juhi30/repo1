@@ -11,7 +11,7 @@ export const USER_TYPE_PATIENT = 18;
 followRedirects.maxRedirects = 10;
 followRedirects.maxBodyLength = 500 * 1024 * 1024 * 1024;
 
-const orgId = process.env.ORG_ID;
+const orgId = process.env.EXISTING_ORG_ID;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));

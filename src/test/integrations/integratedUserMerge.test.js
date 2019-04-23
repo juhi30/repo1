@@ -16,17 +16,6 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-beforeAll(async () => {
-  const login = client.page.LoginPage();
-  const setup = client.page.AccountSetupPage();
-
-  await login.navigate()
-    .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
-    .submit()
-    .pause(2000)
-    .validateUrlChange('/selectorg')
-});
-
 // create integrated user
 // need to create non integrated?
 // check that user is there
@@ -66,11 +55,10 @@ describe('mergeUsers', () => {
     });
   });
 
-  test('test dat merge', async (done) => {
+  test('when an integrated user is merged into a non integrated user', async (done) => {
     const cookie = await loginApi.login();
-    const mergeResponse = await userService.mergeUsers(createdPatient.id, 5, cookie);
-
-    userService.mergeUsers(createdPatient.id, 5, orgId).then((response) => {
+    console.log('COOKIE', cookie);
+    userService.mergeUsers(createdPatient.id, 5, cookie).then((response) => {
       console.log('RES DATA', response.data);
       done();
     });

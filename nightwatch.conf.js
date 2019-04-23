@@ -9,6 +9,7 @@ const options = headless ? { "args": ["headless", "no-sandbox", "disable-gpu"] }
 
 module.exports = {
   "page_objects_path" : "./src/page_objects",
+  "globals_path": "./src/globals.js",
 
   "selenium" : {
     "start_process" : true,
@@ -31,7 +32,7 @@ module.exports = {
         "javascriptEnabled": true,
         "acceptSslCerts": true,
         "chromeOptions": {
-          "args": [ "headless", "no-sandbox", "disable-gpu"]
+          "args": [ "headless", "no-sandbox", "disable-gpu", "window-size=1280,800"],
         }
       }
     }

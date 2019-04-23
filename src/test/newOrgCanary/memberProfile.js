@@ -2,21 +2,22 @@ import { client } from 'nightwatch-api';
 const testConstants = require('../../toolboxes/feeder.toolbox')
 const profilePage = client.page.MemberProfilePage();
 const checkAuditLogs = client.page.AuditLogsPage();
+const channel = client.page.ChannelsCreateEditPage();
 
 describe('Automated Tests: Member Profile', () => {
 
   test('Required fields and validations on the profile page', async () => {
 
     await profilePage.navigate()
-      .clearAllRequiredFields('@firstNameInput')
-      .clearAllRequiredFields('@lastNameInput')
-      .clearAllRequiredFields('@userNameInput')
+      .clearFields('@firstNameInput')
+      .clearFields('@lastNameInput')
+      .clearFields('@userNameInput')
 
       .clickSaveProfileButton()
 
       .checkForValidation('@nullFirstNameValidator')
       .checkForValidation('@nullLastNameValidator')
-      .checkForValidation('@nullUsernameValidator')
+      .checkForValidation('@nullUserNameValidator')
   });
 
   test('Change username and password and on the profile page', async () => {
@@ -39,10 +40,10 @@ describe('Automated Tests: Member Profile', () => {
   test('Member permissions on the profile page', async () => {
 
     await profilePage.navigate()
-      .checkMemberPermissions('@billingAdminSettingsCheck')
-      .checkMemberPermissions('@memberAdminSettingsCheck')
-      .checkMemberPermissions('@memberTemplatesSettingsCheck')
-      .checkMemberPermissions('@memberAdminSettingsCheck')
+      .addRemovePermissions('@billingAdminSettingsCheck')
+      .addRemovePermissions('@memberAdminSettingsCheck')
+      .addRemovePermissions('@memberTemplatesSettingsCheck')
+      .addRemovePermissions('@memberAdminSettingsCheck')
       .clickSaveProfileButton()
       .successMessage('@saveProfileSuccessMessage')
 
@@ -54,7 +55,7 @@ describe('Automated Tests: Member Profile', () => {
   test('Tags addition or removal on the profile page', async () => {
 
     await profilePage.navigate()
-      .addTag(testConstants.tagForMemberPage, '@customTag')
+    await channel.addtag(testConstants.tagForMemberPage, '@tagCategory')
 
     await checkAuditLogs.navigate()
       .validateAuditEntry(testConstants.memberName, 'Tag', 'Add', testConstants.memberName, '')
@@ -68,7 +69,7 @@ describe('Automated Tests: Member Profile', () => {
       .displayChannels('@rhinoSecureTypeChannel')
   });
 
-  test('Group addition or removal on the profile page', async () => {
+  test('Group addition on the profile page', async () => {
 
     await profilePage.navigate()
       .addGroup()
@@ -91,7 +92,7 @@ describe('Automated Tests: Member Profile', () => {
 
   });
 
-  test('Add photo on the profile page', async () => {
+  test('Add photo for profile page', async () => {
 
     await profilePage.navigate()
       .addUpdateLogo('@addPhotoButton')

@@ -7,6 +7,7 @@ describe('Automated Tests: Channels', () => {
     const org = client.page.UniversalElements();
 
     await login.navigate()
+      .waitForElementVisible('@loginButton', 'Login button is visible')
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit()
       .pause(2000)
@@ -140,7 +141,7 @@ describe('Automated Tests: Channels', () => {
 
     await channel.channelEditMode('@updatedChannelTitle')
 
-    await channel1.webFormValidation('@formTitle')
+    channel1.webFormValidation('@formTitle')
       .webFormValidation('@titleSubtext')
       .webFormValidation('@phonePlaceholder')
       .webFormValidation('@phoneHelpText')
@@ -165,10 +166,10 @@ describe('Automated Tests: Channels', () => {
     const channel = client.page.ChannelsPage();
     const channel1 = client.page.ChannelsCreateEditPage();
 
-    channel.navigate()
-    await channel.channelEditMode('@updatedChannelTitle')
+    await channel.navigate()
+      .channelEditMode('@updatedChannelTitle')
 
-    await channel1.updateWebform('@formTitle', testConstants.formTitleName)
+    channel1.updateWebform('@formTitle', testConstants.formTitleName)
       .updateWebform('@titleSubtext', testConstants.titleSubtext)
       .updateWebform('@phonePlaceholder', testConstants.phonePlaceholder)
       .updateWebform('@phoneHelpText', testConstants.phoneHelpText)

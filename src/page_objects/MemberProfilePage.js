@@ -3,7 +3,7 @@ const testConstants = require('../toolboxes/feeder.toolbox');
 const helper = require('../toolboxes/helpers.toolbox');
 const profileCommands = {
 
-  clearAllRequiredFields: function (element) {
+  clearFields: function (element) {
     return this.waitForElementVisible(element, element + ' : is visible')
       .clearValue(element)
       .setValue(element, ' ')
@@ -29,21 +29,9 @@ const profileCommands = {
       .click('@updatePassButton')
   },
 
-  checkMemberPermissions: function (element) {
+  addRemovePermissions: function (element) {
     return this.waitForElementVisible(element, element + ': is visible')
       .click(element)
-  },
-
-  addTag: function (name, category) {
-    return this.waitForElementVisible('@createNewTag', 'create new tag button is visible')
-      .click('@createNewTag')
-      .waitForElementVisible('@tagNameInput', 'Add tag modal is open')
-      .setValue('@tagNameInput', name)
-      .click(category)
-      .waitForElementVisible('@createTagButton', 'Create tag Button is visible.')
-      .click('@createTagButton')
-      .pause(1000)
-      .waitForElementVisible('@addCreatedTag', 'created tag is visible')
   },
 
   displayChannels: function (element) {
@@ -74,7 +62,7 @@ const profileCommands = {
     return this.pause(5000)
       .click('@doneUploadPhoto')
       .pause(5000)
-      .click('@saveOrgProfileButton')
+      .click('@saveProfileButton')
   },
 
   clickSaveProfileButton: function () {
@@ -122,7 +110,7 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
-    saveOrgProfileButton: {
+    saveProfileButton: {
       selector: `//SPAN[contains(.,'Save Profile')]`,
       locateStrategy: 'xpath'
     },
@@ -246,7 +234,7 @@ module.exports = {
       locateStrategy: 'xpath'
     },
 
-    nullUsernameValidator: {
+    nullUserNameValidator: {
       selector: `//DIV[@class='form__validation-message'][text()='Invalid username']`,
       locateStrategy: 'xpath',
     },

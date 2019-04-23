@@ -12,24 +12,23 @@ module.exports = {
     zip: '12345',
 
     //details for office addition
-    officeName: 'Mount Pleasant Office5',
+    officeName: 'Mount Pleasant Office',
     officeAddress: '128 Hester St',
     officeCity: 'Charleston',
     officeState: 'South Carolina',
     zipCode: '29403',
 
     // New Member Details 
-    memberName: 'Testing_NewCanary_1 LastName',
-    memberFirstName: 'Testing_NewCanary_1',
+    memberName: 'Testing_NewCanary_Dev LastName',
+    memberFirstName: 'Testing_NewCanary_Dev',
     memberLastName: 'LastName',
-    memberUsername: 'Testing_NewCanary_123',
+    memberUsername: 'Testing_NewCanary_Dev',
     memberPassword: 'Test@123',
-
-    newMemberUsername: 'Testing_NewCanary_NewUserName_123',
-    newMemberPassword: 'Hello@123',
-
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
+
+    newMemberUsername: 'Testing_NewCanary_Dev_New',
+    newMemberPassword: 'Hello@123',
 
     //New Group Details
     groupName: 'AutomationTestGroup',

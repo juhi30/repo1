@@ -3,7 +3,6 @@ import { client } from 'nightwatch-api';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 const testConstants = require('../../toolboxes/feeder.toolbox');
 const userService = require('../../services/User.service');
-const loginApi = require('../../services/Login.Service');
 
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
@@ -56,8 +55,8 @@ describe('mergeUsers', () => {
   });
 
   test('when an integrated user is merged into a non integrated user', async (done) => {
-    const cookie = await loginApi.login();
-    console.log('COOKIE', cookie);
+    const cookie = await rhinoapi.login();
+    await rhinoapi.changeOrg(cookie);
     userService.mergeUsers(createdPatient.id, 5, cookie).then((response) => {
       console.log('RES DATA', response.data);
       done();

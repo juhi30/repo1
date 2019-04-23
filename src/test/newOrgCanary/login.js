@@ -143,15 +143,17 @@ describe('Login Page Tests Cases', () => {
     const universal = client.page.UniversalElements();
     const login = client.page.LoginPage();
     const member = client.page.MembersPage();
+    const org = client.page.UniversalElements();
 
     await login.navigate()
-    .pause(1000)
+      .pause(1000)
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit()
+    await org.waitForElementVisible('@searchInputForOrg', 'Search Org field is visible')
     await universal.searchForOrganization(testConstants.orgName)
       .ccrOrgLogin()
     await member.navigate()
-    .pause(1000)
+      .pause(1000)
       .selectMember()
       .createTempPassword()
       .getTempPassword()

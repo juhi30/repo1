@@ -6,6 +6,7 @@ const loginCommands = {
     return this.waitForElementVisible('@usernameInput', 'Username input is visible')
       .verify.visible('@usernameInput', 'Username input is visible')
       .verify.visible('@passwordInput', 'password input is visible')
+      .waitForElementVisible('@loginButton', 'Login button is visible')
       .verify.containsText('@loginButton', 'Log In', 'Login button is visible')
   },
 
@@ -56,6 +57,12 @@ const loginCommands = {
     return this.waitForElementVisible('@loginButton', 'Login button is visible')
       .click('@loginButton')
       .waitForElementNotPresent('@usernameInput', 'Username input no longer present');
+  },
+
+  validateError: function() {
+    return this.waitForElementVisible('@errorPrompt', 'Error logging in prompt is visible')
+      .verify.valueContains('@usernameInput', '', 'username input testing ')
+      .verify.valueContains('@passwordInput', '', 'password input testing')
   },
 
   validateUrlChange: function (url) {

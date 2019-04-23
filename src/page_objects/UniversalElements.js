@@ -3,7 +3,7 @@ const testConstants = require('../toolboxes/feeder.toolbox');
 
 const universalElementsCommands = {
 
-  validateUniversalElements: function() {
+  validateUniversalElements: function () {
     return this.waitForElementVisible('@myProfileButton', 'My Profile button is visible')
       .verify.visible('@myProfileButton', 'Profile button is visible')
       .verify.visible('@inboxDirectButton', 'Inbox direct is visible')
@@ -14,7 +14,7 @@ const universalElementsCommands = {
       .verify.visible('@settingsButton', 'Settings button is visible')
   },
 
-  validateSearchModal: function(patientName) {
+  validateSearchModal: function (patientName) {
     return this.waitForElementVisible('@searchButton', 'Search button is visible')
       .click('@searchButton')
       .waitForElementVisible('@searchModalInput', 'Search input is visible on click')
@@ -25,11 +25,11 @@ const universalElementsCommands = {
       .waitForElementNotPresent('@searchResultFrodoBaggins', 'First result is hidden')
   },
 
-  validateSettingsDropdown: function() {
+  validateSettingsDropdown: function () {
     return this.waitForElementVisible('@settingsButton', 'Settings button is visible')
       .pause(500)
       .click('@settingsButton')
-      .waitForElementPresent('@logoutButton', 'logout button is visible')      
+      .waitForElementPresent('@logoutButton', 'logout button is visible')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Profile in settings is visible')
       .waitForElementVisible('@myPreferencesInSettingsDropdown', 'Preferences in settings is visible')
       .waitForElementVisible('@oooInSettingsDropdown', 'Out of Office is visible!')
@@ -45,7 +45,7 @@ const universalElementsCommands = {
       .click('@settingsButton')
   },
 
-  validateHelpDropdown: function() {
+  validateHelpDropdown: function () {
     return this.waitForElementVisible('@helpDropdown', 'Help button is visible')
       .pause(500)
       .click('@helpDropdown')
@@ -57,7 +57,7 @@ const universalElementsCommands = {
   },
 
   /*----------perhaps add more to test for groups in Inbox/Chat-----------*/
-  clickAppNavButtons: function() {
+  clickAppNavButtons: function () {
     return this.waitForElementVisible('@assignedToMeButton', 'Assigned to Me button is shown')
       .click('@assignedToMeButton')
       .pause(500)
@@ -76,7 +76,7 @@ const universalElementsCommands = {
       .verify.containsText('@appHeaderTitle', 'Contacts', 'Contacts title present')
   },
 
-  clickHelpDropdownButtons: function() {
+  clickHelpDropdownButtons: function () {
     return this.waitForElementPresent('@helpDropdown', 'Help dropdown is visible')
       .click('@helpDropdown')
       .waitForElementPresent('@supportDeskButton', 'Support desk button is visible')
@@ -87,12 +87,12 @@ const universalElementsCommands = {
   },
 
   clickSystemDetailsButton: function () {
-      return this.waitForElementPresent('@helpDropdown', 'Help dropdown is visible')
-        .waitForElementVisible('@systemDetailsButton', 'System Details button is visible')
-        .click('@systemDetailsButton')
+    return this.waitForElementPresent('@helpDropdown', 'Help dropdown is visible')
+      .waitForElementVisible('@systemDetailsButton', 'System Details button is visible')
+      .click('@systemDetailsButton')
   },
 
-  clickSearchModalButtons: function(patientName) {
+  clickSearchModalButtons: function (patientName) {
     return this.click('@assignedToMeButton')
       .waitForElementVisible('@searchButton', 'Search button is visible')
       .click('@searchButton')
@@ -105,14 +105,14 @@ const universalElementsCommands = {
       .verify.urlContains('50069', 'Taken to profile summary view')// no long 'userID' string but actual ID number
   },
 
-  clickAddNewContact: function() {
+  clickAddNewContact: function () {
     return this.waitForElementVisible('@searchButton')
       .click('@searchButton')
       .waitForElementVisible('@searchModalInput', 'Search input is present')
       .click('@addNewContactButton')
   },
 
-  clickMyProfile: function() {
+  clickMyProfile: function () {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@myProfileInSettingsDropdown')
@@ -120,7 +120,7 @@ const universalElementsCommands = {
       .verify.urlContains('/profile', 'My profile page is visible')
   },
 
-  clickMyPreferences: function() {
+  clickMyPreferences: function () {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@myPreferencesInSettingsDropdown')
@@ -128,7 +128,7 @@ const universalElementsCommands = {
       .verify.urlContains('/preferences', 'My Preferences page is visible')
   },
 
-  clickChannels: function() {
+  clickChannels: function () {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@channelsInSettingsDropdown')
@@ -136,7 +136,7 @@ const universalElementsCommands = {
       .verify.urlContains('organization/channels', 'Channels page is visible')
   },
 
-  clickGroups: function() {
+  clickGroups: function () {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@groupsInSettingsDropdown')
@@ -144,7 +144,7 @@ const universalElementsCommands = {
       .verify.urlContains('organization/groups', 'Groups page is visible')
   },
 
-  clickMembers: function() {
+  clickMembers: function () {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@membersInSettingsDropdown')
@@ -152,7 +152,7 @@ const universalElementsCommands = {
       .verify.urlContains('organization/members', 'Members page is visible')
   },
 
-  clickOOO: function() {
+  clickOOO: function () {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@oooInSettingsDropdown')
@@ -160,7 +160,7 @@ const universalElementsCommands = {
       .verify.urlContains('/organization/out-of-office', 'Out of Office page is visible')
   },
 
-  clickBilling: function() {
+  clickBilling: function () {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@billingInSettingsDropdown')
@@ -168,7 +168,7 @@ const universalElementsCommands = {
       .verify.urlContains('/organization/billing', 'Billing page is visible')
   },
 
-  clickOrgPreferences: function() {
+  clickOrgPreferences: function () {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@orgPreferencesInSettingsDropdown')
@@ -176,7 +176,7 @@ const universalElementsCommands = {
       .verify.urlContains('organization/preferences', 'Organization Preferences page is visible')
   },
 
-  clickOrgProfile: function() {
+  clickOrgProfile: function () {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@orgProfileInSettingsDropdown')
@@ -185,7 +185,7 @@ const universalElementsCommands = {
       .verify.urlContains('organization/profile', 'Organization Profile page is visible')
   },
 
-  clickTags: function() {
+  clickTags: function () {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@tagsInSettingsDropdown')
@@ -193,7 +193,7 @@ const universalElementsCommands = {
       .verify.urlContains('organization/tags', 'Tags page is visible')
   },
 
-  clickTemplates: function() {
+  clickTemplates: function () {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@templatesInSettingsDropdown')
@@ -201,7 +201,7 @@ const universalElementsCommands = {
       .verify.urlContains('organization/templates', 'Templates page is visible')
   },
 
-  clickSystemDetails: function() {
+  clickSystemDetails: function () {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@systemDetailsInSettingsDropdown')
@@ -209,30 +209,38 @@ const universalElementsCommands = {
       .verify.urlContains('diagnostics', 'System Detail page is visible')
   },
 
-  clickLogout: function() {
+  clickLogout: function () {
     return this.waitForElementVisible('@logoutButton', 'Logout button is visible')
       .click('@logoutButton')
       .waitForElementNotPresent('@logoutButton', 'Logout button no longer present')
   },
 
-  searchByName: function(name) {
+  searchByName: function (name) {
     return this.waitForElementVisible('@searchButton', 'Search field is visible')
       .click('@searchButton')
       .waitForElementVisible('@searchModalInput', 'Search input is visible')
       .setValue('@searchModalInput', name)
   },
 
-  searchForOrganization: function(orgName, orgName2SearchResult) {
+  searchForOrganization: function (orgName, orgName2SearchResult) {
     const clickableElement = orgName2SearchResult ? orgName2SearchResult : '@organizationSearchResult'
     return this.waitForElementVisible('@searchInputForOrg', 'Search Input is visible')
       .setValue('@searchInputForOrg', orgName)
       .waitForElementVisible(clickableElement, 'First result is visible')
   },
 
-  ccrOrgLogin: function(orgName2SearchResult) {
+  ccrOrgLogin: function (orgName2SearchResult) {
     const clickableElement = orgName2SearchResult ? orgName2SearchResult : '@organizationSearchResult'
     return this.click(clickableElement)
-      .waitForElementVisible('@goBackToSelectNewOrg','CCR login to Org successful')
+      .pause(1000)
+      .waitForElementVisible('@goBackToSelectNewOrg', 'CCR login to Org successful')
+      .verify.urlContains('contacts', 'Contacts page is visible')
+  },
+
+  clickContacts: function() {
+    return this.waitForElementVisible('@contactsButton', 'Contacts button is visible')
+      .click('@contactsButton')
+      .pause(500)
       .verify.urlContains('contacts', 'Contacts page is visible')
   },
 
@@ -242,15 +250,15 @@ const universalElementsCommands = {
     .waitForElementVisible('@searchInputForOrg', 'User landed back on Org listing page')
   },
 
-  validatePageError: function(ele,url){
-    return this.waitForElementNotPresent(ele,'Page Cannot be Accessible after logout')
-    .verify.urlContains(url)
+  validatePageError: function (ele, url) {
+    return this.waitForElementNotPresent(ele, 'Page Cannot be Accessible after logout')
+      .verify.urlContains(url)
   },
 }
 
 module.exports = {
   commands: [universalElementsCommands],
-  url: function() {
+  url: function () {
     return this.api.launch_url + '/inbox'
   },
 
@@ -300,7 +308,7 @@ module.exports = {
     /*----------------------------------------------*/
 
     searchButton: {
-      selector: `//SPAN[contains(text(), 'Search users')]`, 
+      selector: `//SPAN[contains(text(), 'Search users')]`,
       locateStrategy: 'xpath',
     },
 
@@ -328,7 +336,7 @@ module.exports = {
     // Profile Button and former Notification xpaths
     /*----------------------------------------------*/
 
-    myProfileButton: { 
+    myProfileButton: {
       selector: `//A[@title='My Profile']`,
       locateStrategy: 'xpath',
     },
@@ -371,7 +379,7 @@ module.exports = {
     /*----------------------------------------------*/
 
     settingsButton: {
-      selector: `//BUTTON[contains(@title, 'Settings')]`, 
+      selector: `//BUTTON[contains(@title, 'Settings')]`,
       locateStrategy: 'xpath',
     },
 
@@ -444,12 +452,12 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-     organizationSearchResult: {
-       selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgName}' ]`,
-       locateStrategy: 'xpath',
-     },
+    organizationSearchResult: {
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgName}' ]`,
+      locateStrategy: 'xpath',
+    },
 
-     org2SearchResult: {
+    org2SearchResult: {
       selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgName2}' ]`,
       locateStrategy: 'xpath',
     },
@@ -459,7 +467,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-     noSearchResult: {
+    noSearchResult: {
       selector: `//SPAN[text()='No organizations found']`,
       locateStrategy: 'xpath',
     },

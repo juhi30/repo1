@@ -19,10 +19,10 @@ module.exports = {
     zipCode: '29403',
 
     // New Member Details 
-    memberName: 'Testing_NewCanary_1 LastName',
-    memberFirstName: 'Testing_NewCanary_1',
+    memberName: 'Testing_NewCanary_Dev LastName',
+    memberFirstName: 'Testing_NewCanary_Dev',
     memberLastName: 'LastName',
-    memberUsername: 'Testing_NewCanary_123',
+    memberUsername: 'Testing_NewCanary_Dev',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
@@ -99,6 +99,7 @@ module.exports = {
 
 
     //Web Form Addition Details
+
     formTitleName: 'Send Message via web form.',
     titleSubtext: 'Text or Call us.',
     phonePlaceholder: 'Enter Phone Number',
@@ -143,5 +144,13 @@ module.exports = {
 
     //Org Profile Integration Type Information
     integrationType: 'Sikka',
-};
 
+    //member details for existing org canary
+    memberUsernameExistingOrg: 'dallman',
+    memberPasswordExistingOrg: 'Test@123',
+
+    //bot messages details for existing org canary
+    testBotReplyMessage: 'Test Reply from Bot Contact',
+    testBotInboundMessage: 'Test Inbound Message From Bot',
+    facebookOutboundMessage: 'Outbound Message to FB Contact',
+};

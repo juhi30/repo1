@@ -65,7 +65,7 @@ module.exports = {
         },
 
         groupInput: {
-            selector: `//INPUT[contains(@id, 'search')]`,
+            selector: `//INPUT[@class='form__control form__control--large'][contains(@name, 'search')]`,
             locateStrategy: 'xpath',
         },
 
@@ -74,8 +74,33 @@ module.exports = {
             locateStrategy: 'xpath',
         },
 
-        groupResult: {
-            selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.groupName}')]`,
+        newPatientGroupResult: {
+            selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.updatedPatientTypeGroup}')]`,
+            locateStrategy: 'xpath',
+        },
+
+        newTeamGroupResult: {
+            selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.updatedTeamTypeGroup}')]`,
+            locateStrategy: 'xpath',
+        },
+
+        newPatientAndTeamGroupResult: {
+            selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.updatedpatientAndTeamType}')]`,
+            locateStrategy: 'xpath',
+        },
+
+        patientGroupResult: {
+            selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.patientTypeGroup}')]`,
+            locateStrategy: 'xpath',
+        },
+
+        teamGroupResult: {
+            selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.teamTypeGroup}')]`,
+            locateStrategy: 'xpath',
+        },
+
+        patientAndTeamGroupResult: {
+            selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.patientAndTeamType}')]`,
             locateStrategy: 'xpath',
         },
     }

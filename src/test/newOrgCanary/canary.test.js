@@ -11,6 +11,7 @@ import './outofoffice'
 import './template'
 import './memberPreferences'
 import './preferences'
+import './group'
 
 //Member + CCR flow. This should be the last test case
 import './orgProfile'

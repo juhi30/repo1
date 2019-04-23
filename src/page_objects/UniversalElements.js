@@ -237,10 +237,17 @@ const universalElementsCommands = {
       .verify.urlContains('contacts', 'Contacts page is visible')
   },
 
-  selectOrganization: function () {
-    return this.waitForElementVisible('@goBackToSelectNewOrg', 'Select Organization button is visible')
-      .click('@goBackToSelectNewOrg')
-      .waitForElementVisible('@searchInputForOrg', 'User landed back on Org listing page')
+  clickContacts: function() {
+    return this.waitForElementVisible('@contactsButton', 'Contacts button is visible')
+      .click('@contactsButton')
+      .pause(500)
+      .verify.urlContains('contacts', 'Contacts page is visible')
+  },
+
+  selectOrganization: function(){
+    return this.waitForElementVisible('@goBackToSelectNewOrg','Select Organization button is visible')
+    .click('@goBackToSelectNewOrg')
+    .waitForElementVisible('@searchInputForOrg', 'User landed back on Org listing page')
   },
 
   validatePageError: function (ele, url) {

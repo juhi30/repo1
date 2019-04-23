@@ -38,7 +38,7 @@ return axios.patch(`${process.env.API_BASE_URL}/rhinocron/appointments/${appoint
 
 export async function postIncomingBandwidthMessage(message) {
 return axios.post(`${process.env.API_BASE_URL}/webhooks/bandwidth/messaging`, message,
-  { headers: { Authorization: `Basic ${Buffer.from(process.env.BANDWIDTH_WEBHOOK_AUTH).toString('base64')}` }});
+  { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BANDWIDTH_WEBHOOK_AUTH).toString('base64')}` }});
 }
 
 export async function postRhinolinerUser(user, orgId) {

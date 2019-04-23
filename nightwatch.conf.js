@@ -9,8 +9,7 @@ const options = headless ? { "args": ["headless", "no-sandbox", "disable-gpu"] }
 
 module.exports = {
   "page_objects_path" : "./src/page_objects",
-  "globals_path": "./src/globals.js",
-
+  
   "selenium" : {
     "start_process" : true,
     "server_path" : "./node_modules/selenium-server-standalone-jar/jar/selenium-server-standalone-3.141.5.jar",

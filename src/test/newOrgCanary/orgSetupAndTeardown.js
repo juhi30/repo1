@@ -1,7 +1,10 @@
 import { client } from 'nightwatch-api';
 const testConstants = require('../../toolboxes/feeder.toolbox');
-const loginApi = require('../../services/Login.Service');
-const deleteOrg = require('../../services/Organization.Service');
+import {
+  deleteOrganization,
+  archiveOrganization,
+  login
+} from '../../services/Rhinoapi.service';
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
@@ -32,11 +35,11 @@ afterAll(async (done) => {
 
   try {
     console.log('Login...');
-    const cookie = await loginApi.login();
+    const cookie = await login();
     console.log('Deleting Org ==', process.env.ORGANIZATION_ID);
-    const archiveResponse = await deleteOrg.archiveOrganization(process.env.ORGANIZATION_ID, cookie);
+    const archiveResponse = await archiveOrganization(process.env.ORGANIZATION_ID, cookie);
     console.log('======== Organization Archive Response =======', archiveResponse);
-    const deleteResponse = await deleteOrg.deleteOrganization(process.env.ORGANIZATION_ID, cookie);
+    const deleteResponse = await deleteOrganization(process.env.ORGANIZATION_ID, cookie);
     console.log('====== Organization Deleted =======');
     done();
   } catch (err) {

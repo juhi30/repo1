@@ -45,12 +45,12 @@ const contactsCommands = {
       .verify.visible('@addNewContactButton', 'Add New Contact button is visible')
   },
 
-  searchForContact: function(contactName) {
+  searchForContact: function(contactName, firstResultObject) {
     return this.waitForElementVisible('@searchContactInput', 'Search Contacts Bar is visible')
       .click('@searchContactInput')
       .setValue('@addContactDropdownInput', contactName)
-      .waitForElementVisible('@addContactDropdownFirstResult', 'First result is visible')
-      .click('@addContactDropdownFirstResult')
+      .waitForElementVisible(firstResultObject, 'First result is visible')
+      .click(firstResultObject)
       .waitForElementVisible('@profileInboxContainer', 'Profile summary is visible')
   },
 
@@ -70,7 +70,7 @@ const contactsCommands = {
 
   },
 
-  sendOutboundMessageToFbContact: function(message) {
+  sendOutboundMessageToFbContact: function (message) {
     const randomizedMessage = `${message} ${randomNumber}`;
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .setValue('@inboxMessageArea', randomizedMessage)
@@ -164,8 +164,13 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    addContactDropdownFirstResult: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), ${process.env.BOT_CONTACT_NAME.split(' ')[1]})]`,
+    addContactDropdownFirstResultBot: {
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.BOT_CONTACT_NAME}')]`,
+      locateStrategy: 'xpath',
+    },
+ 
+    addContactDropdownFirstResultFb: {
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.FACEBOOK_CONTACT_NAME}')]`,
       locateStrategy: 'xpath',
     },
 

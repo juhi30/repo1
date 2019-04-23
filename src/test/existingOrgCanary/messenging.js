@@ -7,7 +7,6 @@ import * as messengerbot from '../../services/MessengerBot.service';
 
 import { client } from 'nightwatch-api';
 
-const loginApi = require('../../services/Login.Service');
 const testConstants = require('../../toolboxes/feeder.toolbox');
 
 function sleep(ms) {
@@ -27,7 +26,7 @@ describe('messsenging tests', () => {
   test('Send Outbound Message To Contact and Get Reply', async () => {
     const contacts = client.page.ContactsPage();
 
-    await contacts.searchForContact(process.env.BOT_CONTACT_NAME)
+    await contacts.searchForContact(process.env.BOT_CONTACT_NAME, '@addContactDropdownFirstResultBot')
       .sendOutboundMessageAndGetReply(`handler add reply ${testConstants.testBotReplyMessage}`, 'Hi Bot Contact');
   });
 
@@ -62,7 +61,7 @@ describe('messsenging tests', () => {
   test('Search Facebook Unknown Contact', async () => {
     const contacts = client.page.ContactsPage();
 
-    await contacts.searchForContact(process.env.FACEBOOK_CONTACT_NAME);
+    await contacts.searchForContact(process.env.FACEBOOK_CONTACT_NAME, '@addContactDropdownFirstResultFb');
   });
 
   test('Outbound Message from Facebook Channel', async (done) => {

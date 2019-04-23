@@ -28,8 +28,16 @@ module.exports = {
     invalidEmail: 'test@test.com',
 
     //New Group Details
-    groupName: 'AutomationTestGroup',
+    patientTypeGroup: 'Patient Group',
+    teamTypeGroup : 'Team Group',
+    patientAndTeamType : 'patient and Team Group',
+    updatedpatientAndTeamType: 'New patient and Team Group',
+    updatedPatientTypeGroup : 'New Patient Group',
+    updatedTeamTypeGroup : 'New Team Group',
     purpose: 'Testing',
+    newGroupPurpose: 'Group Automation Testing',
+    patientGroupChannel : 'patient Group Channel',
+    patientAndTeamGroupChannel : 'patient and Team Channel Group',
 
     //OOO Details
     oooTitle: 'Test Event',
@@ -75,9 +83,19 @@ module.exports = {
     noDataFound: 'No Data Found',
 
     //Tags
+    // Used for tags Creation in channels
     tagNameNewPhoneType: 'Test_1',
     tagNameRhinoType: 'Test_2',
     tagCategory: 'Custom',
+    //Used in Tags Creation
+    locationName: 'LocationTag', 
+    departmentName: 'DepartmentTag',
+    roleName: 'roleTag',
+    customName: 'customTag',
+    newLocation: 'newLocation',
+    newDepartment: 'newDepartment',
+    newRole: 'newRole',
+    newCustom: 'newCustom',
 
 
     //Web Form Addition Details
@@ -90,16 +108,6 @@ module.exports = {
     submitButton: 'Do send your message.',
     callToActionButton: 'Send Message',
     confirmationText: 'The message has been submitted successfully!',
-
-    //Tags
-    locationName: 'LocationTag',
-    departmentName: 'DepartmentTag',
-    roleName: 'roleTag',
-    customName: 'customTag',
-    newLocation: 'newLocation',
-    newDepartment: 'newDepartment',
-    newRole: 'newRole',
-    newCustom: 'newCustom',
 
     //details for office addition
     officeName: 'Mount Pleasant Office',

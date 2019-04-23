@@ -81,6 +81,7 @@ module.exports = {
 
 
     //Web Form Addition Details
+
     formTitleName: 'Send Message via web form.',
     titleSubtext: 'Text or Call us.',
     phonePlaceholder: 'Enter Phone Number',
@@ -135,5 +136,13 @@ module.exports = {
 
     //Org Profile Integration Type Information
     integrationType: 'Sikka',
-};
 
+    //member details for existing org canary
+    memberUsernameExistingOrg: 'dallman',
+    memberPasswordExistingOrg: 'Test@123',
+
+    //bot messages details for existing org canary
+    testBotReplyMessage: 'Test Reply from Bot Contact',
+    testBotInboundMessage: 'Test Inbound Message From Bot',
+    facebookOutboundMessage: 'Outbound Message to FB Contact',
+};

@@ -47,25 +47,21 @@ describe('rhino-external-api tests', () => {
   });
 
   test('get patient by externalId', async (done) => {
-    const resp = await axios.get(`${process.env.RHINO_EXTERNAL_API_BASE_URL}/user?externalId=${postedUser.externalId}`,
-      { headers: { Authorization: `Basic ${Buffer.from(`${process.env.RHINO_EXTERNAL_API_BASIC_AUTH}`).toString('base64')}` } });
+    const resp = await rhinoExternalApi.getUserByExternalId(postedUser.externalId);
+    const resp2 = await rhinoExternalApi.getUserByExternalIdPath(postedUser.externalId);
 
     console.log('RESP', resp.data);
     done();
   });
 
   test('search patient by first, last, dob', async (done) => {
-    const resp = await axios.get(`${process.env.RHINO_EXTERNAL_API_BASE_URL}/search?firstName=${postedUser.firstName}&lastName=${postedUser.lastName}&dob=${postedUser.dob}`,
-      { headers: { Authorization: `Basic ${Buffer.from(`${process.env.RHINO_EXTERNAL_API_BASIC_AUTH}`).toString('base64')}` } });
-
+    const resp = await rhinoExternalApi.searchByFirstLastDob(postedUser.firstName, postedUser.lastName, postedUser.dob);
     console.log('RESP', resp.data);
     done();
   });
 
   test('search patient by first, last, phone', async (done) => {
-    const resp = await axios.get(`${process.env.RHINO_EXTERNAL_API_BASE_URL}/search?firstName=${postedUser.firstName}&lastName=${postedUser.lastName}&phones=${postedUser.phones[0]}`,
-      { headers: { Authorization: `Basic ${Buffer.from(`${process.env.RHINO_EXTERNAL_API_BASIC_AUTH}`).toString('base64')}` } });
-
+    const resp = await rhinoExternalApi.searchByFirstLastDob(postedUser.firstName, postedUser.lastName, postedUser.phones[0]);
     console.log('RESP', resp.data);
     done();
   });
@@ -76,11 +72,8 @@ describe('rhino-external-api tests', () => {
       preferredName: 'Brandt',
     };
 
-    const resp = await axios.put(`${process.env.RHINO_EXTERNAL_API_BASE_URL}/user?externalId=${putUser.externalId}`, putUser,
-      { headers: { Authorization: `Basic ${Buffer.from(`${process.env.RHINO_EXTERNAL_API_BASIC_AUTH}`).toString('base64')}` } });
-
-    const resp2 = await axios.put(`${process.env.RHINO_EXTERNAL_API_BASE_URL}/user?id=${putUser.id}`, putUser,
-      { headers: { Authorization: `Basic ${Buffer.from(`${process.env.RHINO_EXTERNAL_API_BASIC_AUTH}`).toString('base64')}` } });
+    const resp = await rhinoExternalApi.putUserByExternalId(putUser.externalId, putUser);
+    const resp2 = await rhinoExternalApi.putUserById(putUser.id, putUser);
 
     console.log('RESP', resp.data);
     done();

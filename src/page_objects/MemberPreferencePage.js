@@ -24,7 +24,7 @@ module.exports = {
     },
 
     groupNotificationLinkOnPatientMsgs: {
-      selector: `//th[text()= 'Patient']//parent::tr//parent::thead//parent::table//Span[contains(text(), 'Individual Group Notifications') or contains(text(), 'Hide Individual Groups')]`,
+      selector: `//th[text()= 'Patient']//parent::tr//parent::thead//parent::table//Span[contains(text(), 'Individual Group Notifications')]`,
       locateStrategy: 'xpath',
     },
 
@@ -34,7 +34,7 @@ module.exports = {
     },
 
     groupNotificationLinkOnTeamMsgs: {
-      selector: `//th[text()= 'Team']//parent::tr//parent::thead//parent::table//Span[contains(text(), 'Individual Group Notifications') or contains(text(), 'Hide Individual Groups')]`,
+      selector: `//th[text()= 'Team']//parent::tr//parent::thead//parent::table//Span[contains(text(), 'Individual Group Notifications')]`,
       locateStrategy: 'xpath',
     },
 
@@ -44,7 +44,7 @@ module.exports = {
     },
 
     groupNotificationLinkOnPatientAndTeamMsgs: {
-      selector: `//th[text()= 'Patient and Team']//parent::tr//parent::thead//parent::table//Span[contains(text(), 'Individual Group Notifications') or contains(text(), 'Hide Individual Groups')]`,
+      selector: `//th[text()= 'Patient and Team']//parent::tr//parent::thead//parent::table//Span[contains(text(), 'Individual Group Notifications')]`,
       locateStrategy: 'xpath',
     },
 

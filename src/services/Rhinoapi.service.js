@@ -41,6 +41,11 @@ return axios.post(`${process.env.API_BASE_URL}/webhooks/bandwidth/messaging`, me
   { headers: { Authorization: `Basic ${Buffer.from(process.env.BANDWIDTH_WEBHOOK_AUTH).toString('base64')}` }});
 }
 
+export async function postRhinolinerUser(user, orgId) {
+  return axios.post(`${process.env.API_BASE_URL}/rhinoliner/users`, { userData: user, orgId },
+    { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` }});
+}
+
 export async function archiveOrganization(organizationId, cookie) {
   const response =  await axios({
     method: 'post',
@@ -87,10 +92,10 @@ export async function login() {
 
 export async function changeOrg(cookie) {
   const ORGID = process.env.EXISTING_ORG_ID;
-  const USERID = process.env.EXISTING_USER_ID;
+  const USERID = process.env.EXISTING_CCR_USER_ID;
 
   const response = await axios.post(`${process.env.API_BASE_URL}/changeOrg`,
-      { orgId: ORGID, userId: USERID },
+      { orgId: parseInt(ORGID, 10), userId: USERID },
       {
           headers: {
               'content-type': 'application/json',
@@ -98,8 +103,3 @@ export async function changeOrg(cookie) {
           }
       });
     }
-
-export async function postRhinolinerUser(user, orgId) {
-  return axios.post(`${process.env.API_BASE_URL}/rhinoliner/users`, { userData: user, orgId },
-    { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` }});
-}

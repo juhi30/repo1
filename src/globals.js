@@ -13,6 +13,6 @@ module.exports = {
     // reporter: (require('nightwatch-slack-reporter')(options)),
     abortOnAssertionFailure: false,
     waitForConditionPollInterval: 300,
-    waitForConditionTimeout: 600000,
+    waitForConditionTimeout: 60000,
     retryAssertionTimeout: 5000
 }

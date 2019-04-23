@@ -43,7 +43,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    groupNotificationLinkOnPatientAndTeamMsgs: {
+    individualGroupNotificationLinkForPatientAndTeam: {
       selector: `//th[text()= 'Patient and Team']//parent::tr//parent::thead//parent::table//Span[contains(text(), 'Individual Group Notifications')]`,
       locateStrategy: 'xpath',
     },

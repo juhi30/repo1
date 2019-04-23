@@ -13,32 +13,32 @@ module.exports = {
   },
   elements: {
 
-    notificationOnDesktopIfAssign: {
+    checkAssignToMeNotificationOnDesktop: {
       selector: `//INPUT[contains(@title,"Inbox Assigned to Me Desktop")]/following-sibling::label`,
       locateStrategy: 'xpath',
     },
 
-    notificationOnMobileIfFollowing: {
+    checkFollowingNotificationOnMobile: {
       selector: `//INPUT[contains(@title,"Inbox Following Mobile")]/following-sibling::label`,
       locateStrategy: 'xpath',
     },
 
-    groupNotificationLinkOnPatientMsgs: {
+    individualGroupNotificationLinkForPatient: {
       selector: `//th[text()= 'Patient']//parent::tr//parent::thead//parent::table//Span[contains(text(), 'Individual Group Notifications')]`,
       locateStrategy: 'xpath',
     },
 
-    groupNotificationOnMobileForPatient: {
+    checkPatientGroupNotificationOnMobile: {
       selector: `//tr[@class="member-preferences__group-sub"]//td//strong[text()='${testConstants.patientTypeGroup}']//parent::td//following-sibling::td//input[contains(@title,'Mobile')]//following-sibling::label`,
       locateStrategy: 'xpath',
     },
 
-    groupNotificationLinkOnTeamMsgs: {
+    individualGroupNotificationLinkForTeam: {
       selector: `//th[text()= 'Team']//parent::tr//parent::thead//parent::table//Span[contains(text(), 'Individual Group Notifications')]`,
       locateStrategy: 'xpath',
     },
 
-    groupNotificationOnMobileForTeam: {
+    checkTeamGroupNotificationOnMobile: {
       selector: `//tr[@class="member-preferences__group-sub"]//td//strong[text()='${testConstants.teamTypeGroup}']//parent::td//following-sibling::td//input[contains(@title,'Desktop')]//following-sibling::label`,
       locateStrategy: 'xpath',
     },
@@ -48,7 +48,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    groupNotificationOnMobileForPatientNdTeam: {
+    checkTeamAndPatientGroupNotificationOnMobile: {
       selector: `//tr[@class="member-preferences__group-sub"]//td//strong[text()='${testConstants.patientAndTeamType}']//parent::td//following-sibling::td//input[contains(@title,'Mobile')]//following-sibling::label`,
       locateStrategy: 'xpath',
     },

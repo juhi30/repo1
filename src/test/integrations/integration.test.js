@@ -89,7 +89,6 @@ describe('integration tests', () => {
       expect(response.data.externalIds.emrId).toBe(OTHER_EXTERNAL_ID);
       expect(response.data.firstName).toBe('Other');
       expect(response.data.typeId).toBe(USER_TYPE_OTHER);
-      createdOther = response.data;
       done();
     });
   });
@@ -115,7 +114,6 @@ describe('integration tests', () => {
     rhinoapi.getApointmentByExternalId(orgId, '1455971411', createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe('1455971411');
       expect(response.data.userId).toBe(createdPatient.id);
-      createdAppointment = response.data;
       done();
     });
   });
@@ -142,7 +140,6 @@ describe('integration tests', () => {
       expect(response.data.externalId).toBe('1455971411');
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(82);
-      createdAppointment = response.data;
       done();
     });
   });
@@ -171,7 +168,6 @@ describe('integration tests', () => {
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(83);
       expect(response.data.deleted).toBe(1);
-      createdAppointment = response.data;
       done();
     });
   });

@@ -2,7 +2,6 @@
 import { sendMessage } from 'rhinotilities/lib/toolboxes/Bandwidth.toolbox';
 import * as messengerbot from '../../services/MessengerBot.service';
 
-
 // eslint-disable-next-line import/no-extraneous-dependencies
 const followRedirects = require('follow-redirects');
 

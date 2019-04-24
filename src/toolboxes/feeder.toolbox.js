@@ -142,9 +142,6 @@ module.exports = {
 
     //Member's profile info and has to be removed except groupName
     tagForMemberPage: 'Test_3',
-    createdTag: '#Test_3',
-    tagNameForProfile: 'Test_3',
-
     //member details for existing org canary
     memberUsernameExistingOrg: 'dallman',
     memberPasswordExistingOrg: 'Test@123',

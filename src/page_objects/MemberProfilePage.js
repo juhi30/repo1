@@ -281,11 +281,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    addCreatedTag: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='${testConstants.createdTag}']`,
-      locateStrategy: 'xpath',
-    },
-
     //------For  groups addition or removal--------//
 
     addMoreGroups: {

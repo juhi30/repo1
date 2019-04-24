@@ -77,6 +77,8 @@ describe('rhino-external-api tests', () => {
     const putUser = {
       ...postedUser,
       preferredName: 'Brandt',
+      firstName: 'Roger',
+      sex: 'f',
     };
     const response = await rhinoExternalApi.putUserByExternalId(putUser.externalId, putUser);
     const response2 = await rhinoExternalApi.putUserById(putUser.id, putUser);

@@ -3,6 +3,7 @@ import * as rhinofeeder from '../../services/Rhinofeeder.service';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const followRedirects = require('follow-redirects');
 
 followRedirects.maxRedirects = 10;
@@ -12,8 +13,6 @@ const USER_TYPE_OTHER = 36;
 const OTHER_EXTERNAL_ID = '123OTHER';
 
 let createdPatient;
-let createdOther;
-let createdAppointment;
 
 const orgId = process.env.EXISTING_ORG_ID;
 const patientExternalId = 'c3ba714d-47e7-4eb4-8713-b60730179c89';
@@ -26,7 +25,7 @@ function sleep(ms) {
 describe('integration tests', () => {
   jest.setTimeout(30000);
   test('send CSV data', (done) => {
-    rhinofeeder.sendCSVData('./resources/fakeDataSmall.csv', orgId, 'users').then((message) => {
+    rhinofeeder.sendCSVData('./resources/fakeDataSmall.csv', orgId, 'users').then(() => {
       done();
     });
   });

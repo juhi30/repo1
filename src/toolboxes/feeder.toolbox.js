@@ -22,7 +22,7 @@ module.exports = {
     memberName: 'Testing_NewCanary_1 LastName',
     memberFirstName: 'Testing_NewCanary_1',
     memberLastName: 'LastName',
-    memberUsername: 'Testing_NewCanary_123',
+    memberUsername: 'Testing_NewCanary_1',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
@@ -135,5 +135,48 @@ module.exports = {
 
     //Org Profile Integration Type Information
     integrationType: 'Sikka',
+
+    //New Contact details
+    contactFirstName: 'Contact',
+    contactMiddleName: 'Patient',
+    contactLastName: 'Type',
+    contactPreferredName: 'cpt',
+    contactPrefix: 'Mr.',
+    contactSuffix: 'Jr.',
+    contactBirthDate: '02/23/1983',
+    contactGender: 'Male',
+    contactFirstPhoneNumber: '8455452121',
+    contactFirstEmail: 'test@gmail.com',
+    contactNote: 'This contact is being created by Automation',
+
+    // Contact details for Other type
+    contactOtherFirstName: 'Other',
+    contactOtherLastName: 'Type',
+    contactOtherPreferredName: 'Other',
+    contactOtherPrefix: 'Dr.',
+    contactOtherSuffix: 'Sr.',
+    contactOtherBirthDate: '05/18/1981',
+    contactGender: 'Male',
+    contactOtherFirstNumber: '8475422123',
+    contactOtherFirstEmail: 'otheremail@gmail.com',
+    contactNote: 'This contact is being created by Automation',
+
+    //Contact edit details
+    contactNewFirstName: 'New',
+    contactNewLastName: 'Contact',
+    contactNewBirthDate: '09/23/1988',
+    contactGender: 'Male',
+    contactSecondPhoneNumber: '8455458451',
+    contactSecondEmail: 'second@gmail.com',
+    connectedNewRelationship: 'Guardian',
+
+    // Add contact details by connected party
+    contactTypeOnModal: 'Patient',
+    contactFirstNameOnModal: 'Test',
+    contactMiddleNameOnModal: 'K',
+    contactLastNameOnModal: 'Contact',
+    contactBirthDateOnModal: '11/25/1990',
+    contactNumberOnModal: '8757858225',
+    contactEmailOnModal: 'testcontact@gmail.com',
 };
 

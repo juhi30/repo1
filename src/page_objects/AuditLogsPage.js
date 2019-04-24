@@ -1,3 +1,4 @@
+const testConstants = require('./../toolboxes/feeder.toolbox');
 let text = '';
 
 const auditLogsCommands = {
@@ -72,19 +73,29 @@ const auditLogsCommands = {
       .elementText('@eventDetails')
   },
 
-  validateAuditEntry: function (member, category, action, Name, contact='') {
+  validateAuditEntry: function (member, category, action, name, contact='') {
+    const contactMessage = contact.length === 0 ? 'Contact name should not be visible' : 'Contact name should be ' + contact;
     return this.waitForElementVisible('@auditEntry', category + ' entry is visible')
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
       .click('@linkText')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
       .verify.containsText('@member', member, 'Member name is ' + member)
-      .verify.containsText('@contact', contact, 'Contact name should not be visible')
+      .verify.containsText('@contact', contact, contactMessage)
       .verify.containsText('@category', category, 'Category should be ' + category)
       .verify.containsText('@action', action, 'Action should be ' + action)
       .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-      .verify.containsText('@staticField', Name, action + 'ed Event should be ' + Name)
-      .elementText('@eventDetails')
+      .verify.containsText('@staticField', name, action + 'ed Event should be ' + name)
   },
+
+  selectContactFilter: function (contactName) {
+    return this.waitForElementVisible('@contactFilter', 'Contact filter is visible')
+      .click('@contactFilter')
+      .waitForElementVisible('@searchContactInput', 'Search contact input is visible')
+      .setValue('@searchContactInput', contactName)
+      .waitForElementVisible('@searchedContact', 'Searched contact is visible')
+      .click('@searchedContact')
+      .pause(1000)
+  }
 }
 
 module.exports = {
@@ -229,8 +240,18 @@ module.exports = {
     },
 
     noDataFound: {
-        selector: `//SPAN[contains(text(),'No Data Found')]`,
-        locateStrategy: 'xpath',
+      selector: `//SPAN[contains(text(),'No Data Found')]`,
+      locateStrategy: 'xpath',
     },
+
+    searchContactInput: {
+      selector: `//INPUT[@placeholder='Search Contacts']`,
+      locateStrategy: 'xpath',
+    },
+
+    searchedContact: {
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}']`,
+      locateStrategy: 'xpath',
+    }
   }
 }

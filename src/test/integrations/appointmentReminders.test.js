@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
-import moment from 'moment-timezone';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 import * as messengerbot from '../../services/MessengerBot.service';
+import { localToUtc } from '../../toolboxes/helpers.toolbox';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const followRedirects = require('follow-redirects');
@@ -20,11 +20,6 @@ let createdAppointment2;
 const orgId = process.env.EXISTING_ORG_ID;
 const patientExternalId = process.env.APPOINTMENT_PATIENT_EXTERNAL_ID;
 const appointmentExternalId = '34572356';
-
-function localToUtc(datetime, ianaTimezone) {
-  return moment.tz(datetime, 'MM/DD/YYYY hh:mm:ss A', ianaTimezone).utc();
-}
-
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -54,6 +49,7 @@ describe('appointment reminder tests', () => {
   test('find patient', async (done) => {
     rhinoapi.getUserByExternalId(orgId, patientExternalId).then((response) => {
       expect(response.data.externalIds.emrId).toBe(patientExternalId);
+      console.log('===CREATED PAT', response.data);
       createdPatient = response.data;
       done();
     });
@@ -167,6 +163,7 @@ describe('appointment reminder tests', () => {
 
   test('find appointments', async (done) => {
     await sleep(10000);
+    console.log('===', createdPatient);
     await rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(appointmentExternalId);
       createdAppointment = response.data;

@@ -1,11 +1,13 @@
 /* eslint-disable no-undef */
 import * as rhinofeeder from '../../services/Rhinofeeder.service';
 import * as rhinoapi from '../../services/Rhinoapi.service';
+import { localToUtc } from '../../toolboxes/helpers.toolbox';
 
 const orgId = process.env.EXISTING_ORG_ID;
 let createdPatient;
+let createdAppointment;
 
-const newPatientPayload = {
+const patientPayload = {
   EventTypeCode: 'A04',
   RecordedDate: '2015-04-24T02:27:00Z',
   SendingApplication: 'Demo System',
@@ -49,7 +51,7 @@ const newPatientPayload = {
 };
 
 const updatePatientPayload = {
-  ...newPatientPayload,
+  ...patientPayload,
   MessageType: 6,
   MessageID: 'Msg67',
   FirstName: 'Jimmy',
@@ -58,7 +60,16 @@ const updatePatientPayload = {
   HomePhone: '(512)555-1213',
 };
 
-const newAppointmentPayload = {
+const startDate = new Date();
+startDate.setMinutes(startDate.getMinutes() + 5);
+startDate.setDate(startDate.getDate() + 1);
+let startDateString = localToUtc(startDate, 'America/New_York');
+const endDate = new Date();
+endDate.setMinutes(endDate.getMinutes() + 30);
+endDate.setDate(endDate.getDate() + 1);
+let endDateString = localToUtc(endDate, 'America/New_York');
+
+const appointmentPayload = {
   AppointmentLocationSetIdentifier: '1',
   AppointmentLocationPOC: 'MI7 Medical Offices',
   AppointmentLocationFacility: '1',
@@ -77,9 +88,9 @@ const newAppointmentPayload = {
   TestingFlag: false,
   HL7MessageType: 1,
   PatientIDSetIdentifier: '1',
-  PatientID_MI7: '333333',
-  PatientID_EMR: '333333',
-  PatientID_Alt: '333333',
+  PatientID_MI7: '292801',
+  PatientID_EMR: '292801',
+  PatientID_Alt: '292801',
   FirstName: 'James',
   LastName: 'Bond',
   DOB: '1973-01-02T00:00:00',
@@ -105,6 +116,8 @@ const newAppointmentPayload = {
   AttendingID: '5',
   AttendingFirstName: 'Doctor',
   AttendingLastName: 'No',
+  StartDate: startDateString,
+  EndDate: endDateString,
   PlacerID: '73',
   FillerID: '73',
   AppointmentReasonCode: '210',
@@ -112,23 +125,29 @@ const newAppointmentPayload = {
   AppointmentTypeCode: '44',
   AppointmentType: 'Initial Consult',
   Appointment_Duration: 30,
-  StartDate: '2015-04-24T14:00:00Z',
-  EndDate: '2015-04-24T14:30:00Z',
   EnteredByID: '7',
   EnteredByLastName: 'No',
 };
 
+startDate.setMinutes(startDate.getMinutes() + 5);
+startDate.setDate(startDate.getDate() + 1);
+startDateString = localToUtc(startDate, 'America/New_York');
+endDate.setMinutes(endDate.getMinutes() + 30);
+endDate.setDate(endDate.getDate() + 1);
+endDateString = localToUtc(endDate, 'America/New_York');
+
 const updateAppointmentPayload = {
-  ...newAppointmentPayload,
+  ...appointmentPayload,
   PersonnelStatusCode: 'UPDATED',
   PersonnelStatusCodeText: 'UPDATED',
   MessageType: 3,
   MessageID: 'Msg613',
-  StartDate: '2021-04-25T14:00:00Z',
+  StartDate: startDateString,
+  EndDate: endDateString,
 };
 
 const cancelAppointmentPayload = {
-  ...newAppointmentPayload,
+  ...appointmentPayload,
   PersonnelStatusCode: 'CANCELLED',
   PersonnelStatusCodeText: 'CANCELLED',
   MessageType: 4,
@@ -142,14 +161,14 @@ function sleep(ms) {
 describe('integration tests', () => {
   jest.setTimeout(30000);
   test('new patient inbound message', async (done) => {
-    await rhinofeeder.postMi7InboundMessage(newPatientPayload);
+    await rhinofeeder.postMi7InboundMessage(patientPayload);
     done();
   });
 
   test('find new patient', async (done) => {
-    await sleep(10000);
-    const response = await rhinoapi.getUserByExternalId(orgId, newPatientPayload.PatientID_EMR);
-    expect(response.data.externalIds.emrId).toBe(newPatientPayload.PatientID_EMR);
+    await sleep(5000);
+    const response = await rhinoapi.getUserByExternalId(orgId, patientPayload.PatientID_EMR);
+    expect(response.data.externalIds.emrId).toBe(patientPayload.PatientID_EMR);
     createdPatient = response.data;
     done();
   });
@@ -160,21 +179,21 @@ describe('integration tests', () => {
   });
 
   test('find updated patient', async (done) => {
-    await sleep(10000);
+    await sleep(5000);
     const response = await rhinoapi.getUserByExternalId(orgId, updatePatientPayload.PatientID_EMR);
     expect(response.data.externalIds.emrId).toBe(updatePatientPayload.PatientID_EMR);
     done();
   });
 
   test('new appointment inbound message', async (done) => {
-    await rhinofeeder.postMi7InboundMessage(newAppointmentPayload);
+    await rhinofeeder.postMi7InboundMessage(appointmentPayload);
     done();
   });
 
   test('find new appointment', async (done) => {
-    await sleep(10000);
-    const response = await rhinoapi.getApointmentByExternalId(orgId, newAppointmentPayload, createdPatient.id);
-    expect(response.data.externalId).toBe(newAppointmentPayload.placerID);
+    await sleep(5000);
+    const response = await rhinoapi.getApointmentByExternalId(orgId, appointmentPayload.PlacerID, createdPatient.id);
+    expect(response.data.externalId).toBe(appointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
     createdAppointment = response.data;
     done();
@@ -186,9 +205,9 @@ describe('integration tests', () => {
   });
 
   test('find updated appointment', async (done) => {
-    await sleep(10000);
-    const response = await rhinoapi.getApointmentByExternalId(orgId, newAppointmentPayload, createdPatient.id);
-    expect(response.data.externalId).toBe(newAppointmentPayload.placerID);
+    await sleep(5000);
+    const response = await rhinoapi.getApointmentByExternalId(orgId, updateAppointmentPayload.PlacerID, createdPatient.id);
+    expect(response.data.externalId).toBe(updateAppointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
     createdAppointment = response.data;
     done();
@@ -200,9 +219,9 @@ describe('integration tests', () => {
   });
 
   test('find cancelled appointment', async (done) => {
-    await sleep(10000);
-    const response = await rhinoapi.getApointmentByExternalId(orgId, newAppointmentPayload, createdPatient.id);
-    expect(response.data.externalId).toBe(newAppointmentPayload.placerID);
+    await sleep(5000);
+    const response = await rhinoapi.getApointmentByExternalId(orgId, cancelAppointmentPayload.PlacerID, createdPatient.id);
+    expect(response.data.externalId).toBe(cancelAppointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
     createdAppointment = response.data;
     done();

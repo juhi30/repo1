@@ -107,6 +107,10 @@ function defaultDateRange(startDays, endDays) {
   return `Last 30 Days (${startDate} - ${endDate})`;
 }
 
+function localToUtc(datetime, ianaTimezone) {
+  return moment.tz(datetime, 'MM/DD/YYYY hh:mm:ss A', ianaTimezone).utc();
+}
+
 module.exports = {
   clickSpanViaText,
   clickDivViaText,
@@ -126,4 +130,5 @@ module.exports = {
   analyticsClosedConversationUI,
   memberCredsForConversationGrid,
   uploadFile,
+  localToUtc,
 };

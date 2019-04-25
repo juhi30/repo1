@@ -162,7 +162,6 @@ describe('appointment reminder tests', () => {
 
   test('find appointments', async (done) => {
     await sleep(10000);
-    console.log('===', createdPatient);
     await rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(appointmentExternalId);
       createdAppointment = response.data;

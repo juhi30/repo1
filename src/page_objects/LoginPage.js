@@ -72,8 +72,8 @@ const loginCommands = {
   },
 
   fillInNewPasswordInput: function (password) {
-    return this.waitForElementVisible('@passwordInput', 'New password input is visible')
-      .setValue('@passwordInput', password);
+    return this.waitForElementVisible('@newPasswordInput', 'New password input is visible')
+      .setValue('@newPasswordInput', password);
   },
 
   fillInConfirmPasswordInput: function (password) {
@@ -84,7 +84,6 @@ const loginCommands = {
   clickSaveAndContinueButton: function () {
     return this.waitForElementVisible('@saveAndContinueButton', 'Save and Continue button is visible')
       .click('@saveAndContinueButton')
-      .waitForElementVisible('@passwordUpdateSuccessMessage','password updated successfully.')
   },
 
   resetPassword: function (inputValue) {
@@ -111,7 +110,7 @@ module.exports = {
       selector: `//INPUT[contains(@name, 'password')]`,
       locateStrategy: 'xpath',
     },
-    
+
     loginButton: {
       selector: `//SPAN[contains(.,'Log In')]`, //Will change after Alpha
       locateStrategy: 'xpath',
@@ -124,6 +123,11 @@ module.exports = {
 
     errorPrompt: {
       selector: `//DIV[@class='alert__body'][text()='Username and password did not match']`,
+      locateStrategy: 'xpath',
+    },
+
+    failedLoginAttemptPrompt: {
+      selector: `//DIV[@class='alert__body'][text()='You have reached the maximum number of invalid login attempts. Please select the Forgot Password link to reset your password.']`,
       locateStrategy: 'xpath',
     },
 
@@ -149,13 +153,18 @@ module.exports = {
 
     //------ below are elements found when logging in with a temporary password -----//
 
+    newPasswordInput: {
+      selector: `//INPUT[contains(@name, 'newPassword')]`,
+      locateStrategy: 'xpath',
+    },
+
     confirmPasswordInput: {
       selector: `//INPUT[contains(@name, 'confirmPassword')]`,
       locateStrategy: 'xpath',
     },
 
     saveAndContinueButton: {
-      selector: `//SPAN[contains(.,'Save and Continue')]`,
+      selector: `//SPAN[@class='button__text-wrapper'][text()='Save and Continue']`,
       locateStrategy: 'xpath',
     },
 

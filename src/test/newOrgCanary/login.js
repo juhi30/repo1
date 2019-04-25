@@ -188,4 +188,42 @@ describe('Login Page Tests Cases', () => {
 
     await logout.clickLogout();
   });
+  
+  test('Login with valid username and invalid password three times', async (done) => {
+    const login = client.page.LoginPage();
+    const logout = client.page.UniversalElements();
+
+    await login.navigate()
+      .enterMemberCreds(testConstants.memberUsername, 'doot')
+      .submit()
+      .pause(1000)
+      .submit()
+      .pause(1000)
+      .submit()
+      .pause(1000)
+      .submit()
+      .pause(1000)
+      .waitForElementVisible('@failedLoginAttemptPrompt', 'Failed login error message is visible.')
+
+    await login.navigate()
+      .resetPassword(testConstants.memberUsername)
+      .pause(10000)
+      .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.')
+
+    const result = await gmail.fetchPasswordResetLink();
+      // process.env.NEW_HREF = result.hrefValue
+    console.log('>>>>>>>>>>>', `${result.hrefValue}`)
+
+    await client.pause(3000).url(`${result.hrefValue}`)
+    await login.waitForElementVisible('@confirmPasswordInput', 'User landed on reset password page.')
+
+    await login
+      .fillInNewPasswordInput(testConstants.memberPassword)
+      .fillInConfirmPasswordInput(testConstants.memberPassword)
+      .clickSaveAndContinueButton()
+      .waitForElementNotPresent('@confirmPasswordInput')
+
+    done();
+  });
+
 });

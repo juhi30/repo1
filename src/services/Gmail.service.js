@@ -31,7 +31,6 @@ function fetchPasswordResetLink () {
               var buffer = ''
               stream.on('data', function(chunk) {
               buffer += chunk.toString('utf8');
-              
               const isLink = buffer.includes('here');
               if (isLink) {
                 //var anchorTag = buffer.match(/<a [^>]+>Let's Get Started<\/a>/);

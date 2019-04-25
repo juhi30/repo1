@@ -1,11 +1,10 @@
 /* eslint-disable no-undef */
+import moment from 'moment-timezone';
 import * as rhinofeeder from '../../services/Rhinofeeder.service';
 import * as rhinoapi from '../../services/Rhinoapi.service';
-import { localToUtc } from '../../toolboxes/helpers.toolbox';
 
 const orgId = process.env.EXISTING_ORG_ID;
 let createdPatient;
-let createdAppointment;
 
 const patientPayload = {
   EventTypeCode: 'A04',
@@ -60,14 +59,8 @@ const updatePatientPayload = {
   HomePhone: '(512)555-1213',
 };
 
-const startDate = new Date();
-startDate.setMinutes(startDate.getMinutes() + 5);
-startDate.setDate(startDate.getDate() + 1);
-let startDateString = localToUtc(startDate, 'America/New_York');
-const endDate = new Date();
-endDate.setMinutes(endDate.getMinutes() + 30);
-endDate.setDate(endDate.getDate() + 1);
-let endDateString = localToUtc(endDate, 'America/New_York');
+const startDate = moment().utc().add(5, 'minutes').format();
+const endDate = moment().utc().add(35, 'minutes').format();
 
 const appointmentPayload = {
   AppointmentLocationSetIdentifier: '1',
@@ -116,8 +109,8 @@ const appointmentPayload = {
   AttendingID: '5',
   AttendingFirstName: 'Doctor',
   AttendingLastName: 'No',
-  StartDate: startDateString,
-  EndDate: endDateString,
+  StartDate: startDate,
+  EndDate: endDate,
   PlacerID: '73',
   FillerID: '73',
   AppointmentReasonCode: '210',
@@ -129,12 +122,8 @@ const appointmentPayload = {
   EnteredByLastName: 'No',
 };
 
-startDate.setMinutes(startDate.getMinutes() + 5);
-startDate.setDate(startDate.getDate() + 1);
-startDateString = localToUtc(startDate, 'America/New_York');
-endDate.setMinutes(endDate.getMinutes() + 30);
-endDate.setDate(endDate.getDate() + 1);
-endDateString = localToUtc(endDate, 'America/New_York');
+const updatedStartDate = moment().utc().add(2, 'hours').format();
+const updatedEndDate = moment().utc().add(3, 'hours').format();
 
 const updateAppointmentPayload = {
   ...appointmentPayload,
@@ -142,8 +131,8 @@ const updateAppointmentPayload = {
   PersonnelStatusCodeText: 'UPDATED',
   MessageType: 3,
   MessageID: 'Msg613',
-  StartDate: startDateString,
-  EndDate: endDateString,
+  StartDate: updatedStartDate,
+  EndDate: updatedEndDate,
 };
 
 const cancelAppointmentPayload = {
@@ -166,9 +155,11 @@ describe('integration tests', () => {
   });
 
   test('find new patient', async (done) => {
-    await sleep(5000);
+    await sleep(10000);
     const response = await rhinoapi.getUserByExternalId(orgId, patientPayload.PatientID_EMR);
     expect(response.data.externalIds.emrId).toBe(patientPayload.PatientID_EMR);
+    expect(response.data.firstName).toBe(patientPayload.FirstName);
+    expect(response.data.lastName).toBe(patientPayload.LastName);
     createdPatient = response.data;
     done();
   });
@@ -179,9 +170,12 @@ describe('integration tests', () => {
   });
 
   test('find updated patient', async (done) => {
-    await sleep(5000);
+    await sleep(10000);
     const response = await rhinoapi.getUserByExternalId(orgId, updatePatientPayload.PatientID_EMR);
     expect(response.data.externalIds.emrId).toBe(updatePatientPayload.PatientID_EMR);
+    expect(response.data.id).toBe(createdPatient.id);
+    expect(response.data.firstName).toBe(updatePatientPayload.FirstName);
+    expect(response.data.lastName).toBe(updatePatientPayload.LastName);
     done();
   });
 
@@ -191,11 +185,12 @@ describe('integration tests', () => {
   });
 
   test('find new appointment', async (done) => {
-    await sleep(5000);
+    await sleep(10000);
     const response = await rhinoapi.getApointmentByExternalId(orgId, appointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(appointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
-    createdAppointment = response.data;
+    // expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed  TODO: temporarily removing until we can setup and teardown orgs
+    expect(moment.utc(response.data.startDate).format()).toBe(startDate);
     done();
   });
 
@@ -205,11 +200,12 @@ describe('integration tests', () => {
   });
 
   test('find updated appointment', async (done) => {
-    await sleep(5000);
+    await sleep(10000);
     const response = await rhinoapi.getApointmentByExternalId(orgId, updateAppointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(updateAppointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
-    createdAppointment = response.data;
+    // expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed TODO: temporarily removing until we can setup and teardown orgs
+    expect(moment.utc(response.data.startDate).format()).toBe(updatedStartDate);
     done();
   });
 
@@ -219,11 +215,11 @@ describe('integration tests', () => {
   });
 
   test('find cancelled appointment', async (done) => {
-    await sleep(5000);
+    await sleep(10000);
     const response = await rhinoapi.getApointmentByExternalId(orgId, cancelAppointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(cancelAppointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
-    createdAppointment = response.data;
+    expect(response.data.appointmentStatusTypeId).toBe(83); // cancelled
     done();
   });
 });

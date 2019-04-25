@@ -49,7 +49,6 @@ describe('appointment reminder tests', () => {
   test('find patient', async (done) => {
     rhinoapi.getUserByExternalId(orgId, patientExternalId).then((response) => {
       expect(response.data.externalIds.emrId).toBe(patientExternalId);
-      console.log('===CREATED PAT', response.data);
       createdPatient = response.data;
       done();
     });

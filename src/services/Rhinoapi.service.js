@@ -66,7 +66,7 @@ export async function deleteOrganization(organizationId, cookie) {
     },
   });
 
-  return response.body;
+  return response.data;
 }
 
 export async function login() {

@@ -1,7 +1,7 @@
 import { createSession, closeSession } from 'nightwatch-api';
 import '../src/env';
 
-jest.setTimeout(60000);
+jest.setTimeout(120000);
 
 // needed for axios external calls
 global.XMLHttpRequest = undefined;

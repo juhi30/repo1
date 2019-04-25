@@ -5,9 +5,10 @@ const groupsPageCommands = {
   verifyGroupEls: function () {
     return this.waitForElementVisible('@createButton', 'Create Button is visible')
       .click('@createButton')
+      .pause(500)
       .waitForElementVisible('@teamOption', 'Team option is visible')
-      .verify.visible('@patientOption', 'Patient option is visible')
-      .verify.visible('@patientAndTeamOption', 'Patient and team option is visible')
+      .waitForElementVisible('@patientOption', 'Patient option is visible')
+      .waitForElementVisible('@patientAndTeamOption', 'Patient and team option is visible')
   },
 
   selectGroupType: function (groupType) {
@@ -26,7 +27,6 @@ const groupsPageCommands = {
     return this.waitForElementVisible(button, button + ' is visible')
       .click(button)
       .waitForElementVisible(successMessage, successMessage + ' is visible')
-      .pause(1000)
   },
 
   checkGroupVisibility: function (nav, list) {

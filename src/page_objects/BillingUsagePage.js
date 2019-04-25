@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 const { colors, noteText, messageAlertText } = require('../constants');
 
 let text = '';
@@ -12,7 +13,7 @@ const billingCommands = {
   elementText: function (ele, message) {
     return this.getText(ele, function (tpObj) {
       text = tpObj.value;
-      console.log(text, message);
+      logger.info(text, message);
     });
   },
 
@@ -94,7 +95,7 @@ const billingCommands = {
 
       const currentColor = colors.filter(val => val.code == res.value);
       if (Array.isArray(currentColor) && currentColor.length > 0) {
-        console.log(res.value + ' : ' + currentColor[0].color + ' in Color!');
+        logger.info(res.value + ' : ' + currentColor[0].color + ' in Color!');
       }
     });
   },
@@ -220,7 +221,7 @@ const billingCommands = {
   validateAccountTypeOptions: function () {
     return this.verify.visible('@bankAccountTypeSelect', 'Account Type field is visible')
     this.getAttribute('@bankAccountTypeSelect' + '/option', 'option', function (result) {
-      console.log(result);
+      logger.info(result);
     });
   },
 
@@ -245,7 +246,7 @@ const billingCommands = {
     const self = this;
     return this.getText('body', (bodyText) => {
       if (bodyText.value.includes('No billing history for this organization.')) {
-        console.log('No History Available');
+        logger.info('No History Available');
         return self;
       } else {
         return self.validateBillingHistory()

@@ -1,4 +1,5 @@
 const Rhinocloud = require('rhinocloud-sdk');
+import logger from 'rhinotilities/lib/loggers/logger';
 
 if (!process.env.CIRCLE_BRANCH) {
   throw new Error(`No value set for process.env.CIRCLE_BRANCH`);
@@ -25,7 +26,7 @@ const BUCKET = `nightwatch-results-${process.env.CIRCLE_BRANCH}`;
       },
     });
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     process.exit(1);
   }
 })();

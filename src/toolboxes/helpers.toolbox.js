@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 const moment = require('moment-timezone');
 const path = require('path');
 
@@ -7,7 +8,7 @@ function findTextOnPage(client, text) {
 
 function returnElementText(client, selector) {
   client.getText(selector, (result) => {
-    console.log(result);
+    logger.info(result);
     return result;
   })
 }

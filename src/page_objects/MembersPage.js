@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 const testConstants = require('../toolboxes/feeder.toolbox');
 
 const membersCommands = {
@@ -29,14 +30,14 @@ const membersCommands = {
   getTempPassword: function () {
     return this.getAttribute('@tempPassword', 'value', function (tpObj) {
       global.TEMP_PASSWORD = tpObj.value;
-      console.log('Temp password is ==', global.TEMP_PASSWORD);
+      logger.info( global.TEMP_PASSWORD, '=== Temp password');
     });
   },
 
   getNewTempPassword: function () {
     return this.getAttribute('@tempPassword', 'value', function (tpObj) {
       global.TEMP_NEW_PASSWORD = tpObj.value;
-      console.log('Temp password is ==', global.TEMP_NEW_PASSWORD);
+      logger.info(global.TEMP_NEW_PASSWORD, ' ==== Temp password');
     });
   },
 

@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 import { createSession, closeSession } from 'nightwatch-api';
 import '../src/env';
 
@@ -11,7 +12,7 @@ beforeAll(async () => {
   try {
     await createSession({ env: 'default' });
   } catch (err) {
-   console.log('====error while creating the nightwatch session on setup.js=== ', err);
+    logger.error(err, '====error while creating the nightwatch session on setup.js===');
   }
   
 });
@@ -21,6 +22,6 @@ afterAll(async () => {
   try {
     await closeSession();
   } catch (err) {
-    console.log('==  error while closing session on setup.js==', err);
+    logger.error(err, '==  error while closing session on setup.js==');
   }
 });

@@ -1,3 +1,5 @@
+import logger from 'rhinotilities/lib/loggers/logger';
+
 const commands = {
   pause: function (time) {
     this.api.pause(time);
@@ -6,7 +8,7 @@ const commands = {
  
     getElements: function(browser) {
        browser.elements('css selector', '#app > div > div.app-wrapper > div > div > div > div > div.app-page__header > div.dropdown.is-open > div.dropdown__menu > div > div:nth-child(1) > a > div' ,function(result) {
-         console.log(result.value)
+        logger.info(result.value)
        });
      },
   

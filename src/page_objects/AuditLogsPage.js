@@ -5,7 +5,7 @@ const auditLogsCommands = {
   elementText: function (ele) {
     return this.getText(ele, function (tpObj) {
       text = tpObj.value;
-      console.log(text);
+      logger.info(text);
     });
   },
 

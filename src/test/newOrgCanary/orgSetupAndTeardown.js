@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 import { client } from 'nightwatch-api';
 const testConstants = require('../../toolboxes/feeder.toolbox');
 import {
@@ -29,7 +30,7 @@ beforeAll(async () => {
     .pause(1000)
     .getOrgId()
   } catch (err) {
-    console.log('==error on orgSetupAndTearDown=====', err);
+    logger.info(err, '==error on orgSetupAndTearDown=====');
   }
  
 });
@@ -38,16 +39,16 @@ beforeAll(async () => {
 afterAll(async (done) => {
 
   try {
-    console.log('Login...');
+    logger.info('Login...');
     const cookie = await login();
-    console.log('Deleting Org ==', process.env.ORGANIZATION_ID);
+    logger.info(process.env.ORGANIZATION_ID, '== Deleting Org ==');
     const archiveResponse = await archiveOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('======== Organization Archive Response =======', archiveResponse);
+    logger.info(archiveResponse, '======== Organization Archive Response =======');
     const deleteResponse = await deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======');
+    logger.info('====== Organization Deleted =======');
     done();
   } catch (err) {
-    console.log('===error on after all orgSetupAndTeardown=======', err);
+    logger.error(err, '===error on after all orgSetupAndTeardown=======');
     done(err);
   }
 });

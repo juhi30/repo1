@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 import { client } from 'nightwatch-api';
 const testConstants = require('../../toolboxes/feeder.toolbox');
 const gmail = require('../../services/Gmail.service');
@@ -123,12 +124,12 @@ describe('Login Page Tests Cases', () => {
     try {
       gmail.fetchPasswordResetLink().then((result) => {
         process.env.NEW_HREF = result.hrefValue
-        console.log('>>>>>>>>>>>', process.env.NEW_HREF)
+        logger.info(process.env.NEW_HREF, '>>>>>>>>>>>')
         done()
       })
     }
     catch (err) {
-      console.log('=====err===', err);
+      logger.error(err, '=====err===');
     }
   });
 

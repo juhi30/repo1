@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 const bulkOptions = require('../constants').expectedResultSet1;
 
 let text = '';
@@ -17,14 +18,14 @@ const bulkActionCommands = {
         let pre = tpObj.value.includes(element);
         res = `${res} \n${element} - ${pre}`;
       });
-      console.log(res);
+      logger.info(res);
     });
   },
 
   elementText: function (ele, message) {
     return this.getText(ele, function (tpObj) {
       text = tpObj.value;
-      console.log(text, message);
+      logger.info(text, message);
     });
   },
 

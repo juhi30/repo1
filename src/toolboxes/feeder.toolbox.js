@@ -1,31 +1,30 @@
 module.exports = {
-
   ccrLogin: process.env.CCR_USERNAME,
   ccrPassword: process.env.CCR_PASSWORD,
 
-    //Org Setup Details
-    orgName: 'Testing_NewCanary_local',
-    orgName2: process.env.EXISTING_ORG_NAME,
-    address: 'Test Address',
-    city: 'Test City',
-    state: 'Alaska',
-    zip: '12345',
+  // Org Setup Details
+  orgName: 'Testing_NewCanary_local',
+  orgName2: process.env.EXISTING_ORG_NAME,
+  address: 'Test Address',
+  city: 'Test City',
+  state: 'Alaska',
+  zip: '12345',
 
   // details for office addition
-  officeName: 'Mount Pleasant Office5',
+  officeName: 'Mount Pleasant Office',
   officeAddress: '128 Hester St',
   officeCity: 'Charleston',
   officeState: 'South Carolina',
   zipCode: '29403',
 
-    // New Member Details 
-    memberName: 'Testing_NewCanary_local LastName',
-    memberFirstName: 'Testing_NewCanary_local',
-    memberLastName: 'LastName',
-    memberUsername: 'Testing_NewCanary_local',
-    memberPassword: 'Test@123',
-    memberEmail: process.env.GMAIL_USERNAME,
-    invalidEmail: 'test@test.com',
+  // New Member Details
+  memberName: 'Testing_NewCanary_local LastName',
+  memberFirstName: 'Testing_NewCanary_local',
+  memberLastName: 'LastName',
+  memberUsername: 'Testing_NewCanary_local',
+  memberPassword: 'Test@123',
+  memberEmail: process.env.GMAIL_USERNAME,
+  invalidEmail: 'test@test.com',
 
   // New Group Details
   patientTypeGroup: 'Patient Group',
@@ -109,16 +108,8 @@ module.exports = {
   callToActionButton: 'Send Message',
   confirmationText: 'The message has been submitted successfully!',
 
-  // details for office addition
-  officeName: 'Mount Pleasant Office',
-  officeAddress: '128 Hester St',
-  officeCity: 'Charleston',
-  officeState: 'South Carolina',
-  zipCode: '29403',
-
   addEvent: 'Add',
   category: 'Office Location',
-  editEvent: 'Edit',
   deleteEvent: 'Delete',
 
   newOfficeName: 'American Megatrends',

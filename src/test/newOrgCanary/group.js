@@ -6,7 +6,8 @@ describe(' Automated Test Cases - Groups', () => {
     const group = client.page.GroupsPage(),
         route = client.page.ChannelRouteMemberContainer(),
         entry = client.page.AuditLogsPage(),
-        channel = client.page.ChannelsCreateEditPage();
+        channel = client.page.ChannelsCreateEditPage(),
+        channelList = client.page.ChannelsPage();
 
     test('Create Groups - Patient Type', async () => {
 
@@ -15,9 +16,9 @@ describe(' Automated Test Cases - Groups', () => {
             .selectGroupType('@patientOption')
             .addGroupDetails(testConstants.patientTypeGroup, testConstants.purpose)
 
-        await route.routeSearch('@memberInput', testConstants.memberName, '@memberResult')
+        route.routeSearch('@memberInput', testConstants.memberName, '@memberResult')
 
-        await group.createUpdateButton('@createGroupButton', '@groupCreateSuccessMessage')
+        group.createUpdateButton('@createGroupButton', '@groupCreateSuccessMessage')
             .checkGroupVisibility('@patientGroup', '@patientGroupListView')
 
         await entry.navigate()
@@ -29,16 +30,20 @@ describe(' Automated Test Cases - Groups', () => {
         await group.navigate()
             .openInEditMode('@patientGroupListView')
             .addChannel()
+            .pause(500)
+            .verify.urlContains('channels', 'Channel Page is opened')
 
-        await channel.navigate()
-            .selectChannelCategory('@rhinoSecureType')
+        channelList.waitForElementVisible('@addChannelButton', 'Created Channel button is visible')
+            .click('@addChannelButton')
+
+        channel.selectChannelCategory('@rhinoSecureType')
             .channelDetails(testConstants.patientGroupChannel, testConstants.newGroupPurpose, testConstants.timeZone)
 
-        await route.selectGroupRoute()
+        route.selectGroupRoute()
             .routeSearch('@groupInput', testConstants.patientTypeGroup, '@patientGroupResult')
 
-        await channel.createUpdateChannel('@createChannelButton', 'Create Channel button is visible')
-            .pause(1000)
+        channel.createUpdateChannel('@createChannelButton', 'Create Channel button is visible')
+            //.pause(1000)
             .checkSuccessMessage('@channelCreateSuccessMessage')
     });
 
@@ -63,9 +68,9 @@ describe(' Automated Test Cases - Groups', () => {
             .selectGroupType('@patientAndTeamOption')
             .addGroupDetails(testConstants.patientAndTeamType, testConstants.purpose)
 
-        await route.routeSearch('@memberInput', testConstants.memberName, '@memberResult')
+        route.routeSearch('@memberInput', testConstants.memberName, '@memberResult')
 
-        await group.createUpdateButton('@createGroupButton', '@groupCreateSuccessMessage')
+        group.createUpdateButton('@createGroupButton', '@groupCreateSuccessMessage')
             .checkGroupVisibility('@patientAndTeamGroup_PatientInbox', '@patientAndTeamGroupListView')
             .checkGroupVisibility('@patientAndTeamGroup_TeamInbox', '@patientAndTeamGroupListView')
 
@@ -78,9 +83,9 @@ describe(' Automated Test Cases - Groups', () => {
             .openInEditMode('@patientGroupListView')
             .convertGroupType('@patientAndTeamOption', testConstants.updatedPatientTypeGroup, testConstants.newGroupPurpose)
 
-        await channel.enableDisableToggles('@availabilityHoursToggle')
+        channel.enableDisableToggles('@availabilityHoursToggle')
             .pause(2000)
-        await group.selectTimezone()
+        group.selectTimezone()
 
             .createUpdateButton('@updateGroupButton', '@groupUpdateSuccessMessage')
             .checkGroupVisibility('@updatedPatientGroup_PatientInbox', '@updatedPatientGroup_ListView')
@@ -95,9 +100,9 @@ describe(' Automated Test Cases - Groups', () => {
             .openInEditMode('@teamGroupListView')
             .convertGroupType('@patientAndTeamOption', testConstants.updatedTeamTypeGroup, testConstants.newGroupPurpose)
 
-        await channel.enableDisableToggles('@availabilityHoursToggle')
+        channel.enableDisableToggles('@availabilityHoursToggle')
             .pause(2000)
-        await group.selectTimezone()
+        group.selectTimezone()
 
             .createUpdateButton('@updateGroupButton', '@groupUpdateSuccessMessage')
             .checkGroupVisibility('@updatedTeamGroup_PatientInbox', '@updatedTeamGroup_ListView')
@@ -107,20 +112,25 @@ describe(' Automated Test Cases - Groups', () => {
             .validateAuditEntry(testConstants.memberName, 'Group', 'Edit', testConstants.updatedTeamTypeGroup)
     });
 
-    test('Add Channel Routes to Patient And Team Type Group', async () => {
-        await group.navigate()
-            .openInEditMode('@patientAndTeamGroupListView')
-            .addChannel()
+    // test('Add Channel Routes to Patient And Team Type Group', async () => {
+    //     await group.navigate()
+    //         .pause(500)
+    //         .openInEditMode('@patientAndTeamGroupListView')
+    //         .addChannel()
+    //         .pause(500)
+    //         .verify.urlContains('channels', 'Channel Page is opened')
 
-        await channel.navigate()
-            .selectChannelCategory('@rhinoSecureType')
-            .channelDetails(testConstants.patientAndTeamGroupChannel, testConstants.newGroupPurpose, testConstants.timeZone)
+    //     channelList.waitForElementVisible('@addChannelButton', 'Created Channel button is visible')
+    //         .click('@addChannelButton')
 
-        await route.selectGroupRoute()
-            .routeSearch('@groupInput', testConstants.patientAndTeamType, '@patientAndTeamGroupResult')
+    //     channel.selectChannelCategory('@rhinoSecureType')
+    //         .channelDetails(testConstants.patientAndTeamGroupChannel, testConstants.newGroupPurpose, testConstants.timeZone)
 
-        await channel.createUpdateChannel('@createChannelButton', 'Create Channel button is visible')
-            .pause(1000)
-            .checkSuccessMessage('@channelCreateSuccessMessage')
-    });
+    //     route.selectGroupRoute()
+    //         .routeSearch('@groupInput', testConstants.patientAndTeamType, '@patientAndTeamGroupResult')
+
+    //     channel.createUpdateChannel('@createChannelButton', 'Create Channel button is visible')
+    //         .pause(1000)
+    //         .checkSuccessMessage('@channelCreateSuccessMessage')
+    // });
 });

@@ -151,10 +151,6 @@ describe('integration tests', () => {
   jest.setTimeout(30000);
   test('new patient inbound message', async (done) => {
     await rhinofeeder.postMi7InboundMessage(patientPayload);
-    done();
-  });
-
-  test('find new patient', async (done) => {
     await sleep(10000);
     const response = await rhinoapi.getUserByExternalId(orgId, patientPayload.PatientID_EMR);
     expect(response.data.externalIds.emrId).toBe(patientPayload.PatientID_EMR);
@@ -166,10 +162,6 @@ describe('integration tests', () => {
 
   test('update patient inbound message', async (done) => {
     await rhinofeeder.postMi7InboundMessage(updatePatientPayload);
-    done();
-  });
-
-  test('find updated patient', async (done) => {
     await sleep(10000);
     const response = await rhinoapi.getUserByExternalId(orgId, updatePatientPayload.PatientID_EMR);
     expect(response.data.externalIds.emrId).toBe(updatePatientPayload.PatientID_EMR);
@@ -181,10 +173,6 @@ describe('integration tests', () => {
 
   test('new appointment inbound message', async (done) => {
     await rhinofeeder.postMi7InboundMessage(appointmentPayload);
-    done();
-  });
-
-  test('find new appointment', async (done) => {
     await sleep(10000);
     const response = await rhinoapi.getApointmentByExternalId(orgId, appointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(appointmentPayload.PlacerID);
@@ -196,10 +184,6 @@ describe('integration tests', () => {
 
   test('update appointment inbound message', async (done) => {
     await rhinofeeder.postMi7InboundMessage(updateAppointmentPayload);
-    done();
-  });
-
-  test('find updated appointment', async (done) => {
     await sleep(10000);
     const response = await rhinoapi.getApointmentByExternalId(orgId, updateAppointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(updateAppointmentPayload.PlacerID);
@@ -211,10 +195,6 @@ describe('integration tests', () => {
 
   test('cancel appointment inbound message', async (done) => {
     await rhinofeeder.postMi7InboundMessage(cancelAppointmentPayload);
-    done();
-  });
-
-  test('find cancelled appointment', async (done) => {
     await sleep(10000);
     const response = await rhinoapi.getApointmentByExternalId(orgId, cancelAppointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(cancelAppointmentPayload.PlacerID);

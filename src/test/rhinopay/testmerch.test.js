@@ -42,9 +42,11 @@ beforeAll(async () => {
   }
 })
 
-describe('get merch describe', () => {
-  test('get merch test', async () => {
+describe('Rhinopay tests', () => {
+  test('storing merchant data', async (done) => {
+    // create Rhinopay data
     const response = await rhinopay.getMerchantByOrgId(cookie);
-    console.log('zut alors', response);
+    console.log('zut alors', response.data);
+    done();
   });
 })

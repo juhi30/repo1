@@ -211,6 +211,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    rhinopayToggle: {
+      selector: `//LABEL[@class='rhinoswitcher__label'][contains(@for,'isRhinopayEnabled')]`,
+      locateStrategy: 'xpath',
+    },
+
 
     /*----------------------------------------------------------------------------*/
 

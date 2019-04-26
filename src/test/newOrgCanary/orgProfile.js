@@ -26,6 +26,7 @@ describe('Organisation profile edit as member', () => {
 
         await orgProfile.navigate()
         .addUpdateLogo('@addLogoButton')
+        orgProfile.pause(1000)
 
         await entry.navigate()
         .pause(1000)

@@ -4,7 +4,7 @@ module.exports = {
     ccrPassword: process.env.CCR_PASSWORD,
 
     //Org Setup Details
-    orgName: 'Testing_NewCanary',
+    orgName: 'Testing_NewCanary_local',
     orgName2: process.env.EXISTING_ORG_NAME,
     address: 'Test Address',
     city: 'Test City',
@@ -19,10 +19,10 @@ module.exports = {
     zipCode: '29403',
 
     // New Member Details 
-    memberName: 'Testing_NewCanary_Dev LastName',
-    memberFirstName: 'Testing_NewCanary_Dev',
+    memberName: 'Testing_NewCanary_local LastName',
+    memberFirstName: 'Testing_NewCanary_local',
     memberLastName: 'LastName',
-    memberUsername: 'Testing_NewCanary_Dev',
+    memberUsername: 'Testing_NewCanary_local',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',

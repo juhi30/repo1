@@ -147,7 +147,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-describe('integration tests', () => {
+describe('mi7 integration tests', () => {
   jest.setTimeout(30000);
   test('new patient inbound message', async (done) => {
     await rhinofeeder.postMi7InboundMessage(patientPayload);

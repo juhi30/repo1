@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 import * as messengerbot from '../../services/MessengerBot.service';

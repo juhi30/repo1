@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { sendMessage } from 'rhinotilities/lib/toolboxes/Bandwidth.toolbox';
 import * as messengerbot from '../../services/MessengerBot.service';
 

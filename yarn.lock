@@ -3260,9 +3260,9 @@ eslint-config-airbnb@17.1.0:
     object.assign "^4.1.0"
     object.entries "^1.0.4"
 
-"eslint-config-rhinogram@https://github.com/rhinogram/eslint-config-rhinogram.git#0.0.15":
+"eslint-config-rhinogram@https://github.com/rhinogram/eslint-config-rhinogram.git#0.0.17":
   version "0.0.11"
-  resolved "https://github.com/rhinogram/eslint-config-rhinogram.git#031a8a6cd3bf1c80b665000687e2090d61e95612"
+  resolved "https://github.com/rhinogram/eslint-config-rhinogram.git#ac9d131d4e5734e1e19e9b0c8c7f63b3cb855449"
   dependencies:
     babel-eslint "8.2.6"
     eslint "5.3.0"

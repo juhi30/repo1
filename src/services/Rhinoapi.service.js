@@ -87,13 +87,12 @@ export async function login() {
 export async function createOrganization(orgData, cookie) {
   const response = await axios.post(`${process.env.API_BASE_URL}/organization`,
     orgData,
-    { 
+    {
       headers: {
         'content-type': 'application/json',
         Cookie: cookie,
-      }
-    }
-  );
+      },
+    });
 
   return response.data;
 }

@@ -43,12 +43,7 @@ export async function postIncomingBandwidthMessage(message) {
 
 export async function postRhinolinerUser(user, orgId) {
   return axios.post(`${process.env.API_BASE_URL}/rhinoliner/users`, { userData: user, orgId },
-    { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` }});
-}
-
-export async function postRhinolinerAppt(appt) {
-  return axios.post(`${process.env.API_BASE_URL}/rhinoliner/appointment`, appt,
-    { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` }});
+    { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }
 
 export async function archiveOrganization(organizationId, cookie) {
@@ -102,12 +97,12 @@ export async function changeOrg(cookie) {
   await axios.post(`${process.env.API_BASE_URL}/changeOrg`,
     { orgId: parseInt(ORGID, 10), userId: USERID },
     {
-        headers: {
-            'content-type': 'application/json',
-            Cookie: cookie,
-        }
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      },
     });
-  }
+}
 
 export async function createOrganization(orgData, cookie) {
   const response = await axios.post(`${process.env.API_BASE_URL}/organization`,

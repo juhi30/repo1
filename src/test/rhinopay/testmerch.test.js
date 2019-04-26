@@ -8,39 +8,39 @@ async function login() {
   const PASSWORD = process.env.CCR_PASSWORD;
 
   const response = await axios.post(`${process.env.API_BASE_URL}/login`,
-      { username: USERNAME, password: PASSWORD },
-      {
-          headers: {
-              'content-type': 'application/json'
-          }
-      });
-  
+    { username: USERNAME, password: PASSWORD },
+    {
+      headers: {
+        'content-type': 'application/json'
+      },
+    });
   return response.headers['set-cookie'][0];
 }
 
 
-async function changeOrg(cookie) {
+async function changeOrg(cook) {
   const ORGID = process.env.EXISTING_ORG_ID;
   const USERID = process.env.EXISTING_CCR_USER_ID;
 
-  const response = await axios.post(`${process.env.API_BASE_URL}/changeOrg`,
-      { orgId: parseInt(ORGID, 1), userId: USERID },
-      {
-          headers: {
-              'content-type': 'application/json',
-              Cookie: cookie,
-          }
-      });
+  await axios.post(`${process.env.API_BASE_URL}/changeOrg`,
+    { orgId: parseInt(ORGID, 1), userId: USERID },
+    {
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cook,
+      },
+    });
 }
 
 beforeAll(async () => {
+  console.log('HI');
   try {
     cookie = await login();
     await changeOrg(cookie);
-  } catch(err) {
+  } catch (err) {
     console.log('==error on mergeUsers=====', err);
   }
-})
+});
 
 describe('Rhinopay tests', () => {
   test('storing merchant data', async (done) => {
@@ -49,4 +49,4 @@ describe('Rhinopay tests', () => {
     console.log('zut alors', response.data);
     done();
   });
-})
+});

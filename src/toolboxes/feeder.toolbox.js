@@ -30,8 +30,8 @@ module.exports = {
     //New Group Details
     patientTypeGroup: 'Patient Group',
     teamTypeGroup : 'Team Group',
-    patientAndTeamType : 'patient and Team Group',
-    updatedpatientAndTeamType: 'New patient and Team Group',
+    patientAndTeamType : 'P&T Group',
+    updatedpatientAndTeamType: 'New P&T Group',
     updatedPatientTypeGroup : 'New Patient Group',
     updatedTeamTypeGroup : 'New Team Group',
     purpose: 'Testing',

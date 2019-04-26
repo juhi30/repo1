@@ -6,8 +6,8 @@ const groupsPageCommands = {
     return this.waitForElementVisible('@createButton', 'Create Button is visible')
       .click('@createButton')
       .waitForElementVisible('@teamOption', 'Team option is visible')
-      .verify.visible('@patientOption', 'Patient option is visible')
-      .verify.visible('@patientAndTeamOption', 'Patient and team option is visible')
+      .waitForElementVisible('@patientOption', 'Patient option is visible')
+      .waitForElementVisible('@patientAndTeamOption', 'Patient and team option is visible')
   },
 
   selectGroupType: function (groupType) {
@@ -26,7 +26,6 @@ const groupsPageCommands = {
     return this.waitForElementVisible(button, button + ' is visible')
       .click(button)
       .waitForElementVisible(successMessage, successMessage + ' is visible')
-      .pause(1000)
   },
 
   checkGroupVisibility: function (nav, list) {
@@ -84,7 +83,7 @@ module.exports = {
 
     // Group Type Options
     teamOption: {
-      selector: `//SPAN[contains(.,'Team')]`,
+      selector: `//*[@class='form__block-group__label'][text()='Team']`,
       locateStrategy: 'xpath',
     },
 
@@ -94,7 +93,7 @@ module.exports = {
     },
 
     patientAndTeamOption: {
-      selector: `//SPAN[contains(.,'Patient and Team')]`,
+      selector: `//*[@class='form__block-group__label'][text()='Patient and Team']`,
       locateStrategy: 'xpath',
     },
 

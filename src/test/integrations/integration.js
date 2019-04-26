@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import * as rhinofeeder from '../../services/Rhinofeeder.service';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';

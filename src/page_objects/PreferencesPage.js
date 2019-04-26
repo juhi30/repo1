@@ -20,7 +20,7 @@ module.exports = {
     },
 
     selectChannel: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][text()='${testConstant.newChannelName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(), '${testConstant.newChannelName}')]`,
       locateStrategy: 'xpath',
     },
 

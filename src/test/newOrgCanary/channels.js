@@ -7,6 +7,7 @@ describe('Automated Tests: Channels', () => {
     const org = client.page.UniversalElements();
 
     await login.navigate()
+      .waitForElementVisible('@loginButton', 'Login button is visible')
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit()
       .pause(2000)
@@ -87,12 +88,14 @@ describe('Automated Tests: Channels', () => {
     await channel.navigate()
 
       .channelEditMode('@channelName')
+      .pause(500)
+      .checkElementVisibility('@editChannel')
 
     await update.editChannelDetailsSection(testConstants.newChannelName, testConstants.newPurpose)
       .enableDisableToggles('@availabilityHoursToggle')
       .enableDisableToggles('@webFormAddOnnToggle')
       .enableDisableToggles('@channelForwardingToggle')
-    update.createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
+    await update.createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
       .checkSuccessMessage('@channelUpdateSuccessMessage')
       .waitForElementNotPresent('@channelUpdateSuccessMessage')
   });
@@ -103,6 +106,8 @@ describe('Automated Tests: Channels', () => {
 
     await channel.navigate()
       .channelEditMode('@rhinoSecureChannelTitle')
+      .pause(500)
+      .checkElementVisibility('@editChannel')
 
     await update.editChannelDetailsSection(testConstants.rhinoChannelNewName, testConstants.newPurpose)
       .enableDisableToggles('@availabilityHoursToggle')
@@ -119,6 +124,8 @@ describe('Automated Tests: Channels', () => {
 
     await channel.navigate()
       .channelEditMode('@updatedChannelTitle')
+      .pause(500)
+      .checkElementVisibility('@editChannel')
 
     await update.addtag(testConstants.tagNameNewPhoneType, '@tagCategory')
       .pause(2000)
@@ -126,6 +133,8 @@ describe('Automated Tests: Channels', () => {
       .checkSuccessMessage('@channelUpdateSuccessMessage')
 
     await channel.channelEditMode('@updatedRhinoSecureChannelTitle')
+      .pause(500)
+      .checkElementVisibility('@editChannel')
 
     await update.addtag(testConstants.tagNameRhinoType, '@tagCategory')
       .pause(2000)
@@ -139,6 +148,8 @@ describe('Automated Tests: Channels', () => {
 
 
     await channel.channelEditMode('@updatedChannelTitle')
+      .pause(500)
+      .checkElementVisibility('@editChannel')
 
     await channel1.webFormValidation('@formTitle')
       .webFormValidation('@titleSubtext')
@@ -167,6 +178,8 @@ describe('Automated Tests: Channels', () => {
 
     channel.navigate()
     await channel.channelEditMode('@updatedChannelTitle')
+      .pause(500)
+      .checkElementVisibility('@editChannel')
 
     await channel1.updateWebform('@formTitle', testConstants.formTitleName)
       .updateWebform('@titleSubtext', testConstants.titleSubtext)
@@ -187,11 +200,15 @@ describe('Automated Tests: Channels', () => {
 
   //   await channel.navigate()
   //     .channelEditMode('@updatedChannelTitle')
+  // .pause(500)
+  //     .checkElementVisibility('@editChannel')
 
   //   await deletechannel.deleteChannels()
   //     .pause(2000)
   //   await channel.navigate()
   //     .channelEditMode('@updatedRhinoSecureChannelTitle')
+  // .pause(500)
+  //     .checkElementVisibility('@editChannel')
 
   //   await deletechannel.deleteChannels()
   //     .pause(2000)
@@ -202,5 +219,4 @@ describe('Automated Tests: Channels', () => {
 
     await logout.clickLogout();
   });
-  
 });

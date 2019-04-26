@@ -4,7 +4,7 @@ module.exports = {
     ccrPassword: process.env.CCR_PASSWORD,
 
     //Org Setup Details
-    orgName: 'Testing_NewCanary',
+    orgName: 'Testing_NewCanary_local',
     orgName2: process.env.EXISTING_ORG_NAME,
     address: 'Test Address',
     city: 'Test City',
@@ -19,17 +19,25 @@ module.exports = {
     zipCode: '29403',
 
     // New Member Details 
-    memberName: 'Testing_NewCanary_1 LastName',
-    memberFirstName: 'Testing_NewCanary_1',
+    memberName: 'Testing_NewCanary_local LastName',
+    memberFirstName: 'Testing_NewCanary_local',
     memberLastName: 'LastName',
-    memberUsername: 'Testing_NewCanary_1',
+    memberUsername: 'Testing_NewCanary_12local',
     memberPassword: 'Test@123',
     memberEmail: process.env.GMAIL_USERNAME,
     invalidEmail: 'test@test.com',
 
     //New Group Details
-    groupName: 'AutomationTestGroup',
+    patientTypeGroup: 'Patient Group',
+    teamTypeGroup : 'Team Group',
+    patientAndTeamType : 'patient and Team Group',
+    updatedpatientAndTeamType: 'New patient and Team Group',
+    updatedPatientTypeGroup : 'New Patient Group',
+    updatedTeamTypeGroup : 'New Team Group',
     purpose: 'Testing',
+    newGroupPurpose: 'Group Automation Testing',
+    patientGroupChannel : 'patient Group Channel',
+    patientAndTeamGroupChannel : 'patient and Team Channel Group',
 
     //OOO Details
     oooTitle: 'Test Event',
@@ -75,12 +83,23 @@ module.exports = {
     noDataFound: 'No Data Found',
 
     //Tags
+    // Used for tags Creation in channels
     tagNameNewPhoneType: 'Test_1',
     tagNameRhinoType: 'Test_2',
     tagCategory: 'Custom',
+    //Used in Tags Creation
+    locationName: 'LocationTag', 
+    departmentName: 'DepartmentTag',
+    roleName: 'roleTag',
+    customName: 'customTag',
+    newLocation: 'newLocation',
+    newDepartment: 'newDepartment',
+    newRole: 'newRole',
+    newCustom: 'newCustom',
 
 
     //Web Form Addition Details
+
     formTitleName: 'Send Message via web form.',
     titleSubtext: 'Text or Call us.',
     phonePlaceholder: 'Enter Phone Number',
@@ -89,16 +108,6 @@ module.exports = {
     submitButton: 'Do send your message.',
     callToActionButton: 'Send Message',
     confirmationText: 'The message has been submitted successfully!',
-
-    //Tags
-    locationName: 'LocationTag',
-    departmentName: 'DepartmentTag',
-    roleName: 'roleTag',
-    customName: 'customTag',
-    newLocation: 'newLocation',
-    newDepartment: 'newDepartment',
-    newRole: 'newRole',
-    newCustom: 'newCustom',
 
     //details for office addition
     officeName: 'Mount Pleasant Office',
@@ -178,5 +187,13 @@ module.exports = {
     contactBirthDateOnModal: '11/25/1990',
     contactNumberOnModal: '8757858225',
     contactEmailOnModal: 'testcontact@gmail.com',
-};
 
+    //member details for existing org canary
+    memberUsernameExistingOrg: 'dallman',
+    memberPasswordExistingOrg: 'Test@123',
+
+    //bot messages details for existing org canary
+    testBotReplyMessage: 'Test Reply from Bot Contact',
+    testBotInboundMessage: 'Test Inbound Message From Bot',
+    facebookOutboundMessage: 'Outbound Message to FB Contact',
+};

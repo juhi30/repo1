@@ -59,6 +59,22 @@ describe('Login Page Tests Cases', () => {
     await logout.clickLogout();
   });
 
+  test('Use valid username for forgotten password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .resetPassword(testConstants.memberUsername)
+      .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.')
+  });
+
+  test('Use invalid username for forgotten password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .resetPassword(testConstants.state)
+      .waitForElementVisible('@contactAdminMsg', 'Message to contact admin is visible.')
+  });
+
   test('Login with valid username and invalid password', async () => {
     const login = client.page.LoginPage();
 
@@ -79,30 +95,14 @@ describe('Login Page Tests Cases', () => {
       .waitForElementVisible('@errorPrompt', 'Error message is visible.')
   });
 
-  test('Login with empty username and password', async () => {
+  test('Use valid email for forgotten password', async () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible.')
-  });
-
-  test('Use invalid username for forgotten password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .resetPassword(testConstants.state)
-      .waitForElementVisible('@contactAdminMsg', 'Message to contact admin is visible.')
-  });
-
-  test('Use valid username for forgotten password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .resetPassword(testConstants.memberUsername)
+      .resetPassword(testConstants.memberEmail)
       .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.')
   });
-
+  
   test('Use invalid email for forgotten password', async () => {
     const login = client.page.LoginPage();
 
@@ -111,15 +111,15 @@ describe('Login Page Tests Cases', () => {
       .waitForElementVisible('@contactAdminMsg', 'Message to contact admin is visible.')
   });
 
-  test('Use valid email for forgotten password', async () => {
+  test('Login with empty username and password', async () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .resetPassword(testConstants.memberEmail)
-      .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.')
+      .submit()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible.')
   });
 
-  test('Login to gmail using iMap', async (done) => {
+  test('Login to gmail using iMap to fetch password reset token', async (done) => {
     try {
       gmail.fetchPasswordResetLink().then((result) => {
         process.env.NEW_HREF = result.hrefValue
@@ -143,15 +143,17 @@ describe('Login Page Tests Cases', () => {
     const universal = client.page.UniversalElements();
     const login = client.page.LoginPage();
     const member = client.page.MembersPage();
+    const org = client.page.UniversalElements();
 
     await login.navigate()
-    .pause(1000)
+      .pause(1000)
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit()
+    await org.waitForElementVisible('@searchInputForOrg', 'Search Org field is visible')
     await universal.searchForOrganization(testConstants.orgName)
       .ccrOrgLogin()
     await member.navigate()
-    .pause(1000)
+      .pause(1000)
       .selectMember()
       .createTempPassword()
       .getTempPassword()

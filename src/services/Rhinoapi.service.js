@@ -85,3 +85,17 @@ export async function login() {
 
   return response.headers['set-cookie'][0];
 }
+
+export async function createOrganization(orgData, cookie) {
+  const response = await axios.post(`${process.env.API_BASE_URL}/organization`,
+    orgData,
+    { 
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      }
+    }
+  );
+
+  return response.data;
+}

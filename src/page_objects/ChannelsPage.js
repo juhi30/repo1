@@ -15,6 +15,17 @@ const channelsCommands = {
       .click('@editChannel')
   },
 
+  checkElementVisibility: function(element){
+    console.log('check visibility of edit page title')
+    return this.waitForElementVisible(element, 1000, (result) => {
+      console.log('=================', result.value)
+      if(result.value) {
+        console.log('>>>>>>>>>>>>>> Inside If condition')
+        this.click(element)
+      }
+    })
+  },
+
   verifyUpdatedChannel: function (updatedChannel) {
     return this.waitForElementVisible(updatedChannel, updatedChannel + ' Created Channel is visible in the channel list.')
       .click(updatedChannel)
@@ -61,6 +72,11 @@ module.exports = {
 
     editChannel: {
       selector: `//SPAN[@class='button__text-wrapper'][contains(text(),'Edit Channel')]`,
+      locateStrategy: 'xpath',
+    },
+
+    editPageTitle: {
+      selector: `//*[@class='app-page__header']//*[text()='Edit Channel']`,
       locateStrategy: 'xpath',
     }
   }

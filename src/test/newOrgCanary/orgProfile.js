@@ -13,9 +13,10 @@ describe('Organisation profile edit as member', () => {
         await orgProfile.updateOrgProfileMandatoryFields(testConstants.orgNewName, testConstants.orgNewAddress, testConstants.orgNewCity, testConstants.orgNewState, testConstants.orgNewZip)
             .updateOrgProfileOtherFields(testConstants.orgNewAddress2, testConstants.orgNewPhone, testConstants.orgNewEmail, testConstants.orgNewcontactName, testConstants.orgNewcontactPhone, testConstants.orgNewcontactEmail)
             .clickSaveProfile()
+            .pause(1000)
 
         await entry.navigate()
-        .pause(3000)
+        .pause(1000)
         .validateEventEntryWithNoDataFound('Edit', testConstants.noDataFound, testConstants.memberName, 'Org Profile')
     });
 
@@ -27,7 +28,7 @@ describe('Organisation profile edit as member', () => {
         .addUpdateLogo('@addLogoButton')
 
         await entry.navigate()
-        .pause(3000)
+        .pause(1000)
         .validateEventEntry('Edit', testConstants.orgNewName, testConstants.memberName, 'Org Profile')
     });
 

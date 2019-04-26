@@ -5,6 +5,7 @@ const groupsPageCommands = {
   verifyGroupEls: function () {
     return this.waitForElementVisible('@createButton', 'Create Button is visible')
       .click('@createButton')
+      .pause(500)
       .waitForElementVisible('@teamOption', 'Team option is visible')
       .waitForElementVisible('@patientOption', 'Patient option is visible')
       .waitForElementVisible('@patientAndTeamOption', 'Patient and team option is visible')

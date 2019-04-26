@@ -12,8 +12,8 @@ beforeAll(async () => {
   const setup = client.page.AccountSetupPage();
   const org = client.page.UniversalElements();
   
-  
-  await login.navigate()
+  try {
+    await login.navigate()
     .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
     .submit()
     .pause(2000)
@@ -28,6 +28,10 @@ beforeAll(async () => {
     .waitForElementNotVisible('@createOrgButton', 'Create Org button not visible')
     .pause(1000)
     .getOrgId()
+  } catch (err) {
+    console.log('==error on orgSetupAndTearDown=====', err);
+  }
+ 
 });
 
 // DELETE MY NEW ORG HERE 
@@ -43,7 +47,7 @@ afterAll(async (done) => {
     console.log('====== Organization Deleted =======');
     done();
   } catch (err) {
-    console.log(err);
+    console.log('===error on after all orgSetupAndTeardown=======', err);
     done(err);
   }
 });

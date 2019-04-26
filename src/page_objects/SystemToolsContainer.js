@@ -1,49 +1,49 @@
 const systemToolsCommands = {
 
-    pause: function (time) {
-        this.api.pause(time);
-        return this;
-    },
+  pause(time) {
+    this.api.pause(time);
+    return this;
+  },
 
-    validateCSRPortal: function () {
-        return this.waitForElementPresent('@organizationsButton', 'CSR system tools are visible')
-            .verify.urlContains('selectorg')
-    },
+  validateCSRPortal() {
+    return this.waitForElementPresent('@organizationsButton', 'CSR system tools are visible')
+      .verify.urlContains('selectorg');
+  },
 
-    clickAcctSetupButton: function () {
-        return this.waitForElementVisible('@accountSetupButton', 'Account setup button is visible')
-            .click('@accountSetupButton')
-    }
-}
+  clickAcctSetupButton() {
+    return this.waitForElementVisible('@accountSetupButton', 'Account setup button is visible')
+      .click('@accountSetupButton');
+  },
+};
 
 module.exports = {
-    commands: [systemToolsCommands],
+  commands: [systemToolsCommands],
 
-    url: function () {
-        return this.api.launch_url + '/selectorg'
+  url() {
+    return `${this.api.launch_url}/selectorg`;
+  },
+
+  elements: {
+
+    organizationsButton: {
+      selector: '//A[contains(@id, \'nav-select-org\')]',
+      locateStrategy: 'xpath',
     },
 
-    elements: {
+    accountSetupButton: {
+      selector: '//A[contains(@id, \'nav-account-setup\')]',
+      locateStrategy: 'xpath',
+    },
 
-        organizationsButton: {
-            selector: `//A[contains(@id, 'nav-select-org')]`,
-            locateStrategy: 'xpath',
-        },
+    checkEligibilityButton: {
+      selector: '//A[contains(@id, \'nav-check-eligibility\')]',
+      locateStrategy: 'xpath',
+    },
 
-        accountSetupButton: {
-            selector: `//A[contains(@id, 'nav-account-setup')]`,
-            locateStrategy: 'xpath',
-        },
+    systemAlertButton: {
+      selector: '//A[contains(@id, \'nav-system-alert\')]',
+      locateStrategy: 'xpath',
+    },
 
-        checkEligibilityButton: {
-            selector: `//A[contains(@id, 'nav-check-eligibility')]`,
-            locateStrategy: 'xpath',
-        },
-
-        systemAlertButton: {
-            selector: `//A[contains(@id, 'nav-system-alert')]`,
-            locateStrategy: 'xpath',
-        },
-
-    }
-}
+  },
+};

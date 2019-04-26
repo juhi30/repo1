@@ -2,166 +2,166 @@ const helpers = require('../toolboxes/helpers.toolbox');
 
 const loginCommands = {
 
-  validateForm: function () {
+  validateForm() {
     return this.waitForElementVisible('@usernameInput', 'Username input is visible')
       .verify.visible('@usernameInput', 'Username input is visible')
       .verify.visible('@passwordInput', 'password input is visible')
       .waitForElementVisible('@loginButton', 'Login button is visible')
-      .verify.containsText('@loginButton', 'Log In', 'Login button is visible')
+      .verify.containsText('@loginButton', 'Log In', 'Login button is visible');
   },
 
-  fillInUsername: function (username) {
+  fillInUsername(username) {
     return this.waitForElementVisible('@usernameInput', 'Username input visible')
-      .setValue('@usernameInput', username)
+      .setValue('@usernameInput', username);
   },
 
-  fillInPassword: function (password) {
+  fillInPassword(password) {
     return this.waitForElementVisible('@passwordInput', 'Password input visible')
-      .setValue('@passwordInput', password)
+      .setValue('@passwordInput', password);
   },
 
-  enterCSRCreds: function (username, password) {
+  enterCSRCreds(username, password) {
     return this.waitForElementVisible('@usernameInput', 'Username input visible')
-      .setValue('@usernameInput', username ? username : helpers.csrCreds.username)
-      .setValue('@passwordInput', password ? password : helpers.csrCreds.password)
+      .setValue('@usernameInput', username || helpers.csrCreds.username)
+      .setValue('@passwordInput', password || helpers.csrCreds.password);
   },
 
-  enterMemberCreds: function (username, password) {
+  enterMemberCreds(username, password) {
     return this.waitForElementVisible('@usernameInput', 'Username input visible')
-      .setValue('@usernameInput', username ? username : helpers.memberCreds.username)
-      .setValue('@passwordInput', password ? password : helpers.memberCreds.password)
+      .setValue('@usernameInput', username || helpers.memberCreds.username)
+      .setValue('@passwordInput', password || helpers.memberCreds.password);
   },
 
-  enterPatientCreds: function (username, password) {
+  enterPatientCreds(username, password) {
     return this.waitForElementVisible('@usernameInput', 'Username input visible')
-      .setValue('@usernameInput', username ? username : helpers.patientCreds.username)
-      .setValue('@passwordInput', password ? password : helpers.patientCreds.password)
+      .setValue('@usernameInput', username || helpers.patientCreds.username)
+      .setValue('@passwordInput', password || helpers.patientCreds.password);
   },
 
-  clearUsernameInput: function () {
+  clearUsernameInput() {
     return this.waitForElementVisible('@usernameInput', 'Username input is visible')
-      .clearValue('@usernameInput')
+      .clearValue('@usernameInput');
   },
 
-  clearPasswordInput: function () {
+  clearPasswordInput() {
     return this.waitForElementVisible('@passwordInput', 'Password input is visible')
-      .clearValue('@passwordInput')
+      .clearValue('@passwordInput');
   },
 
-  submit: function () {
+  submit() {
     return this.waitForElementVisible('@loginButton', 'Login button is visible')
-      .click('@loginButton')
+      .click('@loginButton');
   },
 
-  submitForFirstTime: function () {
+  submitForFirstTime() {
     return this.waitForElementVisible('@loginButton', 'Login button is visible')
       .click('@loginButton')
       .waitForElementNotPresent('@usernameInput', 'Username input no longer present');
   },
 
-  validateError: function() {
+  validateError() {
     return this.waitForElementVisible('@errorPrompt', 'Error logging in prompt is visible')
       .verify.valueContains('@usernameInput', '', 'username input testing ')
-      .verify.valueContains('@passwordInput', '', 'password input testing')
+      .verify.valueContains('@passwordInput', '', 'password input testing');
   },
 
-  validateUrlChange: function (url) {
-    const nextPageUrl = url ? url : 'inbox';
+  validateUrlChange(url) {
+    const nextPageUrl = url || 'inbox';
     return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
       .verify.urlContains(nextPageUrl);
   },
 
-  fillInNewPasswordInput: function (password) {
+  fillInNewPasswordInput(password) {
     return this.waitForElementVisible('@passwordInput', 'New password input is visible')
       .setValue('@passwordInput', password);
   },
 
-  fillInConfirmPasswordInput: function (password) {
+  fillInConfirmPasswordInput(password) {
     return this.waitForElementVisible('@confirmPasswordInput', 'Confirm password input is visible')
       .setValue('@confirmPasswordInput', password);
   },
 
-  clickSaveAndContinueButton: function () {
+  clickSaveAndContinueButton() {
     return this.waitForElementVisible('@saveAndContinueButton', 'Save and Continue button is visible')
       .click('@saveAndContinueButton')
-      .waitForElementVisible('@passwordUpdateSuccessMessage','password updated successfully.')
+      .waitForElementVisible('@passwordUpdateSuccessMessage', 'password updated successfully.');
   },
 
-  resetPassword: function (inputValue) {
+  resetPassword(inputValue) {
     return this.waitForElementVisible('@forgotPasswordLink', 'Forgot password button is visible')
       .click('@forgotPasswordLink')
       .waitForElementVisible('@getNewPassword', 'User landed on Forgot Password page')
       .setValue('@usernameInput', inputValue)
-      .click('@getNewPassword')
+      .click('@getNewPassword');
   },
-}
+};
 
 module.exports = {
   commands: [loginCommands],
-  url: function () {
-    return this.api.launch_url + '/login'
+  url() {
+    return `${this.api.launch_url}/login`;
   },
   elements: {
     // works for the forgotten password page
     usernameInput: {
-      selector: `//INPUT[contains(@name, 'username')]`,
+      selector: '//INPUT[contains(@name, \'username\')]',
       locateStrategy: 'xpath',
     },
     passwordInput: {
-      selector: `//INPUT[contains(@name, 'password')]`,
+      selector: '//INPUT[contains(@name, \'password\')]',
       locateStrategy: 'xpath',
     },
 
     loginButton: {
-      selector: `//SPAN[contains(.,'Log In')]`, //Will change after Alpha
+      selector: '//SPAN[contains(.,\'Log In\')]', // Will change after Alpha
       locateStrategy: 'xpath',
     },
 
     logOutButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Log Out']`,
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Log Out\']',
       locateStrategy: 'xpath',
     },
 
     errorPrompt: {
-      selector: `//DIV[@class='alert__body'][text()='Username and password did not match']`,
+      selector: '//DIV[@class=\'alert__body\'][text()=\'Username and password did not match\']',
       locateStrategy: 'xpath',
     },
 
     forgotPasswordLink: {
-      selector: `//SPAN[contains(.,'Forgot password?')]`,
+      selector: '//SPAN[contains(.,\'Forgot password?\')]',
       locateStrategy: 'xpath',
     },
 
     getNewPassword: {
-      selector: `//SPAN[contains(.,'Get New Password')]`,
+      selector: '//SPAN[contains(.,\'Get New Password\')]',
       locateStrategy: 'xpath',
     },
 
     contactAdminMsg: {
-      selector: `//P[text()='Please contact your office administrator to reset your password.']`,
+      selector: '//P[text()=\'Please contact your office administrator to reset your password.\']',
       locateStrategy: 'xpath',
     },
 
     successEmailMessage: {
-      selector: `//P[contains(text(),'Success! An email was sent to ')]`,
+      selector: '//P[contains(text(),\'Success! An email was sent to \')]',
       locateStrategy: 'xpath',
     },
 
-    //------ below are elements found when logging in with a temporary password -----//
+    // ------ below are elements found when logging in with a temporary password -----//
 
     confirmPasswordInput: {
-      selector: `//INPUT[contains(@name, 'confirmPassword')]`,
+      selector: '//INPUT[contains(@name, \'confirmPassword\')]',
       locateStrategy: 'xpath',
     },
 
     saveAndContinueButton: {
-      selector: `//SPAN[contains(.,'Save and Continue')]`,
+      selector: '//SPAN[contains(.,\'Save and Continue\')]',
       locateStrategy: 'xpath',
     },
 
     passwordUpdateSuccessMessage: {
-      selector: `//DIV[text()='Password updated successfully.']`,
+      selector: '//DIV[text()=\'Password updated successfully.\']',
       locateStrategy: 'xpath',
     },
-  }
+  },
 };

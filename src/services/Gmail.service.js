@@ -8,62 +8,62 @@ const imap = new Imap({
   port: 993,
   tls: true,
   tlsOptions: {
-    rejectUnauthorized: false // Force pre-0.9.2 behavior
-  }
+    rejectUnauthorized: false, // Force pre-0.9.2 behavior
+  },
 });
 
 function openInbox(cb) {
   imap.openBox('INBOX', true, cb);
 }
 
-function fetchPasswordResetLink () {
-  return new Promise(async(resolve, reject) => {
-    var hrefValue = '';
+function fetchPasswordResetLink() {
+  return new Promise(async (resolve, reject) => {
+    let hrefValue = '';
 
     await imap.connect();
 
-    imap.on('ready', function() {
-      openInbox(function(err, box) {
+    imap.on('ready', () => {
+      openInbox((err, box) => {
         if (err) throw err;
-        var f = imap.seq.fetch(box.messages.total + ':*', { bodies: ['HEADER.FIELDS (FROM)','TEXT'] });
-          f.on('message', function(msg) {
-            msg.on('body', function(stream) {
-              var buffer = ''
-              stream.on('data', function(chunk) {
+        const f = imap.seq.fetch(`${box.messages.total}:*`, { bodies: ['HEADER.FIELDS (FROM)', 'TEXT'] });
+        f.on('message', (msg) => {
+          msg.on('body', (stream) => {
+            let buffer = '';
+            stream.on('data', (chunk) => {
               buffer += chunk.toString('utf8');
-              
+
               const isLink = buffer.includes('here');
               if (isLink) {
-                //var anchorTag = buffer.match(/<a [^>]+>Let's Get Started<\/a>/);
-               var anchorTag = buffer.match(/<a [^>]+>here<\/a>/);
+                // var anchorTag = buffer.match(/<a [^>]+>Let's Get Started<\/a>/);
+                const anchorTag = buffer.match(/<a [^>]+>here<\/a>/);
                 hrefValue = anchorTag[0].match(/href="([^"]*)/)[1];
                 hrefValue = hrefValue.replace('amp;', '');
               }
             });
-            stream.on('end', function() {
+            stream.on('end', () => {
               console.log('body finished');
             });
           });
         });
-        f.on('error', function(err) {
+        f.on('error', (err) => {
           console.log('error', err);
         });
-        f.on('end', async function() {
+        f.on('end', async () => {
           imap.end();
         });
       });
     });
-    imap.on('error', function (err) {
+    imap.on('error', (err) => {
       console.log(err);
     });
 
-    imap.on('end', function () {
-      resolve({ success: true, hrefValue: hrefValue });
+    imap.on('end', () => {
+      resolve({ success: true, hrefValue });
     });
-  })
+  });
 }
 
 
 module.exports = {
-    fetchPasswordResetLink,
-}
+  fetchPasswordResetLink,
+};

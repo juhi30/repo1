@@ -3,6 +3,7 @@ import * as rhinofeeder from '../../services/Rhinofeeder.service';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const followRedirects = require('follow-redirects');
 
 followRedirects.maxRedirects = 10;
@@ -12,8 +13,6 @@ const USER_TYPE_OTHER = 36;
 const OTHER_EXTERNAL_ID = '123OTHER';
 
 let createdPatient;
-let createdOther;
-let createdAppointment;
 
 const patientExternalId = 'c3ba714d-47e7-4eb4-8713-b60730179c89';
 const guardianExtrenalId = '2833d372-4a2d-462b-b302-a0d9b54b49fc';
@@ -89,7 +88,6 @@ describe('integration tests', () => {
       expect(response.data.externalIds.emrId).toBe(OTHER_EXTERNAL_ID);
       expect(response.data.firstName).toBe('Other');
       expect(response.data.typeId).toBe(USER_TYPE_OTHER);
-      createdOther = response.data;
       done();
     });
   });
@@ -115,7 +113,6 @@ describe('integration tests', () => {
     rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, '1455971411', createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe('1455971411');
       expect(response.data.userId).toBe(createdPatient.id);
-      createdAppointment = response.data;
       done();
     });
   });
@@ -142,7 +139,6 @@ describe('integration tests', () => {
       expect(response.data.externalId).toBe('1455971411');
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(82);
-      createdAppointment = response.data;
       done();
     });
   });
@@ -171,7 +167,6 @@ describe('integration tests', () => {
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(83);
       expect(response.data.deleted).toBe(1);
-      createdAppointment = response.data;
       done();
     });
   });

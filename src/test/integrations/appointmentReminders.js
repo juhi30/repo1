@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
-import moment from 'moment-timezone';
-import * as rhinofeeder from '../../services/Rhinofeeder.service';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 import * as messengerbot from '../../services/MessengerBot.service';
+import { localToUtc } from '../../toolboxes/helpers.toolbox';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const followRedirects = require('follow-redirects');
 
 followRedirects.maxRedirects = 10;
@@ -20,11 +20,6 @@ let createdAppointment2;
 const orgId = process.env.EXISTING_ORG_ID;
 const patientExternalId = process.env.APPOINTMENT_PATIENT_EXTERNAL_ID;
 const appointmentExternalId = '34572356';
-
-function localToUtc(datetime, ianaTimezone) {
-  return moment.tz(datetime, 'MM/DD/YYYY hh:mm:ss A', ianaTimezone).utc();
-}
-
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -64,7 +59,7 @@ describe('appointment reminder tests', () => {
       number: process.env.TEST_BANDWIDTH_NUMBER_PATIENT,
       config: { handler: 'reply', config: ['1'] },
     };
-    messengerbot.configureHandler(config).then((response) => {
+    messengerbot.configureHandler(config).then(() => {
       done();
     });
   });
@@ -186,7 +181,7 @@ describe('appointment reminder tests', () => {
 
   test('find scheduled appointments ', async (done) => {
     await sleep(10000);
-    rhinoapi.getScheduledAppointments(orgId).then((response) => {
+    rhinoapi.getScheduledAppointments(orgId).then(() => {
       done();
     });
   });
@@ -203,7 +198,7 @@ describe('appointment reminder tests', () => {
       appointmentReminderResponseTypeId: 80, // confirm/cancel
     };
 
-    rhinoapi.postAppointmentReminderMessage(message).then((response) => {
+    rhinoapi.postAppointmentReminderMessage(message).then(() => {
       done();
     });
   });
@@ -214,13 +209,13 @@ describe('appointment reminder tests', () => {
       from: createdPatient.phones[0].number,
       media: [],
       text: '1',
-      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464'
-    }
+      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464',
+    };
 
     // reset to uncomfirmed
     await rhinoapi.updateAppointment(createdAppointment.id, { appointmentStatusTypeId: 81 });
 
-    rhinoapi.postIncomingBandwidthMessage(message).then((response) => {
+    rhinoapi.postIncomingBandwidthMessage(message).then(() => {
       done();
     });
   });
@@ -243,10 +238,10 @@ describe('appointment reminder tests', () => {
       from: createdPatient.phones[0].number,
       media: [],
       text: '2',
-      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464'
-    }
+      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464',
+    };
 
-    rhinoapi.postIncomingBandwidthMessage(message).then((response) => {
+    rhinoapi.postIncomingBandwidthMessage(message).then(() => {
       done();
     });
   });
@@ -268,10 +263,10 @@ describe('appointment reminder tests', () => {
       from: createdPatient.phones[0].number,
       media: [],
       text: '1',
-      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464'
-    }
+      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464',
+    };
 
-    rhinoapi.postIncomingBandwidthMessage(message).then((response) => {
+    rhinoapi.postIncomingBandwidthMessage(message).then(() => {
       done();
     });
   });
@@ -301,7 +296,7 @@ describe('appointment reminder tests', () => {
       appointmentReminderResponseTypeId: 78, // confirm only
     };
 
-    rhinoapi.postAppointmentReminderMessage(message).then((response) => {
+    rhinoapi.postAppointmentReminderMessage(message).then(() => {
       done();
     });
   });
@@ -312,8 +307,8 @@ describe('appointment reminder tests', () => {
       from: createdPatient.phones[0].number,
       media: [],
       text: '2',
-      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464'
-    }
+      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464',
+    };
 
     // reset to uncomfirmed
     await rhinoapi.updateAppointment(createdAppointment1.id, { appointmentStatusTypeId: 81 });
@@ -336,8 +331,8 @@ describe('appointment reminder tests', () => {
       from: createdPatient.phones[0].number,
       media: [],
       text: '1',
-      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464'
-    }
+      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464',
+    };
 
     await rhinoapi.postIncomingBandwidthMessage(message);
 
@@ -363,7 +358,7 @@ describe('appointment reminder tests', () => {
       appointmentReminderResponseTypeId: 79, // cancel only
     };
 
-    rhinoapi.postAppointmentReminderMessage(message).then((response) => {
+    rhinoapi.postAppointmentReminderMessage(message).then(() => {
       done();
     });
   });
@@ -374,8 +369,8 @@ describe('appointment reminder tests', () => {
       from: createdPatient.phones[0].number,
       media: [],
       text: '1',
-      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464'
-    }
+      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464',
+    };
 
     // reset to uncomfirmed
     await rhinoapi.updateAppointment(createdAppointment2.id, { appointmentStatusTypeId: 81 });
@@ -398,8 +393,8 @@ describe('appointment reminder tests', () => {
       from: createdPatient.phones[0].number,
       media: [],
       text: '2',
-      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464'
-    }
+      messageId: '7f47f4bf-390d-4d5f-b1a9-7db5eade2464',
+    };
 
     await rhinoapi.postIncomingBandwidthMessage(message);
 
@@ -412,4 +407,4 @@ describe('appointment reminder tests', () => {
       done();
     });
   });
-}); 
+});

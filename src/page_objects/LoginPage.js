@@ -122,7 +122,7 @@ module.exports = {
     },
 
     errorPrompt: {
-      selector: `//DIV[@class='alert__body'][contains(.,'Username and password did not match')]`,
+      selector: `//DIV[contains(.,'Username and password did not match')]`,
       locateStrategy: 'xpath',
     },
 
@@ -164,7 +164,7 @@ module.exports = {
     },
 
     saveAndContinueButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Save and Continue']`,
+      selector: `//SPAN[contains(.,'Save and Continue')]`,
       locateStrategy: 'xpath',
     },
 

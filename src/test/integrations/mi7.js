@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import moment from 'moment-timezone';
 import * as rhinofeeder from '../../services/Rhinofeeder.service';
 import * as rhinoapi from '../../services/Rhinoapi.service';

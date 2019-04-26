@@ -6,7 +6,6 @@ import {
 } from '../../services/Rhinoapi.service';
 
 // CREATE MY NEW ORG HERE
-// eslint-disable-next-line no-undef
 beforeAll(async () => {
   try {
     const cookie = await login();
@@ -35,13 +34,11 @@ beforeAll(async () => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log('===error on before all orgSetupAndTeardown=======', err);
-    // eslint-disable-next-line no-undef
     done(err);
   }
 });
 
 // DELETE MY NEW ORG HERE
-// eslint-disable-next-line no-undef
 afterAll(async (done) => {
   try {
     // eslint-disable-next-line no-console

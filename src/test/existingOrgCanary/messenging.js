@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { sendMessage } from 'rhinotilities/lib/toolboxes/Bandwidth.toolbox';
 import { client } from 'nightwatch-api';
 import * as rhinofeeder from '../../services/Rhinofeeder.service';

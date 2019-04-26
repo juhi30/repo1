@@ -46,6 +46,11 @@ export async function postRhinolinerUser(user, orgId) {
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` }});
 }
 
+export async function postRhinolinerAppt(appt) {
+  return axios.post(`${process.env.API_BASE_URL}/rhinoliner/appointment`, appt,
+    { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` }});
+}
+
 export async function archiveOrganization(organizationId, cookie) {
   const response =  await axios({
     method: 'post',

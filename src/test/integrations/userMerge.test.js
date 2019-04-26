@@ -1,16 +1,29 @@
+import moment from 'moment-timezone';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 const userService = require('../../services/User.service');
+import * as rhinoliner from '../../services/Rhinoliner.service';
 
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
-const orgId = parseInt(process.env.EXISTING_ORG_ID, 10);
+const HIPAA_STATUS_TYPE_GRANTED = 49;
+const HIPAA_STATUS_TYPE_PENDING = 48;
+const nonIntegratedUserId = process.env.NON_INTEGRATED_USER_ID;
+const nonIntegratedUserId2 = process.env.NON_INTEGRATED_USER_ID_2;
+const nonIntegratedUserId3 = process.env.NON_INTEGRATED_USER_ID_3;
+const nonIntegratedUserIdWithEmrAndLogin = process.env.NON_INTEGRATED_USER_ID_WITH_EMR_LOGIN;
+const nonIntegratedUserIdWithEmrAndLogin2 = process.env.NON_INTEGRATED_USER_ID_WITH_EMR_LOGIN_2;
+const orgId = parseInt(process.env.EXISTING_ORG_ID, 10); //doesnt get parsed on rhinoliner endpoint
 
 let integratedPatient;
-let integratedPatient2;
+let createdAppointment;
 let cookie;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function localToUtc(datetime, ianaTimezone) {
+  return moment.tz(datetime, 'MM/DD/YYYY hh:mm:ss A', ianaTimezone).utc();
 }
 
 beforeAll(async () => {
@@ -24,36 +37,14 @@ beforeAll(async () => {
 
 describe('mergeUsers', () => {
   jest.setTimeout(30000);
-  test('create users', async () => {
-    let user = {
-      firstName: 'Bran',
-      lastName: 'Stark',
-      preferredName: 'three eyed raven',
-      birthday: '1960-06-07',
-      sex: 'male',
-      messageType: 'USER',
-      orgId,
-      phones: [{
-        number: process.env.TEST_MERGE_USERS_NUMBER,
-        typeId: TYPE_PHONE_CELL,
-        label: 'testPhone'
-      }],
-      typeId: USER_TYPE_PATIENT,
-      externalIds: {
-        emrId: '3iiiraven',
-      },
-      integrated: true,
-    };
-    rhinoapi.postRhinolinerUser(user, orgId);
-
-    user = {
+  test('create user', async () => {
+    const user = {
       firstName: 'Arya',
       lastName: 'Stark',
       birthday: '1990-05-23',
       note: 'this is aryas note',
       sex: 'female',
       messageType: 'USER',
-      orgId,
       phones: [{
         number: process.env.TEST_MERGE_USERS_NUMBER,
         typeId: TYPE_PHONE_CELL,
@@ -63,113 +54,164 @@ describe('mergeUsers', () => {
         emrId: '123456',
       },
       integrated: true,
+      tags: [ { id: 1, name: 'Charleston', typeId: 55 } ],
     };
     rhinoapi.postRhinolinerUser(user, orgId);
     await sleep(15000);
   });
 
-  test('Find integrated user 1', async (done) => {
-    rhinoapi.getUserByExternalId(orgId, '3iiiraven').then((response) => {
-      expect(response.data.externalIds.emrId).toBe('3iiiraven');
+  test('create appointment', async (done) => {
+    const startDate = new Date();
+    startDate.setMinutes(startDate.getMinutes() + 5);
+    startDate.setDate(startDate.getDate() + 1);
+    const startDateString = localToUtc(startDate, 'America/New_York');
+    const endDate = new Date();
+    endDate.setMinutes(endDate.getMinutes() + 30);
+    endDate.setDate(endDate.getDate() + 1);
+    const endDateString = localToUtc(endDate, 'America/New_York');
+    const appt = {
+        startDate: startDateString,
+        endDate: endDateString,
+        externalId: '123456',
+        messageType: 'APPOINTMENT',
+        appointmentExternalId: 'appt123',
+        deleted: false,
+        appointmentStatusTypeId: 81,
+        orgId,
+    };
+    await rhinoliner.pushtoqueue(appt).then(() => {
+      done();
+    });
+  })
+
+  test('Find integrated user', async (done) => {
+    rhinoapi.getUserByExternalId(orgId, '123456').then((response) => {
+      expect(response.data.externalIds.emrId).toBe('123456');
       integratedPatient = response.data;
       done();
     });
   });
 
-  test('Find integrated user 2', async (done) => {
-    rhinoapi.getUserByExternalId(orgId, '123456').then((response) => {
-      expect(response.data.externalIds.emrId).toBe('123456');
-      integratedPatient2 = response.data;
+  test('find appointment', async (done) => {
+    await sleep(10000);
+    await rhinoapi.getApointmentByExternalId(orgId, 'appt123', integratedPatient.id).then((response) => {
+      expect(response.data.externalId).toBe('appt123');
+      createdAppointment = response.data;
       done();
     });
   });
 
   test('When an integrated user is merged into a non integrated user, it should render an error', async (done) => {
-    userService.mergeUsers(integratedPatient.id, 138, cookie).then((response) => {
+    userService.mergeUsers(integratedPatient.id, nonIntegratedUserId, cookie).then((response) => {
       expect(response.message).toBe('You cannot merge an integrated user into another user');
       done();
     });
   });
 
   test('when a non integrated user with an emrId is merged into an integrated user, it should render an error', async (done) => {
-    userService.mergeUsers(5, integratedPatient.id, cookie).then((response) => {
+    userService.mergeUsers(nonIntegratedUserIdWithEmrAndLogin, integratedPatient.id, cookie).then((response) => {
       expect(response.message).toBe('This slave has an emr ID please check the database and resolve manually.');
       done();
     });
   });
 
-  //BREAKS THINGS
-  // test('when a non integrated user with an emrId is merged into another non integrated user, it should render an error', async (done) => {
-  //   userService.mergeUsers(6, 137, cookie).then((response) => {
-  //     console.log(response.message);
-  //     done();
-  //   });
-  // });
-
   test('when a non integrated user with a login is merged into another user with a login, it should render an error', async (done) => {
-    userService.mergeUsers(5, 6, cookie).then((response) => {
+    userService.mergeUsers(nonIntegratedUserIdWithEmrAndLogin, nonIntegratedUserIdWithEmrAndLogin2, cookie).then((response) => {
       expect(response.message).toBe('Both users being merged have created a login within the Rhinogram Network, please resolve this merge manually.');
       done();
     });
   });
 
-  test('when a non integrated user without an emrId is merged into an integrated user, it should successfully merge the two users', async (done) => {
-    const nonIntegratedUser = await userService.getUser(137, cookie);
-    await userService.mergeUsers(137, integratedPatient2.id, cookie).then(async (response) => {
-      console.log('RES', response);
-      console.log('137', nonIntegratedUser);
-      console.log('ARYA', integratedPatient2);
-      expect(response.id).toBe(integratedPatient2.id); //maintain master
-      expect(response.firstName).toBe(integratedPatient2.firstName); //maintain master
-      expect(response.lastName).toBe(integratedPatient2.lastName); //maintain master
-      expect(response.phones.length).toBe(2); // combine phones for both users
-      expect(response.emails.length).toBe(1); // combine emails for both users
-      expect(response.emails[0].value).toBe(nonIntegratedUser.emails[0].value); //slaves email (only one that existed between the two users)
-      expect(response.phones[0].ownerId).toBe(integratedPatient2.id); //master takes phone ownership of slaves phone
-      expect(response.externalIds.emrId).toBe(integratedPatient2.externalIds.emrId); //maintain master
+  test('when a user is merged into itself, it should render an error', async (done) => {
+    userService.mergeUsers(nonIntegratedUserId, nonIntegratedUserId, cookie).then((response) => {
+      expect(response.message).toBe('You cannot merge a user into themselves');
+      done();
+    });
+  });
+
+  test('when a non integrated user without an emrId is merged into an integrated user, it should successfully merge the two users according to acceptable rules', async (done) => {
+    const nonIntegratedUser = await userService.getUser(nonIntegratedUserId, cookie); //patient without emrId
+    await userService.mergeUsers(nonIntegratedUser.id, integratedPatient.id, cookie).then(async (response) => {
+      //MAINTAIN MASTER
+      expect(response.id).toBe(integratedPatient.id); //maintain master
+      expect(response.typeId).toBe(integratedPatient.typeId); //maintain master
+      expect(response.firstName).toBe(integratedPatient.firstName); //maintain master
+      expect(response.lastName).toBe(integratedPatient.lastName); //maintain master
+      expect(response.birthday).toBe(integratedPatient.patientDetails.birthday); //maintain master
+      expect(response.isMinor).toBe(!!integratedPatient.patientDetails.isMinor); //maintain master
+      expect(response.sex).toBe(integratedPatient.patientDetails.sex); //maintain master
+      expect(response.externalIds.emrId).toBe(integratedPatient.externalIds.emrId); //maintain master
+      expect(response.appointments.length).toEqual(1); //maintain master (only integrated users have appts)
+      expect(response.appointments[0].id).toBe(createdAppointment.id);
+      expect(response.id).toBe(createdAppointment.userId); //userId on appt should be master userId
+      expect(response.integrated).toBe(!!integratedPatient.integrated); //maintain master
+      expect(response.noteIsImportant).toBe(!!integratedPatient.patientDetails.noteIsImportant); //maintain master
+      expect(response.automatedMessages).toBe(!!integratedPatient.patientDetails.automatedMessages); //maintain master
+      expect(response.phones[0].ownerId).toBe(integratedPatient.id); //master takes phone ownership of slaves phone
+
+      //INHERIT IF NOT ON MASTER
       expect(response.middleName).toBe(nonIntegratedUser.middleName); //passed from slave if master has none
       expect(response.preferredName).toBe(nonIntegratedUser.preferredName); //passed from slave if master has none
       expect(response.prefix).toBe(nonIntegratedUser.prefix); //passed from slave if master has none
       expect(response.suffix).toBe(nonIntegratedUser.suffix); //passed from slave if master has none
-      expect(response.birthday).toBe(integratedPatient2.patientDetails.birthday); //maintain master
-      expect(response.isMinor).toBe(!!integratedPatient2.patientDetails.isMinor); //maintain master
-      expect(response.sex).toBe(integratedPatient2.patientDetails.sex); //maintain master
-      expect(response.note).toBe(integratedPatient2.patientDetails.note); //passed from slave if master has none, master has one so keep master
-      expect(response.isNoteImportant).toBe(nonIntegratedUser.isNoteImportant); //passed from slave if master has none
-      expect(response.automatedMessages).toBe(!!integratedPatient2.patientDetails.automatedMessages); //maintain master
-      // expect(response.hasThreadHistory).toBe(nonIntegratedUser.hasThreadHistory); //passed from whoever has it set to true, false if both are false (non integrated user has 1 message event)
-      expect(response.tags[0].name).toBe('Charleston'); //combine both
-      expect(response.connectedParties.length).toEqual(1); //combine both
-      expect(response.appointments.length).toEqual(integratedPatient2.appointments.length); //maintain master (only integrated users have appts)
       expect(response.facebooks.length).toBe(1); //maintain parent. if no parent, inherit from slave
-      expect(response.facebooks).toContainEqual(nonIntegratedUser.facebooks); //maintain master (only integrated users have appts)
-      // // expect(response.events.length).toBe(0); //maintain parent. if no parent, inherit from slave
-      // expect(response.followings).toBe(integratedPatient2.followings); //combine both
-      expect(response.loginEmail).toBe(integratedPatient2.loginEmail); //master inherits login or maintains (only one user can have login for the merge to be possible)
-      expect(response.integrated).toBe(!!integratedPatient2.integrated); //maintain master
+      expect(response.loginEmail).toBe(nonIntegratedUser.loginEmail); //master inherits login or maintains (only one user can have login for the merge to be possible)
+      expect(response.note).toBe(integratedPatient.patientDetails.note); //passed from slave if master has none, master has one so keep master
+
+      //COMBINE BOTH
+      expect(response.phones.length).toBe(1); // combine phones for both users (dont duplicate) they each share the same phone, return only one
+      expect(response.phones[0].number).toBe(integratedPatient.phones[0].value);
+      expect(response.phones[0].value).toBe(nonIntegratedUser.phones[0].value);
+      expect(response.emails.length).toBe(1); // combine emails for both users
+      expect(response.emails[0].value).toBe(nonIntegratedUser.emails[0].value); //slaves email (only one that existed between the two users)
+      expect(response.tags.length).toBe(1); // combine tags for both users (dont duplicate) they each share the same tag, return only one
+      expect(response.connectedParties.length).toEqual(1); //combine both
+
+      expect(response.hipaaStatus.typeId).toBe(nonIntegratedUser.hipaaStatus.typeId); // latest wins - this user had a granted hipaa status
+      expect(response.hipaaStatus.typeId).toBe(HIPAA_STATUS_TYPE_GRANTED);
+    });
+    done();
+  });
+
+  test('when a non integrated user without an emrId is merged into another non integrated user, it should successfully merge the two users according to acceptable rules', async (done) => {
+    const slaveUser = await userService.getUser(nonIntegratedUserId2, cookie); //user type other without emrId
+    const masterUser = await userService.getUser(nonIntegratedUserId3, cookie); //patient with emrId
+    await userService.mergeUsers(slaveUser.id, masterUser.id, cookie).then(async (response) => {
+       //MAINTAIN MASTER
+       expect(response.id).toBe(masterUser.id); //maintain master
+       expect(response.typeId).toBe(masterUser.typeId); //maintain master
+       expect(response.firstName).toBe(masterUser.firstName); //maintain master
+       expect(response.lastName).toBe(masterUser.lastName); //maintain master
+       expect(response.birthday).toBe(masterUser.birthday); //maintain master
+       expect(response.isMinor).toBe(!!masterUser.isMinor); //maintain master
+       expect(response.sex).toBe(masterUser.sex); //maintain master
+       expect(response.externalIds.emrId).toBe(masterUser.externalIds.emrId); //maintain master
+       expect(response.integrated).toBe(!!masterUser.integrated); //maintain master
+       expect(response.noteIsImportant).toBe(!!masterUser.noteIsImportant); //maintain master
+       expect(response.automatedMessages).toBe(!!masterUser.automatedMessages); //maintain master
+       expect(response.phones[0].ownerId).toBe(masterUser.id); //master takes phone ownership of slaves phone
+       expect(response.phones[1].ownerId).toBe(masterUser.id); //master takes phone ownership of slaves phone
+       expect(response.phones[2].ownerId).toBe(masterUser.id); //master takes phone ownership of slaves phone
+       expect(response.hipaaStatus.typeId).toBe(masterUser.hipaaStatus.typeId); //maintain master
+       expect(response.hipaaStatus.typeId).toBe(HIPAA_STATUS_TYPE_PENDING);
+
+       //INHERIT IF NOT ON MASTER
+       expect(response.middleName).toBe(masterUser.middleName); //passed from slave if master has none
+       expect(response.preferredName).toBe(slaveUser.preferredName); //passed from slave if master has none
+       expect(response.prefix).toBe(masterUser.prefix); //passed from slave if master has none
+       expect(response.suffix).toBe(slaveUser.suffix); //passed from slave if master has none
+       expect(response.facebooks.length).toBe(1); //maintain parent. if no parent, inherit from slave (both have facebooks, only master should remain)
+       expect(response.loginEmail).toBe(slaveUser.loginEmail); //master inherits login or maintains (only one user can have login for the merge to be possible)
+      //  expect(response.note).toBe(slaveUser.note); //passed from slave if master has none
+
+       //COMBINE BOTH
+       expect(response.phones.length).toBe(3); // combine phones for both users (dont duplicate) they each have 2 phones (one is shared), return only 3
+       expect(response.emails.length).toBe(2); // combine emails for both users
+       expect(response.tags.length).toBe(2); // combine tags for both users (dont duplicate) they each share the same tag, return only one
+       expect(response.connectedParties.length).toEqual(2); //combine both
+
+       expect(response.appointments.length).toEqual(0); //non integrated users dont have appointments
     });
     done();
   });
 });
-
-//TO DO
-//need to fix event/has thread history
-//add in unknown and other users into seed and do a merge with them and integrated users
-// non into non (patient, user, other)
-// test out some different scenarios, with smaller amount of result data
-// dont need int into int (not on test sheet)
-// look at max tests and the mergeUser error rules
-// should update all the tables with the new userId on all tables correctly
-////should make sure no tags are duplicated
-// seed before and after each test.... not sure if that is needed
-//add in constants
-//update package json script
-// post rhinoliner user to create non integrated users
-
-//create integrated and non integrated
-// merge integrated into non integrated - cant do
-// merge non integrated into integrated - can do - should abide by certain rules
-// merge non into non - can do - should abide by certain rules
-// (cant both have logins, can one have login?) (for all)
-// cant merge user with external id into another user (for all)
-

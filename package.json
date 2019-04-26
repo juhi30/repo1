@@ -10,7 +10,7 @@
     "test": "mkdir -p results && jest",
     "test-canary": "mkdir -p results && jest src/test/newOrgCanary --detectOpenHandles",
     "test-existing-canary": "mkdir -p results && jest src/test/existingOrgCanary",
-    "test-integrations": "mkdir -p results && jest src/test/integrations/userMerge.test.js",
+    "test-integrations": "mkdir -p results && jest src/test/integrations",
     "test-rhinoExternalApi": "mkdir -p results && jest src/test/rhinoExternalApi",
     "clean": "rm -rf lib/* results",
     "build": "yarn clean && node_modules/.bin/babel src --out-dir lib"

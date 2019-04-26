@@ -59,8 +59,8 @@ const updatePatientPayload = {
   HomePhone: '(512)555-1213',
 };
 
-const startDate = moment().utc().add(5, 'minutes').format();
-const endDate = moment().utc().add(35, 'minutes').format();
+const startDate = moment.utc().add(5, 'minutes').format();
+const endDate = moment.utc().add(35, 'minutes').format();
 
 const appointmentPayload = {
   AppointmentLocationSetIdentifier: '1',
@@ -122,8 +122,8 @@ const appointmentPayload = {
   EnteredByLastName: 'No',
 };
 
-const updatedStartDate = moment().utc().add(2, 'hours').format();
-const updatedEndDate = moment().utc().add(3, 'hours').format();
+const updatedStartDate = moment.utc().add(2, 'hours').format();
+const updatedEndDate = moment.utc().add(3, 'hours').format();
 
 const updateAppointmentPayload = {
   ...appointmentPayload,

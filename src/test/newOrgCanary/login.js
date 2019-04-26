@@ -203,24 +203,24 @@ describe('Login Page Tests Cases', () => {
       .pause(1000)
       .submit()
       .pause(1000)
-      .waitForElementVisible('@failedLoginAttemptPrompt', 'Failed login error message is visible.')
+      .waitForElementVisible('@failedLoginAttemptPrompt', 'Failed login error message is visible.');
 
     await login.navigate()
       .resetPassword(testConstants.memberEmail)
       .pause(10000) // significant pause time for ensuring email is delivered
-      .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.')
+      .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.');
 
     const result = await gmail.fetchPasswordResetLink();
-    console.log('>>>>>>>>>>>', `${result.hrefValue}`)
+    console.log('>>>>>>>>>>>', `${result.hrefValue}`);
 
-    await client.url(`${result.hrefValue}`)
-    await login.waitForElementVisible('@confirmPasswordInput', 'User landed on reset password page.')
+    await client.url(`${result.hrefValue}`);
+    await login.waitForElementVisible('@confirmPasswordInput', 'User landed on reset password page.');
 
     await login
       .fillInNewPasswordInput(testConstants.memberPassword)
       .fillInConfirmPasswordInput(testConstants.memberPassword)
       .clickSaveAndContinueButton()
-      .waitForElementNotPresent('@confirmPasswordInput')
+      .waitForElementNotPresent('@confirmPasswordInput');
 
     done();
   });

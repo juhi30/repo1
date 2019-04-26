@@ -122,7 +122,7 @@ module.exports = {
     },
 
     errorPrompt: {
-      selector: `//DIV[@class='alert__body'][text()='Username and password did not match']`,
+      selector: `//DIV[@class='alert__body'][contains(.,'Username and password did not match')]`,
       locateStrategy: 'xpath',
     },
 

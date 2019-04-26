@@ -73,11 +73,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    birthdayInput: {
-      selector: '//INPUT[contains(@id, \'birthday\')]',
-      locateStrategy: 'xpath',
-    },
-
     externalId: {
       selector: '//INPUT[contains(@name, \'externalId)]',
       locateStrategy: 'xpath',

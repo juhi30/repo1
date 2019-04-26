@@ -1,8 +1,8 @@
 import { client } from 'nightwatch-api';
+
 const testConstants = require('../../toolboxes/feeder.toolbox');
 
 describe('Office Page', () => {
-
   test('Login as Member', async () => {
     const login = client.page.LoginPage();
 
@@ -10,11 +10,10 @@ describe('Office Page', () => {
       .fillInUsername(testConstants.memberUsername)
       .fillInPassword(testConstants.memberPassword)
       .submit()
-      .validateUrlChange()
+      .validateUrlChange();
   });
 
   test('To add the office by Member', async () => {
-
     const office = client.page.OfficePage();
     const checkAuditLogs = client.page.AuditLogsPage();
 
@@ -26,15 +25,14 @@ describe('Office Page', () => {
       .createOfficeForm('@officeState', testConstants.officeState)
       .createOfficeForm('@officeZip', testConstants.zip)
       .click('@createOfficeButton')
-      .successMessageVerification('@officeCreationSuccessMessage')
+      .successMessageVerification('@officeCreationSuccessMessage');
 
     await checkAuditLogs.navigate()
       .pause(5000)
-      .validateAuditEntry(testConstants.memberName, 'Office Location', 'Add', testConstants.officeName)
+      .validateAuditEntry(testConstants.memberName, 'Office Location', 'Add', testConstants.officeName);
   });
 
   test('To edit the office by Member', async () => {
-
     const office = client.page.OfficePage();
     const checkAuditLogs = client.page.AuditLogsPage();
 
@@ -46,26 +44,24 @@ describe('Office Page', () => {
       .setValue('@officeState', testConstants.newOfficeState)
       .editOfficeForm('@officeZip', testConstants.newZipCode)
       .click('@updateOfficeButton')
-      .successMessageVerification('@officeUpdationSuccessMessage')
+      .successMessageVerification('@officeUpdationSuccessMessage');
 
     await checkAuditLogs.navigate()
       .pause(2000)
-      .validateAuditEntry(testConstants.memberName, 'Office Location', 'Edit', testConstants.newOfficeName)
-
+      .validateAuditEntry(testConstants.memberName, 'Office Location', 'Edit', testConstants.newOfficeName);
   });
 
   test('To delete the office by Member ', async () => {
-
     const office = client.page.OfficePage();
     const checkAuditLogs = client.page.AuditLogsPage();
     const logout = client.page.UniversalElements();
 
     await office.navigate()
       .deleteOfficeForm()
-      .successMessageVerification('@officeDeletionSuccessMessage')
+      .successMessageVerification('@officeDeletionSuccessMessage');
 
     await checkAuditLogs.navigate()
       .pause(2000)
-      .validateAuditEntry(testConstants.memberName, 'Office Location', 'Delete', testConstants.newOfficeName)
+      .validateAuditEntry(testConstants.memberName, 'Office Location', 'Delete', testConstants.newOfficeName);
   });
-}); 
+});

@@ -3,7 +3,7 @@ import moment from 'moment-timezone';
 import * as rhinofeeder from '../../services/Rhinofeeder.service';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 
-const orgId = process.env.EXISTING_ORG_ID;
+const orgId = process.env.INTEGRATIONS_ORG_ID;
 let createdPatient;
 
 const patientPayload = {

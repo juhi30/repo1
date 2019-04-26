@@ -107,12 +107,22 @@ const contactsCommands = {
       .click(element)
   },
 
-  selectCreatedContact: function (createdContact) {
+  contactEditMode: function (createdContact) {
     return this.waitForElementVisible(createdContact, createdContact + ' Created Contact is visible in the contact list.')
       .click(createdContact)
       .waitForElementVisible('@summaryPanel', 'Summary Panel opened.')
       .click('@editProfileButton')
-      .waitForElementVisible('@contactEditPageTitle', 'Edit Contact page is open')
+  },
+
+  checkElementVisibility: function (element) {
+    console.log('check visibility of edit page title')
+    return this.waitForElementVisible(element, 1000, (result) => {
+      console.log('=================', result.value)
+      if (result.value) {
+        console.log('>>>>>>>>>>>>>> Inside If condition')
+        this.click(element)
+      }
+    })
   },
 
   editContactDetails: function (element, newValue) {

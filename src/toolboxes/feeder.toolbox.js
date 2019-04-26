@@ -146,9 +146,9 @@ module.exports = {
     integrationType: 'Sikka',
 
     //New Contact details
-    contactFirstName: 'Contact',
-    contactMiddleName: 'Patient',
-    contactLastName: 'Type',
+    contactFirstName: 'Automation Patient',
+    contactMiddleName: 'Type',
+    contactLastName: 'Contact',
     contactPreferredName: 'cpt',
     contactPrefix: 'Mr.',
     contactSuffix: 'Jr.',
@@ -159,8 +159,8 @@ module.exports = {
     contactNote: 'This contact is being created by Automation',
 
     // Contact details for Other type
-    contactOtherFirstName: 'Other',
-    contactOtherLastName: 'Type',
+    contactOtherFirstName: 'Automation Other',
+    contactOtherLastName: 'Contact',
     contactOtherPreferredName: 'Other',
     contactOtherPrefix: 'Dr.',
     contactOtherSuffix: 'Sr.',
@@ -171,7 +171,7 @@ module.exports = {
     contactNote: 'This contact is being created by Automation',
 
     //Contact edit details
-    contactNewFirstName: 'New',
+    contactNewFirstName: 'Automation New',
     contactNewLastName: 'Contact',
     contactNewBirthDate: '09/23/1988',
     contactGender: 'Male',
@@ -181,8 +181,8 @@ module.exports = {
 
     // Add contact details by connected party
     contactTypeOnModal: 'Patient',
-    contactFirstNameOnModal: 'Test',
-    contactMiddleNameOnModal: 'K',
+    contactFirstNameOnModal: 'Connected Party',
+    contactMiddleNameOnModal: 'Test',
     contactLastNameOnModal: 'Contact',
     contactBirthDateOnModal: '11/25/1990',
     contactNumberOnModal: '8757858225',

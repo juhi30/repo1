@@ -87,13 +87,21 @@ const auditLogsCommands = {
       .verify.containsText('@staticField', name, action + 'ed Event should be ' + name)
   },
 
-  selectContactFilter: function (contactName) {
+  selectContactFilter: function (contactName, selectContactElement) {
     return this.waitForElementVisible('@contactFilter', 'Contact filter is visible')
       .click('@contactFilter')
       .waitForElementVisible('@searchContactInput', 'Search contact input is visible')
       .setValue('@searchContactInput', contactName)
-      .waitForElementVisible('@searchedContact', 'Searched contact is visible')
-      .click('@searchedContact')
+      .waitForElementVisible(selectContactElement, 'Searched contact ' + contactName + ' is visible')
+      .click(selectContactElement)
+      .pause(1000)
+  },
+
+  selectActionFilter: function (selectActionElement) {
+    return this.waitForElementVisible('@actionFilter', 'Contact filter is visible')
+      .click('@actionFilter')
+      .waitForElementVisible(selectActionElement, 'Add action is visible')
+      .click(selectActionElement)
       .pause(1000)
   }
 }
@@ -249,8 +257,28 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    searchedContact: {
+    searchedContactConnectedParty: {
       selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}']`,
+      locateStrategy: 'xpath',
+    },
+
+    searchContactPatient: {
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactFirstName} ${testConstants.contactLastName}']`,
+      locateStrategy: 'xpath',
+    },
+
+    searchContactOther: {
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactOtherFirstName} ${testConstants.contactOtherLastName}']`,
+      locateStrategy: 'xpath',
+    },
+
+    searchContactNew: {
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactNewFirstName} ${testConstants.contactNewLastName}']`,
+      locateStrategy: 'xpath',
+    },
+
+    selectAddAction: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='Add']`,
       locateStrategy: 'xpath',
     }
   }

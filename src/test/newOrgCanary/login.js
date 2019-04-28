@@ -123,7 +123,6 @@ describe('Login Page Tests Cases', () => {
     try {
       gmail.fetchPasswordResetLink().then((result) => {
         process.env.NEW_HREF = result.hrefValue
-        console.log('>>>>>>>>>>>', process.env.NEW_HREF)
         done()
       })
     }
@@ -211,7 +210,6 @@ describe('Login Page Tests Cases', () => {
       .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.');
 
     const result = await gmail.fetchPasswordResetLink();
-    console.log('>>>>>>>>>>>', `${result.hrefValue}`);
 
     await client.url(`${result.hrefValue}`);
     await login.waitForElementVisible('@confirmPasswordInput', 'User landed on reset password page.');

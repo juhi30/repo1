@@ -109,16 +109,8 @@ module.exports = {
   callToActionButton: 'Send Message',
   confirmationText: 'The message has been submitted successfully!',
 
-  // details for office addition
-  officeName: 'Mount Pleasant Office',
-  officeAddress: '128 Hester St',
-  officeCity: 'Charleston',
-  officeState: 'South Carolina',
-  zipCode: '29403',
-
   addEvent: 'Add',
   category: 'Office Location',
-  editEvent: 'Edit',
   deleteEvent: 'Delete',
 
   newOfficeName: 'American Megatrends',

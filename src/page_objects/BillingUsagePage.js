@@ -36,12 +36,12 @@ const billingCommands = {
     this.getText('@planName', (tpObj) => {
       text = tpObj.value;
       if (text && text.match(/Subscription Trial/gi) && text.match(/Subscription Trial/gi).length) {
-        self.expect.element('@currentUsageSection').to.not.be.present;
-        self.expect.element('@estimatedBillSection').to.not.be.present;
+        self.expect.element.to.not.be.present('@currentUsageSection');
+        self.expect.element.to.not.be.present('@estimatedBillSection');
         self.validateCurrentPlanProductsNew();
       } else {
-        self.expect.element('@currentUsageSection').to.be.present;
-        self.expect.element('@estimatedBillSection').to.be.present;
+        self.expect.element.to.be.present('@currentUsageSection');
+        self.expect.element.to.be.present('@estimatedBillSection');
         self.validateCurrentPlanProductsLegacy();
       }
     });
@@ -90,7 +90,7 @@ const billingCommands = {
     this.verify.visible(element, 'Element is visible');
 
     return this.getCssProperty(element, property, (res) => {
-      const currentColor = colors.filter(val => val.code == res.value);
+      const currentColor = colors.filter(val => val.code === res.value);
       if (Array.isArray(currentColor) && currentColor.length > 0) {
         console.log(`${res.value} : ${currentColor[0].color} in Color!`);
       }
@@ -216,14 +216,10 @@ const billingCommands = {
   },
 
   validateAccountTypeOptions() {
-    return this.verify.visible('@bankAccountTypeSelect', 'Account Type field is visible');
-    this.getAttribute('@bankAccountTypeSelect' + '/option', 'option', (result) => {
+    this.verify.visible('@bankAccountTypeSelect', 'Account Type field is visible');
+    this.getAttribute('@bankAccountTypeSelect', 'option', (result) => {
       console.log(result);
     });
-  },
-
-  changePaymentMethod(element) {
-    return this.click(element);
   },
 
   validateBillingHistory() {

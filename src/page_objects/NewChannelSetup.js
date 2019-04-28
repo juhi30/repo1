@@ -126,11 +126,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    createChannelButton: {
-      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Create Channel\']',
-      locateStrategy: 'xpath',
-    },
-
     channelCreationSuccessMessage: {
       selector: '//DIV[text()=\'Channel created successfully.\']',
       locateStrategy: 'xpath',

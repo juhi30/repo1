@@ -1,5 +1,4 @@
 const Imap = require('imap');
-const { inspect } = require('util');
 
 const imap = new Imap({
   user: process.env.GMAIL_USERNAME,
@@ -34,9 +33,12 @@ function fetchPasswordResetLink() {
 
               const isLink = buffer.includes('here');
               if (isLink) {
-                const anchorTag = buffer.match(/<a [^>]+>here<\/a>/)[0];
-                hrefValue = anchorTag.match(/href="([^"]*)/);
-                hrefValue = hrefValue[1].replace('amp;', '');
+                // var anchorTag = buffer.match(/<a [^>]+>Let's Get Started<\/a>/);
+                const anchorTag = buffer.match(/<a [^>]+>here<\/a>/);
+
+                // eslint-disable-next-line prefer-destructuring
+                hrefValue = anchorTag[0].match(/href="([^"]*)/)[1];
+                hrefValue = hrefValue.replace('amp;', '');
               }
             });
             stream.on('end', () => {

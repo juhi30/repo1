@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+const fs = require('fs');
+
 // allows tests to run through browserstack
 require('browserstack-automate').Nightwatch();
 
@@ -28,7 +31,7 @@ module.exports = {
         javascriptEnabled: true,
         acceptSslCerts: true,
         chromeOptions: {
-          args: options,
+          args: ['headless', 'no-sandbox', 'disable-gpu', 'window-size=1280,800'],
         },
       },
     },

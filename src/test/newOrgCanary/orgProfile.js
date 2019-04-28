@@ -11,8 +11,18 @@ describe('Organisation profile edit as member', () => {
     await orgProfile.navigate()
       .renderPageElements('@addLogoButton');
 
-    await orgProfile.updateOrgProfileMandatoryFields(testConstants.orgNewName, testConstants.orgNewAddress, testConstants.orgNewCity, testConstants.orgNewState, testConstants.orgNewZip)
-      .updateOrgProfileOtherFields(testConstants.orgNewAddress2, testConstants.orgNewPhone, testConstants.orgNewEmail, testConstants.orgNewcontactName, testConstants.orgNewcontactPhone, testConstants.orgNewcontactEmail)
+    await orgProfile
+      .updateOrgProfileMandatoryFields(testConstants.orgNewName,
+        testConstants.orgNewAddress,
+        testConstants.orgNewCity,
+        testConstants.orgNewState,
+        testConstants.orgNewZip)
+      .updateOrgProfileOtherFields(testConstants.orgNewAddress2,
+        testConstants.orgNewPhone,
+        testConstants.orgNewEmail,
+        testConstants.orgNewcontactName,
+        testConstants.orgNewcontactPhone,
+        testConstants.orgNewcontactEmail)
       .clickSaveProfile()
       .pause(1000);
 
@@ -82,8 +92,17 @@ describe('Organization Profile Edit as CCR', () => {
       .renderPageElements('@updateLogoButton');
 
     await orgProfile.verifyBillingIdAndIntegrationOptions()
-      .updateOrgProfileMandatoryFields(testConstants.orgNewName, testConstants.orgNewAddress, testConstants.orgNewCity, testConstants.orgNewState, testConstants.orgNewZip)
-      .updateOrgProfileOtherFields(testConstants.orgNewAddress2, testConstants.orgNewPhone, testConstants.orgNewEmail, testConstants.orgNewcontactName, testConstants.orgNewcontactPhone, testConstants.orgNewcontactEmail)
+      .updateOrgProfileMandatoryFields(testConstants.orgNewName,
+        testConstants.orgNewAddress,
+        testConstants.orgNewCity,
+        testConstants.orgNewState,
+        testConstants.orgNewZip)
+      .updateOrgProfileOtherFields(testConstants.orgNewAddress2,
+        testConstants.orgNewPhone,
+        testConstants.orgNewEmail,
+        testConstants.orgNewcontactName,
+        testConstants.orgNewcontactPhone,
+        testConstants.orgNewcontactEmail)
       .enableDisableToggles('@integrationToggle')
       .updateIntegrationValue(testConstants.orgNewIntegration)
       .clickSaveProfile();

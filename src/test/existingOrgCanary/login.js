@@ -5,7 +5,7 @@ describe('Existing Canary Login Page Tests', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .validateForm()
+      .validateForm();
   });
 
   test('Try to login with NO name and NO password', async () => {
@@ -13,26 +13,24 @@ describe('Existing Canary Login Page Tests', () => {
 
     await login.navigate()
       .submit()
-      .validateForm()
-
+      .validateForm();
   });
 
   test('Try to login with name and NO password', async () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-           .fillInUsername('nightmember')
-           .submit()
-           .validateForm()
-
+      .fillInUsername('nightmember')
+      .submit()
+      .validateForm();
   });
 
   test('Try to login with NO name and password', async () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-           .fillInPassword('justsomepassword')
-          .submit()
-           .validateForm()
+      .fillInPassword('justsomepassword')
+      .submit()
+      .validateForm();
   });
 });

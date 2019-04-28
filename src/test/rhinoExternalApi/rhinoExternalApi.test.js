@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as rhinoExternalApi from '../../services/RhinoExternalApi.service';
 
 // TODO: This is temporary until we have the create/teardown org helps to easily use.  Will convert at that point.

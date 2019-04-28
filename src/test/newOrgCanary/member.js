@@ -1,5 +1,6 @@
 import { client } from 'nightwatch-api';
-const testConstants = require('../../toolboxes/feeder.toolbox')
+
+const testConstants = require('../../toolboxes/feeder.toolbox');
 
 describe('Members Page', () => {
   test('Adding a new Member with Admin Role', async () => {
@@ -16,7 +17,7 @@ describe('Members Page', () => {
       .setMemberRoles('@memberRole')
       .createMember()
       .pause(2000)
-      .waitForElementNotPresent('@createSuccessMessage', 'Success message is gone.')
+      .waitForElementNotPresent('@createSuccessMessage', 'Success message is gone.');
   });
 
   test('Logout as CCR', async () => {
@@ -36,7 +37,7 @@ describe('Members Page', () => {
       .fillInConfirmPasswordInput(testConstants.memberPassword)
       .clickSaveAndContinueButton()
       .validateUrlChange()
-      .pause(3000)
+      .pause(3000);
   });
 
   test('Logout as member', async () => {

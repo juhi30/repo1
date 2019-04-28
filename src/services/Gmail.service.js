@@ -16,7 +16,7 @@ function openInbox(cb) {
 }
 
 function fetchPasswordResetLink() {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     let hrefValue = '';
 
     await imap.connect();
@@ -42,12 +42,12 @@ function fetchPasswordResetLink() {
               }
             });
             stream.on('end', () => {
-              console.log('body finished');
+              console.log('body finished'); // eslint-disable-line no-console
             });
           });
         });
         f.on('error', (error) => {
-          console.log('error', error);
+          console.log('error', error); // eslint-disable-line no-console
         });
         f.on('end', async () => {
           imap.end();
@@ -55,7 +55,7 @@ function fetchPasswordResetLink() {
       });
     });
     imap.on('error', (err) => {
-      console.log(err);
+      console.log(err); // eslint-disable-line no-console
     });
 
     imap.on('end', () => {

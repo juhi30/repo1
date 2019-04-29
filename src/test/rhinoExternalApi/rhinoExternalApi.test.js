@@ -32,7 +32,7 @@ let postedUser;
 
 describe('rhino-external-api tests', () => {
   jest.setTimeout(30000);
-  test('post patient', async (done) => {
+  test('post patient', async () => {
     const response = await rhinoExternalApi.postUser(user);
     postedUser = response.data;
     expect(response.data.externalId).toBe(user.externalId);
@@ -43,36 +43,31 @@ describe('rhino-external-api tests', () => {
     expect(response.data.phones[0].type).toBe(user.phones[0].type);
     expect(response.data.emails[0].address).toBe(user.emails[0].address);
     expect(response.data.emails[0].type).toBe(user.emails[0].type);
-    done();
   });
 
-  test('get patient by userId', async (done) => {
+  test('get patient by userId', async () => {
     const response = await rhinoExternalApi.getUserById(postedUser.id);
     expect(response.data).toEqual(postedUser);
-    done();
   });
 
-  test('get patient by externalId', async (done) => {
+  test('get patient by externalId', async () => {
     const response = await rhinoExternalApi.getUserByExternalId(postedUser.externalId);
     const response2 = await rhinoExternalApi.getUserByExternalIdPath(postedUser.externalId);
     expect(response.data).toEqual(postedUser);
     expect(response2.data).toEqual(postedUser);
-    done();
   });
 
-  test('search patient by first, last, dob', async (done) => {
+  test('search patient by first, last, dob', async () => {
     const response = await rhinoExternalApi.searchByFirstLastDob(postedUser.firstName, postedUser.lastName, postedUser.birthday);
     expect(response.data).toEqual([postedUser]);
-    done();
   });
 
-  test('search patient by first, last, phone', async (done) => {
+  test('search patient by first, last, phone', async () => {
     const response = await rhinoExternalApi.searchByFirstLastPhones(postedUser.firstName, postedUser.lastName, postedUser.phones[0].number);
     expect(response.data).toEqual([postedUser]);
-    done();
   });
 
-  test('put patient', async (done) => {
+  test('put patient', async () => {
     const putUser = {
       ...postedUser,
       preferredName: 'Brandt',
@@ -83,6 +78,5 @@ describe('rhino-external-api tests', () => {
     const response2 = await rhinoExternalApi.putUserById(putUser.id, putUser);
     expect(response.data).toEqual(putUser);
     expect(response2.data).toEqual(putUser);
-    done();
   });
 });

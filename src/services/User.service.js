@@ -4,57 +4,55 @@ const request = require('request');
 
 function mergeUsers(id1, id2, cookie) {
   const RHINO_API_BASE_URL = process.env.API_BASE_URL;
-  const url = RHINO_API_BASE_URL + `/users/mergeUsers/${id1}/${id2}`;
+  const url = `${RHINO_API_BASE_URL}/users/mergeUsers/${id1}/${id2}`;
 
-  var options = {
+  const options = {
     method: 'GET',
-    url: url,
+    url,
     headers:
     {
       'content-type': 'application/json',
       token: process.env.RG_DEV_TOKEN,
       Cookie: cookie,
     },
-    json: true
+    json: true,
   };
 
-  return new Promise(function (resolve, reject) {
-    request(options, function (error, response, body) {
+  return new Promise(((resolve, reject) => {
+    request(options, (error, response, body) => {
       if (error) reject(error);
 
       resolve(body);
-
     });
-  })
+  }));
 }
 
 function getUser(userId, cookie) {
   const RHINO_API_BASE_URL = process.env.API_BASE_URL;
-  const url = RHINO_API_BASE_URL + `/users/${userId}`;
+  const url = `${RHINO_API_BASE_URL}/users/${userId}`;
 
-  var options = {
+  const options = {
     method: 'GET',
-    url: url,
+    url,
     headers:
     {
       'content-type': 'application/json',
       token: process.env.RG_DEV_TOKEN,
       Cookie: cookie,
     },
-    json: true
+    json: true,
   };
 
-  return new Promise(function (resolve, reject) {
-    request(options, function (error, response, body) {
+  return new Promise(((resolve, reject) => {
+    request(options, (error, response, body) => {
       if (error) reject(error);
 
       resolve(body);
-
     });
-  })
+  }));
 }
 
 module.exports = {
-  mergeUsers: mergeUsers,
-  getUser: getUser,
-}
+  mergeUsers,
+  getUser,
+};

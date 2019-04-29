@@ -36,16 +36,6 @@ const convoThreadCommands = {
       .click('@useTemplateChoice');
   },
 
-  clickaddFilePopupButton() {
-    return this.waitForElementVisible('@addFilePopupButton', 'Add file dropdown button is visible')
-      .click('@addFilePopupButton');
-  },
-
-  clickUseTemplateChoice() {
-    return this.waitForElementPresent('@useTemplateChoice', 'Add file dropdown choices are visible')
-      .click('@useTemplateChoice');
-  },
-
   clickRhinoSecureTab() {
     return this.waitForElementPresent('@rhinoSecureTab', 'RhinoSecure tab visible')
       .click('@rhinoSecureTab');

@@ -29,14 +29,14 @@ const membersCommands = {
   getTempPassword() {
     return this.getAttribute('@tempPassword', 'value', (tpObj) => {
       global.TEMP_PASSWORD = tpObj.value;
-      console.log('Temp password is ==', global.TEMP_PASSWORD);
+      console.log('Temp password is ==', global.TEMP_PASSWORD); // eslint-disable-line no-console
     });
   },
 
   getNewTempPassword() {
     return this.getAttribute('@tempPassword', 'value', (tpObj) => {
       global.TEMP_NEW_PASSWORD = tpObj.value;
-      console.log('Temp password is ==', global.TEMP_NEW_PASSWORD);
+      console.log('Temp password is ==', global.TEMP_NEW_PASSWORD); // eslint-disable-line no-console
     });
   },
 

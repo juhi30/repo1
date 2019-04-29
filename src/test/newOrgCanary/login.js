@@ -85,6 +85,16 @@ describe('Login Page Tests Cases', () => {
       .waitForElementVisible('@errorPrompt', 'Error message is visible.');
   });
 
+  test('Login with valid username and invalid password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .fillInUsername(testConstants.memberUsername)
+      .fillInPassword(testConstants.state)
+      .submit()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible.');
+  });
+
   test('Use valid email for forgotten password', async () => {
     const login = client.page.LoginPage();
 

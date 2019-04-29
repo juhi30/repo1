@@ -9,12 +9,12 @@ const testConstants = require('../../toolboxes/feeder.toolbox');
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
-  const login = client.page.LoginPage();
+  const loginPage = client.page.LoginPage();
   const setup = client.page.AccountSetupPage();
   const org = client.page.UniversalElements();
 
   try {
-    await login.navigate()
+    await loginPage.navigate()
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit()
       .pause(2000)

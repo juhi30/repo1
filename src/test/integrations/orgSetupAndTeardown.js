@@ -6,7 +6,7 @@ import {
 } from '../../services/Rhinoapi.service';
 
 // CREATE MY NEW ORG HERE
-beforeAll(async () => {
+beforeAll(async (done) => {
   try {
     const cookie = await login();
     // eslint-disable-next-line no-console

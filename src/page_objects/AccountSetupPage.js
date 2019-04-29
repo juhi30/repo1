@@ -1,23 +1,23 @@
 
 const accountSetupCommands = {
 
-  getOrgId: function () {
+  getOrgId() {
     return this.waitForElementVisible('@orgId', 'Org Id is visible')
-      .getText('@orgId', function (tpObj) {
-        tpObj = tpObj.value.replace("ORGANIZATION (#", "");
-        tpObj = tpObj.replace(")", "");
-        process.env.ORGANIZATION_ID = tpObj
+      .getText('@orgId', (tpObj) => {
+        tpObj = tpObj.value.replace('ORGANIZATION (#', '');
+        tpObj = tpObj.replace(')', '');
+        process.env.ORGANIZATION_ID = tpObj;
         console.log('Org Id is ==', process.env.ORGANIZATION_ID);
       });
   },
 
-  clickBillingToggle: function () {
+  clickBillingToggle() {
     return this.waitForElementPresent('@billingToggle', 'Billing toggle is present')
       .click('@billingToggle')
-      .waitForElementNotPresent('@newBillingRadio', 'Billing options are hidden')
+      .waitForElementNotPresent('@newBillingRadio', 'Billing options are hidden');
   },
 
-  fillInOrgBasicInformation: function (name, address, city, state, zip) {
+  fillInOrgBasicInformation(name, address, city, state, zip) {
     return this.waitForElementPresent('@orgNameInput', 'Organization inputs are present')
       .setValue('@orgNameInput', name)
       .waitForElementVisible('@addressLineOneInput', 'Address Line 1 is visible')
@@ -27,22 +27,22 @@ const accountSetupCommands = {
       .waitForElementVisible('@stateDropdown', 'State dropdown is visible')
       .setValue('@stateDropdown', state)
       .waitForElementVisible('@zipInput', 'Zip field is visible')
-      .setValue('@zipInput', zip)
+      .setValue('@zipInput', zip);
   },
 
-  clickCreateOrganization: function () {
+  clickCreateOrganization() {
     return this.waitForElementPresent('@createOrgButton', 'Create organization button is present')
-      .click('@createOrgButton')
-      // .waitForElementVisible('@contactsPage', 'CCR Landed on org contact page')
+      .click('@createOrgButton');
+    // .waitForElementVisible('@contactsPage', 'CCR Landed on org contact page')
   },
 
-}
+};
 
 module.exports = {
   commands: [accountSetupCommands],
 
-  url: function () {
-    return this.api.launch_url + '/accountsetup'
+  url() {
+    return `${this.api.launch_url}/accountsetup`;
   },
 
   elements: {
@@ -58,57 +58,57 @@ module.exports = {
     // },
 
     orgId: {
-      selector: `//*[@class='app-navigation__org']//SPAN[contains(text(),'Organization')]`,
+      selector: '//*[@class=\'app-navigation__org\']//SPAN[contains(text(),\'Organization\')]',
       locateStrategy: 'xpath',
     },
 
     newBillingRadio: {
-      selector: `//LABEL[contains(@for, 'selectedBillingOpt')]`, // used to verify billing options are hidden
+      selector: '//LABEL[contains(@for, \'selectedBillingOpt\')]', // used to verify billing options are hidden
       locateStrategy: 'xpath',
     },
 
     orgNameInput: {
-      selector: `//INPUT[contains(@id, 'name')]`,
+      selector: '//INPUT[contains(@id, \'name\')]',
       locateStrategy: 'xpath',
     },
 
     parentCompanyInput: {
-      selector: `//INPUT[contains(@id, 'parentCompany')]`,
+      selector: '//INPUT[contains(@id, \'parentCompany\')]',
       locateStrategy: 'xpath',
     },
 
     addressLineOneInput: {
-      selector: `//INPUT[contains(@id, 'street1')]`,
+      selector: '//INPUT[contains(@id, \'street1\')]',
       locateStrategy: 'xpath',
     },
 
     addressLineTwoInput: {
-      selector: `//INPUT[contains(@id, 'street2')]`,
+      selector: '//INPUT[contains(@id, \'street2\')]',
       locateStrategy: 'xpath',
     },
 
     cityInput: {
-      selector: `//INPUT[contains(@id, 'city')]`,
+      selector: '//INPUT[contains(@id, \'city\')]',
       locateStrategy: 'xpath',
     },
 
     stateDropdown: {
-      selector: `//SELECT[contains(@id, 'state')]`,
+      selector: '//SELECT[contains(@id, \'state\')]',
       locateStrategy: 'xpath',
     },
 
     zipInput: {
-      selector: `//INPUT[contains(@id, 'zip')]`,
+      selector: '//INPUT[contains(@id, \'zip\')]',
       locateStrategy: 'xpath',
     },
 
     orgPhoneInput: {
-      selector: `//INPUT[contains(@id, 'businessPhone')]`,
+      selector: '//INPUT[contains(@id, \'businessPhone\')]',
       locateStrategy: 'xpath',
     },
 
     orgEmailInput: {
-      selector: `//INPUT[contains(@id, 'businessEmail')]`,
+      selector: '//INPUT[contains(@id, \'businessEmail\')]',
       locateStrategy: 'xpath',
     },
 
@@ -117,17 +117,17 @@ module.exports = {
     /*---------------------------------------------------------*/
 
     contactNameInput: {
-      selector: `//INPUT[contains(@id, 'orgContactName')]`,
+      selector: '//INPUT[contains(@id, \'orgContactName\')]',
       locateStrategy: 'xpath',
     },
 
     contactPhoneInput: {
-      selector: `//INPUT[contains(@id, 'orgContactPhone')]`,
+      selector: '//INPUT[contains(@id, \'orgContactPhone\')]',
       locateStrategy: 'xpath',
     },
 
     contactEmailInput: {
-      selector: `//INPUT[contains(@id, 'orgContactEmail')]`,
+      selector: '//INPUT[contains(@id, \'orgContactEmail\')]',
       locateStrategy: 'xpath',
     },
     /*---------------------------------------------------------*/
@@ -135,7 +135,7 @@ module.exports = {
     /*---------------------------------------------------------*/
 
     billingToggle: {
-      selector: `//LABEL[contains(@for, 'billingChecked')]`,
+      selector: '//LABEL[contains(@for, \'billingChecked\')]',
       locateStrategy: 'xpath',
     },
 
@@ -143,7 +143,7 @@ module.exports = {
     // Sales Information
     /*---------------------------------------------------------*/
 
-    // currently will not be used for automated testing    
+    // currently will not be used for automated testing
 
     /*---------------------------------------------------------*/
     // Payment Information
@@ -154,13 +154,13 @@ module.exports = {
     /*---------------------------------------------------------*/
 
     createOrgButton: {
-      selector: `//*[contains(text(), 'Create Organization')]`,
+      selector: '//*[contains(text(), \'Create Organization\')]',
       locateStrategy: 'xpath',
     },
 
     contactsPage: {
-      selector: `//*[text()='Import Contacts']`,
+      selector: '//*[text()=\'Import Contacts\']',
       locateStrategy: 'xpath',
     },
-  }
-}
+  },
+};

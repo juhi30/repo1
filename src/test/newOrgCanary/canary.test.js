@@ -1,19 +1,17 @@
-//CCR Flow
-import './orgSetupAndTeardown'
-import './member'
+// CCR Flow
+import './orgSetupAndTeardown';
+import './member';
 import './login'
-import './channels'
+// import './channels'
 
-//Member Flow
-import './office'
-import './tags'
-import './outofoffice'
-import './template'
-import './preferences'
-//import './group'
-import './contact'
+// //Member Flow
+import './office';
+// import './tags'
+// import './outofoffice'
+// import './template'
+// import './preferences'
+// //import './group'
+import './contact';
 
-//Member + CCR flow. This should be the last test case
-import './orgProfile'
-
-
+// //Member + CCR flow. This should be the last test case
+// import './orgProfile'

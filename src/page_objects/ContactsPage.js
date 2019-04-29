@@ -5,7 +5,7 @@ const randomNumber = Math.floor(Math.random() * 1000000);
 
 const contactsCommands = {
 
-  validateContactFilterOptions: function() {
+  validateContactsElements() {
     return this.waitForElementVisible('@filterDropdown', 'Filter dropdown button is visible')
       .click('@filterDropdown')
       .verify.visible('@allContactsOption', 'All contacts option is visible')
@@ -15,28 +15,40 @@ const contactsCommands = {
       .click('@filterDropdown')
   },
 
-  clickFilterOption: function (element, filter) {
+  clickFilterOption(element, filter) {
     return this.click('@filterDropdown')
       .click(element)
       .verify.containsText('@filterDropdown', filter, 'Filter dropdown is now set to ' + filter)
   },
 
-  clickAddContact: function() {
+  clickAddContact() {
     return this.waitForElementVisible('@addContactButton', 'Add contact button is visible')
       .click('@addContactButton')
-      .waitForElementVisible('@addContactButtonModal', 'Add new contact modal is visible')
+      .waitForElementVisible('@addContactButtonModal', 'Add new contact button is visible')
+      .verify.visible('@addContactDropdownInput', 'Dropdown input is visible')
+      .verify.visible('@addNewContactButton', 'Add New Contact button is visible');
   },
 
-  searchForContact: function(contactName, firstResultObject) {
+  searchForContact(contactName, firstResultObject) {
     return this.waitForElementVisible('@searchContactInput', 'Search Contacts Bar is visible')
       .click('@searchContactInput')
       .setValue('@addContactDropdownInput', contactName)
       .waitForElementVisible(firstResultObject, 'First result is visible')
       .click(firstResultObject)
-      .waitForElementVisible('@profileInboxContainer', 'Profile summary is visible')
+      .waitForElementVisible('@profileInboxContainer', 'Profile summary is visible');
   },
 
-  sendOutboundMessageAndGetReply: function(handlerMessage, message) {
+  validateContactFilterOptions() {
+    return this.waitForElementVisible('@filterDropdown', 'Filter dropdown button is visible')
+      .click('@filterDropdown')
+      .verify.visible('@allContactsOption', 'All contacts option is visible')
+      .verify.visible('@patientOption', 'Patient option is visible')
+      .verify.visible('@unknownOption', 'Unknown option is visible')
+      .verify.visible('@otherOption', 'Other option is visible')
+      .click('@filterDropdown')
+  },
+
+  sendOutboundMessageAndGetReply(handlerMessage, message) {
     const handlerRandomizedMessage = `${handlerMessage} ${randomNumber}`;
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .setValue('@inboxMessageArea', handlerRandomizedMessage)
@@ -49,10 +61,9 @@ const contactsCommands = {
       .pause(5000)
       .waitForElementVisible('@replyMessage', 'Reply is received from bot contact to the channel')
       .pause(2000);
-
   },
 
-  sendOutboundMessageToFbContact: function (message) {
+  sendOutboundMessageToFbContact(message) {
     const randomizedMessage = `${message} ${randomNumber}`;
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .setValue('@inboxMessageArea', randomizedMessage)
@@ -61,36 +72,38 @@ const contactsCommands = {
       .pause(3000)
       .waitForElementVisible('@fbContactMessage', 'Message is sent to facebook contact')
       .pause(2000);
-
   },
 
-  getInboundMessage: function(message) {
+  getInboundMessage(message) {
     const randomizedMessage = `${message} ${randomNumber}`;
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .pause(4000)
       .waitForElementVisible('@inboundMessage', 'Inbound Message is received from Bot Contact')
       .pause(2000);
-
   },
 
-  clickCreateUpdateContact: function(actionButton, notification) {
+  clickCreateUpdateContact: function (actionButton, notification) {
     return this.waitForElementVisible(actionButton, actionButton + ' is visible')
       .click(actionButton)
       .waitForElementVisible(notification, notification + 'is visible')
   },
 
-  validateAnalyticsIconVisibility: function() {
+  clickAddNewContact() {
+    return this.waitForElementVisible('@addContactButtonModal', 'Add new contact button is visible')
+      .click('@addNewContactButton');
+  },
+
+  validateAnalyticsIconVisibility() {
     return this.waitForElementVisible('@pageHeader', 'Page header is visible')
       .verify.visible('@analyticsIcon', 'Analytics icon is visible');
   },
 
-  validateAnalyticsPageNavigation: function() {
+  validateAnalyticsPageNavigation() {
     return this.click('@analyticsIcon');
   },
 
-  validateUrlChange: function(url) {
+  validateUrlChange(url) {
     return this.verify.urlContains(url);
-    //.pause(1000);
   },
 
   verifyPageTitle: function () {
@@ -102,19 +115,19 @@ const contactsCommands = {
       .setValue(element, value)
   },
 
-  selectRadioOption: function(element) {
+  selectRadioOption(element) {
     return this.waitForElementVisible(element, element + ' is visible')
       .click(element)
   },
 
-  contactEditMode: function (createdContact) {
+  contactEditMode(createdContact) {
     return this.waitForElementVisible(createdContact, createdContact + ' Created Contact is visible in the contact list.')
       .click(createdContact)
       .waitForElementVisible('@summaryPanel', 'Summary Panel opened.')
       .click('@editProfileButton')
   },
 
-  checkElementVisibility: function (element) {
+  checkElementVisibility(element) {
     console.log('check visibility of edit page title')
     return this.waitForElementVisible(element, 1000, (result) => {
       console.log('=================', result.value)
@@ -176,9 +189,6 @@ const contactsCommands = {
   //     .waitForElement(connectedContactElement, 'Added connected party is visible on summary panel')
   //     .waitForElementNotVisible(connectedRelationshipElement, 'Added connected party is ' + relationship)
   // },
-  getRandomNumber: function() {
-    return randomNumber;
-  },
 
   deleteContact: function (contactName) {
     return this.waitForElementVisible(contactName, contactName + ' is visible in the contact list.')
@@ -189,13 +199,17 @@ const contactsCommands = {
       .click('@confirmDeleteButton')
       .waitForElementVisible('@deleteSuccessMessage', 'Delete Success Message is visible.')
       .pause(1000)
-  }
-}
+  },
+
+  getRandomNumber() {
+    return randomNumber;
+  },
+};
 
 module.exports = {
   commands: [contactsCommands],
-  url: function() {
-    return this.api.launch_url + '/contacts'
+  url() {
+    return `${this.api.launch_url}/contacts`;
   },
   elements: {
 
@@ -204,27 +218,27 @@ module.exports = {
     /*-----------------------------------------------------------*/
 
     filterDropdown: {
-      selector: `//BUTTON[contains(@title, 'Filter contacts')]`,
+      selector: '//BUTTON[contains(@title, \'Filter contacts\')]',
       locateStrategy: 'xpath',
     },
 
     allContactsOption: {
-      selector: `//SPAN[contains(.,'All Contacts')]`,
+      selector: '//SPAN[contains(.,\'All Contacts\')]',
       locateStrategy: 'xpath',
     },
 
     patientOption: {
-      selector: `//SPAN[contains(.,'Patient')]`,
+      selector: '//SPAN[contains(.,\'Patient\')]',
       locateStrategy: 'xpath',
     },
 
     unknownOption: {
-      selector: `//SPAN[contains(.,'Unknown')]`,
+      selector: '//SPAN[contains(.,\'Unknown\')]',
       locateStrategy: 'xpath',
     },
 
     otherOption: {
-      selector: `//SPAN[contains(.,'Other')]`,
+      selector: '//SPAN[contains(.,\'Other\')]',
       locateStrategy: 'xpath',
     },
 
@@ -238,12 +252,12 @@ module.exports = {
     /*-----------------------------------------------------------*/
 
     addContactButton: {
-      selector: `//BUTTON[contains(@title, 'Add New Contact')]`,
+      selector: '//BUTTON[contains(@title, \'Add New Contact\')]',
       locateStrategy: 'xpath',
     },
 
     searchInputInAddContactModal: {
-      selector: `//INPUT[contains(@name, 'nonMembers')]`,
+      selector: '//INPUT[contains(@name, \'nonMembers\')]',
       locateStrategy: 'xpath',
     },
 
@@ -251,34 +265,34 @@ module.exports = {
       selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.BOT_CONTACT_NAME}')]`,
       locateStrategy: 'xpath',
     },
- 
+
     addContactDropdownFirstResultFb: {
       selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.FACEBOOK_CONTACT_NAME}')]`,
       locateStrategy: 'xpath',
     },
 
     searchContactInput: {
-      selector: `//SPAN[contains(text(), 'Search users')]`,
+      selector: '//SPAN[contains(text(), \'Search users\')]',
       locateStrategy: 'xpath',
     },
 
     addContactDropdownInput: {
-      selector: `//DIV[contains(@class, 'modal')]//INPUT`,
+      selector: '//DIV[contains(@class, \'modal\')]//INPUT',
       locateStrategy: 'xpath',
     },
 
     profileInboxContainer: {
-      selector: `//DIV[contains(@class, 'convo__inner')]`,
+      selector: '//DIV[contains(@class, \'convo__inner\')]',
       locateStrategy: 'xpath',
     },
 
     inboxMessageArea: {
-      selector: `//DIV[contains(@class, 'convo__message__textarea')]//TEXTAREA`,
+      selector: '//DIV[contains(@class, \'convo__message__textarea\')]//TEXTAREA',
       locateStrategy: 'xpath',
     },
 
     sendMessageButton: {
-      selector: `//BUTTON[contains(@class, 'convo__message__send')]`,
+      selector: '//BUTTON[contains(@class, \'convo__message__send\')]',
       locateStrategy: 'xpath',
     },
 
@@ -302,12 +316,12 @@ module.exports = {
     /*-----------------------------------------------------------*/
 
     pageHeader: {
-      selector: `//HEADER[contains(@class, 'app-header')]`,
+      selector: '//HEADER[contains(@class, \'app-header\')]',
       locateStrategy: 'xpath',
     },
 
     analyticsIcon: {
-      selector: `//BUTTON[contains(@id, 'nav-analytics')]`,
+      selector: '//BUTTON[contains(@id, \'nav-analytics\')]',
       locateStrategy: 'xpath',
     },
 
@@ -335,6 +349,11 @@ module.exports = {
 
     middleNameInput: {
       selector: `//INPUT[contains(@id, 'middleName')]`,
+      locateStrategy: 'xpath',
+    },
+
+    addNewContactButton: {
+      selector: `//SPAN[contains(.,\'Add New Contact\')]`,
       locateStrategy: 'xpath',
     },
 
@@ -641,4 +660,5 @@ module.exports = {
       locateStrategy: 'xpath',
     },
   }
+
 };

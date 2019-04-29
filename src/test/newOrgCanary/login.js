@@ -218,7 +218,7 @@ describe('Login Page Tests Cases', () => {
     done();
   });
 
-  test('logout as CCR', async () => {
+  test('logout as Member', async () => {
     const logout = client.page.UniversalElements();
 
     await logout.clickLogout();

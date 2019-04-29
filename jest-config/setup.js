@@ -11,9 +11,8 @@ beforeAll(async () => {
   try {
     await createSession({ env: 'default' });
   } catch (err) {
-   console.log('====error while creating the nightwatch session on setup.js=== ', err);
+    console.log('====error while creating the nightwatch session on setup.js=== ', err);
   }
-  
 });
 
 afterAll(async () => {

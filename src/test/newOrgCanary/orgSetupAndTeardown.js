@@ -5,6 +5,7 @@ import {
   login,
 } from '../../services/Rhinoapi.service';
 
+const { EventEmitter } = require('events');
 const testConstants = require('../../toolboxes/feeder.toolbox');
 
 // CREATE MY NEW ORG HERE
@@ -14,6 +15,8 @@ beforeAll(async () => {
   const org = client.page.UniversalElements();
 
   try {
+    // Increase max listeners for long running test
+    EventEmitter.defaultMaxListeners = 100;
     await loginPage.navigate()
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit()
@@ -45,8 +48,12 @@ afterAll(async (done) => {
     const deleteResponse = await deleteOrganization(process.env.ORGANIZATION_ID, cookie);
     console.log('====== Organization Deleted =======');
     done();
+    // Reset max listeners to the node.js default once the test is complete.
+    EventEmitter.defaultMaxListeners = 10;
   } catch (err) {
     console.log('===error on after all orgSetupAndTeardown=======', err);
     done(err);
+    // Reset max listeners to the node.js default once the test is complete.
+    EventEmitter.defaultMaxListeners = 10;
   }
 });

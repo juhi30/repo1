@@ -20,5 +20,5 @@ export async function sendCSVData(file, orgId, handler) {
 
 export async function postMi7InboundMessage(message) {
   return axios.post(`${process.env.FEEDER_BASE_URL}/mi7/inbound`, message,
-    { headers: { apiKey: process.env.FEEDER_MI7_API_KEY, systemId: process.env.EXISTING_ORG_ID } });
+    { headers: { apiKey: process.env.FEEDER_MI7_API_KEY, systemId: process.env.INTEGRATIONS_ORG_ID } });
 }

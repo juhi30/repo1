@@ -34,12 +34,11 @@ beforeAll(async () => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log('===error on before all orgSetupAndTeardown=======', err);
-    done(err);
   }
 });
 
 // DELETE MY NEW ORG HERE
-afterAll(async (done) => {
+afterAll(async () => {
   try {
     // eslint-disable-next-line no-console
     console.log('Login...');
@@ -52,10 +51,8 @@ afterAll(async (done) => {
     await deleteOrganization(process.env.INTEGRATIONS_ORG_ID, cookie);
     // eslint-disable-next-line no-console
     console.log('====== Organization Deleted =======');
-    done();
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log('===error on after all orgSetupAndTeardown=======', err);
-    done(err);
   }
 });

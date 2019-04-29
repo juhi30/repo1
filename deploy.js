@@ -1,7 +1,7 @@
 const Rhinocloud = require('rhinocloud-sdk');
 
 if (!process.env.CIRCLE_BRANCH) {
-  throw new Error(`No value set for process.env.CIRCLE_BRANCH`);
+  throw new Error(`No value set for ${process.env.CIRCLE_BRANCH}`);
 }
 
 const rhinocloud = new Rhinocloud();
@@ -28,4 +28,4 @@ const BUCKET = `nightwatch-results-${process.env.CIRCLE_BRANCH}`;
     console.log(error);
     process.exit(1);
   }
-})();
+}());

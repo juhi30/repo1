@@ -72,8 +72,8 @@ const loginCommands = {
   },
 
   fillInNewPasswordInput(password) {
-    return this.waitForElementVisible('@passwordInput', 'New password input is visible')
-      .setValue('@passwordInput', password);
+    return this.waitForElementVisible('@newPasswordInput', 'New password input is visible')
+      .setValue('@newPasswordInput', password);
   },
 
   fillInConfirmPasswordInput(password) {
@@ -83,8 +83,7 @@ const loginCommands = {
 
   clickSaveAndContinueButton() {
     return this.waitForElementVisible('@saveAndContinueButton', 'Save and Continue button is visible')
-      .click('@saveAndContinueButton')
-      .waitForElementVisible('@passwordUpdateSuccessMessage', 'password updated successfully.');
+      .click('@saveAndContinueButton');
   },
 
   resetPassword(inputValue) {
@@ -123,7 +122,12 @@ module.exports = {
     },
 
     errorPrompt: {
-      selector: '//DIV[@class=\'alert__body\'][text()=\'Username and password did not match\']',
+      selector: '//DIV[contains(.,\'Username and password did not match\')]',
+      locateStrategy: 'xpath',
+    },
+
+    failedLoginAttemptPrompt: {
+      selector: '//DIV[@class=\'alert__body\'][text()=\'You have reached the maximum number of invalid login attempts. Please select the Forgot Password link to reset your password.\']',
       locateStrategy: 'xpath',
     },
 
@@ -148,6 +152,11 @@ module.exports = {
     },
 
     // ------ below are elements found when logging in with a temporary password -----//
+
+    newPasswordInput: {
+      selector: '//INPUT[contains(@name, \'newPassword\')]',
+      locateStrategy: 'xpath',
+    },
 
     confirmPasswordInput: {
       selector: '//INPUT[contains(@name, \'confirmPassword\')]',

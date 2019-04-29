@@ -16,7 +16,6 @@ describe('Login Page Tests Cases', () => {
 
   test('Switch organization as a CCR', async () => {
     const org = client.page.UniversalElements();
-    const setup = client.page.AccountSetupPage();
 
     await org.searchForOrganization(testConstants.orgName)
       .ccrOrgLogin();
@@ -123,11 +122,10 @@ describe('Login Page Tests Cases', () => {
     try {
       gmail.fetchPasswordResetLink().then((result) => {
         process.env.NEW_HREF = result.hrefValue;
-        console.log('>>>>>>>>>>>', process.env.NEW_HREF);
         done();
       });
     } catch (err) {
-      console.log('=====err===', err);
+      console.log('=====err===', err); // eslint-disable-line no-console
     }
   });
 
@@ -186,5 +184,36 @@ describe('Login Page Tests Cases', () => {
     const logout = client.page.UniversalElements();
 
     await logout.clickLogout();
+  });
+
+  test('Login with valid username and invalid password three times', async (done) => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .enterMemberCreds(testConstants.memberEmail, testConstants.state)
+      .submit()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+      .submit()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+      .submit()
+      .waitForElementVisible('@failedLoginAttemptPrompt', 'Failed login error message is visible.');
+
+    await login.navigate()
+      .resetPassword(testConstants.memberEmail)
+      .pause(10000) // significant pause time for ensuring email is delivered
+      .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.');
+
+    const result = await gmail.fetchPasswordResetLink();
+
+    await client.url(`${result.hrefValue}`);
+    await login.waitForElementVisible('@confirmPasswordInput', 'User landed on reset password page.');
+
+    await login
+      .fillInNewPasswordInput(testConstants.memberPassword)
+      .fillInConfirmPasswordInput(testConstants.memberPassword)
+      .clickSaveAndContinueButton()
+      .waitForElementNotPresent('@confirmPasswordInput');
+
+    done();
   });
 });

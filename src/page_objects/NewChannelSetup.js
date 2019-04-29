@@ -37,11 +37,6 @@ module.exports = {
 
   elements: {
 
-    createChannelButton: {
-      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Channels\']',
-      locateStrategy: 'xpath',
-    },
-
     addChannelIcon: {
       selector: '//BUTTON[@title=\'Create Channel\']',
       locateStrategy: 'xpath',
@@ -128,11 +123,6 @@ module.exports = {
 
     dayLightSavingsCheckbox: {
       selector: '//LABEL[@class=\'rhinobox__label\'][text()=\'Daylight saving time observed\']',
-      locateStrategy: 'xpath',
-    },
-
-    createChannelButton: {
-      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Create Channel\']',
       locateStrategy: 'xpath',
     },
 

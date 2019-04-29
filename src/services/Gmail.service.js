@@ -1,5 +1,4 @@
 const Imap = require('imap');
-const inspect = require('util').inspect;
 
 const imap = new Imap({
   user: process.env.GMAIL_USERNAME,
@@ -17,7 +16,7 @@ function openInbox(cb) {
 }
 
 function fetchPasswordResetLink() {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     let hrefValue = '';
 
     await imap.connect();
@@ -36,17 +35,19 @@ function fetchPasswordResetLink() {
               if (isLink) {
                 // var anchorTag = buffer.match(/<a [^>]+>Let's Get Started<\/a>/);
                 const anchorTag = buffer.match(/<a [^>]+>here<\/a>/);
+
+                // eslint-disable-next-line prefer-destructuring
                 hrefValue = anchorTag[0].match(/href="([^"]*)/)[1];
                 hrefValue = hrefValue.replace('amp;', '');
               }
             });
             stream.on('end', () => {
-              console.log('body finished');
+              console.log('body finished'); // eslint-disable-line no-console
             });
           });
         });
-        f.on('error', (err) => {
-          console.log('error', err);
+        f.on('error', (error) => {
+          console.log('error', error); // eslint-disable-line no-console
         });
         f.on('end', async () => {
           imap.end();
@@ -54,7 +55,7 @@ function fetchPasswordResetLink() {
       });
     });
     imap.on('error', (err) => {
-      console.log(err);
+      console.log(err); // eslint-disable-line no-console
     });
 
     imap.on('end', () => {

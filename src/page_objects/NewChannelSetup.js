@@ -37,11 +37,6 @@ module.exports = {
 
   elements: {
 
-    createChannelButton: {
-      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Channels\']',
-      locateStrategy: 'xpath',
-    },
-
     addChannelIcon: {
       selector: '//BUTTON[@title=\'Create Channel\']',
       locateStrategy: 'xpath',

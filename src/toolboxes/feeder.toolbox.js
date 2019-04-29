@@ -1,4 +1,5 @@
 module.exports = {
+
   ccrLogin: process.env.CCR_USERNAME,
   ccrPassword: process.env.CCR_PASSWORD,
 
@@ -11,7 +12,7 @@ module.exports = {
   zip: '12345',
 
   // details for office addition
-  officeName: 'Mount Pleasant Office',
+  officeName: 'Mount Pleasant Office5',
   officeAddress: '128 Hester St',
   officeCity: 'Charleston',
   officeState: 'South Carolina',

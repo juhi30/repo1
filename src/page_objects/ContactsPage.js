@@ -90,7 +90,7 @@ const contactsCommands = {
 
   validateUrlChange: function(url) {
     return this.verify.urlContains(url);
-          //.pause(1000);
+    //.pause(1000);
   },
 
   verifyPageTitle: function () {
@@ -137,9 +137,9 @@ const contactsCommands = {
       .waitForElementNotVisible('@uploadPhotoButton', 'Upload Photo modal is open')
       .pause(2000)
     await helper.uploadFile(this, 'contact.png')
-    return this.pause(5000)
+    return this.pause(3000)
       .click('@doneUploadPhoto')
-      .pause(5000)
+      .pause(3000)
       .click('@updateContactButton')
       .waitForElementVisible('@editSuccessMessage', 'Success message displayed')
   },
@@ -153,7 +153,8 @@ const contactsCommands = {
   },
 
   verifyAddedConnectedParty: function (connectedContactElement, connectedRelationshipElement, relationship) {
-    return this.waitForElementVisible('@summaryPanel', 'Summary Panel opened.')
+    return this.waitForElementVisible('@contactTitle', 'Contact Title is visible in the contact list.')
+      .waitForElementVisible('@editProfileButton', 'Summary Panel opened.')
       .waitForElementVisible(connectedContactElement, 'Added connected party is visible on summary panel')
       .waitForElementVisible(connectedRelationshipElement, 'Added connected party is ' + relationship)
   },
@@ -177,6 +178,17 @@ const contactsCommands = {
   // },
   getRandomNumber: function() {
     return randomNumber;
+  },
+
+  deleteContact: function (contactName) {
+    return this.waitForElementVisible(contactName, contactName + ' is visible in the contact list.')
+      .click(contactName)
+      .waitForElementVisible('@deleteContactButton', 'Delete Contact Button is visible.')
+      .click('@deleteContactButton')
+      .waitForElementVisible('@confirmDeleteButton', ' Delete Modal Opened.')
+      .click('@confirmDeleteButton')
+      .waitForElementVisible('@deleteSuccessMessage', 'Delete Success Message is visible.')
+      .pause(1000)
   }
 }
 
@@ -523,6 +535,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    deleteSuccessMessage: {
+      selector: `//*[text()='Contact successfully deleted.']`,
+      locateStrategy: 'xpath',
+    },
+
     // Others elements
     summaryPanel: {
       selector: `//DIV[@class='app-page__header__title'][text()='Summary']`,
@@ -596,6 +613,31 @@ module.exports = {
 
     searchedContactFirstResult: {
       selector: `//SPAN[@class='resource__intro__title__content']//STRONG[text()='${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}']`,
+      locateStrategy: 'xpath',
+    },
+
+    deleteContactButton: {
+      selector: `//SPAN[@class='button__text-wrapper'][contains(text(),'Delete Contact')]`,
+      locateStrategy: 'xpath',
+    },
+
+    confirmDeleteButton: {
+      selector: `//*[@class='modal__content']//SPAN[@class='button__text-wrapper'][contains(text(),'Delete Contact')]`,
+      locateStrategy: 'xpath',
+    },
+
+    contactTitle: {
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.contactNewFirstName} ${testConstants.contactNewLastName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    otherContactTitle: {
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.contactOtherFirstName} ${testConstants.contactOtherLastName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    connectedPartyTitle: {
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}')]`,
       locateStrategy: 'xpath',
     },
   }

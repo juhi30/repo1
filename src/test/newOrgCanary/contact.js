@@ -10,7 +10,7 @@ describe('Automated Tests: Contact', () => {
 		await contact.navigate()
 			.verify.urlContains('contacts', 'Contact Page is opened')
 			.clickAddContact()
-			//.clickAddNewContact()
+		//.clickAddNewContact()
 		await client.url(process.env.APP_URL + '/contacts/create')
 		await contact.waitForElementVisible('@contactCreatePageTitle', 'New Contact setup page is open')
 			.enterDetails('@firstNameInput', testConstants.contactFirstName)
@@ -27,9 +27,12 @@ describe('Automated Tests: Contact', () => {
 			.clickCreateUpdateContact('@createNewContactButton', '@createSuccessMessage')
 
 		await auditLogs.navigate()
-			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
 			.pause(1000)
 			.selectContactFilter(contactName, '@searchContactPatient')
+			.pause(1000)
+			.selectActionFilter('@selectAddAction')
+			.pause(1000)
 			.validateAuditEntry(testConstants.memberName, 'Contact', 'View', contactName, contactName)
 	});
 
@@ -38,7 +41,7 @@ describe('Automated Tests: Contact', () => {
 		await contact.navigate()
 			.verify.urlContains('contacts', 'Contact Page is opened')
 			.clickAddContact()
-			//.clickAddNewContact()
+		//.clickAddNewContact()
 		await client.url(process.env.APP_URL + '/contacts/create')
 		await contact.waitForElementVisible('@contactCreatePageTitle', 'New Contact setup page is open')
 			.selectRadioOption('@otherOption')
@@ -55,9 +58,12 @@ describe('Automated Tests: Contact', () => {
 			.clickCreateUpdateContact('@createNewContactButton', '@createSuccessMessage')
 
 		await auditLogs.navigate()
-			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
 			.pause(1000)
 			.selectContactFilter(contactName, '@searchContactOther')
+			.pause(1000)
+			.selectActionFilter('@selectAddAction')
+			.pause(1000)
 			.validateAuditEntry(testConstants.memberName, 'Contact', 'View', contactName, contactName)
 	});
 
@@ -80,9 +86,12 @@ describe('Automated Tests: Contact', () => {
 			.clickCreateUpdateContact('@updateContactButton', '@editSuccessMessage')
 
 		await auditLogs.navigate()
-			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
 			.pause(1000)
 			.selectContactFilter(contactName, '@searchContactNew')
+			.pause(1000)
+			.selectActionFilter('@selectEditAction')
+			.pause(1000)
 			.validateAuditEntry(testConstants.memberName, 'Contact', 'Edit', contactName, contactName)
 	});
 
@@ -97,14 +106,16 @@ describe('Automated Tests: Contact', () => {
 			.addUpdatePhoto()
 
 		await auditLogs.navigate()
-			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
 			.pause(1000)
 			.selectContactFilter(contactName, '@searchContactNew')
+			.pause(1000)
+			.selectActionFilter('@selectEditAction')
+			.pause(1000)
 			.validateAuditEntry(testConstants.memberName, 'Contact', 'Edit', contactName, contactName)
 	});
 
 	test('Contact Edit - Add connected party as Parent/Stepparent by creating new contact', async () => {
-		const contactName = testConstants.contactNewFirstName + ' ' + testConstants.contactNewLastName;
 		const connectedPartyContact = testConstants.contactFirstNameOnModal + ' ' + testConstants.contactLastNameOnModal;
 		await contact.navigate()
 			.verify.urlContains('contacts', 'Contact Page is opened')
@@ -120,15 +131,18 @@ describe('Automated Tests: Contact', () => {
 			.enterDetails('@phoneNumberInputOnModal', testConstants.contactNumberOnModal)
 			.enterDetails('@emailInputOnModal', testConstants.contactEmailOnModal)
 			.clickCreateUpdateContact('@createNewContactButton', '@createSuccessMessage')
-			.verify.visible('@addedConnectedParty', 'Added connected party is visible in connected party section')
+			.waitForElementVisible('@addedConnectedParty', 'Added connected party is visible in connected party section')
 			.pause(1000)
 			.clickCreateUpdateContact('@updateContactButton', '@editSuccessMessage')
+			.pause(1000)
 			.verifyAddedConnectedParty('@connectedPartyOnSummary', '@parentRelationshipOnSummary', 'Parent')
 
 		await auditLogs.navigate()
-			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
 			.pause(1000)
 			.selectContactFilter(connectedPartyContact, '@searchedContactConnectedParty')
+			.pause(1000)
+			.selectActionFilter('@selectAddAction')
 			.pause(1000)
 			.validateAuditEntry(testConstants.memberName, 'Contact', 'Edit', connectedPartyContact, connectedPartyContact)
 	});
@@ -146,9 +160,11 @@ describe('Automated Tests: Contact', () => {
 			.verifyAddedConnectedParty('@connectedPartyOnSummary', '@updatedRelationshipOnSummary', testConstants.connectedNewRelationship)
 
 		await auditLogs.navigate()
-			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
 			.pause(1000)
 			.selectContactFilter(contactName, '@searchContactNew')
+			.pause(1000)
+			.selectActionFilter('@selectEditAction')
 			.pause(1000)
 			.validateAuditEntry(testConstants.memberName, 'Contact', 'Edit', contactName, contactName)
 	});
@@ -163,11 +179,14 @@ describe('Automated Tests: Contact', () => {
 			.checkElementVisibility('@editProfileButton')
 			.click('@removeConnectedPartyButton')
 			.clickCreateUpdateContact('@updateContactButton', '@editSuccessMessage')
+			.pause(1000)
 
 		await auditLogs.navigate()
-			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
 			.pause(1000)
 			.selectContactFilter(contactName, '@searchContactNew')
+			.pause(1000)
+			.selectActionFilter('@selectEditAction')
 			.pause(1000)
 			.validateAuditEntry(testConstants.memberName, 'Contact', 'Edit', contactName, contactName)
 	});
@@ -190,13 +209,53 @@ describe('Automated Tests: Contact', () => {
 	test('Contact Search - Search for a contact', async () => {
 		const searchText = testConstants.contactFirstNameOnModal + ' ' + testConstants.contactLastNameOnModal;
 		await contact.searchForContact(searchText, '@searchedContactFirstResult')
-			//.click('@searchUsersModalCloseButton')
 	});
 
-	// test('Logout as member', async () => {
-	// 	const logout = client.page.UniversalElements();
+	test('Delete Contact - Converted Contact(patient to Other)', async () => {
+		const contactName = testConstants.contactNewFirstName + ' ' + testConstants.contactNewLastName;
 
-	// 	await logout.clickLogout();
-  	// });
+		await contact.navigate()
+			.deleteContact('@contactTitle')
 
+		await auditLogs.navigate()
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
+			.pause(2000)
+			.selectContactFilter(contactName, '@searchContactNew')
+			.pause(1000)
+			.selectActionFilter('@selectDeleteAction')
+			.pause(1000)
+			.validateAuditEntry(testConstants.memberName, 'Contact', 'Delete', contactName, contactName)
+	});
+
+	test('Delete Contact - Other Contact type', async () => {
+		const contactName = testConstants.contactOtherFirstName + ' ' + testConstants.contactOtherLastName;
+
+		await contact.navigate()
+			.deleteContact('@otherContactTitle')
+
+		await auditLogs.navigate()
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
+			.pause(2000)
+			.selectContactFilter(contactName, '@searchContactNew')
+			.pause(1000)
+			.selectActionFilter('@selectDeleteAction')
+			.pause(1000)
+			.validateAuditEntry(testConstants.memberName, 'Contact', 'Delete', contactName, contactName)
+	});
+
+	test('Delete Contact - Connected Party Contact', async () => {
+		const contactName = testConstants.contactFirstNameOnModal + ' ' + testConstants.contactLastNameOnModal;
+
+		await contact.navigate()
+			.deleteContact('@connectedPartyTitle')
+
+		await auditLogs.navigate()
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
+			.pause(2000)
+			.selectContactFilter(contactName, '@searchContactNew')
+			.pause(1000)
+			.selectActionFilter('@selectDeleteAction')
+			.pause(1000)
+			.validateAuditEntry(testConstants.memberName, 'Contact', 'Delete', contactName, contactName)
+	});
 });

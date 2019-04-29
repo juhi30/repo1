@@ -19,7 +19,7 @@ describe('OOO Event Page', () => {
 			.submit('@createEventButton', '@eventCreateSuccessMessage')
 
 		await auditLogs.navigate()
-			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
 			.pause(3000)
 			.validateAuditEntry(testConstants.memberName, 'Out of Office', 'Add', testConstants.oooTitle, '')
 	});
@@ -39,7 +39,7 @@ describe('OOO Event Page', () => {
 			.submit('@updateEventButton', '@eventUpdateSuccessMessage')
 			
 		await auditLogs.navigate()
-			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
 			.pause(3000)
 			.validateAuditEntry(testConstants.memberName, 'Out of Office', 'Edit', testConstants.newEventTitle, '')
 	});
@@ -53,7 +53,7 @@ describe('OOO Event Page', () => {
 			.deleteEvent()
 
 		await auditLogs.navigate()
-			.verify.urlContains('auditLog', 'AuditL Logs Page is opened')
+			.verify.urlContains('auditLog', 'Audit Logs Page is opened')
 			.pause(3000)
 			.validateAuditEntry(testConstants.memberName, 'Out of Office', 'Delete', testConstants.newEventTitle, '')
 	});

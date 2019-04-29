@@ -85,6 +85,7 @@ const auditLogsCommands = {
       .verify.containsText('@action', action, 'Action should be ' + action)
       .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
       .verify.containsText('@staticField', name, action + 'ed Event should be ' + name)
+      .click('@linkText')
   },
 
   selectContactFilter: function (contactName, selectContactElement) {
@@ -100,10 +101,9 @@ const auditLogsCommands = {
   selectActionFilter: function (selectActionElement) {
     return this.waitForElementVisible('@actionFilter', 'Contact filter is visible')
       .click('@actionFilter')
-      .waitForElementVisible(selectActionElement, 'Add action is visible')
+      .waitForElementVisible(selectActionElement, selectActionElement + ' : action is visible')
       .click(selectActionElement)
-      .pause(1000)
-  }
+  },
 }
 
 module.exports = {
@@ -130,22 +130,22 @@ module.exports = {
     },
 
     memberFilter: {
-      selector: `//SPAN[text()='Member(s)']`,
+      selector: `//SPAN[@class='dropdown__toggle__text'][text()='Member(s)']`,
       locateStrategy: 'xpath',
     },
 
     contactFilter: {
-      selector: `//SPAN[text()='Contact(s)']`,
+      selector: `//SPAN[@class='dropdown__toggle__text'][text()='Contact(s)']`,
       locateStrategy: 'xpath',
     },
 
     categoryFilter: {
-      selector: `//SPAN[text()='Category']`,
+      selector: `//SPAN[@class='dropdown__toggle__text'][text()='Category']`,
       locateStrategy: 'xpath',
     },
 
     actionFilter: {
-      selector: `//SPAN[text()='Action']`,
+      selector: `//SPAN[@class='dropdown__toggle__text'][text()='Action']`,
       locateStrategy: 'xpath',
     },
 
@@ -280,6 +280,26 @@ module.exports = {
     selectAddAction: {
       selector: `//SPAN[@class='u-text-overflow'][text()='Add']`,
       locateStrategy: 'xpath',
-    }
+    },
+
+    selectEditAction: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='Edit']`,
+      locateStrategy: 'xpath',
+    },
+
+    selectViewAction : {
+      selector: `//SPAN[@class='u-text-overflow'][text()='View']`,
+      locateStrategy: 'xpath',
+    },
+
+    selectMergeAction: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='Merge']`,
+      locateStrategy: 'xpath',
+    },
+
+    selectDeleteAction: {
+      selector: `//SPAN[@class='u-text-overflow'][text()='Delete']`,
+      locateStrategy: 'xpath',
+    },
   }
 }

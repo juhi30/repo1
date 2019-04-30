@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
-import * as rhinofeeder from '../../services/Rhinofeeder.service';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const followRedirects = require('follow-redirects');
 
 export const USER_TYPE_OTHER = 36;
@@ -10,8 +9,6 @@ export const USER_TYPE_PATIENT = 18;
 
 followRedirects.maxRedirects = 10;
 followRedirects.maxBodyLength = 500 * 1024 * 1024 * 1024;
-
-const orgId = process.env.EXISTING_ORG_ID;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -28,7 +25,7 @@ describe('user matching tests', () => {
       sex: 'male',
       messageType: 'USER',
       typeId: USER_TYPE_PATIENT,
-      orgId,
+      orgId: process.env.INTEGRATIONS_ORG_ID,
     };
     rhinoliner.pushtoqueue(user);
 
@@ -39,14 +36,14 @@ describe('user matching tests', () => {
       sex: 'male',
       messageType: 'USER',
       typeId: USER_TYPE_OTHER,
-      orgId,
+      orgId: process.env.INTEGRATIONS_ORG_ID,
     };
     rhinoliner.pushtoqueue(user);
     await sleep(20000);
   });
 
   test('find created patient 1', async (done) => {
-    rhinoapi.getUserByExternalId(orgId, '1').then((response) => {
+    rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '1').then((response) => {
       expect(response.data.externalIds.emrId).toBe('1');
       expect(response.data.firstName).toBe('Joe');
       expect(response.data.patientDetails.sex).toBe('male');
@@ -56,7 +53,7 @@ describe('user matching tests', () => {
   });
 
   test('find created patient 2', async (done) => {
-    rhinoapi.getUserByExternalId(orgId, '2').then((response) => {
+    rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '2').then((response) => {
       expect(response.data.externalIds.emrId).toBe('2');
       expect(response.data.firstName).toBe('Joe');
       expect(response.data.lastName).toBe('Johnson');
@@ -73,9 +70,9 @@ describe('user matching tests', () => {
       lastName: 'Johnson',
       messageType: 'USER',
       typeId: USER_TYPE_PATIENT,
-      orgId,
+      orgId: process.env.INTEGRATIONS_ORG_ID,
     };
-    rhinoapi.findUserByUser(orgId, user).then((response) => {
+    rhinoapi.findUserByUser(process.env.INTEGRATIONS_ORG_ID, user).then((response) => {
       expect(response.data.length).toBe(0);
       done();
     });
@@ -88,9 +85,9 @@ describe('user matching tests', () => {
       lastName: 'Johnson',
       messageType: 'USER',
       typeId: USER_TYPE_PATIENT,
-      orgId,
+      orgId: process.env.INTEGRATIONS_ORG_ID,
     };
-    rhinoapi.findUserByUser(orgId, user).then((response) => {
+    rhinoapi.findUserByUser(process.env.INTEGRATIONS_ORG_ID, user).then((response) => {
       expect(response.data.externalIds.emrId).toBe('1');
       expect(response.data.firstName).toBe('Joe');
       done();
@@ -104,9 +101,9 @@ describe('user matching tests', () => {
       lastName: 'Johnson',
       messageType: 'USER',
       typeId: USER_TYPE_PATIENT,
-      orgId,
+      orgId: process.env.INTEGRATIONS_ORG_ID,
     };
-    rhinoapi.findUserByUser(orgId, user).then((response) => {
+    rhinoapi.findUserByUser(process.env.INTEGRATIONS_ORG_ID, user).then((response) => {
       expect(response.data.externalIds.emrId).toBe('1');
       expect(response.data.firstName).toBe('Joe');
       done();
@@ -119,9 +116,9 @@ describe('user matching tests', () => {
       lastName: 'Johnson',
       messageType: 'USER',
       typeId: USER_TYPE_OTHER,
-      orgId,
+      orgId: process.env.INTEGRATIONS_ORG_ID,
     };
-    rhinoapi.findUserByUser(orgId, user).then((response) => {
+    rhinoapi.findUserByUser(process.env.INTEGRATIONS_ORG_ID, user).then((response) => {
       expect(response.data.length).toBe(0);
       done();
     });
@@ -134,9 +131,9 @@ describe('user matching tests', () => {
       birthday: '1920-01-02',
       messageType: 'USER',
       typeId: USER_TYPE_PATIENT,
-      orgId,
+      orgId: process.env.INTEGRATIONS_ORG_ID,
     };
-    rhinoapi.findUserByUser(orgId, user).then((response) => {
+    rhinoapi.findUserByUser(process.env.INTEGRATIONS_ORG_ID, user).then((response) => {
       expect(response.data.length).toBe(0);
       done();
     });
@@ -147,9 +144,9 @@ describe('user matching tests', () => {
       firstName: 'Joe',
       lastName: 'Johnson',
       birthday: '1920-01-01',
-      orgId,
+      orgId: process.env.INTEGRATIONS_ORG_ID,
     };
-    rhinoapi.findUserByUser(orgId, user).then((response) => {
+    rhinoapi.findUserByUser(process.env.INTEGRATIONS_ORG_ID, user).then((response) => {
       expect(response.data.externalIds.emrId).toBe('1');
       expect(response.data.firstName).toBe('Joe');
       done();

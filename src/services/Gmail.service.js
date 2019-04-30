@@ -1,6 +1,5 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 const Imap = require('imap');
-const inspect = require('util').inspect;
 
 const imap = new Imap({
   user: process.env.GMAIL_USERNAME,
@@ -9,34 +8,36 @@ const imap = new Imap({
   port: 993,
   tls: true,
   tlsOptions: {
-    rejectUnauthorized: false // Force pre-0.9.2 behavior
-  }
+    rejectUnauthorized: false, // Force pre-0.9.2 behavior
+  },
 });
 
 function openInbox(cb) {
   imap.openBox('INBOX', true, cb);
 }
 
-function fetchPasswordResetLink () {
-  return new Promise(async(resolve, reject) => {
-    var hrefValue = '';
+function fetchPasswordResetLink() {
+  return new Promise(async (resolve) => {
+    let hrefValue = '';
 
     await imap.connect();
 
-    imap.on('ready', function() {
-      openInbox(function(err, box) {
+    imap.on('ready', () => {
+      openInbox((err, box) => {
         if (err) throw err;
-        var f = imap.seq.fetch(box.messages.total + ':*', { bodies: ['HEADER.FIELDS (FROM)','TEXT'] });
-          f.on('message', function(msg) {
-            msg.on('body', function(stream) {
-              var buffer = ''
-              stream.on('data', function(chunk) {
+        const f = imap.seq.fetch(`${box.messages.total}:*`, { bodies: ['HEADER.FIELDS (FROM)', 'TEXT'] });
+        f.on('message', (msg) => {
+          msg.on('body', (stream) => {
+            let buffer = '';
+            stream.on('data', (chunk) => {
               buffer += chunk.toString('utf8');
-              
+
               const isLink = buffer.includes('here');
               if (isLink) {
-                //var anchorTag = buffer.match(/<a [^>]+>Let's Get Started<\/a>/);
-               var anchorTag = buffer.match(/<a [^>]+>here<\/a>/);
+                // var anchorTag = buffer.match(/<a [^>]+>Let's Get Started<\/a>/);
+                const anchorTag = buffer.match(/<a [^>]+>here<\/a>/);
+
+                // eslint-disable-next-line prefer-destructuring
                 hrefValue = anchorTag[0].match(/href="([^"]*)/)[1];
                 hrefValue = hrefValue.replace('amp;', '');
               }
@@ -49,7 +50,7 @@ function fetchPasswordResetLink () {
         f.on('error', function(err) {
           logger.error(err, ' === error');
         });
-        f.on('end', async function() {
+        f.on('end', async () => {
           imap.end();
         });
       });
@@ -58,13 +59,13 @@ function fetchPasswordResetLink () {
       logger.error(err);
     });
 
-    imap.on('end', function () {
-      resolve({ success: true, hrefValue: hrefValue });
+    imap.on('end', () => {
+      resolve({ success: true, hrefValue });
     });
-  })
+  });
 }
 
 
 module.exports = {
-    fetchPasswordResetLink,
-}
+  fetchPasswordResetLink,
+};

@@ -3,7 +3,7 @@ const testConstants = require('../toolboxes/feeder.toolbox');
 
 const universalElementsCommands = {
 
-  validateUniversalElements: function () {
+  validateUniversalElements() {
     return this.waitForElementVisible('@myProfileButton', 'My Profile button is visible')
       .verify.visible('@myProfileButton', 'Profile button is visible')
       .verify.visible('@inboxDirectButton', 'Inbox direct is visible')
@@ -11,10 +11,10 @@ const universalElementsCommands = {
       .verify.visible('@contactsButton', 'Contacts button is visible')
       .verify.visible('@searchButton', 'Search button is visible')
       .verify.visible('@helpDropdown', 'Help button is visible')
-      .verify.visible('@settingsButton', 'Settings button is visible')
+      .verify.visible('@settingsButton', 'Settings button is visible');
   },
 
-  validateSearchModal: function (patientName) {
+  validateSearchModal(patientName) {
     return this.waitForElementVisible('@searchButton', 'Search button is visible')
       .click('@searchButton')
       .waitForElementVisible('@searchModalInput', 'Search input is visible on click')
@@ -22,10 +22,10 @@ const universalElementsCommands = {
       .waitForElementVisible('@searchResultFrodoBaggins', 'First result on search dropdown is visible')
       .verify.visible('@addNewContactButton', 'Add new contact button is visible')
       .click('@searchResultFrodoBaggins')
-      .waitForElementNotPresent('@searchResultFrodoBaggins', 'First result is hidden')
+      .waitForElementNotPresent('@searchResultFrodoBaggins', 'First result is hidden');
   },
 
-  validateSettingsDropdown: function () {
+  validateSettingsDropdown() {
     return this.waitForElementVisible('@settingsButton', 'Settings button is visible')
       .pause(500)
       .click('@settingsButton')
@@ -42,10 +42,10 @@ const universalElementsCommands = {
       .waitForElementVisible('@tagsInSettingsDropdown', 'Tags is visible')
       .waitForElementVisible('@templatesInSettingsDropdown', 'templates is visible')
       .pause(500)
-      .click('@settingsButton')
+      .click('@settingsButton');
   },
 
-  validateHelpDropdown: function () {
+  validateHelpDropdown() {
     return this.waitForElementVisible('@helpDropdown', 'Help button is visible')
       .pause(500)
       .click('@helpDropdown')
@@ -53,11 +53,11 @@ const universalElementsCommands = {
       .waitForElementVisible('@knowledgeBaseButton', 'Knowledge base is visible')
       .waitForElementVisible('@submitAnIssueButton', 'Submit an issue is visible')
       .waitForElementVisible('@ideaSubmissionButton', 'Idea submission is visible')
-      .waitForElementVisible('@systemDetailsButton', 'System details is visible')
+      .waitForElementVisible('@systemDetailsButton', 'System details is visible');
   },
 
-  /*----------perhaps add more to test for groups in Inbox/Chat-----------*/
-  clickAppNavButtons: function () {
+  /* ----------perhaps add more to test for groups in Inbox/Chat-----------*/
+  clickAppNavButtons() {
     return this.waitForElementVisible('@assignedToMeButton', 'Assigned to Me button is shown')
       .click('@assignedToMeButton')
       .pause(500)
@@ -73,26 +73,26 @@ const universalElementsCommands = {
       .verify.containsText('@appHeaderTitle', 'Team - Direct', 'Chat Direct title present')
       .click('@contactsButton')
       .pause(500)
-      .verify.containsText('@appHeaderTitle', 'Contacts', 'Contacts title present')
+      .verify.containsText('@appHeaderTitle', 'Contacts', 'Contacts title present');
   },
 
-  clickHelpDropdownButtons: function () {
+  clickHelpDropdownButtons() {
     return this.waitForElementPresent('@helpDropdown', 'Help dropdown is visible')
       .click('@helpDropdown')
       .waitForElementPresent('@supportDeskButton', 'Support desk button is visible')
       .click('@supportDeskButton')
       .click('@knowledgeBaseButton')
       .click('@submitAnIssueButton')
-      .click('@ideaSubmissionButton')
+      .click('@ideaSubmissionButton');
   },
 
-  clickSystemDetailsButton: function () {
+  clickSystemDetailsButton() {
     return this.waitForElementPresent('@helpDropdown', 'Help dropdown is visible')
       .waitForElementVisible('@systemDetailsButton', 'System Details button is visible')
-      .click('@systemDetailsButton')
+      .click('@systemDetailsButton');
   },
 
-  clickSearchModalButtons: function (patientName) {
+  clickSearchModalButtons(patientName) {
     return this.click('@assignedToMeButton')
       .waitForElementVisible('@searchButton', 'Search button is visible')
       .click('@searchButton')
@@ -102,204 +102,204 @@ const universalElementsCommands = {
       .verify.visible('@addNewContactButton', 'Add new contact button is visible')
       .click('@searchResultFrodoBaggins')
       .waitForElementNotPresent('@searchResultFrodoBaggins', 'First result is hidden')
-      .verify.urlContains('50069', 'Taken to profile summary view')// no long 'userID' string but actual ID number
+      .verify.urlContains('50069', 'Taken to profile summary view');// no long 'userID' string but actual ID number
   },
 
-  clickAddNewContact: function () {
+  clickAddNewContact() {
     return this.waitForElementVisible('@searchButton')
       .click('@searchButton')
       .waitForElementVisible('@searchModalInput', 'Search input is present')
-      .click('@addNewContactButton')
+      .click('@addNewContactButton');
   },
 
-  clickMyProfile: function () {
+  clickMyProfile() {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@myProfileInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('/profile', 'My profile page is visible')
+      .verify.urlContains('/profile', 'My profile page is visible');
   },
 
-  clickMyPreferences: function () {
+  clickMyPreferences() {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@myPreferencesInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('/preferences', 'My Preferences page is visible')
+      .verify.urlContains('/preferences', 'My Preferences page is visible');
   },
 
-  clickChannels: function () {
+  clickChannels() {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@channelsInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/channels', 'Channels page is visible')
+      .verify.urlContains('organization/channels', 'Channels page is visible');
   },
 
-  clickGroups: function () {
+  clickGroups() {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@groupsInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/groups', 'Groups page is visible')
+      .verify.urlContains('organization/groups', 'Groups page is visible');
   },
 
-  clickMembers: function () {
+  clickMembers() {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@membersInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/members', 'Members page is visible')
+      .verify.urlContains('organization/members', 'Members page is visible');
   },
 
-  clickOOO: function () {
+  clickOOO() {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@oooInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('/organization/out-of-office', 'Out of Office page is visible')
+      .verify.urlContains('/organization/out-of-office', 'Out of Office page is visible');
   },
 
-  clickBilling: function () {
+  clickBilling() {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@billingInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('/organization/billing', 'Billing page is visible')
+      .verify.urlContains('/organization/billing', 'Billing page is visible');
   },
 
-  clickOrgPreferences: function () {
+  clickOrgPreferences() {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@orgPreferencesInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/preferences', 'Organization Preferences page is visible')
+      .verify.urlContains('organization/preferences', 'Organization Preferences page is visible');
   },
 
-  clickOrgProfile: function () {
+  clickOrgProfile() {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@orgProfileInSettingsDropdown')
       .pause(500)
       // .waitForElementNotVisible('@orgProfileInSettingsDropdown', 'Org Profile is hidden')
-      .verify.urlContains('organization/profile', 'Organization Profile page is visible')
+      .verify.urlContains('organization/profile', 'Organization Profile page is visible');
   },
 
-  clickTags: function () {
+  clickTags() {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@tagsInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/tags', 'Tags page is visible')
+      .verify.urlContains('organization/tags', 'Tags page is visible');
   },
 
-  clickTemplates: function () {
+  clickTemplates() {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@templatesInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/templates', 'Templates page is visible')
+      .verify.urlContains('organization/templates', 'Templates page is visible');
   },
 
-  clickSystemDetails: function () {
+  clickSystemDetails() {
     return this.click('@settingsButton')
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@systemDetailsInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('diagnostics', 'System Detail page is visible')
+      .verify.urlContains('diagnostics', 'System Detail page is visible');
   },
 
-  clickLogout: function () {
+  clickLogout() {
     return this.waitForElementVisible('@logoutButton', 'Logout button is visible')
       .click('@logoutButton')
-      .waitForElementNotPresent('@logoutButton', 'Logout button no longer present')
+      .waitForElementNotPresent('@logoutButton', 'Logout button no longer present');
   },
 
-  searchByName: function (name) {
+  searchByName(name) {
     return this.waitForElementVisible('@searchButton', 'Search field is visible')
       .click('@searchButton')
       .waitForElementVisible('@searchModalInput', 'Search input is visible')
-      .setValue('@searchModalInput', name)
+      .setValue('@searchModalInput', name);
   },
 
-  searchForOrganization: function (orgName, orgName2SearchResult) {
-    const clickableElement = orgName2SearchResult ? orgName2SearchResult : '@organizationSearchResult'
+  searchForOrganization(orgName, orgName2SearchResult) {
+    const clickableElement = orgName2SearchResult || '@organizationSearchResult';
     return this.waitForElementVisible('@searchInputForOrg', 'Search Input is visible')
       .setValue('@searchInputForOrg', orgName)
-      .waitForElementVisible(clickableElement, 'First result is visible')
+      .waitForElementVisible(clickableElement, 'First result is visible');
   },
 
-  ccrOrgLogin: function (orgName2SearchResult) {
-    const clickableElement = orgName2SearchResult ? orgName2SearchResult : '@organizationSearchResult'
+  ccrOrgLogin(orgName2SearchResult) {
+    const clickableElement = orgName2SearchResult || '@organizationSearchResult';
     return this.click(clickableElement)
       .pause(1000)
       .waitForElementVisible('@goBackToSelectNewOrg', 'CCR login to Org successful')
-      .verify.urlContains('contacts', 'Contacts page is visible')
+      .verify.urlContains('contacts', 'Contacts page is visible');
   },
 
-  clickContacts: function() {
+  clickContacts() {
     return this.waitForElementVisible('@contactsButton', 'Contacts button is visible')
       .click('@contactsButton')
       .pause(500)
-      .verify.urlContains('contacts', 'Contacts page is visible')
+      .verify.urlContains('contacts', 'Contacts page is visible');
   },
 
-  selectOrganization: function(){
-    return this.waitForElementVisible('@goBackToSelectNewOrg','Select Organization button is visible')
-    .click('@goBackToSelectNewOrg')
-    .waitForElementVisible('@searchInputForOrg', 'User landed back on Org listing page')
+  selectOrganization() {
+    return this.waitForElementVisible('@goBackToSelectNewOrg', 'Select Organization button is visible')
+      .click('@goBackToSelectNewOrg')
+      .waitForElementVisible('@searchInputForOrg', 'User landed back on Org listing page');
   },
 
-  validatePageError: function (ele, url) {
+  validatePageError(ele, url) {
     return this.waitForElementNotPresent(ele, 'Page Cannot be Accessible after logout')
-      .verify.urlContains(url)
+      .verify.urlContains(url);
   },
-}
+};
 
 module.exports = {
   commands: [universalElementsCommands],
-  url: function () {
-    return this.api.launch_url + '/inbox'
+  url() {
+    return `${this.api.launch_url}/inbox`;
   },
 
   elements: {
 
     appHeaderTitle: {
-      selector: `//DIV[@class='app-page__header__title']`,
+      selector: '//DIV[@class=\'app-page__header__title\']',
       locateStrategy: 'xpath',
     },
 
     /*-------------------------------------------------------------------------*/
-    //Left hand column navigation buttons. Top to bottom.
+    // Left hand column navigation buttons. Top to bottom.
     /*-------------------------------------------------------------------------*/
 
     assignedToMeButton: {
-      selector: `//BUTTON[contains(text(), 'Assigned to Me')]`,
+      selector: '//BUTTON[contains(text(), \'Assigned to Me\')]',
       locateStrategy: 'xpath',
     },
 
     followingButton: {
-      selector: `//BUTTON[contains(text(), 'Following')]`,
+      selector: '//BUTTON[contains(text(), \'Following\')]',
       locateStrategy: 'xpath',
     },
 
     inboxDirectButton: {
-      selector: `(//SPAN[@class='app-navigation__nav__button__text'][text()='Direct'][text()='Direct'])[1]`,
+      selector: '(//SPAN[@class=\'app-navigation__nav__button__text\'][text()=\'Direct\'][text()=\'Direct\'])[1]',
       locateStrategy: 'xpath',
     },
 
     chatDirectButton: {
-      selector: `(//SPAN[@class='app-navigation__nav__button__text'][text()='Direct'][text()='Direct'])[2]`,
+      selector: '(//SPAN[@class=\'app-navigation__nav__button__text\'][text()=\'Direct\'][text()=\'Direct\'])[2]',
       locateStrategy: 'xpath',
     },
 
     contactsButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Contacts']`,
-      locateStrategy: 'xpath'
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Contacts\']',
+      locateStrategy: 'xpath',
     },
 
     orgTitle: {
-      selector: `//BUTTON[contains(text(), 'Organization')]`,
+      selector: '//BUTTON[contains(text(), \'Organization\')]',
       locateStrategy: 'xpath',
     },
 
@@ -308,28 +308,28 @@ module.exports = {
     /*----------------------------------------------*/
 
     searchButton: {
-      selector: `//SPAN[contains(text(), 'Search users')]`,
+      selector: '//SPAN[contains(text(), \'Search users\')]',
       locateStrategy: 'xpath',
     },
 
     searchModalInput: {
-      selector: `//INPUT[starts-with(@id, global)]`,
+      selector: '//INPUT[starts-with(@id, global)]',
       locateStrategy: 'xpath',
     },
 
     searchResultFrodoBaggins: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][text()='Frodo  Baggins']`, //specific to Frodo test case
+      selector: '//SPAN[@class=\'resource__intro__title__content has-subtitle\'][text()=\'Frodo  Baggins\']', // specific to Frodo test case
       locateStrategy: 'xpath',
     },
 
     addNewContactButton: {
-      selector: `//BUTTON[contains(text(), 'Add New Contact')]`,
+      selector: '//BUTTON[contains(text(), \'Add New Contact\')]',
       locateStrategy: 'xpath',
     },
 
     closeSearchModal: {
-      selector: `//BUTTON[contains(@title, 'Close')]`,
-      locateStrategy: 'xpath'
+      selector: '//BUTTON[contains(@title, \'Close\')]',
+      locateStrategy: 'xpath',
     },
 
     /*----------------------------------------------*/
@@ -337,7 +337,7 @@ module.exports = {
     /*----------------------------------------------*/
 
     myProfileButton: {
-      selector: `//A[@title='My Profile']`,
+      selector: '//A[@title=\'My Profile\']',
       locateStrategy: 'xpath',
     },
     /*----------------------------------------------*/
@@ -345,33 +345,33 @@ module.exports = {
     /*----------------------------------------------*/
 
     helpDropdown: {
-      selector: `//BUTTON[contains(@title, 'Help')]`,
-      locateStrategy: 'xpath'
+      selector: '//BUTTON[contains(@title, \'Help\')]',
+      locateStrategy: 'xpath',
     },
 
     supportDeskButton: {
-      selector: `//BUTTON[contains(text(), 'Support Desk')]`,
-      locateStrategy: 'xpath'
+      selector: '//BUTTON[contains(text(), \'Support Desk\')]',
+      locateStrategy: 'xpath',
     },
 
     knowledgeBaseButton: {
-      selector: `//BUTTON[contains(text(), 'Knowledge Base')]`,
-      locateStrategy: 'xpath'
+      selector: '//BUTTON[contains(text(), \'Knowledge Base\')]',
+      locateStrategy: 'xpath',
     },
 
     submitAnIssueButton: {
-      selector: `//BUTTON[contains(text(), 'Submit an Issue')]`,
-      locateStrategy: 'xpath'
+      selector: '//BUTTON[contains(text(), \'Submit an Issue\')]',
+      locateStrategy: 'xpath',
     },
 
     ideaSubmissionButton: {
-      selector: `//BUTTON[contains(text(), 'Idea Submission')]`,
-      locateStrategy: 'xpath'
+      selector: '//BUTTON[contains(text(), \'Idea Submission\')]',
+      locateStrategy: 'xpath',
     },
 
     systemDetailsButton: {
-      selector: `//BUTTON[contains(text(), 'System Details')]`,
-      locateStrategy: 'xpath'
+      selector: '//BUTTON[contains(text(), \'System Details\')]',
+      locateStrategy: 'xpath',
     },
 
     /*----------------------------------------------*/
@@ -379,67 +379,67 @@ module.exports = {
     /*----------------------------------------------*/
 
     settingsButton: {
-      selector: `//BUTTON[contains(@title, 'Settings')]`,
+      selector: '//BUTTON[contains(@title, \'Settings\')]',
       locateStrategy: 'xpath',
     },
 
     myProfileInSettingsDropdown: {
-      selector: `(//SPAN[@class='u-text-overflow'][text()='Profile'][text()='Profile'])[1]`,
+      selector: '(//SPAN[@class=\'u-text-overflow\'][text()=\'Profile\'][text()=\'Profile\'])[1]',
       locateStrategy: 'xpath',
     },
 
     myPreferencesInSettingsDropdown: {
-      selector: `(//SPAN[@class='u-text-overflow'][text()='Preferences'][text()='Preferences'])[1]`,
+      selector: '(//SPAN[@class=\'u-text-overflow\'][text()=\'Preferences\'][text()=\'Preferences\'])[1]',
       locateStrategy: 'xpath',
     },
 
     oooInSettingsDropdown: {
-      selector: `//SPAN[contains(text(), 'Out of Office')]`,
+      selector: '//SPAN[contains(text(), \'Out of Office\')]',
       locateStrategy: 'xpath',
     },
 
     billingInSettingsDropdown: {
-      selector: `//SPAN[contains(text(), 'Billing')]`,
+      selector: '//SPAN[contains(text(), \'Billing\')]',
       locateStrategy: 'xpath',
     },
 
     channelsInSettingsDropdown: {
-      selector: `//SPAN[contains(text(), 'Channels')]`,
+      selector: '//SPAN[contains(text(), \'Channels\')]',
       locateStrategy: 'xpath',
     },
 
     groupsInSettingsDropdown: {
-      selector: `//SPAN[contains(text(), 'Groups')]`,
+      selector: '//SPAN[contains(text(), \'Groups\')]',
       locateStrategy: 'xpath',
     },
 
     membersInSettingsDropdown: {
-      selector: `//SPAN[contains(text(), 'Members')]`,
+      selector: '//SPAN[contains(text(), \'Members\')]',
       locateStrategy: 'xpath',
     },
 
     orgPreferencesInSettingsDropdown: {
-      selector: `(//SPAN[@class='u-text-overflow'][text()='Preferences'][text()='Preferences'])[2]`,
+      selector: '(//SPAN[@class=\'u-text-overflow\'][text()=\'Preferences\'][text()=\'Preferences\'])[2]',
       locateStrategy: 'xpath',
     },
 
     orgProfileInSettingsDropdown: {
-      selector: `(//SPAN[@class='u-text-overflow'][text()='Profile'][text()='Profile'])[2]`,
+      selector: '(//SPAN[@class=\'u-text-overflow\'][text()=\'Profile\'][text()=\'Profile\'])[2]',
       locateStrategy: 'xpath',
     },
 
     tagsInSettingsDropdown: {
-      selector: `//SPAN[contains(text(), 'Tags')]`,
+      selector: '//SPAN[contains(text(), \'Tags\')]',
       locateStrategy: 'xpath',
     },
 
     templatesInSettingsDropdown: {
-      selector: `//SPAN[contains(text(), 'Templates')]`,
+      selector: '//SPAN[contains(text(), \'Templates\')]',
       locateStrategy: 'xpath',
     },
 
     logoutButton: {
-      selector: `(//SPAN[@class='button__text-wrapper' and contains(text(), 'Log Out')])`,
+      selector: '(//SPAN[@class=\'button__text-wrapper\' and contains(text(), \'Log Out\')])',
       locateStrategy: 'xpath',
     },
 
@@ -448,7 +448,7 @@ module.exports = {
     /*----------------------------------------------*/
 
     searchInputForOrg: {
-      selector: `//input[@placeholder='Search organizations']`,
+      selector: '//input[@placeholder=\'Search organizations\']',
       locateStrategy: 'xpath',
     },
 
@@ -468,13 +468,13 @@ module.exports = {
     },
 
     noSearchResult: {
-      selector: `//SPAN[text()='No organizations found']`,
+      selector: '//SPAN[text()=\'No organizations found\']',
       locateStrategy: 'xpath',
     },
 
     goBackToSelectNewOrg: {
-      selector: `//SPAN[text()='Select Organization']`,
+      selector: '//SPAN[text()=\'Select Organization\']',
       locateStrategy: 'xpath',
     },
-  }
+  },
 };

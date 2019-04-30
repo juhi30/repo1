@@ -1,19 +1,11 @@
-/* eslint-disable no-undef */
 import { sendMessage } from 'rhinotilities/lib/toolboxes/Bandwidth.toolbox';
-import * as rhinofeeder from '../../services/Rhinofeeder.service';
-import * as rhinoapi from '../../services/Rhinoapi.service';
-import * as rhinoliner from '../../services/Rhinoliner.service';
 import * as messengerbot from '../../services/MessengerBot.service';
 
-
+// eslint-disable-next-line import/no-extraneous-dependencies
 const followRedirects = require('follow-redirects');
 
 followRedirects.maxRedirects = 10;
 followRedirects.maxBodyLength = 500 * 1024 * 1024 * 1024;
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 describe('messsenging tests', () => {
   jest.setTimeout(30000);
@@ -22,7 +14,7 @@ describe('messsenging tests', () => {
       number: process.env.TEST_BANDWIDTH_NUMBER_PATIENT,
       config: { handler: 'echo', config: ['+18039574927'] },
     };
-    messengerbot.configureHandler(config).then((response) => {
+    messengerbot.configureHandler(config).then(() => {
       done();
     });
   });
@@ -32,7 +24,7 @@ describe('messsenging tests', () => {
       number: process.env.TEST_BANDWIDTH_NUMBER_UNKNOWN,
       config: { handler: 'reply', config: ['I love Rhinogram!'] },
     };
-    messengerbot.configureHandler(config).then((response) => {
+    messengerbot.configureHandler(config).then(() => {
       done();
     });
   });

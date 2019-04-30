@@ -11,8 +11,10 @@
     "test-canary": "mkdir -p results && jest src/test/newOrgCanary --detectOpenHandles",
     "test-existing-canary": "mkdir -p results && jest src/test/existingOrgCanary",
     "test-integrations": "mkdir -p results && jest src/test/integrations",
+    "test-rhinoExternalApi": "mkdir -p results && jest src/test/rhinoExternalApi",
     "clean": "rm -rf lib/* results",
-    "build": "yarn clean && node_modules/.bin/babel src --out-dir lib"
+    "build": "yarn clean && node_modules/.bin/babel src --out-dir lib",
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
@@ -29,7 +31,7 @@
     "@babel/core": "7.4.3",
     "@babel/node": "7.2.2",
     "@babel/preset-env": "7.4.3",
-    "eslint": "5.16.0",
+    "eslint-config-rhinogram": "https://github.com/rhinogram/eslint-config-rhinogram.git#0.0.17",
     "rhinodeploy-cli": "git+https://ab1e60bc7d1ea8f0cef2d98a042749dee2741f8c:x-oauth-basic@github.com/rhinogram/rhinodeploy.git#cli"
   },
   "dependencies": {

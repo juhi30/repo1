@@ -2,12 +2,12 @@ import logger from 'rhinotilities/lib/loggers/logger';
 const testConstants = require('./../toolboxes/feeder.toolbox')
 
 const tagCommands = {
-  validateTagPageElements: function () {
+  validateTagPageElements() {
     return this.waitForElementVisible('@newTagButton', 'New Tag button is visible')
-      .waitForElementVisible('@charlestonTag', 'First tag is visible')
+      .waitForElementVisible('@charlestonTag', 'First tag is visible');
   },
 
-  validateCreateTagModal: function () {
+  validateCreateTagModal() {
     return this.waitForElementVisible('@newTagButton', 'Create tag icon is visible')
       .click('@newTagButton')
       .waitForElementVisible('@createTagButton', 'Create Tag modal is visible')
@@ -15,10 +15,10 @@ const tagCommands = {
       .waitForElementVisible('@tagCategoryLocation', 'Location category is visible')
       .waitForElementVisible('@tagCategoryDepartment', 'Department category is visible')
       .waitForElementVisible('@tagCategoryRole', 'Role category is visible')
-      .waitForElementVisible('@tagCategoryCustom', 'Custom category is visible')
+      .waitForElementVisible('@tagCategoryCustom', 'Custom category is visible');
   },
 
-  createNewTag: function (tagType, tagName, tag) {
+  createNewTag(tagType, tagName, tag) {
     return this.waitForElementVisible('@newTagButton', 'add tag button is visible.')
       .pause(3000)
       .click('@newTagButton')
@@ -29,10 +29,10 @@ const tagCommands = {
       .waitForElementVisible('@createTagButton', 'Create Tag Button is visible.')
       .click('@createTagButton')
       .pause(2000)
-      .waitForElementVisible(tag, ' Created tag is visible')
+      .waitForElementVisible(tag, ' Created tag is visible');
   },
 
-  editTag: function (tag, newValue, newTag) {
+  editTag(tag, newValue, newTag) {
     return this.waitForElementVisible(tag, 'Last tag is visible')
       .click(tag)
       .waitForElementVisible('@updateTagButton', 'Edit tag modal is visible')
@@ -41,10 +41,10 @@ const tagCommands = {
       .setValue('@tagNameInput', newValue)
       .click('@updateTagButton')
       .waitForElementNotVisible('@updateTagButton', 'Edit Tag Modal is hidden')
-      .waitForElementVisible(newTag, newTag + ' Edited tag exists')
+      .waitForElementVisible(newTag, `${newTag} Edited tag exists`);
   },
 
-  deleteTag: function (editedTag) {
+  deleteTag(editedTag) {
     return this.waitForElementVisible(editedTag, 'last tag is visible')
       .click(editedTag)
       .waitForElementVisible('@deleteTagTrashIcon', 'Trash Icon is visible')
@@ -52,34 +52,33 @@ const tagCommands = {
       .waitForElementVisible('@deleteTagConfirmButton', 'Delete confirm is visible')
       .click('@deleteTagConfirmButton')
       .waitForElementNotVisible('@updateTagButton', 'Edit Tag Modal is hidden')
-      .waitForElementNotPresent(editedTag, 'Tag is deleted')
+      .waitForElementNotPresent(editedTag, 'Tag is deleted');
   },
 
-  tagContainerCheck: function () {
-    return this.waitForElementPresent('@newTagContainerButton', 'Tag container is visible')
+  tagContainerCheck() {
+    return this.waitForElementPresent('@newTagContainerButton', 'Tag container is visible');
   },
 
-  clickToToggleTag: function () {
+  clickToToggleTag() {
     return this.waitForElementPresent('@youreItTag', 'youreIt_tag is visible')
       .click('@youreItTag', () => {
         logger.info('Clicked the youreIt tag');
       })
   },
 
-  checkTagSelected: function () {
-    return this.verify.cssProperty('@youreItTag', 'color', 'rgba(0, 117, 201, 1)', 'Tag is selected and highlighted')
+  checkTagSelected() {
+    return this.verify.cssProperty('@youreItTag', 'color', 'rgba(0, 117, 201, 1)', 'Tag is selected and highlighted');
   },
 
-  checkTagDeselected: function () {
-    return this.verify.cssProperty('@youreItTag', 'color', 'rgba(64, 64, 64, 1)', 'Tag is deselected')
-
+  checkTagDeselected() {
+    return this.verify.cssProperty('@youreItTag', 'color', 'rgba(64, 64, 64, 1)', 'Tag is deselected');
   },
-}
+};
 
 module.exports = {
   commands: [tagCommands],
-  url: function () {
-    return this.api.launch_url + '/settings/organization/tags'
+  url() {
+    return `${this.api.launch_url}/settings/organization/tags`;
   },
   elements: {
 
@@ -88,13 +87,13 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     newTagButton: {
-      selector: `//BUTTON[contains(@title, 'Create Tag')]`,
+      selector: '//BUTTON[contains(@title, \'Create Tag\')]',
       locateStrategy: 'xpath',
     },
 
     // its a tag that says "Charleston"...
     charlestonTag: {
-      selector: `//SPAN[contains(.,'#Charleston')]`,
+      selector: '//SPAN[contains(.,\'#Charleston\')]',
       locateStrategy: 'xpath',
     },
 
@@ -145,28 +144,28 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     tagNameInput: {
-      selector: `//INPUT[contains(@id,'tagName')]`,
+      selector: '//INPUT[contains(@id,\'tagName\')]',
       locateStrategy: 'xpath',
     },
 
     tagCategoryLocation: {
-      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'Location')]`,
+      selector: '//LABEL[@class=\'rhinodio__label\'][contains(text(),\'Location\')]',
       locateStrategy: 'xpath',
     },
 
     tagCategoryDepartment: {
-      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'Department')]`,
+      selector: '//LABEL[@class=\'rhinodio__label\'][contains(text(),\'Department\')]',
       locateStrategy: 'xpath',
     },
 
     tagCategoryRole: {
-      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'Role')]`,
-      locateStrategy: 'xpath'
+      selector: '//LABEL[@class=\'rhinodio__label\'][contains(text(),\'Role\')]',
+      locateStrategy: 'xpath',
     },
 
     tagCategoryCustom: {
-      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'Custom')]`,
-      locateStrategy: 'xpath'
+      selector: '//LABEL[@class=\'rhinodio__label\'][contains(text(),\'Custom\')]',
+      locateStrategy: 'xpath',
     },
 
 
@@ -186,12 +185,12 @@ module.exports = {
     // },
 
     channelsTagTitle: {
-      selector: `//DIV[text()='Channel Tags']`,
+      selector: '//DIV[text()=\'Channel Tags\']',
       locateStrategy: 'xpath',
     },
 
     createTagButton: {
-      selector: `//SPAN[contains(text(),'Create Tag')]`,
+      selector: '//SPAN[contains(text(),\'Create Tag\')]',
       locateStrategy: 'xpath',
     },
 
@@ -200,17 +199,17 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     updateTagButton: {
-      selector: `//SPAN[contains(text(), 'Update Tag')]`,
+      selector: '//SPAN[contains(text(), \'Update Tag\')]',
       locateStrategy: 'xpath',
     },
 
     deleteTagTrashIcon: {
-      selector: `//BUTTON[contains(@title,'Delete Tag')]`,
+      selector: '//BUTTON[contains(@title,\'Delete Tag\')]',
       locateStrategy: 'xpath',
     },
 
     deleteTagConfirmButton: {
-      selector: `//SPAN[contains(text(),'Yes, delete tag')]`,
+      selector: '//SPAN[contains(text(),\'Yes, delete tag\')]',
       locateStrategy: 'xpath',
     },
 
@@ -219,15 +218,14 @@ module.exports = {
     /*------------------------------------------------------------*/
 
     newTagContainerButton: {
-      selector: `//SPAN[contains(text(),'Create New Tag')]`,
+      selector: '//SPAN[contains(text(),\'Create New Tag\')]',
       locateStrategy: 'xpath',
     },
 
     youreItTag: {
-      selector: `//SPAN[contains(.,'#youreIt_tag')]`,
+      selector: '//SPAN[contains(.,\'#youreIt_tag\')]',
       locateStrategy: 'xpath',
     },
 
-  }
-}
-
+  },
+};

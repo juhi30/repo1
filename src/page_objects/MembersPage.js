@@ -2,69 +2,69 @@ import logger from 'rhinotilities/lib/loggers/logger';
 const testConstants = require('../toolboxes/feeder.toolbox');
 
 const membersCommands = {
-  clickAddMember: function() {
+  clickAddMember() {
     return this.waitForElementVisible('@createMemberButton', 'Add member button visible')
       .click('@createMemberButton')
-      .waitForElementVisible('@createMemberPageTitle', 'Create Member page is open')
+      .waitForElementVisible('@createMemberPageTitle', 'Create Member page is open');
   },
 
-  deactivateMember: function() {
+  deactivateMember() {
     return this.waitForElementVisible('@deactivateButton', 'Deactivate button is visible')
-      .click('@deactivateButton')
+      .click('@deactivateButton');
   },
 
-  enterDetails: function(element, value) {
-    return this.waitForElementVisible(element, element + ' is visible')
-    .setValue(element, value)
+  enterDetails(element, value) {
+    return this.waitForElementVisible(element, `${element} is visible`)
+      .setValue(element, value);
   },
 
-  setMemberRoles: function (roleName) {
-    return this.click(roleName)
+  setMemberRoles(roleName) {
+    return this.click(roleName);
   },
 
-  createMember: function() {
+  createMember() {
     return this.click('@createButton')
-      .waitForElementVisible('@createSuccessMessage', 'Member created successfully.')
+      .waitForElementVisible('@createSuccessMessage', 'Member created successfully.');
   },
 
-  getTempPassword: function () {
-    return this.getAttribute('@tempPassword', 'value', function (tpObj) {
+  getTempPassword() {
+    return this.getAttribute('@tempPassword', 'value', (tpObj) => {
       global.TEMP_PASSWORD = tpObj.value;
-      logger.info( global.TEMP_PASSWORD, '=== Temp password');
+      logger.info(`=== Temp password == ${global.TEMP_PASSWORD}`);
     });
   },
 
-  getNewTempPassword: function () {
-    return this.getAttribute('@tempPassword', 'value', function (tpObj) {
+  getNewTempPassword() {
+    return this.getAttribute('@tempPassword', 'value', (tpObj) => {
       global.TEMP_NEW_PASSWORD = tpObj.value;
-      logger.info(global.TEMP_NEW_PASSWORD, ' ==== Temp password');
+      logger.info(` ==== Temp password ${global.TEMP_NEW_PASSWORD}`);
     });
   },
 
-  selectMember: function () {
+  selectMember() {
     return this.waitForElementVisible('@selectMemberFromList', 'member name is visible')
-    .click('@selectMemberFromList')
+      .click('@selectMemberFromList');
   },
 
-  createTempPassword: function () {
+  createTempPassword() {
     return this.waitForElementVisible('@createTempPassword', 'Create temp password text is visible.')
       .click('@createTempPassword')
       .waitForElementVisible('@confirmTempPassword', 'Confirm password button is visible.')
       .click('@confirmTempPassword')
       .waitForElementVisible('@tempPassword', 'temporary password is visible.')
-      .waitForElementVisible('@UpdateSuccessMessage', 'Member is updated successfully with new temporary password.')
+      .waitForElementVisible('@UpdateSuccessMessage', 'Member is updated successfully with new temporary password.');
   },
-}
+};
 
 module.exports = {
   commands: [membersCommands],
-  url: function () {
-    return this.api.launch_url + '/settings/organization/members'
+  url() {
+    return `${this.api.launch_url}/settings/organization/members`;
   },
   elements: {
 
     createMemberButton: {
-      selector: `//BUTTON[contains(@title, 'Create Member')]`,
+      selector: '//BUTTON[contains(@title, \'Create Member\')]',
       locateStrategy: 'xpath',
     },
 
@@ -78,42 +78,42 @@ module.exports = {
     /*----------------------------------------------------*/
 
     closeSummaryButton: {
-      selector: `//SPAN[contains(@title, 'Close')]`,
+      selector: '//SPAN[contains(@title, \'Close\')]',
       locateStrategy: 'xpath',
     },
 
     goToConvoButton: {
-      selector: `//SPAN[contains(text(), 'Go to Conversation')]`,
+      selector: '//SPAN[contains(text(), \'Go to Conversation\')]',
       locateStrategy: 'xpath',
     },
 
     editMemberButton: {
-      selector: `//SPAN[contains(text(), 'Edit Member')]`,
+      selector: '//SPAN[contains(text(), \'Edit Member\')]',
       locateStrategy: 'xpath',
     },
 
     activateMember: {
-      selector: `//SPAN[contains(text(), 'Activate')]`, //Only visible if member is deactivated
+      selector: '//SPAN[contains(text(), \'Activate\')]', // Only visible if member is deactivated
       locateStrategy: 'xpath',
     },
 
     createTempPassword: {
-      selector: `//SPAN[contains(text(), 'Create')]`,
+      selector: '//SPAN[contains(text(), \'Create\')]',
       locateStrategy: 'xpath',
     },
 
     confirmTempPassword: {
-      selector: `//SPAN[contains(text(), 'Yes')]`,
+      selector: '//SPAN[contains(text(), \'Yes\')]',
       locateStrategy: 'xpath',
     },
 
     cancelTempPassword: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[1]`,
+      selector: '(//SPAN[@class=\'button__text-wrapper\'][text()=\'Cancel\'][text()=\'Cancel\'])[1]',
       locateStrategy: 'xpath',
     },
 
     deactivateMemberButton: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Deactivate'][text()='Deactivate'])[1]`,
+      selector: '(//SPAN[@class=\'button__text-wrapper\'][text()=\'Deactivate\'][text()=\'Deactivate\'])[1]',
       locateStrategy: 'xpath',
     },
 
@@ -122,22 +122,22 @@ module.exports = {
     /*----------------------------------------------------*/
 
     closeDeactivateModal: {
-      selector: `//SPAN[contains(@title, 'Close')]`,
+      selector: '//SPAN[contains(@title, \'Close\')]',
       locateStrategy: 'xpath',
     },
 
     cancelInModal: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Cancel'][text()='Cancel'])[2]`,
+      selector: '(//SPAN[@class=\'button__text-wrapper\'][text()=\'Cancel\'][text()=\'Cancel\'])[2]',
       locateStrategy: 'xpath',
     },
 
     deactivateInModal: {
-      selector: `(//SPAN[@class='button__text-wrapper'][text()='Deactivate'][text()='Deactivate'])[2]`,
+      selector: '(//SPAN[@class=\'button__text-wrapper\'][text()=\'Deactivate\'][text()=\'Deactivate\'])[2]',
       locateStrategy: 'xpath',
     },
 
     reactivateInModal: {
-      selector: `//SPAN[contains(text(), 'Reactivate')]`,
+      selector: '//SPAN[contains(text(), \'Reactivate\')]',
       locateStrategy: 'xpath',
     },
 
@@ -146,68 +146,68 @@ module.exports = {
     /*----------------------------------------------------*/
 
     createMemberPageTitle: {
-      selector: `//*[@class = 'app-page__header__title'][text()='Create Member']`,
+      selector: '//*[@class = \'app-page__header__title\'][text()=\'Create Member\']',
       locateStrategy: 'xpath',
     },
 
     memberFirstName: {
-      selector: `//*[contains(@id,'firstName')]`,
+      selector: '//*[contains(@id,\'firstName\')]',
       locateStrategy: 'xpath',
     },
 
     memberLastName: {
-      selector: `//*[contains(@id,'lastName')]`,
+      selector: '//*[contains(@id,\'lastName\')]',
       locateStrategy: 'xpath',
     },
 
     memberUsername: {
-      selector: `//*[contains(@id,'username')]`,
+      selector: '//*[contains(@id,\'username\')]',
       locateStrategy: 'xpath',
     },
 
     memberEmailAddress: {
-      selector: `//INPUT[contains(@id,'loginEmail')]`,
+      selector: '//INPUT[contains(@id,\'loginEmail\')]',
       locateStrategy: 'xpath',
     },
 
     tempPassword: {
-      selector: `//*[contains(@id,'tempPassword')]`,
+      selector: '//*[contains(@id,\'tempPassword\')]',
       locateStrategy: 'xpath',
     },
 
     adminRole: {
-      selector: `//*[(text()='Admin')]`,
+      selector: '//*[(text()=\'Admin\')]',
       locateStrategy: 'xpath',
     },
 
     billingAdminRole: {
-      selector: `//*[(text()='Billing Admin')]`,
+      selector: '//*[(text()=\'Billing Admin\')]',
       locateStrategy: 'xpath',
     },
 
     memberRole: {
-      selector: `//*[(text()='Member')]`,
+      selector: '//*[(text()=\'Member\')]',
       locateStrategy: 'xpath',
     },
 
     memberAdminRole: {
-      selector: `//*[(text()='Member Admin')]`,
+      selector: '//*[(text()=\'Member Admin\')]',
       locateStrategy: 'xpath',
     },
 
     createButton: {
-      selector: `//*[@class='button__text-wrapper'][text()= 'Create Member']`,
-      locateStrategy: 'xpath'
+      selector: '//*[@class=\'button__text-wrapper\'][text()= \'Create Member\']',
+      locateStrategy: 'xpath',
     },
 
     createSuccessMessage: {
-      selector: `//*[text()='Member created successfully.']`,
+      selector: '//*[text()=\'Member created successfully.\']',
       locateStrategy: 'xpath',
     },
 
     UpdateSuccessMessage: {
-      selector : `//*[text()='Member updated successfully.']`,
+      selector: '//*[text()=\'Member updated successfully.\']',
       locateStrategy: 'xpath',
     },
-  }
+  },
 };

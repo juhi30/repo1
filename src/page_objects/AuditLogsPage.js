@@ -1,4 +1,6 @@
 const testConstants = require('./../toolboxes/feeder.toolbox');
+import logger from 'rhinotilities/lib/loggers/logger';
+
 let text = '';
 
 const auditLogsCommands = {
@@ -6,7 +8,7 @@ const auditLogsCommands = {
   elementText(ele) {
     return this.getText(ele, (tpObj) => {
       text = tpObj.value;
-      console.log(text);
+      logger.info(text);
     });
   },
 

@@ -1,5 +1,5 @@
 const testConstants = require('./../toolboxes/feeder.toolbox');
-const helper = require('../toolboxes/helpers.toolbox')
+const helper = require('../toolboxes/helpers.toolbox');
 
 const randomNumber = Math.floor(Math.random() * 1000000);
 
@@ -12,13 +12,13 @@ const contactsCommands = {
       .verify.visible('@patientOption', 'Patient option is visible')
       .verify.visible('@unknownOption', 'Unknown option is visible')
       .verify.visible('@otherOption', 'Other option is visible')
-      .click('@filterDropdown')
+      .click('@filterDropdown');
   },
 
   clickFilterOption(element, filter) {
     return this.click('@filterDropdown')
       .click(element)
-      .verify.containsText('@filterDropdown', filter, 'Filter dropdown is now set to ' + filter)
+      .verify.containsText('@filterDropdown', filter, `Filter dropdown is now set to ${filter}`);
   },
 
   clickAddContact() {
@@ -45,7 +45,7 @@ const contactsCommands = {
       .verify.visible('@patientOption', 'Patient option is visible')
       .verify.visible('@unknownOption', 'Unknown option is visible')
       .verify.visible('@otherOption', 'Other option is visible')
-      .click('@filterDropdown')
+      .click('@filterDropdown');
   },
 
   sendOutboundMessageAndGetReply(handlerMessage, message) {
@@ -74,18 +74,17 @@ const contactsCommands = {
       .pause(2000);
   },
 
-  getInboundMessage(message) {
-    const randomizedMessage = `${message} ${randomNumber}`;
+  getInboundMessage() {
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .pause(4000)
       .waitForElementVisible('@inboundMessage', 'Inbound Message is received from Bot Contact')
       .pause(2000);
   },
 
-  clickCreateUpdateContact: function (actionButton, notification) {
-    return this.waitForElementVisible(actionButton, actionButton + ' is visible')
+  clickCreateUpdateContact(actionButton, notification) {
+    return this.waitForElementVisible(actionButton, `${actionButton} is visible`)
       .click(actionButton)
-      .waitForElementVisible(notification, notification + 'is visible')
+      .waitForElementVisible(notification, ` ${notification} is visible`);
   },
 
   clickAddNewContact() {
@@ -106,82 +105,82 @@ const contactsCommands = {
     return this.verify.urlContains(url);
   },
 
-  verifyPageTitle: function () {
-    return this.waitForElementVisible('@contactPageTitle', 'The Contact Page title is visible')
+  verifyPageTitle() {
+    return this.waitForElementVisible('@contactPageTitle', 'The Contact Page title is visible');
   },
 
-  enterDetails: function (element, value) {
-    return this.waitForElementVisible(element, element + ' is visible')
-      .setValue(element, value)
+  enterDetails(element, value) {
+    return this.waitForElementVisible(element, ` ${element} is visible`)
+      .setValue(element, value);
   },
 
   selectRadioOption(element) {
-    return this.waitForElementVisible(element, element + ' is visible')
-      .click(element)
+    return this.waitForElementVisible(element, ` ${element} is visible`)
+      .click(element);
   },
 
   contactEditMode(createdContact) {
-    return this.waitForElementVisible(createdContact, createdContact + ' Created Contact is visible in the contact list.')
+    return this.waitForElementVisible(createdContact, ` ${createdContact} Created Contact is visible in the contact list.`)
       .click(createdContact)
       .waitForElementVisible('@summaryPanel', 'Summary Panel opened.')
-      .click('@editProfileButton')
+      .click('@editProfileButton');
   },
 
   checkElementVisibility(element) {
-    console.log('check visibility of edit page title')
+    console.log('check visibility of edit page title');
     return this.waitForElementVisible(element, 1000, (result) => {
-      console.log('=================', result.value)
+      console.log('=================', result.value);
       if (result.value) {
-        console.log('>>>>>>>>>>>>>> Inside If condition')
-        this.click(element)
+        console.log('>>>>>>>>>>>>>> Inside If condition');
+        this.click(element);
       }
-    })
+    });
   },
 
-  editContactDetails: function (element, newValue) {
-    return this.waitForElementVisible(element, element + ' is visible')
+  editContactDetails(element, newValue) {
+    return this.waitForElementVisible(element, `${element} is visible`)
       .clearValue(element)
-      .setValue(element, newValue)
+      .setValue(element, newValue);
   },
 
-  addUpdatePhoto: async function () {
+  async addUpdatePhoto() {
     this.waitForElementVisible('@addPhotoButton', 'Add Photo button visible')
       .click('@addPhotoButton')
       .waitForElementNotVisible('@uploadPhotoButton', 'Upload Photo modal is open')
-      .pause(2000)
-    await helper.uploadFile(this, 'contact.png')
+      .pause(2000);
+    await helper.uploadFile(this, 'contact.png');
     return this.pause(3000)
       .click('@doneUploadPhoto')
       .pause(3000)
       .click('@updateContactButton')
-      .waitForElementVisible('@editSuccessMessage', 'Success message displayed')
+      .waitForElementVisible('@editSuccessMessage', 'Success message displayed');
   },
 
-  addConnectedParty: function (searchText) {
+  addConnectedParty(searchText) {
     return this.waitForElementVisible('@connectedPartySearchInput', 'Connected Party search input is visible')
       .setValue('@connectedPartySearchInput', searchText)
       .waitForElementVisible('@connectedPartyContact', 'Searched contact is visible')
       .click('@connectedPartyContact')
-      .waitForElementVisible('@addedConnectedParty', 'Added connected party is visible in connected party section')
+      .waitForElementVisible('@addedConnectedParty', 'Added connected party is visible in connected party section');
   },
 
-  verifyAddedConnectedParty: function (connectedContactElement, connectedRelationshipElement, relationship) {
+  verifyAddedConnectedParty(connectedContactElement, connectedRelationshipElement, relationship) {
     return this.waitForElementVisible('@contactTitle', 'Contact Title is visible in the contact list.')
       .waitForElementVisible('@editProfileButton', 'Summary Panel opened.')
       .waitForElementVisible(connectedContactElement, 'Added connected party is visible on summary panel')
-      .waitForElementVisible(connectedRelationshipElement, 'Added connected party is ' + relationship)
+      .waitForElementVisible(connectedRelationshipElement, `Added connected party is ${relationship}`);
   },
 
-  clickCreateNewContact: function () {
+  clickCreateNewContact() {
     return this.waitForElementVisible('@createNewContactByConnectionButton', 'Create New Contact button is visible')
       .click('@createNewContactByConnectionButton')
-      .waitForElementVisible('@createContactFormModal', 'Add new contact form modal is visible')
+      .waitForElementVisible('@createContactFormModal', 'Add new contact form modal is visible');
   },
 
-  clickSearchUsers: function () {
+  clickSearchUsers() {
     return this.waitForElementVisible('@searchUserButton', 'Search user button is visible')
       .click('@searchUserButton')
-      .waitForElementVisible('@addContactButtonModal', 'Search user modal is opened')
+      .waitForElementVisible('@addContactButtonModal', 'Search user modal is opened');
   },
 
   // verifyRemovedConnectedParty: function (connectedContactElement, connectedRelationshipElement, relationship) {
@@ -190,15 +189,15 @@ const contactsCommands = {
   //     .waitForElementNotVisible(connectedRelationshipElement, 'Added connected party is ' + relationship)
   // },
 
-  deleteContact: function (contactName) {
-    return this.waitForElementVisible(contactName, contactName + ' is visible in the contact list.')
+  deleteContact(contactName) {
+    return this.waitForElementVisible(contactName, ` ${contactName} is visible in the contact list.`)
       .click(contactName)
       .waitForElementVisible('@deleteContactButton', 'Delete Contact Button is visible.')
       .click('@deleteContactButton')
       .waitForElementVisible('@confirmDeleteButton', ' Delete Modal Opened.')
       .click('@confirmDeleteButton')
       .waitForElementVisible('@deleteSuccessMessage', 'Delete Success Message is visible.')
-      .pause(1000)
+      .pause(1000);
   },
 
   getRandomNumber() {
@@ -244,7 +243,7 @@ module.exports = {
 
     contactTypeOptionOnModal: {
       selector: `//DIV[@class='modal__body']//label[contains(@for, 'typeId')]//SPAN[contains(.,'${testConstants.contactTypeOnModal}')]`,
-      locateStrategy: 'xpath'
+      locateStrategy: 'xpath',
     },
 
     /*-----------------------------------------------------------*/
@@ -268,11 +267,6 @@ module.exports = {
 
     addContactDropdownFirstResultFb: {
       selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.FACEBOOK_CONTACT_NAME}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    searchContactInput: {
-      selector: '//SPAN[contains(text(), \'Search users\')]',
       locateStrategy: 'xpath',
     },
 
@@ -325,75 +319,70 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    addContactButton: {
-      selector: `//BUTTON[contains(@title, 'Add New Contact')]`,
-      locateStrategy: 'xpath',
-    },
-
     addContactButtonModal: {
-      selector: `//BUTTON[contains(@title, 'Search by')]`,
+      selector: '//BUTTON[contains(@title,\'Search by\')]',
       locateStrategy: 'xpath',
     },
 
     // Form Elements
 
     firstNameInput: {
-      selector: `//INPUT[contains(@id, 'firstName')]`,
+      selector: '//INPUT[contains(@id,\'firstName\')]',
       locateStrategy: 'xpath',
     },
 
     firstNameInputOnModal: {
-      selector: `//DIV[@class='modal__body']//INPUT[contains(@id, 'firstName')]`,
+      selector: '//DIV[@class=\'modal__body\']//INPUT[contains(@id,\'firstName\')]',
       locateStrategy: 'xpath',
     },
 
     middleNameInput: {
-      selector: `//INPUT[contains(@id, 'middleName')]`,
+      selector: '//INPUT[contains(@id,\'middleName\')]',
       locateStrategy: 'xpath',
     },
 
     addNewContactButton: {
-      selector: `//SPAN[contains(.,\'Add New Contact\')]`,
+      selector: '//SPAN[contains(.,\'Add New Contact\')]',
       locateStrategy: 'xpath',
     },
 
     middleNameInputOnModal: {
-      selector: `//DIV[@class='modal__body']//INPUT[contains(@id, 'middleName')]`,
+      selector: '//DIV[@class=\'modal__body\']//INPUT[contains(@id,\'middleName\')]',
       locateStrategy: 'xpath',
     },
 
     lastNameInput: {
-      selector: `//INPUT[contains(@id, 'lastName')]`,
+      selector: '//INPUT[contains(@id,\'lastName\')]',
       locateStrategy: 'xpath',
     },
 
     lastNameInputOnModal: {
-      selector: `//DIV[@class='modal__body']//INPUT[contains(@id, 'lastName')]`,
+      selector: '//DIV[@class=\'modal__body\']//INPUT[contains(@id,\'lastName\')]',
       locateStrategy: 'xpath',
     },
 
     preferredNameInput: {
-      selector: `//INPUT[contains(@id, 'preferredName')]`,
+      selector: '//INPUT[contains(@id,\'preferredName\')]',
       locateStrategy: 'xpath',
     },
 
     prefixDropdown: {
-      selector: `//SELECT[contains(@id, 'prefixId')]`,
+      selector: '//SELECT[contains(@id,\'prefixId\')]',
       locateStrategy: 'xpath',
     },
 
     suffixDropdown: {
-      selector: `//SELECT[contains(@id, 'suffixId')]`,
+      selector: '//SELECT[contains(@id,\'suffixId\')]',
       locateStrategy: 'xpath',
     },
 
     birthDateInput: {
-      selector: `//INPUT[contains(@id, 'birthday')]`,
+      selector: '//INPUT[contains(@id,\'birthday\')]',
       locateStrategy: 'xpath',
     },
 
     birthDateInputOnModal: {
-      selector: `//DIV[@class='modal__body']//INPUT[contains(@id, 'birthday')]`,
+      selector: '//DIV[@class=\'modal__body\']//INPUT[contains(@id,\'birthday\')]',
       locateStrategy: 'xpath',
     },
 
@@ -403,42 +392,42 @@ module.exports = {
     },
 
     phoneNumberInput: {
-      selector: `//INPUT[contains(@id, 'userPhones-0')]`,
+      selector: '//INPUT[contains(@id,\'userPhones-0\')]',
       locateStrategy: 'xpath',
     },
 
     phoneNumberInputOnModal: {
-      selector: `//DIV[@class='modal__body']//INPUT[contains(@id, 'userPhones-0')]`,
+      selector: '//DIV[@class=\'modal__body\']//INPUT[contains(@id,\'userPhones-0\')]',
       locateStrategy: 'xpath',
     },
 
     anotherPhoneNumberInput: {
-      selector: `//INPUT[contains(@id, 'userPhones-1')]`,
+      selector: '//INPUT[contains(@id,\'userPhones-1\')]',
       locateStrategy: 'xpath',
     },
 
     emailInput: {
-      selector: `//INPUT[contains(@id, 'userEmails-0')]`,
+      selector: '//INPUT[contains(@id,\'userEmails-0\')]',
       locateStrategy: 'xpath',
     },
 
     emailInputOnModal: {
-      selector: `//DIV[@class='modal__body']//INPUT[contains(@id, 'userEmails-0')]`,
+      selector: '//DIV[@class=\'modal__body\']//INPUT[contains(@id,\'userEmails-0\')]',
       locateStrategy: 'xpath',
     },
 
     anotherEmailInput: {
-      selector: `//INPUT[contains(@id, 'userEmails-1')]`,
+      selector: '//INPUT[contains(@id,\'userEmails-1\')]',
       locateStrategy: 'xpath',
     },
 
     noteInput: {
-      selector: `//textarea[contains(@id, 'note')]`,
+      selector: '//textarea[contains(@id,\'note\')]',
       locateStrategy: 'xpath',
     },
 
     connectedPartySearchInput: {
-      selector: `//INPUT[contains(@id, 'connectedParty')]`,
+      selector: '//INPUT[contains(@id,\'connectedParty\')]',
       locateStrategy: 'xpath',
     },
 
@@ -458,7 +447,7 @@ module.exports = {
     },
 
     parentRelationshipOnSummary: {
-      selector: `//DIV[@class='summary-panel__wrapper']//SPAN[contains(@class,'resource__intro__title__sub')][contains(text(), 'Parent')]`,
+      selector: '//DIV[@class=\'summary-panel__wrapper\']//SPAN[contains(@class,\'resource__intro__title__sub\')][contains(text(),\'Parent\')]',
       locateStrategy: 'xpath',
     },
 
@@ -468,110 +457,110 @@ module.exports = {
     },
 
     connectionTypeInput: {
-      selector: `//SELECT[contains(@id, 'connectionTypeId')]`,
+      selector: '//SELECT[contains(@id,\'connectionTypeId\')]',
       locateStrategy: 'xpath',
     },
 
     // Action elements
     createNewContactButton: {
-      selector: `//SPAN[contains(text(), 'Create Contact')]`,
+      selector: '//SPAN[contains(text(),\'Create Contact\')]',
       locateStrategy: 'xpath',
     },
 
     createNewContactByConnectionButton: {
-      selector: `//SPAN[contains(text(), 'Create New Contact')]`,
+      selector: '//SPAN[contains(text(),\'Create New Contact\')]',
       locateStrategy: 'xpath',
     },
 
     editProfileButton: {
-      selector: `//SPAN[contains(text(), 'Edit Profile')]`,
+      selector: '//SPAN[contains(text(),\'Edit Profile\')]',
       locateStrategy: 'xpath',
     },
 
     updateContactButton: {
-      selector: `//SPAN[contains(text(), 'Update Contact')]`,
+      selector: '//SPAN[contains(text(),\'Update Contact\')]',
       locateStrategy: 'xpath',
     },
 
     addPhoneNumber: {
-      selector: `//SPAN[contains(text(), 'Add another phone number')]`,
+      selector: '//SPAN[contains(text(),\'Add another phone number\')]',
       locateStrategy: 'xpath',
     },
 
     addAnotherEmail: {
-      selector: `//SPAN[contains(text(), 'Add another email address')]`,
+      selector: '//SPAN[contains(text(),\'Add another email address\')]',
       locateStrategy: 'xpath',
     },
 
     addPhotoButton: {
-      selector: `//SPAN[contains(.,'Add Photo')]`,
+      selector: '//SPAN[contains(.,\'Add Photo\')]',
       locateStrategy: 'xpath',
     },
 
     uploadPhotoButton: {
-      selector: `//LABEL[contains(.,'Upload Photo')]`,
+      selector: '//LABEL[contains(.,\'Upload Photo\')]',
       locateStrategy: 'xpath',
     },
 
     doneUploadPhoto: {
-      selector: `//SPAN[text()='Done']`,
+      selector: '//SPAN[text()=\'Done\']',
       locateStrategy: 'xpath',
     },
 
     addConnectedPartyButton: {
-      selector: `//SPAN[contains(text(), 'Add Connected Party')]`,
+      selector: '//SPAN[contains(text(),\'Add Connected Party\')]',
       locateStrategy: 'xpath',
     },
 
     removeConnectedPartyButton: {
-      selector: `//BUTTON[contains(@title, 'Remove connected party')]`,
+      selector: '//BUTTON[contains(@title,\'Remove connected party\')]',
       locateStrategy: 'xpath',
     },
 
     searchUserButton: {
-      selector: `//SPAN[text()='Search users']`,
+      selector: '//SPAN[text()=\'Search users\']',
       locateStrategy: 'xpath',
     },
 
     filterContactButton: {
-      selector: `//BUTTON[@title='Filter contacts']`,
+      selector: '//BUTTON[@title=\'Filter contacts\']',
       locateStrategy: 'xpath',
     },
 
     searchUsersModalCloseButton: {
-      selector: `//BUTTON[contains(@class, 'close modal__header__close')][@title='Close']`,
+      selector: '//BUTTON[contains(@class,\'close modal__header__close\')][@title=\'Close\']',
       locateStrategy: 'xpath',
     },
 
     // Notifications
     createSuccessMessage: {
-      selector: `//*[text()='Contact created successfully.']`,
+      selector: '//*[text()=\'Contact created successfully.\']',
       locateStrategy: 'xpath',
     },
 
     editSuccessMessage: {
-      selector: `//*[text()='Contact updated successfully.']`,
+      selector: '//*[text()=\'Contact updated successfully.\']',
       locateStrategy: 'xpath',
     },
 
     deleteSuccessMessage: {
-      selector: `//*[text()='Contact successfully deleted.']`,
+      selector: '//*[text()=\'Contact successfully deleted.\']',
       locateStrategy: 'xpath',
     },
 
     // Others elements
     summaryPanel: {
-      selector: `//DIV[@class='app-page__header__title'][text()='Summary']`,
+      selector: '//DIV[@class=\'app-page__header__title\'][text()=\'Summary\']',
       locateStrategy: 'xpath',
     },
 
     contactCreatePageTitle: {
-      selector: `//DIV[@class='app-page__header__title'][text()='Create Contact']`,
+      selector: '//DIV[@class=\'app-page__header__title\'][text()=\'Create Contact\']',
       locateStrategy: 'xpath',
     },
 
     contactEditPageTitle: {
-      selector: `//DIV[@class='app-page__header__title'][text()='Edit Contact']`,
+      selector: '//DIV[@class=\'app-page__header__title\'][text()=\'Edit Contact\']',
       locateStrategy: 'xpath',
     },
 
@@ -586,7 +575,7 @@ module.exports = {
     },
 
     createContactFormModal: {
-      selector: `//h3[@class='modal__header__title'][text()='Create Contact']`,
+      selector: '//h3[@class=\'modal__header__title\'][text()=\'Create Contact\']',
       locateStrategy: 'xpath',
     },
 
@@ -596,7 +585,7 @@ module.exports = {
     },
 
     filteredContactPatientType: {
-      selector: `//DIV[@class='resource__right'][text()='Patient']`,
+      selector: '//DIV[@class=\'resource__right\'][text()=\'Patient\']',
       locateStrategy: 'xpath',
     },
 
@@ -606,27 +595,17 @@ module.exports = {
     },
 
     filteredContactOtherType: {
-      selector: `//DIV[@class='resource__right'][text()='Other']`,
+      selector: '//DIV[@class=\'resource__right\'][text()=\'Other\']',
       locateStrategy: 'xpath',
     },
 
     noRecords: {
-      selector: `//h3[contains(text(),'Looks like you don')]`,
+      selector: '//h3[contains(text(),\'Looks like you don\')]',
       locateStrategy: 'xpath',
     },
 
     searchContactInput: {
-      selector: `//SPAN[contains(text(), 'Search users')]`,
-      locateStrategy: 'xpath',
-    },
-
-    addContactDropdownInput: {
-      selector: `//DIV[contains(@class, 'modal')]//INPUT`,
-      locateStrategy: 'xpath',
-    },
-
-    profileInboxContainer: {
-      selector: `//DIV[contains(@class, 'convo__inner')]`,
+      selector: '//SPAN[contains(text(),\'Search users\')]',
       locateStrategy: 'xpath',
     },
 
@@ -636,12 +615,12 @@ module.exports = {
     },
 
     deleteContactButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][contains(text(),'Delete Contact')]`,
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Delete Contact\')]',
       locateStrategy: 'xpath',
     },
 
     confirmDeleteButton: {
-      selector: `//*[@class='modal__content']//SPAN[@class='button__text-wrapper'][contains(text(),'Delete Contact')]`,
+      selector: '//*[@class=\'modal__content\']//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Delete Contact\')]',
       locateStrategy: 'xpath',
     },
 
@@ -659,6 +638,6 @@ module.exports = {
       selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}')]`,
       locateStrategy: 'xpath',
     },
-  }
+  },
 
 };

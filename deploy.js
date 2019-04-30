@@ -2,7 +2,7 @@ const Rhinocloud = require('rhinocloud-sdk');
 import logger from 'rhinotilities/lib/loggers/logger';
 
 if (!process.env.CIRCLE_BRANCH) {
-  throw new Error('No value set for process.env.CIRCLE_BRANCH');
+  throw new Error(`No value set for ${process.env.CIRCLE_BRANCH}`);
 }
 
 const rhinocloud = new Rhinocloud();

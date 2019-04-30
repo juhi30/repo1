@@ -2,7 +2,6 @@ import moment from 'moment-timezone';
 import * as rhinofeeder from '../../services/Rhinofeeder.service';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 
-const orgId = process.env.INTEGRATIONS_ORG_ID;
 let createdPatient;
 
 const patientPayload = {
@@ -151,7 +150,7 @@ describe('mi7 integration tests', () => {
   test('new patient inbound message', async (done) => {
     await rhinofeeder.postMi7InboundMessage(patientPayload);
     await sleep(10000);
-    const response = await rhinoapi.getUserByExternalId(orgId, patientPayload.PatientID_EMR);
+    const response = await rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, patientPayload.PatientID_EMR);
     expect(response.data.externalIds.emrId).toBe(patientPayload.PatientID_EMR);
     expect(response.data.firstName).toBe(patientPayload.FirstName);
     expect(response.data.lastName).toBe(patientPayload.LastName);
@@ -162,7 +161,7 @@ describe('mi7 integration tests', () => {
   test('update patient inbound message', async (done) => {
     await rhinofeeder.postMi7InboundMessage(updatePatientPayload);
     await sleep(10000);
-    const response = await rhinoapi.getUserByExternalId(orgId, updatePatientPayload.PatientID_EMR);
+    const response = await rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, updatePatientPayload.PatientID_EMR);
     expect(response.data.externalIds.emrId).toBe(updatePatientPayload.PatientID_EMR);
     expect(response.data.id).toBe(createdPatient.id);
     expect(response.data.firstName).toBe(updatePatientPayload.FirstName);
@@ -173,10 +172,10 @@ describe('mi7 integration tests', () => {
   test('new appointment inbound message', async (done) => {
     await rhinofeeder.postMi7InboundMessage(appointmentPayload);
     await sleep(10000);
-    const response = await rhinoapi.getApointmentByExternalId(orgId, appointmentPayload.PlacerID, createdPatient.id);
+    const response = await rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, appointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(appointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
-    // expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed  TODO: temporarily removing until we can setup and teardown orgs
+    expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed  TODO: temporarily removing until we can setup and teardown orgs
     expect(moment.utc(response.data.startDate).format()).toBe(startDate);
     done();
   });
@@ -184,10 +183,10 @@ describe('mi7 integration tests', () => {
   test('update appointment inbound message', async (done) => {
     await rhinofeeder.postMi7InboundMessage(updateAppointmentPayload);
     await sleep(10000);
-    const response = await rhinoapi.getApointmentByExternalId(orgId, updateAppointmentPayload.PlacerID, createdPatient.id);
+    const response = await rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, updateAppointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(updateAppointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
-    // expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed TODO: temporarily removing until we can setup and teardown orgs
+    expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed TODO: temporarily removing until we can setup and teardown orgs
     expect(moment.utc(response.data.startDate).format()).toBe(updatedStartDate);
     done();
   });
@@ -195,7 +194,7 @@ describe('mi7 integration tests', () => {
   test('cancel appointment inbound message', async (done) => {
     await rhinofeeder.postMi7InboundMessage(cancelAppointmentPayload);
     await sleep(10000);
-    const response = await rhinoapi.getApointmentByExternalId(orgId, cancelAppointmentPayload.PlacerID, createdPatient.id);
+    const response = await rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, cancelAppointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(cancelAppointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
     expect(response.data.appointmentStatusTypeId).toBe(83); // cancelled

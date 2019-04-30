@@ -30,6 +30,7 @@ beforeAll(async () => {
     const org = await createOrganization(orgData, cookie);
     process.env.INTEGRATIONS_ORG = org;
     process.env.INTEGRATIONS_ORG_ID = org.id;
+    process.env.INTEGRATIONS_ORG_COOKIE = cookie;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log('===error on before all orgSetupAndTeardown=======', err);
@@ -37,21 +38,21 @@ beforeAll(async () => {
 });
 
 // DELETE MY NEW ORG HERE
-afterAll(async () => {
-  try {
-    // eslint-disable-next-line no-console
-    console.log('Login...');
-    const cookie = await login();
-    // eslint-disable-next-line no-console
-    console.log('Deleting Org ==', process.env.INTEGRATIONS_ORG_ID);
-    const archiveResponse = await archiveOrganization(process.env.INTEGRATIONS_ORG_ID, cookie);
-    // eslint-disable-next-line no-console
-    console.log('======== Organization Archive Response =======', archiveResponse);
-    await deleteOrganization(process.env.INTEGRATIONS_ORG_ID, cookie);
-    // eslint-disable-next-line no-console
-    console.log('====== Organization Deleted =======');
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log('===error on after all orgSetupAndTeardown=======', err);
-  }
-});
+// afterAll(async () => {
+//   try {
+//     // eslint-disable-next-line no-console
+//     console.log('Login...');
+//     const cookie = await login();
+//     // eslint-disable-next-line no-console
+//     console.log('Deleting Org ==', process.env.INTEGRATIONS_ORG_ID);
+//     const archiveResponse = await archiveOrganization(process.env.INTEGRATIONS_ORG_ID, cookie);
+//     // eslint-disable-next-line no-console
+//     console.log('======== Organization Archive Response =======', archiveResponse);
+//     await deleteOrganization(process.env.INTEGRATIONS_ORG_ID, cookie);
+//     // eslint-disable-next-line no-console
+//     console.log('====== Organization Deleted =======');
+//   } catch (err) {
+//     // eslint-disable-next-line no-console
+//     console.log('===error on after all orgSetupAndTeardown=======', err);
+//   }
+// });

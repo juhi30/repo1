@@ -27,13 +27,8 @@ function localToUtc(datetime, ianaTimezone) {
 describe('mergeUsers', () => {
   jest.setTimeout(30000);
 
-  beforeAll(async () => {
-    try {
-      cookie = await rhinoapi.login();
-      await rhinoapi.changeOrg(cookie);
-    } catch (err) {
-      console.log('==error on mergeUsers=====', err);
-    }
+  test('log into org', async () => {
+    await rhinoapi.changeOrg(process.env.INTEGRATIONS_ORG_COOKIE);
   });
 
   test('create users', async () => {

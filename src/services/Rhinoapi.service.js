@@ -139,3 +139,43 @@ export async function createMember(memberData, cookie) {
 
   return response.data;
 }
+
+export async function mergeUsers(id1, id2, cookie) {
+  const response = await axios.get(`${process.env.API_BASE_URL}/users/mergeUsers/${id1}/${id2}`,
+    {
+      headers: {
+        'content-type': 'application/json',
+        token: process.env.RG_DEV_TOKEN,
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
+export async function getUser(userId, cookie) {
+  const response = await axios.get(`${process.env.API_BASE_URL}/users/${userId}`,
+    {
+      headers: {
+        'content-type': 'application/json',
+        token: process.env.RG_DEV_TOKEN,
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
+export async function postUser(user, cookie) {
+  const response = await axios.post(`${process.env.API_BASE_URL}/users`,
+    {
+      headers: {
+        'content-type': 'application/json',
+        token: process.env.RG_DEV_TOKEN,
+        Cookie: cookie,
+      },
+      body: user,
+    });
+
+  return response.data;
+}

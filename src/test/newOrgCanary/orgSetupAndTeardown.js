@@ -1,9 +1,6 @@
 import { client } from 'nightwatch-api';
-import {
-  deleteOrganization,
-  archiveOrganization,
-  login,
-} from '../../services/Rhinoapi.service';
+import { organizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
+import { ccrLogin } from '../../toolboxes/login.toolbox';
 
 const testConstants = require('../../toolboxes/feeder.toolbox');
 
@@ -12,23 +9,19 @@ beforeAll(async () => {
   const loginPage = client.page.LoginPage();
   const setup = client.page.AccountSetupPage();
   const org = client.page.UniversalElements();
+  const organizationDetails = {
+    name: testConstants.orgName,
+    address: testConstants.address,
+    city: testConstants.city,
+    state: testConstants.state,
+    zip: testConstants.zip,
+  };
 
   try {
-    await loginPage.navigate()
-      .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
-      .submit()
-      .pause(2000)
-      .validateUrlChange('/selectorg');
-    org.waitForElementVisible('@searchInputForOrg', 'Search Org fiels is visible');
+    await ccrLogin(loginPage, testConstants.ccrLogin, testConstants.ccrPassword);
+    org.waitForElementVisible('@searchInputForOrg', 'Search Org fields is visible');
 
-    await setup.navigate()
-      .clickBillingToggle()
-      .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
-        testConstants.state, testConstants.zip)
-      .clickCreateOrganization()
-      .waitForElementNotVisible('@createOrgButton', 'Create Org button not visible')
-      .pause(1000)
-      .getOrgId();
+    await organizationSetUp(setup, organizationDetails, 'NEW_CANARY_ORG_ID');
   } catch (err) {
     console.log('==error on orgSetupAndTearDown=====', err);
   }
@@ -37,13 +30,7 @@ beforeAll(async () => {
 // DELETE MY NEW ORG HERE
 afterAll(async (done) => {
   try {
-    console.log('Login...');
-    const cookie = await login();
-    console.log('Deleting Org ==', process.env.ORGANIZATION_ID);
-    const archiveResponse = await archiveOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('======== Organization Archive Response =======', archiveResponse);
-    const deleteResponse = await deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======');
+    await orgTearDown(process.env.NEW_CANARY_ORG_ID);
     done();
   } catch (err) {
     console.log('===error on after all orgSetupAndTeardown=======', err);

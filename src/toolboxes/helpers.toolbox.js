@@ -7,14 +7,15 @@ function findTextOnPage(client, text) {
 
 function returnElementText(client, selector) {
   client.getText(selector, (result) => {
+    // eslint-disable-next-line no-console
     console.log(result);
     return result;
-  })
+  });
 }
 
-//Use to uplaod attachments
+// Use to uplaod attachments
 async function uploadFile(client, fileName) {
-  client.setValue('input[type="file"]', path.resolve()+'/src/assets/' + fileName)
+  client.setValue('input[type="file"]', `${path.resolve()}/src/assets/${fileName}`);
 }
 
 // useful for clicking a specific element without needing a Page Object function
@@ -34,21 +35,21 @@ function clickDivViaText(client, text) {
 const randoNum = Math.ceil(Math.random() * 1000);
 
 const theDateObj = new Date();
-const dateString = theDateObj.toLocaleTimeString() + ', ' + theDateObj.toLocaleDateString();
+const dateString = `${theDateObj.toLocaleTimeString()}, ${theDateObj.toLocaleDateString()}`;
 
 const csrCreds = {
   username: 'ccrnightwatch',
-  password: 'bacon'
+  password: 'bacon',
 };
 
 const memberCreds = {
   username: 'jcash',
-  password: 'bacon'
+  password: 'bacon',
 };
 
 const patientCreds = {
   username: 'nightpatient',
-  password: 'Nightpass2'
+  password: 'Nightpass2',
 };
 
 const organizationSearchStringForAnalytics = 'Rhino India Scrum Team';
@@ -106,6 +107,10 @@ function defaultDateRange(startDays, endDays) {
   return `Last 30 Days (${startDate} - ${endDate})`;
 }
 
+function localToUtc(datetime, ianaTimezone) {
+  return moment.tz(datetime, 'MM/DD/YYYY hh:mm:ss A', ianaTimezone).utc();
+}
+
 module.exports = {
   clickSpanViaText,
   clickDivViaText,
@@ -125,4 +130,5 @@ module.exports = {
   analyticsClosedConversationUI,
   memberCredsForConversationGrid,
   uploadFile,
-}
+  localToUtc,
+};

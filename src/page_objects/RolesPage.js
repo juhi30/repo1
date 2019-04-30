@@ -1,249 +1,248 @@
-const testConstants = require("../toolboxes/feeder.toolbox");
+const testConstants = require('../toolboxes/feeder.toolbox');
 
 const rolescommands = {
 
-  
 
-}
+};
 
 module.exports = {
   commands: [rolescommands],
-  url: function () {
-    return this.api.launch_url + '/settings/organization/roles'
+  url() {
+    return `${this.api.launch_url}/settings/organization/roles`;
   },
 
   elements: {
     rolesPageTitle: {
-      selector: `//DIV[@class='app-page__header__title'][text()='Roles']`,
+      selector: '//DIV[@class=\'app-page__header__title\'][text()=\'Roles\']',
       locateStrategy: 'xpath',
     },
 
     addRole: {
-      selector: `//BUTTON[@title='Create Member']`,
+      selector: '//BUTTON[@title=\'Create Member\']',
       locateStrategy: 'xpath',
     },
 
     createRolesPageTitle: {
-      selector: `//DIV[@class='app-page__header__title'][text()='Create Role']`,
+      selector: '//DIV[@class=\'app-page__header__title\'][text()=\'Create Role\']',
       locateStrategy: 'xpath',
     },
 
     roleNameInput: {
-      selector: `//INPUT[contains(@id,'name')]`,
+      selector: '//INPUT[contains(@id,\'name\')]',
       locateStrategy: 'xpath',
     },
 
     rolePurposeInput: {
-      selector: `//INPUT[contains(@id,'description')]`,
+      selector: '//INPUT[contains(@id,\'description\')]',
       locateStrategy: 'xpath',
     },
 
     editAppointmentReminders: {
-      selector: `//*[text()='Appointment Reminders']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Appointment Reminders\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewAppointmentReminders: {
-      selector: `//*[text()='Appointment Reminders']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Appointment Reminders\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     viewAuditLogs: {
-      selector: `//*[text()='Audit Log']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Audit Log\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     editBilling: {
-      selector: `//*[text()='Billing']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Billing\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewBilling: {
-      selector: `//*[text()='Billing']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Billing\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     editChannel: {
-      selector: `//*[text()='Channels']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Channels\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewChannel: {
-      selector: `//*[text()='Channels']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Channels\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     editGroups: {
-      selector: `//*[text()='Groups']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Groups\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewGroups: {
-      selector: `//*[text()='Groups']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Groups\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     deleteMembers: {
-      selector: `//*[text()='Members']//parent::td//parent::tr//LABEL[contains(@for,'delete')]`,
+      selector: '//*[text()=\'Members\']//parent::td//parent::tr//LABEL[contains(@for,\'delete\')]',
       locateStrategy: 'xpath',
     },
 
     editMembers: {
-      selector: `//*[text()='Members']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Members\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewMembers: {
-      selector: `//*[text()='Members']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Members\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     deleteOffices: {
-      selector: `//*[text()='Offices']//parent::td//parent::tr//LABEL[contains(@for,'delete')]`,
+      selector: '//*[text()=\'Offices\']//parent::td//parent::tr//LABEL[contains(@for,\'delete\')]',
       locateStrategy: 'xpath',
     },
 
     editOffices: {
-      selector: `//*[text()='Offices']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Offices\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewOffices: {
-      selector: `//*[text()='Offices']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Offices\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     deleteOOO: {
-      selector: `//*[text()='Out of Office']//parent::td//parent::tr//LABEL[contains(@for,'delete')]`,
+      selector: '//*[text()=\'Out of Office\']//parent::td//parent::tr//LABEL[contains(@for,\'delete\')]',
       locateStrategy: 'xpath',
     },
 
     editOOO: {
-      selector: `//*[text()='Out of Office']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Out of Office\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewOOO: {
-      selector: `//*[text()='Out of Office']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Out of Office\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     editPreferences: {
-      selector: `//*[text()='Preferences']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Preferences\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewPreferences: {
-      selector: `//*[text()='Preferences']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Preferences\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     editProfile: {
-      selector: `//*[text()='Profile']//parent::td//parent::tr//*[contains(@id,'edit')]`,
+      selector: '//*[text()=\'Profile\']//parent::td//parent::tr//*[contains(@id,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewProfile: {
-      selector: `//*[text()='Profile']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Profile\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     deleteRoles: {
-      selector: `//*[text()='Roles']//parent::td//parent::tr//LABEL[contains(@for,'delete')]`,
+      selector: '//*[text()=\'Roles\']//parent::td//parent::tr//LABEL[contains(@for,\'delete\')]',
       locateStrategy: 'xpath',
     },
 
     editRoles: {
-      selector: `//*[text()='Roles']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Roles\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewRoles: {
-      selector: `//*[text()='Roles']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Roles\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     deleteTags: {
-      selector: `//*[text()='Tags']//parent::td//parent::tr//LABEL[contains(@for,'delete')]`,
+      selector: '//*[text()=\'Tags\']//parent::td//parent::tr//LABEL[contains(@for,\'delete\')]',
       locateStrategy: 'xpath',
     },
 
     editTags: {
-      selector: `//*[text()='Tags']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Tags\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewTags: {
-      selector: `//*[text()='Tags']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Tags\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     deleteTemplates: {
-      selector: `//*[text()='Templates']//parent::td//parent::tr//LABEL[contains(@for,'delete')]`,
+      selector: '//*[text()=\'Templates\']//parent::td//parent::tr//LABEL[contains(@for,\'delete\')]',
       locateStrategy: 'xpath',
     },
 
     editTemplates: {
-      selector: `//*[text()='Templates']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Templates\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewTemplates: {
-      selector: `//*[text()='Templates']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Templates\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
-    //----------------Page objets for Message Actions------------
+    // ----------------Page objets for Message Actions------------
 
     AssignMessagetoSelf: {
-      selector: `//*[text()='Assign Message to Self']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Assign Message to Self\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     assignMessagetoGroup: {
-      selector: `//*[text()='Assign Message to Group']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Assign Message to Group\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     assignMessagetoMember: {
-      selector: `//*[text()='Assign Message to Member']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Assign Message to Member\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     closeConversation: {
-      selector: `//*[text()='Close Conversation']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Close Conversation\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     deleteContactsAndConversation: {
-      selector: `//*[text()='Contacts & Conversations']//parent::td//parent::tr//LABEL[contains(@for,'delete')]`,
+      selector: '//*[text()=\'Contacts & Conversations\']//parent::td//parent::tr//LABEL[contains(@for,\'delete\')]',
       locateStrategy: 'xpath',
     },
 
     editContactsAndConversation: {
-      selector: `//*[text()='Contacts & Conversations']//parent::td//parent::tr//LABEL[contains(@for,'edit')]`,
+      selector: '//*[text()=\'Contacts & Conversations\']//parent::td//parent::tr//LABEL[contains(@for,\'edit\')]',
       locateStrategy: 'xpath',
     },
 
     viewContactsAndConversation: {
-      selector: `//*[text()='Contacts & Conversations']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Contacts & Conversations\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
-    //-------Miscellanous actions-------
+    // -------Miscellanous actions-------
 
     viewAnalyticsDashboard: {
-      selector: `//*[text()='Analytics Dashboard']//parent::td//parent::tr//LABEL[contains(@for,'view')]`,
+      selector: '//*[text()=\'Analytics Dashboard\']//parent::td//parent::tr//LABEL[contains(@for,\'view\')]',
       locateStrategy: 'xpath',
     },
 
     addMoreMembersButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Add More Members']`,
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Add More Members\']',
       locateStrategy: 'xpath',
     },
 
     memberSearch: {
-      selector: `//INPUT[contains(@id,'preloadedMembers')]`,
+      selector: '//INPUT[contains(@id,\'preloadedMembers\')]',
       locateStrategy: 'xpath',
     },
 
@@ -258,17 +257,17 @@ module.exports = {
     },
 
     createRoleButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Create Role']`,
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Create Role\']',
       locateStrategy: 'xpath',
     },
 
     roleCreationSuccessMessage: {
-      selector: `//DIV[text()='Role created successfully.']`,
+      selector: '//DIV[text()=\'Role created successfully.\']',
       locateStrategy: 'xpath',
     },
 
     roleDeletionSuccessMessage: {
-      selector: `//DIV[text()='Role deleted successfully.']`,
+      selector: '//DIV[text()=\'Role deleted successfully.\']',
       locateStrategy: 'xpath',
     },
 
@@ -284,33 +283,33 @@ module.exports = {
     },
 
     editRoleButton: {
-      selector: `//SPAN[text()='Edit Role']`,
+      selector: '//SPAN[text()=\'Edit Role\']',
       locateStrategy: 'xpath',
     },
 
     updateRoleButton: {
-      selector: `//SPAN[text()='Update Role']`,
+      selector: '//SPAN[text()=\'Update Role\']',
       locateStrategy: 'xpath',
     },
 
     roleUpdationSuccessMessage: {
-      selector: `//DIV[text()='Role updated successfully.']`,
+      selector: '//DIV[text()=\'Role updated successfully.\']',
       locateStrategy: 'xpath',
     },
 
     deleteRoleButton: {
-      selector: `//BUTTON[@title='Delete Channel']`,
-      locateStrategy: 'xpath'
+      selector: '//BUTTON[@title=\'Delete Channel\']',
+      locateStrategy: 'xpath',
     },
 
     confirmDeleteButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='Yes, delete role']`,
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Yes, delete role\']',
       locateStrategy: 'xpath',
     },
 
     roleDetetionSuccessMessage: {
-      selector: `//DIV[text()='Role deleted successfully.']`,
+      selector: '//DIV[text()=\'Role deleted successfully.\']',
       locateStrategy: 'xpath',
-    }
-  }
-}
+    },
+  },
+};

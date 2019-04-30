@@ -2,66 +2,66 @@ const testConstants = require('../toolboxes/feeder.toolbox');
 
 const outOfOfficeCommands = {
 
-  updateDetails: function(element, newValue) {
-    return this.verify.visible(element, element + ' is visible')
+  updateDetails(element, newValue) {
+    return this.verify.visible(element, `${element} is visible`)
       .clearValue(element)
-      .setValue(element, newValue)
+      .setValue(element, newValue);
   },
 
-  verifyCreateOOOEventButton: function() {
-    return this.waitForElementVisible('@addOOOEventButton', 3000, false, null, 'Add Event Button is visible')
+  verifyCreateOOOEventButton() {
+    return this.waitForElementVisible('@addOOOEventButton', 3000, false, null, 'Add Event Button is visible');
   },
 
   // todo: this should be broken up into more specific steps
-  openOOOPage: function(element1, element2) {
+  openOOOPage(element1, element2) {
     return this.click(element1)
-      .waitForElementVisible(element2, 6000, false, null, 'Out of Office Page opened')
+      .waitForElementVisible(element2, 6000, false, null, 'Out of Office Page opened');
   },
 
-  clickAddEvent: function() {
+  clickAddEvent() {
     return this.waitForElementVisible('@addOOOEventButton', 'Add Event Button is visible')
       .click('@addOOOEventButton')
-      .waitForElementVisible('@createEventPageHeader', 'Create Event page is open') 
+      .waitForElementVisible('@createEventPageHeader', 'Create Event page is open');
   },
 
-  enterDetails: function (element, value) {
-    return this.waitForElementVisible(element, element + ' is visible')
-      .setValue(element, value)
+  enterDetails(element, value) {
+    return this.waitForElementVisible(element, `${element} is visible`)
+      .setValue(element, value);
   },
 
-  selectChannel: function() {
+  selectChannel() {
     return this.verify.visible('@firstTextChannel', 'Channel is visible')
       .click('@firstTextChannel')
-      .pause(1000)
+      .pause(1000);
   },
 
-  submit: function(element, notification) {
+  submit(element, notification) {
     return this.click(element)
       .waitForElementVisible(notification, 'Success message is visible')
-      .pause(3000)
+      .pause(3000);
   },
 
-  eventEditMode: function (event) {
-    return this.waitForElementVisible(event, event + ' Created event is visible in the event list.')
+  eventEditMode(event) {
+    return this.waitForElementVisible(event, `${event} Created event is visible in the event list.`)
       .click(event)
       .waitForElementVisible('@editEvent', 'Summary Panel opened.')
       .click('@editEvent')
-      .waitForElementVisible('@editEventPageTitle', 'Channel Opened in edit Mode.')
+      .waitForElementVisible('@editEventPageTitle', 'Channel Opened in edit Mode.');
   },
 
-  editEventDetails: function (element, newValue) {
-    return this.waitForElementVisible(element, element + ' is visible')
+  editEventDetails(element, newValue) {
+    return this.waitForElementVisible(element, `${element} is visible`)
       .clearValue(element)
-      .setValue(element, newValue)
+      .setValue(element, newValue);
   },
 
-  selectDate: function (element, dateValue) {
-    return this.waitForElementVisible(element, element + ' is visible')
-      .setValue(element, dateValue)
-      // .driver.executeScript("document.getElementById('from').setAttribute('value','02/08/2017')")
+  selectDate(element, dateValue) {
+    return this.waitForElementVisible(element, `${element} is visible`)
+      .setValue(element, dateValue);
+    // .driver.executeScript("document.getElementById('from').setAttribute('value','02/08/2017')")
   },
 
-  deleteEvent: function() {
+  deleteEvent() {
     return this.waitForElementVisible('@trashDeleteIcon', 'Delete Element is visible')
       .click('@trashDeleteIcon')
       .waitForElementVisible('@cancelDeleteButton', 'cancel button is visible')
@@ -70,13 +70,13 @@ const outOfOfficeCommands = {
       .waitForElementVisible('@eventDeletionSuccessMessage', 'deletion Success message is visible')
       .pause(1000)
       .expect.element('@firstOOOEvent').to.not.be.present;
-  }
-}
+  },
+};
 
 module.exports = {
   commands: [outOfOfficeCommands],
-  url: function () {
-    return this.api.launch_url + '/settings/organization/out-of-office';
+  url() {
+    return `${this.api.launch_url}/settings/organization/out-of-office`;
   },
   elements: {
     /*-----------------------------------------------------*/
@@ -84,22 +84,22 @@ module.exports = {
     /*----------------------------------------------------*/
 
     outOfOfficeListPageTitle: {
-      selector: `//DIV[text()='Out of Office']`,
+      selector: '//DIV[text()=\'Out of Office\']',
       locateStrategy: 'xpath',
     },
 
     addOOOEventButton: {
-      selector: `//BUTTON[(@title='Create Out of Office Event')]`,
+      selector: '//BUTTON[(@title=\'Create Out of Office Event\')]',
       locateStrategy: 'xpath',
     },
 
     firstOOOEvent: {
-      selector: `//DIV[@role='button'][1]`, //check this is working only needed to access Edit page
+      selector: '//DIV[@role=\'button\'][1]', // check this is working only needed to access Edit page
       locateStrategy: 'xpath',
     },
 
     editOOOEvent: {
-      selector: `//SPAN[text()='Edit Event']`,
+      selector: '//SPAN[text()=\'Edit Event\']',
       locateStrategy: 'xpath',
     },
 
@@ -108,22 +108,22 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     createEventPageHeader: {
-      selector: `//DIV[text()='Create Out of Office Event']`,
+      selector: '//DIV[text()=\'Create Out of Office Event\']',
       locateStrategy: 'xpath',
     },
 
     editEventPageHeader: {
-      selector: `//DIV[text()='Edit Out of Office Event']`,
+      selector: '//DIV[text()=\'Edit Out of Office Event\']',
       locateStrategy: 'xpath',
     },
 
     titleInput: {
-      selector: `//INPUT[contains(@id, 'title')]`,
+      selector: '//INPUT[contains(@id, \'title\')]',
       locateStrategy: 'xpath',
     },
 
     messageTextArea: {
-      selector: `//TEXTAREA[contains(@id, 'message')]`,
+      selector: '//TEXTAREA[contains(@id, \'message\')]',
       locateStrategy: 'xpath',
     },
 
@@ -132,38 +132,38 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     fromDateInput: {
-      selector: `//INPUT[@id='from']`,
+      selector: '//INPUT[@id=\'from\']',
       locateStrategy: 'xpath',
     },
 
     fromTimeInput: {
-      selector: `//SELECT[contains(@name, 'fromTime')]`,
+      selector: '//SELECT[contains(@name, \'fromTime\')]',
       locateStrategy: 'xpath',
     },
 
     closedAllDayCheck: {
-      selector: `//LABEL[contains(text(), 'Office is closed all day')]`,
+      selector: '//LABEL[contains(text(), \'Office is closed all day\')]',
       locateStrategy: 'xpath',
     },
 
     toDateInput: {
-      selector: `//INPUT[@id='to']`,
+      selector: '//INPUT[@id=\'to\']',
       locateStrategy: 'xpath',
     },
 
     toTimeInput: {
-      selector: `//SELECT[contains(@name, 'toTime')]`,
+      selector: '//SELECT[contains(@name, \'toTime\')]',
       locateStrategy: 'xpath',
     },
 
     channels: {
-      selector: `//DIV[@role='button']`,
-      locateStrategy: 'xpath'
+      selector: '//DIV[@role=\'button\']',
+      locateStrategy: 'xpath',
     },
 
-    //Need unique identifier
+    // Need unique identifier
     firstTextChannel: {
-      selector: `(//DIV[@role='button'])[1]`,
+      selector: '(//DIV[@role=\'button\'])[1]',
       locateStrategy: 'xpath',
     },
 
@@ -172,47 +172,47 @@ module.exports = {
     /*-----------------------------------------------------*/
 
     createEventButton: {
-      selector: `//SPAN[contains(text(), 'Create Event')]`,
+      selector: '//SPAN[contains(text(), \'Create Event\')]',
       locateStrategy: 'xpath',
     },
 
     updateEventButton: {
-      selector: `//SPAN[contains(text(), 'Update Event')]`,
+      selector: '//SPAN[contains(text(), \'Update Event\')]',
       locateStrategy: 'xpath',
     },
 
     trashDeleteIcon: {
-      selector: `//BUTTON[@title='Delete Out of Office Event']`,
+      selector: '//BUTTON[@title=\'Delete Out of Office Event\']',
       locateStrategy: 'xpath',
     },
 
     cancelDeleteButton: {
-      selector: `//SPAN[contains(text(), 'Cancel')]`,
+      selector: '//SPAN[contains(text(), \'Cancel\')]',
       locateStrategy: 'xpath',
     },
 
     finalDeleteButton: {
-      selector: `//SPAN[contains(text(), 'Yes, delete event')]`,
+      selector: '//SPAN[contains(text(), \'Yes, delete event\')]',
       locateStrategy: 'xpath',
     },
 
     eventCreateSuccessMessage: {
-      selector: `//DIV[text()='Out of Office created successfully.']`,
+      selector: '//DIV[text()=\'Out of Office created successfully.\']',
       locateStrategy: 'xpath',
     },
 
     eventUpdateSuccessMessage: {
-      selector: `//DIV[text()='Out of Office updated successfully.']`,
+      selector: '//DIV[text()=\'Out of Office updated successfully.\']',
       locateStrategy: 'xpath',
     },
 
     eventDeletionSuccessMessage: {
-      selector: `//DIV[text()='Out of Office deleted successfully.']`,
+      selector: '//DIV[text()=\'Out of Office deleted successfully.\']',
       locateStrategy: 'xpath',
     },
 
     editedTitle: {
-      selector: `//SPAN[text()='Edited_Title']`,
+      selector: '//SPAN[text()=\'Edited_Title\']',
       locateStrategy: 'xpath',
     },
 
@@ -227,13 +227,13 @@ module.exports = {
     },
 
     editEvent: {
-      selector: `//SPAN[@class='button__text-wrapper'][contains(text(),'Edit Event')]`,
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Edit Event\')]',
       locateStrategy: 'xpath',
     },
 
     editEventPageTitle: {
-      selector: `//DIV[@class='app-page__header__title'][contains(text(),'Edit Out of Office Event')]`,
+      selector: '//DIV[@class=\'app-page__header__title\'][contains(text(),\'Edit Out of Office Event\')]',
       locateStrategy: 'xpath',
     },
-  }
+  },
 };

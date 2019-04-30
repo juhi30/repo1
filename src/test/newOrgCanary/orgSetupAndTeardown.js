@@ -1,38 +1,41 @@
 import { client } from 'nightwatch-api';
-const testConstants = require('../../toolboxes/feeder.toolbox');
 import {
   deleteOrganization,
   archiveOrganization,
-  login
+  login,
 } from '../../services/Rhinoapi.service';
+
+const testConstants = require('../../toolboxes/feeder.toolbox');
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
-  const login = client.page.LoginPage();
+  const loginPage = client.page.LoginPage();
   const setup = client.page.AccountSetupPage();
   const org = client.page.UniversalElements();
 
+  try {
+    await loginPage.navigate()
+      .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
+      .submit()
+      .pause(2000)
+      .validateUrlChange('/selectorg');
+    org.waitForElementVisible('@searchInputForOrg', 'Search Org fiels is visible');
 
-  await login.navigate()
-    .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
-    .submit()
-    .pause(2000)
-    .validateUrlChange('/selectorg')
-  org.waitForElementVisible('@searchInputForOrg', 'Search Org fiels is visible')
-
-  await setup.navigate()
-    .clickBillingToggle()
-    .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
-      testConstants.state, testConstants.zip)
-    .clickCreateOrganization()
-    .waitForElementNotVisible('@createOrgButton', 'Create Org button not visible')
-    .pause(1000)
-    .getOrgId()
+    await setup.navigate()
+      .clickBillingToggle()
+      .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
+        testConstants.state, testConstants.zip)
+      .clickCreateOrganization()
+      .waitForElementNotVisible('@createOrgButton', 'Create Org button not visible')
+      .pause(1000)
+      .getOrgId();
+  } catch (err) {
+    console.log('==error on orgSetupAndTearDown=====', err);
+  }
 });
 
-// DELETE MY NEW ORG HERE 
+// DELETE MY NEW ORG HERE
 afterAll(async (done) => {
-
   try {
     console.log('Login...');
     const cookie = await login();
@@ -43,7 +46,7 @@ afterAll(async (done) => {
     console.log('====== Organization Deleted =======');
     done();
   } catch (err) {
-    console.log(err);
+    console.log('===error on after all orgSetupAndTeardown=======', err);
     done(err);
   }
 });

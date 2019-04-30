@@ -10,7 +10,6 @@ beforeAll(async (done) => {
   try {
     const cookie = await login();
     // eslint-disable-next-line no-console
-    console.log(cookie);
     const orgData = {
       name: 'Integrations Testing',
       parentCompany: '',
@@ -29,7 +28,7 @@ beforeAll(async (done) => {
       selectedBillingOpt: 'newCust',
     };
     const org = await createOrganization(orgData, cookie);
-    process.env.INTERATIONS_ORG = org;
+    process.env.INTEGRATIONS_ORG = org;
     process.env.INTEGRATIONS_ORG_ID = org.id;
   } catch (err) {
     // eslint-disable-next-line no-console

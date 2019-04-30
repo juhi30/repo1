@@ -11,7 +11,7 @@ async function login() {
     { username: USERNAME, password: PASSWORD },
     {
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
       },
     });
   return response.headers['set-cookie'][0];
@@ -43,10 +43,9 @@ beforeAll(async () => {
 });
 
 describe('Rhinopay tests', () => {
-  test('storing merchant data', async (done) => {
+  test('storing merchant data', async () => {
     // create Rhinopay data
     const response = await rhinopay.getMerchantByOrgId(cookie);
     console.log('zut alors', response.data);
-    done();
   });
 });

@@ -10,11 +10,9 @@ import {
 // CREATE MY NEW ORG HERE
 // eslint-disable-next-line no-undef
 beforeAll(async () => {
-  console.log('helloooo');
   try {
     const cookie = await login();
-    // eslint-disable-next-line no-console
-    console.log(cookie);
+
     const orgData = {
       name: 'Rhinopay Testing',
       parentCompany: '',
@@ -39,29 +37,26 @@ beforeAll(async () => {
     // eslint-disable-next-line no-console
     console.log('===error on before all orgSetupAndTeardown=======', err);
     // eslint-disable-next-line no-undef
-    done(err);
   }
 });
 
 // DELETE MY NEW ORG HERE
 // eslint-disable-next-line no-undef
-afterAll(async (done) => {
+afterAll(async () => {
   try {
-    // eslint-disable-next-line no-console
-    console.log('Login...');
     const cookie = await login();
-    // eslint-disable-next-line no-console
-    console.log('Deleting Org ==', process.env.INTEGRATIONS_ORG_ID);
-    const archiveResponse = await archiveOrganization(process.env.INTEGRATIONS_ORG_ID, cookie);
-    // eslint-disable-next-line no-console
-    console.log('======== Organization Archive Response =======', archiveResponse);
+    await archiveOrganization(process.env.INTEGRATIONS_ORG_ID, cookie);
     await deleteOrganization(process.env.INTEGRATIONS_ORG_ID, cookie);
     // eslint-disable-next-line no-console
     console.log('====== Organization Deleted =======');
-    done();
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log('===error on after all orgSetupAndTeardown=======', err);
-    done(err);
   }
+});
+
+describe('wobbles', () => {
+  test('gobles', () => {
+    console.log('gibblets');
+  });
 });

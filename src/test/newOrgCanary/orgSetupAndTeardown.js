@@ -20,7 +20,7 @@ beforeAll(async () => {
       .submit()
       .pause(2000)
       .validateUrlChange('/selectorg');
-    org.waitForElementVisible('@searchInputForOrg', 'Search Org fiels is visible');
+    org.waitForElementVisible('@searchInputForOrg', 'Search Org fields are visible');
 
     await setup.navigate()
       .clickBillingToggle()

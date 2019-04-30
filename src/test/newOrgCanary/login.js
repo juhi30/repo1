@@ -218,7 +218,7 @@ describe('Login Page Tests Cases', () => {
         done();
       });
     } catch (err) {
-      console.log('=====err===', err); // eslint-disable-line no-console
+      logger.error(err, '=====err===');
     }
   });
 

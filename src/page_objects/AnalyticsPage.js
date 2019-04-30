@@ -1,3 +1,5 @@
+import logger from 'rhinotilities/lib/loggers/logger';
+
 const helpers = require('../toolboxes/helpers.toolbox');
 
 const {
@@ -125,7 +127,7 @@ const analyticsCommands = {
     const self = this;
     return this.click('@openTab')
       .waitForElementVisible('@firstRowConversation', 'First Row of Conversations is visible', (result) => {
-        console.log('open', result.value);
+        logger.info('open', result.value);
         if (result.value) {
           self.click('@contactNavigation')
             .validateUrlChange('/inbox/all/user/');
@@ -138,7 +140,7 @@ const analyticsCommands = {
     return this.waitForElementVisible('@closedTab', 'Closed tab is visible in conversations')
       .click('@closedTab')
       .waitForElementVisible('@firstRowConversation', 'First Row of Conversations is visible', (result) => {
-        console.log(result.value);
+        logger.info(result.value);
         if (result.value) {
           self.click('@contactNavigation')
             .validateUrlChange('/inbox/all/user/');

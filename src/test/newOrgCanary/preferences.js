@@ -52,7 +52,7 @@ describe('Preferences Page', () => {
   test('To check closing conversation options for the preferences', async () => {
     const preference = client.page.PreferencesPage();
     const checkAuditLogs = client.page.AuditLogPage();
-    const logout = client.page.UniversalElements();
+    // const logout = client.page.UniversalElements();
 
     await preference.navigate()
       .waitForElementVisible('@closeByAssignee', 'close by assignee is visible')

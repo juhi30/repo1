@@ -11,7 +11,7 @@ export async function getUserByExternalId(orgId, externalId) {
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }
 
-export async function getApointmentByExternalId(orgId, externalId, userId) {
+export async function getApointmentByExternalId(externalId, userId) {
   return axios.post(`${process.env.API_BASE_URL}/rhinoliner/appointment/matching`, { externalId, userId },
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }
@@ -56,7 +56,6 @@ export async function archiveOrganization(organizationId, cookie) {
       Cookie: cookie,
     },
   });
-
   return response.body;
 }
 
@@ -91,7 +90,7 @@ export async function login() {
 }
 
 export async function changeOrg(cookie) {
-  const ORGID = process.env.EXISTING_ORG_ID;
+  const ORGID = process.env.INTEGRATIONS_ORG_ID;
   const USERID = process.env.EXISTING_CCR_USER_ID;
 
   await axios.post(`${process.env.API_BASE_URL}/changeOrg`,
@@ -112,6 +111,46 @@ export async function createOrganization(orgData, cookie) {
         'content-type': 'application/json',
         Cookie: cookie,
       },
+    });
+
+  return response.data;
+}
+
+export async function mergeUsers(id1, id2, cookie) {
+  const response = await axios.get(`${process.env.API_BASE_URL}/users/mergeUsers/${id1}/${id2}`,
+    {
+      headers: {
+        'content-type': 'application/json',
+        token: process.env.RG_DEV_TOKEN,
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
+export async function getUser(userId, cookie) {
+  const response = await axios.get(`${process.env.API_BASE_URL}/users/${userId}`,
+    {
+      headers: {
+        'content-type': 'application/json',
+        token: process.env.RG_DEV_TOKEN,
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
+export async function postUser(user, cookie) {
+  const response = await axios.post(`${process.env.API_BASE_URL}/users`,
+    {
+      headers: {
+        'content-type': 'application/json',
+        token: process.env.RG_DEV_TOKEN,
+        Cookie: cookie,
+      },
+      body: user,
     });
 
   return response.data;

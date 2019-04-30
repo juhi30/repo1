@@ -2,43 +2,41 @@ import moment from 'moment-timezone';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 
-const userService = require('../../services/User.service');
-
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
-const HIPAA_STATUS_TYPE_GRANTED = 49;
-const HIPAA_STATUS_TYPE_PENDING = 48;
-const nonIntegratedUserId = process.env.NON_INTEGRATED_USER_ID;
-const nonIntegratedUserId2 = process.env.NON_INTEGRATED_USER_ID_2;
-const nonIntegratedUserId3 = process.env.NON_INTEGRATED_USER_ID_3;
-const nonIntegratedUserIdWithEmrAndLogin = process.env.NON_INTEGRATED_USER_ID_WITH_EMR_LOGIN;
-const nonIntegratedUserIdWithEmrAndLogin2 = process.env.NON_INTEGRATED_USER_ID_WITH_EMR_LOGIN_2;
-// const orgId = parseInt(process.env.INTEGRATED, 10); // doesnt get parsed on rhinoliner endpoint
+// const HIPAA_STATUS_TYPE_GRANTED = 49;
+// const HIPAA_STATUS_TYPE_PENDING = 48;
+// const nonIntegratedUserId = process.env.NON_INTEGRATED_USER_ID;
+// const nonIntegratedUserId2 = process.env.NON_INTEGRATED_USER_ID_2;
+// const nonIntegratedUserId3 = process.env.NON_INTEGRATED_USER_ID_3;
+// const nonIntegratedUserIdWithEmrAndLogin = process.env.NON_INTEGRATED_USER_ID_WITH_EMR_LOGIN;
+// const nonIntegratedUserIdWithEmrAndLogin2 = process.env.NON_INTEGRATED_USER_ID_WITH_EMR_LOGIN_2;
 
 let integratedPatient;
 let createdAppointment;
 let cookie;
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+// function sleep(ms) {
+//   return new Promise(resolve => setTimeout(resolve, ms));
+// }
 
 function localToUtc(datetime, ianaTimezone) {
   return moment.tz(datetime, 'MM/DD/YYYY hh:mm:ss A', ianaTimezone).utc();
 }
 
-// beforeAll(async () => {
-//   try {
-//     cookie = await rhinoapi.login();
-//     await rhinoapi.changeOrg(cookie);
-//   } catch (err) {
-//     console.log('==error on mergeUsers=====', err);
-//   }
-// });
-
 describe('mergeUsers', () => {
   jest.setTimeout(30000);
-  test('create user', async () => {
+
+  beforeAll(async () => {
+    try {
+      cookie = await rhinoapi.login();
+      await rhinoapi.changeOrg(cookie);
+    } catch (err) {
+      console.log('==error on mergeUsers=====', err);
+    }
+  });
+
+  test('create users', async () => {
     const user = {
       firstName: 'Arya',
       lastName: 'Stark',
@@ -59,10 +57,29 @@ describe('mergeUsers', () => {
     };
 
     rhinoapi.postRhinolinerUser(user, parseInt(process.env.INTEGRATIONS_ORG_ID, 10));
-    await sleep(15000);
+
+    const user2 = {
+      firstName: 'Jonathan ',
+      lastName: 'Snow',
+      middleName: 'Winterfell',
+      birthday: '1990-08-16',
+      note: 'ol jonny boy',
+      noteIsImportant: true,
+      sex: 'male',
+      prefixId: 1,
+      suffixId: 1,
+      typeId: USER_TYPE_PATIENT,
+      phones: [{
+        number: process.env.TEST_MERGE_USERS_NUMBER,
+        typeId: TYPE_PHONE_CELL,
+      }],
+      tags: [{ id: 1, name: 'Charleston', typeId: 55 }],
+    };
+    rhinoapi.postUser(user2, cookie);
   });
 
   test('create appointment', async (done) => {
+    console.log('IN CREATE APPT ORG ID', process.env.INTEGRATIONS_ORG_ID);
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 5);
     startDate.setDate(startDate.getDate() + 1);
@@ -86,50 +103,57 @@ describe('mergeUsers', () => {
     });
   });
 
-  test('Find integrated user', async (done) => {
+  test('Find integrated user', async () => {
     rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
       expect(response.data.externalIds.emrId).toBe('123456');
       integratedPatient = response.data;
-      done();
+      console.log('INT PATIENT', integratedPatient);
     });
   });
 
-  test('find appointment', async (done) => {
-    await sleep(10000);
-    await rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, 'appt123', integratedPatient.id).then((response) => {
+  // test('Find non integrated user2', async () => {
+  //   rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
+  //     expect(response.data.externalIds.emrId).toBe('123456');
+  //     integratedPatient = response.data;
+  //     console.log('INT PATIENT', integratedPatient);
+  //   });
+  // });
+
+  test('find appointment', async () => {
+    console.log('INT PATIENT', integratedPatient);
+    rhinoapi.getApointmentByExternalId('appt123', integratedPatient.id).then((response) => {
       expect(response.data.externalId).toBe('appt123');
       createdAppointment = response.data;
-      done();
     });
   });
 
-  test('When an integrated user is merged into a non integrated user, it should render an error', async (done) => {
-    userService.mergeUsers(integratedPatient.id, nonIntegratedUserId, cookie).then((response) => {
-      expect(response.message).toBe('You cannot merge an integrated user into another user');
-      done();
-    });
-  });
+  // test('When an integrated user is merged into a non integrated user, it should render an error', async (done) => {
+  //   userService.mergeUsers(integratedPatient.id, nonIntegratedUserId, cookie).then((response) => {
+  //     expect(response.message).toBe('You cannot merge an integrated user into another user');
+  //     done();
+  //   });
+  // });
 
-  test('when a non integrated user with an emrId is merged into an integrated user, it should render an error', async (done) => {
-    userService.mergeUsers(nonIntegratedUserIdWithEmrAndLogin, integratedPatient.id, cookie).then((response) => {
-      expect(response.message).toBe('This slave has an emr ID please check the database and resolve manually.');
-      done();
-    });
-  });
+  // test('when a non integrated user with an emrId is merged into an integrated user, it should render an error', async (done) => {
+  //   userService.mergeUsers(nonIntegratedUserIdWithEmrAndLogin, integratedPatient.id, cookie).then((response) => {
+  //     expect(response.message).toBe('This slave has an emr ID please check the database and resolve manually.');
+  //     done();
+  //   });
+  // });
 
-  test('when a non integrated user with a login is merged into another user with a login, it should render an error', async (done) => {
-    userService.mergeUsers(nonIntegratedUserIdWithEmrAndLogin, nonIntegratedUserIdWithEmrAndLogin2, cookie).then((response) => {
-      expect(response.message).toBe('Both users being merged have created a login within the Rhinogram Network, please resolve this merge manually.');
-      done();
-    });
-  });
+  // test('when a non integrated user with a login is merged into another user with a login, it should render an error', async (done) => {
+  //   userService.mergeUsers(nonIntegratedUserIdWithEmrAndLogin, nonIntegratedUserIdWithEmrAndLogin2, cookie).then((response) => {
+  //     expect(response.message).toBe('Both users being merged have created a login within the Rhinogram Network, please resolve this merge manually.');
+  //     done();
+  //   });
+  // });
 
-  test('when a user is merged into itself, it should render an error', async (done) => {
-    userService.mergeUsers(nonIntegratedUserId, nonIntegratedUserId, cookie).then((response) => {
-      expect(response.message).toBe('You cannot merge a user into themselves');
-      done();
-    });
-  });
+  // test('when a user is merged into itself, it should render an error', async (done) => {
+  //   userService.mergeUsers(nonIntegratedUserId, nonIntegratedUserId, cookie).then((response) => {
+  //     expect(response.message).toBe('You cannot merge a user into themselves');
+  //     done();
+  //   });
+  // });
 
   // eslint-disable-next-line
   // test('when a non integrated user without an emrId is merged into an integrated user, it should successfully merge the two users according to acceptable rules', async (done) => {

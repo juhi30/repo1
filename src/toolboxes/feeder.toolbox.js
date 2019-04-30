@@ -3,7 +3,7 @@ module.exports = {
   ccrLogin: process.env.CCR_USERNAME,
   ccrPassword: process.env.CCR_PASSWORD,
 
-  //Org Setup Details
+  // Org Setup Details
   orgName: 'Testing_NewCanary_local',
   orgName2: process.env.EXISTING_ORG_NAME,
   address: 'Test Address',
@@ -11,14 +11,13 @@ module.exports = {
   state: 'Alaska',
   zip: '12345',
 
-  //details for office addition
+  // details for office addition
   officeName: 'Mount Pleasant Office5',
   officeAddress: '128 Hester St',
   officeCity: 'Charleston',
   officeState: 'South Carolina',
   zipCode: '29403',
-
-  // New Member Details 
+  // New Member Details
   memberName: 'Testing_NewCanary_local LastName',
   memberFirstName: 'Testing_NewCanary_local',
   memberLastName: 'LastName',
@@ -27,7 +26,7 @@ module.exports = {
   memberEmail: process.env.GMAIL_USERNAME,
   invalidEmail: 'test@test.com',
 
-  //New Group Details
+  // New Group Details
   patientTypeGroup: 'Patient Group',
   teamTypeGroup: 'Team Group',
   patientAndTeamType: 'patient and Team Group',
@@ -39,7 +38,7 @@ module.exports = {
   patientGroupChannel: 'patient Group Channel',
   patientAndTeamGroupChannel: 'patient and Team Channel Group',
 
-  //OOO Details
+  // OOO Details
   oooTitle: 'Test Event',
   oooMessage: 'Test Event Message',
   oooFromDate: '09/29/2020',
@@ -61,7 +60,7 @@ module.exports = {
   channelPurpose: 'test Automation',
   timeZone: 'Eastern Time (UTC -05:00) - New York',
 
-  //Templates Details
+  // Templates Details
   templateTitle: 'test_automation_template',
   templateMessage: 'this is automation testing message',
   newTemplate: 'new_test_automation_template',
@@ -76,18 +75,18 @@ module.exports = {
   newPurpose: 'New change in purpose',
   rhinoChannelNewName: 'New RhinoSecure Channel',
 
-  //Preferences Details
+  // Preferences Details
   systemTimeOutValue: '20',
   editEvent: 'Edit',
   orgCategory: 'Org Preferences',
   noDataFound: 'No Data Found',
 
-  //Tags
+  // Tags
   // Used for tags Creation in channels
   tagNameNewPhoneType: 'Test_1',
   tagNameRhinoType: 'Test_2',
   tagCategory: 'Custom',
-  //Used in Tags Creation
+  // Used in Tags Creation
   locationName: 'LocationTag',
   departmentName: 'DepartmentTag',
   roleName: 'roleTag',
@@ -98,8 +97,7 @@ module.exports = {
   newCustom: 'newCustom',
 
 
-  //Web Form Addition Details
-
+  // Web Form Addition Details
   formTitleName: 'Send Message via web form.',
   titleSubtext: 'Text or Call us.',
   phonePlaceholder: 'Enter Phone Number',
@@ -109,16 +107,9 @@ module.exports = {
   callToActionButton: 'Send Message',
   confirmationText: 'The message has been submitted successfully!',
 
-  //details for office addition
-  officeName: 'Mount Pleasant Office',
-  officeAddress: '128 Hester St',
-  officeCity: 'Charleston',
-  officeState: 'South Carolina',
-  zipCode: '29403',
 
   addEvent: 'Add',
   category: 'Office Location',
-  editEvent: 'Edit',
   deleteEvent: 'Delete',
 
   newOfficeName: 'American Megatrends',
@@ -127,14 +118,14 @@ module.exports = {
   newOfficeState: 'Hawaii',
   newZipCode: '12345',
 
-  //Org Profile New Info for Mandatory Fields
+  // Org Profile New Info for Mandatory Fields
   orgNewName: 'Testing_NewCanary_Org',
   orgNewAddress: 'New Test Address',
   orgNewCity: 'New City',
   orgNewState: 'New State',
   orgNewZip: '12345',
 
-  //Org Profile New Info for Non Mandatory Fields
+  // Org Profile New Info for Non Mandatory Fields
   orgNewAddress2: 'New Address Line 2',
   orgNewPhone: '(454) 657-6879',
   orgNewEmail: 'test@gmail.com',
@@ -142,7 +133,7 @@ module.exports = {
   orgNewcontactPhone: '(454) 657-6879',
   orgNewcontactEmail: 'newtestorg@gmail.com',
 
-  //Org Profile Integration Type Information
+  // Org Profile Integration Type Information
   integrationType: 'Sikka',
 
   // member details for existing org canary
@@ -154,7 +145,7 @@ module.exports = {
   testBotInboundMessage: 'Test Inbound Message From Bot',
   facebookOutboundMessage: 'Outbound Message to FB Contact',
 
-  //New Contact details
+  // New Contact details
   contactFirstName: 'Automation Patient',
   contactMiddleName: 'Type',
   contactLastName: 'Contact',
@@ -162,7 +153,6 @@ module.exports = {
   contactPrefix: 'Mr.',
   contactSuffix: 'Jr.',
   contactBirthDate: '02/23/1983',
-  contactGender: 'Male',
   contactFirstPhoneNumber: '8455452121',
   contactFirstEmail: 'test@gmail.com',
   contactNote: 'This contact is being created by Automation',
@@ -174,12 +164,10 @@ module.exports = {
   contactOtherPrefix: 'Dr.',
   contactOtherSuffix: 'Sr.',
   contactOtherBirthDate: '05/18/1981',
-  contactGender: 'Male',
   contactOtherFirstNumber: '8475422123',
   contactOtherFirstEmail: 'otheremail@gmail.com',
-  contactNote: 'This contact is being created by Automation',
 
-  //Contact edit details
+  // Contact edit details
   contactNewFirstName: 'Automation New',
   contactNewLastName: 'Contact',
   contactNewBirthDate: '09/23/1988',
@@ -197,12 +185,4 @@ module.exports = {
   contactNumberOnModal: '8757858225',
   contactEmailOnModal: 'testcontact@gmail.com',
 
-  //member details for existing org canary
-  memberUsernameExistingOrg: 'dallman',
-  memberPasswordExistingOrg: 'Test@123',
-
-  //bot messages details for existing org canary
-  testBotReplyMessage: 'Test Reply from Bot Contact',
-  testBotInboundMessage: 'Test Inbound Message From Bot',
-  facebookOutboundMessage: 'Outbound Message to FB Contact',
 };

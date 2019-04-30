@@ -5,7 +5,6 @@ const testConstants = require('../../toolboxes/feeder.toolbox');
 const gmail = require('../../services/Gmail.service');
 
 describe('Login Page Tests Cases', () => {
-
   test('Login as CCR', async () => {
     const login = client.page.LoginPage();
 

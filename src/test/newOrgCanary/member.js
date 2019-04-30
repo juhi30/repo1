@@ -37,7 +37,7 @@ describe('Members Page', () => {
       .fillInConfirmPasswordInput(testConstants.memberPassword)
       .clickSaveAndContinueButton()
       .validateUrlChange()
-      .waitForElementNotPresent('@passwordUpdateSuccessMessage','Success Message is no longer present.')
+      .waitForElementNotPresent('@passwordUpdateSuccessMessage', 'Success Message is no longer present.');
   });
 
   test('Logout as member', async () => {

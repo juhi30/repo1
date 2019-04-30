@@ -1,5 +1,7 @@
-const testConstants = require('./../toolboxes/feeder.toolbox');
 import logger from 'rhinotilities/lib/loggers/logger';
+
+const testConstants = require('./../toolboxes/feeder.toolbox');
+
 
 let text = '';
 
@@ -75,21 +77,21 @@ const auditLogsCommands = {
       .elementText('@eventDetails');
   },
 
-  selectContactFilter: function (contactName, selectContactElement) {
+  selectContactFilter(contactName, selectContactElement) {
     return this.waitForElementVisible('@contactFilter', 'Contact filter is visible')
       .click('@contactFilter')
       .waitForElementVisible('@searchContactInput', 'Search contact input is visible')
       .setValue('@searchContactInput', contactName)
-      .waitForElementVisible(selectContactElement, 'Searched contact ' + contactName + ' is visible')
+      .waitForElementVisible(selectContactElement, `Searched contact ${contactName} +  is visible`)
       .click(selectContactElement)
-      .pause(1000)
+      .pause(1000);
   },
 
-  selectActionFilter: function (selectActionElement) {
+  selectActionFilter(selectActionElement) {
     return this.waitForElementVisible('@actionFilter', 'Contact filter is visible')
       .click('@actionFilter')
-      .waitForElementVisible(selectActionElement, selectActionElement + ' : action is visible')
-      .click(selectActionElement)
+      .waitForElementVisible(selectActionElement, `${selectActionElement} action is visible`)
+      .click(selectActionElement);
   },
 
   validateAuditEntry(member, category, action, Name, contact = '') {
@@ -254,7 +256,7 @@ module.exports = {
     },
 
     searchContactInput: {
-      selector: `//INPUT[@placeholder='Search Contacts']`,
+      selector: '//INPUT[@placeholder=\'Search Contacts\']',
       locateStrategy: 'xpath',
     },
 
@@ -289,27 +291,27 @@ module.exports = {
     },
 
     selectAddAction: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Add']`,
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Add\']',
       locateStrategy: 'xpath',
     },
 
     selectEditAction: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Edit']`,
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Edit\']',
       locateStrategy: 'xpath',
     },
 
-    selectViewAction : {
-      selector: `//SPAN[@class='u-text-overflow'][text()='View']`,
+    selectViewAction: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'View\']',
       locateStrategy: 'xpath',
     },
 
     selectMergeAction: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Merge']`,
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Merge\']',
       locateStrategy: 'xpath',
     },
 
     selectDeleteAction: {
-      selector: `//SPAN[@class='u-text-overflow'][text()='Delete']`,
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Delete\']',
       locateStrategy: 'xpath',
     },
   },

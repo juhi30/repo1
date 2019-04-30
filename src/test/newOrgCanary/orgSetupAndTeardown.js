@@ -21,7 +21,7 @@ beforeAll(async () => {
       .pause(2000)
       .validateUrlChange('/selectorg');
     org.waitForElementVisible('@searchInputForOrg', 'Search Org fiels is visible');
-    
+
     await setup.navigate()
       .clickBillingToggle()
       .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,

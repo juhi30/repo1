@@ -1,3 +1,5 @@
+import logger from 'rhinotilities/lib/loggers/logger';
+
 let text = '';
 
 const auditLogsCommands = {

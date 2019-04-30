@@ -43,7 +43,7 @@ afterAll(async (done) => {
     logger.info(process.env.ORGANIZATION_ID, '== Deleting Org ==');
     const archiveResponse = await archiveOrganization(process.env.ORGANIZATION_ID, cookie);
     logger.info(archiveResponse, '======== Organization Archive Response =======');
-    const deleteResponse = await deleteOrganization(process.env.ORGANIZATION_ID, cookie);
+    await deleteOrganization(process.env.ORGANIZATION_ID, cookie);
     logger.info('====== Organization Deleted =======');
     done();
   } catch (err) {

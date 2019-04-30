@@ -4,10 +4,10 @@ const accountSetupCommands = {
 
   getOrgId() {
     return this.waitForElementVisible('@orgId', 'Org Id is visible')
-      .getText('@orgId', function (tpObj) {
-        tpObj = tpObj.value.replace("ORGANIZATION (#", "");
-        tpObj = tpObj.replace(")", "");
-        process.env.ORGANIZATION_ID = tpObj
+      .getText('@orgId', (tpObj) => {
+        tpObj = tpObj.value.replace('ORGANIZATION (#', '');
+        tpObj = tpObj.replace(')', '');
+        process.env.ORGANIZATION_ID = tpObj;
         logger.info(`====org id === ${process.env.ORGANIZATION_ID}`);
       });
   },

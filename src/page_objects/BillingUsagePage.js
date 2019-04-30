@@ -1,4 +1,5 @@
 import logger from 'rhinotilities/lib/loggers/logger';
+
 const { colors, noteText, messageAlertText } = require('../constants');
 
 let text = '';
@@ -93,7 +94,7 @@ const billingCommands = {
     return this.getCssProperty(element, property, (res) => {
       const currentColor = colors.filter(val => val.code === res.value);
       if (Array.isArray(currentColor) && currentColor.length > 0) {
-        logger.info(res.value + ' : ' + currentColor[0].color + ' in Color!');
+        logger.info(`${res.value} : ${currentColor[0].color} in Color!`);
       }
     });
   },
@@ -216,9 +217,9 @@ const billingCommands = {
       .waitForElementVisible('@bankName', 'Bank Name exists, Edit successful');
   },
 
-  validateAccountTypeOptions: function () {
-    return this.verify.visible('@bankAccountTypeSelect', 'Account Type field is visible')
-    this.getAttribute('@bankAccountTypeSelect' + '/option', 'option', function (result) {
+  validateAccountTypeOptions() {
+    this.verify.visible('@bankAccountTypeSelect', 'Account Type field is visible');
+    this.getAttribute('@bankAccountTypeSelect', 'option', (result) => {
       logger.info(result);
     });
   },

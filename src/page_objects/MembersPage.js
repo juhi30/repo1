@@ -1,4 +1,5 @@
 import logger from 'rhinotilities/lib/loggers/logger';
+
 const testConstants = require('../toolboxes/feeder.toolbox');
 
 const membersCommands = {

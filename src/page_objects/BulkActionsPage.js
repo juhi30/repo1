@@ -1,4 +1,5 @@
 import logger from 'rhinotilities/lib/loggers/logger';
+
 const bulkOptions = require('../constants').expectedResultSet1;
 
 let text = '';

@@ -122,12 +122,11 @@ describe('Login Page Tests Cases', () => {
   test('Login to gmail using iMap to fetch password reset token', async (done) => {
     try {
       gmail.fetchPasswordResetLink().then((result) => {
-        process.env.NEW_HREF = result.hrefValue
+        process.env.NEW_HREF = result.hrefValue;
         logger.info(`====>>>>> ${process.env.NEW_HREF}`);
-        done()
-      })
-    }
-    catch (err) {
+        done();
+      });
+    } catch (err) {
       logger.error(err, '=====err===');
     }
   });

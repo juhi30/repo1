@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 import { client } from 'nightwatch-api';
 import { organizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
 import { ccrLogin } from '../../toolboxes/login.toolbox';
@@ -19,7 +20,7 @@ beforeAll(async () => {
 
     await organizationSetUp(organizationDetails, 'NEW_CANARY_ORG_ID');
   } catch (err) {
-    console.log('==error on orgSetupAndTearDown=====', err);
+    logger.info(err, '==error on orgSetupAndTearDown=====');
   }
 });
 
@@ -29,7 +30,7 @@ afterAll(async (done) => {
     await orgTearDown(process.env.NEW_CANARY_ORG_ID);
     done();
   } catch (err) {
-    console.log('===error on after all orgSetupAndTeardown=======', err);
+    logger.error(err, '===error on after all orgSetupAndTeardown=======');
     done(err);
   }
 });

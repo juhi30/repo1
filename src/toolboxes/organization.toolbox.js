@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 import { client } from 'nightwatch-api';
 import {
   deleteOrganization,
@@ -17,11 +18,11 @@ export function organizationSetUp(organizationDetails, envVariable) {
 }
 
 export async function orgTearDown(organizationId) {
-  console.log('Login...');
+  logger.info('Login...');
   const cookie = await login();
-  console.log('Deleting Org ==', organizationId);
-  const archiveResponse = await archiveOrganization(organizationId, cookie);
-  console.log('======== Organization Archive Response =======', archiveResponse);
+  logger.info(organizationId, '== Deleting Org ==');
+  await archiveOrganization(organizationId, cookie);
+  logger.info('======== Organization Archive Response =======');
   await deleteOrganization(organizationId, cookie);
-  console.log('====== Organization Deleted =======');
+  logger.info('====== Organization Deleted =======');
 }

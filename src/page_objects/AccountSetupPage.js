@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 
 const accountSetupCommands = {
 
@@ -7,7 +8,7 @@ const accountSetupCommands = {
         tpObj = tpObj.value.replace('ORGANIZATION (#', '');
         tpObj = tpObj.replace(')', '');
         process.env[envVariable] = tpObj;
-        console.log('Org Id is ==', process.env[envVariable]);
+        logger.info(`====org id === ${process.env[envVariable]}`);
       });
   },
 

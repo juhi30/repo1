@@ -33,7 +33,7 @@ describe('Members Page', () => {
       .enterMemberCreds(testConstants.memberUsername, global.TEMP_PASSWORD)
       .submit()
       .validateUrlChange('change-password')
-      .fillInNewPasswordInput(testConstants.memberPassword)
+      .fillInPassword(testConstants.memberPassword)
       .fillInConfirmPasswordInput(testConstants.memberPassword)
       .clickSaveAndContinueButton()
       .validateUrlChange()

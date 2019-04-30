@@ -24,92 +24,149 @@ function localToUtc(datetime, ianaTimezone) {
   return moment.tz(datetime, 'MM/DD/YYYY hh:mm:ss A', ianaTimezone).utc();
 }
 
-describe('mergeUsers', () => {
+describe('merge users tests', () => {
   jest.setTimeout(30000);
 
   beforeAll(async () => {
     try {
+      console.log('====LOGING IN');
       cookie = await rhinoapi.login();
-      await rhinoapi.changeOrg(cookie);
+      await rhinoapi.changeOrganization({ orgId: process.env.INTEGRATIONS_ORG_ID, userId: process.env.CCR_USER_ID }, cookie);
     } catch (err) {
       console.log('==error on mergeUsers=====', err);
     }
   });
 
   test('create users', async () => {
-    const user = {
-      firstName: 'Arya',
-      lastName: 'Stark',
-      birthday: '1990-05-23',
-      note: 'this is aryas note',
-      sex: 'female',
-      messageType: 'USER',
-      phones: [{
-        number: process.env.TEST_MERGE_USERS_NUMBER,
-        typeId: TYPE_PHONE_CELL,
-      }],
-      typeId: USER_TYPE_PATIENT,
-      externalIds: {
-        emrId: '123456',
-      },
-      integrated: true,
-      tags: [{ id: 1, name: 'Charleston', typeId: 55 }],
-    };
+    console.log('===test');
+    //   const user = {
+    //     firstName: 'Arya',
+    //     lastName: 'Stark',
+    //     birthday: '1990-05-23',
+    //     note: 'this is aryas note',
+    //     sex: 'female',
+    //     messageType: 'USER',
+    //     phones: [{
+    //       number: process.env.TEST_MERGE_USERS_NUMBER,
+    //       typeId: TYPE_PHONE_CELL,
+    //     }],
+    //     typeId: USER_TYPE_PATIENT,
+    //     externalIds: {
+    //       emrId: '123456',
+    //     },
+    //     integrated: true,
+    //     tags: [{ id: 1, name: 'Charleston', typeId: 55 }],
+    //   };
 
-    rhinoapi.postRhinolinerUser(user, parseInt(process.env.INTEGRATIONS_ORG_ID, 10));
+    //   await rhinoapi.postRhinolinerUser(user, Number(process.env.INTEGRATIONS_ORG_ID));
 
-    const user2 = {
-      firstName: 'Jonathan ',
-      lastName: 'Snow',
-      middleName: 'Winterfell',
-      birthday: '1990-08-16',
-      note: 'ol jonny boy',
-      noteIsImportant: true,
-      sex: 'male',
-      prefixId: 1,
-      suffixId: 1,
-      typeId: USER_TYPE_PATIENT,
-      phones: [{
-        number: process.env.TEST_MERGE_USERS_NUMBER,
-        typeId: TYPE_PHONE_CELL,
-      }],
-      tags: [{ id: 1, name: 'Charleston', typeId: 55 }],
-    };
-    rhinoapi.postUser(user2, cookie);
+    // const user2 = {
+    //   firstName: 'Jonathan ',
+    //   lastName: 'Snow',
+    //   middleName: 'Winterfell',
+    //   birthday: '1990-08-16',
+    //   note: 'ol jonny boy',
+    //   noteIsImportant: true,
+    //   sex: 'male',
+    //   prefixId: 1,
+    //   suffixId: 1,
+    //   typeId: USER_TYPE_PATIENT,
+    //   phones: [{
+    //     number: process.env.TEST_MERGE_USERS_NUMBER,
+    //     typeId: TYPE_PHONE_CELL,
+    //   }],
+    //   tags: [{ id: 1, name: 'Charleston', typeId: 55 }],
+    // };
+
+    // const memberData = {
+    //   afterHours: false,
+    //   autoResponse: '',
+    //   businessHours: [],
+    //   businessTitle: '',
+    //   firstName: 'Test',
+    //   groupIds: [],
+    //   id: -1,
+    //   lastName: 'Member',
+    //   loginEmail: '',
+    //   middleName: '',
+    //   observesDst: false,
+    //   preferredName: '',
+    //   prefixId: '',
+    //   profileImageUrl: '',
+    //   roles: [
+    //     {
+    //       id: 2,
+    //       name: 'Admin',
+    //       description: null,
+    //       systemRole: true,
+    //     },
+    //     {
+    //       id: 3,
+    //       name: 'Billing Admin',
+    //       description: null,
+    //       systemRole: true,
+    //     },
+    //     {
+    //       id: 5,
+    //       name: 'Member',
+    //       description: null,
+    //       systemRole: true,
+    //     },
+    //     {
+    //       id: 1,
+    //       name: 'Member Admin',
+    //       description: null,
+    //       systemRole: true,
+    //     },
+    //     {
+    //       id: 6,
+    //       name: 'Member Templates',
+    //       description: null,
+    //       systemRole: true,
+    //     },
+    //   ],
+    //   routedChannels: [],
+    //   suffixId: '',
+    //   tagIds: [],
+    //   typeId: 19,
+    //   username: 'testmember',
+    //   password: '4419kJig',
+    // };
+
+    // const resp = await rhinoapi.createMember(memberData, cookie);
+    // console.log('====resp', resp);
   });
 
-  test('create appointment', async (done) => {
-    console.log('IN CREATE APPT ORG ID', process.env.INTEGRATIONS_ORG_ID);
-    const startDate = new Date();
-    startDate.setMinutes(startDate.getMinutes() + 5);
-    startDate.setDate(startDate.getDate() + 1);
-    const startDateString = localToUtc(startDate, 'America/New_York');
-    const endDate = new Date();
-    endDate.setMinutes(endDate.getMinutes() + 30);
-    endDate.setDate(endDate.getDate() + 1);
-    const endDateString = localToUtc(endDate, 'America/New_York');
-    const appt = {
-      startDate: startDateString,
-      endDate: endDateString,
-      externalId: '123456',
-      messageType: 'APPOINTMENT',
-      appointmentExternalId: 'appt123',
-      deleted: false,
-      appointmentStatusTypeId: 81,
-      orgId: process.env.INTEGRATIONS_ORG_ID,
-    };
-    await rhinoliner.pushtoqueue(appt).then(() => {
-      done();
-    });
-  });
+  // test('create appointment', async () => {
+  //   console.log('IN CREATE APPT ORG ID', process.env.INTEGRATIONS_ORG_ID);
+  //   const startDate = new Date();
+  //   startDate.setMinutes(startDate.getMinutes() + 5);
+  //   startDate.setDate(startDate.getDate() + 1);
+  //   const startDateString = localToUtc(startDate, 'America/New_York');
+  //   const endDate = new Date();
+  //   endDate.setMinutes(endDate.getMinutes() + 30);
+  //   endDate.setDate(endDate.getDate() + 1);
+  //   const endDateString = localToUtc(endDate, 'America/New_York');
+  //   const appt = {
+  //     startDate: startDateString,
+  //     endDate: endDateString,
+  //     externalId: '123456',
+  //     messageType: 'APPOINTMENT',
+  //     appointmentExternalId: 'appt123',
+  //     deleted: false,
+  //     appointmentStatusTypeId: 81,
+  //     orgId: process.env.INTEGRATIONS_ORG_ID,
+  //   };
+  //   await rhinoliner.pushtoqueue(appt);
+  // });
 
-  test('Find integrated user', async () => {
-    rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
-      expect(response.data.externalIds.emrId).toBe('123456');
-      integratedPatient = response.data;
-      console.log('INT PATIENT', integratedPatient);
-    });
-  });
+  // test('Find integrated user', async () => {
+  //   rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
+  //     expect(response.data.externalIds.emrId).toBe('123456');
+  //     integratedPatient = response.data;
+  //     console.log('INT PATIENT', integratedPatient);
+  //   });
+  // });
 
   // test('Find non integrated user2', async () => {
   //   rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
@@ -119,13 +176,13 @@ describe('mergeUsers', () => {
   //   });
   // });
 
-  test('find appointment', async () => {
-    console.log('INT PATIENT', integratedPatient);
-    rhinoapi.getApointmentByExternalId('appt123', integratedPatient.id).then((response) => {
-      expect(response.data.externalId).toBe('appt123');
-      createdAppointment = response.data;
-    });
-  });
+  // test('find appointment', async () => {
+  //   console.log('INT PATIENT', integratedPatient);
+  //   rhinoapi.getApointmentByExternalId('appt123', integratedPatient.id).then((response) => {
+  //     expect(response.data.externalId).toBe('appt123');
+  //     createdAppointment = response.data;
+  //   });
+  // });
 
   // test('When an integrated user is merged into a non integrated user, it should render an error', async (done) => {
   //   userService.mergeUsers(integratedPatient.id, nonIntegratedUserId, cookie).then((response) => {

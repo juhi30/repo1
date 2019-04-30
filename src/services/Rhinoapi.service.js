@@ -168,13 +168,12 @@ export async function getUser(userId, cookie) {
 
 export async function postUser(user, cookie) {
   const response = await axios.post(`${process.env.API_BASE_URL}/users`,
+    user,
     {
       headers: {
         'content-type': 'application/json',
-        token: process.env.RG_DEV_TOKEN,
         Cookie: cookie,
       },
-      body: user,
     });
 
   return response.data;

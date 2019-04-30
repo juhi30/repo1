@@ -141,6 +141,7 @@ export async function createMember(memberData, cookie) {
 }
 
 export async function mergeUsers(id1, id2, cookie) {
+  console.log('are we EVEN IN HERE');
   const response = await axios.get(`${process.env.API_BASE_URL}/users/mergeUsers/${id1}/${id2}`,
     {
       headers: {
@@ -149,7 +150,7 @@ export async function mergeUsers(id1, id2, cookie) {
         Cookie: cookie,
       },
     });
-
+  console.log('MERGE USER RES', response);
   return response.data;
 }
 
@@ -167,7 +168,6 @@ export async function getUser(userId, cookie) {
 }
 
 export async function postUser(user, cookie) {
-  console.log('in post user', cookie);
   const response = await axios.post(`${process.env.API_BASE_URL}/users`,
     user,
     {

@@ -2,6 +2,13 @@ import moment from 'moment-timezone';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 
+let integratedPatient;
+let nonIntegratedPatient;
+let createdAppointment;
+let nonIntegratedUserWithEmrAndLogin;
+let nonIntegratedUserWithEmrAndLogin2;
+// let cookie;
+
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
 const TRUSTEE_ID = 2;
@@ -14,12 +21,6 @@ const TYPE_EMAIL_HOME = 4;
 // const nonIntegratedUserId = process.env.NON_INTEGRATED_USER_ID;
 // const nonIntegratedUserId2 = process.env.NON_INTEGRATED_USER_ID_2;
 // const nonIntegratedUserId3 = process.env.NON_INTEGRATED_USER_ID_3;
-// const nonIntegratedUserIdWithEmrAndLogin = process.env.NON_INTEGRATED_USER_ID_WITH_EMR_LOGIN;
-// const nonIntegratedUserIdWithEmrAndLogin2 = process.env.NON_INTEGRATED_USER_ID_WITH_EMR_LOGIN_2;
-
-let integratedPatient;
-let createdAppointment;
-// let cookie;
 
 function localToUtc(datetime, ianaTimezone) {
   return moment.tz(datetime, 'MM/DD/YYYY hh:mm:ss A', ianaTimezone).utc();
@@ -27,8 +28,6 @@ function localToUtc(datetime, ianaTimezone) {
 
 describe('merge users tests', () => {
   jest.setTimeout(30000);
-
-  let integratedPatient;
 
   test('log into org', async () => {
     await rhinoapi.changeOrg(process.env.INTEGRATIONS_ORG_COOKIE);
@@ -54,10 +53,11 @@ describe('merge users tests', () => {
       integrated: true,
       tags: [{ id: 1, name: 'Charleston', typeId: 55 }],
     };
-    await rhinoapi.postRhinolinerUser(user, Number(process.env.INTEGRATIONS_ORG_ID));
+    const { data } = await rhinoapi.postRhinolinerUser(user, Number(process.env.INTEGRATIONS_ORG_ID));
+    integratedPatient = data;
 
     // NON INTEGRATED USER
-    const patientData = {
+    const user2 = {
       firstName: 'Jonathan',
       lastName: 'Snow',
       loginEmail: 'jonsnow@ringmail.com',
@@ -105,8 +105,57 @@ describe('merge users tests', () => {
       }],
     };
 
-    const resp = await rhinoapi.postUser(patientData, process.env.INTEGRATIONS_ORG_COOKIE);
-    console.log('====resp', resp);
+    nonIntegratedPatient = await rhinoapi.postUser(user2, process.env.INTEGRATIONS_ORG_COOKIE);
+
+    // NON INTEGRATED USER WITH EMR AND LOGIN
+    const user3 = {
+      firstName: 'Sean',
+      lastName: 'Bean',
+      loginEmail: 'snailmail@mail.com',
+      roles: [
+        {
+          id: 7,
+          name: 'Patient',
+          description: null,
+          systemRole: true,
+        },
+      ],
+      externalIds: {
+        emrId: 'lalala',
+      },
+      birthday: '1990-08-16',
+      typeId: USER_TYPE_PATIENT,
+      username: 'sbean',
+      password: '4419kJif',
+      pwReset: false,
+    };
+
+    nonIntegratedUserWithEmrAndLogin = await rhinoapi.postUser(user3, process.env.INTEGRATIONS_ORG_COOKIE);
+
+    // NON INTEGRATED USER WITH EMR AND LOGIN
+    const user4 = {
+      firstName: 'Meek',
+      lastName: 'Mill',
+      loginEmail: 'meek@mill.com',
+      roles: [
+        {
+          id: 7,
+          name: 'Patient',
+          description: null,
+          systemRole: true,
+        },
+      ],
+      externalIds: {
+        emrId: 'meekmill',
+      },
+      birthday: '1990-08-16',
+      typeId: USER_TYPE_PATIENT,
+      username: 'mmill',
+      password: '4419kJif',
+      pwReset: false,
+    };
+
+    nonIntegratedUserWithEmrAndLogin2 = await rhinoapi.postUser(user4, process.env.INTEGRATIONS_ORG_COOKIE);
   });
 
   test('create appointment for integrated user', async () => {
@@ -131,12 +180,12 @@ describe('merge users tests', () => {
     await rhinoliner.pushtoqueue(appt);
   });
 
-  test('Find integrated user', async () => {
-    rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
-      expect(response.data.externalIds.emrId).toBe('123456');
-      integratedPatient = response.data;
-    });
-  });
+  // test('Find integrated user', async () => {
+  //   rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
+  //     expect(response.data.externalIds.emrId).toBe('123456');
+  //     integratedPatient = response.data;
+  //   });
+  // });
 
   // test('Find non integrated user 1', async () => {
   //   rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
@@ -146,39 +195,38 @@ describe('merge users tests', () => {
   //   });
   // });
 
-  test('find appointment', async () => {
-    console.log('INT PATIENT', integratedPatient);
-    rhinoapi.getApointmentByExternalId('appt123', integratedPatient.id).then((response) => {
-      expect(response.data.externalId).toBe('appt123');
-      createdAppointment = response.data;
-    });
+  // test('find appointment', async () => {
+  //   rhinoapi.getApointmentByExternalId('appt123', integratedPatient.id).then((response) => {
+  //     console.log(response);
+  //     expect(response.data.externalId).toBe('appt123');
+  //     createdAppointment = response.data;
+  //   });
+  // });
+
+  test('When an integrated user is merged into a non integrated user, it should render an error', async () => {
+    try {
+      await rhinoapi.mergeUsers(integratedPatient.id, nonIntegratedPatient.id, process.env.INTEGRATIONS_ORG_COOKIE);
+    } catch (err) {
+      expect(err.data.details).toBe('You cannot merge an integrated user into another user');
+    }
   });
 
-  // test('When an integrated user is merged into a non integrated user, it should render an error', async (done) => {
-  //   userService.mergeUsers(integratedPatient.id, nonIntegratedUserId, cookie).then((response) => {
-  //     expect(response.message).toBe('You cannot merge an integrated user into another user');
-  //     done();
+  // test('when a non integrated user with an emrId is merged into an integrated user, it should render an error', async () => {
+  //   await rhinoapi.mergeUsers(nonIntegratedUserWithEmrAndLogin.id, integratedPatient.id, process.env.INTEGRATIONS_ORG_COOKIE).then((response) => {
+  //     expect(response.details).toBe('This slave has an emr ID please check the database and resolve manually.');
   //   });
   // });
 
-  // test('when a non integrated user with an emrId is merged into an integrated user, it should render an error', async (done) => {
-  //   userService.mergeUsers(nonIntegratedUserIdWithEmrAndLogin, integratedPatient.id, cookie).then((response) => {
-  //     expect(response.message).toBe('This slave has an emr ID please check the database and resolve manually.');
-  //     done();
+  // test('when a non integrated user with a login is merged into another user with a login, it should render an error', async () => {
+  //   await rhinoapi.mergeUsers(nonIntegratedUserWithEmrAndLogin.id, nonIntegratedUserWithEmrAndLogin2.id, process.env.INTEGRATIONS_ORG_COOKIE).then((response) => {
+  //     expect(response.details).toBe('Both users being merged have created a login within the Rhinogram Network, please resolve this merge manually.');
   //   });
   // });
 
-  // test('when a non integrated user with a login is merged into another user with a login, it should render an error', async (done) => {
-  //   userService.mergeUsers(nonIntegratedUserIdWithEmrAndLogin, nonIntegratedUserIdWithEmrAndLogin2, cookie).then((response) => {
-  //     expect(response.message).toBe('Both users being merged have created a login within the Rhinogram Network, please resolve this merge manually.');
-  //     done();
-  //   });
-  // });
-
-  // test('when a user is merged into itself, it should render an error', async (done) => {
-  //   userService.mergeUsers(nonIntegratedUserId, nonIntegratedUserId, cookie).then((response) => {
-  //     expect(response.message).toBe('You cannot merge a user into themselves');
-  //     done();
+  // test('when a user is merged into itself, it should render an error', async () => {
+  //   await rhinoapi.mergeUsers(nonIntegratedPatient.id, nonIntegratedPatient.id, process.env.INTEGRATIONS_ORG_COOKIE).then((response) => {
+  //     console.log(response);
+  //     expect(response.details).toBe('You cannot merge a user into themselves');
   //   });
   // });
 

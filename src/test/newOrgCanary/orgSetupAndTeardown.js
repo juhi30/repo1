@@ -1,5 +1,4 @@
 import logger from 'rhinotilities/lib/loggers/logger';
-import { client } from 'nightwatch-api';
 import { organizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
 import { ccrLogin } from '../../toolboxes/login.toolbox';
 

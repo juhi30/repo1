@@ -6,9 +6,6 @@ const testConstants = require('../../toolboxes/feeder.toolbox');
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
-  const loginPage = client.page.LoginPage();
-  const setup = client.page.AccountSetupPage();
-  const org = client.page.UniversalElements();
   const organizationDetails = {
     name: testConstants.orgName,
     address: testConstants.address,
@@ -18,10 +15,9 @@ beforeAll(async () => {
   };
 
   try {
-    await ccrLogin(loginPage, testConstants.ccrLogin, testConstants.ccrPassword);
-    org.waitForElementVisible('@searchInputForOrg', 'Search Org fields is visible');
+    await ccrLogin(testConstants.ccrLogin, testConstants.ccrPassword);
 
-    await organizationSetUp(setup, organizationDetails, 'NEW_CANARY_ORG_ID');
+    await organizationSetUp(organizationDetails, 'NEW_CANARY_ORG_ID');
   } catch (err) {
     console.log('==error on orgSetupAndTearDown=====', err);
   }

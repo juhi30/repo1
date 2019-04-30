@@ -1,11 +1,13 @@
+import { client } from 'nightwatch-api';
 import {
   deleteOrganization,
   archiveOrganization,
   login,
 } from '../services/Rhinoapi.service';
 
-export function organizationSetUp(client, organizationDetails, envVariable) {
-  client.navigate()
+const setup = client.page.AccountSetupPage();
+export function organizationSetUp(organizationDetails, envVariable) {
+  setup.navigate()
     .clickBillingToggle()
     .fillInOrgBasicInformation(organizationDetails)
     .clickCreateOrganization()

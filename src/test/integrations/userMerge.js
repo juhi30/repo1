@@ -4,7 +4,12 @@ import * as rhinoliner from '../../services/Rhinoliner.service';
 
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
-// const HIPAA_STATUS_TYPE_GRANTED = 49;
+const TRUSTEE_ID = 2;
+const HIPAA_STATUS_TYPE_GRANTED = 49;
+const FB_TYPE_PRIMARY = 24;
+const FB_CHANNEL_ID = 7;
+const CP_PATIENT = 6;
+const TYPE_EMAIL_HOME = 4;
 // const HIPAA_STATUS_TYPE_PENDING = 48;
 // const nonIntegratedUserId = process.env.NON_INTEGRATED_USER_ID;
 // const nonIntegratedUserId2 = process.env.NON_INTEGRATED_USER_ID_2;
@@ -14,24 +19,23 @@ const USER_TYPE_PATIENT = 18;
 
 let integratedPatient;
 let createdAppointment;
-let cookie;
-
-// function sleep(ms) {
-//   return new Promise(resolve => setTimeout(resolve, ms));
-// }
+// let cookie;
 
 function localToUtc(datetime, ianaTimezone) {
   return moment.tz(datetime, 'MM/DD/YYYY hh:mm:ss A', ianaTimezone).utc();
 }
 
-describe('mergeUsers', () => {
+describe('merge users tests', () => {
   jest.setTimeout(30000);
+
+  let integratedPatient;
 
   test('log into org', async () => {
     await rhinoapi.changeOrg(process.env.INTEGRATIONS_ORG_COOKIE);
   });
 
   test('create users', async () => {
+    // INTEGRATED USER
     const user = {
       firstName: 'Arya',
       lastName: 'Stark',
@@ -50,31 +54,62 @@ describe('mergeUsers', () => {
       integrated: true,
       tags: [{ id: 1, name: 'Charleston', typeId: 55 }],
     };
+    await rhinoapi.postRhinolinerUser(user, Number(process.env.INTEGRATIONS_ORG_ID));
 
-    rhinoapi.postRhinolinerUser(user, parseInt(process.env.INTEGRATIONS_ORG_ID, 10));
-
-    const user2 = {
-      firstName: 'Jonathan ',
+    // NON INTEGRATED USER
+    const patientData = {
+      firstName: 'Jonathan',
       lastName: 'Snow',
+      loginEmail: 'jonsnow@ringmail.com',
       middleName: 'Winterfell',
+      preferredName: 'Jon',
+      prefixId: 1,
+      suffixId: 1,
+      roles: [
+        {
+          id: 7,
+          name: 'Patient',
+          description: null,
+          systemRole: true,
+        },
+      ],
+      sex: 'male',
       birthday: '1990-08-16',
       note: 'ol jonny boy',
       noteIsImportant: true,
-      sex: 'male',
-      prefixId: 1,
-      suffixId: 1,
+      tagIds: [1],
       typeId: USER_TYPE_PATIENT,
+      username: 'jsnow',
+      password: '4419kJif',
+      pwReset: false,
       phones: [{
-        number: process.env.TEST_MERGE_USERS_NUMBER,
+        value: process.env.TEST_MERGE_USERS_NUMBER,
         typeId: TYPE_PHONE_CELL,
       }],
-      tags: [{ id: 1, name: 'Charleston', typeId: 55 }],
+      emails: [{
+        value: 'jonsnow@thronemail.com',
+        typeId: TYPE_EMAIL_HOME,
+      }],
+      hipaaStatus: {
+        trusteeId: TRUSTEE_ID,
+        typeId: HIPAA_STATUS_TYPE_GRANTED,
+      },
+      facebooks: [{
+        value: '9898',
+        typeId: FB_TYPE_PRIMARY,
+        channelId: FB_CHANNEL_ID,
+      }],
+      connectedTo: [{
+        toUserId: CP_PATIENT,
+        connectionTypeId: 34,
+      }],
     };
-    rhinoapi.postUser(user2, cookie);
+
+    const resp = await rhinoapi.postUser(patientData, process.env.INTEGRATIONS_ORG_COOKIE);
+    console.log('====resp', resp);
   });
 
-  test('create appointment', async (done) => {
-    console.log('IN CREATE APPT ORG ID', process.env.INTEGRATIONS_ORG_ID);
+  test('create appointment for integrated user', async () => {
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 5);
     startDate.setDate(startDate.getDate() + 1);
@@ -93,20 +128,17 @@ describe('mergeUsers', () => {
       appointmentStatusTypeId: 81,
       orgId: process.env.INTEGRATIONS_ORG_ID,
     };
-    await rhinoliner.pushtoqueue(appt).then(() => {
-      done();
-    });
+    await rhinoliner.pushtoqueue(appt);
   });
 
   test('Find integrated user', async () => {
     rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
       expect(response.data.externalIds.emrId).toBe('123456');
       integratedPatient = response.data;
-      console.log('INT PATIENT', integratedPatient);
     });
   });
 
-  // test('Find non integrated user2', async () => {
+  // test('Find non integrated user 1', async () => {
   //   rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
   //     expect(response.data.externalIds.emrId).toBe('123456');
   //     integratedPatient = response.data;

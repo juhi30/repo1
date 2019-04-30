@@ -1,5 +1,8 @@
+import logger from 'rhinotilities/lib/loggers/logger';
+
 const testConstants = require('./../toolboxes/feeder.toolbox');
 const helper = require('../toolboxes/helpers.toolbox');
+
 
 const randomNumber = Math.floor(Math.random() * 1000000);
 
@@ -127,11 +130,11 @@ const contactsCommands = {
   },
 
   checkElementVisibility(element) {
-    console.log('check visibility of edit page title');
+    logger.info('check visibility of edit page title');
     return this.waitForElementVisible(element, 1000, (result) => {
-      console.log('=================', result.value);
+      logger.info('=================', result.value);
       if (result.value) {
-        console.log('>>>>>>>>>>>>>> Inside If condition');
+        logger.info('>>>>>>>>>>>>>> Inside If condition');
         this.click(element);
       }
     });

@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 import { client } from 'nightwatch-api';
 import {
   deleteOrganization,
@@ -30,23 +31,23 @@ beforeAll(async () => {
       .pause(1000)
       .getOrgId();
   } catch (err) {
-    console.log('==error on orgSetupAndTearDown=====', err);
+    logger.info(err, '==error on orgSetupAndTearDown=====');
   }
 });
 
 // DELETE MY NEW ORG HERE
 afterAll(async (done) => {
   try {
-    console.log('Login...');
+    logger.info('Login...');
     const cookie = await login();
-    console.log('Deleting Org ==', process.env.ORGANIZATION_ID);
-    const archiveResponse = await archiveOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('======== Organization Archive Response =======', archiveResponse);
-    const deleteResponse = await deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======');
+    logger.info(process.env.ORGANIZATION_ID, '== Deleting Org ==');
+    await archiveOrganization(process.env.ORGANIZATION_ID, cookie);
+    logger.info('======== Organization Archive Response =======');
+    await deleteOrganization(process.env.ORGANIZATION_ID, cookie);
+    logger.info('====== Organization Deleted =======');
     done();
   } catch (err) {
-    console.log('===error on after all orgSetupAndTeardown=======', err);
+    logger.error(err, '===error on after all orgSetupAndTeardown=======');
     done(err);
   }
 });

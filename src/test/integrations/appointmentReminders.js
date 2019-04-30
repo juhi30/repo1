@@ -1,7 +1,7 @@
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 import * as messengerbot from '../../services/MessengerBot.service';
-import { localToUtc } from '../../toolboxes/helpers.toolbox';
+import * as helpers from '../../toolboxes/helpers.toolbox';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const followRedirects = require('follow-redirects');
@@ -67,11 +67,11 @@ describe('appointment reminder tests', () => {
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 5);
     startDate.setDate(startDate.getDate() + 1);
-    const startDateString = localToUtc(startDate, 'America/New_York');
+    const startDateString = helpers.localToUtc(startDate, 'America/New_York');
     const endDate = new Date();
     endDate.setMinutes(endDate.getMinutes() + 30);
     endDate.setDate(endDate.getDate() + 1);
-    const endDateString = localToUtc(endDate, 'America/New_York');
+    const endDateString = helpers.localToUtc(endDate, 'America/New_York');
     const appointment = {
       startDate: startDateString,
       endDate: endDateString,
@@ -91,11 +91,11 @@ describe('appointment reminder tests', () => {
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 35);
     startDate.setDate(startDate.getDate() + 1);
-    const startDateString = localToUtc(startDate, 'America/New_York');
+    const startDateString = helpers.localToUtc(startDate, 'America/New_York');
     const endDate = new Date();
     endDate.setMinutes(endDate.getMinutes() + 60);
     endDate.setDate(endDate.getDate() + 1);
-    const endDateString = localToUtc(endDate, 'America/New_York');
+    const endDateString = helpers.localToUtc(endDate, 'America/New_York');
     const appointment = {
       startDate: startDateString,
       endDate: endDateString,
@@ -115,11 +115,11 @@ describe('appointment reminder tests', () => {
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 65);
     startDate.setDate(startDate.getDate() + 1);
-    const startDateString = localToUtc(startDate, 'America/New_York');
+    const startDateString = helpers.localToUtc(startDate, 'America/New_York');
     const endDate = new Date();
     endDate.setMinutes(endDate.getMinutes() + 90);
     endDate.setDate(endDate.getDate() + 1);
-    const endDateString = localToUtc(endDate, 'America/New_York');
+    const endDateString = helpers.localToUtc(endDate, 'America/New_York');
     const appointment = {
       startDate: startDateString,
       endDate: endDateString,
@@ -139,11 +139,11 @@ describe('appointment reminder tests', () => {
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 95);
     startDate.setDate(startDate.getDate() + 1);
-    const startDateString = localToUtc(startDate, 'America/New_York');
+    const startDateString = helpers.localToUtc(startDate, 'America/New_York');
     const endDate = new Date();
     endDate.setMinutes(endDate.getMinutes() + 120);
     endDate.setDate(endDate.getDate() + 1);
-    const endDateString = localToUtc(endDate, 'America/New_York');
+    const endDateString = helpers.localToUtc(endDate, 'America/New_York');
     const appointment = {
       startDate: startDateString,
       endDate: endDateString,

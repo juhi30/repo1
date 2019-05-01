@@ -11,7 +11,7 @@ export async function getUserByExternalId(orgId, externalId) {
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }
 
-export async function getApointmentByExternalId(orgId, externalId, userId) {
+export async function getAppointmentByExternalId(externalId, userId) {
   return axios.post(`${process.env.API_BASE_URL}/rhinoliner/appointment/matching`, { externalId, userId },
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }
@@ -141,7 +141,6 @@ export async function createMember(memberData, cookie) {
 }
 
 export async function mergeUsers(id1, id2, cookie) {
-  console.log('are we EVEN IN HERE');
   const response = await axios.get(`${process.env.API_BASE_URL}/users/mergeUsers/${id1}/${id2}`,
     {
       headers: {
@@ -150,7 +149,6 @@ export async function mergeUsers(id1, id2, cookie) {
         Cookie: cookie,
       },
     });
-  console.log('MERGE USER RES', response);
   return response.data;
 }
 

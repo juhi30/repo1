@@ -180,12 +180,12 @@ describe('merge users tests', () => {
     await rhinoliner.pushtoqueue(appt);
   });
 
-  // test('Find integrated user', async () => {
-  //   rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
-  //     expect(response.data.externalIds.emrId).toBe('123456');
-  //     integratedPatient = response.data;
-  //   });
-  // });
+  test('Find integrated user', async () => {
+    rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
+      expect(response.data.externalIds.emrId).toBe('123456');
+      integratedPatient = response.data;
+    });
+  });
 
   // test('Find non integrated user 1', async () => {
   //   rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
@@ -195,40 +195,46 @@ describe('merge users tests', () => {
   //   });
   // });
 
-  // test('find appointment', async () => {
-  //   rhinoapi.getApointmentByExternalId('appt123', integratedPatient.id).then((response) => {
-  //     console.log(response);
-  //     expect(response.data.externalId).toBe('appt123');
-  //     createdAppointment = response.data;
-  //   });
-  // });
+  test('find appointment', async () => {
+    console.log('INT PATIENT IN FIND APPT', integratedPatient);
+    rhinoapi.getApointmentByExternalId('appt123', integratedPatient.id).then((response) => {
+      console.log('REZY', response);
+      expect(response.data.externalId).toBe('appt123');
+      createdAppointment = response.data;
+    });
+  });
 
   test('When an integrated user is merged into a non integrated user, it should render an error', async () => {
     try {
       await rhinoapi.mergeUsers(integratedPatient.id, nonIntegratedPatient.id, process.env.INTEGRATIONS_ORG_COOKIE);
     } catch (err) {
-      expect(err.data.details).toBe('You cannot merge an integrated user into another user');
+      expect(err.response.data.message).toBe('You cannot merge an integrated user into another user');
     }
   });
 
-  // test('when a non integrated user with an emrId is merged into an integrated user, it should render an error', async () => {
-  //   await rhinoapi.mergeUsers(nonIntegratedUserWithEmrAndLogin.id, integratedPatient.id, process.env.INTEGRATIONS_ORG_COOKIE).then((response) => {
-  //     expect(response.details).toBe('This slave has an emr ID please check the database and resolve manually.');
-  //   });
-  // });
+  test('when a non integrated user with an emrId is merged into an integrated user, it should render an error', async () => {
+    try {
+      await rhinoapi.mergeUsers(nonIntegratedUserWithEmrAndLogin.id, integratedPatient.id, process.env.INTEGRATIONS_ORG_COOKIE);
+    } catch (err) {
+      expect(err.response.data.message).toBe('This slave has an emr ID please check the database and resolve manually.');
+    }
+  });
 
-  // test('when a non integrated user with a login is merged into another user with a login, it should render an error', async () => {
-  //   await rhinoapi.mergeUsers(nonIntegratedUserWithEmrAndLogin.id, nonIntegratedUserWithEmrAndLogin2.id, process.env.INTEGRATIONS_ORG_COOKIE).then((response) => {
-  //     expect(response.details).toBe('Both users being merged have created a login within the Rhinogram Network, please resolve this merge manually.');
-  //   });
-  // });
+  test('when a non integrated user with a login is merged into another user with a login, it should render an error', async () => {
+    try {
+      await rhinoapi.mergeUsers(nonIntegratedUserWithEmrAndLogin.id, nonIntegratedUserWithEmrAndLogin2.id, process.env.INTEGRATIONS_ORG_COOKIE);
+    } catch (err) {
+      expect(err.response.data.message).toBe('Both users being merged have created a login within the Rhinogram Network, please resolve this merge manually.');
+    }
+  });
 
-  // test('when a user is merged into itself, it should render an error', async () => {
-  //   await rhinoapi.mergeUsers(nonIntegratedPatient.id, nonIntegratedPatient.id, process.env.INTEGRATIONS_ORG_COOKIE).then((response) => {
-  //     console.log(response);
-  //     expect(response.details).toBe('You cannot merge a user into themselves');
-  //   });
-  // });
+  test('when a user is merged into itself, it should render an error', async () => {
+    try {
+      await rhinoapi.mergeUsers(nonIntegratedPatient.id, nonIntegratedPatient.id, process.env.INTEGRATIONS_ORG_COOKIE);
+    } catch (err) {
+      expect(err.response.data.message).toBe('You cannot merge a user into themselves');
+    }
+  });
 
   // eslint-disable-next-line
   // test('when a non integrated user without an emrId is merged into an integrated user, it should successfully merge the two users according to acceptable rules', async (done) => {

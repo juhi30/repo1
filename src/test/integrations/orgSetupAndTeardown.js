@@ -40,13 +40,10 @@ beforeAll(async () => {
 // DELETE MY NEW ORG HERE
 afterAll(async () => {
   try {
-    console.log('DELETE ze ORG====');
     // eslint-disable-next-line no-console
     console.log('Deleting Org ==', process.env.INTEGRATIONS_ORG_ID);
     const archiveResponse = await archiveOrganization(process.env.INTEGRATIONS_ORG_ID, process.env.INTEGRATIONS_CCR_COOKIE);
     // eslint-disable-next-line no-console
-    console.log('Archived ze ORG=====');
-
     console.log('======== Organization Archive Response =======', archiveResponse);
     await deleteOrganization(process.env.INTEGRATIONS_ORG_ID, process.env.INTEGRATIONS_CCR_COOKIE);
     // eslint-disable-next-line no-console

@@ -42,7 +42,7 @@ describe('rhino-external-api tests', () => {
   // CREATE MY NEW ORG HERE
   beforeAll(async () => {
     try {
-      const cookie = await login();
+      process.env.EXTERNALAPI_COOKIE = await login(process.env.EXTERNALAPI_CCR_USERNAME, process.env.EXTERNALAPI_CCR_PASSWORD);
 
       const orgData = {
         name: 'RhinoExternalApi Testing',
@@ -62,11 +62,11 @@ describe('rhino-external-api tests', () => {
         selectedBillingOpt: 'newCust',
       };
 
-      const org = await createOrganization(orgData, cookie);
+      const org = await createOrganization(orgData, process.env.EXTERNALAPI_COOKIE);
       orgId = org.id;
 
       // Change to newly created org
-      await changeOrganization({ orgId, userId: process.env.CCR_USER_ID }, cookie);
+      await changeOrganization({ orgId, userId: process.env.CCR_USER_ID }, process.env.EXTERNALAPI_COOKIE);
 
       // Create member
       const memberData = {
@@ -124,7 +124,7 @@ describe('rhino-external-api tests', () => {
         password: '4419kJig',
       };
 
-      await createMember(memberData, cookie);
+      await createMember(memberData, process.env.EXTERNALAPI_COOKIE);
 
       // Set rhino-external-api auth
       process.env.RHINO_EXTERNAL_API_BASIC_AUTH = `${memberData.username}:${memberData.password}`;
@@ -137,9 +137,8 @@ describe('rhino-external-api tests', () => {
   // DELETE MY NEW ORG HERE
   afterAll(async () => {
     try {
-      const cookie = await login();
-      await archiveOrganization(orgId, cookie);
-      await deleteOrganization(orgId, cookie);
+      await archiveOrganization(orgId, process.env.EXTERNALAPI_COOKIE);
+      await deleteOrganization(orgId, process.env.EXTERNALAPI_COOKIE);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log('===error on after all orgSetupAndTeardown=======', err);

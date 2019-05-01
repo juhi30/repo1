@@ -160,7 +160,7 @@ describe('mi7 integration tests', () => {
   test('update patient inbound message', async () => {
     await rhinofeeder.postMi7InboundMessage(updatePatientPayload);
     await sleep(10000);
-    const response = await rhinoapi.getUserByExternalId(updatePatientPayload.PatientID_EMR);
+    const response = await rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, updatePatientPayload.PatientID_EMR);
     expect(response.data.externalIds.emrId).toBe(updatePatientPayload.PatientID_EMR);
     expect(response.data.id).toBe(createdPatient.id);
     expect(response.data.firstName).toBe(updatePatientPayload.FirstName);

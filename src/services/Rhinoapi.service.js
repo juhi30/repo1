@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 
 export async function findUserByUser(orgId, user) {

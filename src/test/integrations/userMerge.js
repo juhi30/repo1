@@ -18,7 +18,6 @@ const FB_CHANNEL_ID = 7;
 const CP_PATIENT = 6;
 const TYPE_EMAIL_HOME = 4;
 // const HIPAA_STATUS_TYPE_PENDING = 48;
-// const nonIntegratedUserId = process.env.NON_INTEGRATED_USER_ID;
 // const nonIntegratedUserId2 = process.env.NON_INTEGRATED_USER_ID_2;
 // const nonIntegratedUserId3 = process.env.NON_INTEGRATED_USER_ID_3;
 
@@ -107,8 +106,59 @@ describe('merge users tests', () => {
 
     nonIntegratedPatient = await rhinoapi.postUser(user2, process.env.INTEGRATIONS_ORG_COOKIE);
 
+    //  // NON INTEGRATED USER
+    //  const user3 = {
+    //   firstName: 'Jonathan',
+    //   lastName: 'Snow',
+    //   loginEmail: 'jonsnow@ringmail.com',
+    //   middleName: 'Winterfell',
+    //   preferredName: 'Jon',
+    //   prefixId: 1,
+    //   suffixId: 1,
+    //   roles: [
+    //     {
+    //       id: 7,
+    //       name: 'Patient',
+    //       description: null,
+    //       systemRole: true,
+    //     },
+    //   ],
+    //   sex: 'male',
+    //   birthday: '1990-08-16',
+    //   note: 'ol jonny boy',
+    //   noteIsImportant: true,
+    //   tagIds: [1],
+    //   typeId: USER_TYPE_PATIENT,
+    //   username: 'jsnow',
+    //   password: '4419kJif',
+    //   pwReset: false,
+    //   phones: [{
+    //     value: process.env.TEST_MERGE_USERS_NUMBER,
+    //     typeId: TYPE_PHONE_CELL,
+    //   }],
+    //   emails: [{
+    //     value: 'jonsnow@thronemail.com',
+    //     typeId: TYPE_EMAIL_HOME,
+    //   }],
+    //   hipaaStatus: {
+    //     trusteeId: TRUSTEE_ID,
+    //     typeId: HIPAA_STATUS_TYPE_GRANTED,
+    //   },
+    //   facebooks: [{
+    //     value: '9898',
+    //     typeId: FB_TYPE_PRIMARY,
+    //     channelId: FB_CHANNEL_ID,
+    //   }],
+    //   connectedTo: [{
+    //     toUserId: CP_PATIENT,
+    //     connectionTypeId: 34,
+    //   }],
+    // };
+
+    // nonIntegratedPatient2 = await rhinoapi.postUser(user3, process.env.INTEGRATIONS_ORG_COOKIE);
+
     // NON INTEGRATED USER WITH EMR AND LOGIN
-    const user3 = {
+    const user4 = {
       firstName: 'Sean',
       lastName: 'Bean',
       loginEmail: 'snailmail@mail.com',
@@ -130,10 +180,10 @@ describe('merge users tests', () => {
       pwReset: false,
     };
 
-    nonIntegratedUserWithEmrAndLogin = await rhinoapi.postUser(user3, process.env.INTEGRATIONS_ORG_COOKIE);
+    nonIntegratedUserWithEmrAndLogin = await rhinoapi.postUser(user4, process.env.INTEGRATIONS_ORG_COOKIE);
 
     // NON INTEGRATED USER WITH EMR AND LOGIN
-    const user4 = {
+    const user5 = {
       firstName: 'Meek',
       lastName: 'Mill',
       loginEmail: 'meek@mill.com',
@@ -155,7 +205,7 @@ describe('merge users tests', () => {
       pwReset: false,
     };
 
-    nonIntegratedUserWithEmrAndLogin2 = await rhinoapi.postUser(user4, process.env.INTEGRATIONS_ORG_COOKIE);
+    nonIntegratedUserWithEmrAndLogin2 = await rhinoapi.postUser(user5, process.env.INTEGRATIONS_ORG_COOKIE);
   });
 
   test('create appointment for integrated user', async () => {

@@ -30,7 +30,7 @@ describe('merge users tests', () => {
 
   test('log into org', async () => {
     const orgId = parseInt(process.env.INTEGRATIONS_ORG_ID, 10);
-    await rhinoapi.changeOrganization({ orgId, userId: process.env.CCR_USER_ID }, process.env.INTEGRATIONS_ORG_COOKIE);
+    await rhinoapi.changeOrganization({ orgId, userId: process.env.CCR_USER_ID }, process.env.INTEGRATIONS_CCR_COOKIE);
   });
 
   test('create users', async () => {
@@ -50,6 +50,7 @@ describe('merge users tests', () => {
       externalIds: {
         emrId: '123456',
       },
+      isMinor: false,
       integrated: true,
       tags: [{ id: 1, name: 'Charleston', typeId: 55 }],
     };
@@ -65,6 +66,7 @@ describe('merge users tests', () => {
       preferredName: 'Jon',
       prefixId: 1,
       suffixId: 1,
+      isMinor: false,
       roles: [
         {
           id: 7,
@@ -105,7 +107,7 @@ describe('merge users tests', () => {
       }],
     };
 
-    nonIntegratedUser = await rhinoapi.postUser(user2, process.env.INTEGRATIONS_ORG_COOKIE);
+    nonIntegratedUser = await rhinoapi.postUser(user2, process.env.INTEGRATIONS_CCR_COOKIE);
 
     // NON INTEGRATED USER
     const user4 = {
@@ -113,6 +115,7 @@ describe('merge users tests', () => {
       lastName: 'Peters',
       loginEmail: 'jimbo@mail.com',
       preferredName: 'Jim',
+      isMinor: false,
       roles: [
         {
           id: 7,
@@ -153,7 +156,7 @@ describe('merge users tests', () => {
       }],
     };
 
-    nonIntegratedUser2 = await rhinoapi.postUser(user4, process.env.INTEGRATIONS_ORG_COOKIE);
+    nonIntegratedUser2 = await rhinoapi.postUser(user4, process.env.INTEGRATIONS_CCR_COOKIE);
 
     //  // NON INTEGRATED USER
     const user5 = {
@@ -162,6 +165,7 @@ describe('merge users tests', () => {
       middleName: 'Madison',
       preferredName: '',
       prefixId: 1,
+      isMinor: false,
       externalIds: {
         emrId: '65656565',
       },
@@ -204,13 +208,14 @@ describe('merge users tests', () => {
       }],
     };
 
-    nonIntegratedUser3 = await rhinoapi.postUser(user5, process.env.INTEGRATIONS_ORG_COOKIE);
+    nonIntegratedUser3 = await rhinoapi.postUser(user5, process.env.INTEGRATIONS_CCR_COOKIE);
 
     // NON INTEGRATED USER WITH EMR AND LOGIN
     const user6 = {
       firstName: 'Sean',
       lastName: 'Bean',
       loginEmail: 'snailmail@mail.com',
+      isMinor: false,
       roles: [
         {
           id: 7,
@@ -229,13 +234,14 @@ describe('merge users tests', () => {
       pwReset: false,
     };
 
-    nonIntegratedUserWithEmrAndLogin = await rhinoapi.postUser(user6, process.env.INTEGRATIONS_ORG_COOKIE);
+    nonIntegratedUserWithEmrAndLogin = await rhinoapi.postUser(user6, process.env.INTEGRATIONS_CCR_COOKIE);
 
     // NON INTEGRATED USER WITH EMR AND LOGIN
     const user7 = {
       firstName: 'Meek',
       lastName: 'Mill',
       loginEmail: 'meek@mill.com',
+      isMinor: false,
       roles: [
         {
           id: 7,
@@ -254,7 +260,7 @@ describe('merge users tests', () => {
       pwReset: false,
     };
 
-    nonIntegratedUserWithEmrAndLogin2 = await rhinoapi.postUser(user7, process.env.INTEGRATIONS_ORG_COOKIE);
+    nonIntegratedUserWithEmrAndLogin2 = await rhinoapi.postUser(user7, process.env.INTEGRATIONS_CCR_COOKIE);
   });
 
   test('create appointment for integrated user', async () => {
@@ -281,7 +287,7 @@ describe('merge users tests', () => {
 
   test('When an integrated user is merged into a non integrated user, it should render an error', async () => {
     try {
-      await rhinoapi.mergeUsers(integratedUser.id, nonIntegratedUser.id, process.env.INTEGRATIONS_ORG_COOKIE);
+      await rhinoapi.mergeUsers(integratedUser.id, nonIntegratedUser.id, process.env.INTEGRATIONS_CCR_COOKIE);
     } catch (err) {
       expect(err.response.data.message).toBe('You cannot merge an integrated user into another user');
     }
@@ -289,7 +295,7 @@ describe('merge users tests', () => {
 
   test('when a non integrated user with an emrId is merged into an integrated user, it should render an error', async () => {
     try {
-      await rhinoapi.mergeUsers(nonIntegratedUserWithEmrAndLogin.id, integratedUser.id, process.env.INTEGRATIONS_ORG_COOKIE);
+      await rhinoapi.mergeUsers(nonIntegratedUserWithEmrAndLogin.id, integratedUser.id, process.env.INTEGRATIONS_CCR_COOKIE);
     } catch (err) {
       expect(err.response.data.message).toBe('This slave has an emr ID please check the database and resolve manually.');
     }
@@ -297,7 +303,7 @@ describe('merge users tests', () => {
 
   test('when a non integrated user with a login is merged into another user with a login, it should render an error', async () => {
     try {
-      await rhinoapi.mergeUsers(nonIntegratedUserWithEmrAndLogin.id, nonIntegratedUserWithEmrAndLogin2.id, process.env.INTEGRATIONS_ORG_COOKIE);
+      await rhinoapi.mergeUsers(nonIntegratedUserWithEmrAndLogin.id, nonIntegratedUserWithEmrAndLogin2.id, process.env.INTEGRATIONS_CCR_COOKIE);
     } catch (err) {
       expect(err.response.data.message).toBe('Both users being merged have created a login within the Rhinogram Network, please resolve this merge manually.');
     }
@@ -305,7 +311,7 @@ describe('merge users tests', () => {
 
   test('when a user is merged into itself, it should render an error', async () => {
     try {
-      await rhinoapi.mergeUsers(nonIntegratedUser.id, nonIntegratedUser.id, process.env.INTEGRATIONS_ORG_COOKIE);
+      await rhinoapi.mergeUsers(nonIntegratedUser.id, nonIntegratedUser.id, process.env.INTEGRATIONS_CCR_COOKIE);
     } catch (err) {
       expect(err.response.data.message).toBe('You cannot merge a user into themselves');
     }
@@ -320,8 +326,8 @@ describe('merge users tests', () => {
 
   // eslint-disable-next-line
   test('when a non integrated user without an emrId is merged into an integrated user, it should successfully merge the two users according to acceptable rules', async (done) => {
-    const slaveUser = await rhinoapi.getUser(nonIntegratedUser.id, process.env.INTEGRATIONS_ORG_COOKIE); // patient without emrId
-    await rhinoapi.mergeUsers(slaveUser.id, integratedUser.id, process.env.INTEGRATIONS_ORG_COOKIE).then(async (response) => {
+    const slaveUser = await rhinoapi.getUser(nonIntegratedUser.id, process.env.INTEGRATIONS_CCR_COOKIE); // patient without emrId
+    await rhinoapi.mergeUsers(slaveUser.id, integratedUser.id, process.env.INTEGRATIONS_CCR_COOKIE).then(async (response) => {
       // MAINTAIN MASTER
       expect(response.id).toBe(integratedUser.id); // maintain master
       expect(response.typeId).toBe(integratedUser.typeId); // maintain master
@@ -365,9 +371,9 @@ describe('merge users tests', () => {
 
   // eslint-disable-next-line
   test('when a non integrated user without an emrId is merged into another non integrated user, it should successfully merge the two users according to acceptable rules', async (done) => {
-    const slaveUser = await rhinoapi.getUser(nonIntegratedUser2.id, process.env.INTEGRATIONS_ORG_COOKIE); // user type other without emrId
-    const masterUser = await rhinoapi.getUser(nonIntegratedUser3.id, process.env.INTEGRATIONS_ORG_COOKIE); // patient with emrId
-    await rhinoapi.mergeUsers(slaveUser.id, masterUser.id, process.env.INTEGRATIONS_ORG_COOKIE).then(async (response) => {
+    const slaveUser = await rhinoapi.getUser(nonIntegratedUser2.id, process.env.INTEGRATIONS_CCR_COOKIE); // user type other without emrId
+    const masterUser = await rhinoapi.getUser(nonIntegratedUser3.id, process.env.INTEGRATIONS_CCR_COOKIE); // patient with emrId
+    await rhinoapi.mergeUsers(slaveUser.id, masterUser.id, process.env.INTEGRATIONS_CCR_COOKIE).then(async (response) => {
       // MAINTAIN MASTER
       expect(response.id).toBe(masterUser.id); // maintain master
       expect(response.typeId).toBe(masterUser.typeId); // maintain master

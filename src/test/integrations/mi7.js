@@ -173,7 +173,7 @@ describe('mi7 integration tests', () => {
     const response = await rhinoapi.getAppointmentByExternalId(appointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(appointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
-    expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed  TODO: temporarily removing until we can setup and teardown orgs
+    expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed
     expect(moment.utc(response.data.startDate).format()).toBe(startDate);
   });
 
@@ -183,7 +183,7 @@ describe('mi7 integration tests', () => {
     const response = await rhinoapi.getAppointmentByExternalId(updateAppointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(updateAppointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
-    expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed TODO: temporarily removing until we can setup and teardown orgs
+    expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed
     expect(moment.utc(response.data.startDate).format()).toBe(updatedStartDate);
   });
 

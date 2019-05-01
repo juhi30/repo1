@@ -4,4 +4,4 @@ import './orgSetupAndTeardown';
 // import './messenging';
 // import './mi7';
 import './userMerge';
-// import './appointmentReminders'
+// import './appointmentReminders';

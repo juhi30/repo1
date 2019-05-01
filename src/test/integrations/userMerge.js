@@ -317,21 +317,6 @@ describe('merge users tests', () => {
     });
   });
 
-  // test('Find integrated user', async () => {
-  //   rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
-  //     expect(response.data.externalIds.emrId).toBe('123456');
-  //     integratedUser = response.data;
-  //   });
-  // });
-
-  // test('Find non integrated user 1', async () => {
-  //   rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456').then((response) => {
-  //     expect(response.data.externalIds.emrId).toBe('123456');
-  //     integratedUser = response.data;
-  //     console.log('INT PATIENT', integratedUser);
-  //   });
-  // });
-
   // eslint-disable-next-line
   test('when a non integrated user without an emrId is merged into an integrated user, it should successfully merge the two users according to acceptable rules', async (done) => {
     const slaveUser = await rhinoapi.getUser(nonIntegratedUser.id, process.env.INTEGRATIONS_ORG_COOKIE); // patient without emrId

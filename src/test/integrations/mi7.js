@@ -147,7 +147,7 @@ function sleep(ms) {
 
 describe('mi7 integration tests', () => {
   jest.setTimeout(30000);
-  test('new patient inbound message', async (done) => {
+  test('new patient inbound message', async () => {
     await rhinofeeder.postMi7InboundMessage(patientPayload);
     await sleep(10000);
     const response = await rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, patientPayload.PatientID_EMR);
@@ -155,10 +155,9 @@ describe('mi7 integration tests', () => {
     expect(response.data.firstName).toBe(patientPayload.FirstName);
     expect(response.data.lastName).toBe(patientPayload.LastName);
     createdPatient = response.data;
-    done();
   });
 
-  test('update patient inbound message', async (done) => {
+  test('update patient inbound message', async () => {
     await rhinofeeder.postMi7InboundMessage(updatePatientPayload);
     await sleep(10000);
     const response = await rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, updatePatientPayload.PatientID_EMR);
@@ -166,10 +165,9 @@ describe('mi7 integration tests', () => {
     expect(response.data.id).toBe(createdPatient.id);
     expect(response.data.firstName).toBe(updatePatientPayload.FirstName);
     expect(response.data.lastName).toBe(updatePatientPayload.LastName);
-    done();
   });
 
-  test('new appointment inbound message', async (done) => {
+  test('new appointment inbound message', async () => {
     await rhinofeeder.postMi7InboundMessage(appointmentPayload);
     await sleep(10000);
     const response = await rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, appointmentPayload.PlacerID, createdPatient.id);
@@ -177,10 +175,9 @@ describe('mi7 integration tests', () => {
     expect(response.data.userId).toBe(createdPatient.id);
     expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed  TODO: temporarily removing until we can setup and teardown orgs
     expect(moment.utc(response.data.startDate).format()).toBe(startDate);
-    done();
   });
 
-  test('update appointment inbound message', async (done) => {
+  test('update appointment inbound message', async () => {
     await rhinofeeder.postMi7InboundMessage(updateAppointmentPayload);
     await sleep(10000);
     const response = await rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, updateAppointmentPayload.PlacerID, createdPatient.id);
@@ -188,16 +185,14 @@ describe('mi7 integration tests', () => {
     expect(response.data.userId).toBe(createdPatient.id);
     expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed TODO: temporarily removing until we can setup and teardown orgs
     expect(moment.utc(response.data.startDate).format()).toBe(updatedStartDate);
-    done();
   });
 
-  test('cancel appointment inbound message', async (done) => {
+  test('cancel appointment inbound message', async () => {
     await rhinofeeder.postMi7InboundMessage(cancelAppointmentPayload);
     await sleep(10000);
     const response = await rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, cancelAppointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(cancelAppointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
     expect(response.data.appointmentStatusTypeId).toBe(83); // cancelled
-    done();
   });
 });

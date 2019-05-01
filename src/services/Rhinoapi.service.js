@@ -69,7 +69,7 @@ export async function deleteOrganization(organizationId, cookie) {
   return response.data;
 }
 
-export async function login(username = process.env.CCR_USERNAME, password = process.env.CCR_PASSWORD) {
+export async function login(username, password) {
   const response = await axios.post(`${process.env.API_BASE_URL}/login`,
     { username, password },
     {

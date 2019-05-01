@@ -28,9 +28,70 @@ function localToUtc(datetime, ianaTimezone) {
 describe('merge users tests', () => {
   jest.setTimeout(30000);
 
-  test('log into org', async () => {
+  test('log into org as ccr', async () => {
     const orgId = parseInt(process.env.INTEGRATIONS_ORG_ID, 10);
     await rhinoapi.changeOrganization({ orgId, userId: process.env.CCR_USER_ID }, process.env.INTEGRATIONS_CCR_COOKIE);
+  });
+
+  test('log in as member', async () => {
+    const memberData = {
+      afterHours: false,
+      autoResponse: '',
+      businessHours: [],
+      businessTitle: '',
+      firstName: 'Test',
+      groupIds: [],
+      id: -1,
+      lastName: 'Member',
+      loginEmail: '',
+      middleName: '',
+      observesDst: false,
+      preferredName: '',
+      prefixId: '',
+      profileImageUrl: '',
+      roles: [
+        {
+          id: 2,
+          name: 'Admin',
+          description: null,
+          systemRole: true,
+        },
+        {
+          id: 3,
+          name: 'Billing Admin',
+          description: null,
+          systemRole: true,
+        },
+        {
+          id: 5,
+          name: 'Member',
+          description: null,
+          systemRole: true,
+        },
+        {
+          id: 1,
+          name: 'Member Admin',
+          description: null,
+          systemRole: true,
+        },
+        {
+          id: 6,
+          name: 'Member Templates',
+          description: null,
+          systemRole: true,
+        },
+      ],
+      routedChannels: [],
+      suffixId: '',
+      tagIds: [],
+      typeId: 19,
+      username: 'testmember',
+      password: '4419kJig',
+    };
+
+    await rhinoapi.createMember(memberData, process.env.INTEGRATIONS_CCR_COOKIE);
+
+    process.env.INTEGRATIONS_MEMBER_COOKIE = await rhinoapi.login(memberData.username, memberData.password);
   });
 
   test('create users', async () => {
@@ -107,7 +168,7 @@ describe('merge users tests', () => {
       }],
     };
 
-    nonIntegratedUser = await rhinoapi.postUser(user2, process.env.INTEGRATIONS_CCR_COOKIE);
+    nonIntegratedUser = await rhinoapi.postUser(user2, process.env.INTEGRATIONS_MEMBER_COOKIE);
 
     // NON INTEGRATED USER
     const user4 = {
@@ -156,7 +217,7 @@ describe('merge users tests', () => {
       }],
     };
 
-    nonIntegratedUser2 = await rhinoapi.postUser(user4, process.env.INTEGRATIONS_CCR_COOKIE);
+    nonIntegratedUser2 = await rhinoapi.postUser(user4, process.env.INTEGRATIONS_MEMBER_COOKIE);
 
     //  // NON INTEGRATED USER
     const user5 = {
@@ -208,7 +269,7 @@ describe('merge users tests', () => {
       }],
     };
 
-    nonIntegratedUser3 = await rhinoapi.postUser(user5, process.env.INTEGRATIONS_CCR_COOKIE);
+    nonIntegratedUser3 = await rhinoapi.postUser(user5, process.env.INTEGRATIONS_MEMBER_COOKIE);
 
     // NON INTEGRATED USER WITH EMR AND LOGIN
     const user6 = {
@@ -234,7 +295,7 @@ describe('merge users tests', () => {
       pwReset: false,
     };
 
-    nonIntegratedUserWithEmrAndLogin = await rhinoapi.postUser(user6, process.env.INTEGRATIONS_CCR_COOKIE);
+    nonIntegratedUserWithEmrAndLogin = await rhinoapi.postUser(user6, process.env.INTEGRATIONS_MEMBER_COOKIE);
 
     // NON INTEGRATED USER WITH EMR AND LOGIN
     const user7 = {
@@ -260,7 +321,7 @@ describe('merge users tests', () => {
       pwReset: false,
     };
 
-    nonIntegratedUserWithEmrAndLogin2 = await rhinoapi.postUser(user7, process.env.INTEGRATIONS_CCR_COOKIE);
+    nonIntegratedUserWithEmrAndLogin2 = await rhinoapi.postUser(user7, process.env.INTEGRATIONS_MEMBER_COOKIE);
   });
 
   test('create appointment for integrated user', async () => {

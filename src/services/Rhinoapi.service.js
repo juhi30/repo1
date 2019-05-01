@@ -87,20 +87,6 @@ export async function login(username = process.env.CCR_USERNAME, password = proc
   return response.headers['set-cookie'][0];
 }
 
-export async function changeOrg(cookie) {
-  const ORGID = process.env.INTEGRATIONS_ORG_ID;
-  const USERID = process.env.CCR_USER_ID;
-
-  await axios.post(`${process.env.API_BASE_URL}/changeOrg`,
-    { orgId: parseInt(ORGID, 10), userId: USERID },
-    {
-      headers: {
-        'content-type': 'application/json',
-        Cookie: cookie,
-      },
-    });
-}
-
 export async function createOrganization(orgData, cookie) {
   const response = await axios.post(`${process.env.API_BASE_URL}/organization`,
     orgData,

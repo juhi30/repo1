@@ -29,7 +29,8 @@ describe('merge users tests', () => {
   jest.setTimeout(30000);
 
   test('log into org', async () => {
-    await rhinoapi.changeOrg(process.env.INTEGRATIONS_ORG_COOKIE);
+    const orgId = parseInt(process.env.INTEGRATIONS_ORG_ID, 10);
+    await rhinoapi.changeOrganization({ orgId, userId: process.env.CCR_USER_ID }, process.env.INTEGRATIONS_ORG_COOKIE);
   });
 
   test('create users', async () => {

@@ -77,7 +77,7 @@ describe('rhino-external-api tests', () => {
         firstName: 'Test',
         groupIds: [],
         id: -1,
-        lastName: 'Member',
+        lastName: `Member_${orgId}`,
         loginEmail: '',
         middleName: '',
         observesDst: false,
@@ -120,7 +120,7 @@ describe('rhino-external-api tests', () => {
         suffixId: '',
         tagIds: [],
         typeId: 19,
-        username: 'testmember',
+        username: `testmember_${orgId}`,
         password: '4419kJig',
       };
 

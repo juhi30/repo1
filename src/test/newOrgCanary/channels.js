@@ -1,4 +1,5 @@
 import { client } from 'nightwatch-api';
+
 const testConstants = require('../../toolboxes/feeder.toolbox');
 
 describe('Automated Tests: Channels', () => {
@@ -11,11 +12,11 @@ describe('Automated Tests: Channels', () => {
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit()
       .pause(2000)
-      .validateUrlChange('/selectorg')
+      .validateUrlChange('/selectorg');
 
     await org.searchForOrganization(testConstants.orgName)
-      .ccrOrgLogin()
-      .pause(2000)
+      .ccrOrgLogin(testConstants.ccrLogin, testConstants.ccrPassword)
+      .pause(2000);
   });
 
   test('Required Fields and validations', async () => {
@@ -24,21 +25,21 @@ describe('Automated Tests: Channels', () => {
 
 
     await channel.navigate()
-      .validateChannelsEls()
+      .validateChannelsEls();
 
     await setup.navigate()
       .selectChannelCategory('@newPhoneType')
       .createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
       .waitForElementVisible('@channelNameValidation', 'Validation message for channel Name is visible')
       .verify.visible('@timezoneValidation', 'Validation message for TimeZone is visible')
-      .verify.visible('@channelRouteValidation', 'validation message for Channel Route is visible')
+      .verify.visible('@channelRouteValidation', 'validation message for Channel Route is visible');
 
     await setup.navigate()
       .selectChannelCategory('@rhinoSecureType')
       .createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
       .waitForElementVisible('@channelNameValidation', 'Validation message for channel Name is visible')
       .verify.visible('@timezoneValidation', 'Validation message for TimeZone is visible')
-      .verify.visible('@channelRouteValidation', 'validation message for Channel Route is visible')
+      .verify.visible('@channelRouteValidation', 'validation message for Channel Route is visible');
   });
 
   test('Channel Create - New Phone type with member Route', async () => {
@@ -50,13 +51,13 @@ describe('Automated Tests: Channels', () => {
       .selectChannelCategory('@newPhoneType')
       .pause(2000)
       .addNumber(testConstants.numberForNewPhoneChannel, testConstants.forwardingNumber)
-      .channelDetails(testConstants.channelName, testConstants.channelPurpose, testConstants.timeZone)
+      .channelDetails(testConstants.channelName, testConstants.channelPurpose, testConstants.timeZone);
 
     await route.routeSearch('@memberInput', testConstants.memberFirstName, '@memberResult')
-      .pause(2000)
+      .pause(2000);
 
     await newPhone.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
-      .checkSuccessMessage('@channelCreateSuccessMessage')
+      .checkSuccessMessage('@channelCreateSuccessMessage');
   });
 
   test('Channel Create - Rhinosecure channel with member route', async () => {
@@ -66,19 +67,19 @@ describe('Automated Tests: Channels', () => {
     await rhino.navigate()
       .validateCreateEls()
       .selectChannelCategory('@rhinoSecureType')
-      .channelDetails(testConstants.rhinoChannelName, testConstants.channelPurpose, testConstants.timeZone)
+      .channelDetails(testConstants.rhinoChannelName, testConstants.channelPurpose, testConstants.timeZone);
 
     // await route.selectGroupRoute()
     //     .routeSearch('@groupInput', testConstants.groupName, '@groupResult')
     //     .pause(2000)
 
     await route.routeSearch('@memberInput', testConstants.memberFirstName, '@memberResult')
-      .pause(2000)
+      .pause(2000);
 
     await rhino.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
       .pause(2000)
       .checkSuccessMessage('@channelCreateSuccessMessage')
-      .waitForElementNotPresent('@channelCreateSuccessMessage')
+      .waitForElementNotPresent('@channelCreateSuccessMessage');
   });
 
   test('Channel Edit - New phone type', async () => {
@@ -88,14 +89,16 @@ describe('Automated Tests: Channels', () => {
     await channel.navigate()
 
       .channelEditMode('@channelName')
+      .pause(500)
+      .checkElementVisibility('@editChannel');
 
     await update.editChannelDetailsSection(testConstants.newChannelName, testConstants.newPurpose)
       .enableDisableToggles('@availabilityHoursToggle')
       .enableDisableToggles('@webFormAddOnnToggle')
-      .enableDisableToggles('@channelForwardingToggle')
-    update.createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
+      .enableDisableToggles('@channelForwardingToggle');
+    await update.createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
       .checkSuccessMessage('@channelUpdateSuccessMessage')
-      .waitForElementNotPresent('@channelUpdateSuccessMessage')
+      .waitForElementNotPresent('@channelUpdateSuccessMessage');
   });
 
   test('Channel Edit - Rhinosecure', async () => {
@@ -104,6 +107,8 @@ describe('Automated Tests: Channels', () => {
 
     await channel.navigate()
       .channelEditMode('@rhinoSecureChannelTitle')
+      .pause(500)
+      .checkElementVisibility('@editChannel');
 
     await update.editChannelDetailsSection(testConstants.rhinoChannelNewName, testConstants.newPurpose)
       .enableDisableToggles('@availabilityHoursToggle')
@@ -111,7 +116,7 @@ describe('Automated Tests: Channels', () => {
       .pause(2000)
       .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
       .checkSuccessMessage('@channelUpdateSuccessMessage')
-      .waitForElementNotPresent('@channelUpdateSuccessMessage')
+      .waitForElementNotPresent('@channelUpdateSuccessMessage');
   });
 
   test('Tags creation for newPhone type and Rhino secure type', async () => {
@@ -120,18 +125,22 @@ describe('Automated Tests: Channels', () => {
 
     await channel.navigate()
       .channelEditMode('@updatedChannelTitle')
+      .pause(500)
+      .checkElementVisibility('@editChannel');
 
     await update.addtag(testConstants.tagNameNewPhoneType, '@tagCategory')
       .pause(2000)
       .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
-      .checkSuccessMessage('@channelUpdateSuccessMessage')
+      .checkSuccessMessage('@channelUpdateSuccessMessage');
 
     await channel.channelEditMode('@updatedRhinoSecureChannelTitle')
+      .pause(500)
+      .checkElementVisibility('@editChannel');
 
     await update.addtag(testConstants.tagNameRhinoType, '@tagCategory')
       .pause(2000)
       .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
-      .checkSuccessMessage('@channelUpdateSuccessMessage')
+      .checkSuccessMessage('@channelUpdateSuccessMessage');
   });
 
   test('validation on Web Form fields', async () => {
@@ -140,6 +149,8 @@ describe('Automated Tests: Channels', () => {
 
 
     await channel.channelEditMode('@updatedChannelTitle')
+      .pause(500)
+      .checkElementVisibility('@editChannel');
 
     await channel1.webFormValidation('@formTitle')
       .webFormValidation('@titleSubtext')
@@ -159,15 +170,17 @@ describe('Automated Tests: Channels', () => {
       .checkForValidation('@messagePlaceholderValidation')
       .checkForValidation('@buttonTitleMessage')
       .checkForValidation('@actionButtonTitleMessage')
-      .checkForValidation('@confirmationTextMessage')
+      .checkForValidation('@confirmationTextMessage');
   });
 
   test('Updation on Web Form fields', async () => {
     const channel = client.page.ChannelsPage();
     const channel1 = client.page.ChannelsCreateEditPage();
 
-    channel.navigate()
+    channel.navigate();
     await channel.channelEditMode('@updatedChannelTitle')
+      .pause(500)
+      .checkElementVisibility('@editChannel');
 
     await channel1.updateWebform('@formTitle', testConstants.formTitleName)
       .updateWebform('@titleSubtext', testConstants.titleSubtext)
@@ -179,7 +192,7 @@ describe('Automated Tests: Channels', () => {
       .updateWebform('@confirmationText', testConstants.callToActionButton)
       .pause(2000)
       .waitForElementVisible('@updateChannelButton', 'update button is visible')
-      .click('@updateChannelButton')
+      .click('@updateChannelButton');
   });
 
   // test('Channel Deletion', async () => {
@@ -188,11 +201,15 @@ describe('Automated Tests: Channels', () => {
 
   //   await channel.navigate()
   //     .channelEditMode('@updatedChannelTitle')
+  // .pause(500)
+  //     .checkElementVisibility('@editChannel')
 
   //   await deletechannel.deleteChannels()
   //     .pause(2000)
   //   await channel.navigate()
   //     .channelEditMode('@updatedRhinoSecureChannelTitle')
+  // .pause(500)
+  //     .checkElementVisibility('@editChannel')
 
   //   await deletechannel.deleteChannels()
   //     .pause(2000)
@@ -203,5 +220,4 @@ describe('Automated Tests: Channels', () => {
 
     await logout.clickLogout();
   });
-  
 });

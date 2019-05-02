@@ -1,53 +1,35 @@
-import { client } from 'nightwatch-api';
+import logger from 'rhinotilities/lib/loggers/logger';
+import { organizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
+import { ccrLogin } from '../../toolboxes/login.toolbox';
+
 const testConstants = require('../../toolboxes/feeder.toolbox');
-import {
-  deleteOrganization,
-  archiveOrganization,
-  login
-} from '../../services/Rhinoapi.service';
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
-  const login = client.page.LoginPage();
-  const setup = client.page.AccountSetupPage();
-  const org = client.page.UniversalElements();
-  
-  try {
-    await login.navigate()
-    .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
-    .submit()
-    .pause(2000)
-    .validateUrlChange('/selectorg')
-    org.waitForElementVisible('@searchInputForOrg', 'Search Org fiels is visible')
+  const organizationDetails = {
+    name: testConstants.orgName,
+    address: testConstants.address,
+    city: testConstants.city,
+    state: testConstants.state,
+    zip: testConstants.zip,
+  };
 
-  await setup.navigate()
-    .clickBillingToggle()
-    .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
-      testConstants.state, testConstants.zip)
-    .clickCreateOrganization()
-    .waitForElementNotVisible('@createOrgButton', 'Create Org button not visible')
-    .pause(1000)
-    .getOrgId()
+  try {
+    await ccrLogin(testConstants.ccrLogin, testConstants.ccrPassword);
+
+    await organizationSetUp(organizationDetails, 'NEW_CANARY_ORG_ID');
   } catch (err) {
-    console.log('==error on orgSetupAndTearDown=====', err);
+    logger.info(err, '==error on orgSetupAndTearDown=====');
   }
- 
 });
 
-// DELETE MY NEW ORG HERE 
+// DELETE MY NEW ORG HERE
 afterAll(async (done) => {
-
   try {
-    console.log('Login...');
-    const cookie = await login();
-    console.log('Deleting Org ==', process.env.ORGANIZATION_ID);
-    const archiveResponse = await archiveOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('======== Organization Archive Response =======', archiveResponse);
-    const deleteResponse = await deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======');
+    await orgTearDown(process.env.NEW_CANARY_ORG_ID, testConstants.ccrLogin, testConstants.ccrPassword);
     done();
   } catch (err) {
-    console.log('===error on after all orgSetupAndTeardown=======', err);
+    logger.error(err, '===error on after all orgSetupAndTeardown=======');
     done(err);
   }
 });

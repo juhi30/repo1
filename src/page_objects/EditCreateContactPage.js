@@ -1,40 +1,40 @@
 const editCreateContacts = {
-  pause: function(time) {
+  pause(time) {
     this.api.pause(time);
     return this;
   },
 
-  fillFirstNameInput: function(name) {
+  fillFirstNameInput(name) {
     return this.waitForElementVisible('@firstNameInput', 'First name input is visible')
       .setValue('@firstNameInput', name);
   },
 
-  fillLastNameInput: function(name) {
+  fillLastNameInput(name) {
     return this.waitForElementVisible('@lastNameInput', 'Last name input is visible')
       .setValue('@lastNameInput', name);
   },
 
-  fillBirthday: function(date) {
+  fillBirthday(date) {
     return this.waitForElementVisible('@birthdayInput', 'Birthday in put is visible')
       .setValue('@birthdayInput', date);
   },
-  
-  fillPhoneNumber: function(phoneNumber) {
+
+  fillPhoneNumber(phoneNumber) {
     return this.waitForElementVisible('@firstPhoneInput', 'Phone input is visible')
       .setValue('@firstPhoneInput', phoneNumber);
   },
 
-  clickCreateContact: function() {
+  clickCreateContact() {
     return this.waitForElementVisible('@createContactButton', 'Create contact button is visible')
       .click('@createContactButton');
   },
 
-  clickPatientOption: function() {
+  clickPatientOption() {
     return this.waitForElementVisible('@patientOption', 'Patient Option is visible')
       .click('@patientOption');
-  }
+  },
 
-}
+};
 
 module.exports = {
   commands: [editCreateContacts],
@@ -42,87 +42,82 @@ module.exports = {
   elements: {
     // Contact type
     patientOption: {
-      selector: `//SPAN[contains(.,'Patient')]`,
-      locateStrategy: 'xpath'
+      selector: '//SPAN[contains(.,\'Patient\')]',
+      locateStrategy: 'xpath',
     },
 
     otherOption: {
-      selector: `//SPAN[contains(.,'Other')]`,
-      locateStrategy: 'xpath'
+      selector: '//SPAN[contains(.,\'Other\')]',
+      locateStrategy: 'xpath',
     },
 
     // Inputs
 
     firstNameInput: {
-      selector: `//INPUT[contains(@name, 'firstName')]`,
-      locateStrategy: 'xpath'
+      selector: '//INPUT[contains(@name, \'firstName\')]',
+      locateStrategy: 'xpath',
     },
 
     middleNameInput: {
-      selector: `//INPUT[contains(@name, 'middleName')]`,
-      locateStrategy: 'xpath'
+      selector: '//INPUT[contains(@name, \'middleName\')]',
+      locateStrategy: 'xpath',
     },
 
     lastNameInput: {
-      selector: `//INPUT[contains(@name, 'lastName')]`,
-      locateStrategy: 'xpath'
+      selector: '//INPUT[contains(@name, \'lastName\')]',
+      locateStrategy: 'xpath',
     },
 
     preferredNameInput: {
-      selector: `//INPUT[contains(@name, 'preferredName')]`,
-      locateStrategy: 'xpath'
-    },
-
-    birthdayInput: {
-      selector: `//INPUT[contains(@id, 'birthday')]`,
-      locateStrategy: 'xpath'
+      selector: '//INPUT[contains(@name, \'preferredName\')]',
+      locateStrategy: 'xpath',
     },
 
     externalId: {
-      selector: `//INPUT[contains(@name, 'externalId)]`,
-      locateStrategy: 'xpath'
+      selector: '//INPUT[contains(@name, \'externalId)]',
+      locateStrategy: 'xpath',
     },
 
     male: {
-      selector: `//INPUT[contains(@value, 'male')]`,
+      selector: '//INPUT[contains(@value, \'male\')]',
       locateStrategy: 'xpath',
     },
 
     female: {
-      selector: `//INPUT[contains(@value, 'female')]`,
-      locateStrategy: 'xpath'
+      selector: '//INPUT[contains(@value, \'female\')]',
+      locateStrategy: 'xpath',
     },
 
     firstPhoneInput: {
-      selector: `//INPUT[contains(@name, 'userPhones-0')]`,
-      locateStrategy: 'xpath'
+      selector: '//INPUT[contains(@name, \'userPhones-0\')]',
+      locateStrategy: 'xpath',
     },
 
     noteInput: {
-      selector: `//INPUT[contains(@name, 'note')]`,
-      locateStrategy: 'xpath'
+      selector: '//INPUT[contains(@name, \'note\')]',
+      locateStrategy: 'xpath',
     },
 
     birthdayInput: {
-      selector: `//INPUT[contains(@name, 'birthday')]`,
-      locateStrategy: 'xpath'
+      selector: '//INPUT[contains(@name, \'birthday\')]',
+      locateStrategy: 'xpath',
     },
 
     // prefix and suffix dropdowns
     prefixDropdown: {
-      selector: `//SELECT[contains(@name, 'prefixId')]`,
-      locateStrategy: 'xpath'
+      selector: '//SELECT[contains(@name, \'prefixId\')]',
+      locateStrategy: 'xpath',
     },
 
     suffixDropdown: {
-      selector: `//SELECT[contains(@name, 'suffixId')]`,
-      locateStrategy: 'xpath'
+      selector: '//SELECT[contains(@name, \'suffixId\')]',
+      locateStrategy: 'xpath',
     },
 
     // buttons
     createContactButton: {
-      selector: `//SPAN[contains(text(), 'Create Contact')]`,
-      locateStrategy: 'xpath'
-    }
-  }
+      selector: '//SPAN[contains(text(), \'Create Contact\')]',
+      locateStrategy: 'xpath',
+    },
+  },
 };

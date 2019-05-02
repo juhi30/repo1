@@ -2,6 +2,7 @@ import { client } from 'nightwatch-api';
 
 const login = client.page.LoginPage();
 const org = client.page.UniversalElements();
+
 export function ccrLogin(userName, password) {
   login.navigate()
     .enterCSRCreds(userName, password)

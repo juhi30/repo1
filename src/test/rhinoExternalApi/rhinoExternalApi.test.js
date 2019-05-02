@@ -1,12 +1,17 @@
 import * as rhinoExternalApi from '../../services/RhinoExternalApi.service';
-
-// TODO: This is temporary until we have the create/teardown org helps to easily use.  Will convert at that point.
-const rand = Date.now().toString();
+import {
+  createOrganization,
+  changeOrganization,
+  createMember,
+  deleteOrganization,
+  archiveOrganization,
+  login,
+} from '../../services/Rhinoapi.service';
 
 const user = {
-  externalId: rand,
+  externalId: '40bsf7d3-d0b8-4ffa-8d76-a679121d0467',
   firstName: 'John',
-  lastName: rand,
+  lastName: 'External',
   preferredName: 'Johnny',
   birthday: '1999-01-28',
   sex: 'm',
@@ -29,50 +34,153 @@ const user = {
 };
 
 let postedUser;
+let orgId;
 
 describe('rhino-external-api tests', () => {
   jest.setTimeout(30000);
-  test('post patient', async (done) => {
+
+  // CREATE MY NEW ORG HERE
+  beforeAll(async () => {
+    try {
+      process.env.EXTERNALAPI_COOKIE = await login(process.env.EXTERNALAPI_CCR_USERNAME, process.env.EXTERNALAPI_CCR_PASSWORD);
+
+      const orgData = {
+        name: 'RhinoExternalApi Testing',
+        parentCompany: '',
+        street1: '123 happy lane',
+        street2: '',
+        city: 'London',
+        zip: '43140',
+        state: 'OH',
+        businessAddress: {
+          street1: '1120 Val Wilson Rd', street2: '', city: 'London', state: 'OH', zip: '43140',
+        },
+        contactName: '',
+        contactPhone: '',
+        contactEmail: '',
+        billingChecked: true,
+        selectedBillingOpt: 'newCust',
+      };
+
+      const org = await createOrganization(orgData, process.env.EXTERNALAPI_COOKIE);
+      orgId = org.id;
+
+      // Change to newly created org
+      await changeOrganization({ orgId, userId: process.env.CCR_USER_ID }, process.env.EXTERNALAPI_COOKIE);
+
+      // Create member
+      const memberData = {
+        afterHours: false,
+        autoResponse: '',
+        businessHours: [],
+        businessTitle: '',
+        firstName: 'Test',
+        groupIds: [],
+        id: -1,
+        lastName: 'Member',
+        loginEmail: '',
+        middleName: '',
+        observesDst: false,
+        preferredName: '',
+        prefixId: '',
+        profileImageUrl: '',
+        roles: [
+          {
+            id: 2,
+            name: 'Admin',
+            description: null,
+            systemRole: true,
+          },
+          {
+            id: 3,
+            name: 'Billing Admin',
+            description: null,
+            systemRole: true,
+          },
+          {
+            id: 5,
+            name: 'Member',
+            description: null,
+            systemRole: true,
+          },
+          {
+            id: 1,
+            name: 'Member Admin',
+            description: null,
+            systemRole: true,
+          },
+          {
+            id: 6,
+            name: 'Member Templates',
+            description: null,
+            systemRole: true,
+          },
+        ],
+        routedChannels: [],
+        suffixId: '',
+        tagIds: [],
+        typeId: 19,
+        username: 'testmember',
+        password: '4419kJig',
+      };
+
+      await createMember(memberData, process.env.EXTERNALAPI_COOKIE);
+
+      // Set rhino-external-api auth
+      process.env.RHINO_EXTERNAL_API_BASIC_AUTH = `${memberData.username}:${memberData.password}`;
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log('===error on before all orgSetupAndTeardown=======', err);
+    }
+  });
+
+  // DELETE MY NEW ORG HERE
+  afterAll(async () => {
+    try {
+      await archiveOrganization(orgId, process.env.EXTERNALAPI_COOKIE);
+      await deleteOrganization(orgId, process.env.EXTERNALAPI_COOKIE);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log('===error on after all orgSetupAndTeardown=======', err);
+    }
+  });
+
+  test('post patient', async () => {
     const response = await rhinoExternalApi.postUser(user);
     postedUser = response.data;
     expect(response.data.externalId).toBe(user.externalId);
     expect(response.data.firstName).toBe(user.firstName);
-    expect(response.data.lastName).toBe(user.externalId);
+    expect(response.data.lastName).toBe(user.lastName);
     expect(response.data.sex).toBe(user.sex);
     expect(response.data.phones[0].number).toBe(user.phones[0].number);
     expect(response.data.phones[0].type).toBe(user.phones[0].type);
     expect(response.data.emails[0].address).toBe(user.emails[0].address);
     expect(response.data.emails[0].type).toBe(user.emails[0].type);
-    done();
   });
 
-  test('get patient by userId', async (done) => {
+  test('get patient by userId', async () => {
     const response = await rhinoExternalApi.getUserById(postedUser.id);
     expect(response.data).toEqual(postedUser);
-    done();
   });
 
-  test('get patient by externalId', async (done) => {
+  test('get patient by externalId', async () => {
     const response = await rhinoExternalApi.getUserByExternalId(postedUser.externalId);
     const response2 = await rhinoExternalApi.getUserByExternalIdPath(postedUser.externalId);
     expect(response.data).toEqual(postedUser);
     expect(response2.data).toEqual(postedUser);
-    done();
   });
 
-  test('search patient by first, last, dob', async (done) => {
+  test('search patient by first, last, dob', async () => {
     const response = await rhinoExternalApi.searchByFirstLastDob(postedUser.firstName, postedUser.lastName, postedUser.birthday);
     expect(response.data).toEqual([postedUser]);
-    done();
   });
 
-  test('search patient by first, last, phone', async (done) => {
+  test('search patient by first, last, phone', async () => {
     const response = await rhinoExternalApi.searchByFirstLastPhones(postedUser.firstName, postedUser.lastName, postedUser.phones[0].number);
     expect(response.data).toEqual([postedUser]);
-    done();
   });
 
-  test('put patient', async (done) => {
+  test('put patient', async () => {
     const putUser = {
       ...postedUser,
       preferredName: 'Brandt',
@@ -83,6 +191,5 @@ describe('rhino-external-api tests', () => {
     const response2 = await rhinoExternalApi.putUserById(putUser.id, putUser);
     expect(response.data).toEqual(putUser);
     expect(response2.data).toEqual(putUser);
-    done();
   });
 });

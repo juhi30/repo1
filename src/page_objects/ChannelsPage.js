@@ -1,3 +1,5 @@
+import logger from 'rhinotilities/lib/loggers/logger';
+
 const testConstants = require('../toolboxes/feeder.toolbox');
 
 const channelsCommands = {
@@ -16,11 +18,11 @@ const channelsCommands = {
   },
 
   checkElementVisibility(element) {
-    console.log('check visibility of edit page title');
+    logger.info('check visibility of edit page title');
     return this.waitForElementVisible(element, 1000, (result) => {
-      console.log('=================', result.value);
+      logger.info(`Element Visibility ${result.value}`);
       if (result.value) {
-        console.log('>>>>>>>>>>>>>> Inside If condition');
+        logger.info('>>>>>>>>>>>>>> Inside If condition');
         this.click(element);
       }
     });

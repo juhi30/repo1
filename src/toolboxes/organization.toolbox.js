@@ -17,9 +17,9 @@ export function organizationSetUp(organizationDetails, envVariable) {
     .getOrgId(envVariable);
 }
 
-export async function orgTearDown(organizationId) {
+export async function orgTearDown(organizationId, username, password) {
   logger.info('Login...');
-  const cookie = await login();
+  const cookie = await login(username, password);
   logger.info(organizationId, '== Deleting Org ==');
   await archiveOrganization(organizationId, cookie);
   logger.info('======== Organization Archive Response =======');

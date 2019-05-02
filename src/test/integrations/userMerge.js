@@ -9,6 +9,7 @@ let nonIntegratedUser3;
 let createdAppointment;
 let nonIntegratedUserWithEmrAndLogin;
 let nonIntegratedUserWithEmrAndLogin2;
+let orgId;
 
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
@@ -33,7 +34,7 @@ describe('merge users tests', () => {
   jest.setTimeout(30000);
 
   test('log into org as ccr', async () => {
-    const orgId = parseInt(process.env.INTEGRATIONS_ORG_ID, 10);
+    orgId = parseInt(process.env.INTEGRATIONS_ORG_ID, 10);
     await rhinoapi.changeOrganization({ orgId, userId: process.env.CCR_USER_ID }, process.env.INTEGRATIONS_CCR_COOKIE);
   });
 
@@ -46,7 +47,7 @@ describe('merge users tests', () => {
       firstName: 'Test',
       groupIds: [],
       id: -1,
-      lastName: 'Member',
+      lastName: `Member_${orgId}`,
       loginEmail: '',
       middleName: '',
       observesDst: false,
@@ -89,7 +90,7 @@ describe('merge users tests', () => {
       suffixId: '',
       tagIds: [],
       typeId: 19,
-      username: 'testmember',
+      username: `testmember_${orgId}`,
       password: '4419kJig',
     };
 

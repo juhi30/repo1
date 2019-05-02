@@ -11,7 +11,7 @@ import './member';
 // import './template';
 // import './preferences';
 // import './group';
-import './memberProfile';
+// import './memberProfile';
 
 // //Member + CCR flow. This should be the last test case
 // import './orgProfile';

@@ -72,8 +72,8 @@ const loginCommands = {
   },
 
   fillInNewPasswordInput(password) {
-    return this.waitForElementVisible('@passwordInput', 'New password input is visible')
-      .setValue('@passwordInput', password);
+    return this.waitForElementVisible('@newPasswordInput', 'New password input is visible')
+      .setValue('@newPasswordInput', password);
   },
 
   fillInConfirmPasswordInput(password) {

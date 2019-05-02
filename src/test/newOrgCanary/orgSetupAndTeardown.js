@@ -26,7 +26,7 @@ beforeAll(async () => {
 // DELETE MY NEW ORG HERE
 afterAll(async (done) => {
   try {
-    await orgTearDown(process.env.NEW_CANARY_ORG_ID);
+    await orgTearDown(process.env.NEW_CANARY_ORG_ID, testConstants.ccrLogin, testConstants.ccrPassword);
     done();
   } catch (err) {
     logger.error(err, '===error on after all orgSetupAndTeardown=======');

@@ -69,12 +69,9 @@ export async function deleteOrganization(organizationId, cookie) {
   return response.data;
 }
 
-export async function login() {
-  const USERNAME = process.env.CCR_USERNAME;
-  const PASSWORD = process.env.CCR_PASSWORD;
-
+export async function login(username, password) {
   const response = await axios.post(`${process.env.API_BASE_URL}/login`,
-    { username: USERNAME, password: PASSWORD },
+    { username, password },
     {
       headers: {
         'content-type': 'application/json',
@@ -87,6 +84,32 @@ export async function login() {
 export async function createOrganization(orgData, cookie) {
   const response = await axios.post(`${process.env.API_BASE_URL}/organization`,
     orgData,
+    {
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
+export async function changeOrganization(orgData, cookie) {
+  const response = await axios.post(`${process.env.API_BASE_URL}/changeOrg`,
+    orgData,
+    {
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
+export async function createMember(memberData, cookie) {
+  const response = await axios.post(`${process.env.API_BASE_URL}/users`,
+    memberData,
     {
       headers: {
         'content-type': 'application/json',

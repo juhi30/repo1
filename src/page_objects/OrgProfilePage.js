@@ -60,6 +60,11 @@ const orgProfileCommands = {
       .setValue('@integrationDropdown', integrationType);
   },
 
+  updateMerchantIdValue(merchantId) {
+    return this.verify.visible('@merchantIdInput', 'Merchant ID input is visible')
+      .setValue('@merchantIdInput', merchantId);
+  },
+
   updateDetails(element, newValue) {
     return this.verify.visible(element, `${element} is visible`)
       .clearValue(element)
@@ -212,7 +217,12 @@ module.exports = {
     },
 
     rhinopayToggle: {
-      selector: `//LABEL[@class='rhinoswitcher__label'][contains(@for,'isRhinopayEnabled')]`,
+      selector: '//LABEL[@class=\'rhinoswitcher__label\'][contains(@for,\'isRhinopayEnabled\')]',
+      locateStrategy: 'xpath',
+    },
+
+    merchantIdInput: {
+      selector: '//INPUT[@name=\'rhinopayMerchantId\']',
       locateStrategy: 'xpath',
     },
 

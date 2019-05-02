@@ -104,7 +104,9 @@ describe('Organization Profile Edit as CCR', () => {
         testConstants.orgNewcontactPhone,
         testConstants.orgNewcontactEmail)
       .enableDisableToggles('@integrationToggle')
+      .enableDisableToggles('@rhinopayToggle')
       .updateIntegrationValue(testConstants.orgNewIntegration)
+      .updateMerchantIdValue('fakeMerchantId')
       .clickSaveProfile();
 
     await entry.navigate()

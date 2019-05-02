@@ -41,8 +41,6 @@ export async function postIncomingBandwidthMessage(message) {
 }
 
 export async function archiveOrganization(organizationId, cookie) {
-  console.log('AH FUCK', organizationId);
-  console.log('YES YES YES', cookie);
   const response = await axios({
     method: 'post',
     url: `${process.env.API_BASE_URL}/organization/archive/${organizationId}`,
@@ -105,7 +103,6 @@ export async function changeOrganization(orgData, cookie) {
         Cookie: cookie,
       },
     });
-
   return response.data;
 }
 

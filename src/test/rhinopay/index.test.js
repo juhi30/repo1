@@ -1,2 +1,2 @@
 import './orgSetupAndTeardown';
-// import './testmerch';
+import './testmerch';

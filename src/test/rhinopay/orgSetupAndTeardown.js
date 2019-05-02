@@ -31,8 +31,8 @@ beforeAll(async () => {
       selectedBillingOpt: 'newCust',
     };
     const org = await createOrganization(orgData, cookie);
-    process.env.INTERATIONS_ORG = org;
-    process.env.INTEGRATIONS_ORG_ID = org.id;
+    process.env.ORG = org;
+    process.env.ORG_ID = org.id;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log('===error on before all orgSetupAndTeardown=======', err);
@@ -45,18 +45,12 @@ beforeAll(async () => {
 afterAll(async () => {
   try {
     const cookie = await login();
-    await archiveOrganization(process.env.INTEGRATIONS_ORG_ID, cookie);
-    await deleteOrganization(process.env.INTEGRATIONS_ORG_ID, cookie);
+    await archiveOrganization(process.env.ORG_ID, cookie);
+    await deleteOrganization(process.env.ORG_ID, cookie);
     // eslint-disable-next-line no-console
     console.log('====== Organization Deleted =======');
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log('===error on after all orgSetupAndTeardown=======', err);
   }
-});
-
-describe('wobbles', () => {
-  test('gobles', () => {
-    console.log('gibblets');
-  });
 });

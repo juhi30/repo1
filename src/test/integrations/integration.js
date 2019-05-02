@@ -1,3 +1,4 @@
+
 import * as rhinofeeder from '../../services/Rhinofeeder.service';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
@@ -23,7 +24,7 @@ function sleep(ms) {
 describe('integration tests', () => {
   jest.setTimeout(30000);
   test('send CSV data', (done) => {
-    rhinofeeder.sendCSVData('./resources/fakeDataSmall.csv', process.env.INTEGRATIONS_ORG_ID, 'users').then((message) => {
+    rhinofeeder.sendCSVData('./resources/fakeDataSmall.csv', process.env.INTEGRATIONS_ORG_ID, 'users').then(() => {
       done();
     });
   });

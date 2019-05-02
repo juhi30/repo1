@@ -2,13 +2,13 @@ import logger from 'rhinotilities/lib/loggers/logger';
 
 const accountSetupCommands = {
 
-  getOrgId() {
+  getOrgId(envVariable) {
     return this.waitForElementVisible('@orgId', 'Org Id is visible')
       .getText('@orgId', (tpObj) => {
         tpObj = tpObj.value.replace('ORGANIZATION (#', '');
         tpObj = tpObj.replace(')', '');
-        process.env.ORGANIZATION_ID = tpObj;
-        logger.info(`====org id === ${process.env.ORGANIZATION_ID}`);
+        process.env[envVariable] = tpObj;
+        logger.info(`====org id === ${process.env[envVariable]}`);
       });
   },
 
@@ -18,7 +18,9 @@ const accountSetupCommands = {
       .waitForElementNotPresent('@newBillingRadio', 'Billing options are hidden');
   },
 
-  fillInOrgBasicInformation(name, address, city, state, zip) {
+  fillInOrgBasicInformation({
+    name, address, city, state, zip,
+  }) {
     return this.waitForElementPresent('@orgNameInput', 'Organization inputs are present')
       .setValue('@orgNameInput', name)
       .waitForElementVisible('@addressLineOneInput', 'Address Line 1 is visible')

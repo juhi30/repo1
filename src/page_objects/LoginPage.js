@@ -126,6 +126,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    missingCredentialErrorPrompt: {
+      selector: '//DIV[contains(.,\'Missing credentials\')]',
+      locateStrategy: 'xpath',
+    },
+
     failedLoginAttemptPrompt: {
       selector: '//DIV[@class=\'alert__body\'][text()=\'You have reached the maximum number of invalid login attempts. Please select the Forgot Password link to reset your password.\']',
       locateStrategy: 'xpath',

@@ -26,10 +26,10 @@ const membersCommands = {
       .waitForElementVisible('@createSuccessMessage', 'Member created successfully.');
   },
 
-  getTempPassword() {
+  getTempPassword(globalVariable) {
     return this.getAttribute('@tempPassword', 'value', (tpObj) => {
-      global.TEMP_PASSWORD = tpObj.value;
-      console.log('Temp password is ==', global.TEMP_PASSWORD); // eslint-disable-line no-console
+      global[globalVariable] = tpObj.value;
+      console.log('Temp password is ==', global[globalVariable]); // eslint-disable-line no-console
     });
   },
 

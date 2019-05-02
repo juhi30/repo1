@@ -1,22 +1,14 @@
 import { client } from 'nightwatch-api';
+import { ccrLogin } from '../../toolboxes/login.toolbox';
+import { selectOrganizationByCCR } from '../../toolboxes/organization.toolbox';
 
 const testConstants = require('../../toolboxes/feeder.toolbox');
 
 describe('Automated Tests: Channels', () => {
   test('login as ccr into the organization', async () => {
-    const login = client.page.LoginPage();
-    const org = client.page.UniversalElements();
+    await ccrLogin(testConstants.ccrLogin, testConstants.ccrPassword);
 
-    await login.navigate()
-      .waitForElementVisible('@loginButton', 'Login button is visible')
-      .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
-      .submit()
-      .pause(2000)
-      .validateUrlChange('/selectorg');
-
-    await org.searchForOrganization(testConstants.orgName)
-      .ccrOrgLogin()
-      .pause(2000);
+    await selectOrganizationByCCR(testConstants.orgName);
   });
 
   test('Required Fields and validations', async () => {

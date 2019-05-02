@@ -170,7 +170,7 @@ describe('mi7 integration tests', () => {
   test('new appointment inbound message', async () => {
     await rhinofeeder.postMi7InboundMessage(appointmentPayload);
     await sleep(10000);
-    const response = await rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, appointmentPayload.PlacerID, createdPatient.id);
+    const response = await rhinoapi.getAppointmentByExternalId(appointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(appointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
     expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed
@@ -180,7 +180,7 @@ describe('mi7 integration tests', () => {
   test('update appointment inbound message', async () => {
     await rhinofeeder.postMi7InboundMessage(updateAppointmentPayload);
     await sleep(10000);
-    const response = await rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, updateAppointmentPayload.PlacerID, createdPatient.id);
+    const response = await rhinoapi.getAppointmentByExternalId(updateAppointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(updateAppointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
     expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed
@@ -190,7 +190,7 @@ describe('mi7 integration tests', () => {
   test('cancel appointment inbound message', async () => {
     await rhinofeeder.postMi7InboundMessage(cancelAppointmentPayload);
     await sleep(10000);
-    const response = await rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, cancelAppointmentPayload.PlacerID, createdPatient.id);
+    const response = await rhinoapi.getAppointmentByExternalId(cancelAppointmentPayload.PlacerID, createdPatient.id);
     expect(response.data.externalId).toBe(cancelAppointmentPayload.PlacerID);
     expect(response.data.userId).toBe(createdPatient.id);
     expect(response.data.appointmentStatusTypeId).toBe(83); // cancelled

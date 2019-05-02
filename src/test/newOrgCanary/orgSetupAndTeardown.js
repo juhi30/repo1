@@ -41,7 +41,7 @@ beforeAll(async () => {
 afterAll(async (done) => {
   try {
     logger.info('Login...');
-    const cookie = await login();
+    const cookie = await login(testConstants.ccrLogin, testConstants.ccrPassword);
     logger.info(process.env.ORGANIZATION_ID, '== Deleting Org ==');
     await archiveOrganization(process.env.ORGANIZATION_ID, cookie);
     logger.info('======== Organization Archive Response =======');

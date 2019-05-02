@@ -8,9 +8,9 @@ import {
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
   try {
-    const cookie = await login();
+    process.env.INTEGRATIONS_CCR_COOKIE = await login(process.env.INTEGRATIONS_CCR_USERNAME, process.env.INTEGRATIONS_CCR_PASSWORD);
     // eslint-disable-next-line no-console
-    console.log(cookie);
+    console.log(process.env.INTEGRATIONS_CCR_COOKIE);
     const orgData = {
       name: 'Integrations Testing',
       parentCompany: '',
@@ -28,7 +28,7 @@ beforeAll(async () => {
       billingChecked: true,
       selectedBillingOpt: 'newCust',
     };
-    const org = await createOrganization(orgData, cookie);
+    const org = await createOrganization(orgData, process.env.INTEGRATIONS_CCR_COOKIE);
     process.env.INTERATIONS_ORG = org;
     process.env.INTEGRATIONS_ORG_ID = org.id;
   } catch (err) {
@@ -41,14 +41,11 @@ beforeAll(async () => {
 afterAll(async () => {
   try {
     // eslint-disable-next-line no-console
-    console.log('Login...');
-    const cookie = await login();
-    // eslint-disable-next-line no-console
     console.log('Deleting Org ==', process.env.INTEGRATIONS_ORG_ID);
-    const archiveResponse = await archiveOrganization(process.env.INTEGRATIONS_ORG_ID, cookie);
+    const archiveResponse = await archiveOrganization(process.env.INTEGRATIONS_ORG_ID, process.env.INTEGRATIONS_CCR_COOKIE);
     // eslint-disable-next-line no-console
     console.log('======== Organization Archive Response =======', archiveResponse);
-    await deleteOrganization(process.env.INTEGRATIONS_ORG_ID, cookie);
+    await deleteOrganization(process.env.INTEGRATIONS_ORG_ID, process.env.INTEGRATIONS_CCR_COOKIE);
     // eslint-disable-next-line no-console
     console.log('====== Organization Deleted =======');
   } catch (err) {

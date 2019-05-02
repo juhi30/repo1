@@ -15,7 +15,7 @@ describe('Automated Tests: Channels', () => {
       .validateUrlChange('/selectorg');
 
     await org.searchForOrganization(testConstants.orgName)
-      .ccrOrgLogin()
+      .ccrOrgLogin(testConstants.ccrLogin, testConstants.ccrPassword)
       .pause(2000);
   });
 

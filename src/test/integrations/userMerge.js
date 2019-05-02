@@ -93,7 +93,7 @@ describe('merge users tests', () => {
       password: '4419kJig',
     };
 
-    await rhinoapi.createMember(memberData, process.env.INTEGRATIONS_CCR_COOKIE);
+    await rhinoapi.postUser(memberData, process.env.INTEGRATIONS_CCR_COOKIE);
 
     process.env.INTEGRATIONS_MEMBER_COOKIE = await rhinoapi.login(memberData.username, memberData.password);
   });
@@ -351,12 +351,10 @@ describe('merge users tests', () => {
     await sleep(10000);
   });
 
-  test('find appointment', async (done) => {
-    await rhinoapi.getAppointmentByExternalId('appt123', integratedUser.id).then((response) => {
-      expect(response.data.externalId).toBe('appt123');
-      createdAppointment = response.data;
-      done();
-    });
+  test('find appointment', async () => {
+    const response = await rhinoapi.getAppointmentByExternalId('appt123', integratedUser.id);
+    expect(response.data.externalId).toBe('appt123');
+    createdAppointment = response.data;
   });
 
   test('When an integrated user is merged into a non integrated user, it should render an error', async () => {

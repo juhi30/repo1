@@ -2,7 +2,7 @@ import * as rhinoExternalApi from '../../services/RhinoExternalApi.service';
 import {
   createOrganization,
   changeOrganization,
-  createMember,
+  postUser,
   deleteOrganization,
   archiveOrganization,
   login,
@@ -124,7 +124,7 @@ describe('rhino-external-api tests', () => {
         password: '4419kJig',
       };
 
-      await createMember(memberData, process.env.EXTERNALAPI_COOKIE);
+      await postUser(memberData, process.env.EXTERNALAPI_COOKIE);
 
       // Set rhino-external-api auth
       process.env.RHINO_EXTERNAL_API_BASIC_AUTH = `${memberData.username}:${memberData.password}`;

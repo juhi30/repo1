@@ -112,21 +112,8 @@ export async function changeOrganization(orgData, cookie) {
   return response.data;
 }
 
-export async function createMember(memberData, cookie) {
-  const response = await axios.post(`${process.env.API_BASE_URL}/users`,
-    memberData,
-    {
-      headers: {
-        'content-type': 'application/json',
-        Cookie: cookie,
-      },
-    });
-
-  return response.data;
-}
-
-export async function mergeUsers(id1, id2, cookie) {
-  const response = await axios.get(`${process.env.API_BASE_URL}/users/mergeUsers/${id1}/${id2}`,
+export async function mergeUsers(slaveId, masterId, cookie) {
+  const response = await axios.get(`${process.env.API_BASE_URL}/users/mergeUsers/${slaveId}/${masterId}`,
     {
       headers: {
         'content-type': 'application/json',
@@ -150,9 +137,9 @@ export async function getUser(userId, cookie) {
   return response.data;
 }
 
-export async function postUser(user, cookie) {
+export async function postUser(userData, cookie) {
   const response = await axios.post(`${process.env.API_BASE_URL}/users`,
-    user,
+    userData,
     {
       headers: {
         'content-type': 'application/json',

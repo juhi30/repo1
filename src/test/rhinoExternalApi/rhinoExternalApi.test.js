@@ -2,14 +2,14 @@ import * as rhinoExternalApi from '../../services/RhinoExternalApi.service';
 import {
   createOrganization,
   changeOrganization,
-  createMember,
+  postUser,
   deleteOrganization,
   archiveOrganization,
   login,
 } from '../../services/Rhinoapi.service';
 
 const user = {
-  externalId: '40bsf7d3-d0b8-4ffa-8d76-a679121d0467',
+  externalId: '40bsf7d3-d0b8-4ffa-8d76-a679123d0467',
   firstName: 'John',
   lastName: 'External',
   preferredName: 'Johnny',
@@ -77,7 +77,7 @@ describe('rhino-external-api tests', () => {
         firstName: 'Test',
         groupIds: [],
         id: -1,
-        lastName: 'Member',
+        lastName: `Member_${orgId}`,
         loginEmail: '',
         middleName: '',
         observesDst: false,
@@ -120,11 +120,11 @@ describe('rhino-external-api tests', () => {
         suffixId: '',
         tagIds: [],
         typeId: 19,
-        username: 'testmember',
+        username: `testmember_${orgId}`,
         password: '4419kJig',
       };
 
-      await createMember(memberData, process.env.EXTERNALAPI_COOKIE);
+      await postUser(memberData, process.env.EXTERNALAPI_COOKIE);
 
       // Set rhino-external-api auth
       process.env.RHINO_EXTERNAL_API_BASIC_AUTH = `${memberData.username}:${memberData.password}`;

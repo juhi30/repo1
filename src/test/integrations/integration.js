@@ -109,7 +109,7 @@ describe('integration tests', () => {
 
   test('find appointment', async (done) => {
     await sleep(10000);
-    rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, '1455971411', createdPatient.id).then((response) => {
+    rhinoapi.getAppointmentByExternalId('1455971411', createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe('1455971411');
       expect(response.data.userId).toBe(createdPatient.id);
       done();
@@ -134,7 +134,7 @@ describe('integration tests', () => {
 
   test('find confirmed appointment', async (done) => {
     await sleep(10000);
-    rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, '1455971411', createdPatient.id).then((response) => {
+    rhinoapi.getAppointmentByExternalId('1455971411', createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe('1455971411');
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(82);
@@ -161,7 +161,7 @@ describe('integration tests', () => {
 
   test('find deleted appointment', async (done) => {
     await sleep(10000);
-    rhinoapi.getApointmentByExternalId(process.env.INTEGRATIONS_ORG_ID, '1455971411', createdPatient.id).then((response) => {
+    rhinoapi.getAppointmentByExternalId('1455971411', createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe('1455971411');
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(83);

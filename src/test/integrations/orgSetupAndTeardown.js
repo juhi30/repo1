@@ -29,7 +29,7 @@ beforeAll(async () => {
       selectedBillingOpt: 'newCust',
     };
     const org = await createOrganization(orgData, process.env.INTEGRATIONS_CCR_COOKIE);
-    process.env.INTERATIONS_ORG = org;
+    process.env.INTEGRATIONS_ORG = org;
     process.env.INTEGRATIONS_ORG_ID = org.id;
   } catch (err) {
     // eslint-disable-next-line no-console

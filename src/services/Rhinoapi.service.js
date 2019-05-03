@@ -10,7 +10,7 @@ export async function getUserByExternalId(orgId, externalId) {
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }
 
-export async function getApointmentByExternalId(orgId, externalId, userId) {
+export async function getAppointmentByExternalId(externalId, userId) {
   return axios.post(`${process.env.API_BASE_URL}/rhinoliner/appointment/matching`, { externalId, userId },
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }
@@ -38,6 +38,11 @@ export async function updateAppointment(appointmentId, appointment) {
 export async function postIncomingBandwidthMessage(message) {
   return axios.post(`${process.env.API_BASE_URL}/webhooks/bandwidth/messaging`, message,
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BANDWIDTH_WEBHOOK_AUTH).toString('base64')}` } });
+}
+
+export async function postRhinolinerUser(user, orgId) {
+  return axios.post(`${process.env.API_BASE_URL}/rhinoliner/users`, { userData: user, orgId },
+    { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }
 
 export async function archiveOrganization(organizationId, cookie) {
@@ -107,9 +112,34 @@ export async function changeOrganization(orgData, cookie) {
   return response.data;
 }
 
-export async function createMember(memberData, cookie) {
+export async function mergeUsers(slaveId, masterId, cookie) {
+  const response = await axios.get(`${process.env.API_BASE_URL}/users/mergeUsers/${slaveId}/${masterId}`,
+    {
+      headers: {
+        'content-type': 'application/json',
+        token: process.env.RG_DEV_TOKEN,
+        Cookie: cookie,
+      },
+    });
+  return response.data;
+}
+
+export async function getUser(userId, cookie) {
+  const response = await axios.get(`${process.env.API_BASE_URL}/users/${userId}`,
+    {
+      headers: {
+        'content-type': 'application/json',
+        token: process.env.RG_DEV_TOKEN,
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
+export async function postUser(userData, cookie) {
   const response = await axios.post(`${process.env.API_BASE_URL}/users`,
-    memberData,
+    userData,
     {
       headers: {
         'content-type': 'application/json',

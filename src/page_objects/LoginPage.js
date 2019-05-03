@@ -127,11 +127,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    missingCredentials: {
-      selector: '//DIV[@class=\'alert__body\'][contains(.,\'Missing credentials\')]',
-      locateStrategy: 'xpath',
-    },
-
     missingCredentialErrorPrompt: {
       selector: '//DIV[contains(.,\'Missing credentials\')]',
       locateStrategy: 'xpath',

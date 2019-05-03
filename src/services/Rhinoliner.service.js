@@ -6,9 +6,9 @@ export function pushtoqueue(message, handler) {
     url: process.env.AWS_SQS_LINER_INBOUND_URL,
     longPollTimeout: 5,
     maxMessagesPerRequest: 5,
+    isFifo: true,
     accessKeyId: process.env.AWS_KEY,
     secretAccessKey: process.env.AWS_SECRET,
-    isFifo: true,
   });
   if (handler !== undefined) {
     queue.startPolling(handler);

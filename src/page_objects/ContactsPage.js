@@ -186,12 +186,6 @@ const contactsCommands = {
       .waitForElementVisible('@addContactButtonModal', 'Search user modal is opened');
   },
 
-  // verifyRemovedConnectedParty: function (connectedContactElement, connectedRelationshipElement, relationship) {
-  //   return this.waitForElementVisible('@summaryPanel', 'Summary Panel opened.')
-  //     .waitForElement(connectedContactElement, 'Added connected party is visible on summary panel')
-  //     .waitForElementNotVisible(connectedRelationshipElement, 'Added connected party is ' + relationship)
-  // },
-
   deleteContact(contactName) {
     return this.waitForElementVisible(contactName, ` ${contactName} is visible in the contact list.`)
       .click(contactName)

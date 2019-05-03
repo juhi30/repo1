@@ -72,9 +72,9 @@ const loginCommands = {
   },
 
   fillInNewPasswordInput(password) {
-    return this.waitForElementVisible('@passwordInput', 'New password input is visible')
-      .click('@passwordInput')
-      .setValue('@passwordInput', password);
+    return this.waitForElementVisible('@newPasswordInput', 'New password input is visible')
+      .click('@newPasswordInput')
+      .setValue('@newPasswordInput', password);
   },
 
   fillInConfirmPasswordInput(password) {
@@ -129,6 +129,11 @@ module.exports = {
 
     missingCredentials: {
       selector: '//DIV[@class=\'alert__body\'][contains(.,\'Missing credentials\')]',
+      locateStrategy: 'xpath',
+    },
+
+    missingCredentialErrorPrompt: {
+      selector: '//DIV[contains(.,\'Missing credentials\')]',
       locateStrategy: 'xpath',
     },
 

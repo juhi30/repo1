@@ -23,7 +23,7 @@ const membersCommands = {
     return this.click(roleName);
   },
 
-  createMember() {
+  clickCreateMemberButton() {
     return this.click('@createButton')
       .waitForElementVisible('@createSuccessMessage', 'Member created successfully.');
   },

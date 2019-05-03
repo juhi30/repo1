@@ -4,21 +4,26 @@ const member = client.page.MembersPage();
 
 /**
  * Used to create member with some roles
- * @param  {client}  client
- * @param  {Array}  [{element: form element, value: field value}] It will contain elements and values to create member
- * @param  {Array} [roleElement]
+ * @param  {Array}  memberDetails It will contain elements and values to create member like: [{element: form element, value: field value}]
+ * @param  {Array} roles Roles elements that needs to be added while creating member
  */
-export function createMember(memberDetails, roles, globalVariable) {
+export async function createMember(memberDetails, roles, globalVariable) {
   member.navigate()
     .clickAddMember();
-  memberDetails.map(field => client.enterDetails(field.element, field.value));
+  memberDetails.map(field => member.enterDetails(field.element, field.value));
   member.getTempPassword(globalVariable);
-  roles.map(role => client.setMemberRoles(role));
-  member.createMember()
+  roles.map(role => member.setMemberRoles(role));
+  await member.clickCreateMemberButton()
     .pause(2000)
     .waitForElementNotPresent('@createSuccessMessage', 'Success message is gone.');
 }
 
+/**
+ * Change member password by using member's temporary password
+ * @param  {string}  memberUsername Member's username
+ * @param  {string} memberPassword Member's new password
+ * @param  {string} tempPassword Member's temporary password
+ */
 export function changePasswordUsingTempPassword(memberUsername, memberPassword, tempPassword) {
   const login = client.page.LoginPage();
 

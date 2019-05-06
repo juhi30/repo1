@@ -1,4 +1,4 @@
-const groupFeeder = require('../toolboxes/feeder/group.feeder');
+const groupFeeder = require('../feeder/group.feeder');
 
 const memberPreferencesCommands = {
   clickEventOnMemberPreferencesPage(element, message) {

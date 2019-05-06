@@ -1,4 +1,4 @@
-const tagsFeeder = require('../toolboxes/feeder/tags.feeder');
+const tagsFeeder = require('../feeder/tags.feeder');
 
 const editChannelsCommands = {
 

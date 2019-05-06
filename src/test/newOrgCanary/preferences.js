@@ -1,7 +1,7 @@
 import { client } from 'nightwatch-api';
 
-const accountSetupFeeder = require('../../toolboxes/feeder/accountSetup.feeder');
-const memberFeeder = require('../../toolboxes/feeder/member.feeder');
+const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Preferences Page', () => {
   test('To check Secure Notifications for Preferences ', async () => {

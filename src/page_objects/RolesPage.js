@@ -1,4 +1,4 @@
-const rolesFeeder = require('../toolboxes/feeder/role.feeder');
+const rolesFeeder = require('../feeder/role.feeder');
 
 const rolescommands = {
 

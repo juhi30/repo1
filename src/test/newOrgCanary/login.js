@@ -1,10 +1,10 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 import { client } from 'nightwatch-api';
 
-const loginFeeder = require('../../toolboxes/feeder/login.feeder');
-const accountSetupFeeder = require('../../toolboxes/feeder/accountSetup.feeder');
+const loginFeeder = require('../../feeder/login.feeder');
+const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
 const gmail = require('../../services/Gmail.service');
-const memberFeeder = require('../../toolboxes/feeder/member.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Login Page Tests Cases', () => {
   test('Login as CCR', async () => {

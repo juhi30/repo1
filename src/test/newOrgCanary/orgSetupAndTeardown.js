@@ -3,8 +3,8 @@ import { organizationSetUp, orgTearDown } from '../../toolboxes/organization.too
 import { ccrLogin } from '../../toolboxes/login.toolbox';
 
 const { EventEmitter } = require('events');
-const loginFeeder = require('../../toolboxes/feeder/login.feeder');
-const accountSetupFeeder = require('../../toolboxes/feeder/accountSetup.feeder');
+const loginFeeder = require('../../feeder/login.feeder');
+const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {

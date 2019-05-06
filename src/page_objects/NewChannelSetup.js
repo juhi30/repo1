@@ -1,5 +1,5 @@
-const channelFeeder = require('../toolboxes/feeder/channel.feeder');
-const memberFeeder = require('../toolboxes/feeder/member.feeder');
+const channelFeeder = require('../feeder/channel.feeder');
+const memberFeeder = require('../feeder/member.feeder');
 
 const newChannelCommands = {
 

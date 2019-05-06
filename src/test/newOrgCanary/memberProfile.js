@@ -1,7 +1,7 @@
 import { client } from 'nightwatch-api';
 
-const memberFeeder = require('../../toolboxes/feeder/member.feeder');
-const tagsFeeder = require('../../toolboxes/feeder/tags.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
+const tagsFeeder = require('../../feeder/tags.feeder');
 
 describe('Automated Tests: Member Profile', () => {
   test('Required fields and validations on the profile page', async () => {

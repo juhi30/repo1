@@ -2,11 +2,11 @@ import { ccrLogin, logout } from '../../toolboxes/login.toolbox';
 import { selectOrganizationByCCR } from '../../toolboxes/organization.toolbox';
 import * as channelToolbox from '../../toolboxes/channel.toolbox';
 
-const accountSetupFeeder = require('../../toolboxes/feeder/accountSetup.feeder');
-const tagsFeeder = require('../../toolboxes/feeder/tags.feeder');
-const channelFeeder = require('../../toolboxes/feeder/channel.feeder');
-const memberFeeder = require('../../toolboxes/feeder/member.feeder');
-const loginFeeder = require('../../toolboxes/feeder/login.feeder');
+const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
+const tagsFeeder = require('../../feeder/tags.feeder');
+const channelFeeder = require('../../feeder/channel.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
+const loginFeeder = require('../../feeder/login.feeder');
 
 describe('Automated Tests: Channels', () => {
   test('login as ccr into the organization', async () => {

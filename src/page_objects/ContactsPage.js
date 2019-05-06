@@ -1,5 +1,5 @@
 const randomNumber = Math.floor(Math.random() * 1000000);
-const existingOrgFeeder = require('../toolboxes/feeder/existingOrg.feeder');
+const existingOrgFeeder = require('../feeder/existingOrg.feeder');
 
 const contactsCommands = {
 

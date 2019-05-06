@@ -1,7 +1,7 @@
 import { client } from 'nightwatch-api';
 
-const memberFeeder = require('../../toolboxes/feeder/member.feeder');
-const templateFeeder = require('../../toolboxes/feeder/template.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
+const templateFeeder = require('../../feeder/template.feeder');
 
 describe('Test Automation - Templates', () => {
   test('Create Template as a Member', async () => {

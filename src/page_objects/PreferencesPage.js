@@ -1,4 +1,4 @@
-const channelFeeder = require('../toolboxes/feeder/channel.feeder');
+const channelFeeder = require('../feeder/channel.feeder');
 
 const preferencesCommands = {
 

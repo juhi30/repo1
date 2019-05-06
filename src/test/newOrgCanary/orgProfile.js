@@ -1,8 +1,8 @@
 import { client } from 'nightwatch-api';
 
-const loginFeeder = require('../../toolboxes/feeder/login.feeder');
-const orgProfileFeeder = require('../../toolboxes/feeder/orgProfile.feeder');
-const memberFeeder = require('../../toolboxes/feeder/member.feeder');
+const loginFeeder = require('../../feeder/login.feeder');
+const orgProfileFeeder = require('../../feeder/orgProfile.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Organisation profile edit as member', () => {
   // When the org is being updated for the first time

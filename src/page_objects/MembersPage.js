@@ -1,6 +1,6 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 
-const memberFeeder = require('../toolboxes/feeder/member.feeder');
+const memberFeeder = require('../feeder/member.feeder');
 
 const membersCommands = {
   clickAddMember() {

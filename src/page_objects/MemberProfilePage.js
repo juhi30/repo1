@@ -1,7 +1,7 @@
 // This profile page also serves double duty as containing elements for member create and edit pages
-const channelFeeder = require('../toolboxes/feeder/channel.feeder');
-const tagsFeeder = require('../toolboxes/feeder/tags.feeder');
-const groupFeeder = require('../toolboxes/feeder/group.feeder');
+const channelFeeder = require('../feeder/channel.feeder');
+const tagsFeeder = require('../feeder/tags.feeder');
+const groupFeeder = require('../feeder/group.feeder');
 
 const helper = require('../toolboxes/helpers.toolbox');
 

@@ -1,7 +1,7 @@
 import { client } from 'nightwatch-api';
 
-const tagsFeeder = require('../../toolboxes/feeder/tags.feeder');
-const memberFeeder = require('../../toolboxes/feeder/member.feeder');
+const tagsFeeder = require('../../feeder/tags.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
 
 const entry = client.page.AuditLogsPage();
 const tag = client.page.TagsPage();

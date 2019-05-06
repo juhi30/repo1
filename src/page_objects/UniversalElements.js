@@ -1,5 +1,5 @@
-const accountSetupFeeder = require('../toolboxes/feeder/accountSetup.feeder');
-const orgProfileFeeder = require('../toolboxes/feeder/orgProfile.feeder');
+const accountSetupFeeder = require('../feeder/accountSetup.feeder');
+const orgProfileFeeder = require('../feeder/orgProfile.feeder');
 
 const universalElementsCommands = {
 

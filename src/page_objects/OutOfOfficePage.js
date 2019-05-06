@@ -1,4 +1,4 @@
-const oooFeeder = require('../toolboxes/feeder/outOfOffice.feeder');
+const oooFeeder = require('../feeder/outOfOffice.feeder');
 
 const outOfOfficeCommands = {
 

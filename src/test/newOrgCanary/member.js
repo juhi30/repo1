@@ -1,7 +1,7 @@
 import { createMember, changePasswordUsingTempPassword } from '../../toolboxes/member.toolbox';
 import { logout } from '../../toolboxes/login.toolbox';
 
-const memberFeeder = require('../../toolboxes/feeder/member.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Members Page', () => {
   test('Adding a new Member with Admin Role', async () => {

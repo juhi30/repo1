@@ -1,7 +1,7 @@
 import { client } from 'nightwatch-api';
 
-const memberFeeder = require('../../toolboxes/feeder/member.feeder');
-const oooFeeder = require('../../toolboxes/feeder/outOfOffice.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
+const oooFeeder = require('../../feeder/outOfOffice.feeder');
 
 describe('OOO Event Page', () => {
   test('Add an OOO event by Member', async () => {

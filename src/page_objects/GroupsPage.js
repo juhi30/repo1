@@ -1,6 +1,6 @@
-const channelFeeder = require('../toolboxes/feeder/channel.feeder');
-const groupFeeder = require('../toolboxes/feeder/group.feeder');
-const memberFeeder = require('../toolboxes/feeder/member.feeder');
+const channelFeeder = require('../feeder/channel.feeder');
+const groupFeeder = require('../feeder/group.feeder');
+const memberFeeder = require('../feeder/member.feeder');
 
 const groupsPageCommands = {
 

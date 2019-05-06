@@ -1,7 +1,7 @@
 import { client } from 'nightwatch-api';
 import * as messengerbot from '../../services/MessengerBot.service';
 
-const existingOrgFeeder = require('../../toolboxes/feeder/existingOrg.feeder');
+const existingOrgFeeder = require('../../feeder/existingOrg.feeder');
 
 describe('messsenging tests', () => {
   test('Existing Org Canary Page Login With Member', async () => {

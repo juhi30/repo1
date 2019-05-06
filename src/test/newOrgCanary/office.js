@@ -1,7 +1,7 @@
 import { client } from 'nightwatch-api';
 
-const officeFeeder = require('../../toolboxes/feeder/office.feeder');
-const memberFeeder = require('../../toolboxes/feeder/member.feeder');
+const officeFeeder = require('../../feeder/office.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Office Page', () => {
   test('Login as Member', async () => {

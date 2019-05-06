@@ -1,5 +1,5 @@
-const memberFeeder = require('../toolboxes/feeder/member.feeder');
-const groupFeeder = require('../toolboxes/feeder/group.feeder');
+const memberFeeder = require('../feeder/member.feeder');
+const groupFeeder = require('../feeder/group.feeder');
 
 const channelRouteCommands = {
 

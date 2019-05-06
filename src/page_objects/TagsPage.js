@@ -1,6 +1,6 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 
-const tagsFeeder = require('../toolboxes/feeder/tags.feeder');
+const tagsFeeder = require('../feeder/tags.feeder');
 
 const tagCommands = {
   validateTagPageElements() {

@@ -1,6 +1,6 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 
-const channelFeeder = require('../toolboxes/feeder/channel.feeder');
+const channelFeeder = require('../feeder/channel.feeder');
 
 const channelsCommands = {
 

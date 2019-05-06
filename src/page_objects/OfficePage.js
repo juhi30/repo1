@@ -1,4 +1,4 @@
-const officeFeeder = require('../toolboxes/feeder/member.feeder');
+const officeFeeder = require('../feeder/member.feeder');
 
 const officeCommands = {
 

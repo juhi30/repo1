@@ -1,5 +1,5 @@
 const helper = require('../toolboxes/helpers.toolbox');
-const templateFeeder = require('../toolboxes/feeder/template.feeder');
+const templateFeeder = require('../feeder/template.feeder');
 
 const templatesCommands = {
 

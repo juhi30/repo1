@@ -1,4 +1,5 @@
 const tagsFeeder = require('../toolboxes/feeder/tags.feeder');
+import logger from 'rhinotilities/lib/loggers/logger';
 
 const tagCommands = {
   validateTagPageElements() {
@@ -61,7 +62,7 @@ const tagCommands = {
   clickToToggleTag() {
     return this.waitForElementPresent('@youreItTag', 'youreIt_tag is visible')
       .click('@youreItTag', () => {
-        console.log('Clicked the youreIt tag');
+        logger.info('Clicked the youreIt tag');
       });
   },
 

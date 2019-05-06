@@ -26,7 +26,7 @@ const groupsPageCommands = {
       .setValue('@purposeInput', groupPurpose);
   },
 
-  createUpdateButton(button, successMessage, group) {
+  createUpdateButton(button, successMessage) {
     return this.waitForElementVisible(button, `${button} is visible`)
       .click(button)
       .waitForElementVisible(successMessage, `${successMessage} is visible`);

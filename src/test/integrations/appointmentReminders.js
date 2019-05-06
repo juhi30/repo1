@@ -1,7 +1,7 @@
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 import * as messengerbot from '../../services/MessengerBot.service';
-import { localToUtc } from '../../toolboxes/helpers.toolbox';
+import * as helpers from '../../toolboxes/helpers.toolbox';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const followRedirects = require('follow-redirects');
@@ -67,11 +67,11 @@ describe('appointment reminder tests', () => {
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 5);
     startDate.setDate(startDate.getDate() + 1);
-    const startDateString = localToUtc(startDate, 'America/New_York');
+    const startDateString = helpers.localToUtc(startDate, 'America/New_York');
     const endDate = new Date();
     endDate.setMinutes(endDate.getMinutes() + 30);
     endDate.setDate(endDate.getDate() + 1);
-    const endDateString = localToUtc(endDate, 'America/New_York');
+    const endDateString = helpers.localToUtc(endDate, 'America/New_York');
     const appointment = {
       startDate: startDateString,
       endDate: endDateString,
@@ -91,11 +91,11 @@ describe('appointment reminder tests', () => {
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 35);
     startDate.setDate(startDate.getDate() + 1);
-    const startDateString = localToUtc(startDate, 'America/New_York');
+    const startDateString = helpers.localToUtc(startDate, 'America/New_York');
     const endDate = new Date();
     endDate.setMinutes(endDate.getMinutes() + 60);
     endDate.setDate(endDate.getDate() + 1);
-    const endDateString = localToUtc(endDate, 'America/New_York');
+    const endDateString = helpers.localToUtc(endDate, 'America/New_York');
     const appointment = {
       startDate: startDateString,
       endDate: endDateString,
@@ -115,11 +115,11 @@ describe('appointment reminder tests', () => {
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 65);
     startDate.setDate(startDate.getDate() + 1);
-    const startDateString = localToUtc(startDate, 'America/New_York');
+    const startDateString = helpers.localToUtc(startDate, 'America/New_York');
     const endDate = new Date();
     endDate.setMinutes(endDate.getMinutes() + 90);
     endDate.setDate(endDate.getDate() + 1);
-    const endDateString = localToUtc(endDate, 'America/New_York');
+    const endDateString = helpers.localToUtc(endDate, 'America/New_York');
     const appointment = {
       startDate: startDateString,
       endDate: endDateString,
@@ -139,11 +139,11 @@ describe('appointment reminder tests', () => {
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 95);
     startDate.setDate(startDate.getDate() + 1);
-    const startDateString = localToUtc(startDate, 'America/New_York');
+    const startDateString = helpers.localToUtc(startDate, 'America/New_York');
     const endDate = new Date();
     endDate.setMinutes(endDate.getMinutes() + 120);
     endDate.setDate(endDate.getDate() + 1);
-    const endDateString = localToUtc(endDate, 'America/New_York');
+    const endDateString = helpers.localToUtc(endDate, 'America/New_York');
     const appointment = {
       startDate: startDateString,
       endDate: endDateString,
@@ -161,17 +161,17 @@ describe('appointment reminder tests', () => {
 
   test('find appointments', async (done) => {
     await sleep(10000);
-    await rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
+    await rhinoapi.getAppointmentByExternalId(appointmentExternalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(appointmentExternalId);
       createdAppointment = response.data;
     });
 
-    await rhinoapi.getApointmentByExternalId(orgId, `${appointmentExternalId}1`, createdPatient.id).then((response) => {
+    await rhinoapi.getAppointmentByExternalId(`${appointmentExternalId}1`, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(`${appointmentExternalId}1`);
       createdAppointment1 = response.data;
     });
 
-    await rhinoapi.getApointmentByExternalId(orgId, `${appointmentExternalId}2`, createdPatient.id).then((response) => {
+    await rhinoapi.getAppointmentByExternalId(`${appointmentExternalId}2`, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(`${appointmentExternalId}2`);
       createdAppointment2 = response.data;
       done();
@@ -222,7 +222,7 @@ describe('appointment reminder tests', () => {
   test('find confirmed appointment', async (done) => {
     await sleep(10000);
 
-    rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
+    rhinoapi.getAppointmentByExternalId(appointmentExternalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(appointmentExternalId);
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(82); // confirmed
@@ -247,7 +247,7 @@ describe('appointment reminder tests', () => {
 
   test('find cancelled appointment', async (done) => {
     await sleep(10000);
-    rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
+    rhinoapi.getAppointmentByExternalId(appointmentExternalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(appointmentExternalId);
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(83); // cancelled
@@ -272,7 +272,7 @@ describe('appointment reminder tests', () => {
 
   test('find cancelled appointment', async (done) => {
     await sleep(10000);
-    rhinoapi.getApointmentByExternalId(orgId, appointmentExternalId, createdPatient.id).then((response) => {
+    rhinoapi.getAppointmentByExternalId(appointmentExternalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(appointmentExternalId);
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(83); // cancelled
@@ -316,7 +316,7 @@ describe('appointment reminder tests', () => {
 
     await sleep(10000);
 
-    rhinoapi.getApointmentByExternalId(orgId, createdAppointment1.externalId, createdPatient.id).then((response) => {
+    rhinoapi.getAppointmentByExternalId(createdAppointment1.externalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(createdAppointment1.externalId);
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed
@@ -337,7 +337,7 @@ describe('appointment reminder tests', () => {
 
     await sleep(10000);
 
-    rhinoapi.getApointmentByExternalId(orgId, createdAppointment1.externalId, createdPatient.id).then((response) => {
+    rhinoapi.getAppointmentByExternalId(createdAppointment1.externalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(createdAppointment1.externalId);
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(82); // confirmed
@@ -378,7 +378,7 @@ describe('appointment reminder tests', () => {
 
     await sleep(10000);
 
-    rhinoapi.getApointmentByExternalId(orgId, createdAppointment2.externalId, createdPatient.id).then((response) => {
+    rhinoapi.getAppointmentByExternalId(createdAppointment2.externalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(createdAppointment2.externalId);
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(81); // unconfirmed
@@ -399,7 +399,7 @@ describe('appointment reminder tests', () => {
 
     await sleep(10000);
 
-    rhinoapi.getApointmentByExternalId(orgId, createdAppointment2.externalId, createdPatient.id).then((response) => {
+    rhinoapi.getAppointmentByExternalId(createdAppointment2.externalId, createdPatient.id).then((response) => {
       expect(response.data.externalId).toBe(createdAppointment2.externalId);
       expect(response.data.userId).toBe(createdPatient.id);
       expect(response.data.appointmentStatusTypeId).toBe(83); // cancelled

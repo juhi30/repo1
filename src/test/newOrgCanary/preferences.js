@@ -6,7 +6,7 @@ const memberFeeder = require('../../toolboxes/feeder/member.feeder');
 describe('Preferences Page', () => {
   test('To check Secure Notifications for Preferences ', async () => {
     const preference = client.page.PreferencesPage();
-    const checkAuditLogs = client.page.AuditLogPage();
+    const checkAuditLogs = client.page.AuditLogsPage();
 
     await preference.navigate()
       .waitForElementVisible('@selectChannel', 'selected channel is visible')
@@ -16,12 +16,12 @@ describe('Preferences Page', () => {
       .pause(1000);
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateEventEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Preferences');
+      .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Preferences');
   });
 
   test('To check global sounds for the preferences', async () => {
     const preference = client.page.PreferencesPage();
-    const checkAuditLogs = client.page.AuditLogPage();
+    const checkAuditLogs = client.page.AuditLogsPage();
 
     await preference.navigate()
       .waitForElementVisible('@globalSound', 'Global sounds button is visible')
@@ -31,12 +31,12 @@ describe('Preferences Page', () => {
       .pause(1000);
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateEventEntry('Edit', accountSetupFeeder.orgName, memberFeeder.memberName, 'Org Preferences');
+      .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName);
   });
 
   test('To check organization system time out for the preferences', async () => {
     const preference = client.page.PreferencesPage();
-    const checkAuditLogs = client.page.AuditLogPage();
+    const checkAuditLogs = client.page.AuditLogsPage();
 
     await preference.navigate()
       .waitForElementVisible('@systemTimeOut', 'System time out textfield is visible')
@@ -47,13 +47,13 @@ describe('Preferences Page', () => {
 
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateEventEntry('Edit', accountSetupFeeder.orgName, memberFeeder.memberName, 'Org Preferences');
+      .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName);
   });
 
   test('To check closing conversation options for the preferences', async () => {
     const preference = client.page.PreferencesPage();
-    const checkAuditLogs = client.page.AuditLogPage();
-    const logout = client.page.UniversalElements();
+    const checkAuditLogs = client.page.AuditLogsPage();
+    // const logout = client.page.UniversalElements();
 
     await preference.navigate()
       .waitForElementVisible('@closeByAssignee', 'close by assignee is visible')
@@ -63,6 +63,6 @@ describe('Preferences Page', () => {
 
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateEventEntry('Edit', accountSetupFeeder.orgName, memberFeeder.memberName, 'Org Preferences');
+      .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName);
   });
 });

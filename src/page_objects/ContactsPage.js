@@ -1,5 +1,4 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
-
+const existingOrgFeeder = require('../toolboxes/feeder/existingOrg.feeder');
 const randomNumber = Math.floor(Math.random() * 1000000);
 
 const contactsCommands = {
@@ -80,8 +79,7 @@ const contactsCommands = {
       .pause(2000);
   },
 
-  getInboundMessage(message) {
-    const randomizedMessage = `${message} ${randomNumber}`;
+  getInboundMessage() {
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .pause(4000)
       .waitForElementVisible('@inboundMessage', 'Inbound Message is received from Bot Contact')
@@ -162,12 +160,12 @@ module.exports = {
     },
 
     addContactDropdownFirstResultBot: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.BOT_CONTACT_NAME}')]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.EXISTING_ORG_BOT_CONTACT_NAME}')]`,
       locateStrategy: 'xpath',
     },
 
     addContactDropdownFirstResultFb: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.FACEBOOK_CONTACT_NAME}')]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.EXISTING_ORG_FACEBOOK_CONTACT_NAME}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -197,17 +195,17 @@ module.exports = {
     },
 
     replyMessage: {
-      selector: `//DIV[text() = '${testConstants.testBotReplyMessage} ${randomNumber}']`,
+      selector: `//DIV[text() = '${existingOrgFeeder.testBotReplyMessage} ${randomNumber}']`,
       locateStrategy: 'xpath',
     },
 
     inboundMessage: {
-      selector: `//DIV[text() = '${testConstants.testBotInboundMessage} ${randomNumber}']`,
+      selector: `//DIV[text() = '${existingOrgFeeder.testBotInboundMessage} ${randomNumber}']`,
       locateStrategy: 'xpath',
     },
 
     fbContactMessage: {
-      selector: `//DIV[text() = '${testConstants.facebookOutboundMessage} ${randomNumber}']`,
+      selector: `//DIV[text() = '${existingOrgFeeder.facebookOutboundMessage} ${randomNumber}']`,
       locateStrategy: 'xpath',
     },
 

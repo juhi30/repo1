@@ -1,6 +1,7 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 import { client } from 'nightwatch-api';
 
-const testConstants = require('../../toolboxes/feeder.toolbox');
+const loginFeeder = require('../../toolboxes/feeder/login.feeder');
 const accountSetupFeeder = require('../../toolboxes/feeder/accountSetup.feeder');
 const gmail = require('../../services/Gmail.service');
 const memberFeeder = require('../../toolboxes/feeder/member.feeder');
@@ -10,8 +11,8 @@ describe('Login Page Tests Cases', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .fillInUsername(testConstants.ccrLogin)
-      .fillInPassword(testConstants.ccrPassword)
+      .fillInUsername(loginFeeder.ccrLogin)
+      .fillInPassword(loginFeeder.ccrPassword)
       .submit()
       .validateUrlChange('selectorg');
   });
@@ -117,17 +118,18 @@ describe('Login Page Tests Cases', () => {
 
     await login.navigate()
       .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible.');
+      .waitForElementVisible('@missingCredentialErrorPrompt', 'Error message is visible.');
   });
 
   test('Login to gmail using iMap to fetch password reset token', async (done) => {
     try {
       gmail.fetchPasswordResetLink().then((result) => {
         process.env.NEW_HREF = result.hrefValue;
+        logger.info(`====>>>>> ${process.env.NEW_HREF}`);
         done();
       });
     } catch (err) {
-      console.log('=====err===', err); // eslint-disable-line no-console
+      logger.error(err, '=====err===');
     }
   });
 
@@ -146,7 +148,7 @@ describe('Login Page Tests Cases', () => {
 
     await login.navigate()
       .pause(1000)
-      .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
+      .enterCSRCreds(loginFeeder.ccrLogin, loginFeeder.ccrPassword)
       .submit();
     await org.waitForElementVisible('@searchInputForOrg', 'Search Org field is visible');
     await universal.searchForOrganization(accountSetupFeeder.orgName)
@@ -175,7 +177,7 @@ describe('Login Page Tests Cases', () => {
       .enterMemberCreds(memberFeeder.memberUsername, global.TEMP_NEW_PASSWORD)
       .submit()
       .validateUrlChange('change-password')
-      .fillInNewPasswordInput(memberFeeder.memberPassword)
+      .fillInPassword(memberFeeder.memberPassword)
       .fillInConfirmPasswordInput(memberFeeder.memberPassword)
       .clickSaveAndContinueButton()
       .validateUrlChange()
@@ -191,31 +193,40 @@ describe('Login Page Tests Cases', () => {
   test('Login with valid username and invalid password three times', async (done) => {
     const login = client.page.LoginPage();
 
-    await login.navigate()
-      .enterMemberCreds(memberFeeder.memberEmail, accountSetupFeeder.state)
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible.')
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible.')
-      .submit()
-      .waitForElementVisible('@failedLoginAttemptPrompt', 'Failed login error message is visible.');
+    try {
+      await login.navigate()
+        .enterMemberCreds(memberFeeder.memberEmail, accountSetupFeeder.state)
+        .submit()
+        .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+        .submit()
+        .waitForElementVisible('@errorPrompt', 'Error message is visible.')
+        .submit()
+        .waitForElementVisible('@failedLoginAttemptPrompt', 'Failed login error message is visible.');
 
-    await login.navigate()
-      .resetPassword(memberFeeder.memberEmail)
-      .pause(10000) // significant pause time for ensuring email is delivered
-      .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.');
+      await login.navigate()
+        .resetPassword(memberFeeder.memberEmail)
+        .pause(10000) // significant pause time for ensuring email is delivered
+        .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.');
+      gmail.fetchPasswordResetLink().then(async (result) => {
+        await client.url(`${result.hrefValue}`);
+        await login.waitForElementVisible('@confirmPasswordInput', 'User landed on reset password page.');
 
-    const result = await gmail.fetchPasswordResetLink();
+        await login
+          .fillInNewPasswordInput(memberFeeder.memberPassword)
+          .fillInConfirmPasswordInput(memberFeeder.memberPassword)
+          .clickSaveAndContinueButton()
+          .waitForElementNotPresent('@confirmPasswordInput');
 
-    await client.url(`${result.hrefValue}`);
-    await login.waitForElementVisible('@confirmPasswordInput', 'User landed on reset password page.');
+        done();
+      });
+    } catch (err) {
+      logger.error(err, '=====err===');
+    }
+  });
 
-    await login
-      .fillInNewPasswordInput(memberFeeder.memberPassword)
-      .fillInConfirmPasswordInput(memberFeeder.memberPassword)
-      .clickSaveAndContinueButton()
-      .waitForElementNotPresent('@confirmPasswordInput');
+  test('logout as Member', async () => {
+    const logout = client.page.UniversalElements();
 
-    done();
+    await logout.clickLogout();
   });
 });

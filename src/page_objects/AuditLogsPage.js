@@ -1,3 +1,5 @@
+import logger from 'rhinotilities/lib/loggers/logger';
+
 let text = '';
 
 const auditLogsCommands = {
@@ -5,7 +7,7 @@ const auditLogsCommands = {
   elementText(ele) {
     return this.getText(ele, (tpObj) => {
       text = tpObj.value;
-      console.log(text);
+      logger.info(text);
     });
   },
 
@@ -59,7 +61,7 @@ const auditLogsCommands = {
       .click('@auditLogsOption');
   },
 
-  validateAuditEntryWithNoDataFound(action, Name, member, category) {
+  validateAuditEntryWithNoDataFound(action, name, member, category) {
     return this.waitForElementVisible('@auditEntry', 'Event entry is visible')
       .waitForElementVisible('@linkText', 'Details Link text is visible')
       .click('@linkText')
@@ -68,11 +70,11 @@ const auditLogsCommands = {
       .verify.containsText('@category', category, `Category should be ${category}`)
       .verify.containsText('@action', action, `Action should be ${action}`)
       .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-      .verify.containsText('@noDataFound', Name, `${Name} is visible`)
+      .verify.containsText('@noDataFound', name, `${name} is visible`)
       .elementText('@eventDetails');
   },
 
-  validateAuditEntry(member, category, action, Name, contact = '') {
+  validateAuditEntry(member, category, action, name, contact = '') {
     return this.waitForElementVisible('@auditEntry', `${category} entry is visible`)
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
       .click('@linkText')
@@ -82,7 +84,7 @@ const auditLogsCommands = {
       .verify.containsText('@category', category, `Category should be ${category}`)
       .verify.containsText('@action', action, `Action should be ${action}`)
       .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-      .verify.containsText('@staticField', Name, `${action}ed Event should be ${Name}`)
+      .verify.containsText('@staticField', name, `${action}ed Event should be ${name}`)
       .elementText('@eventDetails');
   },
 };

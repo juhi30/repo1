@@ -1,53 +1,44 @@
-import { client } from 'nightwatch-api';
-import {
-  deleteOrganization,
-  archiveOrganization,
-  login,
-} from '../../services/Rhinoapi.service';
+import logger from 'rhinotilities/lib/loggers/logger';
+import { organizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
+import { ccrLogin } from '../../toolboxes/login.toolbox';
 
-const testConstants = require('../../toolboxes/feeder.toolbox');
+const { EventEmitter } = require('events');
+const loginFeeder = require('../../toolboxes/feeder/login.feeder');
 const accountSetupFeeder = require('../../toolboxes/feeder/accountSetup.feeder');
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
-  const loginPage = client.page.LoginPage();
-  const setup = client.page.AccountSetupPage();
-  const org = client.page.UniversalElements();
+  const organizationDetails = {
+    name: accountSetupFeeder.orgName,
+    address: accountSetupFeeder.address,
+    city: accountSetupFeeder.city,
+    state: accountSetupFeeder.state,
+    zip: accountSetupFeeder.zip,
+  };
 
   try {
-    await loginPage.navigate()
-      .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
-      .submit()
-      .pause(2000)
-      .validateUrlChange('/selectorg');
-    org.waitForElementVisible('@searchInputForOrg', 'Search Org fiels is visible');
+    // Increase max listeners for long running test
+    EventEmitter.defaultMaxListeners = 100;
 
-    await setup.navigate()
-      .clickBillingToggle()
-      .fillInOrgBasicInformation(accountSetupFeeder.orgName, accountSetupFeeder.address, accountSetupFeeder.city,
-        accountSetupFeeder.state, accountSetupFeeder.zip)
-      .clickCreateOrganization()
-      .waitForElementNotVisible('@createOrgButton', 'Create Org button not visible')
-      .pause(1000)
-      .getOrgId();
+    await ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
+
+    await organizationSetUp(organizationDetails, 'NEW_CANARY_ORG_ID');
   } catch (err) {
-    console.log('==error on orgSetupAndTearDown=====', err);
+    logger.info(err, '==error on orgSetupAndTearDown=====');
   }
 });
 
 // DELETE MY NEW ORG HERE
 afterAll(async (done) => {
   try {
-    console.log('Login...');
-    const cookie = await login();
-    console.log('Deleting Org ==', process.env.ORGANIZATION_ID);
-    const archiveResponse = await archiveOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('======== Organization Archive Response =======', archiveResponse);
-    const deleteResponse = await deleteOrganization(process.env.ORGANIZATION_ID, cookie);
-    console.log('====== Organization Deleted =======');
+    await orgTearDown(process.env.NEW_CANARY_ORG_ID, loginFeeder.ccrLogin, loginFeeder.ccrPassword);
+    // Reset max listeners to the node.js default once the test is complete.
+    EventEmitter.defaultMaxListeners = 10;
     done();
   } catch (err) {
-    console.log('===error on after all orgSetupAndTeardown=======', err);
+    logger.error(err, '===error on after all orgSetupAndTeardown=======');
     done(err);
+    // Reset max listeners to the node.js default once the test is complete.
+    EventEmitter.defaultMaxListeners = 10;
   }
 });

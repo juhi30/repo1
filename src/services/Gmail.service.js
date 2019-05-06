@@ -1,3 +1,5 @@
+import logger from 'rhinotilities/lib/loggers/logger';
+
 const Imap = require('imap');
 
 const imap = new Imap({
@@ -42,12 +44,12 @@ function fetchPasswordResetLink() {
               }
             });
             stream.on('end', () => {
-              console.log('body finished'); // eslint-disable-line no-console
+              logger.info('body finished');
             });
           });
         });
         f.on('error', (error) => {
-          console.log('error', error); // eslint-disable-line no-console
+          logger.error(error, ' === error');
         });
         f.on('end', async () => {
           imap.end();
@@ -55,7 +57,7 @@ function fetchPasswordResetLink() {
       });
     });
     imap.on('error', (err) => {
-      console.log(err); // eslint-disable-line no-console
+      logger.error(err);
     });
 
     imap.on('end', () => {

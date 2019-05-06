@@ -1,6 +1,6 @@
 import { client } from 'nightwatch-api';
 
-const testConstants = require('../../toolboxes/feeder.toolbox');
+const loginFeeder = require('../../toolboxes/feeder/login.feeder');
 const orgProfileFeeder = require('../../toolboxes/feeder/orgProfile.feeder');
 const memberFeeder = require('../../toolboxes/feeder/member.feeder');
 
@@ -8,7 +8,7 @@ describe('Organisation profile edit as member', () => {
   // When the org is being updated for the first time
   test('Edit Organization Profile as member', async () => {
     const orgProfile = client.page.OrgProfilePage();
-    const entry = client.page.AuditLogPage();
+    const entry = client.page.AuditLogsPage();
 
     await orgProfile.navigate()
       .renderPageElements('@addLogoButton');
@@ -30,12 +30,12 @@ describe('Organisation profile edit as member', () => {
 
     await entry.navigate()
       .pause(1000)
-      .validateEventEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Profile');
+      .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Profile');
   });
 
   test('Add Photo', async () => {
     const orgProfile = client.page.OrgProfilePage();
-    const entry = client.page.AuditLogPage();
+    const entry = client.page.AuditLogsPage();
 
     await orgProfile.navigate()
       .addUpdateLogo('@addLogoButton');
@@ -43,19 +43,19 @@ describe('Organisation profile edit as member', () => {
 
     await entry.navigate()
       .pause(1000)
-      .validateEventEntry('Edit', orgProfileFeeder.orgNewName, memberFeeder.memberName, 'Org Profile');
+      .validateAuditEntry(memberFeeder.memberName, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName);
   });
 
   test('Update Photo', async () => {
     const orgProfile = client.page.OrgProfilePage();
-    const entry = client.page.AuditLogPage();
+    const entry = client.page.AuditLogsPage();
 
     await orgProfile.navigate()
       .addUpdateLogo('@updateLogoButton');
 
     await entry.navigate()
       .pause(3000)
-      .validateEventEntry('Edit', orgProfileFeeder.orgNewName, memberFeeder.memberName, 'Org Profile');
+      .validateAuditEntry(memberFeeder.memberName, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName);
   });
 
   test('logout as a Member', async () => {
@@ -72,7 +72,7 @@ describe('Organization Profile Edit as CCR', () => {
     const setup = client.page.AccountSetupPage();
 
     await login.navigate()
-      .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
+      .enterCSRCreds(loginFeeder.ccrLogin, loginFeeder.ccrPassword)
       .submit()
       .pause(2000)
       .validateUrlChange('/selectorg');
@@ -88,7 +88,7 @@ describe('Organization Profile Edit as CCR', () => {
 
   test('Edit Organization Profile as CCR', async () => {
     const orgProfile = client.page.OrgProfilePage();
-    const entry = client.page.AuditLogPage();
+    const entry = client.page.AuditLogsPage();
 
     await orgProfile.navigate()
       .renderPageElements('@updateLogoButton');
@@ -111,7 +111,7 @@ describe('Organization Profile Edit as CCR', () => {
 
     await entry.navigate()
       .pause(3000)
-      .validateEventEntry('Edit', orgProfileFeeder.orgNewName, testConstants.ccrLogin, 'Org Profile');
+      .validateAuditEntry(loginFeeder.ccrLogin, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName);
   });
 
   test('logout as CCR', async () => {

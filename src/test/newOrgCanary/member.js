@@ -1,48 +1,31 @@
-import { client } from 'nightwatch-api';
+import { createMember, changePasswordUsingTempPassword } from '../../toolboxes/member.toolbox';
+import { logout } from '../../toolboxes/login.toolbox';
 
 const memberFeeder = require('../../toolboxes/feeder/member.feeder');
 
 describe('Members Page', () => {
   test('Adding a new Member with Admin Role', async () => {
-    const member = client.page.MembersPage();
+    const memberDetails = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName },
+      { element: '@memberLastName', value: memberFeeder.memberLastName },
+      { element: '@memberUsername', value: memberFeeder.memberUsername },
+      { element: '@memberEmailAddress', value: memberFeeder.memberEmail }];
+    const roles = ['@adminRole', '@memberRole'];
 
-    await member.navigate()
-      .clickAddMember()
-      .enterDetails('@memberFirstName', memberFeeder.memberFirstName)
-      .enterDetails('@memberLastName', memberFeeder.memberLastName)
-      .enterDetails('@memberUsername', memberFeeder.memberUsername)
-      .enterDetails('@memberEmailAddress', memberFeeder.memberEmail)
-      .getTempPassword()
-      .setMemberRoles('@adminRole')
-      .setMemberRoles('@memberRole')
-      .createMember()
-      .pause(2000)
-      .waitForElementNotPresent('@createSuccessMessage', 'Success message is gone.');
+    await createMember(memberDetails, roles, 'NEW_CANARY_MEMBER_TEMP_PASSWORD');
   });
 
   test('Logout as CCR', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await logout();
   });
 
   test('Login as New Member with Admin Role', async () => {
-    const login = client.page.LoginPage();
+    const { memberUsername, memberPassword } = memberFeeder;
+    const tempPassword = global.NEW_CANARY_MEMBER_TEMP_PASSWORD;
 
-    await login.navigate()
-      .enterMemberCreds(memberFeeder.memberUsername, global.TEMP_PASSWORD)
-      .submit()
-      .validateUrlChange('change-password')
-      .fillInPassword(memberFeeder.memberPassword)
-      .fillInConfirmPasswordInput(memberFeeder.memberPassword)
-      .clickSaveAndContinueButton()
-      .validateUrlChange()
-      .pause(3000);
+    await changePasswordUsingTempPassword(memberUsername, memberPassword, tempPassword);
   });
 
   test('Logout as member', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await logout();
   });
 });

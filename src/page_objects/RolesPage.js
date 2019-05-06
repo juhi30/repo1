@@ -1,4 +1,4 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
+const rolesFeeder = require('../toolboxes/feeder/role.feeder');
 
 const rolescommands = {
 
@@ -247,12 +247,12 @@ module.exports = {
     },
 
     memberSearchResult: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.roleMember1}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${rolesFeeder.roleMember1}')]`,
       locateStrategy: 'xpath',
     },
 
     newMemberSearchResult: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.roleMember2}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${rolesFeeder.roleMember2}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -272,13 +272,13 @@ module.exports = {
     },
 
     roleTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.roleName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${rolesFeeder.roleName}')]`,
       locateStrategy: 'xpath',
 
     },
 
     newRoleTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.newRoleName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${rolesFeeder.newRoleName}')]`,
       locateStrategy: 'xpath',
     },
 

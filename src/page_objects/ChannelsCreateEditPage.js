@@ -77,13 +77,13 @@ const editChannelsCommands = {
       .pause(1000);
   },
 
-  updateWebform(element, newValue) {
+  updateWebForm(element, newValue) {
     return this.waitForElementVisible(element, `${element} : is visible`)
       .clearValue(element)
       .setValue(element, newValue);
   },
 
-  addtag(name, category) {
+  addTag(name, category) {
     return this.waitForElementVisible('@createNewTag', 'create new tag button is visible')
       .click('@createNewTag')
       .waitForElementVisible('@tagNameInput', 'Add tag modal is open')

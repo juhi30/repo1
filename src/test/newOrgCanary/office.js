@@ -55,7 +55,7 @@ describe('Office Page', () => {
   test('To delete the office by Member ', async () => {
     const office = client.page.OfficePage();
     const checkAuditLogs = client.page.AuditLogsPage();
-    const logout = client.page.UniversalElements();
+    // const logout = client.page.UniversalElements();
 
     await office.navigate()
       .deleteOfficeForm()

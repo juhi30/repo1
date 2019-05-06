@@ -1,4 +1,5 @@
 const memberFeeder = require('../toolboxes/feeder/member.feeder');
+import logger from 'rhinotilities/lib/loggers/logger';
 
 const membersCommands = {
   clickAddMember() {
@@ -21,22 +22,22 @@ const membersCommands = {
     return this.click(roleName);
   },
 
-  createMember() {
+  clickCreateMemberButton() {
     return this.click('@createButton')
       .waitForElementVisible('@createSuccessMessage', 'Member created successfully.');
   },
 
-  getTempPassword() {
+  getTempPassword(globalVariable) {
     return this.getAttribute('@tempPassword', 'value', (tpObj) => {
-      global.TEMP_PASSWORD = tpObj.value;
-      console.log('Temp password is ==', global.TEMP_PASSWORD); // eslint-disable-line no-console
+      global[globalVariable] = tpObj.value;
+      console.log('Temp password is ==', global[globalVariable]); // eslint-disable-line no-console
     });
   },
 
   getNewTempPassword() {
     return this.getAttribute('@tempPassword', 'value', (tpObj) => {
       global.TEMP_NEW_PASSWORD = tpObj.value;
-      console.log('Temp password is ==', global.TEMP_NEW_PASSWORD); // eslint-disable-line no-console
+      logger.info(` ==== Temp password ${global.TEMP_NEW_PASSWORD}`);
     });
   },
 

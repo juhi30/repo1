@@ -1,4 +1,4 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
+const templateFeeder = require('../toolboxes/feeder/template.feeder');
 
 let text = '';
 
@@ -300,7 +300,7 @@ module.exports = {
     },
 
     systemStaticField: {
-      selector: `//strong[contains(text(),'${testConstants.hipaaTitle}')]`,
+      selector: `//strong[contains(text(),'${templateFeeder.hipaaTitle}')]`,
       locateStrategy: 'xpath',
     },
 

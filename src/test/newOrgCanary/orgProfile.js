@@ -1,6 +1,8 @@
 import { client } from 'nightwatch-api';
 
 const testConstants = require('../../toolboxes/feeder.toolbox');
+const orgProfileFeeder = require('../../toolboxes/feeder/orgProfile.feeder');
+const memberFeeder = require('../../toolboxes/feeder/member.feeder');
 
 describe('Organisation profile edit as member', () => {
   // When the org is being updated for the first time
@@ -12,23 +14,23 @@ describe('Organisation profile edit as member', () => {
       .renderPageElements('@addLogoButton');
 
     await orgProfile
-      .updateOrgProfileMandatoryFields(testConstants.orgNewName,
-        testConstants.orgNewAddress,
-        testConstants.orgNewCity,
-        testConstants.orgNewState,
-        testConstants.orgNewZip)
-      .updateOrgProfileOtherFields(testConstants.orgNewAddress2,
-        testConstants.orgNewPhone,
-        testConstants.orgNewEmail,
-        testConstants.orgNewcontactName,
-        testConstants.orgNewcontactPhone,
-        testConstants.orgNewcontactEmail)
+      .updateOrgProfileMandatoryFields(orgProfileFeeder.orgNewName,
+        orgProfileFeeder.orgNewAddress,
+        orgProfileFeeder.orgNewCity,
+        orgProfileFeeder.orgNewState,
+        orgProfileFeeder.orgNewZip)
+      .updateOrgProfileOtherFields(orgProfileFeeder.orgNewAddress2,
+        orgProfileFeeder.orgNewPhone,
+        orgProfileFeeder.orgNewEmail,
+        orgProfileFeeder.orgNewcontactName,
+        orgProfileFeeder.orgNewcontactPhone,
+        orgProfileFeeder.orgNewcontactEmail)
       .clickSaveProfile()
       .pause(1000);
 
     await entry.navigate()
       .pause(1000)
-      .validateEventEntryWithNoDataFound('Edit', testConstants.noDataFound, testConstants.memberName, 'Org Profile');
+      .validateEventEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Profile');
   });
 
   test('Add Photo', async () => {
@@ -41,7 +43,7 @@ describe('Organisation profile edit as member', () => {
 
     await entry.navigate()
       .pause(1000)
-      .validateEventEntry('Edit', testConstants.orgNewName, testConstants.memberName, 'Org Profile');
+      .validateEventEntry('Edit', orgProfileFeeder.orgNewName, memberFeeder.memberName, 'Org Profile');
   });
 
   test('Update Photo', async () => {
@@ -53,7 +55,7 @@ describe('Organisation profile edit as member', () => {
 
     await entry.navigate()
       .pause(3000)
-      .validateEventEntry('Edit', testConstants.orgNewName, testConstants.memberName, 'Org Profile');
+      .validateEventEntry('Edit', orgProfileFeeder.orgNewName, memberFeeder.memberName, 'Org Profile');
   });
 
   test('logout as a Member', async () => {
@@ -77,7 +79,7 @@ describe('Organization Profile Edit as CCR', () => {
 
     org.waitForElementVisible('@searchInputForOrg', 'Search Input is visible');
 
-    org.searchForOrganization(testConstants.orgNewName, '@newOrgSearchResult')
+    org.searchForOrganization(orgProfileFeeder.orgNewName, '@newOrgSearchResult')
       .ccrOrgLogin('@newOrgSearchResult');
 
     setup.pause(1000)
@@ -92,24 +94,24 @@ describe('Organization Profile Edit as CCR', () => {
       .renderPageElements('@updateLogoButton');
 
     await orgProfile.verifyBillingIdAndIntegrationOptions()
-      .updateOrgProfileMandatoryFields(testConstants.orgNewName,
-        testConstants.orgNewAddress,
-        testConstants.orgNewCity,
-        testConstants.orgNewState,
-        testConstants.orgNewZip)
-      .updateOrgProfileOtherFields(testConstants.orgNewAddress2,
-        testConstants.orgNewPhone,
-        testConstants.orgNewEmail,
-        testConstants.orgNewcontactName,
-        testConstants.orgNewcontactPhone,
-        testConstants.orgNewcontactEmail)
+      .updateOrgProfileMandatoryFields(orgProfileFeeder.orgNewName,
+        orgProfileFeeder.orgNewAddress,
+        orgProfileFeeder.orgNewCity,
+        orgProfileFeeder.orgNewState,
+        orgProfileFeeder.orgNewZip)
+      .updateOrgProfileOtherFields(orgProfileFeeder.orgNewAddress2,
+        orgProfileFeeder.orgNewPhone,
+        orgProfileFeeder.orgNewEmail,
+        orgProfileFeeder.orgNewcontactName,
+        orgProfileFeeder.orgNewcontactPhone,
+        orgProfileFeeder.orgNewcontactEmail)
       .enableDisableToggles('@integrationToggle')
-      .updateIntegrationValue(testConstants.orgNewIntegration)
+      .updateIntegrationValue(orgProfileFeeder.orgNewIntegration)
       .clickSaveProfile();
 
     await entry.navigate()
       .pause(3000)
-      .validateEventEntry('Edit', testConstants.orgNewName, testConstants.ccrLogin, 'Org Profile');
+      .validateEventEntry('Edit', orgProfileFeeder.orgNewName, testConstants.ccrLogin, 'Org Profile');
   });
 
   test('logout as CCR', async () => {

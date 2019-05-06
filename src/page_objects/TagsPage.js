@@ -1,4 +1,4 @@
-const testConstants = require('./../toolboxes/feeder.toolbox');
+const tagsFeeder = require('../toolboxes/feeder/tags.feeder');
 
 const tagCommands = {
   validateTagPageElements() {
@@ -98,43 +98,43 @@ module.exports = {
 
     // its a tag that says "fake_tag"...
     locationTag: {
-      selector: `//SPAN[contains(.,'${testConstants.locationName}')]`,
+      selector: `//SPAN[contains(.,'${tagsFeeder.locationName}')]`,
       locateStrategy: 'xpath',
     },
 
     departmentTag: {
-      selector: `//SPAN[contains(.,'${testConstants.departmentName}')]`,
+      selector: `//SPAN[contains(.,'${tagsFeeder.departmentName}')]`,
       locateStrategy: 'xpath',
     },
 
     roleTag: {
-      selector: `//SPAN[contains(.,'${testConstants.roleName}')]`,
+      selector: `//SPAN[contains(.,'${tagsFeeder.roleName}')]`,
       locateStrategy: 'xpath',
     },
 
     customTag: {
-      selector: `//SPAN[contains(.,'${testConstants.customName}')]`,
+      selector: `//SPAN[contains(.,'${tagsFeeder.customName}')]`,
       locateStrategy: 'xpath',
     },
 
     // its a tag that says "Edited_tag"...
     locationEditedTag: {
-      selector: `//SPAN[contains(.,'${testConstants.newLocation}')]`,
+      selector: `//SPAN[contains(.,'${tagsFeeder.newLocation}')]`,
       locateStrategy: 'xpath',
     },
 
     departmentEditedTag: {
-      selector: `//SPAN[contains(.,'${testConstants.newDepartment}')]`,
+      selector: `//SPAN[contains(.,'${tagsFeeder.newDepartment}')]`,
       locateStrategy: 'xpath',
     },
 
     roleEditedTag: {
-      selector: `//SPAN[contains(.,'${testConstants.newRole}')]`,
+      selector: `//SPAN[contains(.,'${tagsFeeder.newRole}')]`,
       locateStrategy: 'xpath',
     },
 
     customEditedTag: {
-      selector: `//SPAN[contains(.,'${testConstants.newCustom}')]`,
+      selector: `//SPAN[contains(.,'${tagsFeeder.newCustom}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -166,22 +166,6 @@ module.exports = {
       selector: '//LABEL[@class=\'rhinodio__label\'][contains(text(),\'Custom\')]',
       locateStrategy: 'xpath',
     },
-
-
-    selectTag: {
-      selector: `//SPAN[contains(.,'${testConstants.tagName}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    // selectTag: {
-    //   selector: `//DIV[@class='u-inline-grid'][contains(text(),'${testConstants.selectedTag}')]`,
-    //   locateStrategy: 'xpath',
-    // },
-
-    // selectTag:{
-    //   selector:`//SPAN[contains(.,'#India')]`,
-    //   locateStrategy:'xpath',
-    // },
 
     channelsTagTitle: {
       selector: '//DIV[text()=\'Channel Tags\']',

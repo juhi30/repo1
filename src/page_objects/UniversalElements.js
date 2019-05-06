@@ -1,5 +1,5 @@
-const helpers = require('../toolboxes/helpers.toolbox');
-const testConstants = require('../toolboxes/feeder.toolbox');
+const accountSetupFeeder = require('../toolboxes/feeder/accountSetup.feeder');
+const orgProfileFeeder = require('../toolboxes/feeder/orgProfile.feeder');
 
 const universalElementsCommands = {
 
@@ -453,17 +453,17 @@ module.exports = {
     },
 
     organizationSearchResult: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgName}' ]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${accountSetupFeeder.orgName}' ]`,
       locateStrategy: 'xpath',
     },
 
     org2SearchResult: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgName2}' ]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${accountSetupFeeder.orgName2}' ]`,
       locateStrategy: 'xpath',
     },
 
     newOrgSearchResult: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgNewName}' ]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${orgProfileFeeder.orgNewName}' ]`,
       locateStrategy: 'xpath',
     },
 

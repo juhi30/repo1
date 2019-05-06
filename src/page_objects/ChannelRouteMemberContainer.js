@@ -1,7 +1,7 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
+const memberFeeder = require('../toolboxes/feeder/member.feeder');
+const groupFeeder = require('../toolboxes/feeder/group.feeder');
 
 const channelRouteCommands = {
-
 
   validateChannelRoutes() {
     return this.waitForElementVisible('@membersButton', 'members button is visible')
@@ -70,37 +70,37 @@ module.exports = {
     },
 
     memberResult: {
-      selector: `//SPAN[contains(., '${testConstants.memberName}')]`,
+      selector: `//SPAN[contains(., '${memberFeeder.memberName}')]`,
       locateStrategy: 'xpath',
     },
 
     newPatientGroupResult: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.updatedPatientTypeGroup}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.updatedPatientTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
     newTeamGroupResult: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.updatedTeamTypeGroup}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.updatedTeamTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
     newPatientAndTeamGroupResult: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.updatedpatientAndTeamType}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.updatedpatientAndTeamType}')]`,
       locateStrategy: 'xpath',
     },
 
     patientGroupResult: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.patientTypeGroup}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.patientTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
     teamGroupResult: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.teamTypeGroup}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.teamTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
     patientAndTeamGroupResult: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.patientAndTeamType}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.patientAndTeamType}')]`,
       locateStrategy: 'xpath',
     },
   },

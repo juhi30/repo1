@@ -1,4 +1,4 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
+const officeFeeder = require('../toolboxes/feeder/member.feeder');
 
 const officeCommands = {
 
@@ -141,7 +141,7 @@ module.exports = {
     },
 
     officeToBeEdited: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.officeName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${officeFeeder.officeName}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -151,7 +151,7 @@ module.exports = {
     },
 
     officeToBeDeleted: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.newOfficeName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${officeFeeder.newOfficeName}')]`,
       locateStrategy: 'xpath',
     },
 

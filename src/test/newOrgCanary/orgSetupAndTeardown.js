@@ -6,6 +6,7 @@ import {
 } from '../../services/Rhinoapi.service';
 
 const testConstants = require('../../toolboxes/feeder.toolbox');
+const accountSetupFeeder = require('../../toolboxes/feeder/accountSetup.feeder');
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
@@ -23,8 +24,8 @@ beforeAll(async () => {
 
     await setup.navigate()
       .clickBillingToggle()
-      .fillInOrgBasicInformation(testConstants.orgName, testConstants.address, testConstants.city,
-        testConstants.state, testConstants.zip)
+      .fillInOrgBasicInformation(accountSetupFeeder.orgName, accountSetupFeeder.address, accountSetupFeeder.city,
+        accountSetupFeeder.state, accountSetupFeeder.zip)
       .clickCreateOrganization()
       .waitForElementNotVisible('@createOrgButton', 'Create Org button not visible')
       .pause(1000)

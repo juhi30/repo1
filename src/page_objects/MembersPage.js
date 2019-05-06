@@ -1,4 +1,4 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
+const memberFeeder = require('../toolboxes/feeder/member.feeder');
 
 const membersCommands = {
   clickAddMember() {
@@ -68,7 +68,7 @@ module.exports = {
     },
 
     selectMemberFromList: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.memberName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${memberFeeder.memberName}')]`,
       locateStrategy: 'xpath',
     },
 

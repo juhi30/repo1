@@ -1,6 +1,10 @@
 import { client } from 'nightwatch-api';
 
 const testConstants = require('../../toolboxes/feeder.toolbox');
+const accountSetupFeeder = require('../../toolboxes/feeder/accountSetup.feeder');
+const tagsFeeder = require('../../toolboxes/feeder/tags.feeder');
+const channelFeeder = require('../../toolboxes/feeder/channel.feeder');
+const memberFeeder = require('../../toolboxes/feeder/member.feeder');
 
 describe('Automated Tests: Channels', () => {
   test('login as ccr into the organization', async () => {
@@ -14,7 +18,7 @@ describe('Automated Tests: Channels', () => {
       .pause(2000)
       .validateUrlChange('/selectorg');
 
-    await org.searchForOrganization(testConstants.orgName)
+    await org.searchForOrganization(accountSetupFeeder.orgName)
       .ccrOrgLogin()
       .pause(2000);
   });
@@ -50,10 +54,10 @@ describe('Automated Tests: Channels', () => {
       .validateCreateEls()
       .selectChannelCategory('@newPhoneType')
       .pause(2000)
-      .addNumber(testConstants.numberForNewPhoneChannel, testConstants.forwardingNumber)
-      .channelDetails(testConstants.channelName, testConstants.channelPurpose, testConstants.timeZone);
+      .addNumber(channelFeeder.numberForNewPhoneChannel, channelFeeder.forwardingNumber)
+      .channelDetails(channelFeeder.channelName, channelFeeder.channelPurpose, channelFeeder.timeZone);
 
-    await route.routeSearch('@memberInput', testConstants.memberFirstName, '@memberResult')
+    await route.routeSearch('@memberInput', memberFeeder.memberFirstName, '@memberResult')
       .pause(2000);
 
     await newPhone.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
@@ -67,13 +71,13 @@ describe('Automated Tests: Channels', () => {
     await rhino.navigate()
       .validateCreateEls()
       .selectChannelCategory('@rhinoSecureType')
-      .channelDetails(testConstants.rhinoChannelName, testConstants.channelPurpose, testConstants.timeZone);
+      .channelDetails(channelFeeder.rhinoChannelName, channelFeeder.channelPurpose, channelFeeder.timeZone);
 
     // await route.selectGroupRoute()
     //     .routeSearch('@groupInput', testConstants.groupName, '@groupResult')
     //     .pause(2000)
 
-    await route.routeSearch('@memberInput', testConstants.memberFirstName, '@memberResult')
+    await route.routeSearch('@memberInput', memberFeeder.memberFirstName, '@memberResult')
       .pause(2000);
 
     await rhino.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
@@ -92,7 +96,7 @@ describe('Automated Tests: Channels', () => {
       .pause(500)
       .checkElementVisibility('@editChannel');
 
-    await update.editChannelDetailsSection(testConstants.newChannelName, testConstants.newPurpose)
+    await update.editChannelDetailsSection(channelFeeder.newChannelName, channelFeeder.newPurpose)
       .enableDisableToggles('@availabilityHoursToggle')
       .enableDisableToggles('@webFormAddOnnToggle')
       .enableDisableToggles('@channelForwardingToggle');
@@ -110,7 +114,7 @@ describe('Automated Tests: Channels', () => {
       .pause(500)
       .checkElementVisibility('@editChannel');
 
-    await update.editChannelDetailsSection(testConstants.rhinoChannelNewName, testConstants.newPurpose)
+    await update.editChannelDetailsSection(channelFeeder.rhinoChannelNewName, channelFeeder.newPurpose)
       .enableDisableToggles('@availabilityHoursToggle')
       .enableDisableToggles('@channelForwardingToggle')
       .pause(2000)
@@ -128,7 +132,7 @@ describe('Automated Tests: Channels', () => {
       .pause(500)
       .checkElementVisibility('@editChannel');
 
-    await update.addtag(testConstants.tagNameNewPhoneType, '@tagCategory')
+    await update.addtag(tagsFeeder.tagNameNewPhoneType, '@tagCategory')
       .pause(2000)
       .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
       .checkSuccessMessage('@channelUpdateSuccessMessage');
@@ -137,7 +141,7 @@ describe('Automated Tests: Channels', () => {
       .pause(500)
       .checkElementVisibility('@editChannel');
 
-    await update.addtag(testConstants.tagNameRhinoType, '@tagCategory')
+    await update.addtag(tagsFeeder.tagNameRhinoType, '@tagCategory')
       .pause(2000)
       .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
       .checkSuccessMessage('@channelUpdateSuccessMessage');
@@ -182,14 +186,14 @@ describe('Automated Tests: Channels', () => {
       .pause(500)
       .checkElementVisibility('@editChannel');
 
-    await channel1.updateWebform('@formTitle', testConstants.formTitleName)
-      .updateWebform('@titleSubtext', testConstants.titleSubtext)
-      .updateWebform('@phonePlaceholder', testConstants.phonePlaceholder)
-      .updateWebform('@phoneHelpText', testConstants.phoneHelpText)
-      .updateWebform('@messagePlaceholder', testConstants.messagePlaceHolder)
-      .updateWebform('@submitButton', testConstants.submitButton)
-      .updateWebform('@callToActionButton', testConstants.callToActionButton)
-      .updateWebform('@confirmationText', testConstants.callToActionButton)
+    await channel1.updateWebform('@formTitle', channelFeeder.formTitleName)
+      .updateWebform('@titleSubtext', channelFeeder.titleSubtext)
+      .updateWebform('@phonePlaceholder', channelFeeder.phonePlaceholder)
+      .updateWebform('@phoneHelpText', channelFeeder.phoneHelpText)
+      .updateWebform('@messagePlaceholder', channelFeeder.messagePlaceHolder)
+      .updateWebform('@submitButton', channelFeeder.submitButton)
+      .updateWebform('@callToActionButton', channelFeeder.callToActionButton)
+      .updateWebform('@confirmationText', channelFeeder.callToActionButton)
       .pause(2000)
       .waitForElementVisible('@updateChannelButton', 'update button is visible')
       .click('@updateChannelButton');

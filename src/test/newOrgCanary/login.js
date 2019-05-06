@@ -1,7 +1,9 @@
 import { client } from 'nightwatch-api';
 
 const testConstants = require('../../toolboxes/feeder.toolbox');
+const accountSetupFeeder = require('../../toolboxes/feeder/accountSetup.feeder');
 const gmail = require('../../services/Gmail.service');
+const memberFeeder = require('../../toolboxes/feeder/member.feeder');
 
 describe('Login Page Tests Cases', () => {
   test('Login as CCR', async () => {
@@ -17,14 +19,14 @@ describe('Login Page Tests Cases', () => {
   test('Switch organization as a CCR', async () => {
     const org = client.page.UniversalElements();
 
-    await org.searchForOrganization(testConstants.orgName)
+    await org.searchForOrganization(accountSetupFeeder.orgName)
       .ccrOrgLogin();
 
     // Go back to Org Listing page
     await org.selectOrganization()
 
       // Search the next Org
-      .searchForOrganization(testConstants.orgName2, '@org2SearchResult')
+      .searchForOrganization(accountSetupFeeder.orgName2, '@org2SearchResult')
       .ccrOrgLogin('@org2SearchResult');
   });
 
@@ -47,7 +49,7 @@ describe('Login Page Tests Cases', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .enterMemberCreds(testConstants.memberUsername, testConstants.memberPassword)
+      .enterMemberCreds(memberFeeder.memberUsername, memberFeeder.memberPassword)
       .submit()
       .validateUrlChange();
   });
@@ -62,7 +64,7 @@ describe('Login Page Tests Cases', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .resetPassword(testConstants.memberUsername)
+      .resetPassword(memberFeeder.memberUsername)
       .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.');
   });
 
@@ -70,7 +72,7 @@ describe('Login Page Tests Cases', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .resetPassword(testConstants.state)
+      .resetPassword(accountSetupFeeder.state)
       .waitForElementVisible('@contactAdminMsg', 'Message to contact admin is visible.');
   });
 
@@ -78,8 +80,8 @@ describe('Login Page Tests Cases', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .fillInUsername(testConstants.memberUsername)
-      .fillInPassword(testConstants.state)
+      .fillInUsername(memberFeeder.memberUsername)
+      .fillInPassword(accountSetupFeeder.state)
       .submit()
       .waitForElementVisible('@errorPrompt', 'Error message is visible.');
   });
@@ -88,8 +90,8 @@ describe('Login Page Tests Cases', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .fillInUsername(testConstants.state)
-      .fillInPassword(testConstants.memberPassword)
+      .fillInUsername(accountSetupFeeder.state)
+      .fillInPassword(memberFeeder.memberPassword)
       .submit()
       .waitForElementVisible('@errorPrompt', 'Error message is visible.');
   });
@@ -98,7 +100,7 @@ describe('Login Page Tests Cases', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .resetPassword(testConstants.memberEmail)
+      .resetPassword(memberFeeder.memberEmail)
       .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.');
   });
 
@@ -106,7 +108,7 @@ describe('Login Page Tests Cases', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .resetPassword(testConstants.invalidEmail)
+      .resetPassword(memberFeeder.invalidEmail)
       .waitForElementVisible('@contactAdminMsg', 'Message to contact admin is visible.');
   });
 
@@ -147,7 +149,7 @@ describe('Login Page Tests Cases', () => {
       .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
       .submit();
     await org.waitForElementVisible('@searchInputForOrg', 'Search Org field is visible');
-    await universal.searchForOrganization(testConstants.orgName)
+    await universal.searchForOrganization(accountSetupFeeder.orgName)
       .ccrOrgLogin();
     await member.navigate()
       .pause(1000)
@@ -164,17 +166,17 @@ describe('Login Page Tests Cases', () => {
 
     // Login as Member with Old Password reset token
     await login.navigate()
-      .enterMemberCreds(testConstants.memberUsername, global.TEMP_PASSWORD)
+      .enterMemberCreds(memberFeeder.memberUsername, global.TEMP_PASSWORD)
       .submit()
       .waitForElementVisible('@errorPrompt', 'Error message is visible, old token did not work. ');
 
     // Login as Member with New Password reset token
     await login.navigate()
-      .enterMemberCreds(testConstants.memberUsername, global.TEMP_NEW_PASSWORD)
+      .enterMemberCreds(memberFeeder.memberUsername, global.TEMP_NEW_PASSWORD)
       .submit()
       .validateUrlChange('change-password')
-      .fillInNewPasswordInput(testConstants.memberPassword)
-      .fillInConfirmPasswordInput(testConstants.memberPassword)
+      .fillInNewPasswordInput(memberFeeder.memberPassword)
+      .fillInConfirmPasswordInput(memberFeeder.memberPassword)
       .clickSaveAndContinueButton()
       .validateUrlChange()
       .waitForElementNotPresent('@passwordUpdateSuccessMessage');
@@ -190,7 +192,7 @@ describe('Login Page Tests Cases', () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .enterMemberCreds(testConstants.memberEmail, testConstants.state)
+      .enterMemberCreds(memberFeeder.memberEmail, accountSetupFeeder.state)
       .submit()
       .waitForElementVisible('@errorPrompt', 'Error message is visible.')
       .submit()
@@ -199,7 +201,7 @@ describe('Login Page Tests Cases', () => {
       .waitForElementVisible('@failedLoginAttemptPrompt', 'Failed login error message is visible.');
 
     await login.navigate()
-      .resetPassword(testConstants.memberEmail)
+      .resetPassword(memberFeeder.memberEmail)
       .pause(10000) // significant pause time for ensuring email is delivered
       .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.');
 
@@ -209,8 +211,8 @@ describe('Login Page Tests Cases', () => {
     await login.waitForElementVisible('@confirmPasswordInput', 'User landed on reset password page.');
 
     await login
-      .fillInNewPasswordInput(testConstants.memberPassword)
-      .fillInConfirmPasswordInput(testConstants.memberPassword)
+      .fillInNewPasswordInput(memberFeeder.memberPassword)
+      .fillInConfirmPasswordInput(memberFeeder.memberPassword)
       .clickSaveAndContinueButton()
       .waitForElementNotPresent('@confirmPasswordInput');
 

@@ -1,5 +1,4 @@
 // coding based off Matthew roach's example @ http://matthewroach.me/ui-testing-with-nightwatch-js/
-const helpers = require('../toolboxes/helpers.toolbox');
 
 const loginCommands = {
 

@@ -1,4 +1,3 @@
-const helpers = require('../toolboxes/helpers.toolbox');
 
 const convoThreadCommands = {
 
@@ -21,7 +20,7 @@ const convoThreadCommands = {
     return this.click('@messageSendButton');
   },
 
-  clickSearchButton(element) {
+  clickSearchButton() {
     return this.click('@searchConvobutton')
       .waitForElementPresent('@searchConvoInput', 'Search input is visible');
   },

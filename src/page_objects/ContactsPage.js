@@ -80,8 +80,7 @@ const contactsCommands = {
       .pause(2000);
   },
 
-  getInboundMessage(message) {
-    const randomizedMessage = `${message} ${randomNumber}`;
+  getInboundMessage() {
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .pause(4000)
       .waitForElementVisible('@inboundMessage', 'Inbound Message is received from Bot Contact')

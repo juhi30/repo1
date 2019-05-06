@@ -1,5 +1,6 @@
-const tagsFeeder = require('../toolboxes/feeder/tags.feeder');
 import logger from 'rhinotilities/lib/loggers/logger';
+
+const tagsFeeder = require('../toolboxes/feeder/tags.feeder');
 
 const tagCommands = {
   validateTagPageElements() {
@@ -29,7 +30,7 @@ const tagCommands = {
       .waitForElementVisible('@createTagButton', 'Create Tag Button is visible.')
       .click('@createTagButton')
       .pause(2000)
-      .waitForElementVisible(tag, ' Created tag is visible');
+      .waitForElementVisible(tag, 'Created tag is visible');
   },
 
   editTag(tag, newValue, newTag) {

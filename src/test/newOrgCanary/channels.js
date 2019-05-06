@@ -1,4 +1,3 @@
-import { client } from 'nightwatch-api';
 import { ccrLogin, logout } from '../../toolboxes/login.toolbox';
 import { selectOrganizationByCCR } from '../../toolboxes/organization.toolbox';
 import * as channelToolbox from '../../toolboxes/channel.toolbox';

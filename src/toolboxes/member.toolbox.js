@@ -24,16 +24,15 @@ export async function createMember(memberDetails, roles, globalVariable) {
  * @param  {string} memberPassword Member's new password
  * @param  {string} tempPassword Member's temporary password
  */
-export function changePasswordUsingTempPassword(memberUsername, memberPassword, tempPassword) {
+export async function changePasswordUsingTempPassword(memberUsername, memberPassword, tempPassword) {
   const login = client.page.LoginPage();
 
-  login.navigate()
+  await login.navigate()
     .enterMemberCreds(memberUsername, tempPassword)
     .submit()
     .validateUrlChange('change-password')
     .fillInPassword(memberPassword)
     .fillInConfirmPasswordInput(memberPassword)
     .clickSaveAndContinueButton()
-    .validateUrlChange()
-    .pause(3000);
+    .validateUrlChange();
 }

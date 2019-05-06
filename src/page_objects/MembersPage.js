@@ -23,15 +23,15 @@ const membersCommands = {
     return this.click(roleName);
   },
 
-  createMember() {
+  clickCreateMemberButton() {
     return this.click('@createButton')
       .waitForElementVisible('@createSuccessMessage', 'Member created successfully.');
   },
 
-  getTempPassword() {
+  getTempPassword(globalVariable) {
     return this.getAttribute('@tempPassword', 'value', (tpObj) => {
-      global.TEMP_PASSWORD = tpObj.value;
-      logger.info(`=== Temp password == ${global.TEMP_PASSWORD}`);
+      global[globalVariable] = tpObj.value;
+      console.log('Temp password is ==', global[globalVariable]); // eslint-disable-line no-console
     });
   },
 

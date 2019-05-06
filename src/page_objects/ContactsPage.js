@@ -80,8 +80,7 @@ const contactsCommands = {
       .pause(2000);
   },
 
-  getInboundMessage(message) {
-    const randomizedMessage = `${message} ${randomNumber}`;
+  getInboundMessage() {
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .pause(4000)
       .waitForElementVisible('@inboundMessage', 'Inbound Message is received from Bot Contact')
@@ -162,12 +161,12 @@ module.exports = {
     },
 
     addContactDropdownFirstResultBot: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.BOT_CONTACT_NAME}')]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.EXISTING_ORG_BOT_CONTACT_NAME}')]`,
       locateStrategy: 'xpath',
     },
 
     addContactDropdownFirstResultFb: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.FACEBOOK_CONTACT_NAME}')]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.EXISTING_ORG_FACEBOOK_CONTACT_NAME}')]`,
       locateStrategy: 'xpath',
     },
 

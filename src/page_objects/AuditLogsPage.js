@@ -1,5 +1,8 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 
+const testConstants = require('./../toolboxes/feeder.toolbox');
+
+
 let text = '';
 
 const auditLogsCommands = {
@@ -72,6 +75,23 @@ const auditLogsCommands = {
       .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
       .verify.containsText('@noDataFound', name, `${name} is visible`)
       .elementText('@eventDetails');
+  },
+
+  selectContactFilter(contactName, selectContactElement) {
+    return this.waitForElementVisible('@contactFilter', 'Contact filter is visible')
+      .click('@contactFilter')
+      .waitForElementVisible('@searchContactInput', 'Search contact input is visible')
+      .setValue('@searchContactInput', contactName)
+      .waitForElementVisible(selectContactElement, `Searched contact ${contactName} +  is visible`)
+      .click(selectContactElement)
+      .pause(1000);
+  },
+
+  selectActionFilter(selectActionElement) {
+    return this.waitForElementVisible('@actionFilter', 'Contact filter is visible')
+      .click('@actionFilter')
+      .waitForElementVisible(selectActionElement, `${selectActionElement} action is visible`)
+      .click(selectActionElement);
   },
 
   validateAuditEntry(member, category, action, name, contact = '') {
@@ -232,6 +252,66 @@ module.exports = {
 
     noDataFound: {
       selector: '//SPAN[contains(text(),\'No Data Found\')]',
+      locateStrategy: 'xpath',
+    },
+
+    searchContactInput: {
+      selector: '//INPUT[@placeholder=\'Search Contacts\']',
+      locateStrategy: 'xpath',
+    },
+
+    searchedContactConnectedParty: {
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}']`,
+      locateStrategy: 'xpath',
+    },
+
+    searchContactPatient: {
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactFirstName} ${testConstants.contactLastName}']`,
+      locateStrategy: 'xpath',
+    },
+
+    searchContactOther: {
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactOtherFirstName} ${testConstants.contactOtherLastName}']`,
+      locateStrategy: 'xpath',
+    },
+
+    searchContactNew: {
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactNewFirstName} ${testConstants.contactNewLastName}']`,
+      locateStrategy: 'xpath',
+    },
+
+    searchOtherContact: {
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactOtherFirstName} ${testConstants.contactOtherLastName}']`,
+      locateStrategy: 'xpath',
+    },
+
+    searchConnectedParty: {
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}']`,
+      locateStrategy: 'xpath',
+    },
+
+    selectAddAction: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Add\']',
+      locateStrategy: 'xpath',
+    },
+
+    selectEditAction: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Edit\']',
+      locateStrategy: 'xpath',
+    },
+
+    selectViewAction: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'View\']',
+      locateStrategy: 'xpath',
+    },
+
+    selectMergeAction: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Merge\']',
+      locateStrategy: 'xpath',
+    },
+
+    selectDeleteAction: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Delete\']',
       locateStrategy: 'xpath',
     },
   },

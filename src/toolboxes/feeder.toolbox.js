@@ -17,7 +17,6 @@ module.exports = {
   officeCity: 'Charleston',
   officeState: 'South Carolina',
   zipCode: '29403',
-
   // New Member Details
   memberName: 'Testing_NewCanary LastName',
   memberFirstName: 'Testing_NewCanary',
@@ -30,8 +29,8 @@ module.exports = {
   // New Group Details
   patientTypeGroup: 'Patient Group',
   teamTypeGroup: 'Team Group',
-  patientAndTeamType: 'patient and Team Group',
-  updatedpatientAndTeamType: 'New patient and Team Group',
+  patientAndTeamType: 'P&T Group',
+  updatedpatientAndTeamType: 'New P&T Group',
   updatedPatientTypeGroup: 'New Patient Group',
   updatedTeamTypeGroup: 'New Team Group',
   purpose: 'Testing',
@@ -99,7 +98,6 @@ module.exports = {
 
 
   // Web Form Addition Details
-
   formTitleName: 'Send Message via web form.',
   titleSubtext: 'Text or Call us.',
   phonePlaceholder: 'Enter Phone Number',
@@ -108,6 +106,7 @@ module.exports = {
   submitButton: 'Do send your message.',
   callToActionButton: 'Send Message',
   confirmationText: 'The message has been submitted successfully!',
+
 
   addEvent: 'Add',
   category: 'Office Location',
@@ -145,6 +144,46 @@ module.exports = {
   testBotReplyMessage: 'Test Reply from Bot Contact',
   testBotInboundMessage: 'Test Inbound Message From Bot',
   facebookOutboundMessage: 'Outbound Message to FB Contact',
+
+  // New Contact details
+  contactFirstName: 'Automation Patient',
+  contactMiddleName: 'Type',
+  contactLastName: 'Contact',
+  contactPreferredName: 'cpt',
+  contactPrefix: 'Mr.',
+  contactSuffix: 'Jr.',
+  contactBirthDate: '02/23/1983',
+  contactFirstPhoneNumber: '8455452121',
+  contactFirstEmail: 'test@gmail.com',
+  contactNote: 'This contact is being created by Automation',
+
+  // Contact details for Other type
+  contactOtherFirstName: 'Automation Other',
+  contactOtherLastName: 'Contact',
+  contactOtherPreferredName: 'Other',
+  contactOtherPrefix: 'Dr.',
+  contactOtherSuffix: 'Sr.',
+  contactOtherBirthDate: '05/18/1981',
+  contactOtherFirstNumber: '8475422123',
+  contactOtherFirstEmail: 'otheremail@gmail.com',
+
+  // Contact edit details
+  contactNewFirstName: 'Automation New',
+  contactNewLastName: 'Contact',
+  contactNewBirthDate: '09/23/1988',
+  contactGender: 'Male',
+  contactSecondPhoneNumber: '8455458451',
+  contactSecondEmail: 'second@gmail.com',
+  connectedNewRelationship: 'Guardian',
+
+  // Add contact details by connected party
+  contactTypeOnModal: 'Patient',
+  contactFirstNameOnModal: 'Connected Party',
+  contactMiddleNameOnModal: 'Test',
+  contactLastNameOnModal: 'Contact',
+  contactBirthDateOnModal: '11/25/1990',
+  contactNumberOnModal: '8757858225',
+  contactEmailOnModal: 'testcontact@gmail.com',
 
   // details for member profile
   newMemberUsername: 'NewUserName',

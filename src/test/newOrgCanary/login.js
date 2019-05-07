@@ -75,22 +75,22 @@ describe('Login Page Tests Cases', () => {
       .waitForElementVisible('@contactAdminMsg', 'Message to contact admin is visible.');
   });
 
-  test('Login with valid username and invalid password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .fillInUsername(testConstants.memberUsername)
-      .fillInPassword(testConstants.state)
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible.');
-  });
-
   test('Login with invalid username and valid password', async () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
       .fillInUsername(testConstants.state)
       .fillInPassword(testConstants.memberPassword)
+      .submit()
+      .waitForElementVisible('@errorPrompt', 'Error message is visible.');
+  });
+
+  test('Login with valid username and invalid password', async () => {
+    const login = client.page.LoginPage();
+
+    await login.navigate()
+      .fillInUsername(testConstants.memberUsername)
+      .fillInPassword(testConstants.state)
       .submit()
       .waitForElementVisible('@errorPrompt', 'Error message is visible.');
   });

@@ -1,223 +1,97 @@
-import { client } from 'nightwatch-api';
+import { ccrLogin, logout } from '../../toolboxes/login.toolbox';
+import { selectOrganizationByCCR } from '../../toolboxes/organization.toolbox';
+import * as channelToolbox from '../../toolboxes/channel.toolbox';
 
 const testConstants = require('../../toolboxes/feeder.toolbox');
 
 describe('Automated Tests: Channels', () => {
   test('login as ccr into the organization', async () => {
-    const login = client.page.LoginPage();
-    const org = client.page.UniversalElements();
+    await ccrLogin(testConstants.ccrLogin, testConstants.ccrPassword);
 
-    await login.navigate()
-      .waitForElementVisible('@loginButton', 'Login button is visible')
-      .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
-      .submit()
-      .pause(2000)
-      .validateUrlChange('/selectorg');
-
-    await org.searchForOrganization(testConstants.orgName)
-      .ccrOrgLogin(testConstants.ccrLogin, testConstants.ccrPassword)
-      .pause(2000);
+    await selectOrganizationByCCR(testConstants.orgName);
   });
 
   test('Required Fields and validations', async () => {
-    const channel = client.page.ChannelsPage();
-    const setup = client.page.ChannelsCreateEditPage();
+    await channelToolbox.validateChannelPageElements();
 
+    await channelToolbox.validateChannelCreationRequiredFields('@newPhoneType');
 
-    await channel.navigate()
-      .validateChannelsEls();
-
-    await setup.navigate()
-      .selectChannelCategory('@newPhoneType')
-      .createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
-      .waitForElementVisible('@channelNameValidation', 'Validation message for channel Name is visible')
-      .verify.visible('@timezoneValidation', 'Validation message for TimeZone is visible')
-      .verify.visible('@channelRouteValidation', 'validation message for Channel Route is visible');
-
-    await setup.navigate()
-      .selectChannelCategory('@rhinoSecureType')
-      .createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
-      .waitForElementVisible('@channelNameValidation', 'Validation message for channel Name is visible')
-      .verify.visible('@timezoneValidation', 'Validation message for TimeZone is visible')
-      .verify.visible('@channelRouteValidation', 'validation message for Channel Route is visible');
+    await channelToolbox.validateChannelCreationRequiredFields('@rhinoSecureType');
   });
 
   test('Channel Create - New Phone type with member Route', async () => {
-    const newPhone = client.page.ChannelsCreateEditPage();
-    const route = client.page.ChannelRouteMemberContainer();
+    const channelData = {
+      phoneNumber: testConstants.numberForNewPhoneChannel,
+      forwardingNumber: testConstants.forwardingNumber,
+      channelName: testConstants.channelName,
+      channelPurpose: testConstants.channelPurpose,
+      timeZone: testConstants.timeZone,
+      memberFirstName: testConstants.memberFirstName,
+    };
 
-    await newPhone.navigate()
-      .validateCreateEls()
-      .selectChannelCategory('@newPhoneType')
-      .pause(2000)
-      .addNumber(testConstants.numberForNewPhoneChannel, testConstants.forwardingNumber)
-      .channelDetails(testConstants.channelName, testConstants.channelPurpose, testConstants.timeZone);
-
-    await route.routeSearch('@memberInput', testConstants.memberFirstName, '@memberResult')
-      .pause(2000);
-
-    await newPhone.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
-      .checkSuccessMessage('@channelCreateSuccessMessage');
+    await channelToolbox.createChannel('@newPhoneType', channelData);
   });
 
   test('Channel Create - Rhinosecure channel with member route', async () => {
-    const rhino = client.page.ChannelsCreateEditPage();
-    const route = client.page.ChannelRouteMemberContainer();
+    const channelData = {
+      channelName: testConstants.rhinoChannelName,
+      channelPurpose: testConstants.channelPurpose,
+      timeZone: testConstants.timeZone,
+      memberFirstName: testConstants.memberFirstName,
+    };
 
-    await rhino.navigate()
-      .validateCreateEls()
-      .selectChannelCategory('@rhinoSecureType')
-      .channelDetails(testConstants.rhinoChannelName, testConstants.channelPurpose, testConstants.timeZone);
-
-    // await route.selectGroupRoute()
-    //     .routeSearch('@groupInput', testConstants.groupName, '@groupResult')
-    //     .pause(2000)
-
-    await route.routeSearch('@memberInput', testConstants.memberFirstName, '@memberResult')
-      .pause(2000);
-
-    await rhino.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
-      .pause(2000)
-      .checkSuccessMessage('@channelCreateSuccessMessage')
-      .waitForElementNotPresent('@channelCreateSuccessMessage');
+    await channelToolbox.createChannel('@rhinoSecureType', channelData);
   });
 
   test('Channel Edit - New phone type', async () => {
-    const channel = client.page.ChannelsPage();
-    const update = client.page.ChannelsCreateEditPage();
+    const channelData = {
+      channelName: testConstants.newChannelName,
+      channelPurpose: testConstants.newPurpose,
+    };
+    const enableToggles = ['@availabilityHoursToggle', '@webFormAddOnnToggle', '@channelForwardingToggle'];
 
-    await channel.navigate()
-
-      .channelEditMode('@channelName')
-      .pause(500)
-      .checkElementVisibility('@editChannel');
-
-    await update.editChannelDetailsSection(testConstants.newChannelName, testConstants.newPurpose)
-      .enableDisableToggles('@availabilityHoursToggle')
-      .enableDisableToggles('@webFormAddOnnToggle')
-      .enableDisableToggles('@channelForwardingToggle');
-    await update.createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
-      .checkSuccessMessage('@channelUpdateSuccessMessage')
-      .waitForElementNotPresent('@channelUpdateSuccessMessage');
+    await channelToolbox.editChannel('@channelName', channelData, enableToggles);
   });
 
   test('Channel Edit - Rhinosecure', async () => {
-    const channel = client.page.ChannelsPage();
-    const update = client.page.ChannelsCreateEditPage();
+    const channelData = {
+      channelName: testConstants.rhinoChannelNewName,
+      channelPurpose: testConstants.newPurpose,
+    };
+    const enableToggles = ['@availabilityHoursToggle', '@channelForwardingToggle'];
 
-    await channel.navigate()
-      .channelEditMode('@rhinoSecureChannelTitle')
-      .pause(500)
-      .checkElementVisibility('@editChannel');
-
-    await update.editChannelDetailsSection(testConstants.rhinoChannelNewName, testConstants.newPurpose)
-      .enableDisableToggles('@availabilityHoursToggle')
-      .enableDisableToggles('@channelForwardingToggle')
-      .pause(2000)
-      .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
-      .checkSuccessMessage('@channelUpdateSuccessMessage')
-      .waitForElementNotPresent('@channelUpdateSuccessMessage');
+    await channelToolbox.editChannel('@rhinoSecureChannelTitle', channelData, enableToggles);
   });
 
   test('Tags creation for newPhone type and Rhino secure type', async () => {
-    const channel = client.page.ChannelsPage();
-    const update = client.page.ChannelsCreateEditPage();
+    await channelToolbox.tagsCreationByChannelEdit('@updatedChannelTitle', testConstants.tagNameNewPhoneType);
 
-    await channel.navigate()
-      .channelEditMode('@updatedChannelTitle')
-      .pause(500)
-      .checkElementVisibility('@editChannel');
-
-    await update.addtag(testConstants.tagNameNewPhoneType, '@tagCategory')
-      .pause(2000)
-      .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
-      .checkSuccessMessage('@channelUpdateSuccessMessage');
-
-    await channel.channelEditMode('@updatedRhinoSecureChannelTitle')
-      .pause(500)
-      .checkElementVisibility('@editChannel');
-
-    await update.addtag(testConstants.tagNameRhinoType, '@tagCategory')
-      .pause(2000)
-      .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
-      .checkSuccessMessage('@channelUpdateSuccessMessage');
+    await channelToolbox.tagsCreationByChannelEdit('@updatedRhinoSecureChannelTitle', testConstants.tagNameRhinoType);
   });
 
   test('validation on Web Form fields', async () => {
-    const channel = client.page.ChannelsPage();
-    const channel1 = client.page.ChannelsCreateEditPage();
-
-
-    await channel.channelEditMode('@updatedChannelTitle')
-      .pause(500)
-      .checkElementVisibility('@editChannel');
-
-    await channel1.webFormValidation('@formTitle')
-      .webFormValidation('@titleSubtext')
-      .webFormValidation('@phonePlaceholder')
-      .webFormValidation('@phoneHelpText')
-      .webFormValidation('@messagePlaceholder')
-      .webFormValidation('@submitButton')
-      .webFormValidation('@callToActionButton')
-      .webFormValidation('@confirmationText')
-
-      .createUpdateChannel('@updateChannelButton')
-
-      .checkForValidation('@titleValidationMessage')
-      .checkForValidation('@titleSubtextValidation')
-      .checkForValidation('@phonePlaceholderMessage')
-      .checkForValidation('@phoneHelpTextMessage')
-      .checkForValidation('@messagePlaceholderValidation')
-      .checkForValidation('@buttonTitleMessage')
-      .checkForValidation('@actionButtonTitleMessage')
-      .checkForValidation('@confirmationTextMessage');
+    await channelToolbox.validateWebFormFieldsByChannelEdit('@updatedChannelTitle');
   });
 
   test('Updation on Web Form fields', async () => {
-    const channel = client.page.ChannelsPage();
-    const channel1 = client.page.ChannelsCreateEditPage();
+    const webFormFields = [{ element: '@formTitle', value: testConstants.formTitleName },
+      { element: '@titleSubtext', value: testConstants.titleSubtext },
+      { element: '@phonePlaceholder', value: testConstants.phonePlaceholder },
+      { element: '@phoneHelpText', value: testConstants.phoneHelpText },
+      { element: '@messagePlaceholder', value: testConstants.messagePlaceHolder },
+      { element: '@submitButton', value: testConstants.submitButton },
+      { element: '@callToActionButton', value: testConstants.callToActionButton },
+      { element: '@confirmationText', value: testConstants.confirmationText }];
 
-    channel.navigate();
-    await channel.channelEditMode('@updatedChannelTitle')
-      .pause(500)
-      .checkElementVisibility('@editChannel');
-
-    await channel1.updateWebform('@formTitle', testConstants.formTitleName)
-      .updateWebform('@titleSubtext', testConstants.titleSubtext)
-      .updateWebform('@phonePlaceholder', testConstants.phonePlaceholder)
-      .updateWebform('@phoneHelpText', testConstants.phoneHelpText)
-      .updateWebform('@messagePlaceholder', testConstants.messagePlaceHolder)
-      .updateWebform('@submitButton', testConstants.submitButton)
-      .updateWebform('@callToActionButton', testConstants.callToActionButton)
-      .updateWebform('@confirmationText', testConstants.callToActionButton)
-      .pause(2000)
-      .waitForElementVisible('@updateChannelButton', 'update button is visible')
-      .click('@updateChannelButton');
+    await channelToolbox.updateWebFormFieldsByChannelEdit('@updatedChannelTitle', webFormFields);
   });
 
   // test('Channel Deletion', async () => {
-  //   const channel = client.page.ChannelsPage();
-  //   const deletechannel = client.page.ChannelsCreateEditPage();
-
-  //   await channel.navigate()
-  //     .channelEditMode('@updatedChannelTitle')
-  // .pause(500)
-  //     .checkElementVisibility('@editChannel')
-
-  //   await deletechannel.deleteChannels()
-  //     .pause(2000)
-  //   await channel.navigate()
-  //     .channelEditMode('@updatedRhinoSecureChannelTitle')
-  // .pause(500)
-  //     .checkElementVisibility('@editChannel')
-
-  //   await deletechannel.deleteChannels()
-  //     .pause(2000)
+  //   await channelToolbox.deleteChannel('@updatedChannelTitle');
+  //   await channelToolbox.deleteChannel('@updatedRhinoSecureChannelTitle');
   // });
 
   test('logout as CCR', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await logout();
   });
 });

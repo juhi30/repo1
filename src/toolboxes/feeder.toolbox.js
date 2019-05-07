@@ -4,7 +4,7 @@ module.exports = {
   ccrPassword: process.env.CCR_PASSWORD,
 
   // Org Setup Details
-  orgName: 'Testing_NewCanary_local',
+  orgName: 'Testing_NewCanary',
   orgName2: process.env.EXISTING_ORG_NAME,
   address: 'Test Address',
   city: 'Test City',
@@ -12,16 +12,16 @@ module.exports = {
   zip: '12345',
 
   // details for office addition
-  officeName: 'Mount Pleasant Office5',
+  officeName: 'Mount Pleasant Office',
   officeAddress: '128 Hester St',
   officeCity: 'Charleston',
   officeState: 'South Carolina',
   zipCode: '29403',
   // New Member Details
-  memberName: 'Testing_NewCanary_local LastName',
-  memberFirstName: 'Testing_NewCanary_local',
+  memberName: 'Testing_NewCanary LastName',
+  memberFirstName: 'Testing_NewCanary',
   memberLastName: 'LastName',
-  memberUsername: 'Testing_NewCanary_12local',
+  memberUsername: 'Testing_NewCanary',
   memberPassword: 'Test@123',
   memberEmail: process.env.GMAIL_USERNAME,
   invalidEmail: 'test@test.com',
@@ -185,4 +185,8 @@ module.exports = {
   contactNumberOnModal: '8757858225',
   contactEmailOnModal: 'testcontact@gmail.com',
 
+  // details for member profile
+  newMemberUsername: 'NewUserName',
+  tagForMemberPage: 'Test_3',
+  newMemberPassword: 'Test@123',
 };

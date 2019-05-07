@@ -5,7 +5,7 @@ const testConstants = require('../../toolboxes/feeder.toolbox');
 describe('Preferences Page', () => {
   test('To check Secure Notifications for Preferences ', async () => {
     const preference = client.page.PreferencesPage();
-    const checkAuditLogs = client.page.AuditLogPage();
+    const checkAuditLogs = client.page.AuditLogsPage();
 
     await preference.navigate()
       .waitForElementVisible('@selectChannel', 'selected channel is visible')
@@ -15,12 +15,12 @@ describe('Preferences Page', () => {
       .pause(1000);
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateEventEntryWithNoDataFound(testConstants.editEvent, testConstants.noDataFound, testConstants.memberName, testConstants.orgCategory);
+      .validateAuditEntryWithNoDataFound('Edit', testConstants.noDataFound, testConstants.memberName, 'Org Preferences');
   });
 
   test('To check global sounds for the preferences', async () => {
     const preference = client.page.PreferencesPage();
-    const checkAuditLogs = client.page.AuditLogPage();
+    const checkAuditLogs = client.page.AuditLogsPage();
 
     await preference.navigate()
       .waitForElementVisible('@globalSound', 'Global sounds button is visible')
@@ -30,12 +30,12 @@ describe('Preferences Page', () => {
       .pause(1000);
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateEventEntry(testConstants.editEvent, testConstants.orgName, testConstants.memberName, testConstants.orgCategory);
+      .validateAuditEntry(testConstants.memberName, 'Org Preferences', 'Edit', testConstants.orgName);
   });
 
   test('To check organization system time out for the preferences', async () => {
     const preference = client.page.PreferencesPage();
-    const checkAuditLogs = client.page.AuditLogPage();
+    const checkAuditLogs = client.page.AuditLogsPage();
 
     await preference.navigate()
       .waitForElementVisible('@systemTimeOut', 'System time out textfield is visible')
@@ -46,12 +46,12 @@ describe('Preferences Page', () => {
 
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateEventEntry(testConstants.editEvent, testConstants.orgName, testConstants.memberName, testConstants.orgCategory);
+      .validateAuditEntry(testConstants.memberName, 'Org Preferences', 'Edit', testConstants.orgName);
   });
 
   test('To check closing conversation options for the preferences', async () => {
     const preference = client.page.PreferencesPage();
-    const checkAuditLogs = client.page.AuditLogPage();
+    const checkAuditLogs = client.page.AuditLogsPage();
     // const logout = client.page.UniversalElements();
 
     await preference.navigate()
@@ -62,6 +62,6 @@ describe('Preferences Page', () => {
 
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateEventEntry(testConstants.editEvent, testConstants.orgName, testConstants.memberName, testConstants.orgCategory);
+      .validateAuditEntry(testConstants.memberName, 'Org Preferences', 'Edit', testConstants.orgName);
   });
 });

@@ -1,48 +1,31 @@
-import { client } from 'nightwatch-api';
+import { createMember, changePasswordUsingTempPassword } from '../../toolboxes/member.toolbox';
+import { logout } from '../../toolboxes/login.toolbox';
 
 const testConstants = require('../../toolboxes/feeder.toolbox');
 
 describe('Members Page', () => {
   test('Adding a new Member with Admin Role', async () => {
-    const member = client.page.MembersPage();
+    const memberDetails = [{ element: '@memberFirstName', value: testConstants.memberFirstName },
+      { element: '@memberLastName', value: testConstants.memberLastName },
+      { element: '@memberUsername', value: testConstants.memberUsername },
+      { element: '@memberEmailAddress', value: testConstants.memberEmail }];
+    const roles = ['@adminRole', '@memberRole'];
 
-    await member.navigate()
-      .clickAddMember()
-      .enterDetails('@memberFirstName', testConstants.memberFirstName)
-      .enterDetails('@memberLastName', testConstants.memberLastName)
-      .enterDetails('@memberUsername', testConstants.memberUsername)
-      .enterDetails('@memberEmailAddress', testConstants.memberEmail)
-      .getTempPassword()
-      .setMemberRoles('@adminRole')
-      .setMemberRoles('@memberRole')
-      .createMember()
-      .pause(2000)
-      .waitForElementNotPresent('@createSuccessMessage', 'Success message is gone.');
+    await createMember(memberDetails, roles, 'NEW_CANARY_MEMBER_TEMP_PASSWORD');
   });
 
   test('Logout as CCR', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await logout();
   });
 
   test('Login as New Member with Admin Role', async () => {
-    const login = client.page.LoginPage();
+    const { memberUsername, memberPassword } = testConstants;
+    const tempPassword = global.NEW_CANARY_MEMBER_TEMP_PASSWORD;
 
-    await login.navigate()
-      .enterMemberCreds(testConstants.memberUsername, global.TEMP_PASSWORD)
-      .submit()
-      .validateUrlChange('change-password')
-      .fillInPassword(testConstants.memberPassword)
-      .fillInConfirmPasswordInput(testConstants.memberPassword)
-      .clickSaveAndContinueButton()
-      .validateUrlChange()
-      .waitForElementNotPresent('@passwordUpdateSuccessMessage', 'Success Message is no longer present.');
+    await changePasswordUsingTempPassword(memberUsername, memberPassword, tempPassword);
   });
 
   test('Logout as member', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await logout();
   });
 });

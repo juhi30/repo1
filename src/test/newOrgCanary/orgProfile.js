@@ -6,7 +6,7 @@ describe('Organisation profile edit as member', () => {
   // When the org is being updated for the first time
   test('Edit Organization Profile as member', async () => {
     const orgProfile = client.page.OrgProfilePage();
-    const entry = client.page.AuditLogPage();
+    const entry = client.page.AuditLogsPage();
 
     await orgProfile.navigate()
       .renderPageElements('@addLogoButton');
@@ -28,12 +28,12 @@ describe('Organisation profile edit as member', () => {
 
     await entry.navigate()
       .pause(1000)
-      .validateEventEntryWithNoDataFound('Edit', testConstants.noDataFound, testConstants.memberName, 'Org Profile');
+      .validateAuditEntryWithNoDataFound('Edit', testConstants.noDataFound, testConstants.memberName, 'Org Profile');
   });
 
   test('Add Photo', async () => {
     const orgProfile = client.page.OrgProfilePage();
-    const entry = client.page.AuditLogPage();
+    const entry = client.page.AuditLogsPage();
 
     await orgProfile.navigate()
       .addUpdateLogo('@addLogoButton');
@@ -41,19 +41,19 @@ describe('Organisation profile edit as member', () => {
 
     await entry.navigate()
       .pause(1000)
-      .validateEventEntry('Edit', testConstants.orgNewName, testConstants.memberName, 'Org Profile');
+      .validateAuditEntry(testConstants.memberName, 'Org Profile', 'Edit', testConstants.orgNewName);
   });
 
   test('Update Photo', async () => {
     const orgProfile = client.page.OrgProfilePage();
-    const entry = client.page.AuditLogPage();
+    const entry = client.page.AuditLogsPage();
 
     await orgProfile.navigate()
       .addUpdateLogo('@updateLogoButton');
 
     await entry.navigate()
       .pause(3000)
-      .validateEventEntry('Edit', testConstants.orgNewName, testConstants.memberName, 'Org Profile');
+      .validateAuditEntry(testConstants.memberName, 'Org Profile', 'Edit', testConstants.orgNewName);
   });
 
   test('logout as a Member', async () => {
@@ -86,7 +86,7 @@ describe('Organization Profile Edit as CCR', () => {
 
   test('Edit Organization Profile as CCR', async () => {
     const orgProfile = client.page.OrgProfilePage();
-    const entry = client.page.AuditLogPage();
+    const entry = client.page.AuditLogsPage();
 
     await orgProfile.navigate()
       .renderPageElements('@updateLogoButton');
@@ -109,7 +109,7 @@ describe('Organization Profile Edit as CCR', () => {
 
     await entry.navigate()
       .pause(3000)
-      .validateEventEntry('Edit', testConstants.orgNewName, testConstants.ccrLogin, 'Org Profile');
+      .validateAuditEntry(testConstants.ccrLogin, 'Org Profile', 'Edit', testConstants.orgNewName);
   });
 
   test('logout as CCR', async () => {

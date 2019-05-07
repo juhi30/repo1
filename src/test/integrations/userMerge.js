@@ -18,7 +18,7 @@ const TRUSTEE_ID = 2;
 const HIPAA_STATUS_TYPE_GRANTED = 49;
 const FB_TYPE_PRIMARY = 24;
 const FB_CHANNEL_ID = 7;
-const CP_PATIENT = 6;
+// const CP_PATIENT = 6;
 const TYPE_EMAIL_HOME = 4;
 const HIPAA_STATUS_TYPE_PENDING = 48;
 

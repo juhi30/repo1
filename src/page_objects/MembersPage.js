@@ -42,9 +42,9 @@ const membersCommands = {
     });
   },
 
-  selectMember() {
-    return this.waitForElementVisible('@selectMemberFromList', 'member name is visible')
-      .click('@selectMemberFromList');
+  selectMember(element) {
+    return this.waitForElementVisible(element, 'member name is visible')
+      .click(element);
   },
 
   createTempPassword() {

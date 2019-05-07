@@ -35,5 +35,15 @@ export async function changePasswordUsingTempPassword(memberUsername, memberPass
     .fillInConfirmPasswordInput(memberPassword)
     .clickSaveAndContinueButton()
     .validateUrlChange()
-    .pause(3000);
+    .waitForElementNotPresent('@passwordUpdateSuccessMessage')
+    .pause(1000);
+}
+
+export function createTempPasswordByCCR(memberNameElement, globalVariable) {
+  member.navigate()
+    .pause(1000)
+    .selectMember(memberNameElement)
+    .createTempPassword()
+    .getTempPassword(globalVariable)
+    .pause(1000);
 }

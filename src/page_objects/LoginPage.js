@@ -73,6 +73,7 @@ const loginCommands = {
 
   fillInNewPasswordInput(password) {
     return this.waitForElementVisible('@newPasswordInput', 'New password input is visible')
+      .click('@newPasswordInput')
       .setValue('@newPasswordInput', password);
   },
 
@@ -107,7 +108,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
     passwordInput: {
-      selector: '//INPUT[contains(@name, \'password\')]',
+      selector: '//INPUT[contains(@id, \'password\')]',
       locateStrategy: 'xpath',
     },
 
@@ -122,7 +123,7 @@ module.exports = {
     },
 
     errorPrompt: {
-      selector: '//DIV[contains(.,\'Username and password did not match\')]',
+      selector: '//DIV[contains(text(),\'Username and password did not match\')]',
       locateStrategy: 'xpath',
     },
 

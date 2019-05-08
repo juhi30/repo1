@@ -2,13 +2,17 @@ import { ccrLogin, logout } from '../../toolboxes/login.toolbox';
 import { selectOrganizationByCCR } from '../../toolboxes/organization.toolbox';
 import * as channelToolbox from '../../toolboxes/channel.toolbox';
 
-const testConstants = require('../../toolboxes/feeder.toolbox');
+const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
+const tagsFeeder = require('../../feeder/tags.feeder');
+const channelFeeder = require('../../feeder/channel.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
+const loginFeeder = require('../../feeder/login.feeder');
 
 describe('Automated Tests: Channels', () => {
   test('login as ccr into the organization', async () => {
-    await ccrLogin(testConstants.ccrLogin, testConstants.ccrPassword);
+    await ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
 
-    await selectOrganizationByCCR(testConstants.orgName);
+    await selectOrganizationByCCR(accountSetupFeeder.orgName);
   });
 
   test('Required Fields and validations', async () => {
@@ -21,12 +25,12 @@ describe('Automated Tests: Channels', () => {
 
   test('Channel Create - New Phone type with member Route', async () => {
     const channelData = {
-      phoneNumber: testConstants.numberForNewPhoneChannel,
-      forwardingNumber: testConstants.forwardingNumber,
-      channelName: testConstants.channelName,
-      channelPurpose: testConstants.channelPurpose,
-      timeZone: testConstants.timeZone,
-      memberFirstName: testConstants.memberFirstName,
+      phoneNumber: channelFeeder.numberForNewPhoneChannel,
+      forwardingNumber: channelFeeder.forwardingNumber,
+      channelName: channelFeeder.channelName,
+      channelPurpose: channelFeeder.channelPurpose,
+      timeZone: channelFeeder.timeZone,
+      memberFirstName: memberFeeder.memberFirstName,
     };
 
     await channelToolbox.createChannel('@newPhoneType', channelData);
@@ -34,10 +38,10 @@ describe('Automated Tests: Channels', () => {
 
   test('Channel Create - Rhinosecure channel with member route', async () => {
     const channelData = {
-      channelName: testConstants.rhinoChannelName,
-      channelPurpose: testConstants.channelPurpose,
-      timeZone: testConstants.timeZone,
-      memberFirstName: testConstants.memberFirstName,
+      channelName: channelFeeder.rhinoChannelName,
+      channelPurpose: channelFeeder.channelPurpose,
+      timeZone: channelFeeder.timeZone,
+      memberFirstName: memberFeeder.memberFirstName,
     };
 
     await channelToolbox.createChannel('@rhinoSecureType', channelData);
@@ -45,8 +49,8 @@ describe('Automated Tests: Channels', () => {
 
   test('Channel Edit - New phone type', async () => {
     const channelData = {
-      channelName: testConstants.newChannelName,
-      channelPurpose: testConstants.newPurpose,
+      channelName: channelFeeder.newChannelName,
+      channelPurpose: channelFeeder.newPurpose,
     };
     const enableToggles = ['@availabilityHoursToggle', '@webFormAddOnnToggle', '@channelForwardingToggle'];
 
@@ -55,8 +59,8 @@ describe('Automated Tests: Channels', () => {
 
   test('Channel Edit - Rhinosecure', async () => {
     const channelData = {
-      channelName: testConstants.rhinoChannelNewName,
-      channelPurpose: testConstants.newPurpose,
+      channelName: channelFeeder.rhinoChannelNewName,
+      channelPurpose: channelFeeder.newPurpose,
     };
     const enableToggles = ['@availabilityHoursToggle', '@channelForwardingToggle'];
 
@@ -64,9 +68,9 @@ describe('Automated Tests: Channels', () => {
   });
 
   test('Tags creation for newPhone type and Rhino secure type', async () => {
-    await channelToolbox.tagsCreationByChannelEdit('@updatedChannelTitle', testConstants.tagNameNewPhoneType);
+    await channelToolbox.tagsCreationByChannelEdit('@updatedChannelTitle', tagsFeeder.tagNameNewPhoneType);
 
-    await channelToolbox.tagsCreationByChannelEdit('@updatedRhinoSecureChannelTitle', testConstants.tagNameRhinoType);
+    await channelToolbox.tagsCreationByChannelEdit('@updatedRhinoSecureChannelTitle', tagsFeeder.tagNameRhinoType);
   });
 
   test('validation on Web Form fields', async () => {
@@ -74,14 +78,14 @@ describe('Automated Tests: Channels', () => {
   });
 
   test('Updation on Web Form fields', async () => {
-    const webFormFields = [{ element: '@formTitle', value: testConstants.formTitleName },
-      { element: '@titleSubtext', value: testConstants.titleSubtext },
-      { element: '@phonePlaceholder', value: testConstants.phonePlaceholder },
-      { element: '@phoneHelpText', value: testConstants.phoneHelpText },
-      { element: '@messagePlaceholder', value: testConstants.messagePlaceHolder },
-      { element: '@submitButton', value: testConstants.submitButton },
-      { element: '@callToActionButton', value: testConstants.callToActionButton },
-      { element: '@confirmationText', value: testConstants.confirmationText }];
+    const webFormFields = [{ element: '@formTitle', value: channelFeeder.formTitleName },
+      { element: '@titleSubtext', value: channelFeeder.titleSubtext },
+      { element: '@phonePlaceholder', value: channelFeeder.phonePlaceholder },
+      { element: '@phoneHelpText', value: channelFeeder.phoneHelpText },
+      { element: '@messagePlaceholder', value: channelFeeder.messagePlaceHolder },
+      { element: '@submitButton', value: channelFeeder.submitButton },
+      { element: '@callToActionButton', value: channelFeeder.callToActionButton },
+      { element: '@confirmationText', value: channelFeeder.confirmationText }];
 
     await channelToolbox.updateWebFormFieldsByChannelEdit('@updatedChannelTitle', webFormFields);
   });

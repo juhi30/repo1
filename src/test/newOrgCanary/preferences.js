@@ -1,6 +1,7 @@
 import { client } from 'nightwatch-api';
 
-const testConstants = require('../../toolboxes/feeder.toolbox');
+const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Preferences Page', () => {
   test('To check Secure Notifications for Preferences ', async () => {
@@ -15,7 +16,7 @@ describe('Preferences Page', () => {
       .pause(1000);
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateAuditEntryWithNoDataFound('Edit', testConstants.noDataFound, testConstants.memberName, 'Org Preferences');
+      .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Preferences');
   });
 
   test('To check global sounds for the preferences', async () => {
@@ -30,7 +31,7 @@ describe('Preferences Page', () => {
       .pause(1000);
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateAuditEntry(testConstants.memberName, 'Org Preferences', 'Edit', testConstants.orgName);
+      .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName);
   });
 
   test('To check organization system time out for the preferences', async () => {
@@ -46,7 +47,7 @@ describe('Preferences Page', () => {
 
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateAuditEntry(testConstants.memberName, 'Org Preferences', 'Edit', testConstants.orgName);
+      .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName);
   });
 
   test('To check closing conversation options for the preferences', async () => {
@@ -62,6 +63,6 @@ describe('Preferences Page', () => {
 
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateAuditEntry(testConstants.memberName, 'Org Preferences', 'Edit', testConstants.orgName);
+      .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName);
   });
 });

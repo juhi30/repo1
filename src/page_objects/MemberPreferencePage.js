@@ -1,4 +1,4 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
+const groupFeeder = require('../feeder/group.feeder');
 
 const memberPreferencesCommands = {
   clickEventOnMemberPreferencesPage(element, message) {
@@ -30,7 +30,7 @@ module.exports = {
     },
 
     checkPatientGroupNotificationOnMobile: {
-      selector: `//tr[@class="member-preferences__group-sub"]//td//strong[text()='${testConstants.patientTypeGroup}']//parent::td//following-sibling::td//input[contains(@title,'Mobile')]//following-sibling::label`,
+      selector: `//tr[@class="member-preferences__group-sub"]//td//strong[text()='${groupFeeder.patientTypeGroup}']//parent::td//following-sibling::td//input[contains(@title,'Mobile')]//following-sibling::label`,
       locateStrategy: 'xpath',
     },
 
@@ -40,7 +40,7 @@ module.exports = {
     },
 
     checkTeamGroupNotificationOnMobile: {
-      selector: `//tr[@class="member-preferences__group-sub"]//td//strong[text()='${testConstants.teamTypeGroup}']//parent::td//following-sibling::td//input[contains(@title,'Desktop')]//following-sibling::label`,
+      selector: `//tr[@class="member-preferences__group-sub"]//td//strong[text()='${groupFeeder.teamTypeGroup}']//parent::td//following-sibling::td//input[contains(@title,'Desktop')]//following-sibling::label`,
       locateStrategy: 'xpath',
     },
 
@@ -50,7 +50,7 @@ module.exports = {
     },
 
     checkTeamAndPatientGroupNotificationOnMobile: {
-      selector: `//tr[@class="member-preferences__group-sub"]//td//strong[text()='${testConstants.patientAndTeamType}']//parent::td//following-sibling::td//input[contains(@title,'Mobile')]//following-sibling::label`,
+      selector: `//tr[@class="member-preferences__group-sub"]//td//strong[text()='${groupFeeder.patientAndTeamType}']//parent::td//following-sibling::td//input[contains(@title,'Mobile')]//following-sibling::label`,
       locateStrategy: 'xpath',
     },
 

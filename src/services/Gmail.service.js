@@ -3,8 +3,8 @@ import logger from 'rhinotilities/lib/loggers/logger';
 const Imap = require('imap');
 
 const imap = new Imap({
-  user: process.env.GMAIL_USERNAME,
-  password: process.env.GMAIL_PASSWORD,
+  user: process.env.NEW_CANARY_GMAIL_USERNAME,
+  password: process.env.NEW_CANARY_GMAIL_PASSWORD,
   host: 'imap.gmail.com',
   port: 993,
   tls: true,

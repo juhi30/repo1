@@ -1,14 +1,14 @@
 import { createMember, changePasswordUsingTempPassword } from '../../toolboxes/member.toolbox';
 import { logout } from '../../toolboxes/login.toolbox';
 
-const testConstants = require('../../toolboxes/feeder.toolbox');
+const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Members Page', () => {
   test('Adding a new Member with Admin Role', async () => {
-    const memberDetails = [{ element: '@memberFirstName', value: testConstants.memberFirstName },
-      { element: '@memberLastName', value: testConstants.memberLastName },
-      { element: '@memberUsername', value: testConstants.memberUsername },
-      { element: '@memberEmailAddress', value: testConstants.memberEmail }];
+    const memberDetails = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName },
+      { element: '@memberLastName', value: memberFeeder.memberLastName },
+      { element: '@memberUsername', value: memberFeeder.memberUsername },
+      { element: '@memberEmailAddress', value: memberFeeder.memberEmail }];
     const roles = ['@adminRole', '@memberRole'];
 
     await createMember(memberDetails, roles, 'NEW_CANARY_MEMBER_TEMP_PASSWORD');
@@ -19,7 +19,7 @@ describe('Members Page', () => {
   });
 
   test('Login as New Member with Admin Role', async () => {
-    const { memberUsername, memberPassword } = testConstants;
+    const { memberUsername, memberPassword } = memberFeeder;
     const tempPassword = global.NEW_CANARY_MEMBER_TEMP_PASSWORD;
 
     await changePasswordUsingTempPassword(memberUsername, memberPassword, tempPassword);

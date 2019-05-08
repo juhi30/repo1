@@ -1,5 +1,5 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
 const helper = require('../toolboxes/helpers.toolbox');
+const templateFeeder = require('../feeder/template.feeder');
 
 const templatesCommands = {
 
@@ -155,12 +155,12 @@ module.exports = {
     },
 
     favoriteOption: {
-      selector: `//*[@class='resource has-right-column']//descendant :: *[contains(text(),'${testConstants.templateTitle}')]// ancestor :: DIV[@class='resource has-right-column']//*[@class='resource__right resource__right--no-flex']//DIV//BUTTON//SPAN`,
+      selector: `//*[@class='resource has-right-column']//descendant :: *[contains(text(),'${templateFeeder.templateTitle}')]// ancestor :: DIV[@class='resource has-right-column']//*[@class='resource__right resource__right--no-flex']//DIV//BUTTON//SPAN`,
       locateStrategy: 'xpath',
     },
 
     favoriteOptionforHIPAA: {
-      selector: `//*[@class='resource has-right-column']//descendant :: *[contains(text(),'${testConstants.hipaaTitle}')]// ancestor :: DIV[@class='resource has-right-column']//*[@class='resource__right resource__right--no-flex']//DIV//BUTTON//SPAN`,
+      selector: `//*[@class='resource has-right-column']//descendant :: *[contains(text(),'${templateFeeder.hipaaTitle}')]// ancestor :: DIV[@class='resource has-right-column']//*[@class='resource__right resource__right--no-flex']//DIV//BUTTON//SPAN`,
       locateStrategy: 'xpath',
     },
 
@@ -190,7 +190,7 @@ module.exports = {
     },
 
     templateTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.templateTitle}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${templateFeeder.templateTitle}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -272,13 +272,13 @@ module.exports = {
     },
 
     searchResult: {
-      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[contains(text(),'${testConstants.templateTitle}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[contains(text(),'${templateFeeder.templateTitle}')]`,
       locateStrategy: 'xpath',
     },
 
     /* Search result after updating the template */
     updatedSearchResult: {
-      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[contains(text(),'${testConstants.newTemplate}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[contains(text(),'${templateFeeder.newTemplate}')]`,
       locateStrategy: 'xpath',
     },
 

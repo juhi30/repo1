@@ -1,10 +1,11 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 
-const testConstants = require('./../toolboxes/feeder.toolbox');
+const contactFeeder = require('./../feeder/contact.feeder');
 const helper = require('../toolboxes/helpers.toolbox');
 
 
 const randomNumber = Math.floor(Math.random() * 1000000);
+const existingOrgFeeder = require('../feeder/existingOrg.feeder');
 
 const contactsCommands = {
 
@@ -239,7 +240,7 @@ module.exports = {
     },
 
     contactTypeOptionOnModal: {
-      selector: `//DIV[@class='modal__body']//label[contains(@for, 'typeId')]//SPAN[contains(.,'${testConstants.contactTypeOnModal}')]`,
+      selector: `//DIV[@class='modal__body']//label[contains(@for, 'typeId')]//SPAN[contains(.,'${contactFeeder.contactTypeOnModal}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -288,17 +289,17 @@ module.exports = {
     },
 
     replyMessage: {
-      selector: `//DIV[text() = '${testConstants.testBotReplyMessage} ${randomNumber}']`,
+      selector: `//DIV[text() = '${existingOrgFeeder.testBotReplyMessage} ${randomNumber}']`,
       locateStrategy: 'xpath',
     },
 
     inboundMessage: {
-      selector: `//DIV[text() = '${testConstants.testBotInboundMessage} ${randomNumber}']`,
+      selector: `//DIV[text() = '${existingOrgFeeder.testBotInboundMessage} ${randomNumber}']`,
       locateStrategy: 'xpath',
     },
 
     fbContactMessage: {
-      selector: `//DIV[text() = '${testConstants.facebookOutboundMessage} ${randomNumber}']`,
+      selector: `//DIV[text() = '${existingOrgFeeder.facebookOutboundMessage} ${randomNumber}']`,
       locateStrategy: 'xpath',
     },
 
@@ -384,7 +385,7 @@ module.exports = {
     },
 
     genderOption: {
-      selector: `//label[text()='${testConstants.contactGender}']`,
+      selector: `//label[text()='${contactFeeder.contactGender}']`,
       locateStrategy: 'xpath',
     },
 
@@ -429,17 +430,17 @@ module.exports = {
     },
 
     connectedPartyContact: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.contactOtherFirstName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${contactFeeder.contactOtherFirstName}')]`,
       locateStrategy: 'xpath',
     },
 
     addedConnectedParty: {
-      selector: `//DIV[contains(@class,'profile__connected-party')]//SPAN[@class='resource__intro__title__content'][contains(text(), '${testConstants.contactFirstNameOnModal}')]`,
+      selector: `//DIV[contains(@class,'profile__connected-party')]//SPAN[@class='resource__intro__title__content'][contains(text(), '${contactFeeder.contactFirstNameOnModal}')]`,
       locateStrategy: 'xpath',
     },
 
     connectedPartyOnSummary: {
-      selector: `//DIV[@class='summary-panel__wrapper']//SPAN[contains(@class,'resource__intro__title__content')][contains(text(), '${testConstants.contactFirstNameOnModal}')]`,
+      selector: `//DIV[@class='summary-panel__wrapper']//SPAN[contains(@class,'resource__intro__title__content')][contains(text(), '${contactFeeder.contactFirstNameOnModal}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -449,7 +450,7 @@ module.exports = {
     },
 
     updatedRelationshipOnSummary: {
-      selector: `//DIV[@class='summary-panel__wrapper']//SPAN[contains(@class,'resource__intro__title__sub')][contains(text(), '${testConstants.connectedNewRelationship}')]`,
+      selector: `//DIV[@class='summary-panel__wrapper']//SPAN[contains(@class,'resource__intro__title__sub')][contains(text(), '${contactFeeder.connectedNewRelationship}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -562,12 +563,12 @@ module.exports = {
     },
 
     createdContact: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.contactFirstName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactFirstName}')]`,
       locateStrategy: 'xpath',
     },
 
     editedContact: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.contactNewFirstName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactNewFirstName}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -577,7 +578,7 @@ module.exports = {
     },
 
     filteredPatientContact: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content has-subtitle')][contains(text(),'${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}')]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content has-subtitle')][contains(text(),'${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -587,7 +588,7 @@ module.exports = {
     },
 
     filteredOtherContact: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content has-subtitle')][contains(text(),'${testConstants.contactNewFirstName} ${testConstants.contactNewLastName}')]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content has-subtitle')][contains(text(),'${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -607,7 +608,7 @@ module.exports = {
     },
 
     searchedContactFirstResult: {
-      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[text()='${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}']`,
+      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[text()='${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}']`,
       locateStrategy: 'xpath',
     },
 
@@ -622,17 +623,17 @@ module.exports = {
     },
 
     contactTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.contactNewFirstName} ${testConstants.contactNewLastName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}')]`,
       locateStrategy: 'xpath',
     },
 
     otherContactTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.contactOtherFirstName} ${testConstants.contactOtherLastName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactOtherFirstName} ${contactFeeder.contactOtherLastName}')]`,
       locateStrategy: 'xpath',
     },
 
     connectedPartyTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}')]`,
       locateStrategy: 'xpath',
     },
   },

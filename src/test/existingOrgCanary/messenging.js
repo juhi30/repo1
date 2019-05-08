@@ -1,8 +1,7 @@
 import { client } from 'nightwatch-api';
 import * as messengerbot from '../../services/MessengerBot.service';
 
-
-const testConstants = require('../../toolboxes/feeder.toolbox');
+const existingOrgFeeder = require('../../feeder/existingOrg.feeder');
 
 describe('messsenging tests', () => {
   test('Existing Org Canary Page Login With Member', async () => {
@@ -10,7 +9,7 @@ describe('messsenging tests', () => {
 
     await login.navigate()
       .validateForm()
-      .enterMemberCreds(testConstants.memberUsernameExistingOrg, testConstants.memberPasswordExistingOrg)
+      .enterMemberCreds(existingOrgFeeder.memberUsernameExistingOrg, existingOrgFeeder.memberPasswordExistingOrg)
       .submit();
   });
 
@@ -18,7 +17,7 @@ describe('messsenging tests', () => {
     const contacts = client.page.ContactsPage();
 
     await contacts.searchForContact(process.env.EXISTING_ORG_BOT_CONTACT_NAME, '@addContactDropdownFirstResultBot')
-      .sendOutboundMessageAndGetReply(`handler add reply ${testConstants.testBotReplyMessage}`, 'Hi Bot Contact');
+      .sendOutboundMessageAndGetReply(`handler add reply ${existingOrgFeeder.testBotReplyMessage}`, 'Hi Bot Contact');
   });
 
   test('configure forward handler for bot contact to get inbound message', async (done) => {
@@ -38,11 +37,11 @@ describe('messsenging tests', () => {
 
     const config = {
       to: process.env.EXISTING_ORG_BANDWIDTH_NUMBER_PATIENT,
-      text: `${testConstants.testBotInboundMessage} ${randomNumber}`,
+      text: `${existingOrgFeeder.testBotInboundMessage} ${randomNumber}`,
       media: null,
     };
     messengerbot.sendMessage(config).then(async () => {
-      await contacts.getInboundMessage(testConstants.testBotInboundMessage);
+      await contacts.getInboundMessage(existingOrgFeeder.testBotInboundMessage);
       done();
     });
   });
@@ -55,7 +54,7 @@ describe('messsenging tests', () => {
 
   test('Outbound Message from Facebook Channel', async (done) => {
     const contacts = client.page.ContactsPage();
-    await contacts.sendOutboundMessageToFbContact(testConstants.facebookOutboundMessage);
+    await contacts.sendOutboundMessageToFbContact(existingOrgFeeder.facebookOutboundMessage);
     done();
   });
 });

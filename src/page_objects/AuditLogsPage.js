@@ -1,6 +1,6 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 
-const testConstants = require('./../toolboxes/feeder.toolbox');
+const contactFeeder = require('./../feeder/contact.feeder');
 
 
 let text = '';
@@ -261,32 +261,32 @@ module.exports = {
     },
 
     searchedContactConnectedParty: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}']`,
       locateStrategy: 'xpath',
     },
 
     searchContactPatient: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactFirstName} ${testConstants.contactLastName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactFirstName} ${contactFeeder.contactLastName}']`,
       locateStrategy: 'xpath',
     },
 
     searchContactOther: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactOtherFirstName} ${testConstants.contactOtherLastName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactOtherFirstName} ${contactFeeder.contactOtherLastName}']`,
       locateStrategy: 'xpath',
     },
 
     searchContactNew: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactNewFirstName} ${testConstants.contactNewLastName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}']`,
       locateStrategy: 'xpath',
     },
 
     searchOtherContact: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactOtherFirstName} ${testConstants.contactOtherLastName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactOtherFirstName} ${contactFeeder.contactOtherLastName}']`,
       locateStrategy: 'xpath',
     },
 
     searchConnectedParty: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}']`,
       locateStrategy: 'xpath',
     },
 

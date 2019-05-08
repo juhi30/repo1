@@ -1,6 +1,7 @@
 import { client } from 'nightwatch-api';
 
-const testConstants = require('../../toolboxes/feeder.toolbox');
+const memberFeeder = require('../../feeder/member.feeder');
+const tagsFeeder = require('../../feeder/tags.feeder');
 
 describe('Automated Tests: Member Profile', () => {
   test('Required fields and validations on the profile page', async () => {
@@ -23,17 +24,17 @@ describe('Automated Tests: Member Profile', () => {
     const auditLogs = client.page.AuditLogsPage();
 
     await profilePage.navigate()
-      .changeUserName(testConstants.newMemberUsername)
+      .changeUserName(memberFeeder.newMemberUsername)
       .clickSaveProfileButton()
       .successMessage('@saveProfileSuccessMessage')
 
       .pause(1000)
 
-      .changePassword(testConstants.memberPassword, testConstants.newMemberPassword)
+      .changePassword(memberFeeder.memberPassword, memberFeeder.newMemberPassword)
       .successMessage('@passwordUpdationSuccessMessage');
 
     await auditLogs.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Member', 'Edit', testConstants.memberName, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '');
   });
 
   test('Member permissions on the profile page', async () => {
@@ -49,7 +50,7 @@ describe('Automated Tests: Member Profile', () => {
       .successMessage('@saveProfileSuccessMessage');
 
     await auditLogs.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Member', 'Edit', testConstants.memberName, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '');
   });
 
   test('Tags addition or removal on the profile page', async () => {
@@ -58,10 +59,10 @@ describe('Automated Tests: Member Profile', () => {
     const channel = client.page.ChannelsCreateEditPage();
 
     await profilePage.navigate();
-    await channel.addtag(testConstants.tagForMemberPage, '@tagCategory');
+    await channel.addtag(tagsFeeder.tagForMemberPage, '@tagCategory');
 
     await auditLogs.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Tag', 'Add', testConstants.memberName, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Tag', 'Add', memberFeeder.memberName, '');
   });
 
   test('Display of channels on the profile page', async () => {
@@ -83,7 +84,7 @@ describe('Automated Tests: Member Profile', () => {
       .successMessage('@saveProfileSuccessMessage');
 
     await auditLogs.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Member', 'Edit', testConstants.memberName, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '');
   });
 
   test('Member availability hours on the profile page', async () => {
@@ -96,7 +97,7 @@ describe('Automated Tests: Member Profile', () => {
       .successMessage('@saveProfileSuccessMessage');
 
     await auditLogs.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Member', 'Edit', testConstants.memberName, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '');
   });
 
   test('Add photo for profile page', async () => {
@@ -107,6 +108,6 @@ describe('Automated Tests: Member Profile', () => {
       .addUpdateLogo('@addPhotoButton');
 
     await auditLogs.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Member', 'Edit', testConstants.memberName, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '');
   });
 });

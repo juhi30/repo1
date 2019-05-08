@@ -1,5 +1,7 @@
 // This profile page also serves double duty as containing elements for member create and edit pages
-const testConstants = require('../toolboxes/feeder.toolbox');
+const channelFeeder = require('../feeder/channel.feeder');
+const tagsFeeder = require('../feeder/tags.feeder');
+const groupFeeder = require('../feeder/group.feeder');
 
 const helper = require('../toolboxes/helpers.toolbox');
 
@@ -51,7 +53,7 @@ const profileCommands = {
     return this.waitForElementVisible('@availabilityHoursButton', 'availability hours button is visible')
       .click('@availabilityHoursButton')
       .waitForElementVisible('@timezoneDropdown', 'timezone drop down is visible')
-      .setValue('@timezoneDropdown', testConstants.timeZone);
+      .setValue('@timezoneDropdown', channelFeeder.timeZone);
   },
 
   async addUpdateLogo(element) {
@@ -265,7 +267,7 @@ module.exports = {
     },
 
     customTag: {
-      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'${testConstants.tagCategory}')]`,
+      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'${tagsFeeder.tagCategory}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -282,7 +284,7 @@ module.exports = {
     },
 
     selectGroup: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.updatedPatientTypeGroup}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${groupFeeder.updatedPatientTypeGroup}']`,
       locateStrategy: 'xpath',
     },
 
@@ -297,12 +299,12 @@ module.exports = {
     },
 
     newPhoneTypeChannel: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][text()='${testConstants.newChannelName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][text()='${channelFeeder.newChannelName}']`,
       locateStrategy: 'xpath',
     },
 
     rhinoSecureTypeChannel: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.rhinoChannelNewName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${channelFeeder.rhinoChannelNewName}']`,
       locateStrategy: 'xpath',
     },
   },

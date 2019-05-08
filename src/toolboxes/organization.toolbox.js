@@ -6,6 +6,7 @@ import {
   login,
 } from '../services/Rhinoapi.service';
 
+const moment = require('moment-timezone');
 const setup = client.page.AccountSetupPage();
 
 /**
@@ -17,6 +18,20 @@ export function organizationSetUp(organizationDetails, envVariable) {
   setup.navigate()
     .clickBillingToggle()
     .fillInOrgBasicInformation(organizationDetails)
+    .clickCreateOrganization()
+    .waitForElementNotVisible('@createOrgButton', 'Create Org button not visible')
+    .pause(1000)
+    .getOrgId(envVariable);
+}
+
+export async function billingOrganizationSetUp(organizationDetails, envVariable) {
+  let todayDate = moment().format('MM/DD/YYYY');
+
+  setup.navigate()
+    .fillInOrgBasicInformation(organizationDetails)
+    .fillBillingContactDetails(organizationDetails)
+    .clickBillingPlanSelector()
+    .fillBillingPlanDetails(organizationDetails.installationFee, todayDate)
     .clickCreateOrganization()
     .waitForElementNotVisible('@createOrgButton', 'Create Org button not visible')
     .pause(1000)

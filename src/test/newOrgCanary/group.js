@@ -85,7 +85,7 @@ describe(' Automated Test Cases - Groups', () => {
       .convertGroupType('@patientAndTeamOption', groupFeeder.updatedPatientTypeGroup, groupFeeder.newGroupPurpose);
 
     channel.enableDisableToggles('@availabilityHoursToggle')
-      .pause(2000);
+      .pause(1000);
     group.selectTimezone()
 
       .createUpdateButton('@updateGroupButton', '@groupUpdateSuccessMessage')
@@ -102,7 +102,7 @@ describe(' Automated Test Cases - Groups', () => {
       .convertGroupType('@patientAndTeamOption', groupFeeder.updatedTeamTypeGroup, groupFeeder.newGroupPurpose);
 
     channel.enableDisableToggles('@availabilityHoursToggle')
-      .pause(2000);
+      .pause(1000);
     group.selectTimezone()
 
       .createUpdateButton('@updateGroupButton', '@groupUpdateSuccessMessage')
@@ -113,25 +113,25 @@ describe(' Automated Test Cases - Groups', () => {
       .validateAuditEntry(memberFeeder.memberName, 'Group', 'Edit', groupFeeder.updatedTeamTypeGroup);
   });
 
-  // test('Add Channel Routes to Patient And Team Type Group', async () => {
-  //     await group.navigate()
-  //         .pause(500)
-  //         .openInEditMode('@patientAndTeamGroupListView')
-  //         .addChannel()
-  //         .pause(500)
-  //         .verify.urlContains('channels', 'Channel Page is opened')
+  test('Add Channel Routes to Patient And Team Type Group', async () => {
+    await group.navigate()
+      .pause(500)
+      .openInEditMode('@patientAndTeamGroupListView')
+      .addChannel()
+      .pause(500)
+      .verify.urlContains('channels', 'Channel Page is opened');
 
-  //     channelList.waitForElementVisible('@addChannelButton', 'Created Channel button is visible')
-  //         .click('@addChannelButton')
+    channelList.waitForElementVisible('@addChannelButton', 'Created Channel button is visible')
+      .click('@addChannelButton');
 
-  //     channel.selectChannelCategory('@rhinoSecureType')
-  //         .channelDetails(groupFeeder.patientAndTeamGroupChannel, groupFeeder.newGroupPurpose, channelFeeder.timeZone)
+    channel.selectChannelCategory('@rhinoSecureType')
+      .channelDetails(groupFeeder.patientAndTeamGroupChannel, groupFeeder.newGroupPurpose, channelFeeder.timeZone);
 
-  //     route.selectGroupRoute()
-  //         .routeSearch('@groupInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroupResult')
+    route.selectGroupRoute()
+      .routeSearch('@groupInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroupResult');
 
-  //     channel.createUpdateChannel('@createChannelButton', 'Create Channel button is visible')
-  //         .pause(1000)
-  //         .checkSuccessMessage('@channelCreateSuccessMessage')
-  // });
+    channel.createUpdateChannel('@createChannelButton', 'Create Channel button is visible')
+      .pause(1000)
+      .checkSuccessMessage('@channelCreateSuccessMessage');
+  });
 });

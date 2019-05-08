@@ -87,7 +87,7 @@ module.exports = {
 
     // Group Type Options
     teamOption: {
-      selector: '//SPAN[contains(.,\'Team\')]',
+      selector: '//*[@class=\'form__block-group__label\'][text()=\'Team\']',
       locateStrategy: 'xpath',
     },
 
@@ -97,7 +97,7 @@ module.exports = {
     },
 
     patientAndTeamOption: {
-      selector: '//SPAN[contains(.,\'Patient and Team\')]',
+      selector: '//*[@class=\'form__block-group__label\'][text()=\'Patient and Team\']',
       locateStrategy: 'xpath',
     },
 

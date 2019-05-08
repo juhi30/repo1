@@ -1,8 +1,10 @@
+
 import logger from 'rhinotilities/lib/loggers/logger';
 import { organizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
 import { ccrLogin } from '../../toolboxes/login.toolbox';
 
 const { EventEmitter } = require('events');
+
 const testConstants = require('../../toolboxes/feeder.toolbox');
 
 // CREATE MY NEW ORG HERE
@@ -18,7 +20,6 @@ beforeAll(async () => {
   try {
     // Increase max listeners for long running test
     EventEmitter.defaultMaxListeners = 100;
-
     await ccrLogin(testConstants.ccrLogin, testConstants.ccrPassword);
 
     await organizationSetUp(organizationDetails, 'NEW_CANARY_ORG_ID');

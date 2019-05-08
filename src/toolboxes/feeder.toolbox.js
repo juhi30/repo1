@@ -145,4 +145,41 @@ module.exports = {
   testBotReplyMessage: 'Test Reply from Bot Contact',
   testBotInboundMessage: 'Test Inbound Message From Bot',
   facebookOutboundMessage: 'Outbound Message to FB Contact',
+
+  // billing usage page details to update contact details
+  firstName: 'first name',
+  lastName: 'last name',
+  phoneNumber: '(555) 666-7778',
+  emailAddress: 'org@gmail.com',
+  billingLine1: 'Tower B',
+  billingLine2: 'Logix Park',
+  billingCity: 'Delhi',
+  stateName: 'lowa',
+  stateId: 29,
+  zipForContact: '55566',
+  contactFirstName: 'contact first name',
+  contactLastName: 'contact last name ',
+  contactPhoneNumber: '7682635291',
+  contactEmailAddress: 'contacttest@gmail.com',
+  contactBillingLine1: 'Tower C, Logix Park',
+  contactBillingLine2: 'Logix Techno Park',
+  contactBillingCity: 'Chicago',
+  contactState: 'Alaska',
+  contactZip: '12345',
+
+  // billing payment details while addition
+  paymentFirstname: 'first name',
+  paymentLastname: 'last name',
+  bankName: 'test bank',
+  accountNumber: '1111222233334444',
+  routingNumber: '104000029',
+  accountType: 'saving',
+
+  // billing payment details while updation
+  newPaymentFirstname: 'new first name',
+  newPaymentLastname: 'new last name',
+  newBankName: 'new test bank',
+  newAccountNumber: '01111222233334444',
+  newRoutingNumber: '325272021',
+  newAccountType: 'Checking',
 };

@@ -11,6 +11,7 @@
     "test-canary": "mkdir -p results && jest src/test/newOrgCanary --detectOpenHandles",
     "test-existing-canary": "mkdir -p results && jest src/test/existingOrgCanary",
     "test-integrations": "mkdir -p results && jest src/test/integrations",
+    "test-rhinopay": "mkdir -p results && jest src/test/rhinopay",
     "test-rhinoExternalApi": "mkdir -p results && jest src/test/rhinoExternalApi",
     "clean": "rm -rf lib/* results",
     "build": "yarn clean && node_modules/.bin/babel src --out-dir lib",

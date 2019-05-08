@@ -3,7 +3,7 @@ import {
   deleteOrganization,
   archiveOrganization,
   changeOrganization,
-  createMember,
+  postUser,
   login,
 } from '../../services/Rhinoapi.service';
 
@@ -95,8 +95,7 @@ beforeAll(async () => {
       password: '4419kJig',
     };
 
-    await createMember(memberData, cookie);
-
+    await postUser(memberData, cookie);
     // Set rhino-external-api auth
     process.env.RHINOPAY_LOGIN = memberData.username;
     process.env.RHINOPAY_PWD = memberData.password;

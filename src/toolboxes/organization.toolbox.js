@@ -1,12 +1,12 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 import { client } from 'nightwatch-api';
+import moment from 'moment-timezone';
 import {
   deleteOrganization,
   archiveOrganization,
   login,
 } from '../services/Rhinoapi.service';
 
-const moment = require('moment-timezone');
 const setup = client.page.AccountSetupPage();
 
 /**
@@ -25,7 +25,7 @@ export function organizationSetUp(organizationDetails, envVariable) {
 }
 
 export async function billingOrganizationSetUp(organizationDetails, envVariable) {
-  let todayDate = moment().format('MM/DD/YYYY');
+  const todayDate = moment().format('MM/DD/YYYY');
 
   setup.navigate()
     .fillInOrgBasicInformation(organizationDetails)

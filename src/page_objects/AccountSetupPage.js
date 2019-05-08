@@ -44,36 +44,37 @@ const accountSetupCommands = {
   },
 
   fillBillingContactDetails({
-    billingContactFirstName, billingContactLastName, billingContactAddressOne, billingContactEmail, billingContactCity, billingContactStateDropdown, billingContactZipInput
+    billingContactFirstName, billingContactLastName, billingContactAddressOne, billingContactEmail,
+    billingContactCity, billingContactStateDropdown, billingContactZipInput,
   }) {
     return this.waitForElementPresent('@billingContactFName', 'Billing Contact First Name is present')
-    .setValue('@billingContactFName', billingContactFirstName)
-    .waitForElementVisible('@billingContactLName', 'Billing Contact Last Name is present')
-    .setValue('@billingContactLName', billingContactLastName)
-    .waitForElementVisible('@billingContactAddressOne', 'Billing Contact Address Line 1 is visible')
-    .setValue('@billingContactAddressOne', billingContactAddressOne)
-    .waitForElementVisible('@billingContactEmail', 'Billing Contact Email is visible')
-    .setValue('@billingContactEmail', billingContactEmail)
-    .waitForElementVisible('@billingContactCity', 'Billing Contact City field is visible')
-    .setValue('@billingContactCity', billingContactCity)
-    .waitForElementVisible('@billingContactStateDropdown', 'Billing Contact State dropdown is visible')
-    .setValue('@billingContactStateDropdown', billingContactStateDropdown)
-    .waitForElementVisible('@billingContactZipInput', 'Billing Contact Zip field is visible')
-    .setValue('@billingContactZipInput', billingContactZipInput);
+      .setValue('@billingContactFName', billingContactFirstName)
+      .waitForElementVisible('@billingContactLName', 'Billing Contact Last Name is present')
+      .setValue('@billingContactLName', billingContactLastName)
+      .waitForElementVisible('@billingContactAddressOne', 'Billing Contact Address Line 1 is visible')
+      .setValue('@billingContactAddressOne', billingContactAddressOne)
+      .waitForElementVisible('@billingContactEmail', 'Billing Contact Email is visible')
+      .setValue('@billingContactEmail', billingContactEmail)
+      .waitForElementVisible('@billingContactCity', 'Billing Contact City field is visible')
+      .setValue('@billingContactCity', billingContactCity)
+      .waitForElementVisible('@billingContactStateDropdown', 'Billing Contact State dropdown is visible')
+      .setValue('@billingContactStateDropdown', billingContactStateDropdown)
+      .waitForElementVisible('@billingContactZipInput', 'Billing Contact Zip field is visible')
+      .setValue('@billingContactZipInput', billingContactZipInput);
   },
 
   fillBillingPlanDetails(installationFee, subscriptionActivationDate) {
     return this.waitForElementVisible('@orgPlanType', 'Billing Contact First Name is present')
-    .click('@orgPlanType')
-    .waitForElementVisible('@orgInstallationFee', 'Billing Contact First Name is present')
-    .setValue('@orgInstallationFee', installationFee)
-    .waitForElementVisible('@orgSubscriptionActivationDate', 'Billing Contact First Name is present')
-    .setValue('@orgSubscriptionActivationDate', subscriptionActivationDate);
+      .click('@orgPlanType')
+      .waitForElementVisible('@orgInstallationFee', 'Billing Contact First Name is present')
+      .setValue('@orgInstallationFee', installationFee)
+      .waitForElementVisible('@orgSubscriptionActivationDate', 'Billing Contact First Name is present')
+      .setValue('@orgSubscriptionActivationDate', subscriptionActivationDate);
   },
 
   clickBillingPlanSelector() {
-   return this.waitForElementVisible('@orgPlanSelector', 'Going to select billing plan')
-    .click('@orgPlanSelector');
+    return this.waitForElementVisible('@orgPlanSelector', 'Going to select billing plan')
+      .click('@orgPlanSelector');
   },
 
   clickCreateOrganization() {
@@ -114,58 +115,58 @@ module.exports = {
     },
 
     billingContactFName: {
-      selector: `//input[contains(@id,'billingContactFirstName')]`,
-      locateStrategy: 'xpath'
+      selector: '//input[contains(@id, \'billingContactFirstName\')]',
+      locateStrategy: 'xpath',
     },
 
     billingContactLName: {
-      selector: `//input[contains(@id,'billingContactLastName')]`,
-      locateStrategy: 'xpath'
+      selector: '//input[contains(@id, \'billingContactLastName\')]',
+      locateStrategy: 'xpath',
     },
 
     billingContactAddressOne: {
-      selector: `//input[contains(@id,'billingStreet1')]`,
-      locateStrategy: 'xpath'
+      selector: '//input[contains(@id, \'billingStreet1\')]',
+      locateStrategy: 'xpath',
     },
 
     billingContactEmail: {
-      selector: `//input[contains(@id,'billingContactEmail')]`,
-      locateStrategy: 'xpath'
+      selector: '//input[contains(@id, \'billingContactEmail\')]',
+      locateStrategy: 'xpath',
     },
 
     billingContactCity: {
-      selector: `//input[contains(@id,'billingCity')]`,
-      locateStrategy: 'xpath'
+      selector: '//input[contains(@id, \'billingCity\')]',
+      locateStrategy: 'xpath',
     },
 
     billingContactStateDropdown: {
-      selector: `//select[contains(@id, 'billingState')]`,
-      locateStrategy: 'xpath'
+      selector: '//select[contains(@id, \'billingState\')]',
+      locateStrategy: 'xpath',
     },
 
     billingContactZipInput: {
-      selector: `//input[contains(@id, 'billingZip')]`,
-      locateStrategy: 'xpath'
+      selector: '//input[contains(@id, \'billingZip\')]',
+      locateStrategy: 'xpath',
     },
 
     orgPlanSelector: {
-      selector:`(//button[@class='button dropdown__toggle button--input'])[1]`,
-      locateStrategy: 'xpath'
+      selector: '(//button[@class= \'button dropdown__toggle button--input\'])[1]',
+      locateStrategy: 'xpath',
     },
 
     orgPlanType: {
-      selector: `//SPAN[text()='Standard Plan']/parent::div/parent::div/parent::div/parent::a`,
-      locateStrategy: 'xpath'
+      selector: '//SPAN[text()= \'Standard Plan\']/parent::div/parent::div/parent::div/parent::a',
+      locateStrategy: 'xpath',
     },
 
     orgInstallationFee: {
-      selector: `//input[contains(@id, 'installAmount')]`,
-      locateStrategy: 'xpath'
+      selector: '//input[contains(@id, \'installAmount\')]',
+      locateStrategy: 'xpath',
     },
 
     orgSubscriptionActivationDate: {
-      selector: `//input[contains(@id, 'startBillingDate')]`,
-      locateStrategy: 'xpath'
+      selector: '//input[contains(@id, \'startBillingDate\')]',
+      locateStrategy: 'xpath',
     },
 
     orgNameInput: {

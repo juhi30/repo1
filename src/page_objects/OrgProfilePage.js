@@ -86,8 +86,8 @@ const orgProfileCommands = {
   },
 
   checkBillingId() {
-   return  this.waitForElementVisible('@billingCustomerId', 'Billing Customer Id is present')
-    .getValue('@billingCustomerId', (tpObj) => {
+    return this.waitForElementVisible('@billingCustomerId', 'Billing Customer Id is present')
+      .getValue('@billingCustomerId', (tpObj) => {
         logger.info(`Customer Billing ID ->, ${tpObj.value}`);
       });
   },
@@ -137,7 +137,7 @@ module.exports = {
     },
 
     billingCustomerId: {
-      selector: `//input[contains(@id, 'billManagerCustId')]`,
+      selector: '//input[contains(@id, \'billManagerCustId\')]',
       locateStrategy: 'xpath',
     },
 

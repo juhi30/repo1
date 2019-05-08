@@ -1,5 +1,5 @@
 import logger from 'rhinotilities/lib/loggers/logger';
-import { organizationSetUp, billingOrganizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
+import { billingOrganizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
 import { ccrLogin } from '../../toolboxes/login.toolbox';
 
 const { EventEmitter } = require('events');
@@ -24,7 +24,7 @@ beforeAll(async () => {
     planType: accountSetupFeeder.planType,
     installationFee: accountSetupFeeder.installationFee,
   };
-  
+
   try {
     // Increase max listeners for long running test
     EventEmitter.defaultMaxListeners = 100;

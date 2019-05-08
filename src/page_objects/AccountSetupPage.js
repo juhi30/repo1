@@ -12,16 +12,6 @@ const accountSetupCommands = {
       });
   },
 
-  getBillingId() {
-    return this.waitForElementVisible('@orgId', 'Org Id is visible')
-      .getText('@orgId', (tpObj) => {
-        tpObj = tpObj.value.replace('ORGANIZATION (#', '');
-        tpObj = tpObj.replace(')', '');
-        process.env.ORGANIZATION_ID = tpObj;
-        logger.info(`====org id === ${process.env.ORGANIZATION_ID}`);
-      });
-  },
-
   clickBillingToggle() {
     return this.waitForElementPresent('@billingToggle', 'Billing toggle is present')
       .click('@billingToggle')
@@ -45,7 +35,7 @@ const accountSetupCommands = {
 
   fillBillingContactDetails({
     billingContactFirstName, billingContactLastName, billingContactAddressOne, billingContactEmail,
-    billingContactCity, billingContactStateDropdown, billingContactZipInput,
+    billingContactCity, billingContactState, billingContactZip,
   }) {
     return this.waitForElementPresent('@billingContactFName', 'Billing Contact First Name is present')
       .setValue('@billingContactFName', billingContactFirstName)
@@ -58,17 +48,17 @@ const accountSetupCommands = {
       .waitForElementVisible('@billingContactCity', 'Billing Contact City field is visible')
       .setValue('@billingContactCity', billingContactCity)
       .waitForElementVisible('@billingContactStateDropdown', 'Billing Contact State dropdown is visible')
-      .setValue('@billingContactStateDropdown', billingContactStateDropdown)
+      .setValue('@billingContactStateDropdown', billingContactState)
       .waitForElementVisible('@billingContactZipInput', 'Billing Contact Zip field is visible')
-      .setValue('@billingContactZipInput', billingContactZipInput);
+      .setValue('@billingContactZipInput', billingContactZip);
   },
 
   fillBillingPlanDetails(installationFee, subscriptionActivationDate) {
-    return this.waitForElementVisible('@orgPlanType', 'Billing Contact First Name is present')
+    return this.waitForElementVisible('@orgPlanType', 'Billing Plan Type is present')
       .click('@orgPlanType')
-      .waitForElementVisible('@orgInstallationFee', 'Billing Contact First Name is present')
+      .waitForElementVisible('@orgInstallationFee', 'Billing Installation Fee is present')
       .setValue('@orgInstallationFee', installationFee)
-      .waitForElementVisible('@orgSubscriptionActivationDate', 'Billing Contact First Name is present')
+      .waitForElementVisible('@orgSubscriptionActivationDate', 'Billing Subscribed Activation Date is present')
       .setValue('@orgSubscriptionActivationDate', subscriptionActivationDate);
   },
 
@@ -150,7 +140,7 @@ module.exports = {
     },
 
     orgPlanSelector: {
-      selector: '(//button[@class= \'button dropdown__toggle button--input\'])[1]',
+      selector: '//label[text()=\'Plans\']/following-sibling::div//button',
       locateStrategy: 'xpath',
     },
 

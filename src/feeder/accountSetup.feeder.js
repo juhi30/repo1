@@ -13,8 +13,8 @@ module.exports = {
   billingContactAddressOne: 'Billing Address one',
   billingContactEmail: 'billing@gmail.com',
   billingContactCity: 'billing city',
-  billingContactStateDropdown: 'Alaska',
-  billingContactZipInput: '32424',
+  billingContactState: 'Alaska',
+  billingContactZip: '32424',
   planType: 'Standard Plan',
   installationFee: '500',
 };

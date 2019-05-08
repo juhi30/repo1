@@ -24,7 +24,7 @@ export function organizationSetUp(organizationDetails, envVariable) {
     .getOrgId(envVariable);
 }
 
-export async function billingOrganizationSetUp(organizationDetails, envVariable) {
+export function billingOrganizationSetUp(organizationDetails, envVariable) {
   const todayDate = moment().format('MM/DD/YYYY');
 
   setup.navigate()

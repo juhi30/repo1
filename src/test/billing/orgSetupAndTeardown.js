@@ -19,8 +19,8 @@ beforeAll(async () => {
     billingContactAddressOne: accountSetupFeeder.billingContactAddressOne,
     billingContactEmail: accountSetupFeeder.billingContactEmail,
     billingContactCity: accountSetupFeeder.billingContactCity,
-    billingContactStateDropdown: accountSetupFeeder.billingContactStateDropdown,
-    billingContactZipInput: accountSetupFeeder.billingContactZipInput,
+    billingContactState: accountSetupFeeder.billingContactState,
+    billingContactZip: accountSetupFeeder.billingContactZip,
     planType: accountSetupFeeder.planType,
     installationFee: accountSetupFeeder.installationFee,
   };
@@ -31,7 +31,7 @@ beforeAll(async () => {
 
     await ccrLogin(loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword);
 
-    await billingOrganizationSetUp(organizationDetails, 'NEW_CANARY_BILLING_ORG_ID');
+    await billingOrganizationSetUp(organizationDetails, 'BILLING_ORG_ID');
   } catch (err) {
     logger.error(err, '==error on orgSetupAndTearDown=====');
   }
@@ -40,7 +40,7 @@ beforeAll(async () => {
 // DELETE MY NEW ORG HERE
 afterAll(async (done) => {
   try {
-    await orgTearDown(process.env.NEW_CANARY_BILLING_ORG_ID, loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword);
+    await orgTearDown(process.env.BILLING_ORG_ID, loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword);
     // Reset max listeners to the node.js default once the test is complete.
     EventEmitter.defaultMaxListeners = 10;
     done();

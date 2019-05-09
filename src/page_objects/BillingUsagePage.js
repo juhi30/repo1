@@ -107,10 +107,11 @@ const billingCommands = {
       .verify.visible('@nextBillDate', 'Next Bill Date is visible')
       .verify.visible('@viewPDFEstimatedBill', 'Link Text to view pdf is visible')
       .click('@viewPDFEstimatedBill')
-      .pause(2000)
-      .waitForElementPresent('@pdfInvoice', 25000, false, null, 'Projected invoice PDF is opened')
+      .pause(1000)
+      .waitForElementPresent('@pdfInvoice', 'Projected invoice PDF is opened')
+      .pause(1000)
       .click('@closePDFButton')
-      .waitForElementNotPresent('@pdfInvoice', 5000, false, null, 'Projected invoice PDF is closed')
+      .waitForElementNotPresent('@pdfInvoice', 'Projected invoice PDF is closed')
       .pause(1000);
   },
 
@@ -407,6 +408,11 @@ module.exports = {
     },
 
     // ------ Estimated Bill Section -----//
+    estimatedBillSection: {
+      selector: '//H4[contains(text(),\'Estimated Bill\')]',
+      locateStrategy: 'xpath',
+    },
+
     nextBillDate: {
       selector: '//SMALL[contains(text(),\'next bill\')]',
       locateStrategy: 'xpath',
@@ -418,7 +424,7 @@ module.exports = {
     },
 
     closePDFButton: {
-      selector: '//BUTTON[@title = \'Close\']',
+      selector: '//BUTTON[@title = \'Close\']//*[@stroke-linecap=\'round\']',
       locateStrategy: 'xpath',
     },
 

@@ -8,9 +8,13 @@ module.exports = {
   city: 'Test City',
   state: 'Alaska',
   zip: '12345',
+
+  // for billing organization
   billingContactFirstName: 'Billing First Name',
   billingContactLastName: 'Billing Last Name',
+  billingContactPhone: '(555) 666-7778',
   billingContactAddressOne: 'Billing Address one',
+  billingContactAddressTwo: 'Billing Address two',
   billingContactEmail: 'billing@gmail.com',
   billingContactCity: 'billing city',
   billingContactState: 'Alaska',

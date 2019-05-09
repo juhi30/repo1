@@ -201,6 +201,10 @@ const contactsCommands = {
   getRandomNumber() {
     return randomNumber;
   },
+
+  verifyAddContactButtonVisibility() {
+    return this.expect.element('@addContactButton').to.not.be.present;
+  },
 };
 
 module.exports = {

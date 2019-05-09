@@ -6,15 +6,17 @@ let text = '';
 
 const billingCommands = {
 
-  pause(time) {
-    this.api.pause(time);
-    return this;
-  },
-
   elementText(ele, message) {
     return this.getText(ele, (tpObj) => {
       text = tpObj.value;
       logger.info(text, message);
+    });
+  },
+
+  getOfferedMember(memberCount) {
+    this.getText('@offeredMembers', (result) => {
+      global[memberCount] = result;
+      logger.info(`${memberCount} members are offered in this plan`);
     });
   },
 
@@ -24,7 +26,7 @@ const billingCommands = {
       .pause(5000);
   },
 
-  validateSections() {
+  validateSectionsForStandardPlan() {
     return this.waitForElementVisible('@billingPage', 'Billing Page is available')
       .verify.visible('@planDetailsSection', 'Billing Detail Section is visible')
       .verify.visible('@contactDetailSection', 'Contact Detail Section is visible')
@@ -32,60 +34,22 @@ const billingCommands = {
       .verify.visible('@historySection', 'History Section is visible');
   },
 
-  validateSubscription() {
-    this.elementText('@planName', ' is the Subscribed Plan');
-    const self = this;
-    this.getText('@planName', (tpObj) => {
-      text = tpObj.value;
-      if (text && text.match(/Subscription Trial/gi) && text.match(/Subscription Trial/gi).length) {
-        self.expect.element.to.not.be.present('@currentUsageSection');
-        self.expect.element.to.not.be.present('@estimatedBillSection');
-        self.validateCurrentPlanProductsNew();
-      } else {
-        self.expect.element.to.be.present('@currentUsageSection');
-        self.expect.element.to.be.present('@estimatedBillSection');
-        self.validateCurrentPlanProductsLegacy();
-      }
-    });
+  verifyPlanName(PlanName) {
+    return this.waitForElementVisible(PlanName, `${PlanName} is visible`);
   },
 
-  validateCurrentPlanProductsLegacy() {
-    return this.verify.visible('@textMessageProduct', 'Text Message Product is visible')
-      .elementText('@offeredMessages', ' : Messages included in plan')
-      .verify.visible('@membersProduct', 'Members Product is visible')
-      .elementText('@offeredMembers', ' : Members included in plan')
-      .verify.visible('@textChannelProduct', 'Text Channel Product is visible')
-      .elementText('@offeredTextChannels', ' : Text Channels included in plan');
+  validateProductOffered(productName, offeredProduct) {
+    return this.waitForElementVisible(productName, `${productName} is visible`)
+      .waitForElementVisible(offeredProduct, `${offeredProduct} is visible`);
   },
 
-  validateCurrentPlanProductsNew() {
-    return this.verify.visible('@PhoneLinesProduct', 'Phone Lines Product is visible')
-      .elementText('@offeredPhoneLines', ' : Phone Lines included in plan')
-      .verify.visible('@ProvidersProduct', 'Providers Product is visible')
-      .elementText('@offeredProviders', ' : Providers included in plan')
-      .verify.visible('@locationsProduct', 'Locations Product is visible')
-      .elementText('@offeredLocations', ' : Locations included in plan');
+  validateCurrentUsage(productName, qtyUsed) {
+    return this.verify.visible(productName, `${productName} component is visible`)
+      .waitForElementVisible(qtyUsed, `${qtyUsed} is visible`);
   },
 
-  validateIntegrationsProduct() {
-    const self = this;
-    this.getText('@planName', (tpObj) => {
-      text = tpObj.value;
-      if (text && text.match(/Standard/gi) && text.match(/Standard/gi).length) {
-        return self.expect.element('@integrationsProduct').to.be.present;
-      }
-      return self.expect.element('@integrationsProduct').to.not.be.present;
-    });
-  },
-
-  validateCurrentUsage() {
-    return this.waitForElementVisible('@currentUsageSection', 'Current Usage Section is available')
-      .verify.visible('@textMessageUsage', 'Text Message Usage component is visible')
-      .elementText('@usedTextMessage', ' : Text Messages used')
-      .verify.visible('@membersUsage', 'Members Usage component is visible')
-      .elementText('@usedMembers', ' : Active Members used')
-      .verify.visible('@textChannelUsage', 'Text Channel Usage component is visible')
-      .elementText('@usedTextChannels', ' : Text Channels used');
+  validateSection(sectionName) {
+    return this.waitForElementVisible(sectionName, `${sectionName} is visible`);
   },
 
   validateColors(element, property) {
@@ -105,12 +69,14 @@ const billingCommands = {
   },
 
   validateEstimatedBillSection() {
-    return this.verify.visible('@estimatedBillSection', 'Estimated Bill Section header is visible')
+    return this.waitForElementVisible('@estimatedBillSection', 'Estimated Bill Section header is visible')
       .verify.visible('@nextBillDate', 'Next Bill Date is visible')
       .verify.visible('@viewPDFEstimatedBill', 'Link Text to view pdf is visible')
       .click('@viewPDFEstimatedBill')
       .pause(2000)
       .waitForElementPresent('@pdfInvoice', 25000, false, null, 'Projected invoice PDF is opened')
+      // .waitForElementVisible('@closePDFButton', 'Close PDF Button is visible')
+      .pause(2000)
       .click('@closePDFButton')
       .waitForElementNotPresent('@pdfInvoice', 5000, false, null, 'Projected invoice PDF is closed')
       .pause(1000);
@@ -430,7 +396,7 @@ module.exports = {
     },
 
     closePDFButton: {
-      selector: '//BUTTON[@title = \'Close\']',
+      selector: '//BUTTON[@title = \'Close\']//*[@class=\'icon\']',
       locateStrategy: 'xpath',
     },
 

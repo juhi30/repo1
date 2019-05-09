@@ -11,7 +11,9 @@ export async function createMember(memberDetails, roles, globalVariable) {
   member.navigate()
     .clickAddMember();
   memberDetails.map(field => member.enterDetails(field.element, field.value));
-  member.getTempPassword(globalVariable);
+  if (globalVariable !== undefined) {
+    member.getTempPassword(globalVariable);
+  }
   roles.map(role => member.setMemberRoles(role));
   await member.clickCreateMemberButton()
     .pause(2000)

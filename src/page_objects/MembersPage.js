@@ -42,6 +42,10 @@ const membersCommands = {
     });
   },
 
+  verifyAlerts(alert) {
+    return this.waitForElementVisible(alert, `${alert} message is visible`);
+  },
+
   selectMember() {
     return this.waitForElementVisible('@selectMemberFromList', 'member name is visible')
       .click('@selectMemberFromList');
@@ -208,6 +212,21 @@ module.exports = {
 
     UpdateSuccessMessage: {
       selector: '//*[text()=\'Member updated successfully.\']',
+      locateStrategy: 'xpath',
+    },
+
+    createAlertMessage: {
+      selector: `//DIV[@class='alert__body'][contains(text(),${memberFeeder.createAlert})]`,
+      locateStrategy: 'xpath',
+    },
+
+    deleteAlertMessage: {
+      selector: `//OL[@class='u-list--numbers']//LI[contains(text(),${memberFeeder.deleteAlert})]`,
+      locateStrategy: 'xpath',
+    },
+
+    reactivateAlertMessage: {
+      selector: `//OL[@class='u-list--numbers']//LI[contains(text(),${memberFeeder.reactivateAlert})]`,
       locateStrategy: 'xpath',
     },
   },

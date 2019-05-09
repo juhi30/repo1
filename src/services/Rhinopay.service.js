@@ -103,3 +103,16 @@ export function sendCheckPayment(data, cookie) {
       },
     });
 }
+
+export function teardownRhinopay(data, cookie) {
+  return axios.post(`${process.env.PAY_BASE_URL}/test/teardown`,
+    data,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache',
+        RG_DEV_TOKEN: process.env.RG_DEV_TOKEN,
+        Cookie: cookie,
+      },
+    });
+}

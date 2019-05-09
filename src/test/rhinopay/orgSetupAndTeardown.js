@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   createOrganization,
   deleteOrganization,
@@ -6,7 +7,7 @@ import {
   postUser,
   login,
 } from '../../services/Rhinoapi.service';
-
+import * as test from '../../services/Rhinopay.service';
 // const testConstants = require('../../toolboxes/feeder.toolbox');
 
 // CREATE MY NEW ORG HERE
@@ -94,11 +95,11 @@ beforeAll(async () => {
       username: 'testmember',
       password: '4419kJig',
     };
-
     await postUser(memberData, cookie);
     // Set rhino-external-api auth
     process.env.RHINOPAY_LOGIN = memberData.username;
     process.env.RHINOPAY_PWD = memberData.password;
+    process.env.LOGIN_COOKIE = await login(process.env.RHINOPAY_LOGIN, process.env.RHINOPAY_PWD);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log('===error on before all orgSetupAndTeardown=======', err);
@@ -110,9 +111,13 @@ beforeAll(async () => {
 // eslint-disable-next-line no-undef
 afterAll(async () => {
   try {
+    // Delete from Rhinopay via endpoint
+    const data = { orgId: process.env.ORG_ID };
+    await test.teardownRhinopay(data, process.env.LOGIN_COOKIE);
     const cookie = await login();
     await archiveOrganization(process.env.ORG_ID, cookie);
     await deleteOrganization(process.env.ORG_ID, cookie);
+
     // eslint-disable-next-line no-console
     console.log('====== Organization Deleted =======');
   } catch (err) {

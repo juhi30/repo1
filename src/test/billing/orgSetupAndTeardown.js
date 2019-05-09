@@ -40,7 +40,5 @@ afterAll(async (done) => {
   } catch (err) {
     logger.error(err, '===error on after all orgSetupAndTeardown=======');
     done(err);
-    // Reset max listeners to the node.js default once the test is complete.
-    EventEmitter.defaultMaxListeners = 10;
   }
 });

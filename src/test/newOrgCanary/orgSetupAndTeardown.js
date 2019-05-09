@@ -4,23 +4,24 @@ import { organizationSetUp, orgTearDown } from '../../toolboxes/organization.too
 import { ccrLogin } from '../../toolboxes/login.toolbox';
 
 const { EventEmitter } = require('events');
-
-const testConstants = require('../../toolboxes/feeder.toolbox');
+const loginFeeder = require('../../feeder/login.feeder');
+const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
   const organizationDetails = {
-    name: testConstants.orgName,
-    address: testConstants.address,
-    city: testConstants.city,
-    state: testConstants.state,
-    zip: testConstants.zip,
+    name: accountSetupFeeder.orgName,
+    address: accountSetupFeeder.address,
+    city: accountSetupFeeder.city,
+    state: accountSetupFeeder.state,
+    zip: accountSetupFeeder.zip,
   };
 
   try {
     // Increase max listeners for long running test
     EventEmitter.defaultMaxListeners = 100;
-    await ccrLogin(testConstants.ccrLogin, testConstants.ccrPassword);
+
+    await ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
 
     await organizationSetUp(organizationDetails, 'NEW_CANARY_ORG_ID');
   } catch (err) {
@@ -31,7 +32,7 @@ beforeAll(async () => {
 // DELETE MY NEW ORG HERE
 afterAll(async (done) => {
   try {
-    await orgTearDown(process.env.NEW_CANARY_ORG_ID, testConstants.ccrLogin, testConstants.ccrPassword);
+    await orgTearDown(process.env.NEW_CANARY_ORG_ID, loginFeeder.ccrLogin, loginFeeder.ccrPassword);
     // Reset max listeners to the node.js default once the test is complete.
     EventEmitter.defaultMaxListeners = 10;
     done();

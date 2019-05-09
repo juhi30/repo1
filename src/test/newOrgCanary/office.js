@@ -1,14 +1,15 @@
 import { client } from 'nightwatch-api';
 
-const testConstants = require('../../toolboxes/feeder.toolbox');
+const officeFeeder = require('../../feeder/office.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Office Page', () => {
   test('Login as Member', async () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .fillInUsername(testConstants.memberUsername)
-      .fillInPassword(testConstants.memberPassword)
+      .fillInUsername(memberFeeder.memberUsername)
+      .fillInPassword(memberFeeder.memberPassword)
       .submit()
       .validateUrlChange();
   });
@@ -19,17 +20,17 @@ describe('Office Page', () => {
 
     await office.navigate()
       .clickAddOffice()
-      .createOfficeForm('@officeName', testConstants.officeName)
-      .createOfficeForm('@officeAddressLine1', testConstants.officeAddress)
-      .createOfficeForm('@officeCity', testConstants.officeCity)
-      .createOfficeForm('@officeState', testConstants.officeState)
-      .createOfficeForm('@officeZip', testConstants.zip)
+      .createOfficeForm('@officeName', officeFeeder.officeName)
+      .createOfficeForm('@officeAddressLine1', officeFeeder.officeAddress)
+      .createOfficeForm('@officeCity', officeFeeder.officeCity)
+      .createOfficeForm('@officeState', officeFeeder.officeState)
+      .createOfficeForm('@officeZip', officeFeeder.zipCode)
       .click('@createOfficeButton')
       .successMessageVerification('@officeCreationSuccessMessage');
 
     await checkAuditLogs.navigate()
       .pause(5000)
-      .validateAuditEntry(testConstants.memberName, 'Office Location', 'Add', testConstants.officeName);
+      .validateAuditEntry(memberFeeder.memberName, 'Office Location', 'Add', officeFeeder.officeName);
   });
 
   test('To edit the office by Member', async () => {
@@ -38,17 +39,17 @@ describe('Office Page', () => {
 
     await office.navigate()
       .checkVisibilityOfEditPage()
-      .editOfficeForm('@officeName', testConstants.newOfficeName)
-      .editOfficeForm('@officeAddressLine1', testConstants.newOfficeAddress)
-      .editOfficeForm('@officeCity', testConstants.newOfficeCity)
-      .setValue('@officeState', testConstants.newOfficeState)
-      .editOfficeForm('@officeZip', testConstants.newZipCode)
+      .editOfficeForm('@officeName', officeFeeder.newOfficeName)
+      .editOfficeForm('@officeAddressLine1', officeFeeder.newOfficeAddress)
+      .editOfficeForm('@officeCity', officeFeeder.newOfficeCity)
+      .setValue('@officeState', officeFeeder.newOfficeState)
+      .editOfficeForm('@officeZip', officeFeeder.newZipCode)
       .click('@updateOfficeButton')
       .successMessageVerification('@officeUpdationSuccessMessage');
 
     await checkAuditLogs.navigate()
       .pause(2000)
-      .validateAuditEntry(testConstants.memberName, 'Office Location', 'Edit', testConstants.newOfficeName);
+      .validateAuditEntry(memberFeeder.memberName, 'Office Location', 'Edit', officeFeeder.newOfficeName);
   });
 
   test('To delete the office by Member ', async () => {
@@ -62,6 +63,6 @@ describe('Office Page', () => {
 
     await checkAuditLogs.navigate()
       .pause(2000)
-      .validateAuditEntry(testConstants.memberName, 'Office Location', 'Delete', testConstants.newOfficeName);
+      .validateAuditEntry(memberFeeder.memberName, 'Office Location', 'Delete', officeFeeder.newOfficeName);
   });
 });

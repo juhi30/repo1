@@ -1,6 +1,6 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 
-const testConstants = require('../toolboxes/feeder.toolbox');
+const channelFeeder = require('../feeder/channel.feeder');
 
 const channelsCommands = {
 
@@ -53,22 +53,22 @@ module.exports = {
     },
 
     channelName: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.channelName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${channelFeeder.channelName}')]`,
       locateStrategy: 'xpath',
     },
 
     rhinoSecureChannelTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.rhinoChannelName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${channelFeeder.rhinoChannelName}')]`,
       locateStrategy: 'xpath',
     },
 
     updatedChannelTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.newChannelName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${channelFeeder.newChannelName}')]`,
       locateStrategy: 'xpath',
     },
 
     updatedRhinoSecureChannelTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.rhinoChannelNewName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${channelFeeder.rhinoChannelNewName}')]`,
       locateStrategy: 'xpath',
     },
 

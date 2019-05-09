@@ -1,4 +1,4 @@
-const testConstant = require('../toolboxes/feeder.toolbox');
+const channelFeeder = require('../feeder/channel.feeder');
 
 const preferencesCommands = {
 
@@ -21,7 +21,7 @@ module.exports = {
     },
 
     selectChannel: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(), '${testConstant.newChannelName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(), '${channelFeeder.newChannelName}')]`,
       locateStrategy: 'xpath',
     },
 

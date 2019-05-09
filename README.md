@@ -32,3 +32,14 @@ Rhinogram automated testing.
   * `SELENIUM_HOST`: Host where the selenium driver runs
   * `SELENIUM_PORT`: Port that Selenium runs on
   * `HEADLESS` : Default is true
+
+### Some key points related to code standard that needs to be followed in rhinomatic
+  * `env variables`: Create env variable wisely as per the test suits like (NEW_CANARY_CCR_USERNAME for new canary env variable). if common then it should be generic.
+  * Organization set up and tear down are now reusable functions and moved in `Organization.toolbox.js`.
+  * Try to run the test in headless mode as this is the actual way that is running on dev and other environments before raising PR.
+  * Don't log response or any large data only some meaning full information that is really important.
+
+### Modular Approach
+  Make modular approach for different tests like channels, member, tag so that they can also be used by other suite like integrations. Module level functions should be written in related toolbox file. You can refer `channel.toolbox.js` for reference.
+
+

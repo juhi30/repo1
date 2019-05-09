@@ -1,6 +1,7 @@
 import { client } from 'nightwatch-api';
 
 const member = client.page.MembersPage();
+const login = client.page.LoginPage();
 
 /**
  * Used to create member with some roles
@@ -25,8 +26,6 @@ export async function createMember(memberDetails, roles, globalVariable) {
  * @param  {string} tempPassword Member's temporary password
  */
 export async function changePasswordUsingTempPassword(memberUsername, memberPassword, tempPassword) {
-  const login = client.page.LoginPage();
-
   await login.navigate()
     .enterMemberCreds(memberUsername, tempPassword)
     .submit()
@@ -35,5 +34,16 @@ export async function changePasswordUsingTempPassword(memberUsername, memberPass
     .fillInConfirmPasswordInput(memberPassword)
     .clickSaveAndContinueButton()
     .validateUrlChange()
-    .pause(3000);
+    .waitForElementNotPresent('@passwordUpdateSuccessMessage')
+    .pause(1000);
+}
+
+export async function createTempPasswordByCCR(memberNameElement, globalVariable) {
+  await member.navigate()
+    .pause(1000)
+    .selectMember(memberNameElement)
+    .createTempPassword()
+    .getTempPassword(globalVariable)
+    .waitForElementNotPresent('@updateSuccessMessage')
+    .pause(1000);
 }

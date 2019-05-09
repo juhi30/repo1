@@ -1,5 +1,4 @@
 import * as rhinopay from '../../services/Rhinopay.service';
-import * as rhinoapi from '../../services/Rhinoapi.service';
 
 // RhinoPay tests ***********************
 //
@@ -69,6 +68,7 @@ describe('rhinopay tests', () => {
       cardToken: 'Qq6Nm1ii+FUMdCq8harFl/TQE/SEQZ6TusQMyU5a0x8dnrfyH+Mn1g==',
     };
     await rhinopay.sendCreditCardPayment(data, process.env.LOGIN_COOKIE).then((response) => {
+      expect(response.data[0].cvReesult).not('U');
       done();
     });
   });

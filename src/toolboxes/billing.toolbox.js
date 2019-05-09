@@ -2,6 +2,7 @@ import { client } from 'nightwatch-api';
 
 const billingPage = client.page.BillingUsagePage();
 const alert = client.page.MembersPage();
+const orgProfile = client.page.OrgProfilePage();
 
 export async function verifyBillingPageForStandardPlan() {
   await billingPage.navigate()
@@ -25,4 +26,12 @@ export async function verifyBillingPageForStandardPlan() {
 
 export async function verifyAlertMessages() {
   alert.verifyAlerts();
+}
+
+export async function verifyBillingID() {
+  await orgProfile
+    .waitForElementVisible('@settingsDropdown', 'Setting Visibility')
+    .pause(2000)
+    .navigate()
+    .checkBillingId();
 }

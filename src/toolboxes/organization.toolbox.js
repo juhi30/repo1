@@ -1,5 +1,6 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 import { client } from 'nightwatch-api';
+import moment from 'moment-timezone';
 import {
   deleteOrganization,
   archiveOrganization,
@@ -17,6 +18,20 @@ export function organizationSetUp(organizationDetails, envVariable) {
   setup.navigate()
     .clickBillingToggle()
     .fillInOrgBasicInformation(organizationDetails)
+    .clickCreateOrganization()
+    .waitForElementNotVisible('@createOrgButton', 'Create Org button not visible')
+    .pause(1000)
+    .getOrgId(envVariable);
+}
+
+export function billingOrganizationSetUp(organizationDetails, envVariable) {
+  const todayDate = moment().format('MM/DD/YYYY');
+
+  setup.navigate()
+    .fillInOrgBasicInformation(organizationDetails)
+    .fillBillingContactDetails(organizationDetails)
+    .clickBillingPlanSelector()
+    .fillBillingPlanDetails(organizationDetails.installationFee, todayDate)
     .clickCreateOrganization()
     .waitForElementNotVisible('@createOrgButton', 'Create Org button not visible')
     .pause(1000)

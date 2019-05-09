@@ -35,5 +35,6 @@ export async function changePasswordUsingTempPassword(memberUsername, memberPass
     .fillInConfirmPasswordInput(memberPassword)
     .clickSaveAndContinueButton()
     .validateUrlChange()
-    .pause(3000);
-}
+    .waitForElementNotPresent('@passwordUpdateSuccessMessage')
+    .pause(1000);
+  }

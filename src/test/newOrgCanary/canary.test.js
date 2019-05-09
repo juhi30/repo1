@@ -1,6 +1,7 @@
 // CCR Flow
 import './orgSetupAndTeardown';
 import './member';
+import './messaging';
 // import './login';
 // import './channels'
 

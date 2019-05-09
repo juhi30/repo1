@@ -6,12 +6,21 @@ const memberFeeder = require('../../feeder/member.feeder');
 describe('Members Page', () => {
   test('Adding a new Member with Admin Role', async () => {
     const memberDetails = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName },
-      { element: '@memberLastName', value: memberFeeder.memberLastName },
-      { element: '@memberUsername', value: memberFeeder.memberUsername },
-      { element: '@memberEmailAddress', value: memberFeeder.memberEmail }];
+    { element: '@memberLastName', value: memberFeeder.memberLastName },
+    { element: '@memberUsername', value: memberFeeder.memberUsername },
+    { element: '@memberEmailAddress', value: memberFeeder.memberEmail }];
     const roles = ['@adminRole', '@memberRole'];
 
     await createMember(memberDetails, roles, 'NEW_CANARY_MEMBER_TEMP_PASSWORD');
+  });
+
+  test('Adding another Member with Admin Role', async () => {
+    const memberDetails2 = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName2 },
+    { element: '@memberLastName', value: memberFeeder.memberLastName2 },
+    { element: '@memberUsername', value: memberFeeder.memberUsername2 }];
+    const roles = ['@adminRole', '@memberRole'];
+
+    await createMember(memberDetails2, roles, 'NEW_CANARY_MEMBER2_TEMP_PASSWORD');
   });
 
   test('Logout as CCR', async () => {
@@ -27,5 +36,12 @@ describe('Members Page', () => {
 
   test('Logout as member', async () => {
     await logout();
+  });
+
+  test('Login as second Member with Admin Role', async () => {
+    const { memberUsername2, memberPassword } = memberFeeder;
+    const tempPassword2 = global.NEW_CANARY_MEMBER2_TEMP_PASSWORD;
+
+    await changePasswordUsingTempPassword(memberUsername2, memberPassword, tempPassword2);
   });
 });

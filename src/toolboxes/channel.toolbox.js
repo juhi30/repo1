@@ -6,8 +6,8 @@ const channelCreateEdit = client.page.ChannelsCreateEditPage();
 /**
  * Used to validate elements(page title and create channel button) on channel listing page
  */
-export function validateChannelPageElements() {
-  channel.navigate()
+export async function validateChannelPageElements() {
+  await channel.navigate()
     .validateChannelsEls();
 }
 
@@ -15,8 +15,8 @@ export function validateChannelPageElements() {
  * Used to validate channel creation form fields
  * @param  {Object} channelType Channel type like: New Phone, Rhinosecure
  */
-export function validateChannelCreationRequiredFields(channelType) {
-  channelCreateEdit.navigate()
+export async function validateChannelCreationRequiredFields(channelType) {
+  await channelCreateEdit.navigate()
     .selectChannelCategory(channelType)
     .createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
     .waitForElementVisible('@channelNameValidation', 'Validation message for channel Name is visible')
@@ -29,10 +29,10 @@ export function validateChannelCreationRequiredFields(channelType) {
  * @param  {string} channelType Channel type like: New Phone, Rhinosecure
  * @param  {object} channelData Data to create new Channel
  */
-export function createChannel(channelType, channelData) {
+export async function createChannel(channelType, channelData) {
   const route = client.page.ChannelRouteMemberContainer();
 
-  channelCreateEdit.navigate()
+  await channelCreateEdit.navigate()
     .validateCreateEls()
     .selectChannelCategory(channelType)
     .pause(2000);
@@ -58,7 +58,7 @@ export function createChannel(channelType, channelData) {
  * @param  {array} enableToggles Toggles elements that needs to be enabled
  */
 export async function editChannel(channelNameElement, channelData, enableToggles) {
-  channel.navigate()
+  await channel.navigate()
     .channelEditMode(channelNameElement)
     .pause(500)
     .checkElementVisibility('@editChannel');
@@ -76,13 +76,13 @@ export async function editChannel(channelNameElement, channelData, enableToggles
  * @param  {string} tagName Tag name that needs to be created
  */
 export async function tagsCreationByChannelEdit(editedChannelElement, tagName) {
-  channel.navigate()
+  await channel.navigate()
     .channelEditMode(editedChannelElement)
     .pause(500)
     .checkElementVisibility('@editChannel');
 
   await channelCreateEdit.addTag(tagName, '@tagCategory')
-    .pause(2000)
+    .pause(500)
     .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
     .checkSuccessMessage('@channelUpdateSuccessMessage');
 }
@@ -92,7 +92,7 @@ export async function tagsCreationByChannelEdit(editedChannelElement, tagName) {
  * @param  {string} editedChannelElement Channel element that needs to be edit
  */
 export async function validateWebFormFieldsByChannelEdit(editedChannelElement) {
-  channel.navigate()
+  await channel.navigate()
     .channelEditMode(editedChannelElement)
     .pause(500)
     .checkElementVisibility('@editChannel');
@@ -124,7 +124,7 @@ export async function validateWebFormFieldsByChannelEdit(editedChannelElement) {
  * @param  {array} webFormFields Web form fields that needs to be updated like: [{element: element, value: value}]
  */
 export async function updateWebFormFieldsByChannelEdit(editedChannelElement, webFormFields) {
-  channel.navigate()
+  await channel.navigate()
     .channelEditMode(editedChannelElement)
     .pause(500)
     .checkElementVisibility('@editChannel');
@@ -140,7 +140,7 @@ export async function updateWebFormFieldsByChannelEdit(editedChannelElement, web
  * @param  {string} deletedChannelElement Channel element that needs to be deleted
  */
 export async function deleteChannel(deletedChannelElement) {
-  channel.navigate()
+  await channel.navigate()
     .channelEditMode(deletedChannelElement)
     .pause(500)
     .checkElementVisibility('@editChannel');

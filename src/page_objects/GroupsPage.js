@@ -14,6 +14,11 @@ const groupsPageCommands = {
       .waitForElementVisible('@patientAndTeamOption', 'Patient and team option is visible');
   },
 
+  clickAddGroup() {
+    return this.waitForElementVisible('@createButton', 'Create Button is visible')
+      .click('@createButton');
+  },
+
   selectGroupType(groupType) {
     return this.waitForElementVisible(groupType, `${groupType} is visible`)
       .click(groupType);

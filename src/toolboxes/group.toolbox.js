@@ -16,7 +16,7 @@ const auditLogs = client.page.AuditLogsPage();
  */
 export async function createGroup(groupDetails, groupTypeOption, groupTypeListViewElement, memberResultElement) {
   await universal.clickGroups();
-  await group.verifyGroupEls()
+  await group.clickAddGroup()
     .selectGroupType(groupTypeOption)
     .addGroupDetails(groupDetails.name, groupDetails.purpose);
 
@@ -67,7 +67,7 @@ export async function addChannelRouteToGroup(groupDetails, groupListViewElement,
  */
 export async function convertGroupTypeToAnotherGroupType(groupEditDetails, editedGroupElement, groupTypeListViewElement) {
   await universal.clickGroups();
-  group.openInEditMode(editedGroupElement)
+  await group.openInEditMode(editedGroupElement)
     .convertGroupType(groupEditDetails.newGroupType, groupEditDetails.newName, groupEditDetails.newPurpose);
 
   channel.enableDisableToggles('@availabilityHoursToggle')

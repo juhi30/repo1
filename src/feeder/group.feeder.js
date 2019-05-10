@@ -3,7 +3,7 @@ module.exports = {
   // New Group Details
   patientTypeGroup: 'Patient Group',
   teamTypeGroup: 'Team Group',
-  patientAndTeamType: 'patient and Team Group',
+  patientAndTeamType: 'Patient and Team Group',
   updatedPatientAndTeamType: 'New patient and Team Group',
   updatedPatientTypeGroup: 'New Patient Group',
   updatedTeamTypeGroup: 'New Team Group',

@@ -1,137 +1,83 @@
-
-import { client } from 'nightwatch-api';
+import { createGroup, addChannelRouteToGroup, convertGroupTypeToAnotherGroupType } from '../../toolboxes/group.toolbox';
+import { memberLogin, logout } from '../../toolboxes/login.toolbox';
 
 const channelFeeder = require('../../feeder/channel.feeder');
 const groupFeeder = require('../../feeder/group.feeder');
 const memberFeeder = require('../../feeder/member.feeder');
 
 describe(' Automated Test Cases - Groups', () => {
-  const group = client.page.GroupsPage();
-  const route = client.page.ChannelRouteMemberContainer();
-  const entry = client.page.AuditLogsPage();
-  const channel = client.page.ChannelsCreateEditPage();
-  const channelList = client.page.ChannelsPage();
+  test('Login as member', async () => {
+    await memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
+  });
 
   test('Create Groups - Patient Type', async () => {
-    await group.navigate()
-      .verifyGroupEls()
-      .selectGroupType('@patientOption')
-      .addGroupDetails(groupFeeder.patientTypeGroup, groupFeeder.purpose);
-
-    route.routeSearch('@memberInput', memberFeeder.memberName, '@memberResult');
-
-    group.createUpdateButton('@createGroupButton', '@groupCreateSuccessMessage')
-      .checkGroupVisibility('@patientGroup', '@patientGroupListView');
-
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Group', 'Add', groupFeeder.patientTypeGroup);
+    const groupDetails = {
+      name: groupFeeder.patientTypeGroup,
+      purpose: groupFeeder.purpose,
+      memberName: memberFeeder.memberName,
+    };
+    await createGroup(groupDetails, '@patientOption', '@patientGroupListView', '@memberResult');
   });
 
   test('Add Channel Routes to patient Type Group', async () => {
-    await group.navigate()
-      .openInEditMode('@patientGroupListView')
-      .addChannel()
-      .pause(500)
-      .verify.urlContains('channels', 'Channel Page is opened');
+    const groupDetails = {
+      channelName: groupFeeder.patientGroupChannel,
+      purpose: groupFeeder.newGroupPurpose,
+      timeZone: channelFeeder.timeZone,
+      groupType: groupFeeder.patientTypeGroup,
+    };
 
-    channelList.waitForElementVisible('@addChannelButton', 'Created Channel button is visible')
-      .click('@addChannelButton');
-
-    channel.selectChannelCategory('@rhinoSecureType')
-      .channelDetails(groupFeeder.patientGroupChannel, groupFeeder.newGroupPurpose, channelFeeder.timeZone);
-
-    route.selectGroupRoute()
-      .routeSearch('@groupInput', groupFeeder.patientTypeGroup, '@patientGroupResult');
-
-    channel.createUpdateChannel('@createChannelButton', 'Create Channel button is visible')
-    // .pause(1000)
-      .checkSuccessMessage('@channelCreateSuccessMessage');
+    await addChannelRouteToGroup(groupDetails, '@patientGroupListView', '@rhinoSecureType', '@patientGroupResult');
   });
 
   test('Create Group - Team Type', async () => {
-    await group.navigate()
-      .verifyGroupEls()
-      .selectGroupType('@teamOption')
-      .addGroupDetails(groupFeeder.teamTypeGroup, groupFeeder.purpose);
-
-    await route.routeSearch('@memberInput', memberFeeder.memberName, '@memberResult');
-
-    await group.createUpdateButton('@createGroupButton', '@groupCreateSuccessMessage')
-      .checkGroupVisibility('@teamGroup', '@teamGroupListView');
-
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Group', 'Add', groupFeeder.teamTypeGroup);
+    const groupDetails = {
+      name: groupFeeder.teamTypeGroup,
+      purpose: groupFeeder.purpose,
+      memberName: memberFeeder.memberName,
+    };
+    await createGroup(groupDetails, '@teamOption', '@teamGroupListView', '@memberResult');
   });
 
   test('Create Group - Patient And Team Type', async () => {
-    await group.navigate()
-      .verifyGroupEls()
-      .selectGroupType('@patientAndTeamOption')
-      .addGroupDetails(groupFeeder.patientAndTeamType, groupFeeder.purpose);
-
-    route.routeSearch('@memberInput', memberFeeder.memberName, '@memberResult');
-
-    group.createUpdateButton('@createGroupButton', '@groupCreateSuccessMessage')
-      .checkGroupVisibility('@patientAndTeamGroup_PatientInbox', '@patientAndTeamGroupListView')
-      .checkGroupVisibility('@patientAndTeamGroup_TeamInbox', '@patientAndTeamGroupListView');
-
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Group', 'Add', groupFeeder.patientAndTeamType);
+    const groupDetails = {
+      name: groupFeeder.patientAndTeamType,
+      purpose: groupFeeder.purpose,
+      memberName: memberFeeder.memberName,
+    };
+    await createGroup(groupDetails, '@patientAndTeamOption', '@patientAndTeamGroupListView', '@memberResult');
   });
 
   test('Convert Patient Group to Patient and team type Group', async () => {
-    await group.navigate()
-      .openInEditMode('@patientGroupListView')
-      .convertGroupType('@patientAndTeamOption', groupFeeder.updatedPatientTypeGroup, groupFeeder.newGroupPurpose);
+    const groupEditDetails = {
+      newName: groupFeeder.updatedPatientTypeGroup,
+      newPurpose: groupFeeder.newGroupPurpose,
+      newGroupType: '@patientAndTeamOption',
+      memberName: memberFeeder.memberName,
+    };
 
-    channel.enableDisableToggles('@availabilityHoursToggle')
-      .pause(1000);
-    group.selectTimezone()
-
-      .createUpdateButton('@updateGroupButton', '@groupUpdateSuccessMessage')
-      .checkGroupVisibility('@updatedPatientGroup_PatientInbox', '@updatedPatientGroup_ListView')
-      .checkGroupVisibility('@updatedPatientGroup_TeamInbox', '@updatedPatientGroup_ListView');
-
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Group', 'Edit', groupFeeder.updatedPatientTypeGroup);
+    await convertGroupTypeToAnotherGroupType(groupEditDetails, '@patientGroupListView', '@updatedPatientGroup_ListView');
   });
 
   test('Convert Team Group to Patient and team type Group', async () => {
-    await group.navigate()
-      .openInEditMode('@teamGroupListView')
-      .convertGroupType('@patientAndTeamOption', groupFeeder.updatedTeamTypeGroup, groupFeeder.newGroupPurpose);
+    const groupEditDetails = {
+      newName: groupFeeder.updatedTeamTypeGroup,
+      newPurpose: groupFeeder.newGroupPurpose,
+      newGroupType: '@patientAndTeamOption',
+      memberName: memberFeeder.memberName,
+    };
 
-    channel.enableDisableToggles('@availabilityHoursToggle')
-      .pause(1000);
-    group.selectTimezone()
-
-      .createUpdateButton('@updateGroupButton', '@groupUpdateSuccessMessage')
-      .checkGroupVisibility('@updatedTeamGroup_PatientInbox', '@updatedTeamGroup_ListView')
-      .checkGroupVisibility('@updatedTeamGroup_TeamInbox', '@updatedTeamGroup_ListView');
-
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Group', 'Edit', groupFeeder.updatedTeamTypeGroup);
+    await convertGroupTypeToAnotherGroupType(groupEditDetails, '@teamGroupListView', '@updatedTeamGroup_ListView');
   });
 
   test('Add Channel Routes to Patient And Team Type Group', async () => {
-    await group.navigate()
-      .pause(500)
-      .openInEditMode('@patientAndTeamGroupListView')
-      .addChannel()
-      .pause(500)
-      .verify.urlContains('channels', 'Channel Page is opened');
+    const groupDetails = {
+      channelName: groupFeeder.patientAndTeamGroupChannel,
+      purpose: groupFeeder.newGroupPurpose,
+      timeZone: channelFeeder.timeZone,
+      groupType: groupFeeder.patientAndTeamType,
+    };
 
-    channelList.waitForElementVisible('@addChannelButton', 'Created Channel button is visible')
-      .click('@addChannelButton');
-
-    channel.selectChannelCategory('@rhinoSecureType')
-      .channelDetails(groupFeeder.patientAndTeamGroupChannel, groupFeeder.newGroupPurpose, channelFeeder.timeZone);
-
-    route.selectGroupRoute()
-      .routeSearch('@groupInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroupResult');
-
-    channel.createUpdateChannel('@createChannelButton', 'Create Channel button is visible')
-      .pause(1000)
-      .checkSuccessMessage('@channelCreateSuccessMessage');
+    await addChannelRouteToGroup(groupDetails, '@patientAndTeamGroupListView', '@rhinoSecureType', '@patientAndTeamGroupResult');
   });
 });

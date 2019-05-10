@@ -4,10 +4,6 @@ import * as memberFeeder from '../../feeder/member.feeder';
 import * as officeFeeder from '../../feeder/office.feeder';
 
 describe('Automated Tests: Office', () => {
-  test('login as member into the organization', async () => {
-    await memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
-  });
-
   test('Creating office', async () => {
     const officeDetails = [{ element: '@officeName', value: officeFeeder.officeName },
       { element: '@officeAddressLine1', value: officeFeeder.officeAddress },

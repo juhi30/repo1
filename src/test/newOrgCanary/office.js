@@ -1,68 +1,46 @@
-import { client } from 'nightwatch-api';
+import { memberLogin } from '../../toolboxes/login.toolbox';
+import { createOffice, editOffice, deleteOffice } from '../../toolboxes/office.toolbox';
+import * as memberFeeder from '../../feeder/member.feeder';
+import * as officeFeeder from '../../feeder/office.feeder';
 
-const officeFeeder = require('../../feeder/office.feeder');
-const memberFeeder = require('../../feeder/member.feeder');
-
-describe('Office Page', () => {
-  test('Login as Member', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .fillInUsername(memberFeeder.memberUsername)
-      .fillInPassword(memberFeeder.memberPassword)
-      .submit()
-      .validateUrlChange();
+describe('Automated Tests: Office', () => {
+  test('login as member into the organization', async () => {
+    await memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
   });
 
-  test('To add the office by Member', async () => {
-    const office = client.page.OfficePage();
-    const checkAuditLogs = client.page.AuditLogsPage();
+  test('Creating office', async () => {
+    const officeDetails = [{ element: '@officeName', value: officeFeeder.officeName },
+      { element: '@officeAddressLine1', value: officeFeeder.officeAddress },
+      { element: '@officeCity', value: officeFeeder.officeCity },
+      { element: '@officeState', value: officeFeeder.officeState },
+      { element: '@officeZip', value: officeFeeder.zipCode }];
 
-    await office.navigate()
-      .clickAddOffice()
-      .createOfficeForm('@officeName', officeFeeder.officeName)
-      .createOfficeForm('@officeAddressLine1', officeFeeder.officeAddress)
-      .createOfficeForm('@officeCity', officeFeeder.officeCity)
-      .createOfficeForm('@officeState', officeFeeder.officeState)
-      .createOfficeForm('@officeZip', officeFeeder.zipCode)
-      .click('@createOfficeButton')
-      .successMessageVerification('@officeCreationSuccessMessage');
+    const auditDetails = {
+      officeName: officeFeeder.officeName,
+      memberName: memberFeeder.memberName,
+    };
 
-    await checkAuditLogs.navigate()
-      .pause(5000)
-      .validateAuditEntry(memberFeeder.memberName, 'Office Location', 'Add', officeFeeder.officeName);
+    await createOffice(officeDetails, auditDetails);
   });
 
-  test('To edit the office by Member', async () => {
-    const office = client.page.OfficePage();
-    const checkAuditLogs = client.page.AuditLogsPage();
+  test('Editing office', async () => {
+    const officeDetails = [{ element: '@officeName', value: officeFeeder.newOfficeName },
+      { element: '@officeAddressLine1', value: officeFeeder.newOfficeAddress },
+      { element: '@officeCity', value: officeFeeder.newOfficeCity },
+      { element: '@officeZip', value: officeFeeder.newZipCode }];
 
-    await office.navigate()
-      .checkVisibilityOfEditPage()
-      .editOfficeForm('@officeName', officeFeeder.newOfficeName)
-      .editOfficeForm('@officeAddressLine1', officeFeeder.newOfficeAddress)
-      .editOfficeForm('@officeCity', officeFeeder.newOfficeCity)
-      .setValue('@officeState', officeFeeder.newOfficeState)
-      .editOfficeForm('@officeZip', officeFeeder.newZipCode)
-      .click('@updateOfficeButton')
-      .successMessageVerification('@officeUpdationSuccessMessage');
-
-    await checkAuditLogs.navigate()
-      .pause(2000)
-      .validateAuditEntry(memberFeeder.memberName, 'Office Location', 'Edit', officeFeeder.newOfficeName);
+    const auditDetails = {
+      officeName: officeFeeder.newOfficeName,
+      memberName: memberFeeder.memberName,
+    };
+    await editOffice(officeDetails, officeFeeder.newOfficeState, auditDetails);
   });
 
-  test('To delete the office by Member ', async () => {
-    const office = client.page.OfficePage();
-    const checkAuditLogs = client.page.AuditLogsPage();
-    // const logout = client.page.UniversalElements();
-
-    await office.navigate()
-      .deleteOfficeForm()
-      .successMessageVerification('@officeDeletionSuccessMessage');
-
-    await checkAuditLogs.navigate()
-      .pause(2000)
-      .validateAuditEntry(memberFeeder.memberName, 'Office Location', 'Delete', officeFeeder.newOfficeName);
+  test('deleting office', async () => {
+    const auditDetails = {
+      officeName: officeFeeder.newOfficeName,
+      memberName: memberFeeder.memberName,
+    };
+    await deleteOffice(auditDetails);
   });
 });

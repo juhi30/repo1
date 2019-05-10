@@ -74,6 +74,12 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    billingMemberResult: {
+      selector: `//SPAN[contains(., '${memberFeeder.memberName1}')]`,
+      locateStrategy: 'xpath',
+    },
+
+
     newPatientGroupResult: {
       selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.updatedPatientTypeGroup}')]`,
       locateStrategy: 'xpath',

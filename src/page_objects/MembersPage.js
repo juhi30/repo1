@@ -9,9 +9,15 @@ const membersCommands = {
       .waitForElementVisible('@createMemberPageTitle', 'Create Member page is open');
   },
 
-  deactivateMember() {
-    return this.waitForElementVisible('@deactivateButton', 'Deactivate button is visible')
-      .click('@deactivateButton');
+  ReactivateDeactivateMember(buttonName) {
+    return this.waitForElementVisible(buttonName, `${buttonName} button is visible`)
+      .pause(1000)
+      .click(buttonName);
+  },
+
+  confirmReactivateDeactivateMember(buttonName) {
+    return this.waitForElementVisible(buttonName, `${buttonName} button is visible`)
+      .click(buttonName);
   },
 
   enterDetails(element, value) {
@@ -46,9 +52,9 @@ const membersCommands = {
     return this.waitForElementVisible(alert, `${alert} message is visible`);
   },
 
-  selectMember() {
-    return this.waitForElementVisible('@selectMemberFromList', 'member name is visible')
-      .click('@selectMemberFromList');
+  selectMember(memberName) {
+    return this.waitForElementVisible(memberName, `${memberName} member name is visible`)
+      .click(memberName);
   },
 
   createTempPassword() {
@@ -75,6 +81,11 @@ module.exports = {
 
     selectMemberFromList: {
       selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${memberFeeder.memberName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    selectAddonMemberFromList: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${memberFeeder.memberName6}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -118,7 +129,7 @@ module.exports = {
     },
 
     deactivateMemberButton: {
-      selector: '(//SPAN[@class=\'button__text-wrapper\'][text()=\'Deactivate\'][text()=\'Deactivate\'])[1]',
+      selector: '//*[@class=\'button--reset u-text-small u-text-danger\']//SPAN[@class=\'button__text-wrapper\'][text()=\'Deactivate\']',
       locateStrategy: 'xpath',
     },
 
@@ -127,7 +138,7 @@ module.exports = {
     /*----------------------------------------------------*/
 
     closeDeactivateModal: {
-      selector: '//SPAN[contains(@title, \'Close\')]',
+      selector: '//*[@class=\'button button--danger\']//SPAN[@class=\'b//SPAN[contains(@title, \'Close\')]',
       locateStrategy: 'xpath',
     },
 
@@ -137,7 +148,7 @@ module.exports = {
     },
 
     deactivateInModal: {
-      selector: '(//SPAN[@class=\'button__text-wrapper\'][text()=\'Deactivate\'][text()=\'Deactivate\'])[2]',
+      selector: '//*[@class=\'button button--danger\']//SPAN[@class=\'button__text-wrapper\'][text()=\'Deactivate\']',
       locateStrategy: 'xpath',
     },
 
@@ -216,17 +227,17 @@ module.exports = {
     },
 
     createAlertMessage: {
-      selector: `//DIV[@class='alert__body'][contains(text(),${memberFeeder.createAlert})]`,
+      selector: `//DIV[@class='alert__body'][contains(text(),'${memberFeeder.createAlert}')]`,
       locateStrategy: 'xpath',
     },
 
     deleteAlertMessage: {
-      selector: `//OL[@class='u-list--numbers']//LI[contains(text(),${memberFeeder.deleteAlert})]`,
+      selector: `//OL[@class='u-list--numbers']//LI[contains(text(),'${memberFeeder.deleteAlert}')]`,
       locateStrategy: 'xpath',
     },
 
     reactivateAlertMessage: {
-      selector: `//OL[@class='u-list--numbers']//LI[contains(text(),${memberFeeder.reactivateAlert})]`,
+      selector: `//OL[@class='u-list--numbers']//LI[contains(text(),'${memberFeeder.reactivateAlert}')]`,
       locateStrategy: 'xpath',
     },
   },

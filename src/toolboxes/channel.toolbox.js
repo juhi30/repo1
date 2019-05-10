@@ -7,8 +7,7 @@ const channelCreateEdit = client.page.ChannelsCreateEditPage();
  * Used to validate elements(page title and create channel button) on channel listing page
  */
 export function validateChannelPageElements() {
-  channel.navigate()
-    .validateChannelsEls();
+  channel.validateChannelsEls();
 }
 
 /**
@@ -32,8 +31,7 @@ export function validateChannelCreationRequiredFields(channelType) {
 export function createChannel(channelType, channelData) {
   const route = client.page.ChannelRouteMemberContainer();
 
-  channelCreateEdit.navigate()
-    .validateCreateEls()
+  channelCreateEdit.validateCreateEls()
     .selectChannelCategory(channelType)
     .pause(2000);
 
@@ -44,7 +42,7 @@ export function createChannel(channelType, channelData) {
     channelCreateEdit.channelDetails(channelData.channelName, channelData.channelPurpose, channelData.timeZone);
   }
 
-  route.routeSearch('@memberInput', channelData.memberFirstName, '@memberResult')
+  route.routeSearch('@memberInput', channelData.memberFirstName, '@billingMemberResult')
     .pause(2000);
 
   channelCreateEdit.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
@@ -140,11 +138,28 @@ export async function updateWebFormFieldsByChannelEdit(editedChannelElement, web
  * @param  {string} deletedChannelElement Channel element that needs to be deleted
  */
 export async function deleteChannel(deletedChannelElement) {
-  channel.navigate()
-    .channelEditMode(deletedChannelElement)
+  await channel.channelEditMode(deletedChannelElement)
     .pause(500)
     .checkElementVisibility('@editChannel');
 
   await channelCreateEdit.deleteChannels()
     .pause(2000);
+}
+
+export async function verifyAlertMessagesAddonChannels(alertMessage, channelType) {
+  await channel.addChannel();
+
+  await channelCreateEdit.selectChannelCategory(channelType)
+    .verifyChannelAlerts(alertMessage);
+}
+
+export async function verifyAlertDeletingChannel(deletedChannelElement, alertMessage) {
+  await channel.channelEditMode(deletedChannelElement);
+
+  await channelCreateEdit.waitForElementVisible('@editChannelPageTitle', 'Channel Opened in edit Mode.')
+    .waitForElementVisible('@deleteChannelButton', 'Delete Channel Button is visible')
+    .click('@deleteChannelButton')
+    .verifyChannelAlerts(alertMessage)
+    .waitForElementVisible('@confirmDeleteChannel', 'confirm delete button is visible')
+    .click('@confirmDeleteChannel');
 }

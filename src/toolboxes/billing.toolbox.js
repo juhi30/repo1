@@ -1,7 +1,6 @@
 import { client } from 'nightwatch-api';
 
 const billingPage = client.page.BillingUsagePage();
-const alert = client.page.MembersPage();
 const orgProfile = client.page.OrgProfilePage();
 
 export async function verifyBillingPageForStandardPlan() {
@@ -18,14 +17,6 @@ export async function verifyBillingPageForStandardPlan() {
     .validateCurrentUsage('@membersUsage', '@usedMembers')
     .validateCurrentUsage('@textChannelUsage', '@usedTextChannels')
     .validateMessageUpdateAlert();
-}
-
-// export async function verifyEstimatedBillSection() {
-//   await billingPage.validateEstimatedBillSection();
-// }
-
-export async function verifyAlertMessages() {
-  alert.verifyAlerts();
 }
 
 export async function verifyBillingID() {

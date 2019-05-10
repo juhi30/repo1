@@ -39,3 +39,17 @@ export async function changePasswordUsingTempPassword(memberUsername, memberPass
     .validateUrlChange()
     .pause(3000);
 }
+
+export async function activateDeactivateMember(memberName, button, alertMessage, confirmButton, successMessage) {
+  await member.navigate()
+    .selectMember(memberName)
+    .ReactivateDeactivateMember(button)
+    .verifyAlerts(alertMessage)
+    .confirmReactivateDeactivateMember(confirmButton)
+    .waitForElementVisible(successMessage, 'Member is updated successfully and Deactivated/Reactivated as well.')
+    .waitForElementNotPresent(successMessage);
+}
+
+export async function verifyAlertMessages(alertMessage) {
+  member.verifyAlerts(alertMessage);
+}

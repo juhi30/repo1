@@ -130,7 +130,7 @@ const universalElementsCommands = {
 
   clickChannels() {
     return this.click('@settingsButton')
-      .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
+      .waitForElementVisible('@channelsInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@channelsInSettingsDropdown')
       .pause(500)
       .verify.urlContains('organization/channels', 'Channels page is visible');
@@ -453,7 +453,7 @@ module.exports = {
     },
 
     organizationSearchResult: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${accountSetupFeeder.orgName}' ]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${accountSetupFeeder.billingOrgName}' ]`,
       locateStrategy: 'xpath',
     },
 

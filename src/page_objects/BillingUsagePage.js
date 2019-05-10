@@ -75,8 +75,6 @@ const billingCommands = {
       .click('@viewPDFEstimatedBill')
       .pause(2000)
       .waitForElementPresent('@pdfInvoice', 25000, false, null, 'Projected invoice PDF is opened')
-      // .waitForElementVisible('@closePDFButton', 'Close PDF Button is visible')
-      .pause(2000)
       .click('@closePDFButton')
       .waitForElementNotPresent('@pdfInvoice', 5000, false, null, 'Projected invoice PDF is closed')
       .pause(1000);

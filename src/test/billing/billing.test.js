@@ -1,4 +1,4 @@
 import './orgSetupAndTeardown';
-import './member';
-import './channel';
+import './memberAddon';
+import './channelAddon';
 import './billing';

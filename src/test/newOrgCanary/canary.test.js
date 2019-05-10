@@ -2,7 +2,7 @@
 import './orgSetupAndTeardown';
 import './member';
 import './login';
-// import './channels'
+import './channels';
 
 // //Member Flow
 // import './office';

@@ -1,3 +1,5 @@
+import logger from 'rhinotilities/lib/loggers/logger';
+
 const helper = require('../toolboxes/helpers.toolbox');
 
 const orgProfileCommands = {
@@ -83,6 +85,13 @@ const orgProfileCommands = {
       .waitForElementVisible('@orgUpdateSuccessMessage', 'Success message displayed');
   },
 
+  checkBillingId() {
+    return this.waitForElementVisible('@billingCustomerId', 'Billing Customer Id is present')
+      .getValue('@billingCustomerId', (tpObj) => {
+        logger.info(`Customer Billing ID ->, ${tpObj.value}`);
+      });
+  },
+
   renderValidators() {
     return this.waitForElementVisible('@alertBox', 'Alert box is visible');
   },
@@ -124,6 +133,16 @@ module.exports = {
 
     doneUploadPhoto: {
       selector: '//SPAN[text()=\'Done\']',
+      locateStrategy: 'xpath',
+    },
+
+    billingCustomerId: {
+      selector: '//input[contains(@id, \'billManagerCustId\')]',
+      locateStrategy: 'xpath',
+    },
+
+    settingsDropdown: {
+      selector: '//*[@id="cuke-main-settings"]/div/button',
       locateStrategy: 'xpath',
     },
 

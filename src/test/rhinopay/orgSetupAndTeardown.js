@@ -13,8 +13,7 @@ import * as test from '../../services/Rhinopay.service';
 // eslint-disable-next-line no-undef
 beforeAll(async () => {
   try {
-    const cookie = await login();
-
+    const cookie = await login(process.env.CCR_USERNAME, process.env.CCR_PASSWORD);
     const orgData = {
       name: 'Rhinopay Testing',
       parentCompany: '',
@@ -95,7 +94,6 @@ beforeAll(async () => {
       password: '4419kJig',
     };
     await postUser(memberData, cookie);
-    // Set rhino-external-api auth
     process.env.RHINOPAY_LOGIN = memberData.username;
     process.env.RHINOPAY_PWD = memberData.password;
     process.env.LOGIN_COOKIE = await login(process.env.RHINOPAY_LOGIN, process.env.RHINOPAY_PWD);

@@ -1,14 +1,8 @@
 import { client } from 'nightwatch-api';
-// import { memberLogin } from '../../toolboxes/login.toolbox';
 
 const memberPreferences = client.page.MemberPreferencePage();
-// const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Member Preferences Page', () => {
-  // test('Login as member', async () => {
-  //   await memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
-  // });
-
   test('Default page Settings Of Member Preferences Page', async () => {
     await memberPreferences.navigate();
   });

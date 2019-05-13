@@ -38,7 +38,8 @@ export async function editOffice(officeDetails, officeState, auditDetails) {
   office.setValue('@officeState', officeState);
 
   await office.click('@updateOfficeButton')
-    .successMessageVerification('@officeUpdationSuccessMessage');
+    .successMessageVerification('@officeUpdationSuccessMessage')
+    .waitForElementNotPresent('@officeUpdationSuccessMessage');
 
   await checkAuditLogs.navigate()
     .pause(2000)
@@ -54,7 +55,8 @@ export async function editOffice(officeDetails, officeState, auditDetails) {
 export async function deleteOffice(officeElement, auditDetails) {
   await office.navigate()
     .deleteOfficeForm(officeElement)
-    .successMessageVerification('@officeDeletionSuccessMessage');
+    .successMessageVerification('@officeDeletionSuccessMessage')
+    .waitForElementNotPresent('@officeDeletionSuccessMessage');
 
   await checkAuditLogs.navigate()
     .pause(2000)

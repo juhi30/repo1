@@ -155,7 +155,7 @@ const convoThreadCommands = {
   },
 
   verifyNavigationToChatThread() {
-    return this.verify.visible('@conversationBody', 'Conversation Body is Visible')
+    return this.verify.visible('@conversationBody', 'Conversation Body is Visible');
   },
 
   sendRhinosecureMessage(rhinoSecureMessage) {

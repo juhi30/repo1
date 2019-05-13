@@ -31,7 +31,7 @@ export async function editOffice(officeDetails, officeState, auditDetails) {
 
   await checkAuditLogs.navigate()
     .pause(2000)
-    .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Edit', auditDetails.newOfficeName);
+    .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Edit', auditDetails.officeName);
 }
 
 export async function deleteOffice(auditDetails) {
@@ -41,5 +41,5 @@ export async function deleteOffice(auditDetails) {
 
   await checkAuditLogs.navigate()
     .pause(2000)
-    .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Delete', auditDetails.newOfficeName);
+    .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Delete', auditDetails.officeName);
 }

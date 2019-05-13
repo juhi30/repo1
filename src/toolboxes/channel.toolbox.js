@@ -82,7 +82,7 @@ export async function tagsCreationByChannelEdit(editedChannelElement, tagName) {
     .checkElementVisibility('@editChannel');
 
   await channelCreateEdit.addTag(tagName, '@tagCategory')
-    .pause(500)
+    .waitForElementNotPresent('@tagNameInput')
     .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
     .checkSuccessMessage('@channelUpdateSuccessMessage');
 }

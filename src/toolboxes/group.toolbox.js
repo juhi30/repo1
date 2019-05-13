@@ -27,7 +27,7 @@ export async function createGroup(groupDetails, groupTypeOption, groupTypeListVi
     .waitForElementNotPresent('@groupCreateSuccessMessage');
 
   await universal.clickAuditLogs();
-  auditLogs.validateAuditEntry(groupDetails.memberName, 'Group', 'Add', groupDetails.name);
+  await auditLogs.validateAuditEntry(groupDetails.memberName, 'Group', 'Add', groupDetails.name);
 }
 
 /**
@@ -78,5 +78,5 @@ export async function convertGroupTypeToAnotherGroupType(groupEditDetails, edite
     .waitForElementNotPresent('@groupUpdateSuccessMessage');
 
   await universal.clickAuditLogs();
-  auditLogs.validateAuditEntry(groupEditDetails.memberName, 'Group', 'Add', groupEditDetails.newName);
+  await auditLogs.validateAuditEntry(groupEditDetails.memberName, 'Group', 'Add', groupEditDetails.newName);
 }

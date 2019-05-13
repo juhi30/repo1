@@ -1,5 +1,5 @@
-import { createGroup, addChannelRouteToGroup, convertGroupTypeToAnotherGroupType } from '../../toolboxes/group.toolbox';
-import { memberLogin, logout } from '../../toolboxes/login.toolbox';
+import { createGroup, addChannelRouteToGroup } from '../../toolboxes/group.toolbox';
+import { memberLogin } from '../../toolboxes/login.toolbox';
 
 const channelFeeder = require('../../feeder/channel.feeder');
 const groupFeeder = require('../../feeder/group.feeder');
@@ -48,27 +48,27 @@ describe(' Automated Test Cases - Groups', () => {
     await createGroup(groupDetails, '@patientAndTeamOption', '@patientAndTeamGroupListView', '@memberResult');
   });
 
-  test('Convert Patient Group to Patient and team type Group', async () => {
-    const groupEditDetails = {
-      newName: groupFeeder.updatedPatientTypeGroup,
-      newPurpose: groupFeeder.newGroupPurpose,
-      newGroupType: '@patientAndTeamOption',
-      memberName: memberFeeder.memberName,
-    };
+  // test('Convert Patient Group to Patient and team type Group', async () => {
+  //   const groupEditDetails = {
+  //     newName: groupFeeder.updatedPatientTypeGroup,
+  //     newPurpose: groupFeeder.newGroupPurpose,
+  //     newGroupType: '@patientAndTeamOption',
+  //     memberName: memberFeeder.memberName,
+  //   };
 
-    await convertGroupTypeToAnotherGroupType(groupEditDetails, '@patientGroupListView', '@updatedPatientGroup_ListView');
-  });
+  //   await convertGroupTypeToAnotherGroupType(groupEditDetails, '@patientGroupListView', '@updatedPatientGroup_ListView');
+  // });
 
-  test('Convert Team Group to Patient and team type Group', async () => {
-    const groupEditDetails = {
-      newName: groupFeeder.updatedTeamTypeGroup,
-      newPurpose: groupFeeder.newGroupPurpose,
-      newGroupType: '@patientAndTeamOption',
-      memberName: memberFeeder.memberName,
-    };
+  // test('Convert Team Group to Patient and team type Group', async () => {
+  //   const groupEditDetails = {
+  //     newName: groupFeeder.updatedTeamTypeGroup,
+  //     newPurpose: groupFeeder.newGroupPurpose,
+  //     newGroupType: '@patientAndTeamOption',
+  //     memberName: memberFeeder.memberName,
+  //   };
 
-    await convertGroupTypeToAnotherGroupType(groupEditDetails, '@teamGroupListView', '@updatedTeamGroup_ListView');
-  });
+  //   await convertGroupTypeToAnotherGroupType(groupEditDetails, '@teamGroupListView', '@updatedTeamGroup_ListView');
+  // });
 
   test('Add Channel Routes to Patient And Team Type Group', async () => {
     const groupDetails = {

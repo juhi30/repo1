@@ -1,129 +1,69 @@
 import logger from 'rhinotilities/lib/loggers/logger';
-import { client } from 'nightwatch-api';
+import * as loginToolbox from '../../toolboxes/login.toolbox';
+import { selectOrganizationByCCR } from '../../toolboxes/organization.toolbox';
+import { createTempPasswordByCCR, changePasswordUsingTempPassword } from '../../toolboxes/member.toolbox';
 
-const testConstants = require('../../toolboxes/feeder.toolbox');
 const gmail = require('../../services/Gmail.service');
+const loginFeeder = require('../../feeder/login.feeder');
+const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Login Page Tests Cases', () => {
   test('Login as CCR', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .fillInUsername(testConstants.ccrLogin)
-      .fillInPassword(testConstants.ccrPassword)
-      .submit()
-      .validateUrlChange('selectorg');
+    await loginToolbox.ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
   });
 
-  test('Switch organization as a CCR', async () => {
-    const org = client.page.UniversalElements();
-
-    await org.searchForOrganization(testConstants.orgName)
-      .ccrOrgLogin();
-
-    // Go back to Org Listing page
-    await org.selectOrganization()
-
-      // Search the next Org
-      .searchForOrganization(testConstants.orgName2, '@org2SearchResult')
-      .ccrOrgLogin('@org2SearchResult');
-  });
-
-  test('logout as CCR', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+  test('logout as CCR', () => {
+    loginToolbox.logout();
   });
 
   test('Attempt to access a page after logging out', async () => {
-    const contacts = client.page.ContactsPage();
-    const login = client.page.LoginPage();
-
-    await contacts.navigate()
-      .expect.element('@addContactButton').to.not.be.present;
-    await login.verify.visible('@usernameInput', 'User is still on the login page.');
+    await loginToolbox.isContactPageAccessible();
   });
 
-  test('Login with valid username and password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .enterMemberCreds(testConstants.memberUsername, testConstants.memberPassword)
-      .submit()
-      .validateUrlChange();
+  test('Login as member with valid username and password', async () => {
+    await loginToolbox.memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
   });
 
   test('logout as Member', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await loginToolbox.logout();
   });
 
   test('Use valid username for forgotten password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .resetPassword(testConstants.memberUsername)
-      .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.');
+    await loginToolbox.sendForgotPasswordLink(memberFeeder.memberUsername, true);
   });
 
   test('Use invalid username for forgotten password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .resetPassword(testConstants.state)
-      .waitForElementVisible('@contactAdminMsg', 'Message to contact admin is visible.');
-  });
-
-  test('Login with invalid username and valid password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .fillInUsername(testConstants.state)
-      .fillInPassword(testConstants.memberPassword)
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible.');
-  });
-
-  test('Login with valid username and invalid password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .fillInUsername(testConstants.memberUsername)
-      .fillInPassword(testConstants.state)
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible.');
-  });
-
-  test('Use valid email for forgotten password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .resetPassword(testConstants.memberEmail)
-      .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.');
+    await loginToolbox.sendForgotPasswordLink(accountSetupFeeder.state, false);
   });
 
   test('Use invalid email for forgotten password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .resetPassword(testConstants.invalidEmail)
-      .waitForElementVisible('@contactAdminMsg', 'Message to contact admin is visible.');
+    await loginToolbox.sendForgotPasswordLink(memberFeeder.invalidEmail, false);
   });
 
   test('Login with empty username and password', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .submit()
-      .waitForElementVisible('@missingCredentialErrorPrompt', 'Error message is visible.');
+    await loginToolbox.verifyMissingCredentialError();
   });
 
-  test('Login to gmail using iMap to fetch password reset token', async (done) => {
+  test('Login with valid username and invalid password', async () => {
+    const errorMessage = 'Error message is visible.';
+    await loginToolbox.invalidMemberLogin(memberFeeder.memberUsername, accountSetupFeeder.state, '@errorPrompt', errorMessage);
+  });
+
+  test('Login with invalid username and valid password', async () => {
+    const errorMessage = 'Error message is visible.';
+    await loginToolbox.invalidMemberLogin(accountSetupFeeder.state, memberFeeder.memberPassword, '@errorPrompt', errorMessage);
+  });
+
+  test('Use valid email for forgotten password', async () => {
+    await loginToolbox.sendForgotPasswordLink(memberFeeder.memberEmail, true);
+  });
+
+  test('Fetch password reset token link using iMap and navigate to the reset password link received in email', async (done) => {
     try {
-      gmail.fetchPasswordResetLink().then((result) => {
-        process.env.NEW_HREF = result.hrefValue;
-        logger.info(`====>>>>> ${process.env.NEW_HREF}`);
+      gmail.fetchPasswordResetLink().then(async (result) => {
+        logger.info(`====>>>>> ${result.hrefValue}`);
+        await loginToolbox.navigateToResetPasswordPage(result.hrefValue);
         done();
       });
     } catch (err) {
@@ -131,90 +71,45 @@ describe('Login Page Tests Cases', () => {
     }
   });
 
-  test('navigate to the reset password link received in email', async () => {
-    const login = client.page.LoginPage();
-    await client
-      .url(process.env.NEW_HREF);
-    login.waitForElementVisible('@confirmPasswordInput', 'User landed on reset password page.');
+  test('create two temporary password for member by ccr', async () => {
+    await loginToolbox.ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
+    await selectOrganizationByCCR(accountSetupFeeder.orgName);
+    await createTempPasswordByCCR('@selectMemberFromList', 'NEW_CANARY_TEMP_PASSWORD');
+    await createTempPasswordByCCR('@selectMemberFromList', 'NEW_CANARY_NEW_TEMP_PASSWORD');
+    await loginToolbox.logout();
   });
 
   test('Unused reset password token is invalidated if another reset request is sent', async () => {
-    const universal = client.page.UniversalElements();
-    const login = client.page.LoginPage();
-    const member = client.page.MembersPage();
-    const org = client.page.UniversalElements();
-
-    await login.navigate()
-      .pause(1000)
-      .enterCSRCreds(testConstants.ccrLogin, testConstants.ccrPassword)
-      .submit();
-    await org.waitForElementVisible('@searchInputForOrg', 'Search Org field is visible');
-    await universal.searchForOrganization(testConstants.orgName)
-      .ccrOrgLogin();
-    await member.navigate()
-      .pause(1000)
-      .selectMember()
-      .createTempPassword()
-      .getTempPassword();
-
-    client.refresh();
-
-    await member.createTempPassword()
-      .getNewTempPassword()
-      .waitForElementNotPresent('@UpdateSuccessMessage', 'Update toast notification no longer visible');
-    await universal.clickLogout();
-
+    const { memberUsername, memberPassword } = memberFeeder;
+    const tempPassword = global.NEW_CANARY_TEMP_PASSWORD;
+    const newTempPassword = global.NEW_CANARY_NEW_TEMP_PASSWORD;
+    const errorMessage = 'Error message is visible, old token did not work. ';
     // Login as Member with Old Password reset token
-    await login.navigate()
-      .enterMemberCreds(testConstants.memberUsername, global.TEMP_PASSWORD)
-      .submit()
-      .waitForElementVisible('@errorPrompt', 'Error message is visible, old token did not work. ');
-
+    await loginToolbox.invalidMemberLogin(memberFeeder.memberUsername, tempPassword, '@errorPrompt', errorMessage);
     // Login as Member with New Password reset token
-    await login.navigate()
-      .enterMemberCreds(testConstants.memberUsername, global.TEMP_NEW_PASSWORD)
-      .submit()
-      .validateUrlChange('change-password')
-      .fillInPassword(testConstants.memberPassword)
-      .fillInConfirmPasswordInput(testConstants.memberPassword)
-      .clickSaveAndContinueButton()
-      .validateUrlChange()
-      .waitForElementNotPresent('@passwordUpdateSuccessMessage');
+    await changePasswordUsingTempPassword(memberUsername, memberPassword, newTempPassword);
   });
 
   test('logout as Member', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await loginToolbox.logout();
   });
 
-  test('Login with valid username and invalid password three times', async (done) => {
-    const login = client.page.LoginPage();
+  test('Invalid member login three times and reset password using forgot password', async (done) => {
+    const errorMessage = 'Error message is visible.';
+    const thirdLoginAttemptErrorMessage = 'Failed login error message is visible.';
 
     try {
-      await login.navigate()
-        .enterMemberCreds(testConstants.memberEmail, testConstants.state)
-        .submit()
-        .waitForElementVisible('@errorPrompt', 'Error message is visible.')
-        .submit()
-        .waitForElementVisible('@errorPrompt', 'Error message is visible.')
-        .submit()
-        .waitForElementVisible('@failedLoginAttemptPrompt', 'Failed login error message is visible.');
+      // Login with valid user name and invalid password
+      await loginToolbox.invalidMemberLogin(memberFeeder.memberUsername, accountSetupFeeder.state, '@errorPrompt', errorMessage);
+      await loginToolbox.invalidMemberLogin(memberFeeder.memberUsername, accountSetupFeeder.state, '@errorPrompt', errorMessage);
+      await loginToolbox.invalidMemberLogin(memberFeeder.memberUsername, accountSetupFeeder.state, '@failedLoginAttemptPrompt', thirdLoginAttemptErrorMessage);
 
-      await login.navigate()
-        .resetPassword(testConstants.memberEmail)
-        .pause(10000) // significant pause time for ensuring email is delivered
-        .waitForElementVisible('@successEmailMessage', 'Message saying email for password reset sent is visible.');
+      await loginToolbox.sendForgotPasswordLink(memberFeeder.memberEmail, true);
+
       gmail.fetchPasswordResetLink().then(async (result) => {
-        await client.url(`${result.hrefValue}`);
-        await login.waitForElementVisible('@confirmPasswordInput', 'User landed on reset password page.');
-
-        await login
-          .fillInNewPasswordInput(testConstants.memberPassword)
-          .fillInConfirmPasswordInput(testConstants.memberPassword)
-          .clickSaveAndContinueButton()
-          .waitForElementNotPresent('@confirmPasswordInput');
-
+        logger.info(`====>>>>> ${result.hrefValue}`);
+        await loginToolbox.navigateToResetPasswordPage(result.hrefValue);
+        await loginToolbox.resetMemberPassword(memberFeeder.memberPassword);
         done();
       });
     } catch (err) {
@@ -223,8 +118,6 @@ describe('Login Page Tests Cases', () => {
   });
 
   test('logout as Member', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await loginToolbox.logout();
   });
 });

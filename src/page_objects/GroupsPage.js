@@ -1,4 +1,6 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
+const channelFeeder = require('../feeder/channel.feeder');
+const groupFeeder = require('../feeder/group.feeder');
+const memberFeeder = require('../feeder/member.feeder');
 
 const groupsPageCommands = {
 
@@ -10,6 +12,11 @@ const groupsPageCommands = {
       .waitForElementVisible('@teamOption', 'Team option is visible')
       .waitForElementVisible('@patientOption', 'Patient option is visible')
       .waitForElementVisible('@patientAndTeamOption', 'Patient and team option is visible');
+  },
+
+  clickAddGroup() {
+    return this.waitForElementVisible('@createButton', 'Create Button is visible')
+      .click('@createButton');
   },
 
   selectGroupType(groupType) {
@@ -35,6 +42,10 @@ const groupsPageCommands = {
       .waitForElementVisible(list, `Created${list} Group is visible in the Group List as well.`);
   },
 
+  checkGroupVisibilityOnList(element) {
+    return this.waitForElementVisible(element, `Created${element} Group is visible in the Group List as well.`);
+  },
+
   openInEditMode(group) {
     return this.waitForElementVisible(group, `${group} is visible`)
       .click(group)
@@ -58,7 +69,7 @@ const groupsPageCommands = {
 
   selectTimezone() {
     return this.waitForElementVisible('@groupTimezone', ' Timezone list is visible')
-      .setValue('@groupTimezone', testConstants.timeZone);
+      .setValue('@groupTimezone', channelFeeder.timeZone);
   },
 };
 
@@ -124,7 +135,7 @@ module.exports = {
     // AvailabilityHoursContainer is a separate page object
 
     memberNameSearchResult: {
-      selector: `//SPAN[(@class='resource__intro__title__content')][contains(text(),'${testConstants.memberName}')]`,
+      selector: `//SPAN[(@class='resource__intro__title__content')][contains(text(),'${memberFeeder.memberName}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -134,72 +145,72 @@ module.exports = {
     },
 
     patientGroup: {
-      selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${testConstants.patientTypeGroup}')]`,
+      selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${groupFeeder.patientTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
     patientGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.patientTypeGroup}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.patientTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
     teamGroup: {
-      selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${testConstants.teamTypeGroup}')]`,
+      selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${groupFeeder.teamTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
     teamGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.teamTypeGroup}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${groupFeeder.teamTypeGroup}']`,
       locateStrategy: 'xpath',
     },
 
     patientAndTeamGroup_PatientInbox: {
-      selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${testConstants.patientAndTeamType}')]`,
+      selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${groupFeeder.patientAndTeamType}')]`,
       locateStrategy: 'xpath',
     },
 
     patientAndTeamGroup_TeamInbox: {
-      selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${testConstants.patientAndTeamType}')]`,
+      selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${groupFeeder.patientAndTeamType}')]`,
       locateStrategy: 'xpath',
     },
 
     patientAndTeamGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.patientAndTeamType}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.patientAndTeamType}')]`,
       locateStrategy: 'xpath',
     },
 
     updatedPatientAndTeamGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.updatedpatientAndTeamType}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.updatedpatientAndTeamType}')]`,
       locateStrategy: 'xpath',
     },
 
     updatedPatientGroup_PatientInbox: {
-      selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${testConstants.updatedPatientTypeGroup}')]`,
+      selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${groupFeeder.updatedPatientTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
     updatedPatientGroup_TeamInbox: {
-      selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${testConstants.updatedPatientTypeGroup}')]`,
+      selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${groupFeeder.updatedPatientTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
     updatedPatientGroup_ListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.updatedPatientTypeGroup}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.updatedPatientTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
     updatedTeamGroup_TeamInbox: {
-      selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${testConstants.updatedTeamTypeGroup}')]`,
+      selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${groupFeeder.updatedTeamTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
     updatedTeamGroup_PatientInbox: {
-      selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${testConstants.updatedTeamTypeGroup}')]`,
+      selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${groupFeeder.updatedTeamTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
     updatedTeamGroup_ListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.updatedTeamTypeGroup}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.updatedTeamTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -224,12 +235,12 @@ module.exports = {
     },
 
     patientgroupChannelName: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.patientGroupChannel}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${groupFeeder.patientGroupChannel}')]`,
       locateStrategy: 'xpath',
     },
 
     patientAndTeamGroupChannel: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${testConstants.patientAndTeamGroupChannel}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${groupFeeder.patientAndTeamGroupChannel}')]`,
       locateStrategy: 'xpath',
     },
 

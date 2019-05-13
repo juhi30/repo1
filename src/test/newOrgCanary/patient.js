@@ -1,13 +1,16 @@
 import { client } from 'nightwatch-api';
 
-const testConstants = require('../../toolboxes/feeder.toolbox');
+const contactFeeder = require('./../feeder/contact.feeder');
+const memberFeeder = require('./../feeder/member.feeder');
+const messageFeeder = require('./../feeder/message.feeder');
+const patientFeeder = require('./../feeder/patient.feeder');
 
 describe('Patient Login Page Tests Cases', () => {
   test('Login with valid username and password', async () => {
     const login = client.page.LoginPage();
 
     await login.navigate()
-      .enterMemberCreds(testConstants.memberUsername, testConstants.memberPassword)
+      .enterMemberCreds(memberFeeder.memberUsername, memberFeeder.memberPassword)
       .submit()
       .validateUrlChange();
   });
@@ -16,10 +19,10 @@ describe('Patient Login Page Tests Cases', () => {
     const logout = client.page.UniversalElements();
     const convo = client.page.ConvoThreadPage();
 
-    await contact.searchForContact(testConstants.contactName, '@searchedContactFirstResult');
+    await contact.searchForContact(contactFeeder.contactFirstName, '@searchedContactFirstResult');
 
     await convo.verifyNavigationToChatThread()
-      .sendRhinosecureMessage(testConstants.rhinosecureMessage);
+      .sendRhinosecureMessage(messageFeeder.rhinosecureMessage);
 
     client.refresh();
 
@@ -35,9 +38,9 @@ describe('Patient Login Page Tests Cases', () => {
     const patient = client.page.PatientPage();
 
     await patient.navigate()
-      .registerPatient(testConstants.patientUserName,
-        testConstants.patientEmail,
-        testConstants.patientPassword)
+      .registerPatient(patientFeeder.patientUserName,
+        patientFeeder.patientEmail,
+        patientFeeder.patientPassword)
       .verifySentMessage();
   });
 });

@@ -1,4 +1,5 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
+const channelFeeder = require('../feeder/channel.feeder');
+const memberFeeder = require('../feeder/member.feeder');
 
 const newChannelCommands = {
 
@@ -16,12 +17,12 @@ const newChannelCommands = {
   newPhoneNumberChannelCreation() {
     return this.click('@newPhoneChannelOption')
       .waitForElementVisible('@chooseANumberBox', 'Form to Create New phone type channel is available')
-      .setValue('@chooseANumberBox', testConstants.numberForNewPhoneChannel)
+      .setValue('@chooseANumberBox', channelFeeder.numberForNewPhoneChannel)
       .pause(1000)
       .click('@selectNumber')
-      .setValue('@forwardingNumber', testConstants.forwardingNumber)
-      .setValue('@channelName', testConstants.channelName)
-      .setValue('@timeZone', testConstants.timeZone)
+      .setValue('@forwardingNumber', channelFeeder.forwardingNumber)
+      .setValue('@channelName', channelFeeder.channelName)
+      .setValue('@timeZone', channelFeeder.timeZone)
       .click('@selectMember')
       .click('@createChannelButton')
       .waitForElementVisible('@channelCreationSuccessMessage', 'Channel created successfully');
@@ -68,7 +69,7 @@ module.exports = {
     },
 
     selectMember: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.memberName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${memberFeeder.memberName}')]`,
       locateStrategy: 'xpath',
     },
 

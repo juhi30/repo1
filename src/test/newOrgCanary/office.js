@@ -1,67 +1,41 @@
-import { client } from 'nightwatch-api';
+import { createOffice, editOffice, deleteOffice } from '../../toolboxes/office.toolbox';
+import * as memberFeeder from '../../feeder/member.feeder';
+import * as officeFeeder from '../../feeder/office.feeder';
 
-const testConstants = require('../../toolboxes/feeder.toolbox');
+describe('Automated Tests: Office', () => {
+  test('Creating office', async () => {
+    const officeDetails = [{ element: '@officeName', value: officeFeeder.officeName },
+      { element: '@officeAddressLine1', value: officeFeeder.officeAddress },
+      { element: '@officeCity', value: officeFeeder.officeCity },
+      { element: '@officeState', value: officeFeeder.officeState },
+      { element: '@officeZip', value: officeFeeder.zipCode }];
 
-describe('Office Page', () => {
-  test('Login as Member', async () => {
-    const login = client.page.LoginPage();
+    const auditDetails = {
+      officeName: officeFeeder.officeName,
+      memberName: memberFeeder.memberName,
+    };
 
-    await login.navigate()
-      .fillInUsername(testConstants.memberUsername)
-      .fillInPassword(testConstants.memberPassword)
-      .submit()
-      .validateUrlChange();
+    await createOffice(officeDetails, auditDetails);
   });
 
-  test('To add the office by Member', async () => {
-    const office = client.page.OfficePage();
-    const checkAuditLogs = client.page.AuditLogsPage();
+  test('Editing office', async () => {
+    const officeDetails = [{ element: '@officeName', value: officeFeeder.newOfficeName },
+      { element: '@officeAddressLine1', value: officeFeeder.newOfficeAddress },
+      { element: '@officeCity', value: officeFeeder.newOfficeCity },
+      { element: '@officeZip', value: officeFeeder.newZipCode }];
 
-    await office.navigate()
-      .clickAddOffice()
-      .createOfficeForm('@officeName', testConstants.officeName)
-      .createOfficeForm('@officeAddressLine1', testConstants.officeAddress)
-      .createOfficeForm('@officeCity', testConstants.officeCity)
-      .createOfficeForm('@officeState', testConstants.officeState)
-      .createOfficeForm('@officeZip', testConstants.zip)
-      .click('@createOfficeButton')
-      .successMessageVerification('@officeCreationSuccessMessage');
-
-    await checkAuditLogs.navigate()
-      .pause(5000)
-      .validateAuditEntry(testConstants.memberName, 'Office Location', 'Add', testConstants.officeName);
+    const auditDetails = {
+      officeName: officeFeeder.newOfficeName,
+      memberName: memberFeeder.memberName,
+    };
+    await editOffice(officeDetails, officeFeeder.newOfficeState, auditDetails);
   });
 
-  test('To edit the office by Member', async () => {
-    const office = client.page.OfficePage();
-    const checkAuditLogs = client.page.AuditLogsPage();
-
-    await office.navigate()
-      .checkVisibilityOfEditPage()
-      .editOfficeForm('@officeName', testConstants.newOfficeName)
-      .editOfficeForm('@officeAddressLine1', testConstants.newOfficeAddress)
-      .editOfficeForm('@officeCity', testConstants.newOfficeCity)
-      .setValue('@officeState', testConstants.newOfficeState)
-      .editOfficeForm('@officeZip', testConstants.newZipCode)
-      .click('@updateOfficeButton')
-      .successMessageVerification('@officeUpdationSuccessMessage');
-
-    await checkAuditLogs.navigate()
-      .pause(2000)
-      .validateAuditEntry(testConstants.memberName, 'Office Location', 'Edit', testConstants.newOfficeName);
-  });
-
-  test('To delete the office by Member ', async () => {
-    const office = client.page.OfficePage();
-    const checkAuditLogs = client.page.AuditLogsPage();
-    // const logout = client.page.UniversalElements();
-
-    await office.navigate()
-      .deleteOfficeForm()
-      .successMessageVerification('@officeDeletionSuccessMessage');
-
-    await checkAuditLogs.navigate()
-      .pause(2000)
-      .validateAuditEntry(testConstants.memberName, 'Office Location', 'Delete', testConstants.newOfficeName);
+  test('deleting office', async () => {
+    const auditDetails = {
+      officeName: officeFeeder.newOfficeName,
+      memberName: memberFeeder.memberName,
+    };
+    await deleteOffice('@officeToBeDeleted', auditDetails);
   });
 });

@@ -1,4 +1,5 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
+const accountSetupFeeder = require('../feeder/accountSetup.feeder');
+const orgProfileFeeder = require('../feeder/orgProfile.feeder');
 
 const universalElementsCommands = {
 
@@ -137,7 +138,7 @@ const universalElementsCommands = {
 
   clickGroups() {
     return this.click('@settingsButton')
-      .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
+      .waitForElementVisible('@groupsInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@groupsInSettingsDropdown')
       .pause(500)
       .verify.urlContains('organization/groups', 'Groups page is visible');
@@ -252,6 +253,14 @@ const universalElementsCommands = {
   validatePageError(ele, url) {
     return this.waitForElementNotPresent(ele, 'Page Cannot be Accessible after logout')
       .verify.urlContains(url);
+  },
+
+  clickAuditLogs() {
+    return this.click('@settingsButton')
+      .waitForElementVisible('@auditInSettingsDropdown', 'Settings Dropdown is visible')
+      .click('@auditInSettingsDropdown')
+      .pause(500)
+      .verify.urlContains('organization/auditLog', 'Audit Logs page is visible');
   },
 };
 
@@ -412,6 +421,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    auditInSettingsDropdown: {
+      selector: '//SPAN[contains(text(), \'Audit Log\')]',
+      locateStrategy: 'xpath',
+    },
+
     membersInSettingsDropdown: {
       selector: '//SPAN[contains(text(), \'Members\')]',
       locateStrategy: 'xpath',
@@ -452,17 +466,17 @@ module.exports = {
     },
 
     organizationSearchResult: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgName}' ]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${accountSetupFeeder.orgName}' ]`,
       locateStrategy: 'xpath',
     },
 
     org2SearchResult: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgName2}' ]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${accountSetupFeeder.orgName2}' ]`,
       locateStrategy: 'xpath',
     },
 
     newOrgSearchResult: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${testConstants.orgNewName}' ]`,
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${orgProfileFeeder.orgNewName}' ]`,
       locateStrategy: 'xpath',
     },
 

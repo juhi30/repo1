@@ -1,7 +1,7 @@
 import { client } from 'nightwatch-api';
 
-const testConstants = require('../../toolboxes/feeder.toolbox');
-// const helpers = require('../../toolboxes/helpers.toolbox');
+const memberFeeder = require('../../feeder/member.feeder');
+const templateFeeder = require('../../feeder/template.feeder');
 
 describe('Test Automation - Templates', () => {
   test('Create Template as a Member', async () => {
@@ -11,13 +11,13 @@ describe('Test Automation - Templates', () => {
     await template.navigate()
       .renderPageElements()
       .clickCreateTemplateButton()
-      .fillTitleAndMessage(testConstants.templateTitle, testConstants.templateMessage)
+      .fillTitleAndMessage(templateFeeder.templateTitle, templateFeeder.templateMessage)
     // .addAttachment()
       .clickCreateUpdateButton('@createTemplateSaveButton', '@createTemplateSuccessMessage');
 
     await entry.navigate()
       .pause(2000)
-      .validateAuditEntry(testConstants.memberName, 'Template', 'Add', testConstants.templateTitle, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Template', 'Add', templateFeeder.templateTitle, '');
   });
 
   test('Edit Template', async () => {
@@ -26,11 +26,11 @@ describe('Test Automation - Templates', () => {
 
     await edit.navigate()
       .templateEditMode('@templateTitle')
-      .updateTemplate(testConstants.newTemplate, testConstants.newTempleteMessage)
+      .updateTemplate(templateFeeder.newTemplate, templateFeeder.newTempleteMessage)
       .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage');
 
     await entry.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Template', 'Edit', testConstants.newTemplate, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Template', 'Edit', templateFeeder.newTemplate, '');
   });
 
   test('Mark the template as favorite', async () => {
@@ -42,7 +42,7 @@ describe('Test Automation - Templates', () => {
       .markAsFavorite('@favoriteOption', '@favoriteFilter', '@templateTitle');
 
     await entry.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Template Action', 'Edit', testConstants.newTemplate, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Template Action', 'Edit', templateFeeder.newTemplate, '');
   });
 
   test('Mark the template as Unfavorite', async () => {
@@ -53,14 +53,14 @@ describe('Test Automation - Templates', () => {
       .markAsUnfavorite('@favoriteOption', '@favoriteFilter', '@templateTitle');
 
     await entry.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Template Action', 'Edit', testConstants.newTemplate, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Template Action', 'Edit', templateFeeder.newTemplate, '');
   });
 
   test('Search Template', async () => {
     const search = client.page.TemplatesPage();
 
     await search.navigate()
-      .validateTemplateSearch(testConstants.newTemplate, '@updatedSearchResult');
+      .validateTemplateSearch(templateFeeder.newTemplate, '@updatedSearchResult');
   });
 
   test('delete Template', async () => {
@@ -72,7 +72,7 @@ describe('Test Automation - Templates', () => {
       .deleteTemplate('@deleteTemplateSuccessMessage');
 
     await entry.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Template', 'Delete', testConstants.newTemplate, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Template', 'Delete', templateFeeder.newTemplate, '');
   });
 
   test('handling system template', async () => {
@@ -81,19 +81,19 @@ describe('Test Automation - Templates', () => {
 
     await systemtemplate.navigate()
       .templateEditMode('@HIPAATemplate')
-      .updateSystemTemplate(testConstants.newTempleteMessage)
+      .updateSystemTemplate(templateFeeder.newTempleteMessage)
       .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage');
 
     await entry.navigate()
-      .validateAuditEntryWithNoDataFound('Edit', testConstants.noDataFound, testConstants.memberName, 'Template');
+      .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Template');
 
     await systemtemplate.navigate()
       .templateEditMode('@HIPAATemplate')
-      .revertToOriginalSystemTemplate(testConstants.hipaaMessage)
+      .revertToOriginalSystemTemplate(templateFeeder.hipaaMessage)
       .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage');
 
     await entry.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Template', 'Edit', testConstants.hipaaTitle, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Template', 'Edit', templateFeeder.hipaaTitle, '');
   });
 
   test('Mark the HIPAA template as favorite', async () => {
@@ -105,7 +105,7 @@ describe('Test Automation - Templates', () => {
       .markAsFavorite('@favoriteOptionforHIPAA', '@favoriteFilter', '@HIPAATemplate');
 
     await entry.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Template Action', 'Edit', testConstants.hipaaTitle, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Template Action', 'Edit', templateFeeder.hipaaTitle, '');
   });
 
   test('Mark the HIPAA template as Unfavorite', async () => {
@@ -116,17 +116,17 @@ describe('Test Automation - Templates', () => {
       .markAsUnfavorite('@favoriteOptionforHIPAA', '@favoriteFilter', '@HIPAATemplate');
 
     await entry.navigate()
-      .validateAuditEntry(testConstants.memberName, 'Template Action', 'Edit', testConstants.hipaaTitle, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Template Action', 'Edit', templateFeeder.hipaaTitle, '');
   });
 
   test('Filtering of Templates', async () => {
     const filter = client.page.TemplatesPage();
 
     await filter.navigate()
-      .validateTemplateFilter('@filterAll', testConstants.allFilter)
+      .validateTemplateFilter('@filterAll', templateFeeder.allFilter)
       .pause(1000)
-      .validateTemplateFilter('@filterTextingChannel', testConstants.textingFilter)
+      .validateTemplateFilter('@filterTextingChannel', templateFeeder.textingFilter)
       .pause(1000)
-      .validateTemplateFilter('@favoriteFilter', testConstants.favFilter);
+      .validateTemplateFilter('@favoriteFilter', templateFeeder.favFilter);
   });
 });

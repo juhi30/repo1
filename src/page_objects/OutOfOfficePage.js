@@ -1,4 +1,4 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
+const oooFeeder = require('../feeder/outOfOffice.feeder');
 
 const outOfOfficeCommands = {
 
@@ -217,12 +217,12 @@ module.exports = {
     },
 
     eventName: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.oooTitle}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${oooFeeder.oooTitle}')]`,
       locateStrategy: 'xpath',
     },
 
     updatedEventName: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.newEventTitle}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${oooFeeder.newEventTitle}')]`,
       locateStrategy: 'xpath',
     },
 

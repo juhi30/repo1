@@ -1,6 +1,6 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 
-const testConstants = require('./../toolboxes/feeder.toolbox');
+const contactFeeder = require('./../feeder/contact.feeder');
 
 
 let text = '';
@@ -73,8 +73,7 @@ const auditLogsCommands = {
       .verify.containsText('@category', category, `Category should be ${category}`)
       .verify.containsText('@action', action, `Action should be ${action}`)
       .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-      .verify.containsText('@noDataFound', name, `${name} is visible`)
-      .elementText('@eventDetails');
+      .verify.containsText('@noDataFound', name, `${name} is visible`);
   },
 
   selectContactFilter(contactName, selectContactElement) {
@@ -104,8 +103,7 @@ const auditLogsCommands = {
       .verify.containsText('@category', category, `Category should be ${category}`)
       .verify.containsText('@action', action, `Action should be ${action}`)
       .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-      .verify.containsText('@staticField', name, `${action}ed Event should be ${name}`)
-      .elementText('@eventDetails');
+      .verify.containsText('@staticField', name, `${action}ed Event should be ${name}`);
   },
 };
 
@@ -261,32 +259,32 @@ module.exports = {
     },
 
     searchedContactConnectedParty: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}']`,
       locateStrategy: 'xpath',
     },
 
     searchContactPatient: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactFirstName} ${testConstants.contactLastName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactFirstName} ${contactFeeder.contactLastName}']`,
       locateStrategy: 'xpath',
     },
 
     searchContactOther: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactOtherFirstName} ${testConstants.contactOtherLastName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactOtherFirstName} ${contactFeeder.contactOtherLastName}']`,
       locateStrategy: 'xpath',
     },
 
     searchContactNew: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactNewFirstName} ${testConstants.contactNewLastName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}']`,
       locateStrategy: 'xpath',
     },
 
     searchOtherContact: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactOtherFirstName} ${testConstants.contactOtherLastName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactOtherFirstName} ${contactFeeder.contactOtherLastName}']`,
       locateStrategy: 'xpath',
     },
 
     searchConnectedParty: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${testConstants.contactFirstNameOnModal} ${testConstants.contactLastNameOnModal}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}']`,
       locateStrategy: 'xpath',
     },
 

@@ -1,4 +1,4 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
+const officeFeeder = require('../feeder/office.feeder');
 
 const officeCommands = {
 
@@ -15,11 +15,10 @@ const officeCommands = {
   },
 
   checkVisibilityOfEditPage() {
-    return this.waitForElementVisible('@officesTitle', 'officeToBeEdited is visible')
+    return this.waitForElementVisible('@officeToBeEdited', 'officeToBeEdited is visible')
       .click('@officeToBeEdited')
       .waitForElementVisible('@editOfficeButton', 'edit office button is visible')
-      .click('@editOfficeButton')
-      .waitForElementVisible('@editOfficeTitle', 'edit office page is opened.');
+      .click('@editOfficeButton');
   },
 
   editOfficeForm(inputField, updatedValue) {
@@ -28,9 +27,9 @@ const officeCommands = {
       .setValue(inputField, updatedValue);
   },
 
-  deleteOfficeForm() {
-    return this.waitForElementVisible('@officesTitle', 'officeToBeDeleted is visible')
-      .click('@officeToBeDeleted')
+  deleteOfficeForm(officeToBeDeleted) {
+    return this.waitForElementVisible('@officesTitle', `${officeToBeDeleted} is visible`)
+      .click(officeToBeDeleted)
       .waitForElementVisible('@editOfficeButton', 'edit office button is visible')
       .click('@editOfficeButton')
       .waitForElementVisible('@editOfficeTitle', 'edit office page is opened.')
@@ -141,7 +140,7 @@ module.exports = {
     },
 
     officeToBeEdited: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.officeName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${officeFeeder.officeName}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -151,7 +150,7 @@ module.exports = {
     },
 
     officeToBeDeleted: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${testConstants.newOfficeName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${officeFeeder.newOfficeName}')]`,
       locateStrategy: 'xpath',
     },
 

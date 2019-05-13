@@ -1,4 +1,4 @@
-const testConstants = require('../toolboxes/feeder.toolbox');
+const tagsFeeder = require('../feeder/tags.feeder');
 
 const editChannelsCommands = {
 
@@ -200,11 +200,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    channelContainer: {
-      selector: `//SPAN[contains(text(),'${testConstants.channel}')]`, // first channel listed to access channel summary container
-      locateStrategy: 'xpath',
-    },
-
     editChannel: {
       selector: '//SPAN[contains(text(),\'Edit Channel\')]',
       locateStrategy: 'xpath',
@@ -344,7 +339,7 @@ module.exports = {
     },
 
     tagCategory: {
-      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'${testConstants.tagCategory}')]`,
+      selector: `//LABEL[@class='rhinodio__label'][contains(text(),'${tagsFeeder.tagCategory}')]`,
       locateStrategy: 'xpath',
     },
 

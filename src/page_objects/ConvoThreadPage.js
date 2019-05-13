@@ -153,6 +153,32 @@ const convoThreadCommands = {
     return this.waitForElementVisible('@assignmentMemberSearchInput', 'Member search input is visible')
       .setValue('@assignmentMemberSearchInput', name);
   },
+
+  verifyNavigationToChatThread() {
+    return this.verify.visible('@conversationBody', 'Conversation Body is Visible')
+  },
+
+  sendRhinosecureMessage(rhinoSecureMessage) {
+    return this.verify.visible('@rhinoSecureButton', 'Rhinosecure Button is visible')
+    .click('@rhinoSecureButton')
+    .verify.visible('@conversationTextarea')
+    .clearValue('@rhinoSecureMessageInput')
+    .setValue('@rhinoSecureMessageInput', rhinoSecureMessage)
+    .pause(1000)
+    .click('@sendMessageButton')
+    .pause(2000);
+  },
+
+  getPatientLink(globalVariable) {
+    return this.getAttribute('@rhinoSecureAutoResponseLink', 'href', (tpObj) => {
+      global[globalVariable] = tpObj.value;
+      console.log(global.PATIENT_SIGNUP_LINK);
+    });
+  },
+
+  verifyAutoResponse() {
+    return this.waitForElementVisible('@rhinoSecureAutoResponseLink', 'Auto Response Message is Received');
+  },
 };
 
 module.exports = {
@@ -337,6 +363,36 @@ module.exports = {
 
     assignButton: {
       selector: '//BUTTON[contains(@id, \'assign__final__button\')]',
+      locateStrategy: 'xpath',
+    },
+
+    conversationBody: {
+      selector: `//DIV[@class='convo__body']`,
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureButton: {
+      selector: `//SPAN[@class='button__text-wrapper'][text()='RhinoSecure']`,
+      locateStrategy: 'xpath',
+    },
+
+    conversationTextarea: {
+      selector: `//DIV[@class='convo__message__container']`,
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureMessageInput: {
+      selector: `//TEXTAREA[contains(@id,'message')]`,
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureAutoResponseLink: {
+      selector: `(//DIV[contains(@class,'msg--outbound')])[last()]//A`,
+      locateStrategy: 'xpath',
+    },
+
+    sendMessageButton: {
+      selector: '//BUTTON[contains(@class, \'convo__message__send\')]',
       locateStrategy: 'xpath',
     },
   },

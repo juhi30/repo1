@@ -189,4 +189,11 @@ module.exports = {
   newMemberUsername: 'NewUserName',
   tagForMemberPage: 'Test_3',
   newMemberPassword: 'Test@123',
+
+  // for rhinosecure test message
+  rhinosecureMessage: 'Hello Dear!',
+  // for patient registration
+  patientUserName: 'new patient',
+  patientEmail: 'patientnew@logins.com',
+  patientPassword: 'Test123!',
 };

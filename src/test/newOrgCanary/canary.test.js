@@ -5,6 +5,7 @@ import './member';
 // import './channels'
 
 // //Member Flow
+// import './patient';
 // import './office';
 // import './tags';
 // import './outofoffice';

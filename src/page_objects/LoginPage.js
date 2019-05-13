@@ -67,7 +67,7 @@ const loginCommands = {
 
   validateUrlChange(url) {
     const nextPageUrl = url || 'inbox';
-    return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
+    return this.waitForElementNotPresent('@loginButton', false, null, `Login button is no longer visible, page changes to ${nextPageUrl}`)
       .verify.urlContains(nextPageUrl);
   },
 

@@ -7,6 +7,7 @@ import './channels';
 // //Member Flow
 import './group';
 import './office';
+import './memberPreferences';
 // import './office';
 // import './tags';
 // import './outofoffice';

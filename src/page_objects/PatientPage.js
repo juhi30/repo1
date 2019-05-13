@@ -1,11 +1,11 @@
-const messageFeeder = require('./../feeder/message.feeder');
+import logger from 'rhinotilities/lib/loggers/logger';
 
 const patientCommands = {
   registerPatient(name, email, password) {
     return this.updateDetails('@patientNameInput', name)
       .updateDetails('@patientEmailInput', email)
       .updateDetails('@patientPassword', password)
-      .updateDetails('@patientConfirmPassword', password)
+      .updateDetails('@patientConfirmPassword', password);
   },
 
   updateDetails(element, newValue) {
@@ -18,7 +18,7 @@ const patientCommands = {
     let text = '';
     return this.getText(ele, (tpObj) => {
       text = tpObj.value;
-      console.log(text, messageFeeder.rhinosecureMessage);
+      logger.info('Message sent through RhinoSecure is', text);
     });
   },
 
@@ -38,33 +38,33 @@ module.exports = {
   elements: {
 
     patientNameInput: {
-      selector: `//INPUT[contains(@id,\'username\')]`,
+      selector: '//INPUT[contains(@id,\'username\')]',
       locateStrategy: 'xpath',
     },
 
     patientEmailInput: {
-        selector: `//INPUT[contains(@id,\'loginEmail\')]`,
-        locateStrategy: 'xpath',
+      selector: '//INPUT[contains(@id,\'loginEmail\')]',
+      locateStrategy: 'xpath',
     },
 
     patientPassword: {
-      selector: `//INPUT[contains(@id,\'password\')]`,
+      selector: '//INPUT[contains(@id,\'password\')]',
       locateStrategy: 'xpath',
     },
 
     patientConfirmPassword: {
-        selector: `//INPUT[contains(@id,\'passwordConfirmation\')]`,
-        locateStrategy: 'xpath',
+      selector: '//INPUT[contains(@id,\'passwordConfirmation\')]',
+      locateStrategy: 'xpath',
     },
 
     viewMessageButton: {
-        selector: `//SPAN[@class='button__text-wrapper'][text()='View Message']`,
-        locateStrategy: 'xpath',
+      selector: '//SPAN[@class="button__text-wrapper"][text()="View Message"]',
+      locateStrategy: 'xpath',
     },
 
     sentMessage: {
-        selector: `//DIV[contains(@class,'msg--inbound')][last()]`,
-        locateStrategy: 'xpath',
+      selector: '//DIV[contains(@class,"msg--inbound")][last()]',
+      locateStrategy: 'xpath',
     },
   },
 };

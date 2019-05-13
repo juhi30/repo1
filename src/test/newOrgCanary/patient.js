@@ -1,9 +1,9 @@
 import { client } from 'nightwatch-api';
 
-const contactFeeder = require('./../feeder/contact.feeder');
-const memberFeeder = require('./../feeder/member.feeder');
-const messageFeeder = require('./../feeder/message.feeder');
-const patientFeeder = require('./../feeder/patient.feeder');
+const contactFeeder = require('../../feeder/contact.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
+const messageFeeder = require('../../feeder/message.feeder');
+const patientFeeder = require('../../feeder/patient.feeder');
 
 describe('Patient Login Page Tests Cases', () => {
   test('Login with valid username and password', async () => {

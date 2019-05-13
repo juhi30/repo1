@@ -160,13 +160,13 @@ const convoThreadCommands = {
 
   sendRhinosecureMessage(rhinoSecureMessage) {
     return this.verify.visible('@rhinoSecureButton', 'Rhinosecure Button is visible')
-    .click('@rhinoSecureButton')
-    .verify.visible('@conversationTextarea')
-    .clearValue('@rhinoSecureMessageInput')
-    .setValue('@rhinoSecureMessageInput', rhinoSecureMessage)
-    .pause(1000)
-    .click('@sendMessageButton')
-    .pause(2000);
+      .click('@rhinoSecureButton')
+      .verify.visible('@conversationTextarea')
+      .clearValue('@rhinoSecureMessageInput')
+      .setValue('@rhinoSecureMessageInput', rhinoSecureMessage)
+      .pause(1000)
+      .click('@sendMessageButton')
+      .pause(2000);
   },
 
   getPatientLink(globalVariable) {
@@ -367,27 +367,27 @@ module.exports = {
     },
 
     conversationBody: {
-      selector: `//DIV[@class='convo__body']`,
+      selector: '//DIV[@class="convo__body"]',
       locateStrategy: 'xpath',
     },
 
     rhinoSecureButton: {
-      selector: `//SPAN[@class='button__text-wrapper'][text()='RhinoSecure']`,
+      selector: '//SPAN[@class="button__text-wrapper"][text()="RhinoSecure"]',
       locateStrategy: 'xpath',
     },
 
     conversationTextarea: {
-      selector: `//DIV[@class='convo__message__container']`,
+      selector: '//DIV[@class="convo__message__container"]',
       locateStrategy: 'xpath',
     },
 
     rhinoSecureMessageInput: {
-      selector: `//TEXTAREA[contains(@id,'message')]`,
+      selector: '//TEXTAREA[contains(@id,"message")]',
       locateStrategy: 'xpath',
     },
 
     rhinoSecureAutoResponseLink: {
-      selector: `(//DIV[contains(@class,'msg--outbound')])[last()]//A`,
+      selector: '(//DIV[contains(@class,"msg--outbound")])[last()]//A',
       locateStrategy: 'xpath',
     },
 

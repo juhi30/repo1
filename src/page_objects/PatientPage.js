@@ -1,4 +1,4 @@
-const testConstants = require('./../toolboxes/feeder.toolbox');
+const messageFeeder = require('./../feeder/message.feeder');
 
 const patientCommands = {
   registerPatient(name, email, password) {
@@ -18,7 +18,7 @@ const patientCommands = {
     let text = '';
     return this.getText(ele, (tpObj) => {
       text = tpObj.value;
-      console.log(text, testConstants.rhinosecureMessage);
+      console.log(text, messageFeeder.rhinosecureMessage);
     });
   },
 

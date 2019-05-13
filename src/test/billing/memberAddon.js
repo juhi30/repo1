@@ -1,11 +1,15 @@
 import { client } from 'nightwatch-api';
-import { verifyAlertMessages, activateDeactivateMember, createMember } from '../../toolboxes/member.toolbox';
+import { logout } from '../../toolboxes/login.toolbox';
+
+import {
+  verifyAlertMessages, activateDeactivateMember, createMember,
+  changePasswordUsingTempPassword,
+} from '../../toolboxes/member.toolbox';
 
 const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Member Creation test Cases for Billing Organization', () => {
   const member = client.page.MembersPage();
-
 
   test('Adding Members according to the plan', async () => {
     const memberDetails1 = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName1 },
@@ -33,7 +37,7 @@ describe('Member Creation test Cases for Billing Organization', () => {
       { element: '@memberUsername', value: memberFeeder.memberUsername5 }];
     const roles5 = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
-    await createMember(memberDetails1, roles1);
+    await createMember(memberDetails1, roles1, 'NEW_CANARY_MEMBER_TEMP_PASSWORD');
     await createMember(memberDetails2, roles2);
     await createMember(memberDetails3, roles3);
     await createMember(memberDetails4, roles4);
@@ -61,5 +65,20 @@ describe('Member Creation test Cases for Billing Organization', () => {
 
   test('verifying alert message on reactivating a member', async () => {
     await activateDeactivateMember('@selectAddonMemberFromList', '@activateMember', '@reactivateAlertMessage', '@reactivateInModal', '@UpdateSuccessMessage');
+  });
+
+  test('logout as CCR', async () => {
+    await logout();
+  });
+
+  test('Login as New Member with Admin Roles', async () => {
+    const { memberUsername1, memberPassword } = memberFeeder;
+    const tempPassword = global.NEW_CANARY_MEMBER_TEMP_PASSWORD;
+
+    await changePasswordUsingTempPassword(memberUsername1, memberPassword, tempPassword);
+  });
+
+  test('logout as Member', async () => {
+    await logout();
   });
 });

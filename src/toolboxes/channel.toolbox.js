@@ -161,5 +161,7 @@ export async function verifyAlertDeletingChannel(deletedChannelElement, alertMes
     .click('@deleteChannelButton')
     .verifyChannelAlerts(alertMessage)
     .waitForElementVisible('@confirmDeleteChannel', 'confirm delete button is visible')
-    .click('@confirmDeleteChannel');
+    .click('@confirmDeleteChannel')
+    .waitForElementVisible('@deleteChannelSuccessMessage', 'Channel Deleted Successfully')
+    .waitForElementNotPresent('@deleteChannelSuccessMessage', 'Delete Success Message is no longer visible.');
 }

@@ -162,7 +162,7 @@ const universalElementsCommands = {
 
   clickBilling() {
     return this.click('@settingsButton')
-      .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
+      .waitForElementVisible('@billingInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@billingInSettingsDropdown')
       .pause(500)
       .verify.urlContains('/organization/billing', 'Billing page is visible');

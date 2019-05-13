@@ -1,41 +1,33 @@
 import { client } from 'nightwatch-api';
-import {
-  verifyBillingPageForStandardPlan, verifyBillingID,
-} from '../../toolboxes/billing.toolbox';
+import * as billing from '../../toolboxes/billing.toolbox';
 
-const billingFeeder = require('../../feeder/biling.feeder');
+const billingFeeder = require('../../feeder/billing.feeder');
+const memberFeeder = require('../../feeder/member.feeder');
 
 const billingPage = client.page.BillingUsagePage();
+const login = client.page.LoginPage();
+const add = client.page.UniversalElements();
 
 describe('Billing Organization Test Cases', () => {
-  test('login as a member', async () => {
-    const login = client.page.LoginPage();
-
+  test('Login as Member', async () => {
     await login.navigate()
-      .enterMemberCreds(billingFeeder.memberUsername, billingFeeder.memberPassword)
+      .fillInUsername(memberFeeder.memberUsername1)
+      .fillInPassword(memberFeeder.memberPassword)
       .submit()
       .validateUrlChange();
   });
 
-  test('Verify the details for Estimated bill regarding PDF', async () => {
-    await billingPage.navigate()
-      .validateUrlChange()
-      .validateEstimatedBillSection();
+  test('Verifying billing UI', async () => {
+    await add.clickBilling();
+    await billing.verifyBillingPageForStandardPlan();
   });
 
+  // test('Verify the details for Estimated bill regarding PDF', async () => {
+  //   await billingPage.validateEstimatedBillSection();
+  // });
+
   test('Verify the details for billing contact', async () => {
-    await billingPage.navigate()
-      .validateUrlChange()
-      .verifyBillingContactDetailsSection()
-      .verifyContactInformation('@contactFirstNameInput', billingFeeder.firstName)
-      .verifyContactInformation('@contactLastNameInput', billingFeeder.lastName)
-      .verifyContactInformation('@phoneNumberInput', billingFeeder.phoneNumber)
-      .verifyContactInformation('@emailAddrInput', billingFeeder.emailAddress)
-      .verifyContactInformation('@billingLine1Input', billingFeeder.billingLine1)
-      .verifyContactInformation('@billingLine2Input', billingFeeder.billingLine2)
-      .verifyContactInformation('@cityInput', billingFeeder.billingCity)
-      .verifyContactInformation('@stateInput', billingFeeder.stateId)
-      .verifyContactInformation('@contactZipInput', billingFeeder.zipForContact);
+    billing.verifyBillingContactDetails();
   });
 
   test('Update Billing Contact details', async () => {
@@ -49,9 +41,8 @@ describe('Billing Organization Test Cases', () => {
       billingCity: billingFeeder.contactBillingCity,
       zip: billingFeeder.contactZip,
     };
-    await billingPage.navigate()
-      .validateUrlChange()
-      .verifyBillingContactDetailsSection()
+
+    await billingPage.verifyBillingContactDetailsSection()
       .updateBillingContact(billingContactDetails)
       .updateBillingContactForState(billingContactDetails);
   });
@@ -65,9 +56,8 @@ describe('Billing Organization Test Cases', () => {
       routingNumber: billingFeeder.routingNumber,
       accountType: billingFeeder.accountType,
     };
-    await billingPage.navigate()
-      .validateUrlChange()
-      .verifyAddPaymentButton()
+
+    await billingPage.verifyAddPaymentButton()
       .changePaymentMethod('@radioBankAccount')
       .addPaymentToBank(billingPaymentDetails);
   });
@@ -81,15 +71,9 @@ describe('Billing Organization Test Cases', () => {
       routingNumber: billingFeeder.newRoutingNumber,
       accountType: billingFeeder.newAccountType,
     };
-    await billingPage.navigate()
-      .validateUrlChange()
-      .verifyChangePaymentButton()
+    await billingPage.verifyChangePaymentButton()
       .changePaymentMethod('@radioBankAccount')
       .updatePaymentToBank(updateBillingPaymentDetails)
       .updatePaymentToBankForAccountType(updateBillingPaymentDetails);
-  });
-
-  test('Verifying billing UI', async () => {
-    await verifyBillingPageForStandardPlan();
   });
 });

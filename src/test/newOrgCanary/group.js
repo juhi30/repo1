@@ -1,5 +1,5 @@
-import { createGroup, addChannelRouteToGroup, convertGroupTypeToAnotherGroupType } from '../../toolboxes/group.toolbox';
-import { memberLogin, logout } from '../../toolboxes/login.toolbox';
+import { createGroup, addChannelRouteToGroup } from '../../toolboxes/group.toolbox';
+import { memberLogin } from '../../toolboxes/login.toolbox';
 
 const channelFeeder = require('../../feeder/channel.feeder');
 const groupFeeder = require('../../feeder/group.feeder');

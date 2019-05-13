@@ -1,7 +1,7 @@
 module.exports = {
 
   // Org Setup Details
-  orgName: 'Testing_NewCanary_local',
+  orgName: 'Testing_NewCanary_dev',
   orgName2: process.env.NEW_CANARY_EXISTING_ORG_NAME,
   billingOrgName: 'Billing_Test_Organization',
   address: 'Test Address',

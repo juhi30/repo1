@@ -16,7 +16,7 @@ const auditLogs = client.page.AuditLogsPage();
  */
 export async function createGroup(groupDetails, groupTypeOption, groupTypeListViewElement, memberResultElement) {
   await universal.clickGroups();
-  await group.verifyGroupEls()
+  await group.clickAddGroup()
     .selectGroupType(groupTypeOption)
     .addGroupDetails(groupDetails.name, groupDetails.purpose);
 
@@ -27,7 +27,7 @@ export async function createGroup(groupDetails, groupTypeOption, groupTypeListVi
     .waitForElementNotPresent('@groupCreateSuccessMessage');
 
   await universal.clickAuditLogs();
-  auditLogs.validateAuditEntry(groupDetails.memberName, 'Group', 'Add', groupDetails.name);
+  await auditLogs.validateAuditEntry(groupDetails.memberName, 'Group', 'Add', groupDetails.name);
 }
 
 /**
@@ -67,7 +67,7 @@ export async function addChannelRouteToGroup(groupDetails, groupListViewElement,
  */
 export async function convertGroupTypeToAnotherGroupType(groupEditDetails, editedGroupElement, groupTypeListViewElement) {
   await universal.clickGroups();
-  group.openInEditMode(editedGroupElement)
+  await group.openInEditMode(editedGroupElement)
     .convertGroupType(groupEditDetails.newGroupType, groupEditDetails.newName, groupEditDetails.newPurpose);
 
   channel.enableDisableToggles('@availabilityHoursToggle')
@@ -78,5 +78,5 @@ export async function convertGroupTypeToAnotherGroupType(groupEditDetails, edite
     .waitForElementNotPresent('@groupUpdateSuccessMessage');
 
   await universal.clickAuditLogs();
-  auditLogs.validateAuditEntry(groupEditDetails.memberName, 'Group', 'Add', groupEditDetails.newName);
+  await auditLogs.validateAuditEntry(groupEditDetails.memberName, 'Group', 'Add', groupEditDetails.newName);
 }

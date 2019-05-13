@@ -73,8 +73,7 @@ const auditLogsCommands = {
       .verify.containsText('@category', category, `Category should be ${category}`)
       .verify.containsText('@action', action, `Action should be ${action}`)
       .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-      .verify.containsText('@noDataFound', name, `${name} is visible`)
-      .elementText('@eventDetails');
+      .verify.containsText('@noDataFound', name, `${name} is visible`);
   },
 
   selectContactFilter(contactName, selectContactElement) {
@@ -104,8 +103,7 @@ const auditLogsCommands = {
       .verify.containsText('@category', category, `Category should be ${category}`)
       .verify.containsText('@action', action, `Action should be ${action}`)
       .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-      .verify.containsText('@staticField', name, `${action}ed Event should be ${name}`)
-      .elementText('@eventDetails');
+      .verify.containsText('@staticField', name, `${action}ed Event should be ${name}`);
   },
 };
 

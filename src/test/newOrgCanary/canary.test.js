@@ -6,6 +6,7 @@ import './channels';
 
 // //Member Flow
 import './group';
+import './office';
 // import './office';
 // import './tags';
 // import './outofoffice';

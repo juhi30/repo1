@@ -1,7 +1,7 @@
 module.exports = {
 
   // details for office addition
-  officeName: 'Mount Pleasant Office5',
+  officeName: 'Mount Pleasant Offices',
   officeAddress: '128 Hester St',
   officeCity: 'Charleston',
   officeState: 'South Carolina',

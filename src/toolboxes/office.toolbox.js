@@ -3,6 +3,12 @@ import { client } from 'nightwatch-api';
 const office = client.page.OfficePage();
 const checkAuditLogs = client.page.AuditLogsPage();
 
+/**
+ * Used to create office
+ * @param  {Array} officeDetails array of object having 2 keys element and value.
+ * @param  {object} auditDetails having 2 keys memeber who perform the action and office name.
+ */
+
 export async function createOffice(officeDetails, auditDetails) {
   await office.navigate()
     .clickAddOffice();
@@ -10,13 +16,19 @@ export async function createOffice(officeDetails, auditDetails) {
   officeDetails.map(field => office.createOfficeForm(field.element, field.value));
 
   await office.click('@createOfficeButton')
-    .pause(2000)
     .successMessageVerification('@officeCreationSuccessMessage');
 
   await checkAuditLogs.navigate()
-    .pause(5000)
+    .pause(2000)
     .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Add', auditDetails.officeName);
 }
+
+/**
+ * Used to update office
+ * @param  {Array} officeDetails array of object having 2 keys element and value.
+ * @param {string} officeState pass state as string.
+ * @param  {object} auditDetails having 2 keys memeber who perform the action and office name.
+ */
 
 export async function editOffice(officeDetails, officeState, auditDetails) {
   await office.navigate()
@@ -26,7 +38,6 @@ export async function editOffice(officeDetails, officeState, auditDetails) {
   office.setValue('@officeState', officeState);
 
   await office.click('@updateOfficeButton')
-    .pause(2000)
     .successMessageVerification('@officeUpdationSuccessMessage');
 
   await checkAuditLogs.navigate()
@@ -34,9 +45,15 @@ export async function editOffice(officeDetails, officeState, auditDetails) {
     .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Edit', auditDetails.officeName);
 }
 
-export async function deleteOffice(auditDetails) {
+/**
+ * Used to delete office
+ * @param {string} officeElement office name element that you want to delete.
+ * @param  {object} auditDetails having 2 keys memeber who perform the action and office name.
+ */
+
+export async function deleteOffice(officeElement, auditDetails) {
   await office.navigate()
-    .deleteOfficeForm()
+    .deleteOfficeForm(officeElement)
     .successMessageVerification('@officeDeletionSuccessMessage');
 
   await checkAuditLogs.navigate()

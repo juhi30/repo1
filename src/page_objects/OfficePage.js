@@ -27,9 +27,9 @@ const officeCommands = {
       .setValue(inputField, updatedValue);
   },
 
-  deleteOfficeForm() {
-    return this.waitForElementVisible('@officesTitle', 'officeToBeDeleted is visible')
-      .click('@officeToBeDeleted')
+  deleteOfficeForm(officeToBeDeleted) {
+    return this.waitForElementVisible('@officesTitle', `${officeToBeDeleted} is visible`)
+      .click(officeToBeDeleted)
       .waitForElementVisible('@editOfficeButton', 'edit office button is visible')
       .click('@editOfficeButton')
       .waitForElementVisible('@editOfficeTitle', 'edit office page is opened.')

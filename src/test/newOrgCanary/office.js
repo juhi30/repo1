@@ -36,6 +36,6 @@ describe('Automated Tests: Office', () => {
       officeName: officeFeeder.newOfficeName,
       memberName: memberFeeder.memberName,
     };
-    await deleteOffice(auditDetails);
+    await deleteOffice('@officeToBeDeleted', auditDetails);
   });
 });

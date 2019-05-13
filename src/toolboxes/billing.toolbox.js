@@ -18,10 +18,10 @@ export async function verifyBillingPageForStandardPlan() {
     .validateMessageUpdateAlert();
 }
 
+
 export async function verifyBillingID() {
   await orgProfile
     .waitForElementVisible('@settingsDropdown', 'Setting Visibility')
-    .pause(2000)
     .navigate()
     .checkBillingId();
 }

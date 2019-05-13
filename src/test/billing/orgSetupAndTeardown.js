@@ -2,7 +2,6 @@ import logger from 'rhinotilities/lib/loggers/logger';
 import { billingOrganizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
 import { ccrLogin } from '../../toolboxes/login.toolbox';
 
-const { EventEmitter } = require('events');
 const loginFeeder = require('../../feeder/login.feeder');
 const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
 
@@ -28,11 +27,7 @@ beforeAll(async () => {
   };
 
   try {
-    // Increase max listeners for long running test
-    EventEmitter.defaultMaxListeners = 100;
-
     await ccrLogin(loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword);
-
     await billingOrganizationSetUp(organizationDetails, 'BILLING_ORG_ID');
   } catch (err) {
     logger.error(err, '==error on orgSetupAndTearDown=====');
@@ -43,13 +38,9 @@ beforeAll(async () => {
 afterAll(async (done) => {
   try {
     await orgTearDown(process.env.BILLING_ORG_ID, loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword);
-    // Reset max listeners to the node.js default once the test is complete.
-    EventEmitter.defaultMaxListeners = 10;
     done();
   } catch (err) {
     logger.error(err, '===error on after all orgSetupAndTeardown=======');
     done(err);
-    // Reset max listeners to the node.js default once the test is complete.
-    EventEmitter.defaultMaxListeners = 10;
   }
 });

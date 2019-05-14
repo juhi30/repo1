@@ -9,6 +9,7 @@ import './group';
 import './office';
 import './memberPreferences';
 import './memberProfile';
+import './contact';
 // import './tags';
 // import './outofoffice';
 // import './template';

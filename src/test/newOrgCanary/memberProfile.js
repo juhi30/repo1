@@ -1,4 +1,13 @@
 import { client } from 'nightwatch-api';
+import {
+  changeMemberUserName,
+  changePasswordByProfile,
+  addRemovePermissionsToMember,
+  addTagWithMember,
+  addGroupToMember,
+  enableAvailabilityHoursToMember,
+  addMemberProfilePhoto,
+} from '../../toolboxes/member.toolbox';
 
 const memberFeeder = require('../../feeder/member.feeder');
 const tagsFeeder = require('../../feeder/tags.feeder');
@@ -20,49 +29,33 @@ describe('Automated Tests: Member Profile', () => {
   });
 
   test('Change username and password and on the profile page', async () => {
-    const profilePage = client.page.MemberProfilePage();
     const auditLogs = client.page.AuditLogsPage();
+    await changeMemberUserName(memberFeeder.newMemberUsername);
 
-    await profilePage.navigate()
-      .changeUserName(memberFeeder.newMemberUsername)
-      .clickSaveProfileButton()
-      .successMessage('@saveProfileSuccessMessage')
-
-      .pause(1000)
-
-      .changePassword(memberFeeder.memberPassword, memberFeeder.newMemberPassword)
-      .successMessage('@passwordUpdationSuccessMessage');
+    await changePasswordByProfile(memberFeeder.memberPassword, memberFeeder.newMemberPassword);
 
     await auditLogs.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '');
+      .pause(2000)
+      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName);
   });
 
   test('Member permissions on the profile page', async () => {
-    const profilePage = client.page.MemberProfilePage();
     const auditLogs = client.page.AuditLogsPage();
-
-    await profilePage.navigate()
-      .addRemovePermissions('@billingAdminSettingsCheck')
-      .addRemovePermissions('@memberAdminSettingsCheck')
-      .addRemovePermissions('@memberTemplatesSettingsCheck')
-      .addRemovePermissions('@memberAdminSettingsCheck')
-      .clickSaveProfileButton()
-      .successMessage('@saveProfileSuccessMessage');
+    const permissions = ['@billingAdminSettingsCheck', '@memberAdminSettingsCheck', '@memberTemplatesSettingsCheck'];
+    await addRemovePermissionsToMember(permissions);
 
     await auditLogs.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '');
+      .pause(2000)
+      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName);
   });
 
   test('Tags addition or removal on the profile page', async () => {
-    const profilePage = client.page.MemberProfilePage();
     const auditLogs = client.page.AuditLogsPage();
-    const channel = client.page.ChannelsCreateEditPage();
-
-    await profilePage.navigate();
-    await channel.addtag(tagsFeeder.tagForMemberPage, '@tagCategory');
+    await addTagWithMember(tagsFeeder.tagForMemberPage, '@tagCategory');
 
     await auditLogs.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Tag', 'Add', memberFeeder.memberName, '');
+      .pause(2000)
+      .validateAuditEntry(memberFeeder.memberName, 'Tag', 'Add', tagsFeeder.tagForMemberPage);
   });
 
   test('Display of channels on the profile page', async () => {
@@ -74,40 +67,24 @@ describe('Automated Tests: Member Profile', () => {
   });
 
   test('Group addition on the profile page', async () => {
-    const profilePage = client.page.MemberProfilePage();
     const auditLogs = client.page.AuditLogsPage();
-
-    await profilePage.navigate()
-      .addGroup()
-      .pause(1000)
-      .clickSaveProfileButton()
-      .successMessage('@saveProfileSuccessMessage');
+    await addGroupToMember('@selectGroup');
 
     await auditLogs.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '');
+      .pause(2000)
+      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName);
   });
 
   test('Member availability hours on the profile page', async () => {
-    const profilePage = client.page.MemberProfilePage();
     const auditLogs = client.page.AuditLogsPage();
-
-    await profilePage.navigate()
-      .addAvailabilityHours('@availabilityHoursButton')
-      .clickSaveProfileButton()
-      .successMessage('@saveProfileSuccessMessage');
+    await enableAvailabilityHoursToMember();
 
     await auditLogs.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '');
+      .pause(2000)
+      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName);
   });
 
   test('Add photo for profile page', async () => {
-    const profilePage = client.page.MemberProfilePage();
-    const auditLogs = client.page.AuditLogsPage();
-
-    await profilePage.navigate()
-      .addUpdateLogo('@addPhotoButton');
-
-    await auditLogs.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '');
+    await addMemberProfilePhoto();
   });
 });

@@ -6,16 +6,15 @@ import './member';
 
 // //Member Flow
 import './contact';
-import './patient';
-// import './group';
-// import './office';
-// import './memberPreferences';
-// import './office';
+// import './patient';
+import './group';
+import './office';
+import './memberPreferences';
+import './memberProfile';
 // import './tags';
 // import './outofoffice';
 // import './template';
 // import './preferences';
-// import './memberProfile';
 
 // //Member + CCR flow. This should be the last test case
 // import './orgProfile';

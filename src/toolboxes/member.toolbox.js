@@ -2,6 +2,8 @@ import { client } from 'nightwatch-api';
 
 const member = client.page.MembersPage();
 const login = client.page.LoginPage();
+const profilePage = client.page.MemberProfilePage();
+const channel = client.page.ChannelsCreateEditPage();
 
 /**
  * Used to create member with some roles
@@ -46,4 +48,53 @@ export async function createTempPasswordByCCR(memberNameElement, globalVariable)
     .getTempPassword(globalVariable)
     .waitForElementNotPresent('@updateSuccessMessage')
     .pause(1000);
+}
+
+export async function changeMemberUserName(newUserName) {
+  await profilePage.navigate()
+    .changeUserName(newUserName)
+    .clickSaveProfileButton()
+    .successMessage('@saveProfileSuccessMessage')
+    .waitForElementNotPresent('@saveProfileSuccessMessage');
+}
+
+export async function changePasswordByProfile(oldPassword, newPassword) {
+  await profilePage.navigate()
+    .changePassword(oldPassword, newPassword)
+    .successMessage('@passwordUpdationSuccessMessage')
+    .waitForElementNotPresent('@passwordUpdationSuccessMessage');
+}
+
+export async function addRemovePermissionsToMember(permissions) {
+  await profilePage.navigate();
+  permissions.map(permission => profilePage.addRemovePermissions(permission));
+  await profilePage.clickSaveProfileButton()
+    .successMessage('@saveProfileSuccessMessage')
+    .waitForElementNotPresent('@saveProfileSuccessMessage');
+}
+
+export async function addTagWithMember(tagName, tagCategory) {
+  await profilePage.navigate();
+  await channel.addTag(tagName, tagCategory)
+    .pause(1000);
+}
+
+export async function addGroupToMember(groupElement) {
+  await profilePage.navigate()
+    .addGroup(groupElement)
+    .pause(1000)
+    .clickSaveProfileButton();
+}
+
+export async function enableAvailabilityHoursToMember() {
+  await profilePage.navigate()
+    .addAvailabilityHours('@availabilityHoursButton')
+    .clickSaveProfileButton()
+    .successMessage('@saveProfileSuccessMessage')
+    .waitForElementNotPresent('@saveProfileSuccessMessage');
+}
+
+export async function addMemberProfilePhoto() {
+  await profilePage.navigate()
+    .addUpdateLogo('@addPhotoButton');
 }

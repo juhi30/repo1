@@ -31,20 +31,13 @@ const membersCommands = {
   getTempPassword(globalVariable) {
     return this.getAttribute('@tempPassword', 'value', (tpObj) => {
       global[globalVariable] = tpObj.value;
-      console.log('Temp password is ==', global[globalVariable]); // eslint-disable-line no-console
+      logger.info(` ==== Temp password ${global[globalVariable]}`);
     });
   },
 
-  getNewTempPassword() {
-    return this.getAttribute('@tempPassword', 'value', (tpObj) => {
-      global.TEMP_NEW_PASSWORD = tpObj.value;
-      logger.info(` ==== Temp password ${global.TEMP_NEW_PASSWORD}`);
-    });
-  },
-
-  selectMember() {
-    return this.waitForElementVisible('@selectMemberFromList', 'member name is visible')
-      .click('@selectMemberFromList');
+  selectMember(element) {
+    return this.waitForElementVisible(element, 'member name is visible')
+      .click(element);
   },
 
   createTempPassword() {
@@ -53,7 +46,7 @@ const membersCommands = {
       .waitForElementVisible('@confirmTempPassword', 'Confirm password button is visible.')
       .click('@confirmTempPassword')
       .waitForElementVisible('@tempPassword', 'temporary password is visible.')
-      .waitForElementVisible('@UpdateSuccessMessage', 'Member is updated successfully with new temporary password.');
+      .waitForElementVisible('@updateSuccessMessage', 'Member is updated successfully with new temporary password.');
   },
 };
 
@@ -206,7 +199,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    UpdateSuccessMessage: {
+    updateSuccessMessage: {
       selector: '//*[text()=\'Member updated successfully.\']',
       locateStrategy: 'xpath',
     },

@@ -21,5 +21,9 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    patientInboxPageTitle: {
+      selector: '//*[contains(text(),\'Patient - \')]',
+      locateStrategy: 'xpath',
+    },
   },
 };

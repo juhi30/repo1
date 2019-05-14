@@ -63,17 +63,17 @@ describe('Test Automation - Templates', () => {
       .validateTemplateSearch(templateFeeder.newTemplate, '@updatedSearchResult');
   });
 
-  test('delete Template', async () => {
-    const deleteTemplate = client.page.TemplatesPage();
-    const entry = client.page.AuditLogsPage();
+  // test('delete Template', async () => {
+  //   const deleteTemplate = client.page.TemplatesPage();
+  //   const entry = client.page.AuditLogsPage();
 
-    await deleteTemplate.navigate()
-      .templateEditMode('@templateTitle')
-      .deleteTemplate('@deleteTemplateSuccessMessage');
+  //   await deleteTemplate.navigate()
+  //     .templateEditMode('@templateTitle')
+  //     .deleteTemplate('@deleteTemplateSuccessMessage');
 
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Template', 'Delete', templateFeeder.newTemplate, '');
-  });
+  //   await entry.navigate()
+  //     .validateAuditEntry(memberFeeder.memberName, 'Template', 'Delete', templateFeeder.newTemplate, '');
+  // });
 
   test('handling system template', async () => {
     const systemtemplate = client.page.TemplatesPage();

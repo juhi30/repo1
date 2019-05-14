@@ -19,13 +19,15 @@ async function uploadFile(client, fileName) {
   client.setValue('input[type="file"]', `${path.resolve()}/src/assets/${fileName}`);
 }
 
+async function uploadFile2(client, fileName) {
+  client.setValue('//DIV[contains(@class,\'dropdown__menu--top\')]//Input[@type=\'file\']', `${path.resolve()}/src/assets/${fileName}`);
+}
+
 // useful for clicking a specific element without needing a Page Object function
 // specific to that element's text (less brittle / more flexible)
 async function clickSpanViaText(client, text) {
   await client.api.useXpath().waitForElementVisible(`//SPAN[contains(., '${text}')]`, `Span with text "${text}" is visible`)
-    .pause(1000)
     .click(`//SPAN[contains(., '${text}')]`)
-    .pause(2000);
 }
 
 function clickDivViaText(client, text) {
@@ -133,4 +135,5 @@ module.exports = {
   memberCredsForConversationGrid,
   uploadFile,
   localToUtc,
+  uploadFile2,
 };

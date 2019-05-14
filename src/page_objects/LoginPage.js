@@ -123,12 +123,12 @@ module.exports = {
     },
 
     errorPrompt: {
-      selector: '//DIV[contains(text(),\'Username and password did not match\')]',
+      selector: '//DIV[@class=\'alert__body\'][contains(text(),\'Username and password did not match\')]',
       locateStrategy: 'xpath',
     },
 
     missingCredentialErrorPrompt: {
-      selector: '//DIV[contains(.,\'Missing credentials\')]',
+      selector: '//DIV[@class=\'alert__body\'][contains(text(),\'Missing credentials\')]',
       locateStrategy: 'xpath',
     },
 

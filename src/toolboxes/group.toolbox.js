@@ -15,8 +15,8 @@ const auditLogs = client.page.AuditLogsPage();
  * @param {string} memberResultElement Member element to route with group on group creation page
  */
 export async function createGroup(groupDetails, groupTypeOption, groupTypeListViewElement, memberResultElement) {
-  await universal.clickGroups();
-  await group.clickAddGroup()
+  await group.navigate()
+    .clickAddGroup()
     .selectGroupType(groupTypeOption)
     .addGroupDetails(groupDetails.name, groupDetails.purpose);
 
@@ -38,8 +38,8 @@ export async function createGroup(groupDetails, groupTypeOption, groupTypeListVi
  * @param {string} groupResultElement Group element to route with channel on channel creation page
  */
 export async function addChannelRouteToGroup(groupDetails, groupListViewElement, channelType, groupResultElement) {
-  await universal.clickGroups();
-  await group.openInEditMode(groupListViewElement)
+  await group.navigate()
+    .openInEditMode(groupListViewElement)
     .addChannel()
     .pause(500)
     .verify.urlContains('channels', 'Channel Page is opened');
@@ -66,8 +66,8 @@ export async function addChannelRouteToGroup(groupDetails, groupListViewElement,
  * @param {string} groupTypeListViewElement edited group element on Group listing
  */
 export async function convertGroupTypeToAnotherGroupType(groupEditDetails, editedGroupElement, groupTypeListViewElement) {
-  await universal.clickGroups();
-  await group.openInEditMode(editedGroupElement)
+  await group.navigate()
+    .openInEditMode(editedGroupElement)
     .convertGroupType(groupEditDetails.newGroupType, groupEditDetails.newName, groupEditDetails.newPurpose);
 
   channel.enableDisableToggles('@availabilityHoursToggle')

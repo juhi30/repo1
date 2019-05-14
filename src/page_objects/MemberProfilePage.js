@@ -42,11 +42,11 @@ const profileCommands = {
     return this.waitForElementVisible(element, `${element} is visible and routed to member`);
   },
 
-  addGroup() {
+  addGroup(groupElement) {
     return this.waitForElementVisible('@addMoreGroups', 'add groups option is visible')
       .click('@addMoreGroups')
-      .waitForElementVisible('@selectGroup', 'select group is visible')
-      .click('@selectGroup');
+      .waitForElementVisible(groupElement, 'select/deselect group is visible')
+      .click(groupElement);
   },
 
   addAvailabilityHours() {
@@ -284,7 +284,7 @@ module.exports = {
     },
 
     selectGroup: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${groupFeeder.updatedPatientTypeGroup}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${groupFeeder.patientTypeGroup}']`,
       locateStrategy: 'xpath',
     },
 

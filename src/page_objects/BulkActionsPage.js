@@ -76,14 +76,14 @@ const bulkActionCommands = {
 
   closeAllConversation() {
     return this.waitForElementVisible('@bulkSelectCheckBox', 'Bulk selection option is visible')
-    .click('@bulkSelectCheckBox')
-    .pause(1000)
-    .waitForElementVisible('@actionDropdown', 'Action dropdown is visible')
-    .click('@actionDropdown')
-    .waitForElementVisible('@closeConversations', 'Close Conversations options is visible')
-    .click('@closeConversations')
-    .waitForElementNotPresent('@successToast', 'Toast Notification is gone')
-  }
+      .click('@bulkSelectCheckBox')
+      .pause(1000)
+      .waitForElementVisible('@actionDropdown', 'Action dropdown is visible')
+      .click('@actionDropdown')
+      .waitForElementVisible('@closeConversations', 'Close Conversations options is visible')
+      .click('@closeConversations')
+      .waitForElementNotPresent('@successToast', 'Toast Notification is gone');
+  },
 };
 
 module.exports = {

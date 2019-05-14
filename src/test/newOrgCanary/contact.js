@@ -40,8 +40,6 @@ describe('Automated Tests: Contact', () => {
   });
 
   test('Contact Create - Another New Patient type, used later for Messaging tests', async () => {
-    const contactName = `${contactFeeder.contactFirstName} ${contactFeeder.contactLastName}`;
-
     await contact.navigate()
       .verify.urlContains('contacts', 'Contact Page is opened')
       .clickAddContact()
@@ -53,7 +51,6 @@ describe('Automated Tests: Contact', () => {
       .enterDetails('@lastNameInput', contactFeeder.anotherContactLastName)
       .enterDetails('@birthDateInput', contactFeeder.anotherContactBirthDate)
       .enterDetails('@phoneNumberInput', contactFeeder.anotherContactFirstPhoneNumber)
-      
       .clickCreateUpdateContact('@createNewContactButton', '@createSuccessMessage');
   });
 

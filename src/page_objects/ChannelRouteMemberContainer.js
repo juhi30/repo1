@@ -22,6 +22,7 @@ const channelRouteCommands = {
 
   routeSearch(searchInput, routeName, result) {
     return this.waitForElementVisible(searchInput, `${searchInput} is visible`)
+      .clearValue(searchInput)
       .setValue(searchInput, routeName)
       .waitForElementVisible(result, `${result} is visible`)
       .click(result);

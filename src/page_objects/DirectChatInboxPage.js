@@ -22,7 +22,7 @@ const commands = {
 
   addToMessageOption() {
     return this.waitForElementVisible('@addToMessageIcon', 'Add To Message Icon is visible')
-      .click('@addToMessageIcon')
+      .click('@addToMessageIcon');
   },
 
   async addingAttachment() {
@@ -35,12 +35,12 @@ const commands = {
 
   useHipaaTemplate() {
     return this.waitForElementVisible('@hipaaTemplate', 'Option to use Hipaa Template is visible')
-      .click('@hipaaTemplate')
+      .click('@hipaaTemplate');
   },
 
   useOtherTemplate() {
     return this.waitForElementVisible('@useTemplateOption', 'Use Template option is visible')
-      .click('@useTemplateOption')
+      .click('@useTemplateOption');
   },
 
   clickSendMessageButton() {

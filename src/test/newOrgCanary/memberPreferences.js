@@ -12,7 +12,7 @@ describe('Member Preferences Page', () => {
       .clickEventOnMemberPreferencesPage('@checkFollowingNotificationOnMobile', 'click on Following patient messages')
       .clickEventOnMemberPreferencesPage('@updatePreferencesButton', 'Update Member Preferences Page')
       .waitForElementVisible('@updationSuccessfulMessage', 'success message is visible')
-      .pause(2000);
+      .waitForElementNotPresent('@updationSuccessfulMessage', 'success message is gone');
   });
 
   test('Update Member Preferences Page after adding Group On Patient', async () => {
@@ -20,7 +20,7 @@ describe('Member Preferences Page', () => {
       .clickEventOnMemberPreferencesPage('@checkPatientGroupNotificationOnMobile', 'Selection on group for Patient messages')
       .clickEventOnMemberPreferencesPage('@updatePreferencesButton', 'Update Member Preferences Page')
       .waitForElementVisible('@updationSuccessfulMessage', 'success message is visible')
-      .pause(2000);
+      .waitForElementNotPresent('@updationSuccessfulMessage', 'success message is gone');
   });
 
   test('Update Member Preferences Page after adding Group On Team', async () => {
@@ -28,7 +28,7 @@ describe('Member Preferences Page', () => {
       .clickEventOnMemberPreferencesPage('@checkTeamGroupNotificationOnMobile', 'Selection on group for Team messages')
       .clickEventOnMemberPreferencesPage('@updatePreferencesButton', 'Update Member Preferences Page')
       .waitForElementVisible('@updationSuccessfulMessage', 'success message is visible')
-      .pause(2000);
+      .waitForElementNotPresent('@updationSuccessfulMessage', 'success message is gone');
   });
 
   test('Update Member Preferences Page after adding Group On Patient and Team', async () => {

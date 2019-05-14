@@ -1,4 +1,4 @@
-const officeFeeder = require('../feeder/member.feeder');
+const officeFeeder = require('../feeder/office.feeder');
 
 const officeCommands = {
 
@@ -15,11 +15,10 @@ const officeCommands = {
   },
 
   checkVisibilityOfEditPage() {
-    return this.waitForElementVisible('@officesTitle', 'officeToBeEdited is visible')
+    return this.waitForElementVisible('@officeToBeEdited', 'officeToBeEdited is visible')
       .click('@officeToBeEdited')
       .waitForElementVisible('@editOfficeButton', 'edit office button is visible')
-      .click('@editOfficeButton')
-      .waitForElementVisible('@editOfficeTitle', 'edit office page is opened.');
+      .click('@editOfficeButton');
   },
 
   editOfficeForm(inputField, updatedValue) {
@@ -28,9 +27,9 @@ const officeCommands = {
       .setValue(inputField, updatedValue);
   },
 
-  deleteOfficeForm() {
-    return this.waitForElementVisible('@officesTitle', 'officeToBeDeleted is visible')
-      .click('@officeToBeDeleted')
+  deleteOfficeForm(officeToBeDeleted) {
+    return this.waitForElementVisible('@officesTitle', `${officeToBeDeleted} is visible`)
+      .click(officeToBeDeleted)
       .waitForElementVisible('@editOfficeButton', 'edit office button is visible')
       .click('@editOfficeButton')
       .waitForElementVisible('@editOfficeTitle', 'edit office page is opened.')

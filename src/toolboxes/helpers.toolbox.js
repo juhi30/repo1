@@ -27,7 +27,7 @@ async function uploadFile2(client, fileName) {
 // specific to that element's text (less brittle / more flexible)
 async function clickSpanViaText(client, text) {
   await client.api.useXpath().waitForElementVisible(`//SPAN[contains(., '${text}')]`, `Span with text "${text}" is visible`)
-    .click(`//SPAN[contains(., '${text}')]`)
+    .click(`//SPAN[contains(., '${text}')]`);
 }
 
 function clickDivViaText(client, text) {

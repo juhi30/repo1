@@ -3,6 +3,7 @@ import { client } from 'nightwatch-api';
 const chat = client.page.DirectChatInboxPage();
 const group = client.page.GroupsPage();
 const helpers = require('../toolboxes/helpers.toolbox');
+
 const msg = client.page.DirectInboxPage();
 const bulkAction = client.page.BulkActionsPage();
 const template = client.page.TemplatesPage();
@@ -29,7 +30,7 @@ export async function sendChatMessageToGroup(groupName, message) {
 }
 
 export async function verifyReceivingDirectChatMessage(message) {
-  await chat.navigate()
+  await chat.navigate();
   helpers.findTextOnPage(chat, message);
 }
 
@@ -59,7 +60,7 @@ export async function sendGroupMessageToContact(groupName, titleElement, Contact
     .pause(1000);
   await chat.clickSendMessageButton()
     .pause(1000)
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present')
+    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
 }
 
 export async function sendAMessageWithAttachment(groupName, titleElement, ContactName, message) {
@@ -72,7 +73,7 @@ export async function sendAMessageWithAttachment(groupName, titleElement, Contac
     .addingAttachment();
   await chat.clickSendMessageButton()
     .pause(1000)
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present')
+    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
 }
 
 export async function sendAMessageUsingHipaaTemplate(groupName, titleElement, ContactName) {
@@ -85,7 +86,7 @@ export async function sendAMessageUsingHipaaTemplate(groupName, titleElement, Co
     .pause(2000);
   await chat.clickSendMessageButton()
     .pause(1000)
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present')
+    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
 }
 
 export async function sendADirectMessageUsingOtherTemplate(groupName, titleElement, ContactName) {
@@ -95,17 +96,16 @@ export async function sendADirectMessageUsingOtherTemplate(groupName, titleEleme
     .searchMemberAndOpenThread(titleElement, ContactName);
   await chat.addToMessageOption()
     .useOtherTemplate()
-    .pause(2000)
-    template.click('@editedTemplateTitle')
+    .pause(2000);
+  template.click('@editedTemplateTitle')
     .pause(1000);
   await chat.clickSendMessageButton()
     .pause(1000)
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present')
+    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
 }
 
 export async function closeConversation(groupName, directInbox) {
   await group.openGroup(groupName);
-   bulkAction.closeAllConversation()
-   await group.openGroup(directInbox);
-
+  bulkAction.closeAllConversation();
+  await group.openGroup(directInbox);
 }

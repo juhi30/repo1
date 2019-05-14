@@ -14,6 +14,11 @@ const groupsPageCommands = {
       .waitForElementVisible('@patientAndTeamOption', 'Patient and team option is visible');
   },
 
+  clickAddGroup() {
+    return this.waitForElementVisible('@createButton', 'Create Button is visible')
+      .click('@createButton');
+  },
+
   selectGroupType(groupType) {
     return this.waitForElementVisible(groupType, `${groupType} is visible`)
       .click(groupType);
@@ -38,16 +43,19 @@ const groupsPageCommands = {
   },
 
   openGroup(groupElement) {
-    return this. waitForElementVisible(groupElement, 'Group is visisble to the member')
-    .click(groupElement)
+    return this.waitForElementVisible(groupElement, 'Group is visisble to the member')
+      .click(groupElement);
   },
 
   navigateToInbox(inboxElement, url) {
     return this.waitForElementVisible(inboxElement, 'Desired Inbox option is visible')
       .click(inboxElement)
-      .verify.urlContains(url, 'url contains ' + url)
+      .verify.urlContains(url, `url contains ${url}`);
   },
 
+  checkGroupVisibilityOnList(element) {
+    return this.waitForElementVisible(element, `Created${element} Group is visible in the Group List as well.`);
+  },
 
   openInEditMode(group) {
     return this.waitForElementVisible(group, `${group} is visible`)
@@ -163,7 +171,7 @@ module.exports = {
     },
 
     teamGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.teamTypeGroup}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${groupFeeder.teamTypeGroup}']`,
       locateStrategy: 'xpath',
     },
 
@@ -270,6 +278,6 @@ module.exports = {
     directMessageInbox: {
       selector: '//*[@id=\'nav-inbox-direct\'][@title=\'Direct\']',
       locateStrategy: 'xpath',
-    }
+    },
   },
 };

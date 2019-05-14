@@ -8,6 +8,7 @@ import './channels';
 // import './patient';
 import './group';
 import './office';
+import './memberPreferences';
 // import './office';
 // import './tags';
 // import './outofoffice';

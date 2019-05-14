@@ -32,7 +32,7 @@ const patientCommands = {
 module.exports = {
   commands: [patientCommands],
   url() {
-    return `${global.PATIENT_SIGNUP_LINK}`;
+    return `${global.NEW_CANARY_PATIENT_SIGNUP_LINK}`;
   },
 
   elements: {

@@ -1,14 +1,15 @@
 // CCR Flow
 import './orgSetupAndTeardown';
 import './member';
-import './login';
-import './channels';
+// import './login';
+// import './channels';
 
 // //Member Flow
-// import './patient';
-import './group';
-import './office';
-import './memberPreferences';
+import './contact';
+import './patient';
+// import './group';
+// import './office';
+// import './memberPreferences';
 // import './office';
 // import './tags';
 // import './outofoffice';

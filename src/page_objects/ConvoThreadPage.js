@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 
 const convoThreadCommands = {
 
@@ -172,7 +173,7 @@ const convoThreadCommands = {
   getPatientLink(globalVariable) {
     return this.getAttribute('@rhinoSecureAutoResponseLink', 'href', (tpObj) => {
       global[globalVariable] = tpObj.value;
-      console.log(global.PATIENT_SIGNUP_LINK);
+      logger.info(global.PATIENT_SIGNUP_LINK);
     });
   },
 

@@ -88,7 +88,7 @@ const billingCommands = {
     return this.waitForElementVisible('@availableContactDetails', 'Billing Contact Info is visible')
       .waitForElementVisible('@updateBillingContactButton', 'update contact button is visible')
       .click('@updateBillingContactButton')
-      .pause(1000);
+      .waitForElementVisible('@billingContactModalTitle', 'Modal Opened');
   },
 
   verifyContactInformation(element, data) {
@@ -128,8 +128,8 @@ const billingCommands = {
     return this.updateDetailsForState('@stateInput', billingContactDetails.state)
       .click('@contactSaveButton')
       .waitForElementVisible('@billingContactUpdateSuccessMessage', 'Update Modal is hidden, Success message displayed')
-      .waitForElementNotPresent('@billingContactUpdateSuccessMessage', 'Billing Contact update success message is no longer visible')
-      .waitForElementVisible('@availableContactDetails', 'Edited Details exist, Edit successful');
+      .waitForElementNotPresent('@billingContactUpdateSuccessMessage', ' Billing contact success message is no longer present.')
+      .waitForElementVisible('@editedContactDetails', 'Edited Details exist, Edit successful');
   },
 
   validateAvailableDetails(element) {
@@ -182,6 +182,7 @@ const billingCommands = {
 
   verifyChangePaymentButton() {
     return this.waitForElementVisible('@changePaymentDetailsButton', 'change payment button is visible')
+      .pause(1000)
       .click('@changePaymentDetailsButton');
   },
 
@@ -237,6 +238,7 @@ const billingCommands = {
       .addDetailsForPayment('@bankAccountTypeSelect', billingPaymentDetails.accountType)
       .click('@savePaymentMethodButton')
       .waitForElementVisible('@updatePaymentSuccessMessage', 1000, 'Update Modal is hidden, Success message available')
+      .waitForElementNotPresent('@updatePaymentSuccessMessage', 'Add Payment success message is no longer visible.')
       .waitForElementVisible('@bankName', 'Bank Name exists, Edit successful');
   },
 
@@ -251,7 +253,8 @@ const billingCommands = {
   updatePaymentToBankForAccountType(updateBillingPaymentDetails) {
     return this.updateDetailsForPaymentForAccountType('@bankAccountTypeSelect', updateBillingPaymentDetails.accountType)
       .click('@savePaymentMethodButton')
-      .waitForElementVisible('@updatePaymentSuccessMessage', 1000, 'Update Modal is hidden, Success message available')
+      .waitForElementVisible('@updatePaymentSuccessMessage', 'Update Modal is hidden, Success message available')
+      .waitForElementNotPresent('@updatePaymentSuccessMessage', 'Update Payment info success message is no longer visible.')
       .waitForElementVisible('@bankName', 'Bank Name exists, Edit successful');
   },
 
@@ -424,6 +427,11 @@ module.exports = {
 
     updateBillingContactButton: {
       selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Update\')]',
+      locateStrategy: 'xpath',
+    },
+
+    billingContactModalTitle: {
+      selector: '//H3[text()=\'Billing Contact Details\']',
       locateStrategy: 'xpath',
     },
 

@@ -26,27 +26,6 @@ describe('Billing Organization Test Cases', () => {
   //   await billingPage.validateEstimatedBillSection();
   // });
 
-  test('Verify the details for billing contact', async () => {
-    billing.verifyBillingContactDetails();
-  });
-
-  test('Update Billing Contact details', async () => {
-    const billingContactDetails = {
-      firstName: billingFeeder.contactFirstName,
-      lastName: billingFeeder.contactLastName,
-      phoneNumber: billingFeeder.contactPhoneNumber,
-      emailAddress: billingFeeder.contactEmailAddress,
-      billingLine1: billingFeeder.contactBillingLine1,
-      billingLine2: billingFeeder.contactBillingLine2,
-      billingCity: billingFeeder.contactBillingCity,
-      zip: billingFeeder.contactZip,
-    };
-
-    await billingPage.verifyBillingContactDetailsSection()
-      .updateBillingContact(billingContactDetails)
-      .updateBillingContactForState(billingContactDetails);
-  });
-
   test('Add details for billing bank account', async () => {
     const billingPaymentDetails = {
       firstName: billingFeeder.paymentFirstname,
@@ -74,6 +53,28 @@ describe('Billing Organization Test Cases', () => {
     await billingPage.verifyChangePaymentButton()
       .changePaymentMethod('@radioBankAccount')
       .updatePaymentToBank(updateBillingPaymentDetails)
-      .updatePaymentToBankForAccountType(updateBillingPaymentDetails);
+      .updatePaymentToBankForAccountType(updateBillingPaymentDetails)
+      .pause(1000);
+  });
+
+  test('Verify the details for billing contact', async () => {
+    await billing.verifyBillingContactDetails();
+  });
+
+  test('Update Billing Contact details', async () => {
+    const billingContactDetails = {
+      firstName: billingFeeder.contactFirstName,
+      lastName: billingFeeder.contactLastName,
+      phoneNumber: billingFeeder.contactPhoneNumber,
+      emailAddress: billingFeeder.contactEmailAddress,
+      billingLine1: billingFeeder.contactBillingLine1,
+      billingLine2: billingFeeder.contactBillingLine2,
+      billingCity: billingFeeder.contactBillingCity,
+      zip: billingFeeder.contactZip,
+    };
+
+    await billingPage.verifyBillingContactDetailsSection()
+      .updateBillingContact(billingContactDetails)
+      .updateBillingContactForState(billingContactDetails);
   });
 });

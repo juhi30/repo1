@@ -4,7 +4,6 @@ const group = client.page.GroupsPage();
 const route = client.page.ChannelRouteMemberContainer();
 const channel = client.page.ChannelsCreateEditPage();
 const channelList = client.page.ChannelsPage();
-const universal = client.page.UniversalElements();
 const auditLogs = client.page.AuditLogsPage();
 
 /**
@@ -15,8 +14,8 @@ const auditLogs = client.page.AuditLogsPage();
  * @param {string} memberResultElement Member element to route with group on group creation page
  */
 export async function createGroup(groupDetails, groupTypeOption, groupTypeListViewElement, memberResultElement, anotherMemberResultElement) {
-  await universal.clickGroups();
-  await group.clickAddGroup()
+  await group.navigate()
+    .clickAddGroup()
     .selectGroupType(groupTypeOption)
     .addGroupDetails(groupDetails.name, groupDetails.purpose);
 
@@ -28,8 +27,9 @@ export async function createGroup(groupDetails, groupTypeOption, groupTypeListVi
     .checkGroupVisibilityOnList(groupTypeListViewElement)
     .waitForElementNotPresent('@groupCreateSuccessMessage');
 
-  await universal.clickAuditLogs();
-  await auditLogs.validateAuditEntry(groupDetails.memberName, 'Group', 'Add', groupDetails.name);
+  await auditLogs.navigate()
+    .pause(2000)
+    .validateAuditEntry(groupDetails.memberName, 'Group', 'Add', groupDetails.name);
 }
 
 /**
@@ -40,8 +40,8 @@ export async function createGroup(groupDetails, groupTypeOption, groupTypeListVi
  * @param {string} groupResultElement Group element to route with channel on channel creation page
  */
 export async function addChannelRouteToGroup(groupDetails, groupListViewElement, channelType, groupResultElement) {
-  await universal.clickGroups();
-  await group.openInEditMode(groupListViewElement)
+  await group.navigate()
+    .openInEditMode(groupListViewElement)
     .addChannel()
     .pause(500)
     .verify.urlContains('channels', 'Channel Page is opened');
@@ -68,8 +68,8 @@ export async function addChannelRouteToGroup(groupDetails, groupListViewElement,
  * @param {string} groupTypeListViewElement edited group element on Group listing
  */
 export async function convertGroupTypeToAnotherGroupType(groupEditDetails, editedGroupElement, groupTypeListViewElement) {
-  await universal.clickGroups();
-  await group.openInEditMode(editedGroupElement)
+  await group.navigate()
+    .openInEditMode(editedGroupElement)
     .convertGroupType(groupEditDetails.newGroupType, groupEditDetails.newName, groupEditDetails.newPurpose);
 
   channel.enableDisableToggles('@availabilityHoursToggle')
@@ -79,8 +79,9 @@ export async function convertGroupTypeToAnotherGroupType(groupEditDetails, edite
     .checkGroupVisibilityOnList(groupTypeListViewElement)
     .waitForElementNotPresent('@groupUpdateSuccessMessage');
 
-  await universal.clickAuditLogs();
-  await auditLogs.validateAuditEntry(groupEditDetails.memberName, 'Group', 'Add', groupEditDetails.newName);
+  await auditLogs.navigate()
+    .pause(2000)
+    .validateAuditEntry(groupEditDetails.memberName, 'Group', 'Add', groupEditDetails.newName);
 }
 
 export async function routeGroupToChannel(groupListViewElement, channelNameElement, groupName, groupResultElement) {

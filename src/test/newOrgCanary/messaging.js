@@ -38,7 +38,8 @@ describe('Direct Messaging Tests', () => {
 
   // Commenting this test as we need another channel setup that is routed to this member only
   // test('Sending a Direct message from member2 to a Contact', async () => {
-  //   await messageToolbox.sendADirectMessage('@directMessageInbox', '/inbox/direct','@searchContactModalTitle', contactFeeder.anotherContactFirstName , messageFeeder.directPatientMessage);
+  //   await messageToolbox.sendADirectMessage('@directMessageInbox', '/inbox/direct','@searchContactModalTitle', contactFeeder.anotherContactFirstName ,
+  //   messageFeeder.directPatientMessage);
   // });
 
   test('Sending a message to a Contact from a Group', async () => {

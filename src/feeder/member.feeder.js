@@ -9,9 +9,8 @@ module.exports = {
   memberEmail: process.env.NEW_CANARY_GMAIL_USERNAME,
   invalidEmail: 'test@test.com',
 
-  // Details for member profile
-  newMemberUsername: 'NewUserName',
-  tagForMemberPage: 'Test_3',
+  // details for member profile
+  newMemberUsername: 'NewUserName_dev',
   newMemberPassword: 'Test@123',
 
   // Member 2 details

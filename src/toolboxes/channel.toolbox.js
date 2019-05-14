@@ -149,7 +149,7 @@ export async function deleteChannel(deletedChannelElement) {
     .pause(2000);
 }
 
-export async function editChannelRoute(channelNameElement, channelData, enableToggles) {
+export async function editChannelRoute(channelNameElement, channelData) {
   await channel.navigate()
     .channelEditMode(channelNameElement)
     .pause(500)

@@ -15,8 +15,9 @@ function returnElementText(client, selector) {
 }
 
 // Use to uplaod attachments
-async function uploadFile(client, fileName) {
-  client.setValue('input[type="file"]', `${path.resolve()}/src/assets/${fileName}`);
+async function uploadFile(client, fileName, element) {
+  const attachmentElement = element || 'input[type="file"]';
+  client.setValue(attachmentElement, `${path.resolve()}/src/assets/${fileName}`);
 }
 
 async function uploadFile2(client, fileName) {

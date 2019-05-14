@@ -426,7 +426,7 @@ module.exports = {
     },
 
     updateBillingContactButton: {
-      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Update\')]',
+      selector: '//DIV[text()=\'Contact Details\']//parent::div/following-sibling::button',
       locateStrategy: 'xpath',
     },
 

@@ -73,7 +73,8 @@ describe('Billing Organization Test Cases', () => {
       zip: billingFeeder.contactZip,
     };
 
-    await billingPage.verifyBillingContactDetailsSection()
+    await billingPage.navigate()
+      .verifyBillingContactDetailsSection()
       .updateBillingContact(billingContactDetails)
       .updateBillingContactForState(billingContactDetails);
   });

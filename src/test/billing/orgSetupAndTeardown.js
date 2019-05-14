@@ -24,24 +24,23 @@ beforeAll(async () => {
     installationFee: accountSetupFeeder.installationFee,
   };
 
-  Promise.all([
-    ccrLogin(loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword),
-    billingOrganizationSetUp(organizationDetails, 'BILLING_ORG_ID')
-  ])
-  .catch(err => {
-    logger.error(err, '===error on before all orgSetupAndTeardown=======');
-  })
+  ccrLogin(loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword)
+    .then(() => {
+      billingOrganizationSetUp(organizationDetails, 'BILLING_ORG_ID');
+    })
+    .catch((err) => {
+      logger.error(err, '===error on before all orgSetupAndTeardown=======');
+    });
 });
 
 // DELETE MY NEW ORG HERE
 afterAll(async (done) => {
-
   orgTearDown(process.env.BILLING_ORG_ID, loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword)
-  .then(() => {
-    done();
-  })
-  .catch(err=> {
-    logger.error(err, '===error on after all orgSetupAndTeardown=======');
-    done(err);
-  })
+    .then(() => {
+      done();
+    })
+    .catch((err) => {
+      logger.error(err, '===error on after all orgSetupAndTeardown=======');
+      done(err);
+    });
 });

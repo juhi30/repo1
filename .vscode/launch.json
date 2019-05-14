@@ -1,0 +1,111 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Billing",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/@babel/node/bin/babel-node.js",
+      "env": {
+        "NODE_ENV": "local"
+      },
+      "args": [
+        "${workspaceFolder}/src/test/billing/billing.test.js",
+        "--config",
+        "jest.config.js",
+      ],
+      "preLaunchTask": "",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      }
+    }, {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Existing Org Canary",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/@babel/node/bin/babel-node.js",
+      "env": {
+        "NODE_ENV": "local"
+      },
+      "args": [
+        "${workspaceFolder}/src/test/existingOrgCanary/existingOrgCanary.test.js",
+        "--config",
+        "jest.config.js",
+      ],
+      "preLaunchTask": "",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      }
+    }, {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Integrations",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/@babel/node/bin/babel-node.js",
+      "env": {
+        "NODE_ENV": "local"
+      },
+      "args": [
+        "${workspaceFolder}/src/test/integrations/integrations.test.js",
+        "--config",
+        "jest.config.js",
+      ],
+      "preLaunchTask": "",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      }
+    }, {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug New Org Canary",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/@babel/node/bin/babel-node.js",
+      "env": {
+        "NODE_ENV": "local"
+      },
+      "args": [
+        "${workspaceFolder}/src/test/newOrgCanary/canary.test.js",
+        "--config",
+        "jest.config.js",
+      ],
+      "preLaunchTask": "",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      }
+    }, {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Rhino External API",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/@babel/node/bin/babel-node.js",
+      "env": {
+        "NODE_ENV": "local"
+      },
+      "args": [
+        "${workspaceFolder}/src/test/rhinoExternalApi/rhinoExternalApi.test.js",
+        "--config",
+        "jest.config.js",
+      ],
+      "preLaunchTask": "",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      }
+    }
+  ]
+}

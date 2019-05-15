@@ -1,66 +1,56 @@
 import { client } from 'nightwatch-api';
+import * as templateToolbox from '../../toolboxes/template.toolbox';
 
 const memberFeeder = require('../../feeder/member.feeder');
 const templateFeeder = require('../../feeder/template.feeder');
 
 describe('Test Automation - Templates', () => {
   test('Create Template as a Member', async () => {
-    const template = client.page.TemplatesPage();
-    const entry = client.page.AuditLogsPage();
+    const template = {
+      title: templateFeeder.templateTitle,
+      message: templateFeeder.templateMessage,
+    };
 
-    await template.navigate()
-      .renderPageElements()
-      .clickCreateTemplateButton()
-      .fillTitleAndMessage(templateFeeder.templateTitle, templateFeeder.templateMessage)
-    // .addAttachment()
-      .clickCreateUpdateButton('@createTemplateSaveButton', '@createTemplateSuccessMessage');
-
-    await entry.navigate()
-      .pause(2000)
-      .validateAuditEntry(memberFeeder.memberName, 'Template', 'Add', templateFeeder.templateTitle, '');
+    await templateToolbox.createTemplate(template);
+    await templateToolbox.validateAuditEntry('Template', 'Add', template.title);
   });
 
   test('Edit Template', async () => {
-    const edit = client.page.TemplatesPage();
-    const entry = client.page.AuditLogsPage();
+    const newTemplate = {
+      title: templateFeeder.newTemplate,
+      message: templateFeeder.newTempleteMessage,
+    };
 
-    await edit.navigate()
-      .templateEditMode('@templateTitle')
-      .updateTemplate(templateFeeder.newTemplate, templateFeeder.newTempleteMessage)
-      .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage');
+    await templateToolbox.editTemplate(newTemplate);
+    await templateToolbox.validateAuditEntry('Template', 'Edit', newTemplate.title);
 
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Template', 'Edit', templateFeeder.newTemplate, '');
   });
 
   test('Mark the template as favorite', async () => {
-    const fav = client.page.TemplatesPage();
-    const entry = client.page.AuditLogsPage();
-
-
-    await fav.navigate()
-      .markAsFavorite('@favoriteOption', '@favoriteFilter', '@templateTitle');
-
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Template Action', 'Edit', templateFeeder.newTemplate, '');
+    const template = {
+      title: '@templateTitle',
+      favoriteOption: '@favoriteOption',
+    };
+    await templateToolbox.favoriteUnfavoriteTemplate('favorite', template);
+    await templateToolbox.validateAuditEntry('Template Action', 'Edit', templateFeeder.newTemplate);
   });
 
   test('Mark the template as Unfavorite', async () => {
-    const unfav = client.page.TemplatesPage();
-    const entry = client.page.AuditLogsPage();
-
-    await unfav.navigate()
-      .markAsUnfavorite('@favoriteOption', '@favoriteFilter', '@templateTitle');
-
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Template Action', 'Edit', templateFeeder.newTemplate, '');
+    const template = {
+      title: '@templateTitle',
+      favoriteOption: '@favoriteOption',
+    };
+    await templateToolbox.favoriteUnfavoriteTemplate('unfavorite', template);
+    await templateToolbox.validateAuditEntry('Template Action', 'Edit', templateFeeder.newTemplate);
   });
 
   test('Search Template', async () => {
-    const search = client.page.TemplatesPage();
+    const template = {
+      title: templateFeeder.newTemplate,
+      pageObjectName: '@updatedSearchResult',
+    };
 
-    await search.navigate()
-      .validateTemplateSearch(templateFeeder.newTemplate, '@updatedSearchResult');
+    await templateToolbox.searchTemplate(template);
   });
 
   test('delete Template', async () => {
@@ -70,53 +60,38 @@ describe('Test Automation - Templates', () => {
     await deleteTemplate.navigate()
       .templateEditMode('@templateTitle')
       .deleteTemplate('@deleteTemplateSuccessMessage');
-
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Template', 'Delete', templateFeeder.newTemplate, '');
+    await templateToolbox.validateAuditEntry('Template', 'Delete', templateFeeder.newTemplate);
   });
 
   test('handling system template', async () => {
-    const systemtemplate = client.page.TemplatesPage();
     const entry = client.page.AuditLogsPage();
 
-    await systemtemplate.navigate()
-      .templateEditMode('@HIPAATemplate')
-      .updateSystemTemplate(templateFeeder.newTempleteMessage)
-      .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage');
-
+    await templateToolbox.editHippaTemplate(templateFeeder.newTempleteMessage);
     await entry.navigate()
       .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Template');
 
-    await systemtemplate.navigate()
-      .templateEditMode('@HIPAATemplate')
-      .revertToOriginalSystemTemplate(templateFeeder.hipaaMessage)
-      .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage');
-
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Template', 'Edit', templateFeeder.hipaaTitle, '');
+    await templateToolbox.editHippaTemplate(templateFeeder.hipaaMessage);
+    await templateToolbox.validateAuditEntry('Template', 'Edit', templateFeeder.hipaaTitle);
   });
 
   test('Mark the HIPAA template as favorite', async () => {
-    const fav = client.page.TemplatesPage();
-    const entry = client.page.AuditLogsPage();
+    const template = {
+      title: '@HIPAATemplate',
+      favoriteOption: '@favoriteOptionforHIPAA',
+    };
 
-
-    await fav.navigate()
-      .markAsFavorite('@favoriteOptionforHIPAA', '@favoriteFilter', '@HIPAATemplate');
-
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Template Action', 'Edit', templateFeeder.hipaaTitle, '');
+    await templateToolbox.favoriteUnfavoriteTemplate('favorite', template);
+    await templateToolbox.validateAuditEntry('Template Action', 'Edit', templateFeeder.hipaaTitle);
   });
 
   test('Mark the HIPAA template as Unfavorite', async () => {
-    const unfav = client.page.TemplatesPage();
-    const entry = client.page.AuditLogsPage();
+    const template = {
+      title: '@HIPAATemplate',
+      favoriteOption: '@favoriteOptionforHIPAA',
+    };
 
-    await unfav.navigate()
-      .markAsUnfavorite('@favoriteOptionforHIPAA', '@favoriteFilter', '@HIPAATemplate');
-
-    await entry.navigate()
-      .validateAuditEntry(memberFeeder.memberName, 'Template Action', 'Edit', templateFeeder.hipaaTitle, '');
+    await templateToolbox.favoriteUnfavoriteTemplate('unfavorite', template);
+    await templateToolbox.validateAuditEntry('Template Action', 'Edit', templateFeeder.hipaaTitle);
   });
 
   test('Filtering of Templates', async () => {

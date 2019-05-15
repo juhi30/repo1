@@ -11,7 +11,7 @@ import './memberPreferences';
 // import './office';
 // import './tags';
 // import './outofoffice';
-// import './template';
+import './template';
 // import './preferences';
 // import './memberProfile';
 

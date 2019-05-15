@@ -10,32 +10,40 @@ const auditEntry = client.page.AuditLogsPage();
  */
 export async function createTemplate(templateData) {
   await template.navigate()
-    .pause(5000)
     .renderPageElements()
     .clickCreateTemplateButton()
-    .fillTitleAndMessage(templateData.title, templateData.message);
-
-  template.clickCreateUpdateButton('@createTemplateSaveButton', '@createTemplateSuccessMessage');
+    .fillTitleAndMessage(templateData.title, templateData.message)
+    .clickCreateUpdateButton('@createTemplateSaveButton', '@createTemplateSuccessMessage');
 }
 
 /**
  * Used to Edit template
  * @param  {object} templateData Data to edit a template
  */
-export async function editTemplate(templateNewData) {
+export async function editTemplate(element, templateNewData) {
   await template.navigate()
-    .templateEditMode('@templateTitle')
+    .templateEditMode(element)
     .updateTemplate(templateNewData.title, templateNewData.message)
     .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage');
+}
+
+/**
+ * Used to delete template
+ * @param  {object} templateData Data to edit a template
+ */
+export async function deleteTemplate(element) {
+  await deleteTemplate.navigate()
+    .templateEditMode(element)
+    .deleteTemplate('@deleteTemplateSuccessMessage');
 }
 
 /**
  * Used to Edit template
  * @param  {object} templateData Data to edit a hippa template
  */
-export async function editHippaTemplate(templateNewMessage) {
+export async function editHippaTemplate(element, templateNewMessage) {
   await template.navigate()
-    .templateEditMode('@HIPAATemplate')
+    .templateEditMode(element)
     .updateSystemTemplate(templateNewMessage)
     .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage');
 }
@@ -56,7 +64,7 @@ export async function favoriteUnfavoriteTemplate(actionType, templateData) {
 }
 
 /**
- * Used to Edit template
+ * Used to search template
  * @param  {object} templateData Data to search a template
  */
 export async function searchTemplate(templateData) {

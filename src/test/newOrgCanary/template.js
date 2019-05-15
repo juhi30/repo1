@@ -21,7 +21,7 @@ describe('Test Automation - Templates', () => {
       message: templateFeeder.newTempleteMessage,
     };
 
-    await templateToolbox.editTemplate(newTemplate);
+    await templateToolbox.editTemplate('@templateTitle', newTemplate);
     await templateToolbox.validateAuditEntry('Template', 'Edit', newTemplate.title);
   });
 
@@ -53,22 +53,18 @@ describe('Test Automation - Templates', () => {
   });
 
   test('delete Template', async () => {
-    const deleteTemplate = client.page.TemplatesPage();
-
-    await deleteTemplate.navigate()
-      .templateEditMode('@templateTitle')
-      .deleteTemplate('@deleteTemplateSuccessMessage');
+    await templateToolbox.deleteTemplate('@templateTitle');
     await templateToolbox.validateAuditEntry('Template', 'Delete', templateFeeder.newTemplate);
   });
 
   test('handling system template', async () => {
     const entry = client.page.AuditLogsPage();
 
-    await templateToolbox.editHippaTemplate(templateFeeder.newTempleteMessage);
+    await templateToolbox.editHippaTemplate('@HIPAATemplate', templateFeeder.newTempleteMessage);
     await entry.navigate()
       .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Template');
 
-    await templateToolbox.editHippaTemplate(templateFeeder.hipaaMessage);
+    await templateToolbox.editHippaTemplate('@HIPAATemplate', templateFeeder.hipaaMessage);
     await templateToolbox.validateAuditEntry('Template', 'Edit', templateFeeder.hipaaTitle);
   });
 

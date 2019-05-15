@@ -4,7 +4,6 @@ const group = client.page.GroupsPage();
 const route = client.page.ChannelRouteMemberContainer();
 const channel = client.page.ChannelsCreateEditPage();
 const channelList = client.page.ChannelsPage();
-const universal = client.page.UniversalElements();
 const auditLogs = client.page.AuditLogsPage();
 
 /**
@@ -26,8 +25,9 @@ export async function createGroup(groupDetails, groupTypeOption, groupTypeListVi
     .checkGroupVisibilityOnList(groupTypeListViewElement)
     .waitForElementNotPresent('@groupCreateSuccessMessage');
 
-  await universal.clickAuditLogs();
-  await auditLogs.validateAuditEntry(groupDetails.memberName, 'Group', 'Add', groupDetails.name);
+  await auditLogs.navigate()
+    .pause(2000)
+    .validateAuditEntry(groupDetails.memberName, 'Group', 'Add', groupDetails.name);
 }
 
 /**
@@ -77,6 +77,7 @@ export async function convertGroupTypeToAnotherGroupType(groupEditDetails, edite
     .checkGroupVisibilityOnList(groupTypeListViewElement)
     .waitForElementNotPresent('@groupUpdateSuccessMessage');
 
-  await universal.clickAuditLogs();
-  await auditLogs.validateAuditEntry(groupEditDetails.memberName, 'Group', 'Add', groupEditDetails.newName);
+  await auditLogs.navigate()
+    .pause(2000)
+    .validateAuditEntry(groupEditDetails.memberName, 'Group', 'Add', groupEditDetails.newName);
 }

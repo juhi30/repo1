@@ -47,7 +47,7 @@ export async function editHippaTemplate(templateNewMessage) {
  */
 export async function favoriteUnfavoriteTemplate(actionType, templateData) {
   if (actionType === 'favorite') {
-  	await template.navigate()
+    await template.navigate()
       .markAsFavorite(templateData.favoriteOption, '@favoriteFilter', templateData.title);
   } else {
     await template.navigate()

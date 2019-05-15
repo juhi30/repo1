@@ -16,30 +16,28 @@ export async function createTemplate(templateData) {
     .fillTitleAndMessage(templateData.title, templateData.message);
 
   template.clickCreateUpdateButton('@createTemplateSaveButton', '@createTemplateSuccessMessage');
-
 }
 
 /**
  * Used to Edit template
  * @param  {object} templateData Data to edit a template
  */
-export async function editTemplate(templateNewData){
+export async function editTemplate(templateNewData) {
   await template.navigate()
     .templateEditMode('@templateTitle')
     .updateTemplate(templateNewData.title, templateNewData.message)
-    .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage'); 
+    .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage');
 }
 
 /**
  * Used to Edit template
  * @param  {object} templateData Data to edit a hippa template
  */
-export async function editHippaTemplate(templateNewMessage){
+export async function editHippaTemplate(templateNewMessage) {
   await template.navigate()
     .templateEditMode('@HIPAATemplate')
     .updateSystemTemplate(templateNewMessage)
     .clickCreateUpdateButton('@updateTemplateButton', '@updateTemplateSuccessMessage');
- 
 }
 
 /**
@@ -52,9 +50,9 @@ export async function favoriteUnfavoriteTemplate(actionType, templateData) {
   	await template.navigate()
       .markAsFavorite(templateData.favoriteOption, '@favoriteFilter', templateData.title);
   } else {
-  	await template.navigate()
+    await template.navigate()
       .markAsUnfavorite(templateData.favoriteOption, '@favoriteFilter', templateData.title);
-  }     
+  }
 }
 
 /**

@@ -23,7 +23,6 @@ describe('Test Automation - Templates', () => {
 
     await templateToolbox.editTemplate(newTemplate);
     await templateToolbox.validateAuditEntry('Template', 'Edit', newTemplate.title);
-
   });
 
   test('Mark the template as favorite', async () => {
@@ -55,7 +54,6 @@ describe('Test Automation - Templates', () => {
 
   test('delete Template', async () => {
     const deleteTemplate = client.page.TemplatesPage();
-    const entry = client.page.AuditLogsPage();
 
     await deleteTemplate.navigate()
       .templateEditMode('@templateTitle')

@@ -36,8 +36,8 @@ describe('Chat Messaging Tests', () => {
 });
 
 describe('Direct Messaging Tests', () => {
-  test('Login as a Member2', async () => {
-    await memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
+  test('Login as a Member1', async () => {
+    await memberLogin(memberFeeder.newMemberUsername, memberFeeder.newMemberPassword);
   });
 
   // Commenting this test as we need another channel setup that is routed to this member only

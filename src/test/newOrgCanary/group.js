@@ -19,8 +19,8 @@ describe(' Automated Test Cases - Groups', () => {
     };
 
     const routeDetails = [{ memberName: groupDetails.memberName, element: '@memberResult' },
-    { memberName: groupDetails.anotherMember, element: '@member2Result' },];
-    
+      { memberName: groupDetails.anotherMember, element: '@member2Result' }];
+
     await createGroup(groupDetails, '@patientOption', '@patientGroupListView', routeDetails);
   });
 
@@ -44,7 +44,7 @@ describe(' Automated Test Cases - Groups', () => {
     };
 
     const routeDetails = [{ memberName: groupDetails.memberName, element: '@memberResult' },
-    { memberName: groupDetails.anotherMember, element: '@member2Result' },];
+      { memberName: groupDetails.anotherMember, element: '@member2Result' }];
 
     await createGroup(groupDetails, '@teamOption', '@teamGroupListView', routeDetails);
   });
@@ -54,11 +54,11 @@ describe(' Automated Test Cases - Groups', () => {
       name: groupFeeder.patientAndTeamType,
       purpose: groupFeeder.purpose,
       memberName: memberFeeder.memberName,
-       anotherMember: memberFeeder.memberName2,
+      anotherMember: memberFeeder.memberName2,
     };
 
     const routeDetails = [{ memberName: groupDetails.memberName, element: '@memberResult' },
-    { memberName: groupDetails.anotherMember, element: '@member2Result' },];
+      { memberName: groupDetails.anotherMember, element: '@member2Result' }];
 
     await createGroup(groupDetails, '@patientAndTeamOption', '@patientAndTeamGroupListView', routeDetails);
   });

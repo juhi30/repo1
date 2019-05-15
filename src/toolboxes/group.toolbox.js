@@ -38,7 +38,6 @@ export async function createGroup(groupDetails, groupTypeOption, groupTypeListVi
  * @param {string} groupResultElement Group element to route with channel on channel creation page
  */
 export async function addChannelRouteToGroup(groupDetails, groupListViewElement, channelType, groupResultElement) {
-  console.log('calling another function');
   await group.navigate()
     .openInEditMode(groupListViewElement)
     .addChannel()

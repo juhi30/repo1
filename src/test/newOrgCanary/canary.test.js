@@ -1,8 +1,8 @@
 // CCR Flow
- import './orgSetupAndTeardown';
- import './member';
+import './orgSetupAndTeardown';
+import './member';
 import './login';
-// import './channels'
+import './channels'
 
 // //Member Flow
 import './group';
@@ -14,6 +14,7 @@ import './contact';
 // import './outofoffice';
 // import './template';
 // import './preferences';
+//import './messaging';
 
 // //Member + CCR flow. This should be the last test case
 // import './orgProfile';

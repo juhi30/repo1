@@ -13,17 +13,15 @@ const auditLogs = client.page.AuditLogsPage();
  * @param {string} groupTypeListViewElement created group element on Group listing
  * @param {string} memberResultElement Member element to route with group on group creation page
  */
-export async function createGroup(groupDetails, groupTypeOption, groupTypeListViewElement, memberResultElement, anotherMemberResultElement) {
+export async function createGroup(groupDetails, groupTypeOption, groupTypeListViewElement, routeDetails) {
   await group.navigate()
     .clickAddGroup()
     .selectGroupType(groupTypeOption)
     .addGroupDetails(groupDetails.name, groupDetails.purpose);
 
-  route.routeSearch('@memberInput', groupDetails.memberName, memberResultElement)
-    .pause(1000)
-    .routeSearch('@memberInput', groupDetails.anotherMemberName, anotherMemberResultElement);
+  await routeDetails.map(field => route.routeSearch('@memberInput', field.memberName, field.element));
 
-  group.createUpdateButton('@createGroupButton', '@groupCreateSuccessMessage')
+  await group.createUpdateButton('@createGroupButton', '@groupCreateSuccessMessage')
     .checkGroupVisibilityOnList(groupTypeListViewElement)
     .waitForElementNotPresent('@groupCreateSuccessMessage');
 
@@ -40,6 +38,7 @@ export async function createGroup(groupDetails, groupTypeOption, groupTypeListVi
  * @param {string} groupResultElement Group element to route with channel on channel creation page
  */
 export async function addChannelRouteToGroup(groupDetails, groupListViewElement, channelType, groupResultElement) {
+  console.log('calling another function');
   await group.navigate()
     .openInEditMode(groupListViewElement)
     .addChannel()

@@ -29,6 +29,10 @@ describe('Chat Messaging Tests', () => {
   test('Verify if group chat message is received by Member1', async () => {
     await messageToolbox.verifyReceivingGroupChatMessage('@patientAndTeamGroup_TeamInbox', messageFeeder.groupChatMessage);
   });
+
+  test('logout as CCR', async () => {
+    await logout();
+  });
 });
 
 describe('Direct Messaging Tests', () => {

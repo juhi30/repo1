@@ -15,9 +15,13 @@ describe(' Automated Test Cases - Groups', () => {
       name: groupFeeder.patientTypeGroup,
       purpose: groupFeeder.purpose,
       memberName: memberFeeder.memberName,
-      anotherMemberName: memberFeeder.memberName2,
+      anotherMember: memberFeeder.memberName2,
     };
-    await createGroup(groupDetails, '@patientOption', '@patientGroupListView', '@memberResult', '@member2Result');
+
+    const routeDetails = [{ memberName: groupDetails.memberName, element: '@memberResult' },
+    { memberName: groupDetails.anotherMember, element: '@member2Result' },];
+    
+    await createGroup(groupDetails, '@patientOption', '@patientGroupListView', routeDetails);
   });
 
   test('Add Channel Routes to patient Type Group', async () => {
@@ -36,9 +40,13 @@ describe(' Automated Test Cases - Groups', () => {
       name: groupFeeder.teamTypeGroup,
       purpose: groupFeeder.purpose,
       memberName: memberFeeder.memberName,
-      anotherMemberName: memberFeeder.memberName2,
+      anotherMember: memberFeeder.memberName2,
     };
-    await createGroup(groupDetails, '@teamOption', '@teamGroupListView', '@memberResult', '@member2Result');
+
+    const routeDetails = [{ memberName: groupDetails.memberName, element: '@memberResult' },
+    { memberName: groupDetails.anotherMember, element: '@member2Result' },];
+
+    await createGroup(groupDetails, '@teamOption', '@teamGroupListView', routeDetails);
   });
 
   test('Create Group - Patient And Team Type', async () => {
@@ -46,9 +54,13 @@ describe(' Automated Test Cases - Groups', () => {
       name: groupFeeder.patientAndTeamType,
       purpose: groupFeeder.purpose,
       memberName: memberFeeder.memberName,
-      anotherMemberName: memberFeeder.memberName2,
+       anotherMember: memberFeeder.memberName2,
     };
-    await createGroup(groupDetails, '@patientAndTeamOption', '@patientAndTeamGroupListView', '@memberResult', '@member2Result');
+
+    const routeDetails = [{ memberName: groupDetails.memberName, element: '@memberResult' },
+    { memberName: groupDetails.anotherMember, element: '@member2Result' },];
+
+    await createGroup(groupDetails, '@patientAndTeamOption', '@patientAndTeamGroupListView', routeDetails);
   });
 
   // test('Convert Patient Group to Patient and team type Group', async () => {

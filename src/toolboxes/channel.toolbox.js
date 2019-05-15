@@ -48,7 +48,8 @@ export async function createChannel(channelType, channelData) {
     .pause(2000);
 
   channelCreateEdit.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
-    .checkSuccessMessage('@channelCreateSuccessMessage');
+    .checkSuccessMessage('@channelCreateSuccessMessage')
+    .waitForElementNotPresent('@channelCreateSuccessMessage');
 }
 
 /**
@@ -84,7 +85,8 @@ export async function tagsCreationByChannelEdit(editedChannelElement, tagName) {
   await channelCreateEdit.addTag(tagName, '@tagCategory')
     .waitForElementNotPresent('@tagNameInput')
     .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
-    .checkSuccessMessage('@channelUpdateSuccessMessage');
+    .checkSuccessMessage('@channelUpdateSuccessMessage')
+    .waitForElementNotPresent('@channelUpdateSuccessMessage');
 }
 
 /**
@@ -132,7 +134,9 @@ export async function updateWebFormFieldsByChannelEdit(editedChannelElement, web
   webFormFields.map(field => channelCreateEdit.updateWebForm(field.element, field.value));
   await channelCreateEdit.pause(2000)
     .waitForElementVisible('@updateChannelButton', 'update button is visible')
-    .click('@updateChannelButton');
+    .click('@updateChannelButton')
+    .checkSuccessMessage('@channelUpdateSuccessMessage')
+    .waitForElementNotPresent('@channelUpdateSuccessMessage');
 }
 
 /**

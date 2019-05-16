@@ -14,5 +14,5 @@ module.exports = {
   newDepartment: 'newDepartment',
   newRole: 'newRole',
   newCustom: 'newCustom',
-
+  tagForMemberPage: 'MemberTag',
 };

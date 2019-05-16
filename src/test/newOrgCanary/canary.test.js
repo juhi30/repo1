@@ -8,12 +8,12 @@ import './channels';
 import './group';
 import './office';
 import './memberPreferences';
-// import './office';
+import './memberProfile';
+import './contact';
 // import './tags';
 // import './outofoffice';
 import './template';
 // import './preferences';
-// import './memberProfile';
 
 // //Member + CCR flow. This should be the last test case
 // import './orgProfile';

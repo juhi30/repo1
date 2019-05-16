@@ -10,7 +10,6 @@ module.exports = {
   invalidEmail: 'test@test.com',
 
   // details for member profile
-  newMemberUsername: 'NewUserName',
-  tagForMemberPage: 'Test_3',
+  newMemberUsername: 'NewUserName_dev',
   newMemberPassword: 'Test@123',
 };

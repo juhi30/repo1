@@ -46,7 +46,7 @@ const tagCommands = {
   },
 
   deleteTag(editedTag) {
-    return this.waitForElementVisible(editedTag, `Last tag is visible.`)
+    return this.waitForElementVisible(editedTag, 'Last tag is visible.')
       .click(editedTag)
       .waitForElementVisible('@deleteTagTrashIcon', 'Trash Icon is visible')
       .click('@deleteTagTrashIcon')

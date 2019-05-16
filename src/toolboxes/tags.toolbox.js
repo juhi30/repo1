@@ -13,7 +13,7 @@ export async function checkAuditLogs(action, tagName) { // for audit logs
 
 export async function createtag(tagType, tagName, tags) {
   await tag.navigate()
-    .createNewTag(tagType, tagName, tags,);
+    .createNewTag(tagType, tagName, tags);
   await checkAuditLogs('Add', tagName);
 }
 

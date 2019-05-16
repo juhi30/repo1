@@ -10,7 +10,7 @@ import './office';
 import './memberPreferences';
 import './memberProfile';
 import './contact';
-// import './tags';
+import './tags';
 // import './outofoffice';
 // import './template';
 // import './preferences';

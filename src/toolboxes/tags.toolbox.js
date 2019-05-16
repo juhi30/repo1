@@ -11,19 +11,19 @@ export async function checkAuditLogs(action, tagName) { // for audit logs
     .validateAuditEntry(memberFeeder.memberName, 'Tag', action, tagName);
 }
 
-export async function createtag(tagType, tagName, tags) {
+export async function createTag(tagType, tagName, tags) {
   await tag.navigate()
     .createNewTag(tagType, tagName, tags);
   await checkAuditLogs('Add', tagName);
 }
 
-export async function editCreatedTag(tagType, newValue, newTag) {
+export async function editTag(tagType, newValue, newTag) {
   await tag.navigate()
     .editTag(tagType, newValue, newTag);
   await checkAuditLogs('Edit', newValue);
 }
 
-export async function deleteCreatedTag(editedTag, tagName) {
+export async function deleteTag(editedTag, tagName) {
   await tag.navigate()
     .deleteTag(editedTag, tagName);
   await checkAuditLogs('Delete', tagName);

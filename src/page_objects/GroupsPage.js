@@ -14,6 +14,11 @@ const groupsPageCommands = {
       .waitForElementVisible('@patientAndTeamOption', 'Patient and team option is visible');
   },
 
+  clickAddGroup() {
+    return this.waitForElementVisible('@createButton', 'Create Button is visible')
+      .click('@createButton');
+  },
+
   selectGroupType(groupType) {
     return this.waitForElementVisible(groupType, `${groupType} is visible`)
       .click(groupType);
@@ -35,6 +40,10 @@ const groupsPageCommands = {
   checkGroupVisibility(nav, list) {
     return this.waitForElementVisible(nav, `Created ${nav} Group is visible in the navigation section.`)
       .waitForElementVisible(list, `Created${list} Group is visible in the Group List as well.`);
+  },
+
+  checkGroupVisibilityOnList(element) {
+    return this.waitForElementVisible(element, `Created${element} Group is visible in the Group List as well.`);
   },
 
   openInEditMode(group) {
@@ -151,7 +160,7 @@ module.exports = {
     },
 
     teamGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.teamTypeGroup}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${groupFeeder.teamTypeGroup}']`,
       locateStrategy: 'xpath',
     },
 

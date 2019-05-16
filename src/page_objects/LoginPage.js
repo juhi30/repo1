@@ -67,7 +67,7 @@ const loginCommands = {
 
   validateUrlChange(url) {
     const nextPageUrl = url || 'inbox';
-    return this.waitForElementNotPresent('@loginButton', false, null, 'Login button is no longer visible, page changes to inbox')
+    return this.waitForElementNotPresent('@loginButton', false, null, `Login button is no longer visible, page changes to ${nextPageUrl}`)
       .verify.urlContains(nextPageUrl);
   },
 
@@ -123,12 +123,12 @@ module.exports = {
     },
 
     errorPrompt: {
-      selector: '//DIV[contains(text(),\'Username and password did not match\')]',
+      selector: '//DIV[@class=\'alert__body\'][contains(text(),\'Username and password did not match\')]',
       locateStrategy: 'xpath',
     },
 
     missingCredentialErrorPrompt: {
-      selector: '//DIV[contains(.,\'Missing credentials\')]',
+      selector: '//DIV[@class=\'alert__body\'][contains(text(),\'Missing credentials\')]',
       locateStrategy: 'xpath',
     },
 

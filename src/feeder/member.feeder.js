@@ -1,10 +1,10 @@
 module.exports = {
 
   // New Member Details
-  memberName: 'Testing_NewCanary_local LastName',
-  memberFirstName: 'Testing_NewCanary_local',
+  memberName: 'Testing_NewCanary_dev LastName',
+  memberFirstName: 'Testing_NewCanary_dev',
   memberLastName: 'LastName',
-  memberUsername: 'Testing_NewCanary_local',
+  memberUsername: 'Testing_NewCanary_dev',
   memberPassword: 'Test@123',
   memberEmail: process.env.NEW_CANARY_GMAIL_USERNAME,
   invalidEmail: 'test@test.com',
@@ -42,8 +42,7 @@ module.exports = {
   memberUsername6: 'memberF',
 
   // details for member profile
-  newMemberUsername: 'NewUserName',
-  tagForMemberPage: 'Test_3',
+  newMemberUsername: 'NewUserName_dev',
   newMemberPassword: 'Test@123',
 
   // Alert Message

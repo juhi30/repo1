@@ -138,7 +138,7 @@ const universalElementsCommands = {
 
   clickGroups() {
     return this.click('@settingsButton')
-      .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
+      .waitForElementVisible('@groupsInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@groupsInSettingsDropdown')
       .pause(500)
       .verify.urlContains('organization/groups', 'Groups page is visible');
@@ -253,6 +253,14 @@ const universalElementsCommands = {
   validatePageError(ele, url) {
     return this.waitForElementNotPresent(ele, 'Page Cannot be Accessible after logout')
       .verify.urlContains(url);
+  },
+
+  clickAuditLogs() {
+    return this.click('@settingsButton')
+      .waitForElementVisible('@auditInSettingsDropdown', 'Settings Dropdown is visible')
+      .click('@auditInSettingsDropdown')
+      .pause(500)
+      .verify.urlContains('organization/auditLog', 'Audit Logs page is visible');
   },
 };
 
@@ -410,6 +418,11 @@ module.exports = {
 
     groupsInSettingsDropdown: {
       selector: '//SPAN[contains(text(), \'Groups\')]',
+      locateStrategy: 'xpath',
+    },
+
+    auditInSettingsDropdown: {
+      selector: '//SPAN[contains(text(), \'Audit Log\')]',
       locateStrategy: 'xpath',
     },
 

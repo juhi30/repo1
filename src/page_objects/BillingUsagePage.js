@@ -42,9 +42,9 @@ const billingCommands = {
       .waitForElementVisible(offeredProduct, `${offeredProduct} is visible`);
   },
 
-  validateCurrentUsage(productName, qtyUsed) {
+  validateCurrentUsage(productName, quantityUsed) {
     return this.verify.visible(productName, `${productName} component is visible`)
-      .waitForElementVisible(qtyUsed, `${qtyUsed} is visible`);
+      .waitForElementVisible(quantityUsed, `${quantityUsed} is visible`);
   },
 
   validateSection(sectionName) {
@@ -87,14 +87,17 @@ const billingCommands = {
   verifyBillingContactDetailsSection() {
     return this.waitForElementVisible('@availableContactDetails', 'Billing Contact Info is visible')
       .waitForElementVisible('@updateBillingContactButton', 'update contact button is visible')
+      .pause(2000)
       .click('@updateBillingContactButton')
+      .pause(2000)
       .waitForElementVisible('@billingContactModalTitle', 'Modal Opened');
   },
 
   verifyContactInformation(element, data) {
-    this.verify.visible(element, `${element} is visible`);
+    this.waitForElementVisible(element, `${element} is visible`);
     return this.getAttribute(element, 'value', (result) => {
       this.verify.equal(result.value, data, ['both the values are equal']);
+      console.log(`${result.value}  ===========  ${data}`);
     });
   },
 

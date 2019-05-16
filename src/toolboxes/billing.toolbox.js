@@ -27,7 +27,9 @@ export async function verifyBillingID() {
 }
 
 export async function verifyBillingContactDetails() {
-  await billingPage.verifyBillingContactDetailsSection()
+  await billingPage
+    .verifyBillingContactDetailsSection()
+    .pause(2000)
     .verifyContactInformation('@contactFirstNameInput', billingFeeder.firstName)
     .verifyContactInformation('@contactLastNameInput', billingFeeder.lastName)
     .verifyContactInformation('@phoneNumberInput', billingFeeder.phoneNumber)

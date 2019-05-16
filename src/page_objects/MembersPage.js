@@ -9,7 +9,7 @@ const membersCommands = {
       .waitForElementVisible('@createMemberPageTitle', 'Create Member page is open');
   },
 
-  ReactivateDeactivateMember(buttonName) {
+  reactivateDeactivateMember(buttonName) {
     return this.waitForElementVisible(buttonName, `${buttonName} button is visible`)
       .pause(1000)
       .click(buttonName);

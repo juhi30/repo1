@@ -1,6 +1,5 @@
 import { client } from 'nightwatch-api';
 import { logout } from '../../toolboxes/login.toolbox';
-
 import {
   verifyAlertMessages, activateDeactivateMember, createMember,
   changePasswordUsingTempPassword,
@@ -37,7 +36,7 @@ describe('Member Creation test Cases for Billing Organization', () => {
       { element: '@memberUsername', value: memberFeeder.memberUsername5 }];
     const roles5 = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
-    await createMember(memberDetails1, roles1, 'NEW_CANARY_MEMBER_TEMP_PASSWORD');
+    await createMember(memberDetails1, roles1, 'BILLING_MEMBER_TEMP_PASSWORD');
     await createMember(memberDetails2, roles2);
     await createMember(memberDetails3, roles3);
     await createMember(memberDetails4, roles4);
@@ -46,8 +45,7 @@ describe('Member Creation test Cases for Billing Organization', () => {
 
   test('verifying alert message on a member addon', async () => {
     await member.navigate()
-      .clickAddMember()
-      .pause(2000);
+      .clickAddMember();
 
     verifyAlertMessages('@createAlertMessage');
 
@@ -73,7 +71,7 @@ describe('Member Creation test Cases for Billing Organization', () => {
 
   test('Login as New Member with Admin Roles', async () => {
     const { memberUsername1, memberPassword } = memberFeeder;
-    const tempPassword = global.NEW_CANARY_MEMBER_TEMP_PASSWORD;
+    const tempPassword = global.BILLING_MEMBER_TEMP_PASSWORD;
 
     await changePasswordUsingTempPassword(memberUsername1, memberPassword, tempPassword);
   });

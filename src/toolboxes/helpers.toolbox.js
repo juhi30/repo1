@@ -20,10 +20,6 @@ async function uploadFile(client, fileName, element) {
   client.setValue(attachmentElement, `${path.resolve()}/src/assets/${fileName}`);
 }
 
-async function uploadFile2(client, fileName) {
-  client.setValue('//DIV[contains(@class,\'dropdown__menu--top\')]//Input[@type=\'file\']', `${path.resolve()}/src/assets/${fileName}`);
-}
-
 // useful for clicking a specific element without needing a Page Object function
 // specific to that element's text (less brittle / more flexible)
 async function clickSpanViaText(client, text) {

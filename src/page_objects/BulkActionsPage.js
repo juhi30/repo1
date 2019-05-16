@@ -34,7 +34,7 @@ const bulkActionCommands = {
 
       return self.waitForElementVisible('@inboxPageTitle', `${title} page title is visible`)
         .verify.containsText('@inboxPageTitle', title, ` page title is ${title}`)
-        .verify.visible('@bulkSelectCheckBox', 'bulk select checkbox is visible')
+        .verify.visible('@bulkSelectCheckbox', 'bulk select checkbox is visible')
         .verify.visible('@BulkSelectDropdownIcon', 'bulk select option is available');
     });
   },
@@ -47,7 +47,7 @@ const bulkActionCommands = {
 
   verifyActionDropdown() {
     return this.waitForElementNotPresent('@actionDropdown', 'Action dropdown is not available before a selection.')
-      .click('@bulkSelectCheckBox')
+      .click('@bulkSelectCheckbox')
       .pause(1000)
       .waitForElementPresent('@actionDropdown', 'Action dropdown is visible after a selection.');
   },
@@ -75,8 +75,8 @@ const bulkActionCommands = {
   },
 
   closeAllConversation() {
-    return this.waitForElementVisible('@bulkSelectCheckBox', 'Bulk selection option is visible')
-      .click('@bulkSelectCheckBox')
+    return this.waitForElementVisible('@bulkSelectCheckbox', 'Bulk selection option is visible')
+      .click('@bulkSelectCheckbox')
       .pause(1000)
       .waitForElementVisible('@actionDropdown', 'Action dropdown is visible')
       .click('@actionDropdown')
@@ -121,7 +121,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    bulkSelectCheckBox: {
+    bulkSelectCheckbox: {
       selector: '//span[@class=\'button__text-wrapper\']//label',
       locateStrategy: 'xpath',
     },

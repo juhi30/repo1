@@ -39,17 +39,17 @@ export async function verifyReceivingGroupChatMessage(groupName, message) {
   helpers.findTextOnPage(chat, message);
 }
 
-// export async function sendADirectMessageToContact(titleElement, ContactName, message) {
-//   await msg.navigate()
-//     .verify.urlContains('/direct', 'url contains direct')
-//     .waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-//   await chat.clickAddIcon()
-//     .searchMemberAndOpenThread(titleElement, ContactName);
-//   await chat.fillInMessageInput(message)
-//     .pause(1000);
-//   await chat.clickSendMessageButton()
-//     .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present')
-// }
+export async function sendADirectMessageToContact(titleElement, ContactName, message) {
+  await msg.navigate()
+    .verify.urlContains('/direct', 'url contains direct')
+    .waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
+  await chat.clickAddIcon()
+    .searchMemberAndOpenThread(titleElement, ContactName);
+  await chat.fillInMessageInput(message)
+    .pause(1000);
+  await chat.clickSendMessageButton()
+    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present')
+}
 
 export async function sendGroupMessageToContact(groupName, titleElement, ContactName, message) {
   await group.openGroup(groupName);
@@ -82,7 +82,7 @@ export async function sendAMessageUsingHipaaTemplate(groupName, titleElement, Co
   await chat.clickAddIcon()
     .searchMemberAndOpenThread(titleElement, ContactName);
   await chat.addToMessageOption()
-    .useHipaaTemplate()
+    .useTemplate('@hipaaTemplate')
     .pause(2000);
   await chat.clickSendMessageButton()
     .pause(1000)
@@ -95,7 +95,7 @@ export async function sendADirectMessageUsingOtherTemplate(groupName, titleEleme
   await chat.clickAddIcon()
     .searchMemberAndOpenThread(titleElement, ContactName);
   await chat.addToMessageOption()
-    .useOtherTemplate()
+    .useTemplate('@useTemplateOption')()
     .pause(2000);
   template.click('@editedTemplateTitle')
     .pause(1000);

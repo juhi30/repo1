@@ -4,8 +4,8 @@ const helper = require('../toolboxes/helpers.toolbox');
 const commands = {
 
   clickAddIcon() {
-    return this.waitForElementVisible('@addicon', 'Add icon to search member/contact is visible')
-      .click('@addicon');
+    return this.waitForElementVisible('@addIcon', 'Add icon to search member/contact is visible')
+      .click('@addIcon');
   },
 
   searchMemberAndOpenThread(titleElement, searchText) {
@@ -29,18 +29,13 @@ const commands = {
     this.waitForElementVisible('@addFileOption', 'Add File option is visible')
       .pause(2000)
       .waitForElementVisible('@attachmentInput', 'attachment input is visible');
-    await helper.uploadFile2(this, 'contact.png');
+    await helper.uploadFile(this, 'contact.png', '@attachmentInput');
     return this.pause(5000);
   },
 
-  useHipaaTemplate() {
-    return this.waitForElementVisible('@hipaaTemplate', 'Option to use Hipaa Template is visible')
-      .click('@hipaaTemplate');
-  },
-
-  useOtherTemplate() {
-    return this.waitForElementVisible('@useTemplateOption', 'Use Template option is visible')
-      .click('@useTemplateOption');
+  useTemplate(templateElement) {
+    return this.waitForElementVisible(templateElement, `Template "${searchText}" is visible`)
+      .click(templateElement);
   },
 
   clickSendMessageButton() {
@@ -56,7 +51,7 @@ module.exports = {
   },
 
   elements: {
-    addicon: {
+    addIcon: {
       selector: '//BUTTON[@title= \'Add New Contact\']',
       locateStrategy: 'xpath',
     },

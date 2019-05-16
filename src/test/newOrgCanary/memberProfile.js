@@ -36,6 +36,10 @@ describe('Automated Tests: Member Profile', () => {
 
     await auditLogs.navigate()
       .pause(2000)
+      .verify.urlContains('auditLog', 'Audit Logs Page is opened')
+      .pause(1000)
+      .selectCategoryFilter('@selectMemberCategory')
+      .pause(1000)
       .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName);
   });
 

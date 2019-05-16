@@ -34,7 +34,7 @@ const commands = {
   },
 
   useTemplate(templateElement) {
-    return this.waitForElementVisible(templateElement, `Template "${searchText}" is visible`)
+    return this.waitForElementVisible(templateElement, `Template "${templateElement}" is visible`)
       .click(templateElement);
   },
 

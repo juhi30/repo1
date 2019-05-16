@@ -48,7 +48,7 @@ export async function sendADirectMessageToContact(titleElement, ContactName, mes
   await chat.fillInMessageInput(message)
     .pause(1000);
   await chat.clickSendMessageButton()
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present')
+    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
 }
 
 export async function sendGroupMessageToContact(groupName, titleElement, ContactName, message) {

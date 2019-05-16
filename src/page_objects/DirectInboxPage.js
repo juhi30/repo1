@@ -1,9 +1,4 @@
 module.exports = {
-  commands: [commands],
-  url() {
-    return `${this.api.launch_url}/inbox/direct`;
-  },
-
   elements: {
     // not much to see here yet kid
 

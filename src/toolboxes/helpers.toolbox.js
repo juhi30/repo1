@@ -132,5 +132,4 @@ module.exports = {
   memberCredsForConversationGrid,
   uploadFile,
   localToUtc,
-  uploadFile2,
 };

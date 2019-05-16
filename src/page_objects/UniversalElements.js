@@ -466,6 +466,11 @@ module.exports = {
     },
 
     organizationSearchResult: {
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${accountSetupFeeder.orgName}' ]`,
+      locateStrategy: 'xpath',
+    },
+
+    billingOrgSearchResult: {
       selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${accountSetupFeeder.billingOrgName}' ]`,
       locateStrategy: 'xpath',
     },

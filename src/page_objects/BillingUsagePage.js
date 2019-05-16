@@ -97,7 +97,6 @@ const billingCommands = {
     this.waitForElementVisible(element, `${element} is visible`);
     return this.getAttribute(element, 'value', (result) => {
       this.verify.equal(result.value, data, ['both the values are equal']);
-      console.log(`${result.value}  ===========  ${data}`);
     });
   },
 

@@ -10,10 +10,9 @@ describe('Patient Login Page Tests Cases', () => {
     const contact = client.page.ContactsPage();
     const convo = client.page.ConvoThreadPage();
 
-    await contact.searchForContact(contactFeeder.contactFirstName, '@searchedContactFirstResult');
+    await contact.searchForContact(contactFeeder.contactFirstName, '@searchedContactForPatient');
 
-    await convo.verifyNavigationToChatThread()
-      .sendRhinosecureMessage(messageFeeder.rhinosecureMessage);
+    await convo.sendRhinosecureMessage(messageFeeder.rhinosecureMessage);
 
     client.refresh();
 
@@ -32,6 +31,10 @@ describe('Patient Login Page Tests Cases', () => {
       .registerPatient(patientFeeder.patientUserName,
         patientFeeder.patientEmail,
         patientFeeder.patientPassword)
-      .verifySentMessage();
+      .verifySentMessage(messageFeeder.rhinosecureMessage);
+  });
+
+  test('logout as patient', async () => {
+    await logout();
   });
 });

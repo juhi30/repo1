@@ -616,6 +616,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    searchedContactForPatient: {
+      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[text()='${contactFeeder.contactFirstName}']`,
+      locateStrategy: 'xpath',
+    },
+
     deleteContactButton: {
       selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Delete Contact\')]',
       locateStrategy: 'xpath',

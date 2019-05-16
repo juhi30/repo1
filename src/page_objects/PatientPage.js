@@ -22,10 +22,11 @@ const patientCommands = {
     });
   },
 
-  verifySentMessage() {
+  verifySentMessage(sentMessage) {
     return this.click('@viewMessageButton')
-      .waitForElementVisible('@sentMessage', 'Sent Message is displayed')
-      .elementText('@sentMessage');
+      .waitForElementVisible('@receivedMessage', 'Received Message is displayed')
+      .elementText('@receivedMessage')
+      .this.verify.equal(sentMessage, '@receivedMessage', ['sent and received messages are same']);
   },
 };
 
@@ -62,7 +63,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    sentMessage: {
+    receivedMessage: {
       selector: '//DIV[contains(@class,"msg--inbound")][last()]',
       locateStrategy: 'xpath',
     },

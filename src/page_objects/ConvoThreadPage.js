@@ -2,11 +2,6 @@ import logger from 'rhinotilities/lib/loggers/logger';
 
 const convoThreadCommands = {
 
-  pause(time) {
-    this.api.pause(time);
-    return this;
-  },
-
   fillMessageInput(text) {
     return this.setValue('@messageInput', text);
   },
@@ -155,10 +150,6 @@ const convoThreadCommands = {
       .setValue('@assignmentMemberSearchInput', name);
   },
 
-  verifyNavigationToChatThread() {
-    return this.verify.visible('@conversationBody', 'Conversation Body is Visible');
-  },
-
   sendRhinosecureMessage(rhinoSecureMessage) {
     return this.verify.visible('@rhinoSecureButton', 'Rhinosecure Button is visible')
       .click('@rhinoSecureButton')
@@ -166,14 +157,13 @@ const convoThreadCommands = {
       .clearValue('@rhinoSecureMessageInput')
       .setValue('@rhinoSecureMessageInput', rhinoSecureMessage)
       .pause(1000)
-      .click('@sendMessageButton')
-      .pause(2000);
+      .click('@sendMessageButton');
   },
 
   getPatientLink(globalVariable) {
     return this.getAttribute('@rhinoSecureAutoResponseLink', 'href', (tpObj) => {
       global[globalVariable] = tpObj.value;
-      logger.info(global.PATIENT_SIGNUP_LINK);
+      logger.info(global.NEW_CANARY_PATIENT_SIGNUP_LINK);
     });
   },
 
@@ -364,11 +354,6 @@ module.exports = {
 
     assignButton: {
       selector: '//BUTTON[contains(@id, \'assign__final__button\')]',
-      locateStrategy: 'xpath',
-    },
-
-    conversationBody: {
-      selector: '//DIV[@class="convo__body"]',
       locateStrategy: 'xpath',
     },
 

@@ -33,9 +33,9 @@ const tagCommands = {
       .waitForElementVisible(tag, 'Created tag is visible');
   },
 
-  editTag(tag, newValue, newTag) {
-    return this.waitForElementVisible(tag, 'Last tag is visible')
-      .click(tag)
+  editTag(tagType, newValue, newTag) {
+    return this.waitForElementVisible(tagType, 'Last tag is visible')
+      .click(tagType)
       .waitForElementVisible('@updateTagButton', 'Edit tag modal is visible')
       .click('@tagNameInput')
       .clearValue('@tagNameInput')

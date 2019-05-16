@@ -20,6 +20,10 @@ export async function createOffice(officeDetails, auditDetails) {
 
   await checkAuditLogs.navigate()
     .pause(2000)
+    .verify.urlContains('auditLog', 'Audit Logs Page is opened')
+    .pause(1000)
+    .selectCategoryFilter('@selectOfficeCategory')
+    .pause(3000)
     .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Add', auditDetails.officeName);
 }
 

@@ -93,6 +93,13 @@ const auditLogsCommands = {
       .click(selectActionElement);
   },
 
+  selectCategoryFilter(selectCategoryElement) {
+    return this.waitForElementVisible('@categoryFilter', 'Category filter is visible')
+      .click('@categoryFilter')
+      .waitForElementVisible(selectCategoryElement, `${selectCategoryElement} is visible`)
+      .click(selectCategoryElement);
+  },
+
   validateAuditEntry(member, category, action, name, contact = '') {
     return this.waitForElementVisible('@auditEntry', `${category} entry is visible`)
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
@@ -310,6 +317,16 @@ module.exports = {
 
     selectDeleteAction: {
       selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Delete\']',
+      locateStrategy: 'xpath',
+    },
+
+    selectMemberCategory: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Member\']',
+      locateStrategy: 'xpath',
+    },
+
+    selectOfficeCategory: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Office Location\']',
       locateStrategy: 'xpath',
     },
   },

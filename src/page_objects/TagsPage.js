@@ -20,7 +20,7 @@ const tagCommands = {
   },
 
   createNewTag(tagType, tagName, tag) {
-    return this.waitForElementVisible('@newTagButton', 'add tag button is visible.')
+    return this.waitForElementVisible('@newTagButton', `${tagType} button is visible.`)
       .pause(3000)
       .click('@newTagButton')
       .pause(3000)
@@ -34,7 +34,7 @@ const tagCommands = {
   },
 
   editTag(tagType, newValue, newTag) {
-    return this.waitForElementVisible(tagType, 'Last tag is visible')
+    return this.waitForElementVisible(tagType, `${tagType} is visible.`)
       .click(tagType)
       .waitForElementVisible('@updateTagButton', 'Edit tag modal is visible')
       .click('@tagNameInput')
@@ -46,7 +46,7 @@ const tagCommands = {
   },
 
   deleteTag(editedTag) {
-    return this.waitForElementVisible(editedTag, 'last tag is visible')
+    return this.waitForElementVisible(editedTag, `Last tag is visible.`)
       .click(editedTag)
       .waitForElementVisible('@deleteTagTrashIcon', 'Trash Icon is visible')
       .click('@deleteTagTrashIcon')

@@ -11,9 +11,9 @@ import './memberPreferences';
 import './memberProfile';
 import './contact';
 import './patient';
-// import './tags';
-// import './outofoffice';
 import './template';
+import './tags';
+// import './outofoffice';
 // import './preferences';
 
 // //Member + CCR flow. This should be the last test case

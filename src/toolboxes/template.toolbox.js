@@ -32,7 +32,7 @@ export async function editTemplate(element, templateNewData) {
  * @param  {object} templateData Data to edit a template
  */
 export async function deleteTemplate(element) {
-  await deleteTemplate.navigate()
+  await template.navigate()
     .templateEditMode(element)
     .deleteTemplate('@deleteTemplateSuccessMessage');
 }

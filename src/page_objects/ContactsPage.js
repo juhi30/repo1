@@ -205,6 +205,12 @@ const contactsCommands = {
   verifyAddContactButtonVisibility() {
     return this.expect.element('@addContactButton').to.not.be.present;
   },
+
+  addPhoneNumberEmail(linkElement, inputFieldElement, value) {
+    return this.click(linkElement)
+      .waitForElementVisible(inputFieldElement, ` ${inputFieldElement} is visible`)
+      .setValue(inputFieldElement, value);
+  },
 };
 
 module.exports = {

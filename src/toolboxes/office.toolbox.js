@@ -6,7 +6,7 @@ const checkAuditLogs = client.page.AuditLogsPage();
 /**
  * Used to create office
  * @param  {Array} officeDetails array of object having 2 keys element and value.
- * @param  {object} auditDetails having 2 keys memeber who perform the action and office name.
+ * @param  {object} auditDetails having 2 keys member who perform the action and office name.
  */
 
 export async function createOffice(officeDetails, auditDetails) {
@@ -19,7 +19,10 @@ export async function createOffice(officeDetails, auditDetails) {
     .successMessageVerification('@officeCreationSuccessMessage');
 
   await checkAuditLogs.navigate()
-    .pause(2000)
+    .verify.urlContains('auditLog', 'Audit Logs Page is opened')
+    .pause(1000)
+    .selectCategoryFilter('@selectOfficeCategory')
+    .pause(3000)
     .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Add', auditDetails.officeName);
 }
 

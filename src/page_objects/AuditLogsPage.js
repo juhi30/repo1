@@ -81,16 +81,23 @@ const auditLogsCommands = {
       .click('@contactFilter')
       .waitForElementVisible('@searchContactInput', 'Search contact input is visible')
       .setValue('@searchContactInput', contactName)
-      .waitForElementVisible(selectContactElement, `Searched contact ${contactName} +  is visible`)
+      .waitForElementVisible(selectContactElement, `Searched contact ${contactName} is visible`)
       .click(selectContactElement)
       .pause(1000);
   },
 
   selectActionFilter(selectActionElement) {
-    return this.waitForElementVisible('@actionFilter', 'Contact filter is visible')
+    return this.waitForElementVisible('@actionFilter', 'Action filter is visible')
       .click('@actionFilter')
       .waitForElementVisible(selectActionElement, `${selectActionElement} action is visible`)
       .click(selectActionElement);
+  },
+
+  selectCategoryFilter(selectCategoryElement) {
+    return this.waitForElementVisible('@categoryFilter', 'Category filter is visible')
+      .click('@categoryFilter')
+      .waitForElementVisible(selectCategoryElement, `${selectCategoryElement} is visible`)
+      .click(selectCategoryElement);
   },
 
   validateAuditEntry(member, category, action, name, contact = '') {
@@ -310,6 +317,16 @@ module.exports = {
 
     selectDeleteAction: {
       selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Delete\']',
+      locateStrategy: 'xpath',
+    },
+
+    selectMemberCategory: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Member\']',
+      locateStrategy: 'xpath',
+    },
+
+    selectOfficeCategory: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Office Location\']',
       locateStrategy: 'xpath',
     },
   },

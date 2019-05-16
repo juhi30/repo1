@@ -13,7 +13,7 @@ import './contact';
 import './patient';
 // import './tags';
 // import './outofoffice';
-// import './template';
+import './template';
 // import './preferences';
 
 // //Member + CCR flow. This should be the last test case

@@ -39,3 +39,37 @@ export async function verifyBillingContactDetails() {
     .verifyContactInformation('@stateInput', billingFeeder.stateId)
     .verifyContactInformation('@contactZipInput', billingFeeder.zipForContact);
 }
+
+export async function updateBankDetails() {
+  const updateBillingPaymentDetails = {
+    firstName: billingFeeder.newPaymentFirstname,
+    lastName: billingFeeder.newPaymentLastname,
+    bankName: billingFeeder.newBankName,
+    accountNumber: billingFeeder.newAccountNumber,
+    routingNumber: billingFeeder.newRoutingNumber,
+    accountType: billingFeeder.newAccountType,
+  };
+  await billingPage.verifyChangePaymentButton()
+    .changePaymentMethod('@radioBankAccount')
+    .updatePaymentToBank(updateBillingPaymentDetails)
+    .updatePaymentToBankForAccountType(updateBillingPaymentDetails)
+    .waitForElementNotPresent('@paymentFirstNameInput', 'Payment modal is hidden');
+}
+
+export async function updateContactDetails() {
+  const billingContactDetails = {
+    firstName: billingFeeder.contactFirstName,
+    lastName: billingFeeder.contactLastName,
+    phoneNumber: billingFeeder.contactPhoneNumber,
+    emailAddress: billingFeeder.contactEmailAddress,
+    billingLine1: billingFeeder.contactBillingLine1,
+    billingLine2: billingFeeder.contactBillingLine2,
+    billingCity: billingFeeder.contactBillingCity,
+    zip: billingFeeder.contactZip,
+  };
+
+  await billingPage.navigate()
+    .verifyBillingContactDetailsSection()
+    .updateBillingContact(billingContactDetails)
+    .updateBillingContactForState(billingContactDetails);
+}

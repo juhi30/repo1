@@ -1,6 +1,7 @@
 import { client } from 'nightwatch-api';
 import * as channelToolbox from '../../toolboxes/channel.toolbox';
 import { ccrLogin, logout } from '../../toolboxes/login.toolbox';
+import { selectOrganizationByCCR } from '../../toolboxes/organization.toolbox';
 
 
 const memberFeeder = require('../../feeder/member.feeder');
@@ -9,18 +10,17 @@ const loginFeeder = require('../../feeder/login.feeder');
 const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
 
 describe('Channels Creation for Billing Org', () => {
-  const org = client.page.UniversalElements();
+  const universal = client.page.UniversalElements();
   const channel = client.page.ChannelsPage();
 
   test('login as ccr into the organization', async () => {
     await ccrLogin(loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword);
 
-    await org.searchForOrganization(accountSetupFeeder.billingOrgName, '@billingOrgSearchResult')
-      .ccrOrgLogin('@billingOrgSearchResult');
+    await selectOrganizationByCCR(accountSetupFeeder.billingOrgName, '@billingOrgSearchResult');
   });
 
   test('Add Channels according to the current plan', async () => {
-    await org.clickChannels()
+    await universal.clickChannels()
       .pause(1000);
     await channel.addChannel();
 

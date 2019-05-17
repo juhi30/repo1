@@ -13,6 +13,7 @@ const billingCommands = {
     });
   },
 
+  // this function can be used for member creation using loop
   getOfferedMember(memberCount) {
     this.getText('@offeredMembers', (result) => {
       global[memberCount] = result;

@@ -87,9 +87,7 @@ const billingCommands = {
   verifyBillingContactDetailsSection() {
     return this.waitForElementVisible('@availableContactDetails', 'Billing Contact Info is visible')
       .waitForElementVisible('@updateBillingContactButton', 'update contact button is visible')
-      .pause(2000)
       .click('@updateBillingContactButton')
-      .pause(2000)
       .waitForElementVisible('@billingContactModalTitle', 'Modal Opened');
   },
 

@@ -54,7 +54,7 @@ describe('Billing Organization Test Cases', () => {
       .changePaymentMethod('@radioBankAccount')
       .updatePaymentToBank(updateBillingPaymentDetails)
       .updatePaymentToBankForAccountType(updateBillingPaymentDetails)
-      .pause(1000);
+      .waitForElementNotPresent('@paymentFirstNameInput', 'Payment modal is hidden');
   });
 
   test('Verify the details for billing contact', async () => {

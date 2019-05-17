@@ -21,7 +21,7 @@ const channelRouteCommands = {
   },
 
   routeSearch(searchInput, routeName, result) {
-    return this.waitForElementVisible(searchInput, `${searchInput} is visible`)
+    return this.clearValue(searchInput)
       .setValue(searchInput, routeName)
       .waitForElementVisible(result, `${result} is visible`)
       .click(result);
@@ -71,6 +71,11 @@ module.exports = {
 
     memberResult: {
       selector: `//SPAN[contains(., '${memberFeeder.memberName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    member2Result: {
+      selector: `//SPAN[contains(., '${memberFeeder.memberName2}')]`,
       locateStrategy: 'xpath',
     },
 

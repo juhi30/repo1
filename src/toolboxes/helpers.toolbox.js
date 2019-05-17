@@ -22,10 +22,9 @@ async function uploadFile(client, fileName, element) {
 
 // useful for clicking a specific element without needing a Page Object function
 // specific to that element's text (less brittle / more flexible)
-function clickSpanViaText(client, text) {
-  client.api.useXpath().waitForElementVisible(`//SPAN[contains(text(), '${text}')]`, `Span with text "${text}" is visible`)
-    .pause(1000)
-    .click(`//SPAN[contains(text(), '${text}')]`);
+async function clickSpanViaText(client, text) {
+  await client.api.useXpath().waitForElementVisible(`//SPAN[contains(., '${text}')]`, `Span with text "${text}" is visible`)
+    .click(`//SPAN[contains(., '${text}')]`);
 }
 
 function clickDivViaText(client, text) {

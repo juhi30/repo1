@@ -32,6 +32,21 @@ describe('Automated Tests: Contact', () => {
       .validateAuditEntry(contactFeeder.memberName, 'Contact', 'View', contactName, contactName);
   });
 
+  test('Contact Create - Another New Patient type, used later for Messaging tests', async () => {
+    await contact.navigate()
+      .verify.urlContains('contacts', 'Contact Page is opened')
+      .clickAddContact()
+      .clickAddNewContact();
+
+    await client.url(`${process.env.APP_URL}/contacts/create`);
+    await contact.waitForElementVisible('@contactCreatePageTitle', 'New Contact setup page is open')
+      .enterDetails('@firstNameInput', contactFeeder.anotherContactFirstName)
+      .enterDetails('@lastNameInput', contactFeeder.anotherContactLastName)
+      .enterDetails('@birthDateInput', contactFeeder.anotherContactBirthDate)
+      .enterDetails('@phoneNumberInput', contactFeeder.anotherContactFirstPhoneNumber)
+      .clickCreateUpdateContact('@createNewContactButton', '@createSuccessMessage');
+  });
+
   test('Contact Create - New Other type without Connected Party', async () => {
     const contactName = `${contactFeeder.contactOtherFirstName} ${contactFeeder.contactOtherLastName}`;
     const contactDetails = [{ element: '@firstNameInput', value: contactFeeder.contactOtherFirstName },

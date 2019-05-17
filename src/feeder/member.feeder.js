@@ -12,4 +12,10 @@ module.exports = {
   // details for member profile
   newMemberUsername: 'NewUserName_dev',
   newMemberPassword: 'Test@123',
+
+  // Member 2 details
+  memberName2: 'Testing_NewCanary_2 LastName',
+  memberFirstName2: 'Testing_NewCanary_2',
+  memberLastName2: 'LastName',
+  memberUsername2: 'Testing_NewCanary_2',
 };

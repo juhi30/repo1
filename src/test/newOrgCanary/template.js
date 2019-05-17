@@ -52,10 +52,12 @@ describe('Test Automation - Templates', () => {
     await templateToolbox.searchTemplate(template);
   });
 
-  test('delete Template', async () => {
-    await templateToolbox.deleteTemplate('@templateTitle');
-    await templateToolbox.validateAuditEntry('Template', 'Delete', templateFeeder.newTemplate);
-  });
+  // Commented out as templates are needed for message tests
+
+  // test('delete Template', async () => {
+  //   await templateToolbox.deleteTemplate('@templateTitle');
+  //   await templateToolbox.validateAuditEntry('Template', 'Delete', templateFeeder.newTemplate);
+  // });
 
   test('handling system template', async () => {
     const entry = client.page.AuditLogsPage();

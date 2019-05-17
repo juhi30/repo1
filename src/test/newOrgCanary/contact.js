@@ -1,4 +1,5 @@
 import { client } from 'nightwatch-api';
+import * as contactToolbox from '../../toolboxes/contact.toolbox';
 
 const contactFeeder = require('../../feeder/contact.feeder');
 
@@ -8,26 +9,18 @@ describe('Automated Tests: Contact', () => {
 
   test('Contact Create - New Patient type without Connected Party', async () => {
     const contactName = `${contactFeeder.contactFirstName} ${contactFeeder.contactLastName}`;
-
-    await contact.navigate()
-      .verify.urlContains('contacts', 'Contact Page is opened')
-      .clickAddContact()
-      .clickAddNewContact();
-
-    await client.url(`${process.env.APP_URL}/contacts/create`);
-    await contact.waitForElementVisible('@contactCreatePageTitle', 'New Contact setup page is open')
-      .enterDetails('@firstNameInput', contactFeeder.contactFirstName)
-      .enterDetails('@middleNameInput', contactFeeder.contactMiddleName)
-      .enterDetails('@lastNameInput', contactFeeder.contactLastName)
-      .enterDetails('@preferredNameInput', contactFeeder.contactPreferredName)
-      .enterDetails('@prefixDropdown', contactFeeder.contactPrefix)
-      .enterDetails('@suffixDropdown', contactFeeder.contactSuffix)
-      .enterDetails('@birthDateInput', contactFeeder.contactBirthDate)
-      .selectRadioOption('@genderOption')
-      .enterDetails('@phoneNumberInput', contactFeeder.contactFirstPhoneNumber)
-      .enterDetails('@emailInput', contactFeeder.contactFirstEmail)
-      .enterDetails('@noteInput', contactFeeder.contactNote)
-      .clickCreateUpdateContact('@createNewContactButton', '@createSuccessMessage');
+    const contactDetails = [{ element: '@firstNameInput', value: contactFeeder.contactFirstName },
+      { element: '@middleNameInput', value: contactFeeder.contactMiddleName },
+      { element: '@lastNameInput', value: contactFeeder.contactLastName },
+      { element: '@preferredNameInput', value: contactFeeder.contactPreferredName },
+      { element: '@prefixDropdown', value: contactFeeder.contactPrefix },
+      { element: '@suffixDropdown', value: contactFeeder.contactSuffix },
+      { element: '@birthDateInput', value: contactFeeder.contactBirthDate },
+      { element: '@phoneNumberInput', value: contactFeeder.contactFirstPhoneNumber },
+      { element: '@emailInput', value: contactFeeder.contactFirstEmail },
+      { element: '@noteInput', value: contactFeeder.contactNote },
+    ];
+    await contactToolbox.createContact(contactDetails, '@patientOption');
 
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'Audit Logs Page is opened')
@@ -39,29 +32,35 @@ describe('Automated Tests: Contact', () => {
       .validateAuditEntry(contactFeeder.memberName, 'Contact', 'View', contactName, contactName);
   });
 
-  test('Contact Create - New Other type without Connected Party', async () => {
-    const contactName = `${contactFeeder.contactOtherFirstName} ${contactFeeder.contactOtherLastName}`;
-
+  test('Contact Create - Another New Patient type, used later for Messaging tests', async () => {
     await contact.navigate()
       .verify.urlContains('contacts', 'Contact Page is opened')
       .clickAddContact()
       .clickAddNewContact();
 
     await client.url(`${process.env.APP_URL}/contacts/create`);
-
     await contact.waitForElementVisible('@contactCreatePageTitle', 'New Contact setup page is open')
-      .selectRadioOption('@otherOption')
-      .enterDetails('@firstNameInput', contactFeeder.contactOtherFirstName)
-      .enterDetails('@lastNameInput', contactFeeder.contactOtherLastName)
-      .enterDetails('@preferredNameInput', contactFeeder.contactOtherPreferredName)
-      .enterDetails('@prefixDropdown', contactFeeder.contactOtherPrefix)
-      .enterDetails('@suffixDropdown', contactFeeder.contactOtherSuffix)
-      .enterDetails('@birthDateInput', contactFeeder.contactOtherBirthDate)
-      .selectRadioOption('@genderOption')
-      .enterDetails('@phoneNumberInput', contactFeeder.contactOtherFirstNumber)
-      .enterDetails('@emailInput', contactFeeder.contactOtherFirstEmail)
-      .enterDetails('@noteInput', contactFeeder.contactNote)
+      .enterDetails('@firstNameInput', contactFeeder.anotherContactFirstName)
+      .enterDetails('@lastNameInput', contactFeeder.anotherContactLastName)
+      .enterDetails('@birthDateInput', contactFeeder.anotherContactBirthDate)
+      .enterDetails('@phoneNumberInput', contactFeeder.anotherContactFirstPhoneNumber)
       .clickCreateUpdateContact('@createNewContactButton', '@createSuccessMessage');
+  });
+
+  test('Contact Create - New Other type without Connected Party', async () => {
+    const contactName = `${contactFeeder.contactOtherFirstName} ${contactFeeder.contactOtherLastName}`;
+    const contactDetails = [{ element: '@firstNameInput', value: contactFeeder.contactOtherFirstName },
+      { element: '@lastNameInput', value: contactFeeder.contactOtherLastName },
+      { element: '@preferredNameInput', value: contactFeeder.contactOtherPreferredName },
+      { element: '@prefixDropdown', value: contactFeeder.contactOtherPrefix },
+      { element: '@suffixDropdown', value: contactFeeder.contactOtherSuffix },
+      { element: '@birthDateInput', value: contactFeeder.contactOtherBirthDate },
+      { element: '@phoneNumberInput', value: contactFeeder.contactOtherFirstNumber },
+      { element: '@emailInput', value: contactFeeder.contactOtherFirstEmail },
+      { element: '@noteInput', value: contactFeeder.contactNote },
+    ];
+
+    await contactToolbox.createContact(contactDetails, '@otherOption');
 
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'Audit Logs Page is opened')
@@ -75,21 +74,15 @@ describe('Automated Tests: Contact', () => {
 
   test('Contact Edit - Patient type to Other', async () => {
     const contactName = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
+    const contactDetails = [{ element: '@firstNameInput', value: contactFeeder.contactNewFirstName },
+      { element: '@lastNameInput', value: contactFeeder.contactNewLastName },
+      { element: '@birthDateInput', value: contactFeeder.contactNewBirthDate },
+    ];
+    const contactOtherDetails = [{ linkElement: '@addPhoneNumber', inputFieldElement: '@anotherPhoneNumberInput', value: contactFeeder.contactSecondPhoneNumber },
+      { linkElement: '@addAnotherEmail', inputFieldElement: '@anotherEmailInput', value: contactFeeder.contactSecondEmail },
+    ];
 
-    await contact.navigate()
-      .verify.urlContains('contacts', 'Contact Page is opened')
-      .contactEditMode('@createdContact')
-      .pause(500)
-      .checkElementVisibility('@editProfileButton')
-      .selectRadioOption('@otherOption')
-      .editContactDetails('@firstNameInput', contactFeeder.contactNewFirstName)
-      .editContactDetails('@lastNameInput', contactFeeder.contactNewLastName)
-      .editContactDetails('@birthDateInput', contactFeeder.contactNewBirthDate)
-      .click('@addPhoneNumber')
-      .enterDetails('@anotherPhoneNumberInput', contactFeeder.contactSecondPhoneNumber)
-      .click('@addAnotherEmail')
-      .enterDetails('@anotherEmailInput', contactFeeder.contactSecondEmail)
-      .clickCreateUpdateContact('@updateContactButton', '@editSuccessMessage');
+    await contactToolbox.convertContactTypeAddNumberEmail('@createdContact', '@otherOption', contactDetails, contactOtherDetails);
 
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'Audit Logs Page is opened')
@@ -103,13 +96,7 @@ describe('Automated Tests: Contact', () => {
 
   test('Contact Edit - Upload Photo', async () => {
     const contactName = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
-
-    await contact.navigate()
-      .verify.urlContains('contacts', 'Contact Page is opened')
-      .contactEditMode('@editedContact')
-      .pause(500)
-      .checkElementVisibility('@editProfileButton')
-      .addUpdatePhoto();
+    await contactToolbox.uploadPhoto('@editedContact');
 
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'Audit Logs Page is opened')
@@ -123,26 +110,14 @@ describe('Automated Tests: Contact', () => {
 
   test('Contact Edit - Add connected party as Parent/Stepparent by creating new contact', async () => {
     const connectedPartyContact = `${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}`;
-
-    await contact.navigate()
-      .verify.urlContains('contacts', 'Contact Page is opened')
-      .contactEditMode('@editedContact')
-      .pause(500)
-      .checkElementVisibility('@editProfileButton')
-      .click('@addConnectedPartyButton')
-      .clickCreateNewContact()
-      .enterDetails('@firstNameInputOnModal', contactFeeder.contactFirstNameOnModal)
-      .enterDetails('@middleNameInputOnModal', contactFeeder.contactMiddleNameOnModal)
-      .enterDetails('@lastNameInputOnModal', contactFeeder.contactLastNameOnModal)
-      .enterDetails('@birthDateInputOnModal', contactFeeder.contactBirthDateOnModal)
-      .enterDetails('@phoneNumberInputOnModal', contactFeeder.contactNumberOnModal)
-      .enterDetails('@emailInputOnModal', contactFeeder.contactEmailOnModal)
-      .clickCreateUpdateContact('@createNewContactButton', '@createSuccessMessage')
-      .waitForElementVisible('@addedConnectedParty', 'Added connected party is visible in connected party section')
-      .pause(1000)
-      .clickCreateUpdateContact('@updateContactButton', '@editSuccessMessage')
-      .pause(1000)
-      .verifyAddedConnectedParty('@connectedPartyOnSummary', '@parentRelationshipOnSummary', 'Parent');
+    const connectedPartyDetails = [{ element: '@firstNameInputOnModal', value: contactFeeder.contactFirstNameOnModal },
+      { element: '@middleNameInputOnModal', value: contactFeeder.contactMiddleNameOnModal },
+      { element: '@lastNameInputOnModal', value: contactFeeder.contactLastNameOnModal },
+      { element: '@birthDateInputOnModal', value: contactFeeder.contactBirthDateOnModal },
+      { element: '@phoneNumberInputOnModal', value: contactFeeder.contactNumberOnModal },
+      { element: '@emailInputOnModal', value: contactFeeder.contactEmailOnModal },
+    ];
+    await contactToolbox.addConnectedPartyToContact('@editedContact', connectedPartyDetails, '@addedConnectedParty', '@connectedPartyOnSummary', '@parentRelationshipOnSummary', 'Parent');
 
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'Audit Logs Page is opened')
@@ -156,15 +131,7 @@ describe('Automated Tests: Contact', () => {
 
   test('Contact Edit - Update added connected Party relation from Parent/Stepparent to Guardian', async () => {
     const contactName = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
-
-    await contact.navigate()
-      .verify.urlContains('contacts', 'Contact Page is opened')
-      .contactEditMode('@editedContact')
-      .pause(500)
-      .checkElementVisibility('@editProfileButton')
-      .enterDetails('@connectionTypeInput', contactFeeder.connectedNewRelationship)
-      .clickCreateUpdateContact('@updateContactButton', '@editSuccessMessage')
-      .verifyAddedConnectedParty('@connectedPartyOnSummary', '@updatedRelationshipOnSummary', contactFeeder.connectedNewRelationship);
+    await contactToolbox.updateConnectedPartyRelationWithContact('@editedContact', contactFeeder.connectedNewRelationship, '@connectedPartyOnSummary', '@updatedRelationshipOnSummary', contactFeeder.connectedNewRelationship);
 
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'Audit Logs Page is opened')
@@ -178,15 +145,7 @@ describe('Automated Tests: Contact', () => {
 
   test('Contact Edit - Removed added connected party', async () => {
     const contactName = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
-
-    await contact.navigate()
-      .verify.urlContains('contacts', 'Contact Page is opened')
-      .contactEditMode('@editedContact')
-      .pause(500)
-      .checkElementVisibility('@editProfileButton')
-      .click('@removeConnectedPartyButton')
-      .clickCreateUpdateContact('@updateContactButton', '@editSuccessMessage')
-      .pause(1000);
+    await contactToolbox.removeConnectedParty('@editedContact');
 
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'Audit Logs Page is opened')
@@ -214,15 +173,12 @@ describe('Automated Tests: Contact', () => {
 
   test('Contact Search - Search for a contact', async () => {
     const searchText = `${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}`;
-
-    await contact.searchForContact(searchText, '@searchedContactFirstResult');
+    await contactToolbox.searchContact(searchText, '@searchedContactFirstResult');
   });
 
   test('Delete Contact - Converted Contact(patient to Other)', async () => {
     const contactName = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
-
-    await contact.navigate()
-      .deleteContact('@contactTitle');
+    await contactToolbox.deleteContact('@contactTitle');
 
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'Audit Logs Page is opened')
@@ -237,8 +193,7 @@ describe('Automated Tests: Contact', () => {
   test('Delete Contact - Other Contact type', async () => {
     const contactName = `${contactFeeder.contactOtherFirstName} ${contactFeeder.contactOtherLastName}`;
 
-    await contact.navigate()
-      .deleteContact('@otherContactTitle');
+    await contactToolbox.deleteContact('@otherContactTitle');
 
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'Audit Logs Page is opened')
@@ -253,8 +208,7 @@ describe('Automated Tests: Contact', () => {
   test('Delete Contact - Connected Party Contact', async () => {
     const contactName = `${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}`;
 
-    await contact.navigate()
-      .deleteContact('@connectedPartyTitle');
+    await contactToolbox.deleteContact('@connectedPartyTitle');
 
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'Audit Logs Page is opened')

@@ -11,6 +11,12 @@ module.exports = {
   contactFirstEmail: 'test@gmail.com',
   contactNote: 'This contact is being created by Automation',
 
+  // 2nd Contact details which will not be deleted and can be used later for messaging tests
+  anotherContactFirstName: 'Another Patient',
+  anotherContactLastName: 'Contact',
+  anotherContactBirthDate: '08/15/1988',
+  anotherContactFirstPhoneNumber: '8475452365',
+
   // Contact details for Other type
   contactOtherFirstName: 'Automation Other',
   contactOtherLastName: 'Contact',

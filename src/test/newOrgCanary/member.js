@@ -14,7 +14,27 @@ describe('Members Page', () => {
     await createMember(memberDetails, roles, 'NEW_CANARY_MEMBER_TEMP_PASSWORD');
   });
 
+  test('Adding another Member with Admin Role', async () => {
+    const memberDetails2 = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName2 },
+      { element: '@memberLastName', value: memberFeeder.memberLastName2 },
+      { element: '@memberUsername', value: memberFeeder.memberUsername2 }];
+    const roles = ['@adminRole', '@memberRole'];
+
+    await createMember(memberDetails2, roles, 'NEW_CANARY_MEMBER2_TEMP_PASSWORD');
+  });
+
   test('Logout as CCR', async () => {
+    await logout();
+  });
+
+  test('Login as second Member with Admin Role', async () => {
+    const { memberUsername2, memberPassword } = memberFeeder;
+    const tempPassword2 = global.NEW_CANARY_MEMBER2_TEMP_PASSWORD;
+
+    await changePasswordUsingTempPassword(memberUsername2, memberPassword, tempPassword2);
+  });
+
+  test('Logout as member 2', async () => {
     await logout();
   });
 
@@ -25,7 +45,7 @@ describe('Members Page', () => {
     await changePasswordUsingTempPassword(memberUsername, memberPassword, tempPassword);
   });
 
-  test('Logout as member', async () => {
+  test('Logout as member 1', async () => {
     await logout();
   });
 });

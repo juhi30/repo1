@@ -6,11 +6,6 @@ let text = '';
 
 const bulkActionCommands = {
 
-  pause(time) {
-    this.api.pause(time);
-    return this;
-  },
-
   // ---------------A generic function ---------------------//
   valueCompare(ele, option) {
     return this.getText(ele, (tpObj) => {
@@ -39,7 +34,7 @@ const bulkActionCommands = {
 
       return self.waitForElementVisible('@inboxPageTitle', `${title} page title is visible`)
         .verify.containsText('@inboxPageTitle', title, ` page title is ${title}`)
-        .verify.visible('@bulkSelectCheckBox', 'bulk select checkbox is visible')
+        .verify.visible('@bulkSelectCheckbox', 'bulk select checkbox is visible')
         .verify.visible('@BulkSelectDropdownIcon', 'bulk select option is available');
     });
   },
@@ -51,10 +46,10 @@ const bulkActionCommands = {
   },
 
   verifyActionDropdown() {
-    return this.waitForElementNotPresent('@ActionDropdown', 'Action dropdown is not available before a selection.')
-      .click('@bulkSelectCheckBox')
+    return this.waitForElementNotPresent('@actionDropdown', 'Action dropdown is not available before a selection.')
+      .click('@bulkSelectCheckbox')
       .pause(1000)
-      .waitForElementPresent('@ActionDropdown', 'Action dropdown is visible after a selection.');
+      .waitForElementPresent('@actionDropdown', 'Action dropdown is visible after a selection.');
   },
 
   selectOption(option) {
@@ -67,8 +62,8 @@ const bulkActionCommands = {
   },
 
   actionForSelection(selectionOption) {
-    return this.verify.visible('@ActionDropdown', 'Action dropdown visible')
-      .click('@ActionDropdown')
+    return this.verify.visible('@actionDropdown', 'Action dropdown visible')
+      .click('@actionDropdown')
       .valueCompare('@actionDropdownList', selectionOption);
   },
 
@@ -76,7 +71,18 @@ const bulkActionCommands = {
     return this.click('@BulkSelectDropdownIcon')
       .waitForElementVisible('@none', 'No Action options are available for None selection!')
       .click('@none')
-      .waitForElementNotPresent('@ActionDropdown', 'Action dropdown is not available before a selection.');
+      .waitForElementNotPresent('@actionDropdown', 'Action dropdown is not available before a selection.');
+  },
+
+  closeAllConversation() {
+    return this.waitForElementVisible('@bulkSelectCheckbox', 'Bulk selection option is visible')
+      .click('@bulkSelectCheckbox')
+      .pause(1000)
+      .waitForElementVisible('@actionDropdown', 'Action dropdown is visible')
+      .click('@actionDropdown')
+      .waitForElementVisible('@closeConversations', 'Close Conversations options is visible')
+      .click('@closeConversations')
+      .waitForElementNotPresent('@successToast', 'Toast Notification is gone');
   },
 };
 
@@ -115,7 +121,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    bulkSelectCheckBox: {
+    bulkSelectCheckbox: {
       selector: '//span[@class=\'button__text-wrapper\']//label',
       locateStrategy: 'xpath',
     },
@@ -172,13 +178,13 @@ module.exports = {
     },
 
     // ..............objects for the Action options...............
-    actionDropdownList: {
-      selector: '//div[@class=\'dropdown__menu dropdown__menu--right\']',
+    actionDropdown: {
+      selector: '//div[@class=\'dropdown\']//button[contains(@class,\'button dropdown\')]',
       locateStrategy: 'xpath',
     },
 
-    ActionDropdown: {
-      selector: '//div[@class=\'dropdown\']//button[contains(@class,\'button dropdown\')]',
+    actionDropdownList: {
+      selector: '//div[@class=\'dropdown__menu dropdown__menu--right\']',
       locateStrategy: 'xpath',
     },
 
@@ -209,6 +215,16 @@ module.exports = {
 
     assignmentComplete: {
       selector: '//span[@class=\'u-text-overflow\'][text()=\'Assignment Complete\']',
+      locateStrategy: 'xpath',
+    },
+
+    closeConversations: {
+      selector: '//span[@class=\'u-text-overflow\'][text()=\'Close Conversations\']',
+      locateStrategy: 'xpath',
+    },
+
+    successToast: {
+      selector: '//*[@class =\'toast toast--success\']',
       locateStrategy: 'xpath',
     },
   },

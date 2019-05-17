@@ -42,6 +42,17 @@ const groupsPageCommands = {
       .waitForElementVisible(list, `Created${list} Group is visible in the Group List as well.`);
   },
 
+  openGroup(groupElement) {
+    return this.waitForElementVisible(groupElement, 'Group is visisble to the member')
+      .click(groupElement);
+  },
+
+  navigateToInbox(inboxElement, url) {
+    return this.waitForElementVisible(inboxElement, 'Desired Inbox option is visible')
+      .click(inboxElement)
+      .verify.urlContains(url, `url contains ${url}`);
+  },
+
   checkGroupVisibilityOnList(element) {
     return this.waitForElementVisible(element, `Created${element} Group is visible in the Group List as well.`);
   },
@@ -180,7 +191,17 @@ module.exports = {
     },
 
     updatedPatientAndTeamGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.updatedpatientAndTeamType}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.updatedPatientAndTeamType}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    updatedPatientAndTeamGroup_PatientInbox: {
+      selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${groupFeeder.updatedPatientAndTeamType}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    updatedPatientAndTeamGroup_TeamInbox: {
+      selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${groupFeeder.updatedPatientAndTeamType}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -246,6 +267,16 @@ module.exports = {
 
     createTagButton: {
       selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Create New Tag\')]',
+      locateStrategy: 'xpath',
+    },
+
+    directChatInbox: {
+      selector: '//*[@id=\'nav-chat\'][@title=\'Direct\']',
+      locateStrategy: 'xpath',
+    },
+
+    directMessageInbox: {
+      selector: '//*[@id=\'nav-inbox-direct\'][@title=\'Direct\']',
       locateStrategy: 'xpath',
     },
   },

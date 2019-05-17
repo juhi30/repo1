@@ -14,6 +14,7 @@ import './template';
 import './tags';
 // import './outofoffice';
 import './orgPreferences';
+import './messaging';
 
 // //Member + CCR flow. This should be the last test case
 // import './orgProfile';

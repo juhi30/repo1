@@ -10,9 +10,9 @@ import './office';
 import './memberPreferences';
 import './memberProfile';
 import './contact';
-import './patient';
 import './template';
 import './tags';
+import './patient';
 // import './outofoffice';
 // import './preferences';
 

@@ -17,9 +17,9 @@ module.exports = {
   memberUsername1: 'memberA',
 
   // Details for member2
-  memberFirstName2: 'test',
-  memberLastName2: 'member2',
-  memberUsername2: 'memberB',
+  firstMemberName2: 'test',
+  lastMemberName2: 'member2',
+  username2: 'memberB',
 
   // Details for member3
   memberFirstName3: 'test',
@@ -50,4 +50,9 @@ module.exports = {
   createAlert: 'Adding this member will increase your monthly bill by ',
   deleteAlert: 'Your monthly bill will decrease by ',
   reactivateAlert: 'Your monthly bill will increase by ',
+  // Member 2 details
+  memberName2: 'Testing_NewCanary_2 LastName',
+  memberFirstName2: 'Testing_NewCanary_2',
+  memberLastName2: 'LastName',
+  memberUsername2: 'Testing_NewCanary_2',
 };

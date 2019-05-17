@@ -47,7 +47,8 @@ export async function createChannel(channelType, channelData, routeMember) {
     .pause(2000);
 
   channelCreateEdit.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
-    .checkSuccessMessage('@channelCreateSuccessMessage');
+    .checkSuccessMessage('@channelCreateSuccessMessage')
+    .waitForElementNotPresent('@channelCreateSuccessMessage');
 }
 
 /**
@@ -83,7 +84,8 @@ export async function tagsCreationByChannelEdit(editedChannelElement, tagName) {
   await channelCreateEdit.addTag(tagName, '@tagCategory')
     .waitForElementNotPresent('@tagNameInput')
     .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
-    .checkSuccessMessage('@channelUpdateSuccessMessage');
+    .checkSuccessMessage('@channelUpdateSuccessMessage')
+    .waitForElementNotPresent('@channelUpdateSuccessMessage');
 }
 
 /**
@@ -131,7 +133,9 @@ export async function updateWebFormFieldsByChannelEdit(editedChannelElement, web
   webFormFields.map(field => channelCreateEdit.updateWebForm(field.element, field.value));
   await channelCreateEdit.pause(2000)
     .waitForElementVisible('@updateChannelButton', 'update button is visible')
-    .click('@updateChannelButton');
+    .click('@updateChannelButton')
+    .checkSuccessMessage('@channelUpdateSuccessMessage')
+    .waitForElementNotPresent('@channelUpdateSuccessMessage');
 }
 
 /**
@@ -165,4 +169,16 @@ export async function verifyAlertDeletingChannel(deletedChannelElement, alertMes
     .click('@confirmDeleteChannel')
     .waitForElementVisible('@deleteChannelSuccessMessage', 'Channel Deleted Successfully')
     .waitForElementNotPresent('@deleteChannelSuccessMessage', 'Delete Success Message is no longer visible.');
+}
+
+export async function editChannelRoute(channelNameElement, channelData) {
+  await channel.navigate()
+    .channelEditMode(channelNameElement)
+    .pause(500)
+    .checkElementVisibility('@editChannel');
+
+  await channelCreateEdit.editChannelDetailsSection(channelData.channelName, channelData.channelPurpose)
+    .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
+    .checkSuccessMessage('@channelUpdateSuccessMessage')
+    .waitForElementNotPresent('@channelUpdateSuccessMessage');
 }

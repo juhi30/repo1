@@ -10,7 +10,7 @@ describe('Patient Login Page Tests Cases', () => {
     const contact = client.page.ContactsPage();
     const convo = client.page.ConvoThreadPage();
 
-    await contact.searchForContact(contactFeeder.contactFirstName, '@searchedContactForPatient');
+    await contact.searchForContact(contactFeeder.contactNewFirstName, '@searchedContactForPatient');
 
     await convo.sendRhinosecureMessage(messageFeeder.rhinosecureMessage);
 

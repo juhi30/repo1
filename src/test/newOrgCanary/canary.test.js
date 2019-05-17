@@ -13,8 +13,8 @@ import './contact';
 import './template';
 import './tags';
 // import './outofoffice';
-import './orgPreferences';
 import './messaging';
+import './orgPreferences';
 
 // //Member + CCR flow. This should be the last test case
 // import './orgProfile';

@@ -19,6 +19,7 @@ export async function createOffice(officeDetails, auditDetails) {
     .successMessageVerification('@officeCreationSuccessMessage');
 
   await checkAuditLogs.navigate()
+    .pause(2000)
     .verify.urlContains('auditLog', 'Audit Logs Page is opened')
     .pause(1000)
     .selectCategoryFilter('@selectOfficeCategory')

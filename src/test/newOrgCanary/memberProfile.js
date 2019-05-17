@@ -29,14 +29,9 @@ describe('Automated Tests: Member Profile', () => {
   });
 
   test('Change username and password and on the profile page', async () => {
-    const auditLogs = client.page.AuditLogsPage();
     await changeMemberUserName(memberFeeder.newMemberUsername);
 
     await changePasswordByProfile(memberFeeder.memberPassword, memberFeeder.newMemberPassword);
-
-    await auditLogs.navigate()
-      .pause(2000)
-      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName);
   });
 
   test('Member permissions on the profile page', async () => {
@@ -71,6 +66,7 @@ describe('Automated Tests: Member Profile', () => {
     await addGroupToMember('@selectGroup');
 
     await auditLogs.navigate()
+      .pause(2000)
       .verify.urlContains('auditLog', 'Audit Logs Page is opened')
       .pause(1000)
       .selectCategoryFilter('@selectMemberCategory')

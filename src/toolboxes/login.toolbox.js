@@ -7,7 +7,7 @@ const login = client.page.LoginPage();
 const org = client.page.UniversalElements();
 const contacts = client.page.ContactsPage();
 
-export function ccrLogin(userName, password) {
+export async function ccrLogin(userName, password) {
   login.navigate()
     .enterCSRCreds(userName, password)
     .submit()

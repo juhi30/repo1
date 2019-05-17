@@ -155,7 +155,7 @@ const contactsCommands = {
     await helper.uploadFile(this, 'contact.png');
     return this.pause(3000)
       .click('@doneUploadPhoto')
-      .pause(3000)
+      .waitForElementNotPresent('@doneUploadPhoto', 'Upload photo modal is hidden')
       .click('@updateContactButton')
       .waitForElementVisible('@editSuccessMessage', 'Success message displayed');
   },

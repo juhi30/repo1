@@ -95,7 +95,7 @@ export async function sendADirectMessageUsingOtherTemplate(groupName, titleEleme
   await chat.clickAddIcon()
     .searchMemberAndOpenThread(titleElement, ContactName);
   await chat.addToMessageOption()
-    .useTemplate('@useTemplateOption')()
+    .useTemplate('@useTemplateOption')
     .pause(2000);
   template.click('@editedTemplateTitle')
     .pause(1000);

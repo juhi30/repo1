@@ -41,7 +41,7 @@ export async function postIncomingBandwidthMessage(message) {
 }
 
 export async function postRhinolinerUser(user, orgId) {
-  return axios.post(`${process.env.API_BASE_URL}/rhinoliner/users`, { userData: user, orgId },
+  return axios.post(`${process.env.API_BASE_URL}/rhinoliner/users`, { user, orgId },
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }
 

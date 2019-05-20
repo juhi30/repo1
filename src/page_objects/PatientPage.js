@@ -26,7 +26,9 @@ const patientCommands = {
     return this.click('@viewMessageButton')
       .waitForElementVisible('@receivedMessage', 'Received Message is displayed')
       .elementText('@receivedMessage')
-      .verify.equal(sentMessage, '@receivedMessage', ['sent and received messages are same']);
+      .getAttribute('@receivedMessage', 'text', (result) => {
+        this.verify.equal(sentMessage, result.value, ['sent and received messages are same']);
+      });
   },
 };
 

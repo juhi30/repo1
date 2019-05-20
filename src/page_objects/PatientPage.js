@@ -22,13 +22,10 @@ const patientCommands = {
     });
   },
 
-  verifySentMessage(sentMessage) {
+  verifySentMessage() {
     return this.click('@viewMessageButton')
       .waitForElementVisible('@receivedMessage', 'Received Message is displayed')
-      .elementText('@receivedMessage')
-      .getAttribute('@receivedMessage', 'text', (result) => {
-        this.verify.equal(sentMessage, result.value, ['sent and received messages are same']);
-      });
+      .elementText('@receivedMessage');
   },
 };
 

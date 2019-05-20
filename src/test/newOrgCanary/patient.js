@@ -35,8 +35,7 @@ describe('Patient Login Page Tests Cases', () => {
   });
 
   test('Verify sent message to patient', async () => {
-    await patient.navigate()
-      .verifySentMessage(messageFeeder.rhinosecureMessage);
+    await patient.verifySentMessage();
   });
 
   test('logout as patient', async () => {

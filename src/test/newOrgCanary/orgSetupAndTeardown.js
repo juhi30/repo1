@@ -1,6 +1,6 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 import { organizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
 import { ccrLogin } from '../../toolboxes/login.toolbox';
-import logger from 'rhinotilities/lib/loggers/logger';
 // import { handleErrorAndRemoveOrg } from '../../toolboxes/error.toolbox';
 
 const { EventEmitter } = require('events');
@@ -24,7 +24,7 @@ beforeAll(async () => {
     await organizationSetUp(organizationDetails, 'NEW_CANARY_ORG_ID');
   } catch (error) {
     // handleErrorAndRemoveOrg(error, __filename);
-    logger.info(err, '===error beforeAll on  orgSetupAndTearDown=====');
+    logger.info(error, '===error beforeAll on  orgSetupAndTearDown=====');
   }
 });
 
@@ -40,6 +40,6 @@ afterAll(async (done) => {
     EventEmitter.defaultMaxListeners = 10;
     done(error);
     // handleErrorAndRemoveOrg(error, __filename);
-    logger.error(err, '===error on afterAll orgSetupAndTeardown=======');
+    logger.error(error, '===error on afterAll orgSetupAndTeardown=======');
   }
 });

@@ -1,5 +1,5 @@
 import { client } from 'nightwatch-api';
-import { handleErrorAndRemoveOrg } from './error.toolbox';
+// import { handleErrorAndRemoveOrg } from './error.toolbox';
 
 const outOfOffice = client.page.OutOfOfficePage();
 const auditLogs = client.page.AuditLogsPage();
@@ -20,18 +20,18 @@ export const OOOSetup = async ({
       .selectChannel()
       .submit('@createEventButton', '@eventCreateSuccessMessage');
   } catch (error) {
-    handleErrorAndRemoveOrg(error, __filename, outOfOffice);
+    // handleErrorAndRemoveOrg(error, __filename, outOfOffice, process.env.NEW_CANARY_ORG_ID);
   }
 };
 
-export const checkOOOAuditEntry = async ({ memberName }, oooTitle, action) => {
+export const checkOOOAuditEntry = async (memberName, oooTitle, action) => {
   try {
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'AuditL Logs Page is opened')
       .pause(3000)
       .validateAuditEntry(memberName, 'Out of Office', action, oooTitle, '');
   } catch (error) {
-    handleErrorAndRemoveOrg(error, __filename, auditLogs);
+    // handleErrorAndRemoveOrg(error, __filename, auditLogs, process.env.NEW_CANARY_ORG_ID);
   }
 };
 
@@ -49,7 +49,7 @@ export const editOOO = async ({
       .enterDetails('@toTimeInput', newToTime)
       .submit('@updateEventButton', '@eventUpdateSuccessMessage');
   } catch (error) {
-    handleErrorAndRemoveOrg(error, __filename, outOfOffice);
+    // handleErrorAndRemoveOrg(error, __filename, outOfOffice, process.env.NEW_CANARY_ORG_ID);
   }
 };
 
@@ -59,6 +59,6 @@ export const deleteOOO = async () => {
       .eventEditMode('@updatedEventName')
       .deleteEvent();
   } catch (error) {
-    handleErrorAndRemoveOrg(error, __filename, outOfOffice);
+    // handleErrorAndRemoveOrg(error, __filename, outOfOffice, process.env.NEW_CANARY_ORG_ID);
   }
 };

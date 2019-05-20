@@ -1,6 +1,7 @@
 import { organizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
 import { ccrLogin } from '../../toolboxes/login.toolbox';
-import { handleErrorAndRemoveOrg } from '../../toolboxes/error.toolbox';
+import logger from 'rhinotilities/lib/loggers/logger';
+// import { handleErrorAndRemoveOrg } from '../../toolboxes/error.toolbox';
 
 const { EventEmitter } = require('events');
 const loginFeeder = require('../../feeder/login.feeder');
@@ -22,7 +23,8 @@ beforeAll(async () => {
     await ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
     await organizationSetUp(organizationDetails, 'NEW_CANARY_ORG_ID');
   } catch (error) {
-    handleErrorAndRemoveOrg(error, __filename);
+    // handleErrorAndRemoveOrg(error, __filename);
+    logger.info(err, '===error beforeAll on  orgSetupAndTearDown=====');
   }
 });
 
@@ -37,6 +39,7 @@ afterAll(async (done) => {
     // Reset max listeners to the node.js default once the test is complete.
     EventEmitter.defaultMaxListeners = 10;
     done(error);
-    handleErrorAndRemoveOrg(error, __filename);
+    // handleErrorAndRemoveOrg(error, __filename);
+    logger.error(err, '===error on afterAll orgSetupAndTeardown=======');
   }
 });

@@ -12,8 +12,8 @@ const loginFeeder = require('../feeder/login.feeder');
  * @param {any} nightWatchClientModule
  * @param {Boolean} endTest
  */
-export const handleError = (error, path, nightWatchClientModule, endTest = true) => {
-  logError(error, path, nightWatchClientModule);
+export const handleError = (error, path, nightWatchClientModule, orgID, endTest = true) => {
+  logError(error, path, nightWatchClientModule, orgID);
   if (endTest && nightWatchClientModule) {
     nightWatchClientModule.end();
   }
@@ -29,9 +29,9 @@ export const handleError = (error, path, nightWatchClientModule, endTest = true)
  * @param {any} nightWatchClientModule
  * @param {Boolean} endTest
 */
-export const handleErrorAndRemoveOrg = async (error, path, nightWatchClientModule, endTest = true) => {
-  await orgTearDown(process.env.NEW_CANARY_ORG_ID, loginFeeder.ccrLogin, loginFeeder.ccrPassword);
-  logError(error, path, nightWatchClientModule, true);
+export const handleErrorAndRemoveOrg = async (error, path, nightWatchClientModule, orgID, endTest = true) => {
+  await orgTearDown(orgID, loginFeeder.ccrLogin, loginFeeder.ccrPassword);
+  logError(error, path, nightWatchClientModule, orgID, true);
   if (endTest && nightWatchClientModule) {
     nightWatchClientModule.end();
   }
@@ -47,7 +47,7 @@ export const handleErrorAndRemoveOrg = async (error, path, nightWatchClientModul
  * @param {any} nightWatchClientModule
  * @param {Boolean} endTest
 */
-export const logError = (error, path, nightWatchClientModule, isOrgDeleted = false) => {
+export const logError = (error, path, nightWatchClientModule, orgID, isOrgDeleted = false) => {
   const errorContent = JSON.stringify({
     ERROR: {
       MESSAGE: error.message,
@@ -55,7 +55,7 @@ export const logError = (error, path, nightWatchClientModule, isOrgDeleted = fal
     },
     PATH: path,
     ORGANIZATION: {
-      ID: process.env.NEW_CANARY_ORG_ID || null,
+      ID: orgID || null,
       DELETED: isOrgDeleted,
     },
     NIGHTWATCH_CLIENT_MODULE: nightWatchClientModule ? nightWatchClientModule.name : null,

@@ -19,7 +19,7 @@ jobs:
           command: |
             if [ "$CIRCLE_BRANCH" == "master" ]; then
               configFile=prod.env
-            else if [ "$CIRCLE_BRANCH" == "staging" ]; then
+            elif [ "$CIRCLE_BRANCH" == "staging" ]; then
               configFile=staging.env
             else 
               configFile=dev.env

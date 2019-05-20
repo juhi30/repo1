@@ -1,7 +1,7 @@
 module.exports = {
 
   // for patient registration
-  patientUserName: 'new patient',
-  patientEmail: 'patientnew@logins.com',
+  patientUserName: 'New RG patient',
+  patientEmail: 'patientRG@logins.com',
   patientPassword: 'Test123!',
 };

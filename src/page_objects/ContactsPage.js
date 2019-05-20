@@ -155,7 +155,7 @@ const contactsCommands = {
     await helper.uploadFile(this, 'contact.png');
     return this.pause(3000)
       .click('@doneUploadPhoto')
-      .pause(3000)
+      .waitForElementNotPresent('@doneUploadPhoto', 'Upload photo modal is hidden')
       .click('@updateContactButton')
       .waitForElementVisible('@editSuccessMessage', 'Success message displayed');
   },
@@ -204,6 +204,12 @@ const contactsCommands = {
 
   verifyAddContactButtonVisibility() {
     return this.expect.element('@addContactButton').to.not.be.present;
+  },
+
+  addPhoneNumberEmail(linkElement, inputFieldElement, value) {
+    return this.click(linkElement)
+      .waitForElementVisible(inputFieldElement, ` ${inputFieldElement} is visible`)
+      .setValue(inputFieldElement, value);
   },
 };
 

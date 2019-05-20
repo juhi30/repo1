@@ -13,15 +13,15 @@ const auditLogs = client.page.AuditLogsPage();
  * @param {string} groupTypeListViewElement created group element on Group listing
  * @param {string} memberResultElement Member element to route with group on group creation page
  */
-export async function createGroup(groupDetails, groupTypeOption, groupTypeListViewElement, memberResultElement) {
+export async function createGroup(groupDetails, groupTypeOption, groupTypeListViewElement, routeDetails) {
   await group.navigate()
     .clickAddGroup()
     .selectGroupType(groupTypeOption)
     .addGroupDetails(groupDetails.name, groupDetails.purpose);
 
-  route.routeSearch('@memberInput', groupDetails.memberName, memberResultElement);
+  await routeDetails.map(field => route.routeSearch('@memberInput', field.memberName, field.element));
 
-  group.createUpdateButton('@createGroupButton', '@groupCreateSuccessMessage')
+  await group.createUpdateButton('@createGroupButton', '@groupCreateSuccessMessage')
     .checkGroupVisibilityOnList(groupTypeListViewElement)
     .waitForElementNotPresent('@groupCreateSuccessMessage');
 
@@ -51,7 +51,7 @@ export async function addChannelRouteToGroup(groupDetails, groupListViewElement,
     .channelDetails(groupDetails.channelName, groupDetails.purpose, groupDetails.timeZone);
 
   route.selectGroupRoute()
-    .routeSearch('@groupInput', groupDetails.groupType, groupResultElement);
+    .routeSearch('@groupInput', groupDetails.groupName, groupResultElement);
 
   await channel.createUpdateChannel('@createChannelButton', 'Create Channel button is visible')
     // .pause(1000)
@@ -80,4 +80,24 @@ export async function convertGroupTypeToAnotherGroupType(groupEditDetails, edite
   await auditLogs.navigate()
     .pause(2000)
     .validateAuditEntry(groupEditDetails.memberName, 'Group', 'Add', groupEditDetails.newName);
+}
+
+export async function routeGroupToChannel(groupListViewElement, channelNameElement, groupName, groupResultElement) {
+  await group.navigate()
+    .openInEditMode(groupListViewElement)
+    .addChannel()
+    .pause(500)
+    .verify.urlContains('channels', 'Channel Page is opened');
+
+  await channelList.waitForElementVisible('@addChannelButton', 'Create Channel button is visible')
+    .channelEditMode(channelNameElement)
+    .pause(500)
+    .checkElementVisibility('@editChannel');
+  route.selectGroupRoute()
+    .routeSearch('@groupInput', groupName, groupResultElement);
+
+  await channel.createUpdateChannel('@updateChannelButton', 'Update Channel button is visible')
+    // .pause(1000)
+    .checkSuccessMessage('@channelUpdateSuccessMessage')
+    .waitForElementNotPresent('@channelUpdateSuccessMessage');
 }

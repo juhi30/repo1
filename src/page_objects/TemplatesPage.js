@@ -194,6 +194,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    editedTemplateTitle: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${templateFeeder.newTemplate}')]`,
+      locateStrategy: 'xpath',
+    },
+
     /*---------------------------------------------------------*/
     // create template page
     /*---------------------------------------------------------*/

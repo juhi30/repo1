@@ -81,13 +81,13 @@ const auditLogsCommands = {
       .click('@contactFilter')
       .waitForElementVisible('@searchContactInput', 'Search contact input is visible')
       .setValue('@searchContactInput', contactName)
-      .waitForElementVisible(selectContactElement, `Searched contact ${contactName} +  is visible`)
+      .waitForElementVisible(selectContactElement, `Searched contact ${contactName} is visible`)
       .click(selectContactElement)
       .pause(1000);
   },
 
   selectActionFilter(selectActionElement) {
-    return this.waitForElementVisible('@actionFilter', 'Contact filter is visible')
+    return this.waitForElementVisible('@actionFilter', 'Action filter is visible')
       .click('@actionFilter')
       .waitForElementVisible(selectActionElement, `${selectActionElement} action is visible`)
       .click(selectActionElement);

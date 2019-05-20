@@ -17,9 +17,11 @@ jobs:
       - run:
           name: Get Secrets
           command: |
-            if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "staging" ]; then
+            if [ "$CIRCLE_BRANCH" == "master" ]; then
               configFile=prod.env
-            else
+            else if [ "$CIRCLE_BRANCH" == "staging" ]; then
+              configFile=staging.env
+            else 
               configFile=dev.env
             fi
             yarn rhinodeploy envs -f $configFile -l ./src
@@ -29,14 +31,17 @@ jobs:
             if [ "$CIRCLE_BRANCH" == "master" ]; then
               export APP_URL=https://app/rhinogram.com
               export NODE_ENV=production
+              yarn test newOrgCanary
             elif [ "$CIRCLE_BRANCH" == "staging" ]; then
               export APP_URL=https://staging.rhinogram.com
               export NODE_ENV=staging
+              yarn test newOrgCanary
             else
               export NODE_ENV=development
               export APP_URL=https://dev.dev-rhinogram.com
+              yarn test
             fi
-              BROWSER_NAME=chrome yarn test
+            
       - run:
           when: always
           name: Deploy Test Results

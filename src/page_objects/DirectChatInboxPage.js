@@ -42,6 +42,18 @@ const commands = {
     return this.waitForElementVisible('@sendMessageButton', 'Send message button is enabled')
       .click('@sendMessageButton');
   },
+
+  openMessageThread(messageThread) {
+    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(., '${messageThread}')]`, `Span with text "${messageThread}" is visible`)
+      .click(messageThread);
+  },
+
+  openAssignModal() {
+    return this.waitForElementVisible('@assignConversationIcon', 'Assign icon is visible')
+      .click('@assignConversationIcon')
+      .waitForElementVisible();
+  },
+
 };
 
 module.exports = {
@@ -53,6 +65,11 @@ module.exports = {
   elements: {
     addIcon: {
       selector: '//BUTTON[@title= \'Add New Contact\']',
+      locateStrategy: 'xpath',
+    },
+
+    assignConversationIcon: {
+      selector: '(//DIV[@class=\'convo__header convo__header--variation\']//button[@title=\'Assign Conversation\']/span/*[@class=\'icon\'])[1]',
       locateStrategy: 'xpath',
     },
 

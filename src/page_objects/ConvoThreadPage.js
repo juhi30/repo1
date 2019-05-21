@@ -1,10 +1,4 @@
-
 const convoThreadCommands = {
-
-  pause(time) {
-    this.api.pause(time);
-    return this;
-  },
 
   fillMessageInput(text) {
     return this.setValue('@messageInput', text);

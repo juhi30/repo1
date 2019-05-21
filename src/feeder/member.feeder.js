@@ -9,6 +9,17 @@ module.exports = {
   memberEmail: process.env.NEW_CANARY_GMAIL_USERNAME,
   invalidEmail: 'test@test.com',
 
+  // members for performing thread actions
+  memberNameA: 'Thread Member1',
+  memberFirstNameA: 'Thread',
+  memberLastNameA: 'Member1',
+  memberUsernameA: 'thread1',
+
+  memberNameB: 'Thread Member2',
+  memberFirstNameB: 'Thread',
+  memberLastNameB: 'Member2',
+  memberUsernameB: 'thread2',
+
   // details for member profile
   newMemberUsername: 'NewUserName_dev',
   newMemberPassword: 'Test@123',

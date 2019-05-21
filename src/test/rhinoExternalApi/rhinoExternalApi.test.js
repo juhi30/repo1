@@ -3,6 +3,7 @@ import * as rhinoExternalApi from '../../services/RhinoExternalApi.service';
 import {
   createOrganization,
   changeOrganization,
+  getCcrUserId,
   postUser,
   deleteOrganization,
   archiveOrganization,
@@ -66,8 +67,10 @@ describe('rhino-external-api tests', () => {
       const org = await createOrganization(orgData, process.env.EXTERNALAPI_COOKIE);
       orgId = org.id;
 
+      const ccrUserId = await getCcrUserId(process.env.EXTERNALAPI_COOKIE);
+
       // Change to newly created org
-      await changeOrganization({ orgId, userId: process.env.CCR_USER_ID }, process.env.EXTERNALAPI_COOKIE);
+      await changeOrganization({ orgId, userId: ccrUserId }, process.env.EXTERNALAPI_COOKIE);
 
       // Create member
       const memberData = {

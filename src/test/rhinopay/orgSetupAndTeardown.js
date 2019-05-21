@@ -14,7 +14,7 @@ import * as test from '../../services/Rhinopay.service';
 // eslint-disable-next-line no-undef
 beforeAll(async () => {
   try {
-    const cookie = await login(process.env.CCR_USERNAME, process.env.CCR_PASSWORD);
+    const cookie = await login(process.env.RHINOPAY_CCR_USERNAME, process.env.RHINOPAY_CCR_PASSWORD);
     const orgData = {
       name: 'Rhinopay Testing',
       parentCompany: '',
@@ -40,7 +40,7 @@ beforeAll(async () => {
     // Change to newly created org
     await changeOrganization({ orgId, userId: ccrUserId }, cookie);
 
-    // Create member
+    // Create admin member to run tests
     const memberData = {
       afterHours: false,
       autoResponse: '',
@@ -98,6 +98,8 @@ beforeAll(async () => {
     await postUser(memberData, cookie);
     process.env.RHINOPAY_LOGIN = memberData.username;
     process.env.RHINOPAY_PWD = memberData.password;
+
+    // Login as the ccr user we just created
     process.env.LOGIN_COOKIE = await login(process.env.RHINOPAY_LOGIN, process.env.RHINOPAY_PWD);
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -110,10 +112,12 @@ beforeAll(async () => {
 // eslint-disable-next-line no-undef
 afterAll(async () => {
   try {
+    // Login as the rhinopay CCR user again to clean up
+    const cookie = await login(process.env.RHINOPAY_CCR_USERNAME, process.env.RHINOPAY_CCR_PASSWORD);
     // Delete from Rhinopay via endpoint
     const data = { orgId: process.env.ORG_ID };
     await test.teardownRhinopay(data, process.env.LOGIN_COOKIE);
-    const cookie = await login();
+    // Clean up API
     await archiveOrganization(process.env.ORG_ID, cookie);
     await deleteOrganization(process.env.ORG_ID, cookie);
 

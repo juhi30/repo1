@@ -68,6 +68,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    memberOption: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Members\')]',
+      locateStrategy: 'xpath',
+    },
+
     assignConversationIcon: {
       selector: '(//DIV[@class=\'convo__header convo__header--variation\']//button[@title=\'Assign Conversation\']/span/*[@class=\'icon\'])[1]',
       locateStrategy: 'xpath',

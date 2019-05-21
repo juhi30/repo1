@@ -35,7 +35,8 @@ describe('merge users tests', () => {
 
   test('log into org as ccr', async () => {
     orgId = parseInt(process.env.INTEGRATIONS_ORG_ID, 10);
-    await rhinoapi.changeOrganization({ orgId, userId: process.env.CCR_USER_ID }, process.env.INTEGRATIONS_CCR_COOKIE);
+    const ccrUserId = await rhinoapi.getCcrUserId(process.env.EXTERNALAPI_COOKIE);
+    await rhinoapi.changeOrganization({ orgId, userId: ccrUserId }, process.env.INTEGRATIONS_CCR_COOKIE);
   });
 
   test('log in as member', async () => {

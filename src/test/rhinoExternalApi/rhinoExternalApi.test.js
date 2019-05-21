@@ -67,7 +67,7 @@ describe('rhino-external-api tests', () => {
       const org = await createOrganization(orgData, process.env.EXTERNALAPI_COOKIE);
       orgId = org.id;
 
-      const ccrUserId = getCcrUserId(process.env.EXTERNALAPI_COOKIE);
+      const ccrUserId = await getCcrUserId(process.env.EXTERNALAPI_COOKIE);
 
       // Change to newly created org
       await changeOrganization({ orgId, userId: ccrUserId }, process.env.EXTERNALAPI_COOKIE);

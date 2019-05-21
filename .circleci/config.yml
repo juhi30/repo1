@@ -89,6 +89,7 @@ workflows:
             branches:
               only:
                 - develop
+                - staging
     jobs:
       - rhinomatic
 
@@ -99,6 +100,7 @@ workflows:
             branches:
               only:
                 - develop
+                - staging
 
   general:
     jobs:

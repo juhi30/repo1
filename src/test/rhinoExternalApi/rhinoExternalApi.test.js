@@ -1,3 +1,4 @@
+import uuid from 'uuid/v4';
 import * as rhinoExternalApi from '../../services/RhinoExternalApi.service';
 import {
   createOrganization,
@@ -9,7 +10,7 @@ import {
 } from '../../services/Rhinoapi.service';
 
 const user = {
-  externalId: '40bsf7d3-d0b8-4ffa-8d76-a679123d0467',
+  externalId: uuid(),
   firstName: 'John',
   lastName: 'External',
   preferredName: 'Johnny',

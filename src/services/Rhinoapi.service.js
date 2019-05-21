@@ -112,7 +112,7 @@ export async function changeOrganization(orgData, cookie) {
   return response.data;
 }
 
-export async function getMyUsers(cookie) {
+export async function getCcrUserId(cookie) {
   const response = await axios.get(`${process.env.API_BASE_URL}/myUsers`,
     {
       headers: {
@@ -121,7 +121,7 @@ export async function getMyUsers(cookie) {
       },
     });
 
-  return response.data;
+  return response.data[0].id;
 }
 
 export async function mergeUsers(slaveId, masterId, cookie) {

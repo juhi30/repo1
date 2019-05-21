@@ -4,6 +4,7 @@ import {
   archiveOrganization,
   changeOrganization,
   postUser,
+  getCcrUserId,
   login,
 } from '../../services/Rhinoapi.service';
 import * as test from '../../services/Rhinopay.service';
@@ -35,8 +36,9 @@ beforeAll(async () => {
     process.env.ORG = org;
     process.env.ORG_ID = org.id;
     const orgId = org.id;
+    const ccrUserId = getCcrUserId(cookie);
     // Change to newly created org
-    await changeOrganization({ orgId, userId: process.env.CCR_USER_ID }, cookie);
+    await changeOrganization({ orgId, userId: ccrUserId }, cookie);
 
     // Create member
     const memberData = {

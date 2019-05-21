@@ -112,6 +112,18 @@ export async function changeOrganization(orgData, cookie) {
   return response.data;
 }
 
+export async function getMyUsers(cookie) {
+  const response = await axios.get(`${process.env.API_BASE_URL}/myUsers`,
+    {
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
 export async function mergeUsers(slaveId, masterId, cookie) {
   const response = await axios.get(`${process.env.API_BASE_URL}/users/mergeUsers/${slaveId}/${masterId}`,
     {

@@ -14,8 +14,8 @@ import './template';
 import './tags';
 import './patient';
 // import './outofoffice';
-// import './preferences';
 import './messaging';
+import './orgPreferences';
 
 // //Member + CCR flow. This should be the last test case
 // import './orgProfile';

@@ -74,6 +74,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    billingMemberResult: {
+      selector: `//SPAN[contains(., '${memberFeeder.memberName1}')]`,
+      locateStrategy: 'xpath',
+    },
+
     member2Result: {
       selector: `//SPAN[contains(., '${memberFeeder.memberName2}')]`,
       locateStrategy: 'xpath',

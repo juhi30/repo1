@@ -9,7 +9,7 @@ describe('Members Page', () => {
       { element: '@memberLastName', value: memberFeeder.memberLastName },
       { element: '@memberUsername', value: memberFeeder.memberUsername },
       { element: '@memberEmailAddress', value: memberFeeder.memberEmail }];
-    const roles = ['@adminRole', '@memberRole'];
+    const roles = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
     await createMember(memberDetails, roles, 'NEW_CANARY_MEMBER_TEMP_PASSWORD');
   });

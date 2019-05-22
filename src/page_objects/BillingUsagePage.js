@@ -6,11 +6,6 @@ let text = '';
 
 const billingCommands = {
 
-  pause(time) {
-    this.api.pause(time);
-    return this;
-  },
-
   elementText(ele, message) {
     return this.getText(ele, (tpObj) => {
       text = tpObj.value;
@@ -18,79 +13,47 @@ const billingCommands = {
     });
   },
 
-  validateUrlChange() {
-    return this.waitForElementNotPresent('@billingPage', 6000, false, null, 'Billing page opened successfully')
-      .verify.urlContains('billing') // maybe some timeout issues happening here working as of 9/20/1
-      .pause(5000);
+  // this function can be used for member creation using loop
+  getOfferedMember(memberCount) {
+    this.getText('@offeredMembers', (result) => {
+      global[memberCount] = result;
+      logger.info(`${memberCount} members are offered in this plan`);
+    });
   },
 
-  validateSections() {
+  validateUrlChange() {
+    return this.verify.urlContains('billing')
+      .waitForElementVisible('@billingPage', 6000, false, null, 'Billing page opened successfully');
+  },
+
+  validateSectionsForStandardPlan() {
     return this.waitForElementVisible('@billingPage', 'Billing Page is available')
       .verify.visible('@planDetailsSection', 'Billing Detail Section is visible')
       .verify.visible('@contactDetailSection', 'Contact Detail Section is visible')
-      .verify.visible('@paymentMethodSection', 'Payment Method Section is visible')
+      .verify.visible('@addPaymentMethod', 'Payment Method Section is visible')
       .verify.visible('@historySection', 'History Section is visible');
   },
 
-  validateSubscription() {
-    this.elementText('@planName', ' is the Subscribed Plan');
-    const self = this;
-    this.getText('@planName', (tpObj) => {
-      text = tpObj.value;
-      if (text && text.match(/Subscription Trial/gi) && text.match(/Subscription Trial/gi).length) {
-        self.expect.element.to.not.be.present('@currentUsageSection');
-        self.expect.element.to.not.be.present('@estimatedBillSection');
-        self.validateCurrentPlanProductsNew();
-      } else {
-        self.expect.element.to.be.present('@currentUsageSection');
-        self.expect.element.to.be.present('@estimatedBillSection');
-        self.validateCurrentPlanProductsLegacy();
-      }
-    });
+  verifyPlanName(PlanName) {
+    return this.waitForElementVisible(PlanName, `${PlanName} is visible`);
   },
 
-  validateCurrentPlanProductsLegacy() {
-    return this.verify.visible('@textMessageProduct', 'Text Message Product is visible')
-      .elementText('@offeredMessages', ' : Messages included in plan')
-      .verify.visible('@membersProduct', 'Members Product is visible')
-      .elementText('@offeredMembers', ' : Members included in plan')
-      .verify.visible('@textChannelProduct', 'Text Channel Product is visible')
-      .elementText('@offeredTextChannels', ' : Text Channels included in plan');
+  validateProductOffered(productName, offeredProduct) {
+    return this.waitForElementVisible(productName, `${productName} is visible`)
+      .waitForElementVisible(offeredProduct, `${offeredProduct} is visible`);
   },
 
-  validateCurrentPlanProductsNew() {
-    return this.verify.visible('@PhoneLinesProduct', 'Phone Lines Product is visible')
-      .elementText('@offeredPhoneLines', ' : Phone Lines included in plan')
-      .verify.visible('@ProvidersProduct', 'Providers Product is visible')
-      .elementText('@offeredProviders', ' : Providers included in plan')
-      .verify.visible('@locationsProduct', 'Locations Product is visible')
-      .elementText('@offeredLocations', ' : Locations included in plan');
+  validateCurrentUsage(productName, quantityUsed) {
+    return this.verify.visible(productName, `${productName} component is visible`)
+      .waitForElementVisible(quantityUsed, `${quantityUsed} is visible`);
   },
 
-  validateIntegrationsProduct() {
-    const self = this;
-    this.getText('@planName', (tpObj) => {
-      text = tpObj.value;
-      if (text && text.match(/Standard/gi) && text.match(/Standard/gi).length) {
-        return self.expect.element('@integrationsProduct').to.be.present;
-      }
-      return self.expect.element('@integrationsProduct').to.not.be.present;
-    });
-  },
-
-  validateCurrentUsage() {
-    return this.waitForElementVisible('@currentUsageSection', 'Current Usage Section is available')
-      .verify.visible('@textMessageUsage', 'Text Message Usage component is visible')
-      .elementText('@usedTextMessage', ' : Text Messages used')
-      .verify.visible('@membersUsage', 'Members Usage component is visible')
-      .elementText('@usedMembers', ' : Active Members used')
-      .verify.visible('@textChannelUsage', 'Text Channel Usage component is visible')
-      .elementText('@usedTextChannels', ' : Text Channels used');
+  validateSection(sectionName) {
+    return this.waitForElementVisible(sectionName, `${sectionName} is visible`);
   },
 
   validateColors(element, property) {
     this.verify.visible(element, 'Element is visible');
-
     return this.getCssProperty(element, property, (res) => {
       const currentColor = colors.filter(val => val.code === res.value);
       if (Array.isArray(currentColor) && currentColor.length > 0) {
@@ -105,14 +68,15 @@ const billingCommands = {
   },
 
   validateEstimatedBillSection() {
-    return this.verify.visible('@estimatedBillSection', 'Estimated Bill Section header is visible')
+    return this.waitForElementVisible('@estimatedBillSection', 'Estimated Bill Section header is visible')
       .verify.visible('@nextBillDate', 'Next Bill Date is visible')
       .verify.visible('@viewPDFEstimatedBill', 'Link Text to view pdf is visible')
       .click('@viewPDFEstimatedBill')
-      .pause(2000)
-      .waitForElementPresent('@pdfInvoice', 25000, false, null, 'Projected invoice PDF is opened')
+      .pause(1000)
+      .waitForElementPresent('@pdfInvoice', 'Projected invoice PDF is opened')
+      .pause(1000)
       .click('@closePDFButton')
-      .waitForElementNotPresent('@pdfInvoice', 5000, false, null, 'Projected invoice PDF is closed')
+      .waitForElementNotPresent('@pdfInvoice', 'Projected invoice PDF is closed')
       .pause(1000);
   },
 
@@ -121,9 +85,18 @@ const billingCommands = {
       .expect.element('@noteEstimatedBill').text.to.deep.equal(noteText);
   },
 
-  verifyContactInformation() {
-    return this.verify.visible('@availableContactDetails', 'Billing Contact Info is visible')
-      .elementText('@availableContactDetails', 'Billing Contact Details');
+  verifyBillingContactDetailsSection() {
+    return this.waitForElementVisible('@availableContactDetails', 'Billing Contact Info is visible')
+      .waitForElementVisible('@updateBillingContactButton', 'update contact button is visible')
+      .click('@updateBillingContactButton')
+      .waitForElementVisible('@billingContactModalTitle', 'Modal Opened');
+  },
+
+  verifyContactInformation(element, data) {
+    this.waitForElementVisible(element, `${element} is visible`);
+    return this.getAttribute(element, 'value', (result) => {
+      this.verify.equal(result.value, data, ['both the values are equal']);
+    });
   },
 
   verifyBillingContactModalElements() {
@@ -141,18 +114,22 @@ const billingCommands = {
       .verify.visible('@contactSaveButton', 'The save billing contact button is visible');
   },
 
-  updateBillingContact() {
-    return this.updateDetails('@contactFirstNameInput', 'Edited_FN')
-      .updateDetails('@contactLastNameInput', 'Edited_LN')
-      .updateDetails('@phoneNumberInput', '9876543211')
-      .updateDetails('@emailAddrInput', 'test@email.com')
-      .updateDetails('@billingLine1Input', 'Billing Line1')
-      .updateDetails('@billingLine2Input', 'Billing Line2')
-      .updateDetails('@cityInput', 'Billing City')
-      .updateDetails('@stateInput', 'Florida')
-      .updateDetails('@contactZipInput', '13245')
+  updateBillingContact(billingContactDetails) {
+    return this.updateDetails('@contactFirstNameInput', billingContactDetails.firstName)
+      .updateDetails('@contactLastNameInput', billingContactDetails.lastName)
+      .updateDetails('@phoneNumberInput', billingContactDetails.phoneNumber)
+      .updateDetails('@emailAddrInput', billingContactDetails.emailAddress)
+      .updateDetails('@billingLine1Input', billingContactDetails.billingLine1)
+      .updateDetails('@billingLine2Input', billingContactDetails.billingLine2)
+      .updateDetails('@cityInput', billingContactDetails.billingCity)
+      .updateDetails('@contactZipInput', billingContactDetails.zip);
+  },
+
+  updateBillingContactForState(billingContactDetails) {
+    return this.updateDetailsForState('@stateInput', billingContactDetails.state)
       .click('@contactSaveButton')
-      .waitForElementVisible('@billingContactUpdateSuccessMessage', 40000, 'Update Modal is hidden, Success message displayed')
+      .waitForElementVisible('@billingContactUpdateSuccessMessage', 'Update Modal is hidden, Success message displayed')
+      .waitForElementNotPresent('@billingContactUpdateSuccessMessage', ' Billing contact success message is no longer present.')
       .waitForElementVisible('@editedContactDetails', 'Edited Details exist, Edit successful');
   },
 
@@ -178,13 +155,45 @@ const billingCommands = {
       .setValue(element, newValue);
   },
 
+  addDetailsForPayment(element, value) {
+    return this.waitForElementVisible(element, `${element} is visible`)
+      .setValue(element, value);
+  },
+
+  updateDetailsForPayment(element, newValue) {
+    return this.waitForElementVisible(element, `${element} is visible`)
+      .clearValue(element)
+      .setValue(element, newValue);
+  },
+
+  updateDetailsForPaymentForAccountType(element, newValue) {
+    return this.waitForElementVisible(element, `${element} is visible`)
+      .setValue(element, newValue);
+  },
+
+  updateDetailsForState(element, newValue) {
+    return this.waitForElementVisible(element, `${element} is visible`)
+      .setValue(element, newValue);
+  },
+
+  verifyAddPaymentButton() {
+    return this.waitForElementVisible('@addPaymentMethod', 'add payment method option is visible')
+      .click('@addPaymentMethod');
+  },
+
+  verifyChangePaymentButton() {
+    return this.waitForElementVisible('@changePaymentDetailsButton', 'change payment button is visible')
+      .pause(1000)
+      .click('@changePaymentDetailsButton');
+  },
+
   changePaymentMethod(element) {
     return this.waitForElementVisible(element, 'Radio button to select payment method is visible')
       .click(element);
   },
 
   validateUpdateModalCC() {
-    return this.verify.visible('@paymentFirstNameInput', 'First Name field is visible')
+    return this.waitForElementVisible('@paymentFirstNameInput', 'First Name field is visible')
       .verify.visible('@paymentLastNameInput', 'Last Name field is visible')
       .verify.visible('@creditCardInput', 'Credit Card field is visible')
       .verify.visible('@expirationMonthSelect', 'Expiration Month field is visible')
@@ -196,7 +205,7 @@ const billingCommands = {
   },
 
   validateUpdateModalBankAccount() {
-    return this.verify.visible('@paymentFirstNameInput', 'First Name field is visible')
+    return this.waitForElementVisible('@paymentFirstNameInput', 'First Name field is visible')
       .verify.visible('@paymentLastNameInput', 'Last Name field is visible')
       .verify.visible('@bankNameInput', 'Bank Name field is visible')
       .verify.visible('@bankAccountNumberInput', 'Account Number field is visible')
@@ -205,15 +214,48 @@ const billingCommands = {
       .click('@cancelPaymentUpdateButton');
   },
 
-  updatePaymentToBank() {
-    return this.updateDetails('@bankNameInput', 'Test_Bank')
-      .updateDetails('@paymentFirstNameInput', 'Heena')
-      .updateDetails('@paymentLastNameInput', 'Choudhary')
-      .updateDetails('@bankAccountNumberInput', '12345678989')
-      .updateDetails('@bankRoutingNumberInput', '123456789')
-      .updateDetails('@bankAccountTypeSelect', 'Saving')
+  addPaymentDetailsForCreditCard(billingCreditCardDetails) {
+    return this.addDetailsForPayment('@paymentFirstNameInput', billingCreditCardDetails.firstName)
+      .addDetailsForPayment('@paymentLastNameInput', billingCreditCardDetails.lastName)
+      .addDetailsForPayment('@creditCardInput', billingCreditCardDetails.cardNumber)
+      .addDetailsForPayment('@cvvInput', billingCreditCardDetails.cvv)
+      .addDetailsForPayment('@creditCardZipInput', billingCreditCardDetails.zip);
+  },
+
+  addPaymentDetailsForCreditCardForMonthAndYear(billingCreditCardDetails) {
+    return this.addDetailsForPayment('@expirationMonthSelect', billingCreditCardDetails.expirationMonth)
+      .addDetailsForPayment('@expirationYearSelect', billingCreditCardDetails.expirationYear)
       .click('@savePaymentMethodButton')
-      .waitForElementVisible('@updatePaymentSuccessMessage', 40000, 'Update Modal is hidden, Success message available')
+      .waitForElementVisible('@updatePaymentSuccessMessage', 1000, 'Update Modal is hidden, Success message available')
+      .waitForElementVisible('@bankName', 'Bank Name exists, Edit successful');
+  },
+
+  addPaymentToBank(billingPaymentDetails) {
+    return this.addDetailsForPayment('@paymentFirstNameInput', billingPaymentDetails.firstName)
+      .addDetailsForPayment('@paymentLastNameInput', billingPaymentDetails.lastName)
+      .addDetailsForPayment('@bankNameInput', billingPaymentDetails.bankName)
+      .addDetailsForPayment('@bankAccountNumberInput', billingPaymentDetails.accountNumber)
+      .addDetailsForPayment('@bankRoutingNumberInput', billingPaymentDetails.routingNumber)
+      .addDetailsForPayment('@bankAccountTypeSelect', billingPaymentDetails.accountType)
+      .click('@savePaymentMethodButton')
+      .waitForElementVisible('@updatePaymentSuccessMessage', 1000, 'Update Modal is hidden, Success message available')
+      .waitForElementNotPresent('@updatePaymentSuccessMessage', 'Add Payment success message is no longer visible.')
+      .waitForElementVisible('@bankName', 'Bank Name exists, Edit successful');
+  },
+
+  updatePaymentToBank(updateBillingPaymentDetails) {
+    return this.updateDetailsForPayment('@paymentFirstNameInput', updateBillingPaymentDetails.firstName)
+      .updateDetailsForPayment('@paymentLastNameInput', updateBillingPaymentDetails.lastName)
+      .updateDetailsForPayment('@bankNameInput', updateBillingPaymentDetails.bankName)
+      .updateDetailsForPayment('@bankAccountNumberInput', updateBillingPaymentDetails.accountNumber)
+      .updateDetailsForPayment('@bankRoutingNumberInput', updateBillingPaymentDetails.routingNumber);
+  },
+
+  updatePaymentToBankForAccountType(updateBillingPaymentDetails) {
+    return this.updateDetailsForPaymentForAccountType('@bankAccountTypeSelect', updateBillingPaymentDetails.accountType)
+      .click('@savePaymentMethodButton')
+      .waitForElementVisible('@updatePaymentSuccessMessage', 'Update Modal is hidden, Success message available')
+      .waitForElementNotPresent('@updatePaymentSuccessMessage', 'Update Payment info success message is no longer visible.')
       .waitForElementVisible('@bankName', 'Bank Name exists, Edit successful');
   },
 
@@ -274,8 +316,8 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    paymentMethodSection: {
-      selector: '//DIV[@class=\'box__title\'][text()=\'Payment Method\']',
+    addPaymentMethod: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Add\')]',
       locateStrategy: 'xpath',
     },
 
@@ -287,11 +329,6 @@ module.exports = {
     //* ********------ Current Plan Section -----*********//
     planName: {
       selector: '//H4[@id=\'billing__planName\']',
-      locateStrategy: 'xpath',
-    },
-
-    planAmount: {
-      selector: '//SMALL[@class = \'u-text-small u-font-weight-normal\'][contains(text(),\'a month\')]',
       locateStrategy: 'xpath',
     },
 
@@ -342,77 +379,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    locationsProduct: {
-      selector: '//DIV[@class =\'u-text-small\'][contains(text(),\'Locations\')]',
-      locateStrategy: 'xpath',
-    },
-
-    offeredProviders: {
-      selector: '//*[contains(@id,\'billing__providers__planCount\')]',
-      locateStrategy: 'xpath',
-    },
-
-    ProvidersProduct: {
-      selector: '//DIV[@class =\'u-text-small\'][contains(text(),\'Providers\')]',
-      locateStrategy: 'xpath',
-    },
-
-    offeredPhoneLines: {
-      selector: '//*[contains(@id,\'billing__additionalphonelines__planCount\')]',
-      locateStrategy: 'xpath',
-    },
-
-    PhoneLinesProduct: {
-      selector: '//DIV[@class =\'u-text-small\'][contains(text(),\'Phone Lines\')]',
-      locateStrategy: 'xpath',
-    },
-
-    // ------ Current Usage Section -----//
-    currentUsageSection: {
-      selector: '//H4[contains(text(),\'Current Usage\')]',
-      locateStrategy: 'xpath',
-    },
-
-    textMessageUsage: {
-      selector: '//DIV[@class =\'u-text-center u-text-small u-text-muted\'][contains(text(),\'Messages\')]',
-      locateStrategy: 'xpath',
-    },
-
-    usedTextMessage: {
-      selector: '//*[contains(@title ,\'Messages count\')]',
-      locateStrategy: 'xpath',
-    },
-
-    messageAnimator: {
-      selector: '//*[contains(@style,\'stroke-dashoffset\')]',
-      locateStrategy: 'xpath',
-    },
-
-    membersUsage: {
-      selector: '//DIV[@class =\'u-text-center u-text-small u-text-muted\'][contains(text(),\'Members\')]',
-      locateStrategy: 'xpath',
-    },
-
-    usedMembers: {
-      selector: '//*[contains(@title,\'Members count\')]',
-      locateStrategy: 'xpath',
-    },
-
-    textChannelUsage: {
-      selector: '//DIV[@class =\'u-text-center u-text-small u-text-muted\'][contains(text(),\'Business Line\')]',
-      locateStrategy: 'xpath',
-    },
-
-    usedTextChannels: {
-      selector: '//*[contains(@title,\'Business Line count\')]',
-      locateStrategy: 'xpath',
-    },
-
-    messageUpdateAlert: {
-      selector: '//DIV[text()=\'Message count reflects usage as of 11:00 PM EST on \']',
-      locateStrategy: 'xpath',
-    },
-
     // ------ Estimated Bill Section -----//
     estimatedBillSection: {
       selector: '//H4[contains(text(),\'Estimated Bill\')]',
@@ -430,7 +396,7 @@ module.exports = {
     },
 
     closePDFButton: {
-      selector: '//BUTTON[@title = \'Close\']',
+      selector: '//BUTTON[@title = \'Close\']//*[@class=\'icon\']',
       locateStrategy: 'xpath',
     },
 
@@ -445,6 +411,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    currentUsageSection: {
+      selector: '//H4[@class=\'u-m-t-large\'][contains(text(),\'Current Usage\')]',
+      locateStrategy: 'xpath',
+    },
+
     availableContactDetails: {
       selector: '//P[@id=\'billing__contact\']',
       locateStrategy: 'xpath',
@@ -456,7 +427,12 @@ module.exports = {
     },
 
     updateBillingContactButton: {
-      selector: '//SPAN[contains(text(), \'Update\')]',
+      selector: '//DIV[text()=\'Contact Details\']//parent::div/following-sibling::button',
+      locateStrategy: 'xpath',
+    },
+
+    billingContactModalTitle: {
+      selector: '//H3[text()=\'Billing Contact Details\']',
       locateStrategy: 'xpath',
     },
 
@@ -520,25 +496,9 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    // ---------------------- Payment Method Section //----------------------//
-    availablePaymentMethodDetails: {
-      selector: '//DIV[@id = \'billing__paymentMethod\']',
-      locateStrategy: 'xpath',
-    },
-
-    namePaymentMethod: {
-      selector: '//SPAN[@id = \'billing__paymentMethod__name\']',
-      locateStrategy: 'xpath',
-    },
-
     // Available Payment Details - Credit Card
     creditCardNumber: {
       selector: '//LI[contains(text(),\'Credit Card Number\')]',
-      locateStrategy: 'xpath',
-    },
-
-    expirationDate: {
-      selector: '//LI[contains(text(),\'Expiration Date\')]',
       locateStrategy: 'xpath',
     },
 
@@ -559,16 +519,11 @@ module.exports = {
     },
 
     changePaymentMethodButton: {
-      selector: '//SPAN[contains(text(),\'Change\') or contains (text(),\'Add\')]',
+      selector: '//SPAN[contains(text(),\'Change\')',
       locateStrategy: 'xpath',
     },
 
     // Update Billing Payment Method Modal
-    updatePaymentModalHeader: {
-      selector: '//H3[contains(text(), \'Billing Payment Method\')]',
-      locateStrategy: 'xpath',
-    },
-
     radioCreditCard: {
       selector: '//LABEL[contains(text(),\'Credit Card\')]',
       locateStrategy: 'xpath',
@@ -586,6 +541,11 @@ module.exports = {
 
     paymentLastNameInput: {
       selector: '//INPUT[contains(@name, \'lastName\')]',
+      locateStrategy: 'xpath',
+    },
+
+    changePaymentDetailsButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Change\')]',
       locateStrategy: 'xpath',
     },
 
@@ -679,6 +639,41 @@ module.exports = {
 
     viewLessLink: {
       selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'View less\']',
+      locateStrategy: 'xpath',
+    },
+
+    textMessageUsage: {
+      selector: '//DIV[@class=\'u-text-center u-text-small u-text-muted\'][contains(text(),\'Messages\')]',
+      locateStrategy: 'xpath',
+    },
+
+    usedTextMessage: {
+      selector: '//*[@title=\'Messages count\']',
+      locateStrategy: 'xpath',
+    },
+
+    membersUsage: {
+      selector: '//DIV[@class=\'u-text-center u-text-small u-text-muted\'][contains(text(),\'Messages\')]',
+      locateStrategy: 'xpath',
+    },
+
+    usedMembers: {
+      selector: '//*[@title=\'Members count\']',
+      locateStrategy: 'xpath',
+    },
+
+    textChannelUsage: {
+      selector: '//DIV[@class=\'u-text-center u-text-small u-text-muted\'][contains(text(),\'Business Line\')]',
+      locateStrategy: 'xpath',
+    },
+
+    usedTextChannels: {
+      selector: '//*[@title=\'Business Line count\']',
+      locateStrategy: 'xpath',
+    },
+
+    messageUpdateAlert: {
+      selector: '//DIV[@class=\'alert__body\'][contains(text(),\'Message count reflects usage as of 11:00 PM EST on \')]',
       locateStrategy: 'xpath',
     },
   },

@@ -18,7 +18,7 @@ const TRUSTEE_ID = 2;
 const HIPAA_STATUS_TYPE_GRANTED = 49;
 const FB_TYPE_PRIMARY = 24;
 const FB_CHANNEL_ID = 7;
-// const CP_PATIENT = 6;
+const CP_PATIENT = 6;
 const TYPE_EMAIL_HOME = 4;
 const HIPAA_STATUS_TYPE_PENDING = 48;
 
@@ -106,7 +106,8 @@ describe('merge users tests', () => {
       firstName: 'Arya',
       lastName: 'Stark',
       birthday: '1990-05-23',
-      note: 'this is aryas note',
+      note: null,
+      noteIsImportant: false,
       sex: 'female',
       messageType: 'USER',
       phones: [{
@@ -168,10 +169,10 @@ describe('merge users tests', () => {
         typeId: FB_TYPE_PRIMARY,
         channelId: FB_CHANNEL_ID,
       }],
-      // connectedTo: [{
-      //   toUserId: CP_PATIENT,
-      //   connectionTypeId: 34,
-      // }],
+      connectedTo: [{
+        toUserId: CP_PATIENT,
+        connectionTypeId: 34,
+      }],
     };
 
     nonIntegratedUser = await rhinoapi.postUser(user2, process.env.INTEGRATIONS_MEMBER_COOKIE);
@@ -194,7 +195,7 @@ describe('merge users tests', () => {
       sex: 'male',
       birthday: '1975-10-15',
       note: 'my name is jimbo',
-      noteIsImportant: false,
+      noteIsImportant: true,
       tagIds: [1],
       typeId: USER_TYPE_OTHER,
       username: 'jpeters',
@@ -217,10 +218,10 @@ describe('merge users tests', () => {
         typeId: FB_TYPE_PRIMARY,
         channelId: FB_CHANNEL_ID,
       }],
-      // connectedTo: [{
-      //   toUserId: CP_PATIENT,
-      //   connectionTypeId: 34,
-      // }],
+      connectedTo: [{
+        toUserId: CP_PATIENT,
+        connectionTypeId: 34,
+      }],
     };
 
     nonIntegratedUser2 = await rhinoapi.postUser(user4, process.env.INTEGRATIONS_MEMBER_COOKIE);
@@ -246,7 +247,8 @@ describe('merge users tests', () => {
       ],
       sex: 'female',
       birthday: '1998-01-02',
-      noteIsImportant: true,
+      note: 'this is madison wilsons not important note',
+      noteIsImportant: false,
       tagIds: [2],
       typeId: USER_TYPE_PATIENT,
       phones: [{
@@ -269,10 +271,10 @@ describe('merge users tests', () => {
         typeId: FB_TYPE_PRIMARY,
         channelId: FB_CHANNEL_ID,
       }],
-      // connectedTo: [{
-      //   toUserId: CP_PATIENT,
-      //   connectionTypeId: 34,
-      // }],
+      connectedTo: [{
+        toUserId: CP_PATIENT,
+        connectionTypeId: 34,
+      }],
     };
 
     nonIntegratedUser3 = await rhinoapi.postUser(user5, process.env.INTEGRATIONS_MEMBER_COOKIE);
@@ -408,7 +410,6 @@ describe('merge users tests', () => {
       expect(response.appointments[0].id).toBe(createdAppointment.id);
       expect(response.id).toBe(createdAppointment.userId); // userId on appt should be master userId
       expect(response.integrated).toBe(!!integratedUser.integrated); // maintain master
-      expect(response.noteIsImportant).toBe(!!integratedUser.patientDetails.noteIsImportant); // maintain master
       // expect(response.automatedMessages).toBe(!!integratedUser.patientDetails.automatedMessages); // maintain master
       expect(response.phones[0].ownerId).toBe(integratedUser.id); // master takes phone ownership of slaves phone
 
@@ -419,7 +420,8 @@ describe('merge users tests', () => {
       expect(response.suffix).toBe(slaveUser.suffix); // passed from slave if master has none
       expect(response.facebooks.length).toBe(1); // maintain parent. if no parent, inherit from slave
       expect(response.loginEmail).toBe(slaveUser.loginEmail); // master inherits login or maintains (only one user can have login for the merge to be possible)
-      // expect(response.note).toBe(integratedUser.patientDetails.note); // passed from slave if master has none, master has one so keep master
+      expect(response.note).toBe(slaveUser.note); // passed from slave if master has none, master has none so inherit
+      expect(response.noteIsImportant).toBe(!!slaveUser.noteIsImportant); // passed from slave if master is false and has no note already
 
       // COMBINE BOTH
       expect(response.phones.length).toBe(1); // combine phones for both users (dont duplicate) they each share the same phone, return only one
@@ -428,7 +430,7 @@ describe('merge users tests', () => {
       expect(response.emails.length).toBe(1); // combine emails for both users
       expect(response.emails[0].value).toBe(slaveUser.emails[0].value); // slaves email (only one that existed between the two users)
       expect(response.tags.length).toBe(1); // combine tags for both users (dont duplicate) they each share the same tag, return only one
-      // expect(response.connectedParties.length).toEqual(1); // combine both
+      expect(response.connectedParties.length).toEqual(1); // combine both
 
       expect(response.hipaaStatus.typeId).toBe(slaveUser.hipaaStatus.typeId); // latest wins - this user had a granted hipaa status
       expect(response.hipaaStatus.typeId).toBe(HIPAA_STATUS_TYPE_GRANTED);
@@ -451,7 +453,8 @@ describe('merge users tests', () => {
       expect(response.sex).toBe(masterUser.sex); // maintain master
       expect(response.externalIds.emrId).toBe(masterUser.externalIds.emrId); // maintain master
       expect(response.integrated).toBe(!!masterUser.integrated); // maintain master
-      expect(response.noteIsImportant).toBe(!!masterUser.noteIsImportant); // maintain master
+      expect(response.noteIsImportant).toBe(!!masterUser.noteIsImportant); // maintain master because master has a note
+      expect(response.note).toBe(masterUser.note); // maintain master if exists on master
       expect(response.automatedMessages).toBe(!!masterUser.automatedMessages); // maintain master
       expect(response.phones[0].ownerId).toBe(masterUser.id); // master takes phone ownership of slaves phone
       expect(response.phones[1].ownerId).toBe(masterUser.id); // master takes phone ownership of slaves phone
@@ -461,18 +464,17 @@ describe('merge users tests', () => {
 
       // INHERIT IF NOT ON MASTER
       expect(response.middleName).toBe(masterUser.middleName); // passed from slave if master has none
-      // expect(response.preferredName).toBe(slaveUser.preferredName); // passed from slave if master has none
+      expect(response.preferredName).toBe(slaveUser.preferredName); // passed from slave if master has none
       expect(response.prefix).toBe(masterUser.prefix); // passed from slave if master has none
       expect(response.suffix).toBe(slaveUser.suffix); // passed from slave if master has none
       expect(response.facebooks.length).toBe(1); // maintain parent. if no parent, inherit from slave (both have facebooks, only master should remain)
       expect(response.loginEmail).toBe(slaveUser.loginEmail); // master inherits login or maintains (only one user can have login for the merge to be possible)
-      //  expect(response.note).toBe(slaveUser.note); //passed from slave if master has none
 
       // COMBINE BOTH
       expect(response.phones.length).toBe(3); // combine phones for both users (dont duplicate) they each have 2 phones (one is shared), return only 3
       expect(response.emails.length).toBe(2); // combine emails for both users
       expect(response.tags.length).toBe(2); // combine tags for both users (dont duplicate) they each share the same tag, return only one
-      // expect(response.connectedParties.length).toEqual(2); // combine both
+      expect(response.connectedParties.length).toEqual(2); // combine both
 
       expect(response.appointments.length).toEqual(0); // non integrated users dont have appointments
       done();

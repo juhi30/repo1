@@ -5,7 +5,7 @@ import * as rhinopay from '../../services/Rhinopay.service';
 describe('rhinopay tests', () => {
   test('test creating merchant', async (done) => {
     const data = {
-      rhinopayMerchantId: 'myMerchantId',
+      merchantId: 65432,
       organizationId: process.env.ORG_ID,
     };
     await rhinopay.postMerchant(data, process.env.LOGIN_COOKIE).then(() => {
@@ -15,7 +15,7 @@ describe('rhinopay tests', () => {
 
   test('test getting merchant by OrgId', async (done) => {
     await rhinopay.getMerchantByOrgId(process.env.ORG_ID, process.env.LOGIN_COOKIE).then((response) => {
-      expect(response.data.merchantId).toBe('myMerchantId');
+      expect(response.data.merchantId).toBe(65432);
       done();
     });
   });
@@ -25,7 +25,7 @@ describe('rhinopay tests', () => {
       uuid: '123abc',
       userId: 123,
       shortLinkCode: '456def',
-      merchantId: 'myMerchantId',
+      merchantId: 65432,
       requestAmount: 105.50,
     };
     await rhinopay.postPaymentRequest(data, process.env.LOGIN_COOKIE).then(() => {
@@ -44,8 +44,8 @@ describe('rhinopay tests', () => {
     // Need to get short link code via userId
     const results = await rhinopay.getPaymentRequestUserId(123, process.env.LOGIN_COOKIE);
     await rhinopay.getPaymentRequestByShortLinkCode(results.data[0].shortLinkCode, process.env.LOGIN_COOKIE).then((response) => {
-      expect(response.data[0].userId).toBe(123);
-      expect(response.data[0].requestAmount).toBe(105.50);
+      expect(response.data.userId).toBe(123);
+      expect(response.data.requestAmount).toBe(105.50);
       done();
     });
   });

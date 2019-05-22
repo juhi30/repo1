@@ -7,14 +7,16 @@ const channel = client.page.ChannelsCreateEditPage();
 
 /**
  * Used to create member with some roles
- * @param  {Array}  memberDetails It will contain elements and values to create member like: [{element: form element, value: field value}]
+ * @param  {Array} memberDetails It will contain elements and values to create member like: [{element: form element, value: field value}]
  * @param  {Array} roles Roles elements that needs to be added while creating member
  */
 export async function createMember(memberDetails, roles, globalVariable) {
   member.navigate()
     .clickAddMember();
   memberDetails.map(field => member.enterDetails(field.element, field.value));
-  member.getTempPassword(globalVariable);
+  if (globalVariable) {
+    member.getTempPassword(globalVariable);
+  }
   roles.map(role => member.setMemberRoles(role));
   await member.clickCreateMemberButton()
     .pause(2000)
@@ -23,7 +25,7 @@ export async function createMember(memberDetails, roles, globalVariable) {
 
 /**
  * Change member password by using member's temporary password
- * @param  {string}  memberUsername Member's username
+ * @param  {string} memberUsername Member's username
  * @param  {string} memberPassword Member's new password
  * @param  {string} tempPassword Member's temporary password
  */
@@ -97,4 +99,18 @@ export async function enableAvailabilityHoursToMember() {
 export async function addMemberProfilePhoto() {
   await profilePage.navigate()
     .addUpdateLogo('@addPhotoButton');
+}
+
+export async function activateDeactivateMember(memberName, button, alertMessage, confirmButton, successMessage) {
+  await member.navigate()
+    .selectMember(memberName)
+    .reactivateDeactivateMember(button)
+    .verifyAlerts(alertMessage)
+    .confirmReactivateDeactivateMember(confirmButton)
+    .waitForElementVisible(successMessage, 'Member is updated successfully and Deactivated/Reactivated as well.')
+    .waitForElementNotPresent(successMessage);
+}
+
+export async function verifyAlertMessages(alertMessage) {
+  member.verifyAlerts(alertMessage);
 }

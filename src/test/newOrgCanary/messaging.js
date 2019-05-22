@@ -30,7 +30,7 @@ describe('Chat Messaging Tests', () => {
     await messageToolbox.verifyReceivingGroupChatMessage('@patientAndTeamGroup_TeamInbox', messageFeeder.groupChatMessage);
   });
 
-  test('logout as CCR', async () => {
+  test('logout as Member2', async () => {
     await logout();
   });
 });
@@ -64,5 +64,9 @@ describe('Direct Messaging Tests', () => {
   test('Sending a message to a Contact using other Template', async () => {
     await messageToolbox.sendADirectMessageUsingOtherTemplate('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
+  });
+
+  test('logout as Member1', async () => {
+    await logout();
   });
 });

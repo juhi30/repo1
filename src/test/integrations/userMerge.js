@@ -393,7 +393,6 @@ describe('merge users tests', () => {
     }
   });
 
-  // TODO: fix random tests failing, hardeep questions, shannon questions, this has other fixes for mergeUsers also
   // eslint-disable-next-line
   test('when a non integrated user without an emrId is merged into an integrated user, it should successfully merge the two users according to acceptable rules', async (done) => {
     const slaveUser = await rhinoapi.getUser(nonIntegratedUser.id, process.env.INTEGRATIONS_CCR_COOKIE); // patient without emrId

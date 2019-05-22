@@ -10,8 +10,10 @@ module.exports = {
   invalidEmail: 'test@test.com',
 
   // details for member profile
+
   newMemberUsername: 'NewUserName_dev',
   newMemberPassword: 'Test@123',
+
 
   // Member 2 details
   memberName2: 'Testing_NewCanary_2 LastName',

@@ -1,24 +1,29 @@
+import moment from 'moment-timezone';
 import logger from 'rhinotilities/lib/loggers/logger';
 
 const helpers = require('../toolboxes/helpers.toolbox');
 
+const feeder = require('../feeder/analytics.feeder');
+
+const memberFeeder = require('../feeder/member.feeder');
+
 const {
   dateRangePickerOptions, analyticsChartsNames, analyticsOpenConversationUI, analyticsClosedConversationUI,
-} = helpers;
+} = feeder;
 
 const analyticsCommands = {
-
-  pause(time) {
-    this.api.pause(time);
-    return this;
-  },
 
   getTextCallback(element, message1, message2, result) {
     this.verify.visible(element, `${message1} ${result.value} ${message2}`);
   },
 
+  visibilityOfAnalyticsPage() {
+    return this.waitForElementVisible('@analyticsIcon', 'analytics icon is visible and accessible to member')
+      .click('@analyticsIcon');
+  },
+
   validateDatePickerAndOptions() {
-    return this.waitForElementVisible('@dateRangeDropdown', 'DateRange dropdown is visible')
+    return this.waitForElementVisible('@dateRangeDropdown', 'DateRange dropdown is visible and accessible')
       .click('@dateRangeDropdown')
       .waitForElementVisible('@dateRangeDropdownMenus', 'DateRange dropdown is opened after click')
       .verify.visible('@yesterdayOption', 'Yesterday option is visible')
@@ -28,35 +33,25 @@ const analyticsCommands = {
       .verify.visible('@lastTwelveMonthsOption', 'Last 12 months option is visible')
       .verify.visible('@customRangeOption', 'Custom Range option is visible')
       .verify.visible('@customRangeFromDate', 'From Date input is visible')
-      .verify.visible('@customRangeToDate', 'To Date is visible');
-  },
-
-  validateTotalMessageCountGraph() {
-    return this.waitForElementVisible('@totalMessageCountGraph', 'Total Message Count Graph is visible')
-      .verify.visible('@totalMessageCountLabel', 'Total Message Count Label is present on this graph')
-      .getText('@totalMessageCountGraphCount', this.getTextCallback.bind(this, '@totalMessageCountGraphCount', 'Total Message Count', 'is visible'));
-  },
-
-  validatePeakTimeGraph() {
-    return this.waitForElementVisible('@peakMessageTimeGraph', 'Peak Message Time Graph is visible')
-      .verify.visible('@peakMessageTimeGraphLabel', 'Peak Message Time Label is present on this graph')
-      .getText('@peakMessageTimeGraphTime', this.getTextCallback.bind(this, '@peakMessageTimeGraphTime', 'Peak Message Time', 'is visible'));
-  },
-
-  validateNewInboundContactsGraph() {
-    return this.waitForElementVisible('@newInboundContactsGraph', 'New Inbound Contacts Graph is visible')
-      .verify.visible('@newInboundContactsGraphLabel', 'New Inbound Contacts Label is present on this graph')
-      .getText('@newInboundContactsGraphTotalCount', this.getTextCallback.bind(this, '@newInboundContactsGraphTotalCount', 'New Inbound Contacts total Count', 'is visible'));
-  },
-
-  validateResponseTimeGraph() {
-    return this.waitForElementVisible('@responseTimeGraph', 'Response Time Graph is visible')
-      .verify.visible('@responseTimeGraphLabel', 'Response Time Label is present on this graph')
-      .getText('@responseTimeGraphAverageMinutes', this.getTextCallback.bind(this, '@responseTimeGraphAverageMinutes', 'Response Time Average Minutes', 'is visible'));
+      .verify.visible('@customRangeToDate', 'To Date is visible')
+      .click('@dateRangeDropdown');
   },
 
   validateDefaultOptionInDateRangeDropdown() {
     return this.waitForElementVisible('@dateRangeDropdownLabel', `The default date selection in the date picker is '${helpers.defaultDateRange(30, 1)}'`);
+  },
+
+  verifyGraph(element1, element2) {
+    return this.waitForElementVisible(element1, `${element1} graph is visible`)
+      .verify.visible(element2, `${element2} Label is present on this graph`);
+  },
+
+  verifyStateOfGraph(element) {
+    return this.waitForElementVisible(element, `${element} no data on the graph is visible`);
+  },
+
+  getTotalMessageCount(element) {
+    return this.getText(element, this.getTextCallback.bind(this, element, 'count', 'is visible'));
   },
 
   validateOpenConversations() {
@@ -69,7 +64,9 @@ const analyticsCommands = {
       .verify.visible('@timeOpenColumn', 'Time Open Column is visible')
       .verify.visible('@lastMessageColumn', 'Last Message column is visible')
       .verify.visible('@assignmentColumn', 'Assignment Column is visible')
+      .verify.visible('@firstRowConversationAssignmentValue', 'value of assignment is visible')
       .verify.visible('@contactColumn', 'Contact Column is visible')
+      .verify.visible('@firstRowConversationContactValue', 'value of contact is visible')
       .getText('@totalOpenLabel', this.getTextCallback.bind(this, '@totalOpenLabel', 'Count of ', ' conversations is visible'));
   },
 
@@ -84,7 +81,9 @@ const analyticsCommands = {
           self.verify.visible('@timeOpenColumn', 'Time Open Column is visible')
             .verify.visible('@dateClosedColumn', 'Date Closed column is visible')
             .verify.visible('@closedByColumn', 'Closed By Column is visible')
-            .verify.visible('@contactColumn', 'Contact Column is visible');
+            .verify.visible('@firstClosedByConversationValue', 'value of Closed By column is visible ')
+            .verify.visible('@contactColumn', 'Contact Column is visible')
+            .verify.visible('@firstRowConversationContactValue', 'value of contact is visible');
         }
       })
       .getText('@totalClosedLabel', this.getTextCallback.bind(this, '@totalClosedLabel', 'Count of ', ' conversations is visible'));
@@ -162,7 +161,7 @@ module.exports = {
   commands: [analyticsCommands],
 
   url() {
-    return `${this.api.launch_url}/analytics`;
+    return `${this.api.launch_url}/analytics?from=${moment().format('YYYY-MM-DD')}&to=${moment().format('YYYY-MM-DD')}&activeKey=6`;
   },
 
   elements: {
@@ -227,7 +226,7 @@ module.exports = {
     },
 
     totalMessageCountGraph: {
-      selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.totalMessageCount}']//parent::div//parent::div//CANVAS`,
+      selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.totalMessageCount}']`,
       locateStrategy: 'xpath',
     },
 
@@ -242,12 +241,12 @@ module.exports = {
     },
 
     dateRangeDropdownLabel: {
-      selector: `//DIV[@class= 'daterange__dropdown']//SPAN[@class='dropdown__toggle__text' and text() = '${helpers.defaultDateRange(30, 1)}']`,
+      selector: `//DIV[@class= 'daterange__dropdown']//SPAN[@class='dropdown__toggle__text' and text() = '${feeder.defaultDateRange(30, 1)}']`,
       locateStrategy: 'xpath',
     },
 
     peakMessageTimeGraph: {
-      selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.peakMessageTime}']//parent::div//parent::div//CANVAS`,
+      selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.peakMessageTime}']`,
       locateStrategy: 'xpath',
     },
 
@@ -267,7 +266,7 @@ module.exports = {
     },
 
     responseTimeGraph: {
-      selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.responseTime}']//parent::div//parent::div//CANVAS`,
+      selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.responseTime}']`,
       locateStrategy: 'xpath',
     },
 
@@ -282,12 +281,32 @@ module.exports = {
     },
 
     newInboundContactsGraph: {
-      selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.newInboundContacts}']//parent::div//parent::div//CANVAS`,
+      selector: `//DIV[@class= 'chart']/DIV/DIV[@class= 'header__title' and text() = '${analyticsChartsNames.newInboundContacts}']`,
       locateStrategy: 'xpath',
     },
 
     newInboundContactsGraphLabel: {
       selector: `//DIV[@class= 'chart__header' ]//DIV[@class= 'header__title' and text()='${analyticsChartsNames.newInboundContacts}']`,
+      locateStrategy: 'xpath',
+    },
+
+    responseTimeEmptyMessage: {
+      selector: '//div[@class=\'chart\']//div[@class=\'header__title\' and text()=\'Response Time\']//parent::div//parent::div//div[@class=\'chart__without-data\']',
+      locateStrategy: 'xpath',
+    },
+
+    totalMessageCountEmptyMessage: {
+      selector: '//div[@class=\'chart\']//div[@class=\'header__title\' and text()=\'Total Message Count\']//parent::div//parent::div//div[@class=\'chart__without-data\']',
+      locateStrategy: 'xpath',
+    },
+
+    peakMessageTimeEmptyMessage: {
+      selector: '//div[@class=\'chart\']//div[@class=\'header__title\' and text()=\'Peak Message Time\']//parent::div//parent::div//div[@class=\'chart__without-data\']',
+      locateStrategy: 'xpath',
+    },
+
+    newInboundContactEmptyMessage: {
+      selector: '//div[@class=\'chart\']//div[@class=\'header__title\' and text()=\'New Inbound Contacts\']//parent::div//parent::div//div[@class=\'chart__without-data\']',
       locateStrategy: 'xpath',
     },
 
@@ -372,17 +391,17 @@ module.exports = {
     },
 
     closedConvoDateRangeDropdownLabel: {
-      selector: `//DIV[@class= 'daterange__dropdown']//SPAN[@class='dropdown__toggle__text' and text() = '${helpers.defaultDateRange(30, 0)}']`,
+      selector: `//DIV[@class= 'daterange__dropdown']//SPAN[@class='dropdown__toggle__text' and text() = '${feeder.defaultDateRange(30, 0)}']`,
       locateStrategy: 'xpath',
     },
 
     closedTableMessage: {
-      selector: `//DIV[contains(@class, 'convo-grid')]//LI[text() = '${analyticsClosedConversationUI.closedTableMessage}']`,
+      selector: `//DIV[contains(@class, 'convo-grid')]//SPAN[text() = '${analyticsClosedConversationUI.closedTableMessage}']`,
       locateStrategy: 'xpath',
     },
 
     openTableMessage: {
-      selector: `//DIV[contains(@class, 'convo-grid')]//LI[text() = '${analyticsOpenConversationUI.openTableMessage}']`,
+      selector: `//DIV[contains(@class, 'convo-grid')]//SPAN[text() = '${analyticsOpenConversationUI.openTableMessage}']`,
       locateStrategy: 'xpath',
     },
 
@@ -408,6 +427,26 @@ module.exports = {
 
     firstRowConversationPracticeColumn: {
       selector: `(//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])[1]//DIV[2]//SPAN[contains(text(),'${analyticsOpenConversationUI.contactFilter}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    firstRowConversationPracticeAssignmentColumn: {
+      selector: `(//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])[1]//DIV[3]//SPAN[contains(text(),'${analyticsOpenConversationUI.assignementFilter}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    firstRowConversationAssignmentValue: {
+      selector: `(//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])//DIV[contains(text(),'${analyticsOpenConversationUI.assignmentFilterValue}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    firstRowConversationContactValue: {
+      selector: `(//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])[1]//DIV[4]//SPAN[contains(text(),'${analyticsOpenConversationUI.contactFilterValue}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    firstClosedByConversationValue: {
+      selector: `(//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])[1]//DIV[contains(text(),'${memberFeeder.memberName}')]`,
       locateStrategy: 'xpath',
     },
 

@@ -393,25 +393,27 @@ describe('merge users tests', () => {
     }
   });
 
+  // TODO: fix random tests failing, hardeep questions, shannon questions, this has other fixes for mergeUsers also
   // eslint-disable-next-line
   test('when a non integrated user without an emrId is merged into an integrated user, it should successfully merge the two users according to acceptable rules', async (done) => {
     const slaveUser = await rhinoapi.getUser(nonIntegratedUser.id, process.env.INTEGRATIONS_CCR_COOKIE); // patient without emrId
-    await rhinoapi.mergeUsers(slaveUser.id, integratedUser.id, process.env.INTEGRATIONS_CCR_COOKIE).then(async (response) => {
+    const masterUser = await rhinoapi.getUser(integratedUser.id, process.env.INTEGRATIONS_CCR_COOKIE);
+    await rhinoapi.mergeUsers(slaveUser.id, masterUser.id, process.env.INTEGRATIONS_CCR_COOKIE).then(async (response) => {
       // MAINTAIN MASTER
-      expect(response.id).toBe(integratedUser.id); // maintain master
-      expect(response.typeId).toBe(integratedUser.typeId); // maintain master
-      expect(response.firstName).toBe(integratedUser.firstName); // maintain master
-      expect(response.lastName).toBe(integratedUser.lastName); // maintain master
-      expect(response.birthday).toBe(integratedUser.patientDetails.birthday); // maintain master
-      expect(response.isMinor).toBe(!!integratedUser.patientDetails.isMinor); // maintain master
-      expect(response.sex).toBe(integratedUser.patientDetails.sex); // maintain master
-      expect(response.externalIds.emrId).toBe(integratedUser.externalIds.emrId); // maintain master
+      expect(response.id).toBe(masterUser.id); // maintain master
+      expect(response.typeId).toBe(masterUser.typeId); // maintain master
+      expect(response.firstName).toBe(masterUser.firstName); // maintain master
+      expect(response.lastName).toBe(masterUser.lastName); // maintain master
+      expect(response.birthday).toBe(masterUser.birthday); // maintain master
+      expect(response.isMinor).toBe(!!masterUser.isMinor); // maintain master
+      expect(response.sex).toBe(masterUser.sex); // maintain master
+      expect(response.externalIds.emrId).toBe(masterUser.externalIds.emrId); // maintain master
       expect(response.appointments.length).toEqual(1); // maintain master (only integrated users have appts)
       expect(response.appointments[0].id).toBe(createdAppointment.id);
       expect(response.id).toBe(createdAppointment.userId); // userId on appt should be master userId
-      expect(response.integrated).toBe(!!integratedUser.integrated); // maintain master
-      // expect(response.automatedMessages).toBe(!!integratedUser.patientDetails.automatedMessages); // maintain master
-      expect(response.phones[0].ownerId).toBe(integratedUser.id); // master takes phone ownership of slaves phone
+      expect(response.integrated).toBe(!!masterUser.integrated); // maintain master
+      expect(response.automatedMessages).toBe(!!masterUser.automatedMessages); // maintain master
+      expect(response.phones[0].ownerId).toBe(masterUser.id); // master takes phone ownership of slaves phone
 
       // INHERIT IF NOT ON MASTER
       expect(response.middleName).toBe(slaveUser.middleName); // passed from slave if master has none
@@ -425,7 +427,7 @@ describe('merge users tests', () => {
 
       // COMBINE BOTH
       expect(response.phones.length).toBe(1); // combine phones for both users (dont duplicate) they each share the same phone, return only one
-      expect(response.phones[0].number).toBe(integratedUser.phones[0].value);
+      expect(response.phones[0].value).toBe(masterUser.phones[0].value);
       expect(response.phones[0].value).toBe(slaveUser.phones[0].value);
       expect(response.emails.length).toBe(1); // combine emails for both users
       expect(response.emails[0].value).toBe(slaveUser.emails[0].value); // slaves email (only one that existed between the two users)

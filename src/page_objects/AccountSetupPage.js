@@ -34,15 +34,19 @@ const accountSetupCommands = {
   },
 
   fillBillingContactDetails({
-    billingContactFirstName, billingContactLastName, billingContactAddressOne, billingContactEmail,
+    billingContactFirstName, billingContactLastName, billingContactPhone, billingContactAddressOne, billingContactAddressTwo, billingContactEmail,
     billingContactCity, billingContactState, billingContactZip,
   }) {
     return this.waitForElementPresent('@billingContactFName', 'Billing Contact First Name is present')
       .setValue('@billingContactFName', billingContactFirstName)
       .waitForElementVisible('@billingContactLName', 'Billing Contact Last Name is present')
       .setValue('@billingContactLName', billingContactLastName)
+      .waitForElementVisible('@billingContactPhone', 'Billing Contact Phone is present')
+      .setValue('@billingContactPhone', billingContactPhone)
       .waitForElementVisible('@billingContactAddressOne', 'Billing Contact Address Line 1 is visible')
       .setValue('@billingContactAddressOne', billingContactAddressOne)
+      .waitForElementVisible('@billingContactAddressTwo', 'Billing Contact Address Line 1 is visible')
+      .setValue('@billingContactAddressTwo', billingContactAddressTwo)
       .waitForElementVisible('@billingContactEmail', 'Billing Contact Email is visible')
       .setValue('@billingContactEmail', billingContactEmail)
       .waitForElementVisible('@billingContactCity', 'Billing Contact City field is visible')
@@ -114,8 +118,18 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    billingContactPhone: {
+      selector: '//input[contains(@id, \'billingContactPhone\')]',
+      locateStrategy: 'xpath',
+    },
+
     billingContactAddressOne: {
       selector: '//input[contains(@id, \'billingStreet1\')]',
+      locateStrategy: 'xpath',
+    },
+
+    billingContactAddressTwo: {
+      selector: '//input[contains(@id, \'billingStreet2\')]',
       locateStrategy: 'xpath',
     },
 

@@ -18,7 +18,7 @@ const analyticsCommands = {
   },
 
   visibilityOfAnalyticsPage() {
-    return this.waitForElementVisible('@analyticsIcon', 'analytics icon is visible and accessible to member')
+    return this.waitForElementVisible('@analyticsIcon', 'analytics icon is visible and accessible.')
       .click('@analyticsIcon');
   },
 

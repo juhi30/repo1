@@ -17,6 +17,11 @@ const channelsCommands = {
       .click('@editChannel');
   },
 
+  addChannel() {
+    return this.waitForElementVisible('@addChannelButton', 'add channel button is visible')
+      .click('@addChannelButton');
+  },
+
   checkElementVisibility(element) {
     logger.info('check visibility of edit page title');
     return this.waitForElementVisible(element, 1000, (result) => {
@@ -48,12 +53,17 @@ module.exports = {
     },
 
     addChannelButton: {
-      selector: '//BUTTON[contains(@title,\'Create Channel\')]',
+      selector: '//BUTTON[contains(@title,\'Create Channel\')]//SPAN',
       locateStrategy: 'xpath',
     },
 
     channelName: {
       selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${channelFeeder.channelName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    billingChannelName: {
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${channelFeeder.channelName1}')]`,
       locateStrategy: 'xpath',
     },
 

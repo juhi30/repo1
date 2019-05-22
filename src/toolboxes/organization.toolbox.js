@@ -58,9 +58,9 @@ export async function orgTearDown(organizationId, username, password) {
  * Used to select an Organization by CCR
  * @param  {string} organizationName Organization name that ccr needs to be logged in
  */
-export function selectOrganizationByCCR(organizationName) {
-  const org = client.page.UniversalElements();
-  org.searchForOrganization(organizationName)
-    .ccrOrgLogin()
+export function selectOrganizationByCCR(organizationName, orgResult) {
+  const universal = client.page.UniversalElements();
+  universal.searchForOrganization(organizationName, orgResult)
+    .ccrOrgLogin(orgResult)
     .pause(2000);
 }

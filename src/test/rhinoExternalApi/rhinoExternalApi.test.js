@@ -1,7 +1,9 @@
+import uuid from 'uuid/v4';
 import * as rhinoExternalApi from '../../services/RhinoExternalApi.service';
 import {
   createOrganization,
   changeOrganization,
+  getCcrUserId,
   postUser,
   deleteOrganization,
   archiveOrganization,
@@ -9,7 +11,7 @@ import {
 } from '../../services/Rhinoapi.service';
 
 const user = {
-  externalId: '40bsf7d3-d0b8-4ffa-8d76-a679123d0467',
+  externalId: uuid(),
   firstName: 'John',
   lastName: 'External',
   preferredName: 'Johnny',
@@ -65,8 +67,10 @@ describe('rhino-external-api tests', () => {
       const org = await createOrganization(orgData, process.env.EXTERNALAPI_COOKIE);
       orgId = org.id;
 
+      const ccrUserId = await getCcrUserId(process.env.EXTERNALAPI_COOKIE);
+
       // Change to newly created org
-      await changeOrganization({ orgId, userId: process.env.CCR_USER_ID }, process.env.EXTERNALAPI_COOKIE);
+      await changeOrganization({ orgId, userId: ccrUserId }, process.env.EXTERNALAPI_COOKIE);
 
       // Create member
       const memberData = {

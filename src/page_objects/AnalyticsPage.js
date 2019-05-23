@@ -119,7 +119,8 @@ const analyticsCommands = {
       .verify.visible('@closedConvoLastTwelveMonthsOption', 'Last 12 months option is visible')
       .verify.visible('@closedConvoCustomRangeOption', 'Custom Range option is visible')
       .verify.visible('@closedConvoCustomRangeFromDate', 'From Date input is visible')
-      .verify.visible('@closedConvoCustomRangeToDate', 'To Date is visible');
+      .verify.visible('@closedConvoCustomRangeToDate', 'To Date is visible')
+      .click('@closedConversationDatePicker');
   },
 
   validateOpenConvoContactNavigation() {
@@ -137,6 +138,7 @@ const analyticsCommands = {
   validateClosedConvoContactNavigation() {
     const self = this;
     return this.waitForElementVisible('@closedTab', 'Closed tab is visible in conversations')
+      .pause(1000)
       .click('@closedTab')
       .waitForElementVisible('@firstRowConversation', 'First Row of Conversations is visible', (result) => {
         logger.info(result.value);
@@ -241,7 +243,7 @@ module.exports = {
     },
 
     dateRangeDropdownLabel: {
-      selector: `//DIV[@class= 'daterange__dropdown']//SPAN[@class='dropdown__toggle__text' and text() = '${feeder.defaultDateRange(30, 1)}']`,
+      selector: `//DIV[@class= 'daterange__dropdown']//SPAN[@class='dropdown__toggle__text' and text() = '${helpers.defaultDateRange(30, 1)}']`,
       locateStrategy: 'xpath',
     },
 
@@ -292,11 +294,6 @@ module.exports = {
 
     responseTimeEmptyMessage: {
       selector: '//div[@class=\'chart\']//div[@class=\'header__title\' and text()=\'Response Time\']//parent::div//parent::div//div[@class=\'chart__without-data\']',
-      locateStrategy: 'xpath',
-    },
-
-    totalMessageCountEmptyMessage: {
-      selector: '//div[@class=\'chart\']//div[@class=\'header__title\' and text()=\'Total Message Count\']//parent::div//parent::div//div[@class=\'chart__without-data\']',
       locateStrategy: 'xpath',
     },
 
@@ -376,7 +373,7 @@ module.exports = {
 
 
     closedTab: {
-      selector: `//DIV[contains(@class, 'convo__tabs')]//SPAN[text() = '${analyticsClosedConversationUI.closedTab}']`,
+      selector: `//DIV[contains(@class, 'convo__tabs')]//BUTTON//SPAN[text() = '${analyticsClosedConversationUI.closedTab}']`,
       locateStrategy: 'xpath',
     },
 
@@ -391,7 +388,7 @@ module.exports = {
     },
 
     closedConvoDateRangeDropdownLabel: {
-      selector: `//DIV[@class= 'daterange__dropdown']//SPAN[@class='dropdown__toggle__text' and text() = '${feeder.defaultDateRange(30, 0)}']`,
+      selector: `//DIV[@class= 'daterange__dropdown']//SPAN[@class='dropdown__toggle__text' and text() = '${helpers.defaultDateRange(30, 0)}']`,
       locateStrategy: 'xpath',
     },
 

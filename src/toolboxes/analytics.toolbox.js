@@ -1,13 +1,6 @@
 import { client } from 'nightwatch-api';
 
-import * as loginToolbox from './login.toolbox';
-
-import { selectOrganizationByCCR } from './organization.toolbox';
-
 const analytics = client.page.AnalyticsPage();
-const loginFeeder = require('../feeder/login.feeder');
-const accountSetupFeeder = require('../feeder/accountSetup.feeder');
-
 export async function accessiilityOfAnalyticsDashboard() {
   await analytics
     .navigate()
@@ -36,16 +29,18 @@ export async function defaultStateOfGraph() {
 export async function verifyTotalCountAndColumnOfOpenConversation() {
   await analytics
     .navigate()
-    .validateDefaultOptionInDateRangeDropdown()
-    .validateOpenConversations();
+    .validateOpenConversations()
+    .validateOpenConvoContactNavigation();
 }
 
 export async function verifyTotalCountAndColumnOfClosedConversation() {
   await analytics
     .navigate()
+    .pause(2000)
     .validateClosedConversations()
+    .validateClosedConvoDatePickerAndOptions()
     .validateDefaultDateRangeInConvoGrid()
-    .validateClosedConvoDatePickerAndOptions();
+    .validateClosedConvoContactNavigation();
 }
 
 export async function verifyImpactOfFilters() {
@@ -55,10 +50,6 @@ export async function verifyImpactOfFilters() {
 }
 
 export async function accessiilityOfAnalyticsDashboardAsCCR() {
-  await loginToolbox.ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
-  await selectOrganizationByCCR(accountSetupFeeder.orgName);
   await analytics.navigate()
     .visibilityOfAnalyticsPage();
-  const universalElements = client.page.UniversalElements();
-  await universalElements.clickLogout();
 }

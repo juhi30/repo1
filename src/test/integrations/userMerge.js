@@ -1,4 +1,5 @@
 import moment from 'moment-timezone';
+import uuid from 'uuid/v4';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 
@@ -116,13 +117,14 @@ describe('merge users tests', () => {
       }],
       typeId: USER_TYPE_PATIENT,
       externalIds: {
-        emrId: '123456',
+        emrId: uuid(),
       },
       isMinor: false,
       integrated: true,
       tags: [{ id: 1, name: 'Charleston', typeId: 55 }],
     };
-    await rhinoapi.postRhinolinerUser(user, Number(process.env.INTEGRATIONS_ORG_ID));
+    const { data } = await rhinoapi.postRhinolinerUser(user, Number(process.env.INTEGRATIONS_ORG_ID));
+    integratedUser = data;
 
     // NON INTEGRATED USER
     const user2 = {
@@ -234,7 +236,7 @@ describe('merge users tests', () => {
       prefixId: 1,
       isMinor: false,
       externalIds: {
-        emrId: '65656565',
+        emrId: uuid(),
       },
       roles: [
         {
@@ -293,7 +295,7 @@ describe('merge users tests', () => {
         },
       ],
       externalIds: {
-        emrId: 'lalala',
+        emrId: uuid(),
       },
       birthday: '1990-08-16',
       typeId: USER_TYPE_PATIENT,
@@ -319,7 +321,7 @@ describe('merge users tests', () => {
         },
       ],
       externalIds: {
-        emrId: 'meekmill',
+        emrId: uuid(),
       },
       birthday: '1990-08-16',
       typeId: USER_TYPE_PATIENT,
@@ -343,7 +345,7 @@ describe('merge users tests', () => {
     const appt = {
       startDate: startDateString,
       endDate: endDateString,
-      externalId: '123456',
+      externalId: integratedUser.externalIds.emrId,
       messageType: 'APPOINTMENT',
       appointmentExternalId: 'appt123',
       deleted: false,
@@ -352,13 +354,6 @@ describe('merge users tests', () => {
     };
     await rhinoliner.pushtoqueue(appt);
     await sleep(10000);
-  });
-
-  test('find integratedUser', async () => {
-    const response = await rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456');
-    expect(response.data.externalIds.emrId).toBe('123456');
-    expect(response.data.firstName).toBe('Arya');
-    integratedUser = response.data;
   });
 
   test('find appointment', async () => {

@@ -82,7 +82,8 @@ const orgProfileCommands = {
 
   clickSaveProfile() {
     return this.click('@saveOrgProfileButton')
-      .waitForElementVisible('@orgUpdateSuccessMessage', 'Success message displayed');
+      .waitForElementVisible('@orgUpdateSuccessMessage', 'Success message displayed')
+      .waitForElementNotPresent('@orgUpdateSuccessMessage', 'Success message is gone');
   },
 
   checkBillingId() {

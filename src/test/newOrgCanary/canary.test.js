@@ -18,3 +18,5 @@ import './messaging';
 
 // //Member + CCR flow. This should be the last test case
 // import './orgProfile';
+import './createAppointment';
+import './appointmentManager';

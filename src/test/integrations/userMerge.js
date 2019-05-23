@@ -122,8 +122,7 @@ describe('merge users tests', () => {
       integrated: true,
       tags: [{ id: 1, name: 'Charleston', typeId: 55 }],
     };
-    const { data } = await rhinoapi.postRhinolinerUser(user, Number(process.env.INTEGRATIONS_ORG_ID));
-    integratedUser = data;
+    await rhinoapi.postRhinolinerUser(user, Number(process.env.INTEGRATIONS_ORG_ID));
 
     // NON INTEGRATED USER
     const user2 = {
@@ -353,6 +352,13 @@ describe('merge users tests', () => {
     };
     await rhinoliner.pushtoqueue(appt);
     await sleep(10000);
+  });
+
+  test('find integratedUser', async () => {
+    const response = await rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '123456');
+    expect(response.data.externalIds.emrId).toBe('123456');
+    expect(response.data.firstName).toBe('Arya');
+    integratedUser = response.data;
   });
 
   test('find appointment', async () => {

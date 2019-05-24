@@ -22,4 +22,11 @@ module.exports = {
   patientFirstName_3: 'Appointment_3',
   birthDay_3: '1975-05-09',
   contactNumber_3: '5576534259',
+
+  // Date Picker Options
+  today: 'Today',
+  tomorrow: 'Tomorrow',
+  nextSevenDays: 'Next 7 Days',
+  nextThirtyDays: 'Next 30 Days',
+  customRange: 'Custom Range',
 };

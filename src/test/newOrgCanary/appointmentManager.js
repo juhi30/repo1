@@ -7,7 +7,6 @@ const appointmentFeeder = require('../../feeder/appointments.feeder');
 
 const memberFeeder = require('../../feeder/member.feeder');
 
-
 describe('Automated Tests: Appointment Manager', () => {
   const apptManager = client.page.AppointmentManagerPage();
   const universal = client.page.UniversalElements();
@@ -29,22 +28,18 @@ describe('Automated Tests: Appointment Manager', () => {
   });
 
   test('Verify the count of total appointments as per the Appointments generated', async () => {
-    apptManager.verifyUpcomingAppointsCount(appointmentFeeder.totalAppointmentsCreated);
+    await apptManager.verifyUpcomingAppointsCount(appointmentFeeder.totalAppointmentsCreated);
   });
 
   test('Verify the columns and values in each is as per the Appointments generated', async () => {
-    apptManager.verifyContactAndItsStatus(appointmentFeeder.patientFirstName_1, 'Unconfirmed')
+    await apptManager.verifyContactAndItsStatus(appointmentFeeder.patientFirstName_1, 'Unconfirmed')
       .verifyContactAndItsStatus(appointmentFeeder.patientFirstName_2, 'Confirmed')
       .verifyContactAndItsStatus(appointmentFeeder.patientFirstName_3, 'Unconfirmed');
   });
 
-  // test('Verify the Date picker and the various options available', async () => {
-
-  // });
-
-  // test('Verify the read/unread state of an appointment', async () => {
-
-  // });
+  test('Verify the Date picker and the various options available', async () => {
+    await apptManager.validateDateRange();
+  });
 
   test('Verify the status of an appointment when it is manually confirmed', async () => {
     await apptManager.clickContactName(appointmentFeeder.patientFirstName_1);
@@ -65,8 +60,4 @@ describe('Automated Tests: Appointment Manager', () => {
     await apptManager.click('@appointmentManagerMenuItem')
       .expect.element('body').text.to.not.contain(appointmentFeeder.patientFirstName_3);
   });
-
-  // test('Verify pagination', async () => {
-
-  // });
 });

@@ -6,8 +6,9 @@ const channelCreateEdit = client.page.ChannelsCreateEditPage();
 /**
  * Used to validate elements(page title and create channel button) on channel listing page
  */
-export function validateChannelPageElements() {
-  channel.validateChannelsEls();
+export async function validateChannelPageElements() {
+  await channel.navigate()
+    .validateChannelsEls();
 }
 
 /**

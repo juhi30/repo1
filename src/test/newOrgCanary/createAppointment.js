@@ -1,4 +1,3 @@
-import logger from 'rhinotilities/lib/loggers/logger';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 import * as helpers from '../../toolboxes/helpers.toolbox';
 

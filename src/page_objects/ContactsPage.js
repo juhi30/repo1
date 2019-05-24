@@ -237,7 +237,7 @@ const contactsCommands = {
   clickConfirmStatusChange() {
     let xOffset = 0;
     let yOffset = 0;
-        
+
     // Scrolls the Summary panel to get the required function in view
     return this.getLocation('@confirmStatusChange', (tpObj) => {
       xOffset = tpObj.value.x;

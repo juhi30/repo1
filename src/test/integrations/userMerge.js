@@ -19,7 +19,6 @@ const TRUSTEE_ID = 2;
 const HIPAA_STATUS_TYPE_GRANTED = 49;
 const FB_TYPE_PRIMARY = 24;
 const FB_CHANNEL_ID = 7;
-const CP_PATIENT = 6;
 const TYPE_EMAIL_HOME = 4;
 const HIPAA_STATUS_TYPE_PENDING = 48;
 
@@ -171,7 +170,7 @@ describe('merge users tests', () => {
         channelId: FB_CHANNEL_ID,
       }],
       connectedTo: [{
-        toUserId: CP_PATIENT,
+        toUserId: integratedUser.id,
         connectionTypeId: 34,
       }],
     };
@@ -220,7 +219,7 @@ describe('merge users tests', () => {
         channelId: FB_CHANNEL_ID,
       }],
       connectedTo: [{
-        toUserId: CP_PATIENT,
+        toUserId: nonIntegratedUser.id,
         connectionTypeId: 34,
       }],
     };
@@ -273,7 +272,7 @@ describe('merge users tests', () => {
         channelId: FB_CHANNEL_ID,
       }],
       connectedTo: [{
-        toUserId: CP_PATIENT,
+        toUserId: nonIntegratedUser2.id,
         connectionTypeId: 34,
       }],
     };
@@ -476,7 +475,7 @@ describe('merge users tests', () => {
       expect(response.phones.length).toBe(3); // combine phones for both users (dont duplicate) they each have 2 phones (one is shared), return only 3
       expect(response.emails.length).toBe(2); // combine emails for both users
       expect(response.tags.length).toBe(2); // combine tags for both users (dont duplicate) they each share the same tag, return only one
-      expect(response.connectedParties.length).toEqual(2); // combine both
+      expect(response.connectedParties.length).toEqual(1); // combine both
 
       expect(response.appointments.length).toEqual(0); // non integrated users dont have appointments
       done();

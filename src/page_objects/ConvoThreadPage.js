@@ -1,3 +1,5 @@
+import logger from 'rhinotilities/lib/loggers/logger';
+
 const messageFeeder = require('../feeder/message.feeder');
 
 const convoThreadCommands = {
@@ -164,6 +166,27 @@ const convoThreadCommands = {
 
   verifyUnreadMessage(contactName) {
     return this.api.useXpath().waitForElementVisible(`//DIV[contains(@class, 'is-unread')]//*[contains(., '${contactName}')]`, `Div with Unread text "${contactName}" is visible`);
+  },
+
+  sendRhinosecureMessage(rhinoSecureMessage) {
+    return this.verify.visible('@rhinoSecureButton', 'Rhinosecure Button is visible')
+      .click('@rhinoSecureButton')
+      .verify.visible('@conversationTextarea')
+      .clearValue('@rhinoSecureMessageInput')
+      .setValue('@rhinoSecureMessageInput', rhinoSecureMessage)
+      .pause(1000)
+      .click('@sendMessageButton');
+  },
+
+  getPatientLink(globalVariable) {
+    return this.getAttribute('@rhinoSecureAutoResponseLink', 'href', (tpObj) => {
+      global[globalVariable] = tpObj.value;
+      logger.info(global.NEW_CANARY_PATIENT_SIGNUP_LINK);
+    });
+  },
+
+  verifyAutoResponse() {
+    return this.waitForElementVisible('@rhinoSecureAutoResponseLink', 'Auto Response Message is Received');
   },
 };
 
@@ -389,6 +412,31 @@ module.exports = {
 
     closeConversationSuccessMessage: {
       selector: '//DIV[contains(text(),\'Conversation closed.\')]',
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureButton: {
+      selector: '//SPAN[@class="button__text-wrapper"][text()="RhinoSecure"]',
+      locateStrategy: 'xpath',
+    },
+
+    conversationTextarea: {
+      selector: '//DIV[@class="convo__message__container"]',
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureMessageInput: {
+      selector: '//TEXTAREA[contains(@id,"message")]',
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureAutoResponseLink: {
+      selector: '(//DIV[contains(@class,"msg--outbound")])[last()]//A',
+      locateStrategy: 'xpath',
+    },
+
+    sendMessageButton: {
+      selector: '//BUTTON[contains(@class, \'convo__message__send\')]',
       locateStrategy: 'xpath',
     },
   },

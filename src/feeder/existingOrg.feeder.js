@@ -1,7 +1,7 @@
 module.exports = {
 
   // member details for existing org canary
-  memberUsernameExistingOrg: 'dallman',
+  memberUsernameExistingOrg: 'rhinogramautomation',
   memberPasswordExistingOrg: 'Test@123',
 
   // bot messages details for existing org canary

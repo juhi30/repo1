@@ -1,6 +1,7 @@
 const memberFeeder = require('../feeder/member.feeder');
 const helper = require('../toolboxes/helpers.toolbox');
-const messageFeeder = require('../feeder/message.feeder');
+const channelFeeder = require('../feeder/channel.feeder');
+const groupFeeder = require('../feeder/group.feeder');
 
 const commands = {
 
@@ -46,33 +47,33 @@ const commands = {
 
   openMessageThread(messageThread) {
     return this.api.useXpath().waitForElementVisible(`//SPAN[contains(., '${messageThread}')]`, `Span with text "${messageThread}" is visible`)
-      .click(messageThread);
+      .click(`//SPAN[contains(., '${messageThread}')]`);
   },
 
-  openAssignModal() {
-    return this.waitForElementVisible('@assignConversationIcon', 'Assign icon is visible')
-      .click('@assignConversationIcon')
-      .waitForElementVisible();
+  selectMemberAndGroup(inputSearch, searchText) {
+    return this.waitForElementVisible('@addNoteButton', 'Assign Model is opened')
+      .setValue(inputSearch, searchText)
+      .pause(2000)
+      .api.useXpath().waitForElementVisible(`//SPAN[@class='resource__intro__title__content'][contains(., '${searchText}')]`, `Span with text "${searchText}" is visible`)
+      .click(`//SPAN[@class='resource__intro__title__content'][contains(., '${searchText}')]`);
   },
 
-  selectMemberAndGroup(search, titleElement, searchText) {
-    return this.waitForElementVisible(titleElement, 'Search Modal is opened')
-      .setValue(search, searchText)
-      .api.useXpath().waitForElementVisible(`//SPAN[contains(., '${searchText}')]`, `Span with text "${searchText}" is visible`)
-      .click(`//SPAN[contains(., '${searchText}')]`);
+  channelSelection(chatChannelName, channelDropdown, value, newChatChannelName) {
+    return this.waitForElementVisible(chatChannelName, `${chatChannelName} is visible`)
+      .click(chatChannelName)
+      .waitForElementVisible(channelDropdown, `${channelDropdown} is visible`)
+      .setValue(channelDropdown, value)
+      .pause(1000)
+      .waitForElementVisible(newChatChannelName, `${newChatChannelName} is visible`);
   },
 
-  searchMessageAndNote(searchText) {
-    return this.waitForElementVisible('@messageSearchOption', 'Message Search Option is visible.')
-      .waitForElementVisible('@messageSearchTextBox', 'Message Search Text Box is visible.')
-      .setValue('@messageSearchTextBox', searchText)
-      .api.useXpath().waitForElementVisible(`//SPAN[contains(., '${searchText}')]`, `Span with text "${searchText}" is visible as search result.`)
-      .click(`//SPAN[contains(., '${searchText}')]`)
-      .api.useXpath().waitForElementVisible(`//SPAN[contains(., '${searchText}')]`, `Span with text "${searchText}" is visible in the chat box.`);
+  verifySuccessMessage(successMessage) {
+    return this.pause(2000)
+      .waitForElementVisible(successMessage, `${successMessage} is visible`)
+      .waitForElementNotPresent(successMessage, `${successMessage} is no longer present`);
   },
 
-
-  clickOption(element) {
+  clickButton(element) {
     return this.waitForElementVisible(element, `${element} is visible`)
       .click(element);
   },
@@ -82,7 +83,12 @@ const commands = {
       .setValue('@noteTextArea', text);
   },
 
-
+  verifyNoMessageFound(searchText) {
+    return this.waitForElementVisible('@searchConversationIcon', 'Message Search Option is visible.')
+      .waitForElementVisible('@messageSearchTextBox', 'Message Search Text Box is visible.')
+      .setValue('@messageSearchTextBox', searchText)
+      .waitForElementVisible('@noMessageFound', 'No Match Found Message is visible');
+  },
 };
 
 module.exports = {
@@ -98,7 +104,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    followButton: {
+    followModalButton: {
       selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Follow\')]',
       locateStrategy: 'xpath',
     },
@@ -108,23 +114,13 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    noteMessage: {
-      selector: `//div[@class='msg convo__item__body__msg msg--note msg--outbound'][contains(text(),'${messageFeeder.noteMessage}')]`,
-      locateStrategy: 'xpath',
-    },
-
     assignmentCompleteButton: {
-      selector: '(//SPAN[@class=\'u-text-overflow\'][contains(text(),\'Assignment Complete\')])[2]',
+      selector: '(//SPAN[@class=\'u-text-overflow\'][contains(text(),\'Assignment Complete\')])[1]',
       locateStrategy: 'xpath',
     },
 
     assignToMeButton: {
-      selector: '(//SPAN[@class=\'u-text-overflow\'][contains(text(),\'Assign to Me\')])[2]',
-      locateStrategy: 'xpath',
-    },
-
-    markAsUnreadButton: {
-      selector: '(//SPAN[@class=\'u-text-overflow\'][contains(text(),\'Mark as Unread\')])[2]',
+      selector: '(//SPAN[@class=\'u-text-overflow\'][contains(text(),\'Assign to Me\')])[1]',
       locateStrategy: 'xpath',
     },
 
@@ -139,7 +135,7 @@ module.exports = {
     },
 
     memberSearchInput: {
-      selector: '//input[contains(@id,\'preloadedMembers\')]',
+      selector: '//INPUT[contains(@id,\'preloadedMembers\')]',
       locateStrategy: 'xpath',
     },
 
@@ -149,34 +145,19 @@ module.exports = {
     },
 
     groupSearchInput: {
-      selector: '//input[contains(@id,\'search\')]',
-      locateStrategy: 'xpath',
-    },
-
-    assignButton: {
-      selector: '//span[@class=\'button__text-wrapper\'][contains(., \'Assign\')]',
-      locateStrategy: 'xpath',
-    },
-
-    assignConversationIcon: {
-      selector: '(//DIV[@class=\'convo__header convo__header--variation\']//button[@title=\'Assign Conversation\']/span/*[@class=\'icon\'])[1]',
-      locateStrategy: 'xpath',
-    },
-
-    messageSearchOption: {
-      selector: '(//BUTTON[@title=\'Search Conversation\'])[2]',
-      locateStrategy: 'xpath',
-    },
-
-    messageSearchTextBox: {
       selector: '//INPUT[contains(@id,\'search\')]',
       locateStrategy: 'xpath',
     },
 
-    // messageSearchResult: {
-    //   selector: `//DIV[@class='msg convo__item__body__msg msg--primary msg--outbound'][contains(text(),'hey')]`,
-    //   locateStrategy: 'xpath',
-    // },
+    assignModalButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(., \'Assign\')]',
+      locateStrategy: 'xpath',
+    },
+
+    noMessageFound: {
+      selector: '//DIV[contains(text(),\'No matching search results.\')]',
+      locateStrategy: 'xpath',
+    },
 
     chatPageTitle: {
       selector: '//*[@class=\'app-page__header__title\'][contains(text(),\'Team\')]',
@@ -189,7 +170,7 @@ module.exports = {
     },
 
     searchInput: {
-      selector: '//Input[@placeholder = \'First, last, or preferred name\']',
+      selector: '//INPUT[@placeholder = \'First, last, or preferred name\']',
       locateStrategy: 'xpath',
     },
 
@@ -246,6 +227,31 @@ module.exports = {
 
     attachmentInput: {
       selector: '//DIV[contains(@class,\'dropdown__menu--top\')]//Input[@type=\'file\']',
+      locateStrategy: 'xpath',
+    },
+
+    assignUpdateSuccessMessage: {
+      selector: '//DIV[text()=\'Assignment updated.\']',
+      locateStrategy: 'xpath',
+    },
+
+    assignmentCompleteSuccessMessage: {
+      selector: '//DIV[text()=\'Assignment completed.\']',
+      locateStrategy: 'xpath',
+    },
+
+    preselectedSecureChannelName: {
+      selector: `//STRONG[contains(text(), '${channelFeeder.rhinoChannelNewName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    rhinosecureChannelListDropdown: {
+      selector: '//SELECT[contains(@id, \'secure-channel\')]',
+      locateStrategy: 'xpath',
+    },
+
+    newSelectedSecureChannel: {
+      selector: `//STRONG[contains(text(), '${groupFeeder.patientGroupChannel}')]`,
       locateStrategy: 'xpath',
     },
   },

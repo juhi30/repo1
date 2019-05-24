@@ -15,11 +15,6 @@ module.exports = {
   memberLastNameA: 'Member1',
   memberUsernameA: 'thread1',
 
-  memberNameB: 'Thread Member2',
-  memberFirstNameB: 'Thread',
-  memberLastNameB: 'Member2',
-  memberUsernameB: 'thread2',
-
   // Following Members are created to verify member addon for standard plan
   // New Member Details for member1
   memberName1: 'test member1',

@@ -1,46 +1,53 @@
-import { client } from 'nightwatch-api';
 import * as login from '../../toolboxes/login.toolbox';
-import * as contactToolbox from '../../toolboxes/contact.toolbox';
 import * as messageToolbox from '../../toolboxes/messaging.toolbox';
-import * as member from '../../toolboxes/member.toolbox';
-// import * as org from '../../toolboxes/organization.toolbox';
+import * as actionToolbox from '../../toolboxes/threadActions.toolbox';
 
 const memberFeeder = require('../../feeder/member.feeder');
 const contactFeeder = require('../../feeder/contact.feeder');
 const messageFeeder = require('../../feeder/message.feeder');
-// const loginFeeder = require('../../feeder/login.feeder');
+const groupFeeder = require('../../feeder/group.feeder');
 
 describe('Thread Actions Automated Tests', () => {
-  test('Create member', async () => {
-    const memberDetails = [{ element: '@memberFirstName', value: memberFeeder.memberFirstNameA },
-      { element: '@memberLastName', value: memberFeeder.memberLastNameA },
-      { element: '@memberUsername', value: memberFeeder.memberUsernameA },
-    ];
-    const roles = ['@adminRole', '@memberRole', '@memberAdminRole'];
-
-    await member.createMember(memberDetails, roles, 'NEW_CANARY_MEMBER_TEMP_PASSWORD');
-  });
+  const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
 
   test('Login as member', async () => {
-    login.memberLogin(memberFeeder.memberUsernameA, memberFeeder.memberPassword);
+    await login.memberLogin(memberFeeder.newMemberUsername, memberFeeder.newMemberPassword);
   });
 
-  test('Create Contact For Direct Chats', async () => {
-    const contactDetails = [{ element: '@firstNameInput', value: contactFeeder.contactFirstName },
-      { element: '@middleNameInput', value: contactFeeder.contactMiddleName },
-      { element: '@lastNameInput', value: contactFeeder.contactLastName },
-      { element: '@preferredNameInput', value: contactFeeder.contactPreferredName },
-      { element: '@prefixDropdown', value: contactFeeder.contactPrefix },
-      { element: '@suffixDropdown', value: contactFeeder.contactSuffix },
-      { element: '@birthDateInput', value: contactFeeder.contactBirthDate },
-      { element: '@phoneNumberInput', value: contactFeeder.contactFirstPhoneNumber },
-      { element: '@emailInput', value: contactFeeder.contactFirstEmail },
-      { element: '@noteInput', value: contactFeeder.contactNote },
-    ];
-    await contactToolbox.createContact(contactDetails, '@patientOption');
+  test('Send a Direct group Message to a Contact', async () => {
+    await messageToolbox.sendGroupMessageToContactUsingRhinosecure('@patientGroup', '@searchContactModalTitle', contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage, groupFeeder.patientGroupChannel);
   });
 
-  test('Send a Direct Message to a Contact', async () => {
-    await messageToolbox.sendGroupMessageToContact('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage);
+  test('Assign Message thread to another group', async () => {
+    await actionToolbox.verifyAssigningWithNoteAndFollowAction('@patientGroup', contactName, '@groupSearchInput', groupFeeder.patientAndTeamType, '@assignUpdateSuccessMessage');
+  });
+
+  test('Verifying Assigning to self action', async () => {
+    await actionToolbox.verifyAssignToSelf('@patientAndTeamGroup_PatientInbox', contactName, '@assignUpdateSuccessMessage');
+  });
+
+  test('Verify Assignment Complete', async () => {
+    await actionToolbox.verifyAssignmentComplete('@assignedToMe', contactName, '@assignmentCompleteSuccessMessage');
+  });
+
+  test('Search Message and Note Within the thread', async () => {
+    await actionToolbox.verifySearchMessage('@patientGroup', contactName, messageFeeder.groupPatientMessage, '@messageSearchResult', '@messsage');
+    await actionToolbox.verifySearchNote('@patientGroup', contactName, messageFeeder.noteMessage, '@noteSearchResult', '@note');
+  });
+
+  test('Verify Mark the thread as unread', async () => {
+    await actionToolbox.verifyMarkAsUnread('@patientGroup', contactName);
+  });
+
+  test('Verify if the thread is being followed', async () => {
+    await actionToolbox.verifyFollowedThread('@contactNameList', '@contactChatBoxTitle');
+  });
+
+  test('Verify Unfollow action', async () => {
+    await actionToolbox.validateUnfollowAction();
+  });
+
+  test('Close the conversation', async () => {
+    await actionToolbox.verifyMarkConversationComplete('@patientGroup', contactName);
   });
 });

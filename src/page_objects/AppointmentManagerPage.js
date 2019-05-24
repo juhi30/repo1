@@ -7,7 +7,8 @@ const appointmentRemindersCommands = {
   },
 
   openAppointmentManager() {
-    return this.click('@appointmentManagerMenuItem');
+    return this.waitForElementVisible('@appointmentManagerMenuItem', 'Appointment manager option is visible in the Setting menu')
+      .click('@appointmentManagerMenuItem');
   },
 
   verifyBanner() {
@@ -31,7 +32,8 @@ const appointmentRemindersCommands = {
       .verify.visible('@nextThirtyDaysOption', 'Next 30 days option is visible')
       .verify.visible('@customRangeOption', 'Custom Range option is visible')
       .verify.visible('@customRangeFromDate', 'From Date input is visible')
-      .verify.visible('@customRangeToDate', 'To Date is visible');
+      .verify.visible('@customRangeToDate', 'To Date is visible')
+      .click('@datePicker');
   },
 
   clickContactName(contactName) {
@@ -40,7 +42,8 @@ const appointmentRemindersCommands = {
   },
 
   verifyContactAndItsStatus(patientName, AppointmentStatus) {
-    return this.api.useXpath().verify.visible(`//*[contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//*[contains(.,'${AppointmentStatus}')]`, `Patient "${patientName}" with status "${AppointmentStatus}" as appointment status is visible`);
+    return this.api.useXpath().verify.visible(`//*[@class='button__text-wrapper'][contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//*[@class='appointments__status-label'][contains(.,'${AppointmentStatus}')]`, `Patient "${patientName}" with status "${AppointmentStatus}" as appointment status is visible`)
+      .pause(2000);
   },
 };
 
@@ -102,7 +105,7 @@ module.exports = {
     },
 
     customRangeOption: {
-      selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${appointmentFeeder.customRange}']`,
+      selector: `//DIV[@class= 'dropdown__menu__container']//*[text()='${appointmentFeeder.customRange}']`,
       locateStrategy: 'xpath',
     },
 

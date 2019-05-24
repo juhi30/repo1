@@ -1,10 +1,7 @@
-
-
 import { client } from 'nightwatch-api';
 import { memberLogin } from '../../toolboxes/login.toolbox';
 
 const appointmentFeeder = require('../../feeder/appointments.feeder');
-
 const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Automated Tests: Appointment Manager', () => {
@@ -22,8 +19,7 @@ describe('Automated Tests: Appointment Manager', () => {
   });
 
   test('Verify that the Last sync banner is present', async () => {
-    await universal.click('@settingsButton');
-    await apptManager.click('@appointmentManagerMenuItem')
+    await apptManager.openAppointmentManager()
       .verifyBanner();
   });
 
@@ -32,9 +28,9 @@ describe('Automated Tests: Appointment Manager', () => {
   });
 
   test('Verify the columns and values in each is as per the Appointments generated', async () => {
-    await apptManager.verifyContactAndItsStatus(appointmentFeeder.patientFirstName_1, 'Unconfirmed')
-      .verifyContactAndItsStatus(appointmentFeeder.patientFirstName_2, 'Confirmed')
-      .verifyContactAndItsStatus(appointmentFeeder.patientFirstName_3, 'Unconfirmed');
+    await apptManager.verifyContactAndItsStatus(appointmentFeeder.patientFirstName_1, 'Unconfirmed');
+    await apptManager.verifyContactAndItsStatus(appointmentFeeder.patientFirstName_2, 'Confirmed');
+    await apptManager.verifyContactAndItsStatus(appointmentFeeder.patientFirstName_3, 'Unconfirmed');
   });
 
   test('Verify the Date picker and the various options available', async () => {
@@ -46,8 +42,9 @@ describe('Automated Tests: Appointment Manager', () => {
     await contact.openAppointmentStatusDropdown()
       .selectAppointmentStatus('@confirmedStatus')
       .clickConfirmStatusChange();
-    await universal.click('@settingsButton');
-    await apptManager.click('@appointmentManagerMenuItem')
+    await universal.click('@settingsButton')
+      .pause(1000);
+    await apptManager.openAppointmentManager()
       .verifyContactAndItsStatus(appointmentFeeder.patientFirstName_1, 'Confirmed');
   });
 
@@ -56,8 +53,9 @@ describe('Automated Tests: Appointment Manager', () => {
     await contact.openAppointmentStatusDropdown()
       .selectAppointmentStatus('@cancelledStatus')
       .clickConfirmStatusChange();
-    await universal.click('@settingsButton');
-    await apptManager.click('@appointmentManagerMenuItem')
+    await universal.click('@settingsButton')
+      .pause(1000);
+    await apptManager.openAppointmentManager()
       .expect.element('body').text.to.not.contain(appointmentFeeder.patientFirstName_3);
   });
 });

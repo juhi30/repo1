@@ -12,7 +12,7 @@ const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
 
 const orgId = process.env.NEW_CANARY_ORG_ID;
-const appointmentExternalId = appointmentFeeder.appointmentExternalId;
+const { appointmentExternalId } = appointmentFeeder;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));

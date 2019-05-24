@@ -23,15 +23,15 @@ const appointmentRemindersCommands = {
 
   validateDateRange() {
     return this.waitForElementVisible('@datePicker', 'Date picker is visible')
-    .click('@datePicker')
-    .waitForElementVisible('@datePickerMenu', 'Date picker menu is opened after click')
-    .verify.visible('@todayOption', 'Today option is visible')
-    .verify.visible('@tomorrowOption', 'Tomorrow option is visible')
-    .verify.visible('@nextSevenDaysOption', 'Next 7 days option is visible')
-    .verify.visible('@nextThirtyDaysOption', 'Next 30 days option is visible')
-    .verify.visible('@customRangeOption', 'Custom Range option is visible')
-    .verify.visible('@customRangeFromDate', 'From Date input is visible')
-    .verify.visible('@customRangeToDate', 'To Date is visible');
+      .click('@datePicker')
+      .waitForElementVisible('@datePickerMenu', 'Date picker menu is opened after click')
+      .verify.visible('@todayOption', 'Today option is visible')
+      .verify.visible('@tomorrowOption', 'Tomorrow option is visible')
+      .verify.visible('@nextSevenDaysOption', 'Next 7 days option is visible')
+      .verify.visible('@nextThirtyDaysOption', 'Next 30 days option is visible')
+      .verify.visible('@customRangeOption', 'Custom Range option is visible')
+      .verify.visible('@customRangeFromDate', 'From Date input is visible')
+      .verify.visible('@customRangeToDate', 'To Date is visible');
   },
 
   clickContactName(contactName) {
@@ -82,27 +82,27 @@ module.exports = {
     },
 
     todayOption: {
-      selector: `//DIV[@class= \'dropdown__menu__item__content__label\']//span[text()=\'${appointmentFeeder.today}\']`,
+      selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${appointmentFeeder.today}']`,
       locateStrategy: 'xpath',
     },
 
     tomorrowOption: {
-      selector: `//DIV[@class= \'dropdown__menu__item__content__label\']//span[text()=\'${appointmentFeeder.tomorrow}\']`,
+      selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${appointmentFeeder.tomorrow}']`,
       locateStrategy: 'xpath',
     },
 
     nextSevenDaysOption: {
-      selector: `//DIV[@class= \'dropdown__menu__item__content__label\']//span[text()=\'${appointmentFeeder.nextSevenDays}\']`,
+      selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${appointmentFeeder.nextSevenDays}']`,
       locateStrategy: 'xpath',
     },
 
     nextThirtyDaysOption: {
-      selector: `//DIV[@class= \'dropdown__menu__item__content__label\']//span[text()=\'${appointmentFeeder.nextThirtyDays}\']`,
+      selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${appointmentFeeder.nextThirtyDays}']`,
       locateStrategy: 'xpath',
     },
 
     customRangeOption: {
-      selector: `//DIV[@class= \'dropdown__menu__item__content__label\']//span[text()=\'${appointmentFeeder.customRange}\']`,
+      selector: `//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${appointmentFeeder.customRange}']`,
       locateStrategy: 'xpath',
     },
 

@@ -1,11 +1,7 @@
 import { client } from 'nightwatch-api';
-
 import * as analyticsToolbox from '../../toolboxes/analytics.toolbox';
-
 import * as messageToolbox from '../../toolboxes/messaging.toolbox';
-
 import * as loginToolbox from '../../toolboxes/login.toolbox';
-
 import { selectOrganizationByCCR } from '../../toolboxes/organization.toolbox';
 
 const messageFeeder = require('../../feeder/message.feeder');

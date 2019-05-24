@@ -2,9 +2,7 @@ import moment from 'moment-timezone';
 import logger from 'rhinotilities/lib/loggers/logger';
 
 const helpers = require('../toolboxes/helpers.toolbox');
-
 const feeder = require('../feeder/analytics.feeder');
-
 const memberFeeder = require('../feeder/member.feeder');
 
 const {

@@ -176,19 +176,21 @@ describe('Automated Tests: Contact', () => {
     await contactToolbox.searchContact(searchText, '@searchedContactFirstResult');
   });
 
-  test('Delete Contact - Converted Contact(patient to Other)', async () => {
-    const contactName = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
-    await contactToolbox.deleteContact('@contactTitle');
+  // test('Delete Contact - Converted Contact(patient to Other)', async () => {
+  //   const contactName = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
 
-    await auditLogs.navigate()
-      .verify.urlContains('auditLog', 'Audit Logs Page is opened')
-      .pause(2000)
-      .selectContactFilter(contactName, '@searchContactNew')
-      .pause(1000)
-      .selectActionFilter('@selectDeleteAction')
-      .pause(1000)
-      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Delete', contactName, contactName);
-  });
+  //   await contact.navigate()
+  //     .deleteContact('@contactTitle');
+
+  //   await auditLogs.navigate()
+  //     .verify.urlContains('auditLog', 'Audit Logs Page is opened')
+  //     .pause(2000)
+  //     .selectContactFilter(contactName, '@searchContactNew')
+  //     .pause(1000)
+  //     .selectActionFilter('@selectDeleteAction')
+  //     .pause(1000)
+  //     .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Delete', contactName, contactName);
+  // });
 
   test('Delete Contact - Other Contact type', async () => {
     const contactName = `${contactFeeder.contactOtherFirstName} ${contactFeeder.contactOtherLastName}`;

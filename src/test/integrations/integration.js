@@ -13,6 +13,7 @@ const USER_TYPE_OTHER = 36;
 const OTHER_EXTERNAL_ID = '123OTHER';
 
 let createdPatient;
+let noonePatient;
 
 const patientExternalId = 'c3ba714d-47e7-4eb4-8713-b60730179c89';
 const guardianExtrenalId = '2833d372-4a2d-462b-b302-a0d9b54b49fc';
@@ -184,7 +185,6 @@ describe('integration tests', () => {
     });
   });
 
-
   test('verify connected party between two patients', async (done) => {
     await sleep(10000);
     // TODO: implement me
@@ -207,5 +207,44 @@ describe('integration tests', () => {
   test('verify connected party between an other and a patient', async (done) => {
     // TODO: implement me
     done();
+  });
+
+  test('create appointment with externalid to noone', async (done) => {
+    const appointment = {
+      startDate: '2019-04-09T12:30:00.000Z',
+      endDate: '2019-04-09T12:45:00.000Z',
+      externalId: '1234IDONTEXIST',
+      messageType: 'APPOINTMENT',
+      appointmentExternalId: '1455973245',
+      deleted: false,
+      appointmentStatusTypeId: 81,
+      orgId: process.env.INTEGRATIONS_ORG_ID,
+      firstName: 'Noone',
+      lastName: 'None',
+      birthday: '2000-07-07',
+      sex: 'male',
+    };
+    await rhinoliner.pushtoqueue(appointment).then(() => {
+      done();
+    });
+  });
+
+  test('find patient with external id to noone', async (done) => {
+    await sleep(10000);
+    rhinoapi.getUserByExternalId(process.env.INTEGRATIONS_ORG_ID, '1234IDONTEXIST').then((response) => {
+      expect(response.data.externalIds.emrId).toBe('1234IDONTEXIST');
+      expect(response.data.firstName).toBe('Noone');
+      noonePatient = response.data;
+      done();
+    });
+  });
+
+  test('find appointment with external id to noone', async (done) => {
+    rhinoapi.getAppointmentByExternalId('1455973245', noonePatient.id).then((response) => {
+      expect(response.data.externalId).toBe('1455973245');
+      expect(response.data.userId).toBe(noonePatient.id);
+      expect(response.data.appointmentStatusTypeId).toBe(81);
+      done();
+    });
   });
 });

@@ -6,6 +6,10 @@ const messageFeeder = require('../../feeder/message.feeder');
 const contactFeeder = require('../../feeder/contact.feeder');
 
 describe('Chat Messaging Tests', () => {
+  test('Login as a Member1', async () => {
+    await memberLogin(memberFeeder.newMemberUsername, memberFeeder.newMemberPassword);
+  });
+
   test('Sending a Direct chat message from member1 to member2', async () => {
     await messageToolbox.sendADirectMessage('@directChatInbox', '/chat', '@modalTitle', memberFeeder.memberName2, messageFeeder.directChatMessage);
   });
@@ -30,7 +34,7 @@ describe('Chat Messaging Tests', () => {
     await messageToolbox.verifyReceivingGroupChatMessage('@patientAndTeamGroup_TeamInbox', messageFeeder.groupChatMessage);
   });
 
-  test('logout as CCR', async () => {
+  test('logout as Member2', async () => {
     await logout();
   });
 });

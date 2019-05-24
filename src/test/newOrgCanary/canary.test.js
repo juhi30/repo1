@@ -12,6 +12,7 @@ import './memberProfile';
 import './contact';
 import './template';
 import './tags';
+import './patient';
 // import './outofoffice';
 import './messaging';
 import './orgPreferences';

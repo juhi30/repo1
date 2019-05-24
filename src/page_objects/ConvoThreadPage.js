@@ -1,10 +1,6 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 
 const convoThreadCommands = {
-
-  pause(time) {
-    this.api.pause(time);
-    return this;
-  },
 
   fillMessageInput(text) {
     return this.setValue('@messageInput', text);
@@ -152,6 +148,27 @@ const convoThreadCommands = {
   setValueOfMemberAssignSearchInput(name) {
     return this.waitForElementVisible('@assignmentMemberSearchInput', 'Member search input is visible')
       .setValue('@assignmentMemberSearchInput', name);
+  },
+
+  sendRhinosecureMessage(rhinoSecureMessage) {
+    return this.verify.visible('@rhinoSecureButton', 'Rhinosecure Button is visible')
+      .click('@rhinoSecureButton')
+      .verify.visible('@conversationTextarea')
+      .clearValue('@rhinoSecureMessageInput')
+      .setValue('@rhinoSecureMessageInput', rhinoSecureMessage)
+      .pause(1000)
+      .click('@sendMessageButton');
+  },
+
+  getPatientLink(globalVariable) {
+    return this.getAttribute('@rhinoSecureAutoResponseLink', 'href', (tpObj) => {
+      global[globalVariable] = tpObj.value;
+      logger.info(global.NEW_CANARY_PATIENT_SIGNUP_LINK);
+    });
+  },
+
+  verifyAutoResponse() {
+    return this.waitForElementVisible('@rhinoSecureAutoResponseLink', 'Auto Response Message is Received');
   },
 };
 
@@ -337,6 +354,31 @@ module.exports = {
 
     assignButton: {
       selector: '//BUTTON[contains(@id, \'assign__final__button\')]',
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureButton: {
+      selector: '//SPAN[@class="button__text-wrapper"][text()="RhinoSecure"]',
+      locateStrategy: 'xpath',
+    },
+
+    conversationTextarea: {
+      selector: '//DIV[@class="convo__message__container"]',
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureMessageInput: {
+      selector: '//TEXTAREA[contains(@id,"message")]',
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureAutoResponseLink: {
+      selector: '(//DIV[contains(@class,"msg--outbound")])[last()]//A',
+      locateStrategy: 'xpath',
+    },
+
+    sendMessageButton: {
+      selector: '//BUTTON[contains(@class, \'convo__message__send\')]',
       locateStrategy: 'xpath',
     },
   },

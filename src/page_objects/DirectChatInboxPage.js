@@ -254,5 +254,10 @@ module.exports = {
       selector: `//STRONG[contains(text(), '${groupFeeder.patientGroupChannel}')]`,
       locateStrategy: 'xpath',
     },
+
+    rhinoSecureTab: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'RhinoSecure\')]',
+      locateStrategy: 'xpath',
+    },
   },
 };

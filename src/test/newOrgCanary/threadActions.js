@@ -1,19 +1,12 @@
-import * as login from '../../toolboxes/login.toolbox';
 import * as messageToolbox from '../../toolboxes/messaging.toolbox';
 import * as actionToolbox from '../../toolboxes/threadActions.toolbox';
 
-const memberFeeder = require('../../feeder/member.feeder');
 const contactFeeder = require('../../feeder/contact.feeder');
 const messageFeeder = require('../../feeder/message.feeder');
 const groupFeeder = require('../../feeder/group.feeder');
 
 describe('Thread Actions Automated Tests', () => {
   const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
-
-  test('Login as member', async () => {
-    await login.memberLogin(memberFeeder.newMemberUsername, memberFeeder.newMemberPassword);
-  });
-
   test('Send a Direct group Message to a Contact', async () => {
     await messageToolbox.sendGroupMessageToContactUsingRhinosecure('@patientGroup', '@searchContactModalTitle', contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage, groupFeeder.patientGroupChannel);
   });

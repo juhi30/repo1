@@ -69,8 +69,4 @@ describe('Direct Messaging Tests', () => {
     await messageToolbox.sendADirectMessageUsingOtherTemplate('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
   });
-
-  test('logout as Member1', async () => {
-    await logout();
-  });
 });

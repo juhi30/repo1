@@ -16,13 +16,9 @@ export async function verifyAssigningWithNoteAndFollowAction(groupName, contactN
 
   await chat.selectMemberAndGroup(searchInputField, assigneeName);
   chat.clickButton('@addNoteButton')
-    // .pause(1000)
     .addNote(messageFeeder.noteMessage)
-    // .pause(1000)
     .clickButton('@followModalButton')
-    // .pause(1000)
     .clickButton('@assignModalButton')
-    // .pause(1000)
     .verifySuccessMessage(successMessage);
 }
 

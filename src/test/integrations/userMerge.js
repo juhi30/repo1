@@ -15,10 +15,8 @@ let orgId;
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
 const USER_TYPE_OTHER = 36;
-const TRUSTEE_ID = 2;
 const HIPAA_STATUS_TYPE_GRANTED = 49;
 const FB_TYPE_PRIMARY = 24;
-const FB_CHANNEL_ID = 7;
 const TYPE_EMAIL_HOME = 4;
 const HIPAA_STATUS_TYPE_PENDING = 48;
 
@@ -161,13 +159,12 @@ describe('merge users tests', () => {
         typeId: TYPE_EMAIL_HOME,
       }],
       hipaaStatus: {
-        trusteeId: TRUSTEE_ID,
+        trusteeId: integratedUser.id,
         typeId: HIPAA_STATUS_TYPE_GRANTED,
       },
       facebooks: [{
         value: '9898',
         typeId: FB_TYPE_PRIMARY,
-        channelId: FB_CHANNEL_ID,
       }],
       connectedTo: [{
         toUserId: integratedUser.id,
@@ -216,7 +213,6 @@ describe('merge users tests', () => {
       facebooks: [{
         value: '8888',
         typeId: FB_TYPE_PRIMARY,
-        channelId: FB_CHANNEL_ID,
       }],
       connectedTo: [{
         toUserId: nonIntegratedUser.id,
@@ -269,7 +265,6 @@ describe('merge users tests', () => {
       facebooks: [{
         value: '1111',
         typeId: FB_TYPE_PRIMARY,
-        channelId: FB_CHANNEL_ID,
       }],
       connectedTo: [{
         toUserId: nonIntegratedUser2.id,

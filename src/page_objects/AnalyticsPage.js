@@ -4,6 +4,8 @@ import logger from 'rhinotilities/lib/loggers/logger';
 const helpers = require('../toolboxes/helpers.toolbox');
 const feeder = require('../feeder/analytics.feeder');
 const memberFeeder = require('../feeder/member.feeder');
+const groupFeeder = require('../feeder/group.feeder');
+const contactFeeder = require('../feeder/contact.feeder');
 
 const {
   dateRangePickerOptions, analyticsChartsNames, analyticsOpenConversationUI, analyticsClosedConversationUI,
@@ -431,12 +433,12 @@ module.exports = {
     },
 
     firstRowConversationAssignmentValue: {
-      selector: `(//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])//DIV[contains(text(),'${analyticsOpenConversationUI.assignmentFilterValue}')]`,
+      selector: `(//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])//DIV[contains(text(),'${groupFeeder.patientAndTeamType}')]`,
       locateStrategy: 'xpath',
     },
 
     firstRowConversationContactValue: {
-      selector: `(//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])[1]//DIV[4]//SPAN[contains(text(),'${analyticsOpenConversationUI.contactFilterValue}')]`,
+      selector: `(//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])[1]//DIV[4]//SPAN[contains(text(),'${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}')]`,
       locateStrategy: 'xpath',
     },
 

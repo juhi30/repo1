@@ -78,6 +78,13 @@ const contactsCommands = {
       .pause(2000);
   },
 
+  openContactChat(contactName) {
+    return this.waitForElementVisible(contactName, `${contactName} is visible in the list.`)
+      .click(contactName)
+      .waitForElementVisible('@goToConversationButton', 'Go to conversation button is visible')
+      .click('@goToConversationButton');
+  },
+
   getInboundMessage() {
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .pause(4000)
@@ -223,6 +230,17 @@ module.exports = {
     /*-----------------------------------------------------------*/
     // filter dropdown and its elements
     /*-----------------------------------------------------------*/
+
+
+    goToConversationButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Go to Conversation\']',
+      locateStrategy: 'xpath',
+    },
+
+    contactNameTitle: {
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}')]`,
+      locateStrategy: 'xpath',
+    },
 
     filterDropdown: {
       selector: '//BUTTON[contains(@title, \'Filter contacts\')]',

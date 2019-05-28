@@ -1,5 +1,3 @@
-import { client } from 'nightwatch-api';
-
 import { ccrLogin, logout } from '../../toolboxes/login.toolbox';
 import { selectOrganizationByCCR } from '../../toolboxes/organization.toolbox';
 import * as channelToolbox from '../../toolboxes/channel.toolbox';
@@ -11,9 +9,6 @@ const memberFeeder = require('../../feeder/member.feeder');
 const loginFeeder = require('../../feeder/login.feeder');
 
 describe('Automated Tests: Channels', () => {
-  const universal = client.page.UniversalElements();
-  const channel = client.page.ChannelsPage();
-
   test('login as ccr into the organization', async () => {
     await ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
 
@@ -21,11 +16,7 @@ describe('Automated Tests: Channels', () => {
   });
 
   test('Required Fields and validations', async () => {
-    await universal.clickChannels();
-
     await channelToolbox.validateChannelPageElements();
-
-    await channel.addChannel();
 
     await channelToolbox.validateChannelCreationRequiredFields('@newPhoneType');
 

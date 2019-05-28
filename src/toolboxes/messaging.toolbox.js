@@ -111,10 +111,11 @@ export async function closeConversation(groupName, directInbox) {
   await group.openGroup(directInbox);
 }
 
-export async function sendGroupMessageToContactUsingRhinosecure(contactName, message) {
+export async function sendGroupMessageToContactUsingRhinosecure(contactName, message, channelName) {
   await contact.navigate()
     .openContactChat(contactName);
   await chat.clickButton('@rhinoSecureTab')
+    .channelSelection('@preselectedSecureChannelName', '@rhinosecureChannelListDropdown', channelName, '@newSelectedSecureChannel')
     .fillInMessageInput(message)
     .pause(1000);
   await chat.clickSendMessageButton();

@@ -8,7 +8,7 @@ const groupFeeder = require('../../feeder/group.feeder');
 describe('Thread Actions Automated Tests', () => {
   const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
   test('Send a Direct group Message to a Contact', async () => {
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure('@contactNameTitle', messageFeeder.groupPatientMessage);
+    await messageToolbox.sendGroupMessageToContactUsingRhinosecure('@contactNameTitle', messageFeeder.groupPatientMessage, groupFeeder.patientGroupChannel);
   });
 
   test('Assign Message thread to another group', async () => {

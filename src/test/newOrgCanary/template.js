@@ -12,7 +12,7 @@ describe('Test Automation - Templates', () => {
     };
 
     await templateToolbox.createTemplate(template);
-    await templateToolbox.validateAuditEntry('Template', 'Add', template.title);
+    await templateToolbox.validateAuditEntry('Template', 'Add', template.title, '@categoryTemplate');
   });
 
   test('Edit Template', async () => {
@@ -22,7 +22,7 @@ describe('Test Automation - Templates', () => {
     };
 
     await templateToolbox.editTemplate('@templateTitle', newTemplate);
-    await templateToolbox.validateAuditEntry('Template', 'Edit', newTemplate.title);
+    await templateToolbox.validateAuditEntry('Template', 'Edit', newTemplate.title, '@categoryTemplate');
   });
 
   test('Mark the template as favorite', async () => {
@@ -31,7 +31,7 @@ describe('Test Automation - Templates', () => {
       favoriteOption: '@favoriteOption',
     };
     await templateToolbox.favoriteUnfavoriteTemplate('favorite', template);
-    await templateToolbox.validateAuditEntry('Template Action', 'Edit', templateFeeder.newTemplate);
+    await templateToolbox.validateAuditEntry('Template Action', 'Edit', templateFeeder.newTemplate, '@categoryTemplateAction');
   });
 
   test('Mark the template as Unfavorite', async () => {
@@ -40,7 +40,7 @@ describe('Test Automation - Templates', () => {
       favoriteOption: '@favoriteOption',
     };
     await templateToolbox.favoriteUnfavoriteTemplate('unfavorite', template);
-    await templateToolbox.validateAuditEntry('Template Action', 'Edit', templateFeeder.newTemplate);
+    await templateToolbox.validateAuditEntry('Template Action', 'Edit', templateFeeder.newTemplate, '@categoryTemplateAction');
   });
 
   test('Search Template', async () => {
@@ -64,10 +64,10 @@ describe('Test Automation - Templates', () => {
 
     await templateToolbox.editHippaTemplate('@HIPAATemplate', templateFeeder.newTempleteMessage);
     await entry.navigate()
-      .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Template');
+      .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Template', '@categoryTemplate');
 
     await templateToolbox.editHippaTemplate('@HIPAATemplate', templateFeeder.hipaaMessage);
-    await templateToolbox.validateAuditEntry('Template', 'Edit', templateFeeder.hipaaTitle);
+    await templateToolbox.validateAuditEntry('Template', 'Edit', templateFeeder.hipaaTitle, '@categoryTemplate');
   });
 
   test('Mark the HIPAA template as favorite', async () => {
@@ -77,7 +77,7 @@ describe('Test Automation - Templates', () => {
     };
 
     await templateToolbox.favoriteUnfavoriteTemplate('favorite', template);
-    await templateToolbox.validateAuditEntry('Template Action', 'Edit', templateFeeder.hipaaTitle);
+    await templateToolbox.validateAuditEntry('Template Action', 'Edit', templateFeeder.hipaaTitle, '@categoryTemplateAction');
   });
 
   test('Mark the HIPAA template as Unfavorite', async () => {
@@ -87,7 +87,7 @@ describe('Test Automation - Templates', () => {
     };
 
     await templateToolbox.favoriteUnfavoriteTemplate('unfavorite', template);
-    await templateToolbox.validateAuditEntry('Template Action', 'Edit', templateFeeder.hipaaTitle);
+    await templateToolbox.validateAuditEntry('Template Action', 'Edit', templateFeeder.hipaaTitle, '@categoryTemplateAction');
   });
 
   test('Filtering of Templates', async () => {

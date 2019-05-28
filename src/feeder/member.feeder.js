@@ -43,6 +43,7 @@ module.exports = {
   memberUsername6: 'memberF',
 
   // details for member profile
+
   newMemberUsername: 'NewUserName_dev',
   newMemberPassword: 'Test@123',
 
@@ -50,6 +51,7 @@ module.exports = {
   createAlert: 'Adding this member will increase your monthly bill by ',
   deleteAlert: 'Your monthly bill will decrease by ',
   reactivateAlert: 'Your monthly bill will increase by ',
+
   // Member 2 details
   memberName2: 'Testing_NewCanary_2 LastName',
   memberFirstName2: 'Testing_NewCanary_2',

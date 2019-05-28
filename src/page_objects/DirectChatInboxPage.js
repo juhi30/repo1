@@ -1,5 +1,7 @@
 const memberFeeder = require('../feeder/member.feeder');
 const helper = require('../toolboxes/helpers.toolbox');
+const channelFeeder = require('../feeder/channel.feeder');
+const groupFeeder = require('../feeder/group.feeder');
 
 const commands = {
 
@@ -42,6 +44,51 @@ const commands = {
     return this.waitForElementVisible('@sendMessageButton', 'Send message button is enabled')
       .click('@sendMessageButton');
   },
+
+  openMessageThread(messageThread) {
+    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(., '${messageThread}')]`, `Span with text "${messageThread}" is visible`)
+      .click(`//SPAN[contains(., '${messageThread}')]`);
+  },
+
+  selectMemberAndGroup(inputSearch, searchText) {
+    return this.waitForElementVisible('@addNoteButton', 'Assign Model is opened')
+      .setValue(inputSearch, searchText)
+      .pause(2000)
+      .api.useXpath().waitForElementVisible(`//SPAN[@class='resource__intro__title__content'][contains(., '${searchText}')]`, `Span with text "${searchText}" is visible`)
+      .click(`//SPAN[@class='resource__intro__title__content'][contains(., '${searchText}')]`);
+  },
+
+  channelSelection(chatChannelName, channelDropdown, value, newChatChannelName) {
+    return this.waitForElementVisible(chatChannelName, `${chatChannelName} is visible`)
+      .click(chatChannelName)
+      .waitForElementVisible(channelDropdown, `${channelDropdown} is visible`)
+      .setValue(channelDropdown, value)
+      .pause(1000)
+      .waitForElementVisible(newChatChannelName, `${newChatChannelName} is visible`);
+  },
+
+  verifySuccessMessage(successMessage) {
+    return this.pause(2000)
+      .waitForElementVisible(successMessage, `${successMessage} is visible`)
+      .waitForElementNotPresent(successMessage, `${successMessage} is no longer present`);
+  },
+
+  clickButton(element) {
+    return this.waitForElementVisible(element, `${element} is visible`)
+      .click(element);
+  },
+
+  addNote(text) {
+    return this.waitForElementVisible('@noteTextArea', 'Add Note Textarea is visible')
+      .setValue('@noteTextArea', text);
+  },
+
+  verifyNoMessageFound(searchText) {
+    return this.waitForElementVisible('@searchConversationIcon', 'Message Search Option is visible.')
+      .waitForElementVisible('@messageSearchTextBox', 'Message Search Text Box is visible.')
+      .setValue('@messageSearchTextBox', searchText)
+      .waitForElementVisible('@noMessageFound', 'No Match Found Message is visible');
+  },
 };
 
 module.exports = {
@@ -51,8 +98,64 @@ module.exports = {
   },
 
   elements: {
+
+    addNoteButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Add Note\')]',
+      locateStrategy: 'xpath',
+    },
+
+    followModalButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Follow\')]',
+      locateStrategy: 'xpath',
+    },
+
+    noteTextArea: {
+      selector: '//TEXTAREA[contains(@id,\'note\')]',
+      locateStrategy: 'xpath',
+    },
+
+    assignmentCompleteButton: {
+      selector: '(//SPAN[@class=\'u-text-overflow\'][contains(text(),\'Assignment Complete\')])[1]',
+      locateStrategy: 'xpath',
+    },
+
+    assignToMeButton: {
+      selector: '(//SPAN[@class=\'u-text-overflow\'][contains(text(),\'Assign to Me\')])[1]',
+      locateStrategy: 'xpath',
+    },
+
     addIcon: {
       selector: '//BUTTON[@title= \'Add New Contact\']',
+      locateStrategy: 'xpath',
+    },
+
+    memberOption: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Members\')]',
+      locateStrategy: 'xpath',
+    },
+
+    memberSearchInput: {
+      selector: '//INPUT[contains(@id,\'preloadedMembers\')]',
+      locateStrategy: 'xpath',
+    },
+
+    groupOption: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Groups\')]',
+      locateStrategy: 'xpath',
+    },
+
+    groupSearchInput: {
+      selector: '//INPUT[contains(@id,\'search\')]',
+      locateStrategy: 'xpath',
+    },
+
+    assignModalButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(., \'Assign\')]',
+      locateStrategy: 'xpath',
+    },
+
+    noMessageFound: {
+      selector: '//DIV[contains(text(),\'No matching search results.\')]',
       locateStrategy: 'xpath',
     },
 
@@ -67,7 +170,7 @@ module.exports = {
     },
 
     searchInput: {
-      selector: '//Input[@placeholder = \'First, last, or preferred name\']',
+      selector: '//INPUT[@placeholder = \'First, last, or preferred name\']',
       locateStrategy: 'xpath',
     },
 
@@ -124,6 +227,36 @@ module.exports = {
 
     attachmentInput: {
       selector: '//DIV[contains(@class,\'dropdown__menu--top\')]//Input[@type=\'file\']',
+      locateStrategy: 'xpath',
+    },
+
+    assignUpdateSuccessMessage: {
+      selector: '//DIV[text()=\'Assignment updated.\']',
+      locateStrategy: 'xpath',
+    },
+
+    assignmentCompleteSuccessMessage: {
+      selector: '//DIV[text()=\'Assignment completed.\']',
+      locateStrategy: 'xpath',
+    },
+
+    preselectedSecureChannelName: {
+      selector: `//STRONG[contains(text(), '${channelFeeder.rhinoChannelNewName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    rhinosecureChannelListDropdown: {
+      selector: '//SELECT[contains(@id, \'secure-channel\')]',
+      locateStrategy: 'xpath',
+    },
+
+    newSelectedSecureChannel: {
+      selector: `//STRONG[contains(text(), '${groupFeeder.patientGroupChannel}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureTab: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'RhinoSecure\')]',
       locateStrategy: 'xpath',
     },
   },

@@ -27,7 +27,7 @@ export async function createGroup(groupDetails, groupTypeOption, groupTypeListVi
 
   await auditLogs.navigate()
     .pause(2000)
-    .validateAuditEntry(groupDetails.memberName, 'Group', 'Add', groupDetails.name);
+    .validateAuditEntry(groupDetails.memberName, 'Group', 'Add', groupDetails.name, '@categoryGroup');
 }
 
 /**
@@ -79,7 +79,7 @@ export async function convertGroupTypeToAnotherGroupType(groupEditDetails, edite
 
   await auditLogs.navigate()
     .pause(2000)
-    .validateAuditEntry(groupEditDetails.memberName, 'Group', 'Add', groupEditDetails.newName);
+    .validateAuditEntry(groupEditDetails.memberName, 'Group', 'Add', groupEditDetails.newName, '@categoryGroup');
 }
 
 export async function routeGroupToChannel(groupListViewElement, channelNameElement, groupName, groupResultElement) {

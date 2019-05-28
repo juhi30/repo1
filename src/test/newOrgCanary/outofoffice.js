@@ -23,7 +23,7 @@ describe('OOO Event Page', () => {
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'AuditL Logs Page is opened')
       .pause(3000)
-      .validateAuditEntry(memberFeeder.memberName, 'Out of Office', 'Add', oooFeeder.oooTitle, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Out of Office', 'Add', oooFeeder.oooTitle, '@categoryOOO', '');
   });
 
   test('Edit an OOO event by Member', async () => {
@@ -43,7 +43,7 @@ describe('OOO Event Page', () => {
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'AuditL Logs Page is opened')
       .pause(3000)
-      .validateAuditEntry(memberFeeder.memberName, 'Out of Office', 'Edit', oooFeeder.newEventTitle, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Out of Office', 'Edit', oooFeeder.newEventTitle, '@categoryOOO', '');
   });
 
   test('Delete created event by Member', async () => {
@@ -57,6 +57,6 @@ describe('OOO Event Page', () => {
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'AuditL Logs Page is opened')
       .pause(3000)
-      .validateAuditEntry(memberFeeder.memberName, 'Out of Office', 'Delete', oooFeeder.newEventTitle, '');
+      .validateAuditEntry(memberFeeder.memberName, 'Out of Office', 'Delete', oooFeeder.newEventTitle, '@categoryOOO', '');
   });
 });

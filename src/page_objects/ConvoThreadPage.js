@@ -1,10 +1,8 @@
+import logger from 'rhinotilities/lib/loggers/logger';
+
+const messageFeeder = require('../feeder/message.feeder');
 
 const convoThreadCommands = {
-
-  pause(time) {
-    this.api.pause(time);
-    return this;
-  },
 
   fillMessageInput(text) {
     return this.setValue('@messageInput', text);
@@ -48,6 +46,12 @@ const convoThreadCommands = {
   clickAssignButton() {
     return this.waitForElementVisible('@assignButton', 'Assign button is visible')
       .click('@assignButton');
+  },
+
+  applyChannelFilter(channelName) {
+    return this
+      .api.useXpath().waitForElementVisible(`//DIV[@class='resource__intro__title']//SPAN[contains(., '${channelName}')]`, ` "${channelName}" is visible and clicked.`)
+      .click(`//DIV[@class='resource__intro__title']//SPAN[contains(., '${channelName}')]`);
   },
 
   // Multistep functions //
@@ -125,13 +129,19 @@ const convoThreadCommands = {
       .waitForElementNotPresent('@firstTemplateFilterButton', 'Template Modal is no longer visible');
   },
 
-  validateTemplateWasSent() {
-    return this.verify.containsText('@lastMessageBubble', 'this should be in the template\'s message body', 'Template is shown in convo thread');
+  searchMessageAndNote(searchText, searchResult, message) {
+    return this.waitForElementVisible('@searchConversationIcon', 'Message Search Option is visible.')
+      .waitForElementVisible('@messageSearchTextBox', 'Message Search Text Box is visible.')
+      .setValue('@messageSearchTextBox', searchText)
+      .pause(1000)
+      .waitForElementVisible(searchResult, `Span with text "${searchText}" is visible as search result.`)
+      .click(searchResult)
+      .pause(1000)
+      .waitForElementVisible(message, `Div with text "${searchText}" is visible in the chat box.`);
   },
 
-  clickAssignIcon() {
-    return this.waitForElementVisible('@assignmentIcon', 'Assignment icon is visible')
-      .click('@assignmentIcon');
+  validateTemplateWasSent() {
+    return this.verify.containsText('@lastMessageBubble', 'this should be in the template\'s message body', 'Template is shown in convo thread');
   },
 
   clickMemberAssign() {
@@ -139,19 +149,44 @@ const convoThreadCommands = {
       .click('@membersOption');
   },
 
-  clickMoreOptionsIcon() {
-    return this.waitForElementVisible('@moreOptionsIcon', 'More options icon is visible')
-      .click('@moreOptionsIcon');
-  },
-
   clickAssignmentComplete() {
     return this.waitForElementVisible('@assignmentCompleteOption', 'Assignment Complete option is visible')
       .click('@assignmentCompleteOption');
   },
 
+  clickOnIcon(element) {
+    return this.waitForElementVisible(element, `${element} is visible.`)
+      .click(element);
+  },
+
   setValueOfMemberAssignSearchInput(name) {
     return this.waitForElementVisible('@assignmentMemberSearchInput', 'Member search input is visible')
       .setValue('@assignmentMemberSearchInput', name);
+  },
+
+  verifyUnreadMessage(contactName) {
+    return this.api.useXpath().waitForElementVisible(`//DIV[contains(@class, 'is-unread')]//*[contains(., '${contactName}')]`, `Div with Unread text "${contactName}" is visible`);
+  },
+
+  sendRhinosecureMessage(rhinoSecureMessage) {
+    return this.verify.visible('@rhinoSecureButton', 'Rhinosecure Button is visible')
+      .click('@rhinoSecureButton')
+      .verify.visible('@conversationTextarea')
+      .clearValue('@rhinoSecureMessageInput')
+      .setValue('@rhinoSecureMessageInput', rhinoSecureMessage)
+      .pause(1000)
+      .click('@sendMessageButton');
+  },
+
+  getPatientLink(globalVariable) {
+    return this.getAttribute('@rhinoSecureAutoResponseLink', 'href', (tpObj) => {
+      global[globalVariable] = tpObj.value;
+      logger.info(global.NEW_CANARY_PATIENT_SIGNUP_LINK);
+    });
+  },
+
+  verifyAutoResponse() {
+    return this.waitForElementVisible('@rhinoSecureAutoResponseLink', 'Auto Response Message is Received');
   },
 };
 
@@ -167,8 +202,28 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    messageSearchResult: {
+      selector: `//*[contains(text(),'${messageFeeder.groupPatientMessage}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    noteSearchResult: {
+      selector: `//*[contains(text(),'${messageFeeder.noteMessage}')]`,
+      locateStrategy: 'xpath',
+    },
+
     editProfileButton: {
       selector: '//SPAN[contains(.,\'Edit Profile\')]',
+      locateStrategy: 'xpath',
+    },
+
+    messsage: {
+      selector: `//DIV[@class='msg convo__item__body__msg msg--primary msg--outbound'][contains(text(),'${messageFeeder.groupPatientMessage}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    note: {
+      selector: `//DIV[@class='msg convo__item__body__msg msg--note msg--outbound'][contains(text(),'${messageFeeder.noteMessage}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -182,12 +237,17 @@ module.exports = {
     },
 
     searchConversationIcon: {
-      selector: '//BUTTON[contains(@title, \'Search Conversation\')]',
+      selector: '(//BUTTON[contains(@title, \'Search Conversation\')])[1]',
+      locateStrategy: 'xpath',
+    },
+
+    messageSearchTextBox: {
+      selector: '//INPUT[contains(@id,\'search\')]',
       locateStrategy: 'xpath',
     },
 
     assignmentIcon: {
-      selector: '//BUTTON[contains(@title, \'Assign Conversation\')]',
+      selector: '(//DIV[@class=\'convo__header convo__header--variation\']//button[@title=\'Assign Conversation\']/span/*[@class=\'icon\'])[1]',
       locateStrategy: 'xpath',
     },
 
@@ -196,13 +256,18 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    filterByModalTitle: {
+      selector: '//DIV[@class=\'app-page__header__title\'][contains(text(),\'Filter By\')]',
+      locateStrategy: 'xpath',
+    },
+
     assignmentCompleteOption: {
-      selector: '//SPAN[contains(.,\'Assignment Complete\')]',
+      selector: '(//SPAN[@class=\'u-text-overflow\'][contains(text(),\'Assignment Complete\')])[1]',
       locateStrategy: 'xpath',
     },
 
     markUnreadOption: {
-      selector: '//SPAN[contains(.,\'Mark as Unread\')]',
+      selector: '(//SPAN[@class=\'u-text-overflow\'][contains(text(),\'Mark as Unread\')])[1]',
       locateStrategy: 'xpath',
     },
 
@@ -337,6 +402,41 @@ module.exports = {
 
     assignButton: {
       selector: '//BUTTON[contains(@id, \'assign__final__button\')]',
+      locateStrategy: 'xpath',
+    },
+
+    closeConversationOption: {
+      selector: '(//span[@class=\'u-text-overflow\'][text()=\'Close Conversation\'])[1]',
+      locateStrategy: 'xpath',
+    },
+
+    closeConversationSuccessMessage: {
+      selector: '//DIV[contains(text(),\'Conversation closed.\')]',
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureButton: {
+      selector: '//SPAN[@class="button__text-wrapper"][text()="RhinoSecure"]',
+      locateStrategy: 'xpath',
+    },
+
+    conversationTextarea: {
+      selector: '//DIV[@class="convo__message__container"]',
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureMessageInput: {
+      selector: '//TEXTAREA[contains(@id,"message")]',
+      locateStrategy: 'xpath',
+    },
+
+    rhinoSecureAutoResponseLink: {
+      selector: '(//DIV[contains(@class,"msg--outbound")])[last()]//A',
+      locateStrategy: 'xpath',
+    },
+
+    sendMessageButton: {
+      selector: '//BUTTON[contains(@class, \'convo__message__send\')]',
       locateStrategy: 'xpath',
     },
   },

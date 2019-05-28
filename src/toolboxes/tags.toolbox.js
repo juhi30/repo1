@@ -8,7 +8,7 @@ const entry = client.page.AuditLogsPage();
 export async function checkAuditLogs(action, tagName) { // for audit logs
   await entry.navigate()
     .pause(2000)
-    .validateAuditEntry(memberFeeder.memberName, 'Tag', action, tagName);
+    .validateAuditEntry(memberFeeder.memberName, 'Tag', action, tagName, '@categoryTag');
 }
 
 export async function createTag(tagType, tagName, tags) {

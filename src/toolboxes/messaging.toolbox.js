@@ -109,3 +109,17 @@ export async function closeConversation(groupName, directInbox) {
   bulkAction.closeAllConversation();
   await group.openGroup(directInbox);
 }
+
+export async function sendGroupMessageToContactUsingRhinosecure(groupName, titleElement, ContactName, message, channelName) {
+  await group.openGroup(groupName);
+  await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
+  await chat.clickAddIcon()
+    .searchMemberAndOpenThread(titleElement, ContactName);
+  await chat.clickButton('@rhinoSecureTab')
+    .channelSelection('@preselectedSecureChannelName', '@rhinosecureChannelListDropdown', channelName, '@newSelectedSecureChannel')
+    .fillInMessageInput(message)
+    .pause(1000);
+  await chat.clickSendMessageButton()
+    .pause(1000)
+    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
+}

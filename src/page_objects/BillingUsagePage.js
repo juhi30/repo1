@@ -239,7 +239,7 @@ const billingCommands = {
       .addDetailsForPayment('@bankAccountTypeSelect', billingPaymentDetails.accountType)
       .click('@savePaymentMethodButton')
       .waitForElementVisible('@updatePaymentSuccessMessage', 1000, 'Update Modal is hidden, Success message available')
-      .waitForElementNotPresent('@updatePaymentSuccessMessage', 'Add Payment success message is no longer visible.')
+      .waitForElementNotPresent('@paymentFirstNameInput', 'Update Modal is hidden, Success message available')
       .waitForElementVisible('@bankName', 'Bank Name exists, Edit successful');
   },
 

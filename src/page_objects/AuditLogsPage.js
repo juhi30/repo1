@@ -64,16 +64,22 @@ const auditLogsCommands = {
       .click('@auditLogsOption');
   },
 
-  validateAuditEntryWithNoDataFound(action, name, member, category) {
-    return this.waitForElementVisible('@auditEntry', 'Event entry is visible')
+  validateAuditEntryWithNoDataFound(action, name, member, category, categoryFilterObject) {
+    return this.pause(3000)
+      .waitForElementVisible('@selectCategory', 'Category filter is visible')
+      .click('@selectCategory')
+      .pause(1000)
+      .waitForElementVisible(categoryFilterObject, `${category} category is visible`)
+      .click(categoryFilterObject)
+      .pause(4000)
+      .waitForElementVisible('@auditEntry', 'Event entry is visible')
       .waitForElementVisible('@linkText', 'Details Link text is visible')
       .click('@linkText')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
       .verify.containsText('@member', member, `Member name is ${member}`)
       .verify.containsText('@category', category, `Category should be ${category}`)
       .verify.containsText('@action', action, `Action should be ${action}`)
-      .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-      .verify.containsText('@noDataFound', name, `${name} is visible`);
+      .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details');
   },
 
   selectContactFilter(contactName, selectContactElement) {
@@ -100,8 +106,15 @@ const auditLogsCommands = {
       .click(selectCategoryElement);
   },
 
-  validateAuditEntry(member, category, action, name, contact = '') {
-    return this.waitForElementVisible('@auditEntry', `${category} entry is visible`)
+  validateAuditEntry(member, category, action, name, categoryFilterObject, contact = '') {
+    return this.pause(3000)
+      .waitForElementVisible('@selectCategory', 'Category filter is visible')
+      .click('@selectCategory')
+      .waitForElementVisible(categoryFilterObject, `${category} category is visible`)
+      .click(categoryFilterObject)
+      .pause(4000)
+      .waitForElementVisible('@auditEntry', `${category} entry is visible`)
+      .waitForElementVisible('@linkText', 'Details link is visible')
       .verify.containsText('@linkText', 'Details', 'Link text should be Details')
       .click('@linkText')
       .verify.visible('@dateAndTime', 'Date and Time is visible')
@@ -169,6 +182,96 @@ module.exports = {
 
     dateColumn: {
       selector: '//DIV[@class=\'rt-resizable-header-content\'][text()=\'Date\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryTemplate: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Template\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryApptManager: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Appt Manager\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryApptReminders: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Appt Reminders\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryBilling: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Billing\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryChannel: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Channel\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryContact: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Contact\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryConversation: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Conversation\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryConversationAction: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Conversation Actions\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryGroup: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Group\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryMember: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Member\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryOfficeLocation: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Office Location\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryOrganization: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Organization\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryOrgPreferences: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Org Preferences\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryOrgProfile: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Org Profile\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryOOO: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Out Of Office\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryRoles: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Roles\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryTag: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Tag\']',
+      locateStrategy: 'xpath',
+    },
+
+    categoryTemplateAction: {
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Template Action\']',
       locateStrategy: 'xpath',
     },
 
@@ -322,6 +425,11 @@ module.exports = {
 
     selectMemberCategory: {
       selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Member\']',
+      locateStrategy: 'xpath',
+    },
+
+    selectCategory: {
+      selector: '//SPAN[text()= \'Category\']//parent::Span//parent::BUTTON',
       locateStrategy: 'xpath',
     },
 

@@ -61,16 +61,16 @@ describe('Automated Tests: Member Profile', () => {
       .displayChannels('@rhinoSecureTypeChannel');
   });
 
-  // test('Group addition on the profile page', async () => {
-  //   const auditLogs = client.page.AuditLogsPage();
-  //   await addGroupToMember('@selectGroup');
+  test('Group addition on the profile page', async () => {
+    const auditLogs = client.page.AuditLogsPage();
+    await addGroupToMember('@selectGroup');
 
-  //   await auditLogs.navigate()
-  //     .pause(2000)
-  //     .verify.urlContains('auditLog', 'Audit Logs Page is opened')
-  //     .pause(1000)
-  //     .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '@categoryMember');
-  // });
+    await auditLogs.navigate()
+      .pause(2000)
+      .verify.urlContains('auditLog', 'Audit Logs Page is opened')
+      .pause(1000)
+      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '@categoryMember');
+  });
 
   test('Member availability hours on the profile page', async () => {
     const auditLogs = client.page.AuditLogsPage();

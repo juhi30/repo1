@@ -283,10 +283,10 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    // selectGroup: {
-    //   selector: `//SPAN[@class='resource__intro__title__content'][text()='${groupFeeder.patientTypeGroup}']`,
-    //   locateStrategy: 'xpath',
-    // },
+    selectGroup: {
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${groupFeeder.patientTypeGroup}']`,
+      locateStrategy: 'xpath',
+    },
 
     availabilityHoursButton: {
       selector: '//LABEL[@class=\'rhinoswitcher__label\'][contains(@for,\'afterHoursEnabled\')]',

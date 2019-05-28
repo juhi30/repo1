@@ -127,7 +127,7 @@ describe('merge users tests', () => {
     const user2 = {
       firstName: 'Jonathan',
       lastName: 'Snow',
-      loginEmail: 'jonsnow@ringmail.com',
+      loginEmail: `${process.env.INTEGRATIONS_ORG_ID}_jonsnow@ringmail.com`,
       middleName: 'Winterfell',
       preferredName: 'Jon',
       prefixId: 1,
@@ -178,7 +178,7 @@ describe('merge users tests', () => {
     const user4 = {
       firstName: 'Jimbo',
       lastName: 'Peters',
-      loginEmail: 'jimbo@mail.com',
+      loginEmail: `${process.env.INTEGRATIONS_ORG_ID}_jimbo@mail.com`,
       preferredName: 'Jim',
       isMinor: false,
       roles: [
@@ -278,7 +278,7 @@ describe('merge users tests', () => {
     const user6 = {
       firstName: 'Sean',
       lastName: 'Bean',
-      loginEmail: 'snailmail@mail.com',
+      loginEmail: `${process.env.INTEGRATIONS_ORG_ID}_snailmail@mail.com`,
       isMinor: false,
       roles: [
         {
@@ -304,7 +304,7 @@ describe('merge users tests', () => {
     const user7 = {
       firstName: 'Meek',
       lastName: 'Mill',
-      loginEmail: 'meek@mill.com',
+      loginEmail: `${process.env.INTEGRATIONS_ORG_ID}_meek@mill.com`,
       isMinor: false,
       roles: [
         {

@@ -79,8 +79,7 @@ const auditLogsCommands = {
       .verify.containsText('@member', member, `Member name is ${member}`)
       .verify.containsText('@category', category, `Category should be ${category}`)
       .verify.containsText('@action', action, `Action should be ${action}`)
-      .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details')
-      .verify.containsText('@noDataFound', name, `${name} is visible`);
+      .verify.containsText('@linkText', 'Hide Details', 'Link text should be Hide Details');
   },
 
   selectContactFilter(contactName, selectContactElement) {

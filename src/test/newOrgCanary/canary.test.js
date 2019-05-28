@@ -20,4 +20,4 @@ import './orgPreferences';
 import './analytics';
 
 // //Member + CCR flow. This should be the last test case
-// import './orgProfile';
+import './orgProfile';

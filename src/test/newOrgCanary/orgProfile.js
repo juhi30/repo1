@@ -1,4 +1,6 @@
 import { client } from 'nightwatch-api';
+import { ccrLogin, logout } from '../../toolboxes/login.toolbox';
+import { selectOrganizationByCCR } from '../../toolboxes/organization.toolbox';
 
 const loginFeeder = require('../../feeder/login.feeder');
 const orgProfileFeeder = require('../../feeder/orgProfile.feeder');
@@ -38,6 +40,7 @@ describe('Organisation profile edit as member', () => {
     const entry = client.page.AuditLogsPage();
 
     await orgProfile.navigate()
+      .pause(1000)
       .addUpdateLogo('@addLogoButton');
     orgProfile.pause(1000);
 
@@ -59,31 +62,14 @@ describe('Organisation profile edit as member', () => {
   });
 
   test('logout as a Member', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await logout();
   });
 });
 
 describe('Organization Profile Edit as CCR', () => {
   test('login as CCR into the organization', async () => {
-    const login = client.page.LoginPage();
-    const org = client.page.UniversalElements();
-    const setup = client.page.AccountSetupPage();
-
-    await login.navigate()
-      .enterCSRCreds(loginFeeder.ccrLogin, loginFeeder.ccrPassword)
-      .submit()
-      .pause(2000)
-      .validateUrlChange('/selectorg');
-
-    org.waitForElementVisible('@searchInputForOrg', 'Search Input is visible');
-
-    org.searchForOrganization(orgProfileFeeder.orgNewName, '@newOrgSearchResult')
-      .ccrOrgLogin('@newOrgSearchResult');
-
-    setup.pause(1000)
-      .getOrgId();
+    await ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
+    await selectOrganizationByCCR(orgProfileFeeder.orgNewName, '@newOrgSearchResult');
   });
 
   test('Edit Organization Profile as CCR', async () => {
@@ -115,8 +101,6 @@ describe('Organization Profile Edit as CCR', () => {
   });
 
   test('logout as CCR', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await logout();
   });
 });

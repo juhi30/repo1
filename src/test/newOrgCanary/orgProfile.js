@@ -30,7 +30,7 @@ describe('Organisation profile edit as member', () => {
 
     await entry.navigate()
       .pause(1000)
-      .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Profile');
+      .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Profile', '@categoryOrgProfile');
   });
 
   test('Add Photo', async () => {
@@ -43,7 +43,7 @@ describe('Organisation profile edit as member', () => {
 
     await entry.navigate()
       .pause(1000)
-      .validateAuditEntry(memberFeeder.memberName, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName);
+      .validateAuditEntry(memberFeeder.memberName, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName, '@categoryOrgProfile');
   });
 
   test('Update Photo', async () => {
@@ -55,7 +55,7 @@ describe('Organisation profile edit as member', () => {
 
     await entry.navigate()
       .pause(3000)
-      .validateAuditEntry(memberFeeder.memberName, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName);
+      .validateAuditEntry(memberFeeder.memberName, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName, '@categoryOrgProfile');
   });
 
   test('logout as a Member', async () => {
@@ -111,7 +111,7 @@ describe('Organization Profile Edit as CCR', () => {
 
     await entry.navigate()
       .pause(3000)
-      .validateAuditEntry(loginFeeder.ccrLogin, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName);
+      .validateAuditEntry(loginFeeder.ccrLogin, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName, '@categoryOrgProfile');
   });
 
   test('logout as CCR', async () => {

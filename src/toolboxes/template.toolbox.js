@@ -73,8 +73,8 @@ export async function searchTemplate(templateData) {
 }
 
 // validating audit entry for templates
-export async function validateAuditEntry(category, action, title) {
+export async function validateAuditEntry(category, action, title, categoryFilterObject) {
   await auditEntry.navigate()
     .pause(2000)
-    .validateAuditEntry(memberFeeder.memberName, category, action, title, '');
+    .validateAuditEntry(memberFeeder.memberName, category, action, title, categoryFilterObject, '');
 }

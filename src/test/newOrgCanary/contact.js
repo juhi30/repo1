@@ -29,7 +29,7 @@ describe('Automated Tests: Contact', () => {
       .pause(1000)
       .selectActionFilter('@selectAddAction')
       .pause(1000)
-      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'View', contactName, contactName);
+      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'View', contactName, '@categoryContact', contactName);
   });
 
   test('Contact Create - Another New Patient type, used later for Messaging tests', async () => {
@@ -69,7 +69,7 @@ describe('Automated Tests: Contact', () => {
       .pause(1000)
       .selectActionFilter('@selectAddAction')
       .pause(1000)
-      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'View', contactName, contactName);
+      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'View', contactName, '@categoryContact', contactName);
   });
 
   test('Contact Edit - Patient type to Other', async () => {
@@ -91,7 +91,7 @@ describe('Automated Tests: Contact', () => {
       .pause(1000)
       .selectActionFilter('@selectEditAction')
       .pause(1000)
-      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Edit', contactName, contactName);
+      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Edit', contactName, '@categoryContact', contactName);
   });
 
   test('Contact Edit - Upload Photo', async () => {
@@ -105,7 +105,7 @@ describe('Automated Tests: Contact', () => {
       .pause(1000)
       .selectActionFilter('@selectEditAction')
       .pause(1000)
-      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Edit', contactName, contactName);
+      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Edit', contactName, '@categoryContact', contactName);
   });
 
   test('Contact Edit - Add connected party as Parent/Stepparent by creating new contact', async () => {
@@ -126,7 +126,7 @@ describe('Automated Tests: Contact', () => {
       .pause(1000)
       .selectActionFilter('@selectAddAction')
       .pause(1000)
-      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Edit', connectedPartyContact, connectedPartyContact);
+      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Edit', connectedPartyContact, '@categoryContact', connectedPartyContact);
   });
 
   test('Contact Edit - Update added connected Party relation from Parent/Stepparent to Guardian', async () => {
@@ -140,7 +140,7 @@ describe('Automated Tests: Contact', () => {
       .pause(1000)
       .selectActionFilter('@selectEditAction')
       .pause(1000)
-      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Edit', contactName, contactName);
+      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Edit', contactName, '@categoryContact', contactName);
   });
 
   test('Contact Edit - Removed added connected party', async () => {
@@ -154,7 +154,7 @@ describe('Automated Tests: Contact', () => {
       .pause(1000)
       .selectActionFilter('@selectEditAction')
       .pause(1000)
-      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Edit', contactName, contactName);
+      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Edit', contactName, '@categoryContact', contactName);
   });
 
   test('Contact Filter - Filter for a contact', async () => {
@@ -176,19 +176,21 @@ describe('Automated Tests: Contact', () => {
     await contactToolbox.searchContact(searchText, '@searchedContactFirstResult');
   });
 
-  test('Delete Contact - Converted Contact(patient to Other)', async () => {
-    const contactName = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
-    await contactToolbox.deleteContact('@contactTitle');
+  // test('Delete Contact - Converted Contact(patient to Other)', async () => {
+  //   const contactName = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
 
-    await auditLogs.navigate()
-      .verify.urlContains('auditLog', 'Audit Logs Page is opened')
-      .pause(2000)
-      .selectContactFilter(contactName, '@searchContactNew')
-      .pause(1000)
-      .selectActionFilter('@selectDeleteAction')
-      .pause(1000)
-      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Delete', contactName, contactName);
-  });
+  //   await contact.navigate()
+  //     .deleteContact('@contactTitle');
+
+  //   await auditLogs.navigate()
+  //     .verify.urlContains('auditLog', 'Audit Logs Page is opened')
+  //     .pause(2000)
+  //     .selectContactFilter(contactName, '@searchContactNew')
+  //     .pause(1000)
+  //     .selectActionFilter('@selectDeleteAction')
+  //     .pause(1000)
+  //     .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Delete', contactName, '@categoryContact', contactName);
+  // });
 
   test('Delete Contact - Other Contact type', async () => {
     const contactName = `${contactFeeder.contactOtherFirstName} ${contactFeeder.contactOtherLastName}`;
@@ -202,7 +204,7 @@ describe('Automated Tests: Contact', () => {
       .pause(1000)
       .selectActionFilter('@selectDeleteAction')
       .pause(1000)
-      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Delete', contactName, contactName);
+      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Delete', contactName, '@categoryContact', contactName);
   });
 
   test('Delete Contact - Connected Party Contact', async () => {
@@ -217,6 +219,6 @@ describe('Automated Tests: Contact', () => {
       .pause(1000)
       .selectActionFilter('@selectDeleteAction')
       .pause(1000)
-      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Delete', contactName, contactName);
+      .validateAuditEntry(contactFeeder.memberName, 'Contact', 'Delete', contactName, '@categoryContact', contactName);
   });
 });

@@ -1,4 +1,5 @@
 import moment from 'moment-timezone';
+import uuid from 'uuid/v4';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 
@@ -116,7 +117,7 @@ describe('merge users tests', () => {
       }],
       typeId: USER_TYPE_PATIENT,
       externalIds: {
-        emrId: '123456',
+        emrId: uuid(),
       },
       isMinor: false,
       integrated: true,
@@ -235,7 +236,7 @@ describe('merge users tests', () => {
       prefixId: 1,
       isMinor: false,
       externalIds: {
-        emrId: '65656565',
+        emrId: uuid(),
       },
       roles: [
         {
@@ -294,7 +295,7 @@ describe('merge users tests', () => {
         },
       ],
       externalIds: {
-        emrId: 'lalala',
+        emrId: uuid(),
       },
       birthday: '1990-08-16',
       typeId: USER_TYPE_PATIENT,
@@ -320,7 +321,7 @@ describe('merge users tests', () => {
         },
       ],
       externalIds: {
-        emrId: 'meekmill',
+        emrId: uuid(),
       },
       birthday: '1990-08-16',
       typeId: USER_TYPE_PATIENT,
@@ -344,7 +345,7 @@ describe('merge users tests', () => {
     const appt = {
       startDate: startDateString,
       endDate: endDateString,
-      externalId: '123456',
+      externalId: integratedUser.externalIds.emrId,
       messageType: 'APPOINTMENT',
       appointmentExternalId: 'appt123',
       deleted: false,

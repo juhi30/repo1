@@ -9,6 +9,12 @@ module.exports = {
   memberEmail: process.env.NEW_CANARY_GMAIL_USERNAME,
   invalidEmail: 'test@test.com',
 
+  // members for performing thread actions
+  memberNameA: 'Thread Member1',
+  memberFirstNameA: 'Thread',
+  memberLastNameA: 'Member1',
+  memberUsernameA: 'thread1',
+
   // Following Members are created to verify member addon for standard plan
   // New Member Details for member1
   memberName1: 'test member1',
@@ -50,6 +56,7 @@ module.exports = {
   createAlert: 'Adding this member will increase your monthly bill by ',
   deleteAlert: 'Your monthly bill will decrease by ',
   reactivateAlert: 'Your monthly bill will increase by ',
+
   // Member 2 details
   memberName2: 'Testing_NewCanary_2 LastName',
   memberFirstName2: 'Testing_NewCanary_2',

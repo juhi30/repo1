@@ -279,5 +279,10 @@ module.exports = {
       selector: '//*[@id=\'nav-inbox-direct\'][@title=\'Direct\']',
       locateStrategy: 'xpath',
     },
+
+    assignedToMe: {
+      selector: '//span[contains(@class,\'app-navigation\')][contains(text(),\'Assigned to Me\')]',
+      locateStrategy: 'xpath',
+    },
   },
 };

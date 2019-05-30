@@ -12,18 +12,18 @@ describe('Organisation profile edit as member', () => {
   });
 
   // When the org is being updated for the first time
-  test('Add Photo', async () => {
-    const orgProfile = client.page.OrgProfilePage();
-    const entry = client.page.AuditLogsPage();
-    const universal = client.page.UniversalElements();
+  // test('Add Photo', async () => {
+  //   const orgProfile = client.page.OrgProfilePage();
+  //   const entry = client.page.AuditLogsPage();
+  //   const universal = client.page.UniversalElements();
 
-    await universal.clickOrgProfile();
-    await orgProfile.addUpdateLogo('@addLogoButton', 'contact.png');
+  //   await universal.clickOrgProfile();
+  //   await orgProfile.addUpdateLogo('@addLogoButton', 'contact.png');
 
-    await entry.navigate()
-      .pause(1000)
-      .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Profile', '@categoryOrgProfile');
-  });
+  //   await entry.navigate()
+  //     .pause(1000)
+  //     .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Profile', '@categoryOrgProfile');
+  // });
 
   test('Edit Organization Profile as member', async () => {
     const orgProfile = client.page.OrgProfilePage();
@@ -53,18 +53,18 @@ describe('Organisation profile edit as member', () => {
       .validateAuditEntry(memberFeeder.memberName, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName, '@categoryOrgProfile');
   });
 
-  test('Update Photo', async () => {
-    const orgProfile = client.page.OrgProfilePage();
-    const entry = client.page.AuditLogsPage();
-    const universal = client.page.UniversalElements();
+  // test('Update Photo', async () => {
+  //   const orgProfile = client.page.OrgProfilePage();
+  //   const entry = client.page.AuditLogsPage();
+  //   const universal = client.page.UniversalElements();
 
-    await universal.clickOrgProfile();
-    await orgProfile.addUpdateLogo('@updateLogoButton', 'rhinogram.png');
+  //   await universal.clickOrgProfile();
+  //   await orgProfile.addUpdateLogo('@updateLogoButton', 'rhinogram.png');
 
-    await entry.navigate()
-      .pause(3000)
-      .validateAuditEntry(memberFeeder.memberName, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName, '@categoryOrgProfile');
-  });
+  //   await entry.navigate()
+  //     .pause(3000)
+  //     .validateAuditEntry(memberFeeder.memberName, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName, '@categoryOrgProfile');
+  // });
 
   test('logout as a Member', async () => {
     await logout();

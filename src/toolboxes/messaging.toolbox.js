@@ -7,6 +7,7 @@ const helpers = require('../toolboxes/helpers.toolbox');
 const msg = client.page.DirectInboxPage();
 const bulkAction = client.page.BulkActionsPage();
 const template = client.page.TemplatesPage();
+const contact = client.page.ContactsPage();
 
 /**
  * Used to send messages to a Patent or Member
@@ -110,16 +111,12 @@ export async function closeConversation(groupName, directInbox) {
   await group.openGroup(directInbox);
 }
 
-export async function sendGroupMessageToContactUsingRhinosecure(groupName, titleElement, ContactName, message, channelName) {
-  await group.openGroup(groupName);
-  await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
+export async function sendGroupMessageToContactUsingRhinosecure(contactName, message, channelName) {
+  await contact.navigate()
+    .openContactChat(contactName);
   await chat.clickButton('@rhinoSecureTab')
     .channelSelection('@preselectedSecureChannelName', '@rhinosecureChannelListDropdown', channelName, '@newSelectedSecureChannel')
     .fillInMessageInput(message)
     .pause(1000);
-  await chat.clickSendMessageButton()
-    .pause(1000)
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
+  await chat.clickSendMessageButton();
 }

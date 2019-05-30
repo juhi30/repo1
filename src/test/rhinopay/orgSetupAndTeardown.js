@@ -46,7 +46,7 @@ beforeAll(async () => {
       autoResponse: '',
       businessHours: [],
       businessTitle: '',
-      firstName: 'Test',
+      firstName: 'Pay Test',
       groupIds: [],
       id: -1,
       lastName: 'Member',
@@ -92,7 +92,7 @@ beforeAll(async () => {
       suffixId: '',
       tagIds: [],
       typeId: 19,
-      username: 'testmember',
+      username: `${orgId}_paytestmember`,
       password: '4419kJig',
     };
     await postUser(memberData, cookie);

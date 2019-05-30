@@ -24,6 +24,7 @@ const patientCommands = {
 
   verifySentMessage() {
     return this.click('@viewMessageButton')
+      .pause(1000)
       .waitForElementVisible('@receivedMessage', 'Received Message is displayed')
       .elementText('@receivedMessage');
   },
@@ -63,7 +64,7 @@ module.exports = {
     },
 
     receivedMessage: {
-      selector: '//DIV[contains(@class,"msg--inbound")][last()]',
+      selector: '//DIV[contains(@class,"msg--inbound")]',
       locateStrategy: 'xpath',
     },
   },

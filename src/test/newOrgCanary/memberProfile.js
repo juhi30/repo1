@@ -4,7 +4,6 @@ import {
   changePasswordByProfile,
   addRemovePermissionsToMember,
   addTagWithMember,
-  addGroupToMember,
   enableAvailabilityHoursToMember,
   addMemberProfilePhoto,
 } from '../../toolboxes/member.toolbox';

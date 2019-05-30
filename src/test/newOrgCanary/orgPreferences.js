@@ -16,7 +16,7 @@ describe('Preferences Page', () => {
       .pause(1000);
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Preferences');
+      .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Preferences', '@categoryOrgPreferences');
   });
 
   test('To check global sounds for the preferences', async () => {
@@ -31,7 +31,7 @@ describe('Preferences Page', () => {
       .pause(1000);
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName);
+      .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName, '@categoryOrgPreferences');
   });
 
   test('To check organization system time out for the preferences', async () => {
@@ -47,7 +47,7 @@ describe('Preferences Page', () => {
 
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName);
+      .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName, '@categoryOrgPreferences');
   });
 
   test('To check closing conversation options for the preferences', async () => {
@@ -62,6 +62,6 @@ describe('Preferences Page', () => {
 
     await checkAuditLogs.navigate()
       .pause(1000)
-      .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName);
+      .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName, '@categoryOrgPreferences');
   });
 });

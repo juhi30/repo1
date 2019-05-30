@@ -4,7 +4,6 @@ import {
   changePasswordByProfile,
   addRemovePermissionsToMember,
   addTagWithMember,
-  addGroupToMember,
   enableAvailabilityHoursToMember,
   addMemberProfilePhoto,
 } from '../../toolboxes/member.toolbox';
@@ -41,7 +40,7 @@ describe('Automated Tests: Member Profile', () => {
 
     await auditLogs.navigate()
       .pause(2000)
-      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName);
+      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '@categoryMember');
   });
 
   test('Tags addition or removal on the profile page', async () => {
@@ -50,29 +49,26 @@ describe('Automated Tests: Member Profile', () => {
 
     await auditLogs.navigate()
       .pause(2000)
-      .validateAuditEntry(memberFeeder.memberName, 'Tag', 'Add', tagsFeeder.tagForMemberPage);
+      .validateAuditEntry(memberFeeder.memberName, 'Tag', 'Add', tagsFeeder.tagForMemberPage, '@categoryTag');
   });
 
   test('Display of channels on the profile page', async () => {
     const profilePage = client.page.MemberProfilePage();
 
     await profilePage.navigate()
-      .displayChannels('@newPhoneTypeChannel')
       .displayChannels('@rhinoSecureTypeChannel');
   });
 
-  test('Group addition on the profile page', async () => {
-    const auditLogs = client.page.AuditLogsPage();
-    await addGroupToMember('@selectGroup');
+  // test('Group addition on the profile page', async () => {
+  //   const auditLogs = client.page.AuditLogsPage();
+  //   await addGroupToMember('@selectGroup');
 
-    await auditLogs.navigate()
-      .pause(2000)
-      .verify.urlContains('auditLog', 'Audit Logs Page is opened')
-      .pause(1000)
-      .selectCategoryFilter('@selectMemberCategory')
-      .pause(1000)
-      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName);
-  });
+  //   await auditLogs.navigate()
+  //     .pause(2000)
+  //     .verify.urlContains('auditLog', 'Audit Logs Page is opened')
+  //     .pause(1000)
+  //     .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '@categoryMember');
+  // });
 
   test('Member availability hours on the profile page', async () => {
     const auditLogs = client.page.AuditLogsPage();
@@ -80,7 +76,7 @@ describe('Automated Tests: Member Profile', () => {
 
     await auditLogs.navigate()
       .pause(2000)
-      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName);
+      .validateAuditEntry(memberFeeder.memberName, 'Member', 'Edit', memberFeeder.memberName, '@categoryMember');
   });
 
   test('Add photo for profile page', async () => {

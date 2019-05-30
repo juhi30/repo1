@@ -22,9 +22,7 @@ export async function createOffice(officeDetails, auditDetails) {
     .pause(2000)
     .verify.urlContains('auditLog', 'Audit Logs Page is opened')
     .pause(1000)
-    .selectCategoryFilter('@selectOfficeCategory')
-    .pause(3000)
-    .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Add', auditDetails.officeName);
+    .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Add', auditDetails.officeName, '@categoryOfficeLocation');
 }
 
 /**
@@ -47,7 +45,7 @@ export async function editOffice(officeDetails, officeState, auditDetails) {
 
   await checkAuditLogs.navigate()
     .pause(2000)
-    .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Edit', auditDetails.officeName);
+    .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Edit', auditDetails.officeName, '@categoryOfficeLocation');
 }
 
 /**
@@ -64,5 +62,5 @@ export async function deleteOffice(officeElement, auditDetails) {
 
   await checkAuditLogs.navigate()
     .pause(2000)
-    .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Delete', auditDetails.officeName);
+    .validateAuditEntry(auditDetails.memberName, 'Office Location', 'Delete', auditDetails.officeName, '@categoryOfficeLocation');
 }

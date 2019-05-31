@@ -5,7 +5,7 @@ const helper = require('../toolboxes/helpers.toolbox');
 const orgProfileCommands = {
 
   renderPageElements(logoElement) {
-    return this.waitForElementVisible(logoElement, 'Update logo button is visible')
+    return this.waitForElementVisible(logoElement, 'Add/Update logo button is visible')
       .verify.visible('@orgNameInput', 'Name input is visible')
       .verify.visible('@addressOneInput', 'Address input is visible')
       .verify.visible('@addressTwoInput', 'Address Line 2 input is visible')
@@ -101,12 +101,12 @@ const orgProfileCommands = {
     return this.waitForElementVisible('@saveToast', 'Save toast is visible');
   },
 
-  async addUpdateLogo(element) {
+  async addUpdateLogo(element, fileName) {
     this.waitForElementVisible(element, 'Add/Update Logo button visible')
       .click(element)
-      .waitForElementNotVisible('@uploadPhotoButton', 'Upload Photo modal is open')
+      .waitForElementVisible('@uploadPhotoModal', 'Upload Photo modal is open')
       .pause(2000);
-    await helper.uploadFile(this, 'rhinogram.png');
+    await helper.uploadFile(this, fileName);
     return this.pause(5000)
       .click('@doneUploadPhoto')
       .pause(5000)
@@ -156,6 +156,11 @@ module.exports = {
 
     closeUploadPhotoIcon: {
       selector: '//BUTTON[contains(@title, \'Close\')]',
+      locateStrategy: 'xpath',
+    },
+
+    uploadPhotoModal: {
+      selector: '//*[@style=\'opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);\']',
       locateStrategy: 'xpath',
     },
 

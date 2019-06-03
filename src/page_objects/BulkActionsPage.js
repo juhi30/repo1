@@ -92,9 +92,28 @@ const bulkActionCommands = {
       .pause(1000)
       .waitForElementVisible('@actionDropdown', 'Action dropdown is visible')
       .click('@actionDropdown')
-      .waitForElementVisible('@closeConversations', 'Close Conversations options is visible')
+      .waitForElementVisible('@closeConversations', 'Close Conversations option is visible')
       .click('@closeConversations')
       .waitForElementNotPresent('@successToast', 'Toast Notification is gone');
+  },
+
+  selectActionAgainstCheckboxOption(inboxGroupName, actionName, contactName) {
+    return this.waitForElementVisible(inboxGroupName, `${inboxGroupName} inbox group is visible`)
+      .click(inboxGroupName)
+      .waitForElementVisible('@bulkSelectCheckbox', 'bulk select option is visible')
+      .click('@bulkSelectCheckbox')
+      .selectMessageThread(contactName)
+    //  .waitForElementVisible(selectMessageThread, `${selectMessageThread} selected option is visible`)
+    //  .click(selectMessageThread)
+      .waitForElementVisible('@actionDropdown', 'Action dropdown is visible')
+      .click('@actionDropdown')
+      .waitForElementVisible(actionName, `${actionName} Action name is visible`)
+      .click(actionName);
+  },
+
+  selectMessageThread(contactName) {
+    return this.api.useXpath().waitForElementVisible(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`, `Thread with this name ${contactName} is visible.`)
+      .click(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`);
   },
 };
 
@@ -118,7 +137,13 @@ module.exports = {
     },
 
     PatientGroup: {
-      selector: '//*[contains(@id,\'nav-inbox\')][@title=\'All Member\']',
+      // selector: '//*[contains(@id,\'nav-inbox\')][@title=\'All Member\']',
+      selector: '//*[contains(@id,\'nav-inbox\')][@title=\'Patient Group\']',
+      locateStrategy: 'xpath',
+    },
+
+    PatientTeamGroup: {
+      selector: '//*[contains(@id,\'nav-inbox\')][@title=\'Patient Team Group\']',
       locateStrategy: 'xpath',
     },
 

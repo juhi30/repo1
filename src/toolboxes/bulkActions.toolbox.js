@@ -31,3 +31,41 @@ export async function assignThreadToMemberAndGroup(groupName, contactName, searc
     .clickButton('@assignModalButton')
     .verifySuccessMessage(successMessage);
 }
+
+// check the action option for the selected option for Patient Team Inbox when CBA is off
+export async function checkForCloseConOptionForPateintTeamForAssignedThread() {
+  await bulk
+    .navigate()
+    .selectOption('@assigned')
+    .actionForSelection('@closeConversations');
+}
+
+export async function checkForCloseConOptionForPateintTeamForDefaultThread() {
+  await bulk
+    .navigate()
+    .selectOption('@notAssigned')
+    .actionForSelection('@closeConversations');
+}
+
+export async function checkForCloseConOptionForPateintTeamForAllThreads() {
+  await bulk
+    .navigate()
+    .selectOption('@all')
+    .actionForSelection('@closeConversations');
+}
+
+// check the action option for the selected option for AssignedToMe inbox when CBA is off
+export async function checkForAssignmentCompleteOptionForATMThreads() {
+  await bulk
+    .navigate()
+    .selectOption('@all')
+    .actionForSelection('@assignmentComplete');
+}
+
+// check the action option for the selected option Direct inbox when CBA is off
+export async function checkForCloseConOptionForDirectThreads() {
+  await bulk
+    .navigate()
+    .selectOption('@all')
+    .actionForSelection('@closeConversations');
+}

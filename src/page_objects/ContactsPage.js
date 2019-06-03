@@ -79,9 +79,9 @@ const contactsCommands = {
   },
 
   openContactChat(contactName) {
-    return this.waitForElementVisible(contactName, `${contactName} is visible in the list.`)
-      .click(contactName)
-      .waitForElementVisible('@goToConversationButton', 'Go to conversation button is visible')
+    this.api.useXpath().waitForElementVisible(`//SPAN[contains(text(),'${contactName}')]`, `${contactName} is visible in the list.`)
+      .click(`//SPAN[contains(text(),'${contactName}')]`);
+    return this.waitForElementVisible('@goToConversationButton', 'Go to conversation button is visible')
       .click('@goToConversationButton')
       .waitForElementVisible('@inboxMessageArea', 'Conversation Chat box is opened for the selected contact.');
   },
@@ -254,7 +254,7 @@ module.exports = {
     },
 
     patientOption: {
-      selector: '//SPAN[contains(.,\'Patient\')]',
+      selector: '//SPAN[@class=\'form__block-group__label\'][contains(.,\'Patient\')]',
       locateStrategy: 'xpath',
     },
 

@@ -18,6 +18,7 @@ import './messaging';
 import './threadActions';
 import './orgPreferences';
 import './analytics';
+import './bulkAction';
 
 // //Member + CCR flow. This should be the last test case
 // import './orgProfile';

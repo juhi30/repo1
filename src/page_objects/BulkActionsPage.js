@@ -39,6 +39,18 @@ const bulkActionCommands = {
     });
   },
 
+  selectMessageThread(contactName) {
+    return this.api.useXpath().waitForElementVisible(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`, `Thread with this name ${contactName} is visible.`)
+      .click(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`);
+  },
+
+  assignToMemberAndGroup() {
+    return this.waitForElementVisible('@actionDropdown', 'Action Dropdown is visible and thread is selected')
+      .click('@actionDropdown')
+      .waitForElementVisible('@assign', 'Action Dropdown list is opened.')
+      .click('@assign');
+  },
+
   navigateToInboxGroup(groupName) {
     return this.verify.visible(groupName, `${groupName} Page Navigation option is visible!`)
       .click(groupName)

@@ -43,7 +43,7 @@ const groupsPageCommands = {
   },
 
   openGroup(groupElement) {
-    return this.waitForElementVisible(groupElement, 'Group is visisble to the member')
+    return this.waitForElementVisible(groupElement, 'Group is visible to the member')
       .click(groupElement);
   },
 

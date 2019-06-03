@@ -433,12 +433,12 @@ module.exports = {
     },
 
     firstRowConversationAssignmentValue: {
-      selector: `(//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])//DIV[contains(text(),'${groupFeeder.patientAndTeamType}')]`,
+      selector: `//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//*[contains(text(),'${groupFeeder.patientAndTeamType}')]`,
       locateStrategy: 'xpath',
     },
 
     firstRowConversationContactValue: {
-      selector: `(//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])[1]//DIV[4]//SPAN[contains(text(),'${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}')]`,
+      selector: `//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//*[contains(text(),'${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}')]`,
       locateStrategy: 'xpath',
     },
 

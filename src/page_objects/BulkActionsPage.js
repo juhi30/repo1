@@ -95,7 +95,7 @@ module.exports = {
   elements: {
 
     // ..........Inbox Groups Navigation options..........//
-    AssignedToMe: {
+    assignedToMe: {
       selector: '//span[contains(@class,\'app-navigation\')][contains(text(),\'Assigned to Me\')]',
       locateStrategy: 'xpath',
     },

@@ -29,7 +29,7 @@ export async function validateChannelCreationRequiredFields(channelType) {
  * @param  {string} channelType Channel type like: New Phone, Rhinosecure
  * @param  {object} channelData Data to create new Channel
  */
-export async function createChannel(channelType, channelData) {
+export async function createChannel(channelType, channelData, routeMember) {
   const route = client.page.ChannelRouteMemberContainer();
 
   await channelCreateEdit.navigate()
@@ -44,7 +44,7 @@ export async function createChannel(channelType, channelData) {
     channelCreateEdit.channelDetails(channelData.channelName, channelData.channelPurpose, channelData.timeZone);
   }
 
-  route.routeSearch('@memberInput', channelData.memberFirstName, '@memberResult')
+  route.routeSearch('@memberInput', channelData.memberFirstName, routeMember)
     .pause(2000);
 
   channelCreateEdit.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
@@ -144,13 +144,32 @@ export async function updateWebFormFieldsByChannelEdit(editedChannelElement, web
  * @param  {string} deletedChannelElement Channel element that needs to be deleted
  */
 export async function deleteChannel(deletedChannelElement) {
-  await channel.navigate()
-    .channelEditMode(deletedChannelElement)
+  await channel.channelEditMode(deletedChannelElement)
     .pause(500)
     .checkElementVisibility('@editChannel');
 
   await channelCreateEdit.deleteChannels()
     .pause(2000);
+}
+
+export async function verifyAlertMessagesAddonChannels(alertMessage, channelType) {
+  await channel.addChannel();
+
+  await channelCreateEdit.selectChannelCategory(channelType)
+    .verifyChannelAlerts(alertMessage);
+}
+
+export async function verifyAlertDeletingChannel(deletedChannelElement, alertMessage) {
+  await channel.channelEditMode(deletedChannelElement);
+
+  await channelCreateEdit.waitForElementVisible('@editChannelPageTitle', 'Channel Opened in edit Mode.')
+    .waitForElementVisible('@deleteChannelButton', 'Delete Channel Button is visible')
+    .click('@deleteChannelButton')
+    .verifyChannelAlerts(alertMessage)
+    .waitForElementVisible('@confirmDeleteChannel', 'confirm delete button is visible')
+    .click('@confirmDeleteChannel')
+    .waitForElementVisible('@deleteChannelSuccessMessage', 'Channel Deleted Successfully')
+    .waitForElementNotPresent('@deleteChannelSuccessMessage', 'Delete Success Message is no longer visible.');
 }
 
 export async function editChannelRoute(channelNameElement, channelData) {

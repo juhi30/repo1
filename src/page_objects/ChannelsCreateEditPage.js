@@ -1,4 +1,5 @@
 const tagsFeeder = require('../feeder/tags.feeder');
+const channelFeeder = require('../feeder/channel.feeder');
 
 const editChannelsCommands = {
 
@@ -12,6 +13,10 @@ const editChannelsCommands = {
   selectChannelCategory(channelType) {
     return this.waitForElementVisible(channelType, `${channelType} channel is visible`)
       .click(channelType);
+  },
+
+  verifyChannelAlerts(alert) {
+    return this.waitForElementVisible(alert, `${alert} message is visible`);
   },
 
   addNumber(number, forwardingNumber) {
@@ -345,6 +350,16 @@ module.exports = {
 
     createTagButton: {
       selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Create Tag\')]',
+      locateStrategy: 'xpath',
+    },
+
+    createAlert: {
+      selector: `//DIV[@class='alert__body'][contains(text(),'${channelFeeder.addAlert}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    deleteAlert: {
+      selector: `//OL[@class='u-list--numbers']//LI[contains(text(),'${channelFeeder.deleteAlert}')]`,
       locateStrategy: 'xpath',
     },
   },

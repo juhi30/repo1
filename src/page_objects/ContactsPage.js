@@ -200,7 +200,7 @@ const contactsCommands = {
       .click(contactName)
       .waitForElementVisible('@deleteContactButton', 'Delete Contact Button is visible.')
       .click('@deleteContactButton')
-      .waitForElementVisible('@confirmDeleteButton', ' Delete Modal Opened.')
+      .waitForElementVisible('@confirmDeleteButton', 'Delete Modal Opened.')
       .click('@confirmDeleteButton')
       .waitForElementVisible('@deleteSuccessMessage', 'Delete Success Message is visible.')
       .pause(1000);
@@ -218,6 +218,46 @@ const contactsCommands = {
     return this.click(linkElement)
       .waitForElementVisible(inputFieldElement, ` ${inputFieldElement} is visible`)
       .setValue(inputFieldElement, value);
+  },
+
+  openAppointmentStatusDropdown() {
+    return this.waitForElementVisible('@appointmentStatusDropdown', 'Dropdown for Appointment Status is visible')
+      .click('@appointmentStatusDropdown');
+  },
+
+  selectAppointmentStatus(statusElement) {
+    let xOffset = 0;
+    let yOffset = 0;
+
+    // Scrolls the Summary panel to get the required function in view
+    return this.getLocation(statusElement, (tpObj) => {
+      xOffset = tpObj.value.x;
+      yOffset = tpObj.value.y;
+      logger.info(`====Get Location X === ${tpObj.value.x}`);
+      logger.info(`====Get Location Y === ${tpObj.value.y}`);
+      this.moveToElement(statusElement, xOffset, yOffset)
+        .moveToElement(statusElement, xOffset, yOffset);
+    })
+      .pause(5000)
+      .click(statusElement);
+  },
+
+  clickConfirmStatusChange() {
+    let xOffset = 0;
+    let yOffset = 0;
+
+    // Scrolls the Summary panel to get the required function in view
+    return this.getLocation('@confirmStatusChange', (tpObj) => {
+      xOffset = tpObj.value.x;
+      yOffset = tpObj.value.y;
+      logger.info(`====Get Location X === ${tpObj.value.x}`);
+      logger.info(`====Get Location Y === ${tpObj.value.y}`);
+      this.moveToElement('@confirmStatusChange', xOffset, yOffset)
+        .moveToElement('@confirmStatusChange', xOffset, yOffset);
+    })
+      .click('@confirmStatusChange')
+      .waitForElementVisible('@appointmentUpdateMessage', 'Appointment Update success message is visible')
+      .waitForElementNotPresent('@appointmentUpdateMessage', 'Appointment Update success message is gone');
   },
 };
 
@@ -575,6 +615,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    appointmentUpdateMessage: {
+      selector: '//*[text()=\'Appointment updated successfully.\']',
+      locateStrategy: 'xpath',
+    },
+
     // Others elements
     summaryPanel: {
       selector: '//DIV[@class=\'app-page__header__title\'][text()=\'Summary\']',
@@ -668,6 +713,35 @@ module.exports = {
 
     connectedPartyTitle: {
       selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    /*-----------------------------------------------------------*/
+    // Upcoming Appointments Section
+    /*-----------------------------------------------------------*/
+
+    appointmentStatusDropdown: {
+      selector: '//DIV[@class=\'hipaa-status__summary-header is-clickable\'][contains(.,\'Status\')]',
+      locateStrategy: 'xpath',
+    },
+
+    unconfirmedStatus: {
+      selector: '//INPUT[@value=\'81\']//parent::div//LABEL',
+      locateStrategy: 'xpath',
+    },
+
+    confirmedStatus: {
+      selector: '//INPUT[@value=\'82\']//parent::div//LABEL',
+      locateStrategy: 'xpath',
+    },
+
+    cancelledStatus: {
+      selector: '//INPUT[@value=\'83\']//parent::div//LABEL',
+      locateStrategy: 'xpath',
+    },
+
+    confirmStatusChange: {
+      selector: '//BUTTON[@class=\'button button--primary button--small\']//SPAN[text()=\'Confirm status change\']',
       locateStrategy: 'xpath',
     },
   },

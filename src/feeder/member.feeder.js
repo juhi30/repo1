@@ -14,7 +14,11 @@ module.exports = {
   memberFirstName2: 'Testing_NewCanary_2',
   memberLastName2: 'LastName',
   memberUsername2: 'Testing_NewCanary_2',
-  
+
+  // details for member profil
+  newMemberUsername: 'NewUserName_dev',
+  newMemberPassword: 'Test@123',
+
 
   // Following Members are created to verify member addon for standard plan
   // New Member Details for member1
@@ -48,11 +52,6 @@ module.exports = {
   memberFirstName6: 'test',
   memberLastName6: 'member6',
   memberUsername6: 'memberF',
-
-  // details for member profile
-
-  newMemberUsername: 'NewUserName_dev',
-  newMemberPassword: 'Test@123',
 
   // Alert Message
   createAlert: 'Adding this member will increase your monthly bill by ',

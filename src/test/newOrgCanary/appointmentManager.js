@@ -10,7 +10,7 @@ describe('Automated Tests: Appointment Manager', () => {
   const contact = client.page.ContactsPage();
 
   test('Login as member', async () => {
-    await memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
+    await memberLogin(memberFeeder.newMemberUsername, memberFeeder.memberPassword);
   });
 
   test('Verify Appointment manager option in Settings Menu', async () => {

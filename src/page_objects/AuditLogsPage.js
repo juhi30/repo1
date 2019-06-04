@@ -186,92 +186,92 @@ module.exports = {
     },
 
     categoryTemplate: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Template\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Template\']',
       locateStrategy: 'xpath',
     },
 
     categoryApptManager: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Appt Manager\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Appt Manager\']',
       locateStrategy: 'xpath',
     },
 
     categoryApptReminders: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Appt Reminders\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Appt Reminders\']',
       locateStrategy: 'xpath',
     },
 
     categoryBilling: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Billing\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Billing\']',
       locateStrategy: 'xpath',
     },
 
     categoryChannel: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Channel\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Channel\']',
       locateStrategy: 'xpath',
     },
 
     categoryContact: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Contact\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Contact\']',
       locateStrategy: 'xpath',
     },
 
     categoryConversation: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Conversation\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Conversation\']',
       locateStrategy: 'xpath',
     },
 
     categoryConversationAction: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Conversation Actions\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Conversation Actions\']',
       locateStrategy: 'xpath',
     },
 
     categoryGroup: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Group\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Group\']',
       locateStrategy: 'xpath',
     },
 
     categoryMember: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Member\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Member\']',
       locateStrategy: 'xpath',
     },
 
     categoryOfficeLocation: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Office Location\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Office Location\']',
       locateStrategy: 'xpath',
     },
 
     categoryOrganization: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Organization\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Organization\']',
       locateStrategy: 'xpath',
     },
 
     categoryOrgPreferences: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Org Preferences\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Org Preferences\']',
       locateStrategy: 'xpath',
     },
 
     categoryOrgProfile: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Org Profile\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Org Profile\']',
       locateStrategy: 'xpath',
     },
 
     categoryOOO: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Out of Office\']',
+      selector: '//DIV[@class=\'audit-log__filter-wrapper\']//SPAN[@class=\'u-text-overflow\'][text()=\'Out of Office\']',
       locateStrategy: 'xpath',
     },
 
     categoryRoles: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Roles\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Roles\']',
       locateStrategy: 'xpath',
     },
 
     categoryTag: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Tag\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Tag\']',
       locateStrategy: 'xpath',
     },
 
     categoryTemplateAction: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Template Action\']',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Template Action\']',
       locateStrategy: 'xpath',
     },
 
@@ -423,18 +423,8 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    selectMemberCategory: {
-      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Member\']',
-      locateStrategy: 'xpath',
-    },
-
     selectCategory: {
       selector: '//SPAN[text()= \'Category\']//parent::Span//parent::BUTTON',
-      locateStrategy: 'xpath',
-    },
-
-    selectOfficeCategory: {
-      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Office Location\']',
       locateStrategy: 'xpath',
     },
   },

@@ -18,6 +18,7 @@ module.exports = {
   billingContactEmail: 'billing@gmail.com',
   billingContactCity: 'billing city',
   billingContactState: 'Alaska',
+  stateId: 14,
   billingContactZip: '32424',
   planType: 'Standard Plan',
   installationFee: '500',

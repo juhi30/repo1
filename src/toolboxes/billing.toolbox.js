@@ -37,7 +37,7 @@ export async function verifyBillingContactDetails() {
     .verifyContactInformation('@billingLine1Input', accountSetupFeeder.billingContactAddressOne)
     .verifyContactInformation('@billingLine2Input', accountSetupFeeder.billingContactAddressTwo)
     .verifyContactInformation('@cityInput', accountSetupFeeder.billingContactCity)
-    .verifyContactInformation('@stateInput', accountSetupFeeder.billingContactState)
+    .verifyContactInformation('@stateInput', accountSetupFeeder.stateId)
     .verifyContactInformation('@contactZipInput', accountSetupFeeder.billingContactZip);
 }
 

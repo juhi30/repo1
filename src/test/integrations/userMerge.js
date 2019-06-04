@@ -15,11 +15,8 @@ let orgId;
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
 const USER_TYPE_OTHER = 36;
-const TRUSTEE_ID = 2;
 const HIPAA_STATUS_TYPE_GRANTED = 49;
 const FB_TYPE_PRIMARY = 24;
-const FB_CHANNEL_ID = 7;
-const CP_PATIENT = 6;
 const TYPE_EMAIL_HOME = 4;
 const HIPAA_STATUS_TYPE_PENDING = 48;
 
@@ -130,7 +127,7 @@ describe('merge users tests', () => {
     const user2 = {
       firstName: 'Jonathan',
       lastName: 'Snow',
-      loginEmail: 'jonsnow@ringmail.com',
+      loginEmail: `${process.env.INTEGRATIONS_ORG_ID}_jonsnow@ringmail.com`,
       middleName: 'Winterfell',
       preferredName: 'Jon',
       prefixId: 1,
@@ -162,16 +159,15 @@ describe('merge users tests', () => {
         typeId: TYPE_EMAIL_HOME,
       }],
       hipaaStatus: {
-        trusteeId: TRUSTEE_ID,
+        trusteeId: integratedUser.id,
         typeId: HIPAA_STATUS_TYPE_GRANTED,
       },
       facebooks: [{
         value: '9898',
         typeId: FB_TYPE_PRIMARY,
-        channelId: FB_CHANNEL_ID,
       }],
       connectedTo: [{
-        toUserId: CP_PATIENT,
+        toUserId: integratedUser.id,
         connectionTypeId: 34,
       }],
     };
@@ -182,7 +178,7 @@ describe('merge users tests', () => {
     const user4 = {
       firstName: 'Jimbo',
       lastName: 'Peters',
-      loginEmail: 'jimbo@mail.com',
+      loginEmail: `${process.env.INTEGRATIONS_ORG_ID}_jimbo@mail.com`,
       preferredName: 'Jim',
       isMinor: false,
       roles: [
@@ -217,10 +213,9 @@ describe('merge users tests', () => {
       facebooks: [{
         value: '8888',
         typeId: FB_TYPE_PRIMARY,
-        channelId: FB_CHANNEL_ID,
       }],
       connectedTo: [{
-        toUserId: CP_PATIENT,
+        toUserId: nonIntegratedUser.id,
         connectionTypeId: 34,
       }],
     };
@@ -270,10 +265,9 @@ describe('merge users tests', () => {
       facebooks: [{
         value: '1111',
         typeId: FB_TYPE_PRIMARY,
-        channelId: FB_CHANNEL_ID,
       }],
       connectedTo: [{
-        toUserId: CP_PATIENT,
+        toUserId: nonIntegratedUser2.id,
         connectionTypeId: 34,
       }],
     };
@@ -284,7 +278,7 @@ describe('merge users tests', () => {
     const user6 = {
       firstName: 'Sean',
       lastName: 'Bean',
-      loginEmail: 'snailmail@mail.com',
+      loginEmail: `${process.env.INTEGRATIONS_ORG_ID}_snailmail@mail.com`,
       isMinor: false,
       roles: [
         {
@@ -310,7 +304,7 @@ describe('merge users tests', () => {
     const user7 = {
       firstName: 'Meek',
       lastName: 'Mill',
-      loginEmail: 'meek@mill.com',
+      loginEmail: `${process.env.INTEGRATIONS_ORG_ID}_meek@mill.com`,
       isMinor: false,
       roles: [
         {
@@ -476,7 +470,7 @@ describe('merge users tests', () => {
       expect(response.phones.length).toBe(3); // combine phones for both users (dont duplicate) they each have 2 phones (one is shared), return only 3
       expect(response.emails.length).toBe(2); // combine emails for both users
       expect(response.tags.length).toBe(2); // combine tags for both users (dont duplicate) they each share the same tag, return only one
-      expect(response.connectedParties.length).toEqual(2); // combine both
+      expect(response.connectedParties.length).toEqual(1); // combine both
 
       expect(response.appointments.length).toEqual(0); // non integrated users dont have appointments
       done();

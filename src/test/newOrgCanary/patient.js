@@ -1,7 +1,6 @@
 import { client } from 'nightwatch-api';
 import { logout } from '../../toolboxes/login.toolbox';
 
-const contactFeeder = require('../../feeder/contact.feeder');
 const messageFeeder = require('../../feeder/message.feeder');
 const patientFeeder = require('../../feeder/patient.feeder');
 
@@ -11,7 +10,8 @@ describe('Patient Login Page Tests Cases', () => {
   const convo = client.page.ConvoThreadPage();
 
   test('Send a rhino secure message from selected contact', async () => {
-    await contact.searchForContact(contactFeeder.contactNewFirstName, '@searchedContactForPatient');
+    await contact.navigate()
+      .openContactChat('@searchedContactForPatient');
 
     await convo.sendRhinosecureMessage(messageFeeder.rhinosecureMessage);
 

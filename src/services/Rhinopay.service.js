@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function getMerchantByOrgId(orgId, cookie) {
-  return axios.get(`${process.env.PAY_BASE_URL}/merchant?orgId=${orgId}`,
+  return axios.get(`${process.env.PAY_BASE_URL}/ccr/merchant/${orgId}`,
     {
       headers: {
         'Content-Type': 'application/json',
@@ -12,7 +12,7 @@ export function getMerchantByOrgId(orgId, cookie) {
 }
 
 export function postMerchant(data, cookie) {
-  return axios.post(`${process.env.PAY_BASE_URL}/merchant`,
+  return axios.post(`${process.env.PAY_BASE_URL}/ccr/merchant`,
     data,
     {
       headers: {
@@ -81,7 +81,7 @@ export function sendPaymentRequest(data, cookie) {
 }
 
 export function sendCreditCardPayment(data, cookie) {
-  return axios.post(`${process.env.PAY_BASE_URL}/payment/ccr`,
+  return axios.post(`${process.env.PAY_BASE_URL}/payment/credit-card`,
     data,
     {
       headers: {

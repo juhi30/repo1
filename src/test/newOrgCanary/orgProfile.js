@@ -1,17 +1,37 @@
 import { client } from 'nightwatch-api';
+import { ccrLogin, memberLogin, logout } from '../../toolboxes/login.toolbox';
+import { selectOrganizationByCCR } from '../../toolboxes/organization.toolbox';
 
 const loginFeeder = require('../../feeder/login.feeder');
 const orgProfileFeeder = require('../../feeder/orgProfile.feeder');
 const memberFeeder = require('../../feeder/member.feeder');
 
 describe('Organisation profile edit as member', () => {
+  test('Login as a Member1', async () => {
+    await memberLogin(memberFeeder.newMemberUsername, memberFeeder.newMemberPassword);
+  });
+
   // When the org is being updated for the first time
+  // test('Add Photo', async () => {
+  //   const orgProfile = client.page.OrgProfilePage();
+  //   const entry = client.page.AuditLogsPage();
+  //   const universal = client.page.UniversalElements();
+
+  //   await universal.clickOrgProfile();
+  //   await orgProfile.addUpdateLogo('@addLogoButton', 'contact.png');
+
+  //   await entry.navigate()
+  //     .pause(1000)
+  //     .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Profile', '@categoryOrgProfile');
+  // });
+
   test('Edit Organization Profile as member', async () => {
     const orgProfile = client.page.OrgProfilePage();
     const entry = client.page.AuditLogsPage();
+    const universal = client.page.UniversalElements();
 
-    await orgProfile.navigate()
-      .renderPageElements('@addLogoButton');
+    await universal.clickOrgProfile();
+    await orgProfile.renderPageElements('@updateLogoButton');
 
     await orgProfile
       .updateOrgProfileMandatoryFields(orgProfileFeeder.orgNewName,
@@ -33,65 +53,37 @@ describe('Organisation profile edit as member', () => {
       .validateAuditEntryWithNoDataFound('Edit', 'No Data Found', memberFeeder.memberName, 'Org Profile', '@categoryOrgProfile');
   });
 
-  test('Add Photo', async () => {
-    const orgProfile = client.page.OrgProfilePage();
-    const entry = client.page.AuditLogsPage();
+  // test('Update Photo', async () => {
+  //   const orgProfile = client.page.OrgProfilePage();
+  //   const entry = client.page.AuditLogsPage();
+  //   const universal = client.page.UniversalElements();
 
-    await orgProfile.navigate()
-      .addUpdateLogo('@addLogoButton');
-    orgProfile.pause(1000);
+  //   await universal.clickOrgProfile();
+  //   await orgProfile.addUpdateLogo('@updateLogoButton', 'rhinogram.png');
 
-    await entry.navigate()
-      .pause(1000)
-      .validateAuditEntry(memberFeeder.memberName, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName, '@categoryOrgProfile');
-  });
-
-  test('Update Photo', async () => {
-    const orgProfile = client.page.OrgProfilePage();
-    const entry = client.page.AuditLogsPage();
-
-    await orgProfile.navigate()
-      .addUpdateLogo('@updateLogoButton');
-
-    await entry.navigate()
-      .pause(3000)
-      .validateAuditEntry(memberFeeder.memberName, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName, '@categoryOrgProfile');
-  });
+  //   await entry.navigate()
+  //     .pause(3000)
+  //     .validateAuditEntry(memberFeeder.memberName, 'Org Profile', 'Edit', orgProfileFeeder.orgNewName, '@categoryOrgProfile');
+  // });
 
   test('logout as a Member', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await logout();
   });
 });
 
 describe('Organization Profile Edit as CCR', () => {
   test('login as CCR into the organization', async () => {
-    const login = client.page.LoginPage();
-    const org = client.page.UniversalElements();
-    const setup = client.page.AccountSetupPage();
-
-    await login.navigate()
-      .enterCSRCreds(loginFeeder.ccrLogin, loginFeeder.ccrPassword)
-      .submit()
-      .pause(2000)
-      .validateUrlChange('/selectorg');
-
-    org.waitForElementVisible('@searchInputForOrg', 'Search Input is visible');
-
-    org.searchForOrganization(orgProfileFeeder.orgNewName, '@newOrgSearchResult')
-      .ccrOrgLogin('@newOrgSearchResult');
-
-    setup.pause(1000)
-      .getOrgId();
+    await ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
+    await selectOrganizationByCCR(orgProfileFeeder.orgNewName, '@newOrgSearchResult');
   });
 
   test('Edit Organization Profile as CCR', async () => {
     const orgProfile = client.page.OrgProfilePage();
     const entry = client.page.AuditLogsPage();
+    const universal = client.page.UniversalElements();
 
-    await orgProfile.navigate()
-      .renderPageElements('@updateLogoButton');
+    await universal.clickOrgProfile();
+    await orgProfile.renderPageElements('@updateLogoButton');
 
     await orgProfile.verifyBillingIdAndIntegrationOptions()
       .updateOrgProfileMandatoryFields(orgProfileFeeder.orgNewName,
@@ -115,8 +107,6 @@ describe('Organization Profile Edit as CCR', () => {
   });
 
   test('logout as CCR', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await logout();
   });
 });

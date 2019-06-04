@@ -184,7 +184,7 @@ const universalElementsCommands = {
 
   clickOrgProfile() {
     return this.click('@settingsButton')
-      .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
+      .waitForElementVisible('@orgProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@orgProfileInSettingsDropdown')
       .pause(500)
       // .waitForElementNotVisible('@orgProfileInSettingsDropdown', 'Org Profile is hidden')
@@ -453,7 +453,7 @@ module.exports = {
     },
 
     orgProfileInSettingsDropdown: {
-      selector: '(//SPAN[@class=\'u-text-overflow\'][text()=\'Profile\'][text()=\'Profile\'])[2]',
+      selector: '//DIV[@class=\'dropdown__menu dropdown__menu--right dropdown__menu--wide\']//*[text()=\'Profile\']',
       locateStrategy: 'xpath',
     },
 

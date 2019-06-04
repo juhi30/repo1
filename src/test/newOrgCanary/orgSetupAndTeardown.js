@@ -2,6 +2,7 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 import { organizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
 import { ccrLogin } from '../../toolboxes/login.toolbox';
+// import { handleErrorAndRemoveOrg } from '../../toolboxes/error.toolbox';
 
 const { EventEmitter } = require('events');
 const loginFeeder = require('../../feeder/login.feeder');
@@ -20,26 +21,26 @@ beforeAll(async () => {
   try {
     // Increase max listeners for long running test
     EventEmitter.defaultMaxListeners = 100;
-
     await ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
-
     await organizationSetUp(organizationDetails, 'NEW_CANARY_ORG_ID');
-  } catch (err) {
-    logger.info(err, '==error on orgSetupAndTearDown=====');
+  } catch (error) {
+    // handleErrorAndRemoveOrg(error, __filename);
+    logger.info(error, '===error beforeAll on  orgSetupAndTearDown=====');
   }
 });
 
 // DELETE MY NEW ORG HERE
 afterAll(async (done) => {
   try {
+    // Reset max listeners to the node.js default once the test is complete.
+    EventEmitter.defaultMaxListeners = 10;
     await orgTearDown(process.env.NEW_CANARY_ORG_ID, loginFeeder.ccrLogin, loginFeeder.ccrPassword);
-    // Reset max listeners to the node.js default once the test is complete.
-    EventEmitter.defaultMaxListeners = 10;
     done();
-  } catch (err) {
-    logger.error(err, '===error on after all orgSetupAndTeardown=======');
-    done(err);
+  } catch (error) {
     // Reset max listeners to the node.js default once the test is complete.
     EventEmitter.defaultMaxListeners = 10;
+    done(error);
+    // handleErrorAndRemoveOrg(error, __filename);
+    logger.error(error, '===error on afterAll orgSetupAndTeardown=======');
   }
 });

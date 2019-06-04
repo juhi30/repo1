@@ -29,7 +29,7 @@ export const checkOOOAuditEntry = async (memberName, oooTitle, action) => {
     await auditLogs.navigate()
       .verify.urlContains('auditLog', 'AuditL Logs Page is opened')
       .pause(3000)
-      .validateAuditEntry(memberName, 'Out of Office', action, oooTitle, '');
+      .validateAuditEntry(memberName, 'Out of Office', action, oooTitle, '@categoryOOO');
   } catch (error) {
     // handleErrorAndRemoveOrg(error, __filename, auditLogs, process.env.NEW_CANARY_ORG_ID);
   }

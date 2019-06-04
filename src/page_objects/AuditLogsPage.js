@@ -256,7 +256,7 @@ module.exports = {
     },
 
     categoryOOO: {
-      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Out Of Office\']',
+      selector: '//SPAN[text()= \'Category\']//parent::SPAN//parent::BUTTON//parent::DIV//DIV[@class=\'dropdown__menu\']//SPAN[text() = \'Out of Office\']',
       locateStrategy: 'xpath',
     },
 

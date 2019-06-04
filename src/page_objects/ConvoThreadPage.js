@@ -130,8 +130,7 @@ const convoThreadCommands = {
   },
 
   searchMessageAndNote(searchText, searchResult, message) {
-    return this.waitForElementVisible('@searchConversationIcon', 'Message Search Option is visible.')
-      .waitForElementVisible('@messageSearchTextBox', 'Message Search Text Box is visible.')
+    return this.waitForElementVisible('@messageSearchTextBox', 'Message Search Text Box is visible.')
       .setValue('@messageSearchTextBox', searchText)
       .pause(1000)
       .waitForElementVisible(searchResult, `Span with text "${searchText}" is visible as search result.`)

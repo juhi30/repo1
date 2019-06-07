@@ -57,7 +57,6 @@ describe('Bulk Action automation test cases', () => {
     await bulkActionToolbox.messageViaDirect(bulkContactName4, messageFeeder.groupPatientMessage);
   });
 
-
   test('Verify action items according the selection criteria - Direct Inbox', async () => {
     await bulkActionToolbox.actionVerificationDirectInbox('@directInbox', bulkContactName4);
     await bulkActionToolbox.checkActionVerificationForNone();
@@ -76,5 +75,9 @@ describe('Bulk Action automation test cases', () => {
   test('Verify action items according the selection criteria - Following Inbox', async () => {
     await bulkActionToolbox.actionVerificationFollowingInbox('@followingInbox', contactName);
     await bulkActionToolbox.checkActionVerificationForNone();
+  });
+
+  test('Perform Assignment Complete', async () => {
+    await bulkActionToolbox.AssignmentCompleteUsingThread('@assignedToMe', bulkContactName1, '@patientAndTeamGroup_PatientInbox');
   });
 });

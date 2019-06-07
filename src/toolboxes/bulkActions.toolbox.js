@@ -44,7 +44,7 @@ export async function assignThreadToMemberAndGroup(source, contactName, actionNa
     .verifyAssignedThread(contactName);
 }
 
-export async function actionVerificationPatientGroup(groupName, contactName) {
+export async function actionVerificationPatientGroup(groupName) {
   await group.openGroup(groupName);
   await bulk.verifyActionDropdown()
     .selectOption('@all')
@@ -127,4 +127,13 @@ export async function actionVerificationFollowingInbox(groupName, contactName) {
     .actionForSelection('Read')
     .selectOption('@unread')
     .actionForSelection('Unread');
+}
+
+export async function AssignmentCompleteUsingThread(source, contactName, destination) {
+  await group.openGroup(source);
+  await bulk.selectMessageThread(contactName)
+    .selectAnAction('@assignmentComplete')
+    .verifySuccessMessage('@successToast');
+  await group.openGroup(destination)
+    .verifyAssignedThread(contactName);
 }

@@ -1,7 +1,7 @@
-import * as rhinoliner from '../../services/Rhinoliner.service';
-import * as helpers from '../../toolboxes/helpers.toolbox';
+import * as rhinoliner from '../../../services/Rhinoliner.service';
+import * as helpers from '../../../toolboxes/helpers.toolbox';
 
-const appointmentFeeder = require('../../feeder/appointments.feeder');
+const appointmentFeeder = require('../../../feeder/appointments.feeder');
 
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;

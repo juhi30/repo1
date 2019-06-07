@@ -1,12 +1,12 @@
 
 import logger from 'rhinotilities/lib/loggers/logger';
-import { organizationSetUp, orgTearDown } from '../../toolboxes/organization.toolbox';
-import { ccrLogin } from '../../toolboxes/login.toolbox';
+import { organizationSetUp, orgTearDown } from '../../../toolboxes/organization.toolbox';
+import { ccrLogin } from '../../../toolboxes/login.toolbox';
 // import { handleErrorAndRemoveOrg } from '../../toolboxes/error.toolbox';
 
 const { EventEmitter } = require('events');
-const loginFeeder = require('../../feeder/login.feeder');
-const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
+const loginFeeder = require('../../../feeder/login.feeder');
+const accountSetupFeeder = require('../../../feeder/accountSetup.feeder');
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {

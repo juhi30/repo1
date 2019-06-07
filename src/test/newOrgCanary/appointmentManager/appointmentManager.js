@@ -1,6 +1,6 @@
 import { client } from 'nightwatch-api';
 
-const appointmentFeeder = require('../../feeder/appointments.feeder');
+const appointmentFeeder = require('../../../feeder/appointments.feeder');
 
 describe('Automated Tests: Appointment Manager', () => {
   const apptManager = client.page.AppointmentManagerPage();

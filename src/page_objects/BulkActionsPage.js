@@ -44,11 +44,16 @@ const bulkActionCommands = {
       .click(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`);
   },
 
-  assignToMemberAndGroup() {
+  selectAnAction(actionName) {
     return this.waitForElementVisible('@actionDropdown', 'Action Dropdown is visible and thread is selected')
       .click('@actionDropdown')
-      .waitForElementVisible('@assign', 'Action Dropdown list is opened.')
-      .click('@assign');
+      .waitForElementVisible(actionName, `Action Dropdown list is opened and ${actionName} is visible.`)
+      .click(actionName);
+  },
+
+  verifySuccessMessage(successMessage) {
+    return this.waitForElementVisible(successMessage, `${successMessage} is visible`)
+      .waitForElementNotPresent(successMessage, `${successMessage} is no longer present`);
   },
 
   navigateToInboxGroup(groupName) {
@@ -59,6 +64,7 @@ const bulkActionCommands = {
 
   verifyActionDropdown() {
     return this.waitForElementNotPresent('@actionDropdown', 'Action dropdown is not available before a selection.')
+      .waitForElementVisible('@bulkSelectCheckbox', 'Bulk Select checkbox is visible.')
       .click('@bulkSelectCheckbox')
       .pause(1000)
       .waitForElementPresent('@actionDropdown', 'Action dropdown is visible after a selection.');
@@ -81,9 +87,9 @@ const bulkActionCommands = {
 
   noneSelection() {
     return this.click('@BulkSelectDropdownIcon')
-      .waitForElementVisible('@none', 'No Action options are available for None selection!')
+      .waitForElementVisible('@none', 'None Selection Option is visible!')
       .click('@none')
-      .waitForElementNotPresent('@actionDropdown', 'Action dropdown is not available before a selection.');
+      .waitForElementNotPresent('@actionDropdown', 'Action dropdown is not available after the selection.');
   },
 
   closeAllConversation() {
@@ -95,25 +101,6 @@ const bulkActionCommands = {
       .waitForElementVisible('@closeConversations', 'Close Conversations option is visible')
       .click('@closeConversations')
       .waitForElementNotPresent('@successToast', 'Toast Notification is gone');
-  },
-
-  selectActionAgainstCheckboxOption(inboxGroupName, actionName, contactName) {
-    return this.waitForElementVisible(inboxGroupName, `${inboxGroupName} inbox group is visible`)
-      .click(inboxGroupName)
-      .waitForElementVisible('@bulkSelectCheckbox', 'bulk select option is visible')
-      .click('@bulkSelectCheckbox')
-      .selectMessageThread(contactName)
-    //  .waitForElementVisible(selectMessageThread, `${selectMessageThread} selected option is visible`)
-    //  .click(selectMessageThread)
-      .waitForElementVisible('@actionDropdown', 'Action dropdown is visible')
-      .click('@actionDropdown')
-      .waitForElementVisible(actionName, `${actionName} Action name is visible`)
-      .click(actionName);
-  },
-
-  selectMessageThread(contactName) {
-    return this.api.useXpath().waitForElementVisible(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`, `Thread with this name ${contactName} is visible.`)
-      .click(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`);
   },
 };
 
@@ -137,7 +124,6 @@ module.exports = {
     },
 
     PatientGroup: {
-      // selector: '//*[contains(@id,\'nav-inbox\')][@title=\'All Member\']',
       selector: '//*[contains(@id,\'nav-inbox\')][@title=\'Patient Group\']',
       locateStrategy: 'xpath',
     },
@@ -262,6 +248,11 @@ module.exports = {
 
     successToast: {
       selector: '//*[@class =\'toast toast--success\']',
+      locateStrategy: 'xpath',
+    },
+
+    assignToSelf: {
+      selector: '//span[@class=\'u-text-overflow\'][text()=\'Assign To Me\']',
       locateStrategy: 'xpath',
     },
   },

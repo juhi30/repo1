@@ -5,10 +5,20 @@ const chat = client.page.DirectChatInboxPage();
 const bulk = client.page.BulkActionsPage();
 const group = client.page.GroupsPage();
 
-export async function messageViaGroup(contactName, message) {
+export async function messageViaPAndTGroup(contactName, message) {
   await contact.navigate()
     .openContactChat(contactName);
   await chat.fillInMessageInput(message)
+    .pause(1000);
+  await chat.clickSendMessageButton();
+}
+
+export async function messageViaPatientGroup(contactName, message, channelName) {
+  await contact.navigate()
+    .openContactChat(contactName);
+  await chat.clickButton('@rhinoSecureTab')
+    .channelSelection('@preselectedSecureChannelName', '@rhinosecureChannelListDropdown', channelName, '@newSelectedSecureChannel')
+    .fillInMessageInput(message)
     .pause(1000);
   await chat.clickSendMessageButton();
 }
@@ -22,50 +32,99 @@ export async function messageViaDirect(contactName, message) {
   await chat.clickSendMessageButton();
 }
 
-export async function assignThreadToMemberAndGroup(groupName, contactName, searchInputField, assigneeName, successMessage) {
-  await group.openGroup(groupName);
-  await bulk.selectMessageThread(contactName)
-    .assignToMemberAndGroup();
-  await chat.selectMemberAndGroup(searchInputField, assigneeName)
-    .clickButton('@followModalButton')
+export async function assignThreadToMemberAndGroup(source, contactName, actionName, searchInputField, assigneeName, destination) {
+  await group.openGroup(source);
+  await bulk.selectMessageThread(contactName);
+  bulk.selectAnAction(actionName);
+  await chat.selectMemberAndGroup(searchInputField, assigneeName);
+  await chat.clickButton('@followModalButton')
     .clickButton('@assignModalButton')
-    .verifySuccessMessage(successMessage);
+    .verifySuccessMessage('@successToast');
+  await group.openGroup(destination)
+    .verifyAssignedThread(contactName);
 }
 
-// check the action option for the selected option for Patient Team Inbox when CBA is off
-export async function checkForCloseConOptionForPateintTeamForAssignedThread() {
-  await bulk
-    .navigate()
+export async function actionVerificationPatientGroup(groupName, contactName) {
+  await group.openGroup(groupName);
+  await bulk.verifyActionDropdown()
+    .selectOption('@all')
+    .actionForSelection('All')
+    .selectOption('@read')
+    .actionForSelection('Read')
+    .selectOption('@unread')
+    .actionForSelection('Unread')
     .selectOption('@assigned')
-    .actionForSelection('@closeConversations');
-}
-
-export async function checkForCloseConOptionForPateintTeamForDefaultThread() {
-  await bulk
-    .navigate()
+    .actionForSelection('AssignedGroup')
     .selectOption('@notAssigned')
-    .actionForSelection('@closeConversations');
+    .actionForSelection('NotAssignedGroup')
+    .selectOption('@following')
+    .actionForSelection('Following')
+    .selectOption('@notFollowing')
+    .actionForSelection('NotFollowing');
 }
 
-export async function checkForCloseConOptionForPateintTeamForAllThreads() {
-  await bulk
-    .navigate()
-    .selectOption('@all')
-    .actionForSelection('@closeConversations');
+export async function assignToSelf(source, contactName, destination) {
+  await group.openGroup(source);
+  await bulk.selectMessageThread(contactName);
+  bulk.selectAnAction('@assignToSelf')
+    .verifySuccessMessage('@successToast');
+  await group.openGroup(destination)
+    .verifyAssignedThread(contactName);
 }
 
-// check the action option for the selected option for AssignedToMe inbox when CBA is off
-export async function checkForAssignmentCompleteOptionForATMThreads() {
-  await bulk
-    .navigate()
+export async function AssignedToMeActionVerification(groupName, contactName) {
+  await group.openGroup(groupName);
+  await bulk.selectMessageThread(contactName);
+  bulk.selectAnAction('@markAsRead')
+    .verifySuccessMessage('@successToast');
+  await bulk.verifyActionDropdown()
     .selectOption('@all')
-    .actionForSelection('@assignmentComplete');
+    .actionForSelection('All')
+    .selectOption('@read')
+    .actionForSelection('Read')
+    .selectOption('@unread')
+    .actionForSelection('Unread')
+    .selectOption('@following')
+    .actionForSelection('Following')
+    .selectOption('@notFollowing')
+    .actionForSelection('NotFollowing');
 }
 
-// check the action option for the selected option Direct inbox when CBA is off
-export async function checkForCloseConOptionForDirectThreads() {
-  await bulk
-    .navigate()
+export async function actionVerificationDirectInbox(groupName, contactName) {
+  await group.openGroup(groupName);
+  await bulk.selectMessageThread(contactName);
+  bulk.selectAnAction('@markAsUnRead', '@successToast')
+    .verifySuccessMessage('@successToast')
+    .selectMessageThread(contactName);
+  bulk.selectAnAction('@follow')
+    .verifySuccessMessage('@successToast');
+  await bulk.verifyActionDropdown()
     .selectOption('@all')
-    .actionForSelection('@closeConversations');
+    .actionForSelection('All')
+    .selectOption('@read')
+    .actionForSelection('Read')
+    .selectOption('@unread')
+    .actionForSelection('Unread')
+    .selectOption('@following')
+    .actionForSelection('Following')
+    .selectOption('@notFollowing')
+    .actionForSelection('NotFollowing');
+}
+
+export async function checkActionVerificationForNone() {
+  await bulk.noneSelection();
+}
+
+export async function actionVerificationFollowingInbox(groupName, contactName) {
+  await group.openGroup(groupName);
+  await bulk.selectMessageThread(contactName);
+  bulk.selectAnAction('@markAsRead')
+    .verifySuccessMessage('@successToast');
+  await bulk.verifyActionDropdown()
+    .selectOption('@all')
+    .actionForSelection('All')
+    .selectOption('@read')
+    .actionForSelection('Read')
+    .selectOption('@unread')
+    .actionForSelection('Unread');
 }

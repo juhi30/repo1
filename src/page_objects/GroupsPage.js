@@ -47,6 +47,10 @@ const groupsPageCommands = {
       .click(groupElement);
   },
 
+  verifyAssignedThread(assignedThread) {
+    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(.,'${assignedThread}')]`, `${assignedThread} is visible at its destination!`);
+  },
+
   navigateToInbox(inboxElement, url) {
     return this.waitForElementVisible(inboxElement, 'Desired Inbox option is visible')
       .click(inboxElement)
@@ -282,6 +286,16 @@ module.exports = {
 
     assignedToMe: {
       selector: '//span[contains(@class,\'app-navigation\')][contains(text(),\'Assigned to Me\')]',
+      locateStrategy: 'xpath',
+    },
+
+    directInbox: {
+      selector: '//a[@id=\'nav-inbox-direct\']',
+      locateStrategy: 'xpath',
+    },
+
+    followingInbox: {
+      selector: '//span[@class=\'app-navigation__nav__button__text\'][text()=\'Following\']',
       locateStrategy: 'xpath',
     },
   },

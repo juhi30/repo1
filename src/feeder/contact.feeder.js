@@ -46,37 +46,37 @@ module.exports = {
   contactEmailOnModal: 'testcontact@gmail.com',
 
   // contacts for Bulk actions flows
-  bulkContactFirstName1: 'bulkA action',
+  bulkContactFirstName1: 'bulk1 action',
   bulkContactLastName1: 'Contact1',
   bulkContactBirthDate1: '08/15/1978',
   bulkContactFirstPhoneNumber1: '8475452121',
 
-  bulkContactFirstName2: 'bulkB action',
+  bulkContactFirstName2: 'bulk2 action',
   bulkContactLastName2: 'Contact2',
   bulkContactBirthDate2: '08/15/1979',
   bulkContactFirstPhoneNumber2: '8475452221',
 
-  bulkContactFirstName3: 'bulkC action',
+  bulkContactFirstName3: 'bulk3 action',
   bulkContactLastName3: 'Contact3',
   bulkContactBirthDate3: '08/15/1980',
   bulkContactFirstPhoneNumber3: '8475452321',
 
-  bulkContactFirstName4: 'bulkD action',
-  bulkContactLastName4: 'Contact14',
+  bulkContactFirstName4: 'bulk4 action',
+  bulkContactLastName4: 'Contact4',
   bulkContactBirthDate4: '08/15/1981',
   bulkContactFirstPhoneNumber4: '8475452421',
 
-  bulkContactFirstName5: 'bulkE action',
+  bulkContactFirstName5: 'bulk5 action',
   bulkContactLastName5: 'Contact5',
   bulkContactBirthDate5: '08/15/1975',
   bulkContactFirstPhoneNumber5: '8475452521',
 
-  bulkContactFirstName6: 'bulkF action',
+  bulkContactFirstName6: 'bulk6 action',
   bulkContactLastName6: 'Contact6',
   bulkContactBirthDate6: '08/15/1976',
   bulkContactFirstPhoneNumber6: '8475452621',
 
-  bulkContactFirstName7: 'bulkG action',
+  bulkContactFirstName7: 'bulk7 action',
   bulkContactLastName7: 'Contact7',
   bulkContactBirthDate7: '08/15/1978',
   bulkContactFirstPhoneNumber7: '8475457111',

@@ -68,8 +68,7 @@ const commands = {
   },
 
   verifySuccessMessage(successMessage) {
-    return this.pause(2000)
-      .waitForElementVisible(successMessage, `${successMessage} is visible`)
+    return this.waitForElementVisible(successMessage, `${successMessage} is visible`)
       .waitForElementNotPresent(successMessage, `${successMessage} is no longer present`);
   },
 
@@ -241,7 +240,7 @@ module.exports = {
     },
 
     preselectedSecureChannelName: {
-      selector: `//STRONG[contains(text(), '${channelFeeder.rhinoChannelNewName}')]`,
+      selector: '//SPAN[@class=\'convo__channels__label__text\']',
       locateStrategy: 'xpath',
     },
 
@@ -257,6 +256,11 @@ module.exports = {
 
     rhinoSecureTab: {
       selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'RhinoSecure\')]',
+      locateStrategy: 'xpath',
+    },
+
+    successToast: {
+      selector: '//*[@class =\'toast toast--success\']',
       locateStrategy: 'xpath',
     },
   },

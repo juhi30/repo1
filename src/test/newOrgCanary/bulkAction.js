@@ -5,6 +5,7 @@ import * as contactToolbox from '../../toolboxes/contact.toolbox';
 const memberFeeder = require('../../feeder/member.feeder');
 const contactFeeder = require('../../feeder/contact.feeder');
 const messageFeeder = require('../../feeder/message.feeder');
+const groupFeeder = require('../../feeder/group.feeder');
 
 describe('Bulk Action automation test cases', () => {
   const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
@@ -49,14 +50,31 @@ describe('Bulk Action automation test cases', () => {
   });
 
   test('Create Threads on the inbox page', async () => {
-    await bulkActionToolbox.messageViaGroup(contactName, messageFeeder.groupPatientMessage);
-    await bulkActionToolbox.messageViaGroup(bulkContactName1, messageFeeder.groupPatientMessage);
-    await bulkActionToolbox.messageViaGroup(bulkContactName2, messageFeeder.groupPatientMessage);
+    await bulkActionToolbox.messageViaPatientGroup(contactName, messageFeeder.groupPatientMessage, groupFeeder.patientGroupChannel);
+    await bulkActionToolbox.messageViaPAndTGroup(bulkContactName1, messageFeeder.groupPatientMessage);
+    await bulkActionToolbox.messageViaPAndTGroup(bulkContactName2, messageFeeder.groupPatientMessage);
     await bulkActionToolbox.messageViaDirect(bulkContactName3, messageFeeder.groupPatientMessage);
     await bulkActionToolbox.messageViaDirect(bulkContactName4, messageFeeder.groupPatientMessage);
   });
 
-  // test('Assign thread to member', async () => {
-  //   await bulkActionToolbox.assignThreadToMemberAndGroup('@patientAndTeamGroup_PatientInbox', contactName, );
-  // });
+
+  test('Verify action items according the selection criteria - Direct Inbox', async () => {
+    await bulkActionToolbox.actionVerificationDirectInbox('@directInbox', bulkContactName4);
+    await bulkActionToolbox.checkActionVerificationForNone();
+  });
+
+  test('Assign thread to Group and Verify action items according the selection criteria', async () => {
+    await bulkActionToolbox.assignThreadToMemberAndGroup('@patientGroup', contactName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
+    await bulkActionToolbox.actionVerificationPatientGroup('@patientAndTeamGroup_PatientInbox', contactName);
+  });
+
+  test('Assign to self and Verify action items according the selection criteria', async () => {
+    await bulkActionToolbox.assignToSelf('@patientAndTeamGroup_PatientInbox', contactName, '@assignedToMe');
+    await bulkActionToolbox.AssignedToMeActionVerification('@assignedToMe', bulkContactName1);
+  });
+
+  test('Verify action items according the selection criteria - Following Inbox', async () => {
+    await bulkActionToolbox.actionVerificationFollowingInbox('@followingInbox', contactName);
+    await bulkActionToolbox.checkActionVerificationForNone();
+  });
 });

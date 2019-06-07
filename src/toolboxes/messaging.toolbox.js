@@ -120,11 +120,3 @@ export async function sendGroupMessageToContactUsingRhinosecure(contactName, mes
     .pause(1000);
   await chat.clickSendMessageButton();
 }
-
-export async function openClosedContact(contactName, message) {
-  await contact.navigate()
-    .openContactChat(contactName);
-  await chat.fillInMessageInput(message)
-    .pause(1000);
-  await chat.clickSendMessageButton();
-}

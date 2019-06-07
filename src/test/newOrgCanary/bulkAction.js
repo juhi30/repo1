@@ -3,7 +3,6 @@ import * as memberToolbox from '../../toolboxes/login.toolbox';
 import * as contactToolbox from '../../toolboxes/contact.toolbox';
 import * as bulkActionToolbox from '../../toolboxes/bulkActions.toolbox';
 import * as orgPreferencesToolbox from '../../toolboxes/orgPrefrences.toolbox';
-import * as messageToolbox from '../../toolboxes/messaging.toolbox';
 
 const bulkActions = client.page.BulkActionsPage();
 
@@ -13,16 +12,16 @@ const contactFeeder = require('../../feeder/contact.feeder');
 const messageFeeder = require('../../feeder/message.feeder');
 const groupFeeder = require('../../feeder/group.feeder');
 
-describe('Bulk Action automation test cases', () => {
-  const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
-  const bulkContactName1 = `${contactFeeder.bulkContactFirstName1} ${contactFeeder.bulkContactLastName1}`;
-  const bulkContactName2 = `${contactFeeder.bulkContactFirstName2} ${contactFeeder.bulkContactLastName2}`;
-  const bulkContactName3 = `${contactFeeder.bulkContactFirstName3} ${contactFeeder.bulkContactLastName3}`;
-  const bulkContactName4 = `${contactFeeder.bulkContactFirstName4} ${contactFeeder.bulkContactLastName4}`;
-  const bulkContactName5 = `${contactFeeder.bulkContactFirstName5} ${contactFeeder.bulkContactLastName5}`;
-  const bulkContactName6 = `${contactFeeder.bulkContactFirstName6} ${contactFeeder.bulkContactLastName6}`;
-  const bulkContactName7 = `${contactFeeder.bulkContactFirstName7} ${contactFeeder.bulkContactLastName7}`;
+const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
+const bulkContactName1 = `${contactFeeder.bulkContactFirstName1} ${contactFeeder.bulkContactLastName1}`;
+const bulkContactName2 = `${contactFeeder.bulkContactFirstName2} ${contactFeeder.bulkContactLastName2}`;
+const bulkContactName3 = `${contactFeeder.bulkContactFirstName3} ${contactFeeder.bulkContactLastName3}`;
+const bulkContactName4 = `${contactFeeder.bulkContactFirstName4} ${contactFeeder.bulkContactLastName4}`;
+const bulkContactName5 = `${contactFeeder.bulkContactFirstName5} ${contactFeeder.bulkContactLastName5}`;
+const bulkContactName6 = `${contactFeeder.bulkContactFirstName6} ${contactFeeder.bulkContactLastName6}`;
+const bulkContactName7 = `${contactFeeder.bulkContactFirstName7} ${contactFeeder.bulkContactLastName7}`;
 
+describe('Bulk Action automated test cases - Part -> 1', () => {
   beforeAll(async () => {
     await memberToolbox.memberLogin(memberFeeder.newMemberUsername, memberFeeder.newMemberPassword);
 
@@ -54,48 +53,58 @@ describe('Bulk Action automation test cases', () => {
     await contactToolbox.createContact(contactDetails3, '@patientOption');
     await contactToolbox.createContact(contactDetails4, '@patientOption');
 
-    // my requirements
-    // await messageToolbox.sendADirectMessageToContact(messageFeeder.directChatMessage, '@searchContactModalTitle', contactFeeder.anotherContactFirstName);
-    // await messageToolbox.sendGroupMessageToContact('@patientAndTeamGroup_PatientInbox',
-    // '@searchContactModalTitle', contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage);
-    // await bulkActions.selectActionAgainstCheckboxOption('@PatientTeamGroup', '@assign', contactFeeder.anotherContactFirstName);
-  });
+    test('Create Threads on the inbox page', async () => {
+      await bulkActionToolbox.messageViaPatientGroup(contactName, messageFeeder.groupPatientMessage, groupFeeder.patientGroupChannel);
+      await bulkActionToolbox.messageViaPAndTGroup(bulkContactName1, messageFeeder.groupPatientMessage);
+      await bulkActionToolbox.messageViaPAndTGroup(bulkContactName2, messageFeeder.groupPatientMessage);
+      await bulkActionToolbox.messageViaDirect(bulkContactName3, messageFeeder.groupPatientMessage);
+      await bulkActionToolbox.messageViaDirect(bulkContactName4, messageFeeder.groupPatientMessage);
+    });
 
-  test('Create Threads on the inbox page', async () => {
-    await bulkActionToolbox.messageViaPatientGroup(contactName, messageFeeder.groupPatientMessage, groupFeeder.patientGroupChannel);
-    await bulkActionToolbox.messageViaPAndTGroup(bulkContactName1, messageFeeder.groupPatientMessage);
-    await bulkActionToolbox.messageViaPAndTGroup(bulkContactName2, messageFeeder.groupPatientMessage);
+    test('Verify action items according the selection criteria - Direct Inbox', async () => {
+      await bulkActionToolbox.actionVerificationDirectInbox('@directInbox', bulkContactName4);
+      await bulkActionToolbox.checkActionVerificationForNone();
+    });
+
+    test('Assign thread to Group and Verify action items according the selection criteria', async () => {
+      await bulkActionToolbox.assignThreadToMemberAndGroup('@patientGroup', contactName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
+      await bulkActionToolbox.actionVerificationPatientGroup('@patientAndTeamGroup_PatientInbox', contactName);
+    });
+
+    test('Assign to self and Verify action items according the selection criteria', async () => {
+      await bulkActionToolbox.assignToSelf('@patientAndTeamGroup_PatientInbox', contactName, '@assignedToMe');
+      await bulkActionToolbox.AssignedToMeActionVerification('@assignedToMe', bulkContactName1);
+    });
+
+    test('Verify action items according the selection criteria - Following Inbox', async () => {
+      await bulkActionToolbox.actionVerificationFollowingInbox('@followingInbox', contactName);
+      await bulkActionToolbox.checkActionVerificationForNone();
+    });
+  });
+  // await contactToolbox.openClosedContact(bulkContactName1, messageFeeder.noteMessage);
+  // await contactToolbox.openClosedContact(bulkContactName2, messageFeeder.noteMessage);
+  // await contactToolbox.openClosedContact(bulkContactName3, messageFeeder.noteMessage);
+  // await contactToolbox.openClosedContact(bulkContactName4, messageFeeder.noteMessage);
+});
+
+describe('Bulk Action automation test cases - Part -> 2', () => {
+// use these requirements if required else remove
+// await messageToolbox.sendADirectMessageToContact(messageFeeder.directChatMessage, '@searchContactModalTitle', contactFeeder.anotherContactFirstName);
+// await messageToolbox.sendGroupMessageToContact('@patientAndTeamGroup_PatientInbox',
+// '@searchContactModalTitle', contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage);
+// await bulkActions.selectActionAgainstCheckboxOption('@PatientTeamGroup', '@assign', contactFeeder.anotherContactFirstName);
+
+  beforeAll(async () => {
+    // await bulkActionToolbox.messageViaPAndTGroup(bulkContactName1, messageFeeder.groupPatientMessage);
+    // await bulkActionToolbox.messageViaPAndTGroup(bulkContactName2, messageFeeder.groupPatientMessage);
     await bulkActionToolbox.messageViaDirect(bulkContactName3, messageFeeder.groupPatientMessage);
     await bulkActionToolbox.messageViaDirect(bulkContactName4, messageFeeder.groupPatientMessage);
   });
 
-  test('Verify action items according the selection criteria - Direct Inbox', async () => {
-    await bulkActionToolbox.actionVerificationDirectInbox('@directInbox', bulkContactName4);
-    await bulkActionToolbox.checkActionVerificationForNone();
-  });
-
-  test('Assign thread to Group and Verify action items according the selection criteria', async () => {
-    await bulkActionToolbox.assignThreadToMemberAndGroup('@patientGroup', contactName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
-    await bulkActionToolbox.actionVerificationPatientGroup('@patientAndTeamGroup_PatientInbox', contactName);
-  });
-
-  test('Assign to self and Verify action items according the selection criteria', async () => {
-    await bulkActionToolbox.assignToSelf('@patientAndTeamGroup_PatientInbox', contactName, '@assignedToMe');
-    await bulkActionToolbox.AssignedToMeActionVerification('@assignedToMe', bulkContactName1);
-  });
-
-  test('Verify action items according the selection criteria - Following Inbox', async () => {
-    await bulkActionToolbox.actionVerificationFollowingInbox('@followingInbox', contactName);
-    await bulkActionToolbox.checkActionVerificationForNone();
-  });
-
   // ----- When close By assignee is OFF -------
-  test('AssignedToMeInbox select all threads and check for the action option', async () => {
-    await bulkActionToolbox.checkForAssignmentCompleteOptionForATMThreads();
-  });
-
   test('DirectInbox select all threads and check for the action option', async () => {
     await bulkActionToolbox.checkForCloseConOptionForDirectThreads();
+    await bulkActionToolbox.assignThreadToMemberAndGroup('@patientAndTeamGroup_PatientInbox', contactFeeder.randomContactName, '@groupSearchInput', groupFeeder.patientAndTeamType, '@assignUpdateSuccessMessage');
   });
 
   test('PatientTeamGroupInbox select assigned thread and check for the action option', async () => {
@@ -106,8 +115,12 @@ describe('Bulk Action automation test cases', () => {
     await bulkActionToolbox.checkForCloseConOptionForPateintTeamForDefaultThread();
   });
 
+  test('AssignedToMeInbox select all threads and check for the action option', async () => {
+    await bulkActionToolbox.checkForAssignmentCompleteOptionForATMThreads();
+  });
+
   test('PatientTeamGroupInbox select all threads and check for the action option', async () => {
-    await messageToolbox.openClosedContact(contactFeeder.randomContactName, messageFeeder.noteMessage);
+    await contactToolbox.openClosedContact(contactFeeder.randomContactName, messageFeeder.noteMessage);
     await bulkActionToolbox.assignThreadToMemberAndGroup('@patientAndTeamGroup_PatientInbox', contactFeeder.randomContactName, '@groupSearchInput', groupFeeder.patientAndTeamType, '@assignUpdateSuccessMessage');
     await bulkActionToolbox.assignThreadToMemberAndGroup('@directInbox', contactFeeder.randomContactName, '@patientAndTeamGroup_PatientInbox', groupFeeder.patientAndTeamType, '@assignUpdateSuccessMessage');
     await bulkActionToolbox.checkForCloseConOptionForPateintTeamForAllThreads();

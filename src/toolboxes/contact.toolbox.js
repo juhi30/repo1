@@ -1,6 +1,7 @@
 import { client } from 'nightwatch-api';
 
 const contact = client.page.ContactsPage();
+const chat = client.page.DirectChatInboxPage();
 
 export async function createContact(contactDetails, contactTypeElement) {
   await contact.navigate()
@@ -88,4 +89,12 @@ export async function searchContact(searchText, searchResultElement) {
 export async function deleteContact(deletedContactElement) {
   await contact.navigate()
     .deleteContact(deletedContactElement);
+}
+
+export async function openClosedContact(contactName, message) {
+  await contact.navigate()
+    .openContactChat(contactName);
+  await chat.fillInMessageInput(message)
+    .pause(1000);
+  await chat.clickSendMessageButton();
 }

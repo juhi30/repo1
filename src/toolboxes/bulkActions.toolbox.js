@@ -84,41 +84,49 @@ export async function checkForCloseConOptionForPateintTeamForAllThreads() {
 
 // check the action option for the selected option for AssignedToMe inbox when CBA is ON
 export async function checkForAssignmentCompleteOptionForATMThreadsCBAOn() {
+  await group.openGroup('@assignedToMe');
   await bulk
-    .navigateToInboxGroup('@assignedToMe')
     .selectOption('@all')
-    .actionForSelection('@assignmentComplete');
+    .actionForSelection('All')
+    .performActionForSelection('@assignmentComplete');
 }
 
 // check the action option for the selected option for Direct inbox when CBA is ON
 export async function checkForCloseConOptionForDirectThreadsCBAOn() {
+  await group.openGroup('@directInbox');
   await bulk
-    .navigateToInboxGroup('@directInbox')
     .selectOption('@all')
-    .actionForSelection('@closeConversations');
+    .actionForSelection('All')
+    .performActionForSelection('@closeConversations');
 }
 
 // check the action option for the selected option for patient team inbox group when CBA is ON
 
 export async function checkForCloseConOptionForPateintTeamForAssignedThreadCBAOn() {
+  await group.openGroup('@PatientTeamGroup');
   await bulk
-    .navigateToInboxGroup('@PatientTeamGroup')
+    // .navigateToInboxGroup('@PatientTeamGroup')
     .selectOption('@assigned')
-    .actionForSelection('@assignmentComplete');
+    .actionForSelection('AssignedGroup')
+    .performActionForSelection('@assignmentComplete');
 }
 
 export async function checkForCloseConOptionForPateintTeamForDefaultThreadCBAOn() {
+  await group.openGroup('@PatientTeamGroup');
   await bulk
-    .navigateToInboxGroup('@PatientTeamGroup')
+  //  .navigateToInboxGroup('@PatientTeamGroup')
     .selectOption('@notAssigned')
-    .actionForSelection('@closeConversations');
+    .actionForSelection('NotAssignedGroup')
+    .performActionForSelection('@closeConversations');
 }
 
 export async function checkForCloseConOptionForPateintTeamForAllThreadsCBAOn() {
+  await group.openGroup('@PatientTeamGroup');
   await bulk
-    .navigateToInboxGroup('@PatientTeamGroup')
+  //  .navigateToInboxGroup('@PatientTeamGroup')
     .selectOption('@all')
-    .actionForSelection('@closeConversations');
+    .actionForSelection('All')
+    .performActionForSelection('@closeConversations');
 }
 
 export async function actionVerificationPatientGroup(groupName) {

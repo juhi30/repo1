@@ -39,11 +39,6 @@ const bulkActionCommands = {
     });
   },
 
-  selectMessageThread(contactName) {
-    return this.api.useXpath().waitForElementVisible(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`, `Thread with this name ${contactName} is visible.`)
-      .click(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`);
-  },
-
   assignToMemberAndGroup() {
     return this.waitForElementVisible('@actionDropdown', 'Action Dropdown is visible and thread is selected')
       .click('@actionDropdown')
@@ -51,9 +46,9 @@ const bulkActionCommands = {
       .click('@assign');
   },
 
-  navigateToInboxGroup(groupName) {
-    return this.verify.visible(groupName, `${groupName} Page Navigation option is visible!`)
-      .click(groupName)
+  navigateToInboxGroup(inboxName) {
+    return this.waitForElementVisible(inboxName, `${inboxName} Page Navigated to the desired inbox!`)
+      .click(inboxName)
       .pause(2000);
   },
 
@@ -65,7 +60,7 @@ const bulkActionCommands = {
   },
 
   selectOption(option) {
-    return this.waitForElementPresent('@BulkSelectDropdownIcon', 'Selection dropdown is visible.')
+    return this.waitForElementVisible('@BulkSelectDropdownIcon', 'Selection dropdown is visible.')
       .click('@BulkSelectDropdownIcon')
       .waitForElementVisible(option, `${option} option is visible.`)
       .click(option)
@@ -77,6 +72,13 @@ const bulkActionCommands = {
     return this.verify.visible('@actionDropdown', 'Action dropdown visible')
       .click('@actionDropdown')
       .valueCompare('@actionDropdownList', selectionOption);
+  },
+
+  performActionForSelection(selectionOption) {
+    return this.waitForElementVisible(selectionOption, `${selectionOption} is visible`)
+      .click(selectionOption)
+      .waitForElementVisible('@successToast', 'success message is visible')
+      .waitForElementNotPresent('@successToast', 'success message is not present');
   },
 
   noneSelection() {
@@ -110,6 +112,20 @@ const bulkActionCommands = {
       .waitForElementVisible(actionName, `${actionName} Action name is visible`)
       .click(actionName);
   },
+
+  // selectActionAgainstCheckboxOption(inboxGroupName, actionName) {
+  //   return this.waitForElementVisible(inboxGroupName, `${inboxGroupName} inbox group is visible`)
+  //     .click(inboxGroupName)
+  //     .waitForElementVisible('@bulkSelectCheckbox', 'bulk select option is visible')
+  //     .click('@bulkSelectCheckbox')
+  //   //  .selectMessageThread(contactName)
+  // .waitForElementVisible(selectMessageThread, `${selectMessageThread} selected option is visible`)
+  //  .click(selectMessageThread)
+  //     .waitForElementVisible('@actionDropdown', 'Action dropdown is visible')
+  //     .click('@actionDropdown')
+  //     .waitForElementVisible(actionName, `${actionName} Action name is visible`)
+  //     .click(actionName);
+  // },
 
   selectMessageThread(contactName) {
     return this.api.useXpath().waitForElementVisible(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`, `Thread with this name ${contactName} is visible.`)

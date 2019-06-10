@@ -31,7 +31,9 @@ export async function memberLogin(userName, password) {
   await login.navigate()
     .enterMemberCreds(userName, password)
     .submit()
-    .validateUrlChange();
+    .validateUrlChange()
+    .clickUpdateLaterOnEmailModal()
+    .pause(1000);
 }
 
 export async function invalidMemberLogin(userName, password, errorPromptElement, errorMessage) {
@@ -74,5 +76,6 @@ export async function resetMemberPassword(password) {
   await login.fillInNewPasswordInput(password)
     .fillInConfirmPasswordInput(password)
     .clickSaveAndContinueButton()
+    .clickUpdateLaterOnEmailModal()
     .pause(1000);
 }

@@ -94,6 +94,11 @@ const loginCommands = {
       .setValue('@usernameInput', inputValue)
       .click('@getNewPassword');
   },
+
+  clickUpdateLaterOnEmailModal() {
+    return this.waitForElementVisible('@updateLaterButton', 'Confirm user email modal is visible')
+      .click('@updateLaterButton');
+  },
 };
 
 module.exports = {
@@ -119,6 +124,11 @@ module.exports = {
 
     logOutButton: {
       selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Log Out\']',
+      locateStrategy: 'xpath',
+    },
+
+    updateLaterButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Update Later\']',
       locateStrategy: 'xpath',
     },
 

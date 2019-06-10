@@ -4,6 +4,7 @@ const contact = client.page.ContactsPage();
 const chat = client.page.DirectChatInboxPage();
 const bulk = client.page.BulkActionsPage();
 const group = client.page.GroupsPage();
+const unfollow = client.page.followingPage();
 
 export async function messageViaPAndTGroup(contactName, message) {
   await contact.navigate()
@@ -129,11 +130,31 @@ export async function actionVerificationFollowingInbox(groupName, contactName) {
     .actionForSelection('Unread');
 }
 
-export async function AssignmentCompleteUsingThread(source, contactName, destination) {
+export async function assignmentCompleteAction(source, destination, contactName) {
   await group.openGroup(source);
-  await bulk.selectMessageThread(contactName)
-    .selectAnAction('@assignmentComplete')
+  await bulk.selectOption('@all');
+  bulk.selectAnAction('@assignmentComplete')
     .verifySuccessMessage('@successToast');
   await group.openGroup(destination)
-    .verifyAssignedThread(contactName);
+    .verifyThreadVisibility(contactName);
+}
+
+export async function unfollowAction(source) {
+  await group.openGroup(source);
+  await bulk.selectOption('@all');
+  bulk.selectAnAction('@unFollow')
+    .verifySuccessMessage('@successToast');
+  await unfollow.verifyDefaultState();
+}
+
+export async function closeConversationAction(source) {
+  await group.openGroup(source);
+  await bulk.selectOption('@all');
+  bulk.selectAnAction('@closeConversations')
+    .verifySuccessMessage('@successToast');
+  await unfollow.verifyDefaultState();
+}
+
+export async function verifyPagination(source) {
+  await group.openGroup(source);
 }

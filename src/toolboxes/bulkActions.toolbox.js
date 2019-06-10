@@ -44,90 +44,83 @@ export async function assignThreadToMemberAndGroup(source, contactName, actionNa
     .verifyAssignedThread(contactName);
 }
 
-// check the action option for the selected option for AssignedToMe inbox when CBA is OFF
-export async function checkForAssignmentCompleteOptionForATMThreads() {
-  await bulk
-    .selectOption('@all')
-    .actionForSelection('All')
-    .performActionForSelection('@assignmentComplete');
+export async function performAction(source, selection, actionName) {
+  await group.openGroup(source);
+  await bulk.selectOption(selection);
+  bulk.selectAnAction(actionName)
+    .verifySuccessMessage('@successToast');
 }
 
 // check the action option for the selected option for Direct inbox when CBA is OFF
-export async function checkForCloseConOptionForDirectThreads() {
+export async function closeConOptionForDirectThreads() {
   await group.openGroup('@directInbox');
   await bulk.selectOption('@all')
-    .actionForSelection('All')
-    .performActionForSelection('@closeConversations');
+    .actionForSelection('All');
 }
 
 // check the action option for the selected option for Patient Team Inbox when CBA is OFF
-export async function checkForCloseConOptionForPateintTeamForAssignedThread() {
+export async function closeConOptionForPateintTeamForAssignedThreads() {
   await group.openGroup('@patientAndTeamGroup_PatientInbox');
   await bulk.selectOption('@assigned')
-    .actionForSelection('AssignedGroup')
-    .performActionForSelection('@assignmentComplete');
+    .actionForSelection('AssignedGroup');
 }
 
-export async function checkForCloseConOptionForPateintTeamForDefaultThread() {
+export async function closeConOptionForPateintTeamForDefaultThreads() {
   await group.openGroup('@patientAndTeamGroup_PatientInbox');
   await bulk.selectOption('@notAssigned')
-    .actionForSelection('NotAssignedGroup')
-    .performActionForSelection('@closeConversations');
+    .actionForSelection('NotAssignedGroup');
 }
 
-export async function checkForCloseConOptionForPateintTeamForAllThreads() {
+export async function closeConOptionForPateintTeamForAllThreads() {
   await group.openGroup('@patientAndTeamGroup_PatientInbox');
   await bulk.selectOption('@all')
-    .actionForSelection('All')
-    .performActionForSelection('@closeConversations');
+    .actionForSelection('All');
 }
 
-// check the action option for the selected option for AssignedToMe inbox when CBA is ON
-export async function checkForAssignmentCompleteOptionForATMThreadsCBAOn() {
+// check the action option for the selected option for AssignedToMe inbox when CBA is OFF
+export async function assignmentCompleteOptionForATMThreads() {
   await group.openGroup('@assignedToMe');
-  await bulk
-    .selectOption('@all')
-    .actionForSelection('All')
-    .performActionForSelection('@assignmentComplete');
+  await bulk.selectOption('@all')
+    .actionForSelection('All');
 }
+
+// -------------CBA is ON ---------------------
+// check the action option for the selected option for AssignedToMe inbox when CBA is ON
 
 // check the action option for the selected option for Direct inbox when CBA is ON
-export async function checkForCloseConOptionForDirectThreadsCBAOn() {
-  await group.openGroup('@directInbox');
-  await bulk
-    .selectOption('@all')
-    .actionForSelection('All')
-    .performActionForSelection('@closeConversations');
-}
+// export async function closeConOptionForDirectThreadsCBAOn() {
+//   await group.openGroup('@directInbox');
+//   await bulk.selectOption('@all')
+//     .actionForSelection('All');
+// }
 
 // check the action option for the selected option for patient team inbox group when CBA is ON
 
-export async function checkForCloseConOptionForPateintTeamForAssignedThreadCBAOn() {
-  await group.openGroup('@PatientTeamGroup');
-  await bulk
-    // .navigateToInboxGroup('@PatientTeamGroup')
-    .selectOption('@assigned')
-    .actionForSelection('AssignedGroup')
-    .performActionForSelection('@assignmentComplete');
-}
+// export async function closeConOptionForPateintTeamForAssignedThreadsCBAOn() {
+//   await group.openGroup('@patientAndTeamGroup_PatientInbox');
+//   await bulk.selectOption('@assigned')
+//     .actionForSelection('AssignedGroup');
+// }
 
-export async function checkForCloseConOptionForPateintTeamForDefaultThreadCBAOn() {
-  await group.openGroup('@PatientTeamGroup');
-  await bulk
-  //  .navigateToInboxGroup('@PatientTeamGroup')
-    .selectOption('@notAssigned')
-    .actionForSelection('NotAssignedGroup')
-    .performActionForSelection('@closeConversations');
-}
+// export async function closeConOptionForPateintTeamForDefaultThreadCBAOn() {
+//   await group.openGroup('@patientAndTeamGroup_PatientInbox');
+//   await bulk.selectOption('@notAssigned')
+//     .actionForSelection('NotAssignedGroup');
+// }
 
-export async function checkForCloseConOptionForPateintTeamForAllThreadsCBAOn() {
-  await group.openGroup('@PatientTeamGroup');
-  await bulk
-  //  .navigateToInboxGroup('@PatientTeamGroup')
-    .selectOption('@all')
-    .actionForSelection('All')
-    .performActionForSelection('@closeConversations');
-}
+// export async function closeConOptionForPateintTeamForAllThreadsCBAOn() {
+//   await group.openGroup('@patientAndTeamGroup_PatientInbox');
+//   await bulk.selectOption('@all')
+//     .actionForSelection('All');
+// }
+
+// export async function assignmentCompleteOptionForATMThreadsCBAOn() {
+//   await group.openGroup('@assignedToMe');
+//   await bulk.selectOption('@all')
+//     .actionForSelection('All');
+// }
+
+// Munish's functions
 
 export async function actionVerificationPatientGroup(groupName) {
   await group.openGroup(groupName);

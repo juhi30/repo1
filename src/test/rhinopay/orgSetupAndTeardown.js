@@ -40,6 +40,7 @@ beforeAll(async () => {
     // Change to newly created org
     await changeOrganization({ orgId, userId: ccrUserId }, cookie);
 
+    process.env.RHINOPAY_CCR_COOKIE = cookie;
     // Create admin member to run tests
     const memberData = {
       afterHours: false,

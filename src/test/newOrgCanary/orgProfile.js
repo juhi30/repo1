@@ -31,7 +31,7 @@ describe('Organisation profile edit as member', () => {
     const universal = client.page.UniversalElements();
 
     await universal.clickOrgProfile();
-    await orgProfile.renderPageElements('@updateLogoButton');
+    await orgProfile.renderPageElements('@addLogoButton');
 
     await orgProfile
       .updateOrgProfileMandatoryFields(orgProfileFeeder.orgNewName,
@@ -83,7 +83,7 @@ describe('Organization Profile Edit as CCR', () => {
     const universal = client.page.UniversalElements();
 
     await universal.clickOrgProfile();
-    await orgProfile.renderPageElements('@updateLogoButton');
+    await orgProfile.renderPageElements('@addLogoButton');
 
     await orgProfile.verifyBillingIdAndIntegrationOptions()
       .updateOrgProfileMandatoryFields(orgProfileFeeder.orgNewName,

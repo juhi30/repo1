@@ -7,14 +7,16 @@ describe('rhinopay tests', () => {
     const data = {
       merchantId: 65432,
       organizationId: process.env.ORG_ID,
+      apiUserName: 'myUserName',
+      apiPassword: 'myPassword',
     };
-    await rhinopay.postMerchant(data, process.env.LOGIN_COOKIE).then(() => {
+    await rhinopay.postMerchant(data, process.env.RHINOPAY_CCR_COOKIE).then(() => {
       done();
     });
   });
 
   test('test getting merchant by OrgId', async (done) => {
-    await rhinopay.getMerchantByOrgId(process.env.ORG_ID, process.env.LOGIN_COOKIE).then((response) => {
+    await rhinopay.getMerchantByOrgId(process.env.ORG_ID, process.env.RHINOPAY_CCR_COOKIE).then((response) => {
       expect(response.data.merchantId).toBe(65432);
       done();
     });
@@ -27,6 +29,7 @@ describe('rhinopay tests', () => {
       shortLinkCode: '456def',
       merchantId: 65432,
       requestAmount: 105.50,
+      orgId: process.env.ORG_ID,
     };
     await rhinopay.postPaymentRequest(data, process.env.LOGIN_COOKIE).then(() => {
       done();
@@ -68,7 +71,7 @@ describe('rhinopay tests', () => {
       cardToken: 'Qq6Nm1ii+FUMdCq8harFl/TQE/SEQZ6TusQMyU5a0x8dnrfyH+Mn1g==',
     };
     await rhinopay.sendCreditCardPayment(data, process.env.LOGIN_COOKIE).then((response) => {
-      expect(response.data[0].cvReesult).not('U');
+      expect(response.data.ProcessCreditCardResult.RespMSG).toBe('Approved');
       done();
     });
   });

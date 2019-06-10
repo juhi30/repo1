@@ -133,7 +133,8 @@ const universalElementsCommands = {
       .waitForElementVisible('@channelsInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@channelsInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/channels', 'Channels page is visible');
+      .verify.urlContains('organization/channels', 'Channels page is visible')
+      .click('@rhinogramLogo');
   },
 
   clickGroups() {
@@ -141,7 +142,8 @@ const universalElementsCommands = {
       .waitForElementVisible('@groupsInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@groupsInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/groups', 'Groups page is visible');
+      .verify.urlContains('organization/groups', 'Groups page is visible')
+      .click('@rhinogramLogo');
   },
 
   clickMembers() {
@@ -149,7 +151,8 @@ const universalElementsCommands = {
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@membersInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/members', 'Members page is visible');
+      .verify.urlContains('organization/members', 'Members page is visible')
+      .click('@rhinogramLogo');
   },
 
   clickOOO() {
@@ -157,7 +160,8 @@ const universalElementsCommands = {
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@oooInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('/organization/out-of-office', 'Out of Office page is visible');
+      .verify.urlContains('/organization/out-of-office', 'Out of Office page is visible')
+      .click('@rhinogramLogo');
   },
 
   clickBilling() {
@@ -165,7 +169,8 @@ const universalElementsCommands = {
       .waitForElementVisible('@billingInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@billingInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('/organization/billing', 'Billing page is visible');
+      .verify.urlContains('/organization/billing', 'Billing page is visible')
+      .click('@rhinogramLogo');
   },
 
   clickOrgPreferences() {
@@ -173,7 +178,8 @@ const universalElementsCommands = {
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@orgPreferencesInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/preferences', 'Organization Preferences page is visible');
+      .verify.urlContains('organization/preferences', 'Organization Preferences page is visible')
+      .click('@rhinogramLogo');
   },
 
   clickOrgProfile() {
@@ -182,7 +188,8 @@ const universalElementsCommands = {
       .click('@orgProfileInSettingsDropdown')
       .pause(500)
       // .waitForElementNotVisible('@orgProfileInSettingsDropdown', 'Org Profile is hidden')
-      .verify.urlContains('organization/profile', 'Organization Profile page is visible');
+      .verify.urlContains('organization/profile', 'Organization Profile page is visible')
+      .click('@rhinogramLogo');
   },
 
   clickTags() {
@@ -190,7 +197,8 @@ const universalElementsCommands = {
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@tagsInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/tags', 'Tags page is visible');
+      .verify.urlContains('organization/tags', 'Tags page is visible')
+      .click('@rhinogramLogo');
   },
 
   clickTemplates() {
@@ -198,7 +206,8 @@ const universalElementsCommands = {
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@templatesInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/templates', 'Templates page is visible');
+      .verify.urlContains('organization/templates', 'Templates page is visible')
+      .click('@rhinogramLogo');
   },
 
   clickSystemDetails() {
@@ -206,7 +215,8 @@ const universalElementsCommands = {
       .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@systemDetailsInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('diagnostics', 'System Detail page is visible');
+      .verify.urlContains('diagnostics', 'System Detail page is visible')
+      .click('@rhinogramLogo');
   },
 
   clickLogout() {
@@ -260,7 +270,8 @@ const universalElementsCommands = {
       .waitForElementVisible('@auditInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@auditInSettingsDropdown')
       .pause(500)
-      .verify.urlContains('organization/auditLog', 'Audit Logs page is visible');
+      .verify.urlContains('organization/auditLog', 'Audit Logs page is visible')
+      .click('@rhinogramLogo');
   },
 };
 
@@ -271,6 +282,11 @@ module.exports = {
   },
 
   elements: {
+
+    rhinogramLogo: {
+      selector: '//DIV[@class=\'app-navigation__logo\']',
+      locateStrategy: 'xpath',
+    },
 
     appHeaderTitle: {
       selector: '//DIV[@class=\'app-page__header__title\']',

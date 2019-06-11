@@ -327,16 +327,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    addContactDropdownFirstResultBot: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.EXISTING_ORG_BOT_CONTACT_NAME}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    addContactDropdownFirstResultFb: {
-      selector: `//SPAN[contains(@class, 'resource__intro__title__content')]//strong[contains(text(), '${process.env.EXISTING_ORG_FACEBOOK_CONTACT_NAME}')]`,
-      locateStrategy: 'xpath',
-    },
-
     addContactDropdownInput: {
       selector: '//DIV[contains(@class, \'modal\')]//INPUT',
       locateStrategy: 'xpath',
@@ -688,6 +678,16 @@ module.exports = {
 
     searchedContactForPatient: {
       selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    addContactDropdownFirstResultBot: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${process.env.EXISTING_ORG_BOT_CONTACT_NAME}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    addContactDropdownFirstResultFb: {
+      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${process.env.EXISTING_ORG_FACEBOOK_CONTACT_NAME}')]`,
       locateStrategy: 'xpath',
     },
 

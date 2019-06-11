@@ -140,12 +140,12 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    topPagination_Group: {
+    topPaginationGroup: {
       selector: '//DIV[@class=\'inbox-pagination\']',
       locateStrategy: 'xpath',
     },
 
-    bottomPagination_Group: {
+    bottomPaginationGroup: {
       selector: '//DIV[@class=\'list-panel__body\']//DIV[@class=\'u-inline-grid u-flex u-flex-justify-between u-m-t-small u-text-small u-inline-grid--small\']',
       locateStrategy: 'xpath',
     },

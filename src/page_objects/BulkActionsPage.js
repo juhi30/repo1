@@ -35,7 +35,7 @@ const bulkActionCommands = {
       return self.waitForElementVisible('@inboxPageTitle', `${title} page title is visible`)
         .verify.containsText('@inboxPageTitle', title, ` page title is ${title}`)
         .verify.visible('@bulkSelectCheckbox', 'bulk select checkbox is visible')
-        .verify.visible('@BulkSelectDropdownIcon', 'bulk select option is available');
+        .verify.visible('@bulkSelectDropdownIcon', 'bulk select option is available');
     });
   },
 
@@ -71,8 +71,8 @@ const bulkActionCommands = {
   },
 
   selectOption(option) {
-    return this.waitForElementPresent('@BulkSelectDropdownIcon', 'Selection dropdown is visible.')
-      .click('@BulkSelectDropdownIcon')
+    return this.waitForElementPresent('@bulkSelectDropdownIcon', 'Selection dropdown is visible.')
+      .click('@bulkSelectDropdownIcon')
       .waitForElementVisible(option, `${option} option is visible.`)
       .click(option)
       .waitForElementVisible('@selectionCount')
@@ -86,7 +86,7 @@ const bulkActionCommands = {
   },
 
   noneSelection() {
-    return this.click('@BulkSelectDropdownIcon')
+    return this.click('@bulkSelectDropdownIcon')
       .waitForElementVisible('@none', 'None Selection Option is visible!')
       .click('@none')
       .waitForElementNotPresent('@actionDropdown', 'Action dropdown is not available after the selection.');
@@ -123,12 +123,12 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    PatientGroup: {
+    patientGroup: {
       selector: '//*[contains(@id,\'nav-inbox\')][@title=\'Patient Group\']',
       locateStrategy: 'xpath',
     },
 
-    PatientTeamGroup: {
+    patientTeamGroup: {
       selector: '//*[contains(@id,\'nav-inbox\')][@title=\'Patient Team Group\']',
       locateStrategy: 'xpath',
     },
@@ -149,7 +149,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    BulkSelectDropdownIcon: {
+    bulkSelectDropdownIcon: {
       selector: '(//div[@class=\'dropdown\']//span[@class=\'button__text-wrapper\']/button)[1]',
       locateStrategy: 'xpath',
     },

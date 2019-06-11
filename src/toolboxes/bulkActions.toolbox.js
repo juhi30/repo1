@@ -73,7 +73,7 @@ export async function assignToSelf(source, contactName, destination) {
     .verifyAssignedThread(contactName);
 }
 
-export async function AssignedToMeActionVerification(groupName, contactName) {
+export async function assignedToMeActionVerification(groupName, contactName) {
   await group.openGroup(groupName);
   await bulk.selectMessageThread(contactName);
   bulk.selectAnAction('@markAsRead')

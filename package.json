@@ -14,6 +14,7 @@
     "test-integrations": "mkdir -p results && jest src/test/integrations",
     "test-rhinopay": "mkdir -p results && jest src/test/rhinopay",
     "test-rhinoExternalApi": "mkdir -p results && jest src/test/rhinoExternalApi",
+    "test-apptReminders": "mkdir -p results && jest src/test/apptReminders",
     "clean": "rm -rf lib/* results",
     "build": "yarn clean && node_modules/.bin/babel src --out-dir lib",
     "lint": "eslint src"

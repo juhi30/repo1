@@ -2,6 +2,7 @@ import Queue from 'rhinotilities/lib/objects/Queue';
 
 // Used for checking if a sub object/nested object has ANY props/keys
 export function pushtoqueue(message, handler) {
+  console.log('MESSAGE', message);
   const queue = new Queue({
     url: process.env.AWS_SQS_LINER_INBOUND_URL,
     longPollTimeout: 5,

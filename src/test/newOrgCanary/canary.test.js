@@ -13,12 +13,12 @@ import './contact';
 import './template';
 import './tags';
 import './patient';
-// import './outofoffice';
+import './outofoffice';
 import './messaging';
 import './threadActions';
 import './orgPreferences';
-import './analytics';
 import './bulkAction';
+import './analytics';
 
 // //Member + CCR flow. This should be the last test case
 import './orgProfile';

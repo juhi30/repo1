@@ -48,7 +48,11 @@ const groupsPageCommands = {
   },
 
   verifyAssignedThread(assignedThread) {
-    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(.,'${assignedThread}')]`, `${assignedThread} is visible at its destination!`);
+    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(.,'${assignedThread}')]`, `${assignedThread} is visible at its Assigned Destination!`);
+  },
+
+  verifyThreadVisibility(assignedThread) {
+    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(.,'${assignedThread}')]`, `${assignedThread} is visible at its Default Route`);
   },
 
   navigateToInbox(inboxElement, url) {
@@ -139,6 +143,16 @@ module.exports = {
 
     purposeInput: {
       selector: '//INPUT[contains(@name, \'purpose\')]',
+      locateStrategy: 'xpath',
+    },
+
+    topPagination_Group: {
+      selector: '//DIV[@class=\'inbox-pagination\']',
+      locateStrategy: 'xpath',
+    },
+
+    bottomPagination_Group: {
+      selector: '//DIV[@class=\'list-panel__body\']//DIV[@class=\'u-inline-grid u-flex u-flex-justify-between u-m-t-small u-text-small u-inline-grid--small\']',
       locateStrategy: 'xpath',
     },
 

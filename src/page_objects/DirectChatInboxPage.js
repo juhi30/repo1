@@ -42,7 +42,8 @@ const commands = {
 
   clickSendMessageButton() {
     return this.waitForElementVisible('@sendMessageButton', 'Send message button is enabled')
-      .click('@sendMessageButton');
+      .click('@sendMessageButton')
+      .pause(1000);
   },
 
   openMessageThread(messageThread) {

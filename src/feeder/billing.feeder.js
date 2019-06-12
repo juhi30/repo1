@@ -1,19 +1,7 @@
 // billing contact details while verification
 module.exports = {
-  memberUsername: 'Testing_NewCanary_local',
-  memberPassword: 'Test@123',
-  firstName: 'Billing First Name',
-  lastName: 'Billing Last Name',
-  phoneNumber: '(555) 666-7778',
-  emailAddress: 'billing@gmail.com',
-  billingLine1: 'Billing Address one',
-  billingLine2: 'Billing Address two',
-  billingCity: 'billing city',
-  stateName: 'Alaska',
-  stateId: 14,
-  zipForContact: '32424',
 
-  // billing contact details while updation
+  // New billing contact details for updation
   contactFirstName: 'New Billing first name',
   contactLastName: 'New Billing last name ',
   contactPhoneNumber: '7682635291',

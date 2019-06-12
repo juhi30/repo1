@@ -3,6 +3,7 @@ import { client } from 'nightwatch-api';
 const billingPage = client.page.BillingUsagePage();
 const orgProfile = client.page.OrgProfilePage();
 const billingFeeder = require('../feeder/billing.feeder');
+const accountSetupFeeder = require('../feeder/accountSetup.feeder');
 
 export async function verifyBillingPageForStandardPlan() {
   await billingPage.validateSectionsForStandardPlan()
@@ -29,15 +30,15 @@ export async function verifyBillingID() {
 export async function verifyBillingContactDetails() {
   await billingPage
     .verifyBillingContactDetailsSection()
-    .verifyContactInformation('@contactFirstNameInput', billingFeeder.firstName)
-    .verifyContactInformation('@contactLastNameInput', billingFeeder.lastName)
-    .verifyContactInformation('@phoneNumberInput', billingFeeder.phoneNumber)
-    .verifyContactInformation('@emailAddrInput', billingFeeder.emailAddress)
-    .verifyContactInformation('@billingLine1Input', billingFeeder.billingLine1)
-    .verifyContactInformation('@billingLine2Input', billingFeeder.billingLine2)
-    .verifyContactInformation('@cityInput', billingFeeder.billingCity)
-    .verifyContactInformation('@stateInput', billingFeeder.stateId)
-    .verifyContactInformation('@contactZipInput', billingFeeder.zipForContact);
+    .verifyContactInformation('@contactFirstNameInput', accountSetupFeeder.billingContactFirstName)
+    .verifyContactInformation('@contactLastNameInput', accountSetupFeeder.billingContactLastName)
+    .verifyContactInformation('@phoneNumberInput', accountSetupFeeder.billingContactPhone)
+    .verifyContactInformation('@emailAddrInput', accountSetupFeeder.billingContactEmail)
+    .verifyContactInformation('@billingLine1Input', accountSetupFeeder.billingContactAddressOne)
+    .verifyContactInformation('@billingLine2Input', accountSetupFeeder.billingContactAddressTwo)
+    .verifyContactInformation('@cityInput', accountSetupFeeder.billingContactCity)
+    .verifyContactInformation('@stateInput', accountSetupFeeder.stateId)
+    .verifyContactInformation('@contactZipInput', accountSetupFeeder.billingContactZip);
 }
 
 export async function updateBankDetails() {

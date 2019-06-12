@@ -2,19 +2,13 @@ import { client } from 'nightwatch-api';
 import * as contactToolbox from '../../toolboxes/contact.toolbox';
 import * as bulkActionToolbox from '../../toolboxes/bulkActions.toolbox';
 import * as orgPreferencesToolbox from '../../toolboxes/orgPrefrences.toolbox';
-import * as loginToolbox from '../../toolboxes/login.toolbox';
-import * as memberToolbox from '../../toolboxes/member.toolbox';
 
-const bulkActions = client.page.BulkActionsPage();
-const chatInbox = client.page.DirectChatInbox();
-const memberFeeder = require('../../feeder/member.feeder');
+const preference = client.page.PreferencesPage();
+const chat = client.page.DirectChatInbox();
+const group = client.page.GroupsPage();
 const contactFeeder = require('../../feeder/contact.feeder');
 const messageFeeder = require('../../feeder/message.feeder');
 const groupFeeder = require('../../feeder/group.feeder');
-
-const chat = client.page.DirectChatInboxPage();
-const group = client.page.GroupsPage();
-const preference = client.page.PreferencesPage();
 
 const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
 const bulkContactName1 = `${contactFeeder.bulkContactFirstName1} ${contactFeeder.bulkContactLastName1}`;
@@ -40,43 +34,43 @@ const contactDetails3 = [{ element: '@firstNameInput', value: contactFeeder.bulk
   { element: '@phoneNumberInput', value: contactFeeder.bulkContactFirstPhoneNumber3 },
 ];
 
-const contactDetails4 = [{ element: '@firstNameInput', value: contactFeeder.bulkContactFirstName5 },
-  { element: '@lastNameInput', value: contactFeeder.bulkContactLastName5 },
-  { element: '@birthDateInput', value: contactFeeder.bulkContactBirthDate5 },
-  { element: '@phoneNumberInput', value: contactFeeder.bulkContactFirstPhoneNumber5 },
+const contactDetails4 = [{ element: '@firstNameInput', value: contactFeeder.bulkContactFirstName4 },
+  { element: '@lastNameInput', value: contactFeeder.bulkContactLastName4 },
+  { element: '@birthDateInput', value: contactFeeder.bulkContactBirthDate4 },
+  { element: '@phoneNumberInput', value: contactFeeder.bulkContactFirstPhoneNumber4 },
 ];
 
-const paginationContactDetail1 = [{ element: '@firstNameInput', value: contactFeeder.paginationFirstContact1 },
-  { element: '@lastNameInput', value: contactFeeder.paginationLastName1 },
-  { element: '@birthDateInput', value: contactFeeder.paginationBirthDate1 },
-  { element: '@phoneNumberInput', value: contactFeeder.paginationFirstPhoneNumber1 },
+const testContact1 = [{ element: '@firstNameInput', value: contactFeeder.testingContactFirstName1 },
+  { element: '@lastNameInput', value: contactFeeder.testingContactLastName1 },
+  { element: '@birthDateInput', value: contactFeeder.testingContactBirthDate1 },
+  { element: '@phoneNumberInput', value: contactFeeder.testingContactPhoneNumber1 },
 ];
 
-const paginationContactDetail2 = [{ element: '@firstNameInput', value: contactFeeder.paginationFirstContact2 },
-  { element: '@lastNameInput', value: contactFeeder.paginationLastName2 },
-  { element: '@birthDateInput', value: contactFeeder.paginationBirthDate2 },
-  { element: '@phoneNumberInput', value: contactFeeder.paginationFirstPhoneNumber2 },
+const testContact2 = [{ element: '@firstNameInput', value: contactFeeder.testingContactFirstName2 },
+  { element: '@lastNameInput', value: contactFeeder.testingContactLastName2 },
+  { element: '@birthDateInput', value: contactFeeder.testingContactBirthDate2 },
+  { element: '@phoneNumberInput', value: contactFeeder.testingContactPhoneNumber2 },
 ];
 
-const paginationContactDetail3 = [{ element: '@firstNameInput', value: contactFeeder.paginationFirstContact3 },
-  { element: '@lastNameInput', value: contactFeeder.paginationLastName3 },
-  { element: '@birthDateInput', value: contactFeeder.paginationBirthDate3 },
-  { element: '@phoneNumberInput', value: contactFeeder.paginationFirstPhoneNumber3 },
+const testContact3 = [{ element: '@firstNameInput', value: contactFeeder.testingContactFirstName3 },
+  { element: '@lastNameInput', value: contactFeeder.testingContactLastName3 },
+  { element: '@birthDateInput', value: contactFeeder.testingContactBirthDate3 },
+  { element: '@phoneNumberInput', value: contactFeeder.testingContactPhoneNumber3 },
 ];
 
-const paginationContactDetail4 = [{ element: '@firstNameInput', value: contactFeeder.paginationFirstContact4 },
-  { element: '@lastNameInput', value: contactFeeder.paginationLastName4 },
-  { element: '@birthDateInput', value: contactFeeder.paginationBirthDate4 },
-  { element: '@phoneNumberInput', value: contactFeeder.paginationFirstPhoneNumber4 },
+const testContact4 = [{ element: '@firstNameInput', value: contactFeeder.testingContactFirstName4 },
+  { element: '@lastNameInput', value: contactFeeder.testingContactLastName4 },
+  { element: '@birthDateInput', value: contactFeeder.testingContactBirthDate4 },
+  { element: '@phoneNumberInput', value: contactFeeder.testingContactPhoneNumber4 },
 ];
 
-const paginationContactDetail5 = [{ element: '@firstNameInput', value: contactFeeder.paginationFirstContact5 },
-  { element: '@lastNameInput', value: contactFeeder.paginationLastName5 },
-  { element: '@birthDateInput', value: contactFeeder.paginationBirthDate5 },
-  { element: '@phoneNumberInput', value: contactFeeder.paginationFirstPhoneNumber5 },
+const testContact5 = [{ element: '@firstNameInput', value: contactFeeder.testingContactFirstName5 },
+  { element: '@lastNameInput', value: contactFeeder.testingContactLastName5 },
+  { element: '@birthDateInput', value: contactFeeder.testingContactBirthDate5 },
+  { element: '@phoneNumberInput', value: contactFeeder.testingContactPhoneNumber5 },
 ];
 
-describe('Bulk Action automated test cases - Part -> 1', () => {
+describe('Bulk Action automation test cases', () => {
   beforeAll(async () => {
     await contactToolbox.createContact(contactDetails1, '@patientOption');
     await contactToolbox.createContact(contactDetails2, '@patientOption');
@@ -112,7 +106,7 @@ describe('Bulk Action automated test cases - Part -> 1', () => {
 
   test('Assign to self and Verify action items according the selection criteria', async () => {
     await bulkActionToolbox.assignToSelf('@patientAndTeamGroup_PatientInbox', contactName, '@assignedToMe');
-    await bulkActionToolbox.AssignedToMeActionVerification('@assignedToMe', bulkContactName1);
+    await bulkActionToolbox.assignedToMeActionVerification('@assignedToMe', bulkContactName1);
   });
 
   test('Verify action items according the selection criteria - Following Inbox', async () => {
@@ -131,38 +125,38 @@ describe('Bulk Action automated test cases - Part -> 1', () => {
   test('Check Pagination', async () => {
     await bulkActionToolbox.assignThreadToMemberAndGroup('@patientGroup', contactName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
 
-    await contactToolbox.createContact(paginationContactDetail1, '@patientOption');
+    await contactToolbox.createContact(testContact1, '@patientOption');
     await chat.fillInMessageInput(messageFeeder.groupPatientMessage)
       .pause(1000);
     await chat.clickSendMessageButton();
 
-    await contactToolbox.createContact(paginationContactDetail2, '@patientOption');
+    await contactToolbox.createContact(testContact2, '@patientOption');
     await chat.fillInMessageInput(messageFeeder.groupPatientMessage)
       .pause(1000);
     await chat.clickSendMessageButton();
 
-    await contactToolbox.createContact(paginationContactDetail3, '@patientOption');
+    await contactToolbox.createContact(testContact3, '@patientOption');
     await chat.fillInMessageInput(messageFeeder.groupPatientMessage)
       .pause(1000);
     await chat.clickSendMessageButton();
 
-    await contactToolbox.createContact(paginationContactDetail4, '@patientOption');
-    await chat.fillInMessageInput(messageFeeder.groupPatientMessage)
-      .pause(1000);
-    await chat.clickSendMessageButton();
-
-    await group.openGroup('@patientAndTeamGroup_PatientInbox')
-      .waitForElementPresent('@topPagination_Group', 'Top Pagination for the selected group should be available.')
-      .waitForElementNotPresent('@bottomPagination_Group', 'Bottom Pagination should not be present until the thread count crosses 8.');
-
-    await contactToolbox.createContact(paginationContactDetail5, '@patientOption');
+    await contactToolbox.createContact(testContact4, '@patientOption');
     await chat.fillInMessageInput(messageFeeder.groupPatientMessage)
       .pause(1000);
     await chat.clickSendMessageButton();
 
     await group.openGroup('@patientAndTeamGroup_PatientInbox')
-      .waitForElementPresent('@topPagination_Group', 'Top Pagination for the selected group should be available.')
-      .waitForElementPresent('@bottomPagination_Group', 'Bottom Pagination should be present.');
+      .waitForElementPresent('@topPaginationGroup', 'Top Pagination for the selected group should be available.')
+      .waitForElementNotPresent('@bottomPaginationGroup', 'Bottom Pagination should not be present until the thread count crosses 8.');
+
+    await contactToolbox.createContact(testContact5, '@patientOption');
+    await chat.fillInMessageInput(messageFeeder.groupPatientMessage)
+      .pause(1000);
+    await chat.clickSendMessageButton();
+
+    await group.openGroup('@patientAndTeamGroup_PatientInbox')
+      .waitForElementPresent('@topPaginationGroup', 'Top Pagination for the selected group should be available.')
+      .waitForElementPresent('@bottomPaginationGroup', 'Bottom Pagination should be present.');
   });
 
   test('Perform Close Conversation Action', async () => {

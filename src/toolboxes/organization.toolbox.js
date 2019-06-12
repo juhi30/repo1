@@ -14,7 +14,7 @@ const setup = client.page.AccountSetupPage();
  * @param  {object} organizationDetails Data to create new Organization
  * @param  {string} envVariable environment variable neme that will contain Organization ID
  */
-export function organizationSetUp(organizationDetails, envVariable) {
+export async function organizationSetUp(organizationDetails, envVariable) {
   setup.navigate()
     .clickBillingToggle()
     .fillInOrgBasicInformation(organizationDetails)

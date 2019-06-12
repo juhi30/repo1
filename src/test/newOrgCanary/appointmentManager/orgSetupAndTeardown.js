@@ -2,7 +2,6 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 import { organizationSetUp, orgTearDown } from '../../../toolboxes/organization.toolbox';
 import { ccrLogin } from '../../../toolboxes/login.toolbox';
-// import { handleErrorAndRemoveOrg } from '../../toolboxes/error.toolbox';
 
 const { EventEmitter } = require('events');
 const loginFeeder = require('../../../feeder/login.feeder');
@@ -24,7 +23,6 @@ beforeAll(async () => {
     await ccrLogin(loginFeeder.appointmentCcrLogin, loginFeeder.appointmentCcrPassword);
     await organizationSetUp(organizationDetails, 'APPOINTMENT_ORG_ID');
   } catch (error) {
-    // handleErrorAndRemoveOrg(error, __filename);
     logger.info(error, '===error on beforeAll (AppointmentManagerSuite) orgSetupAndTearDown=====');
   }
 });
@@ -40,7 +38,6 @@ afterAll(async (done) => {
     // Reset max listeners to the node.js default once the test is complete.
     EventEmitter.defaultMaxListeners = 10;
     done(error);
-    // handleErrorAndRemoveOrg(error, __filename);
     logger.error(error, '===error on afterAll (AppointmentManagerSuite) orgSetupAndTeardown=======');
   }
 });

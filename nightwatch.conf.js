@@ -2,7 +2,7 @@
 require('browserstack-automate').Nightwatch();
 
 const headless = !!process.env.HEADLESS && process.env.HEADLESS === 'true';
-const options = headless ? ['headless', 'no-sandbox', 'disable-gpu'] : ['window-size=1280,800', 'no-sandbox', 'disable-gpu'];
+const options = headless ? ['headless', 'window-size=1280,800', 'no-sandbox', 'disable-gpu'] : ['window-size=1280,800', 'no-sandbox', 'disable-gpu'];
 
 module.exports = {
   page_objects_path: './src/page_objects',

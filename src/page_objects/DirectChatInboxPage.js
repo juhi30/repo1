@@ -1,6 +1,5 @@
 const memberFeeder = require('../feeder/member.feeder');
 const helper = require('../toolboxes/helpers.toolbox');
-const channelFeeder = require('../feeder/channel.feeder');
 const groupFeeder = require('../feeder/group.feeder');
 
 const commands = {

@@ -17,4 +17,5 @@ import './messaging';
 import './outofoffice';
 import './threadActions';
 import './orgPreferences';
+import './rhinopay';
 import './analytics';

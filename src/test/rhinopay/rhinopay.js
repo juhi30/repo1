@@ -7,6 +7,8 @@ describe('rhinopay tests', () => {
     const data = {
       merchantId: 65432,
       organizationId: process.env.ORG_ID,
+      apiUserName: 'myUserName',
+      apiPassword: 'myPassword',
     };
     await rhinopay.postMerchant(data, process.env.RHINOPAY_CCR_COOKIE).then(() => {
       done();

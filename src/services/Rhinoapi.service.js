@@ -6,7 +6,6 @@ export async function findUserByUser(orgId, user) {
 }
 
 export async function getUserByExternalId(orgId, externalId) {
-  console.log('IN HERE - post rhinoliner/users/matching', orgId, externalId);
   return axios.post(`${process.env.API_BASE_URL}/rhinoliner/users/matching`, { orgId, user: { externalId } },
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }
@@ -44,6 +43,32 @@ export async function postIncomingBandwidthMessage(message) {
 export async function postRhinolinerUser(user, orgId) {
   return axios.post(`${process.env.API_BASE_URL}/rhinoliner/users`, { user, orgId },
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
+}
+
+export async function postSecureChannel(data, cookie) {
+  const response = await axios.post(`${process.env.API_BASE_URL}/channels/secure`,
+    data,
+    {
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
+export async function patchOrg(data, cookie) {
+  const response = await axios.patch(`${process.env.API_BASE_URL}/organization/preferences`,
+    data,
+    {
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
 }
 
 export async function archiveOrganization(organizationId, cookie) {

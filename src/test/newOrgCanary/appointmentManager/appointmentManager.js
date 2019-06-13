@@ -7,10 +7,6 @@ describe('Automated Tests: Appointment Manager', () => {
   const universal = client.page.UniversalElements();
   const contact = client.page.ContactsPage();
 
-  // test('Login as member', async () => {
-  //   await memberLogin(memberFeeder.newMemberUsername, memberFeeder.memberPassword);
-  // });
-
   test('Verify Appointment manager option in Settings Menu', async () => {
     await universal.click('@settingsButton');
     await apptManager.verifyMenuItem();

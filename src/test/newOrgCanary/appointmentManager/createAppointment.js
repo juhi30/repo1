@@ -1,7 +1,7 @@
-import * as rhinoliner from '../../services/Rhinoliner.service';
-import * as helpers from '../../toolboxes/helpers.toolbox';
+import * as rhinoliner from '../../../services/Rhinoliner.service';
+import * as helpers from '../../../toolboxes/helpers.toolbox';
 
-const appointmentFeeder = require('../../feeder/appointments.feeder');
+const appointmentFeeder = require('../../../feeder/appointments.feeder');
 
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
@@ -33,7 +33,7 @@ describe('Automated Tests: Appointment Manager', () => {
         typeId: TYPE_PHONE_CELL,
       }],
       typeId: USER_TYPE_PATIENT,
-      orgId: process.env.NEW_CANARY_ORG_ID,
+      orgId: process.env.APPOINTMENT_ORG_ID,
     };
     rhinoliner.pushtoqueue(user);
     await sleep(15000);
@@ -52,7 +52,7 @@ describe('Automated Tests: Appointment Manager', () => {
         typeId: TYPE_PHONE_CELL,
       }],
       typeId: USER_TYPE_PATIENT,
-      orgId: process.env.NEW_CANARY_ORG_ID,
+      orgId: process.env.APPOINTMENT_ORG_ID,
     };
     rhinoliner.pushtoqueue(user);
     await sleep(15000);
@@ -71,7 +71,7 @@ describe('Automated Tests: Appointment Manager', () => {
         typeId: TYPE_PHONE_CELL,
       }],
       typeId: USER_TYPE_PATIENT,
-      orgId: process.env.NEW_CANARY_ORG_ID,
+      orgId: process.env.APPOINTMENT_ORG_ID,
     };
     rhinoliner.pushtoqueue(user);
     await sleep(15000);
@@ -88,7 +88,7 @@ describe('Automated Tests: Appointment Manager', () => {
       appointmentExternalId,
       deleted: false,
       appointmentStatusTypeId: 81,
-      orgId: process.env.NEW_CANARY_ORG_ID,
+      orgId: process.env.APPOINTMENT_ORG_ID,
     };
     await rhinoliner.pushtoqueue(appointment).then(() => {
       done();
@@ -106,7 +106,7 @@ describe('Automated Tests: Appointment Manager', () => {
       appointmentExternalId: `${appointmentExternalId}2`,
       deleted: false,
       appointmentStatusTypeId: 82,
-      orgId: process.env.NEW_CANARY_ORG_ID,
+      orgId: process.env.APPOINTMENT_ORG_ID,
     };
     await rhinoliner.pushtoqueue(appointment).then(() => {
       done();
@@ -124,7 +124,7 @@ describe('Automated Tests: Appointment Manager', () => {
       appointmentExternalId: `${appointmentExternalId}3`,
       deleted: false,
       appointmentStatusTypeId: 81,
-      orgId: process.env.NEW_CANARY_ORG_ID,
+      orgId: process.env.APPOINTMENT_ORG_ID,
     };
     await rhinoliner.pushtoqueue(appointment).then(() => {
       done();

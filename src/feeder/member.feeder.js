@@ -58,4 +58,10 @@ module.exports = {
   deleteAlert: 'Your monthly bill will decrease by ',
   reactivateAlert: 'Your monthly bill will increase by ',
 
+  // Member for Appointment Manager Org
+  appointmentMemberName: 'Appointment_Member LastName',
+  appointmentMemberFirstName: 'Appointment_Member',
+  appointmentMemberLastName: 'LastName',
+  appointmentMemberUsername: 'Appointment_Member',
+
 };

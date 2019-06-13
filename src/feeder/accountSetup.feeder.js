@@ -22,4 +22,7 @@ module.exports = {
   billingContactZip: '32424',
   planType: 'Standard Plan',
   installationFee: '500',
+
+  // Appointment Manager Org
+  appointmentOrgName: 'Appointment Manager Org',
 };

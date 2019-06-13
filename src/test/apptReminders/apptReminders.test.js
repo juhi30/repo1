@@ -28,7 +28,7 @@ describe('appt reminder tests', () => {
   beforeAll(async () => {
     try {
       // log in as ccr and create org
-      process.env.APPOINTMENT_COOKIE = await rhinoapi.login(process.env.INTEGRATIONS_CCR_USERNAME, process.env.INTEGRATIONS_CCR_PASSWORD);
+      process.env.APPOINTMENT_CCR_COOKIE = await rhinoapi.login(process.env.INTEGRATIONS_CCR_USERNAME, process.env.INTEGRATIONS_CCR_PASSWORD);
 
       const orgData = {
         name: 'Appt Reminder Testing',
@@ -48,11 +48,12 @@ describe('appt reminder tests', () => {
         selectedBillingOpt: 'newCust',
       };
 
-      const org = await rhinoapi.createOrganization(orgData, process.env.APPOINTMENT_COOKIE);
+      const org = await rhinoapi.createOrganization(orgData, process.env.APPOINTMENT_CCR_COOKIE);
       orgId = org.id;
-      const ccrUserId = await rhinoapi.getCcrUserId(process.env.APPOINTMENT_COOKIE);
+      const ccrUserId = await rhinoapi.getCcrUserId(process.env.APPOINTMENT_CCR_COOKIE);
       // Change to newly created org
-      await rhinoapi.changeOrganization({ orgId, userId: ccrUserId }, process.env.APPOINTMENT_COOKIE);
+      console.log('ORG AND ID====', orgId, ccrUserId);
+      await rhinoapi.changeOrganization({ orgId, userId: ccrUserId }, process.env.APPOINTMENT_CCR_COOKIE);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log('===error on before all orgSetupAndTeardown=======', err);
@@ -63,8 +64,8 @@ describe('appt reminder tests', () => {
   // DELETE MY NEW ORG HERE
   afterAll(async () => {
     try {
-      await rhinoapi.archiveOrganization(orgId, process.env.APPOINTMENT_COOKIE);
-      await rhinoapi.deleteOrganization(orgId, process.env.APPOINTMENT_COOKIE);
+      await rhinoapi.archiveOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
+      await rhinoapi.deleteOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log('===error on after all orgSetupAndTeardown=======', err);
@@ -73,29 +74,30 @@ describe('appt reminder tests', () => {
 
   test('create patients', async () => {
     const user = {
-      externalId: user1EmrId,
+      externalIds: {
+        emrId: user1EmrId,
+      },
       firstName: 'Sally',
       lastName: 'Hanson',
       birthday: '1990-06-23',
       sex: 'female',
       messageType: 'USER',
       phones: [{
-        number: process.env.TEST_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER,
+        number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER,
         typeId: TYPE_PHONE_CELL,
       }],
       typeId: USER_TYPE_PATIENT,
       orgId,
+      integrated: true,
     };
-    const { data } = await rhinoapi.postRhinolinerUser(user, Number(orgId));
-    createdPatient1 = data;
+    await rhinoapi.postRhinolinerUser(user, Number(orgId));
   });
 
-  // test('find patient', async () => {
-  //   const response = await rhinoapi.getUserByExternalId(orgId, user1EmrId);
-  //   console.log('DATA========', response.data);
-  //   // expect(response.data.externalIds.emrId).toBe(user1EmrId);
-  //   createdPatient1 = response.data;
-  // });
+  test('find patient', async () => {
+    const response = await rhinoapi.getUserByExternalId(orgId, user1EmrId);
+    expect(response.data.externalIds.emrId).toBe(user1EmrId);
+    createdPatient1 = response.data;
+  });
 
   test('create appointment', async (done) => {
     const startDate = new Date();
@@ -119,8 +121,5 @@ describe('appt reminder tests', () => {
     await rhinoliner.pushtoqueue(appointment).then(() => {
       done();
     });
-  });
-  test('test', async () => {
-    console.log('test');
   });
 });

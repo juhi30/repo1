@@ -6,7 +6,7 @@ export async function findUserByUser(orgId, user) {
 }
 
 export async function getUserByExternalId(orgId, externalId) {
-  console.log('IN HERE', orgId, externalId);
+  console.log('IN HERE - post rhinoliner/users/matching', orgId, externalId);
   return axios.post(`${process.env.API_BASE_URL}/rhinoliner/users/matching`, { orgId, user: { externalId } },
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }

@@ -2,26 +2,39 @@ import { client } from 'nightwatch-api';
 
 const chat = client.page.DirectChatInboxPage();
 const group = client.page.GroupsPage();
+const universal = client.page.UniversalElements();
+
 const helpers = require('../toolboxes/helpers.toolbox');
 
 const msg = client.page.DirectInboxPage();
 const bulkAction = client.page.BulkActionsPage();
 const template = client.page.TemplatesPage();
 const contact = client.page.ContactsPage();
+const members = client.page.MembersPage();
 
 /**
  * Used to send messages to a Patent or Member
  */
 
-// Can be used to send a direct chat message to a member or to a Contact
-export async function sendADirectMessage(inboxElement, url, ModaltitleElement, memberName, message) {
-  await group.navigateToInbox(inboxElement, url);
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(ModaltitleElement, memberName);
+export async function directMessageToMember(memberName, message) {
+  await universal.clickMembers();
+  await members.selectMember(memberName);
+  await members.goToConversation()
+    .pause(1000);
   await chat.fillInMessageInput(message)
     .pause(1000);
   await chat.clickSendMessageButton();
 }
+
+// Can be used to send a direct chat message to a member or to a Contact
+// export async function sendADirectMessage(inboxElement, url, ModaltitleElement, memberName, message) {
+//   await group.navigateToInbox(inboxElement, url);
+//   await chat.clickAddIcon()
+//     .searchMemberAndOpenThread(ModaltitleElement, memberName);
+//   await chat.fillInMessageInput(message)
+//     .pause(1000);
+//   await chat.clickSendMessageButton();
+// }
 
 export async function sendChatMessageToGroup(groupName, message) {
   await group.openGroup(groupName);
@@ -40,29 +53,39 @@ export async function verifyReceivingGroupChatMessage(groupName, message) {
   helpers.findTextOnPage(chat, message);
 }
 
-export async function sendADirectMessageToContact(titleElement, ContactName, message) {
-  await msg.navigate()
-    .verify.urlContains('/direct', 'url contains direct')
-    .waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
-  await chat.fillInMessageInput(message)
+export async function newMessageToContact(contactName, message, channelName) {
+  await contact.navigate()
+    .openContactChat(contactName)
     .pause(1000);
+  await chat.fillInMessageInput(message);
+  await chat.selectFromRoute(channelName);
   await chat.clickSendMessageButton()
     .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
 }
 
-export async function sendGroupMessageToContact(groupName, titleElement, ContactName, message) {
-  await group.openGroup(groupName);
-  await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
-  await chat.fillInMessageInput(message)
-    .pause(1000);
-  await chat.clickSendMessageButton()
-    .pause(1000)
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
-}
+// export async function sendADirectMessageToContact(titleElement, ContactName, message) {
+//   await msg.navigate()
+//     .verify.urlContains('/direct', 'url contains direct')
+//     .waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
+//   await chat.clickAddIcon()
+//     .searchMemberAndOpenThread(titleElement, ContactName);
+//   await chat.fillInMessageInput(message)
+//     .pause(1000);
+//   await chat.clickSendMessageButton()
+//     .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
+// }
+
+// export async function sendGroupMessageToContact(groupName, titleElement, ContactName, message) {
+//   await group.openGroup(groupName);
+//   await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
+//   await chat.clickAddIcon()
+//     .searchMemberAndOpenThread(titleElement, ContactName);
+//   await chat.fillInMessageInput(message)
+//     .pause(1000);
+//   await chat.clickSendMessageButton()
+//     .pause(1000)
+//     .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
+// }
 
 export async function sendAMessageWithAttachment(groupName, titleElement, ContactName, message) {
   await group.openGroup(groupName);

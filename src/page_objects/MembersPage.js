@@ -45,9 +45,14 @@ const membersCommands = {
     return this.waitForElementVisible(alert, `${alert} message is visible`);
   },
 
-  selectMember(memberNameElement) {
-    return this.waitForElementVisible(memberNameElement, `${memberNameElement} is visible`)
-      .click(memberNameElement);
+  selectMember(memberName) {
+    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(., '${memberName}')]`, `Span with text "${memberName}" is visible`)
+      .click(`//SPAN[contains(., '${memberName}')]`);
+  },
+
+  goToConversation() {
+    return this.waitForElementVisible('@goToConvoButton', 'Summary panel open, Go to Conversation button is visible')
+      .click('@goToConvoButton');
   },
 
   createTempPassword() {
@@ -69,16 +74,6 @@ module.exports = {
 
     createMemberButton: {
       selector: '//BUTTON[contains(@title, \'Create Member\')]',
-      locateStrategy: 'xpath',
-    },
-
-    selectMemberFromList: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${memberFeeder.memberName}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    selectAddonMemberFromList: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${memberFeeder.memberName6}')]`,
       locateStrategy: 'xpath',
     },
 

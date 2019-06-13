@@ -42,10 +42,10 @@ export async function changePasswordUsingTempPassword(memberUsername, memberPass
     .pause(1000);
 }
 
-export async function createTempPasswordByCCR(memberNameElement, globalVariable) {
+export async function createTempPasswordByCCR(memberName, globalVariable) {
   await member.navigate()
     .pause(1000)
-    .selectMember(memberNameElement)
+    .selectMember(memberName)
     .createTempPassword()
     .getTempPassword(globalVariable)
     .waitForElementNotPresent('@updateSuccessMessage')

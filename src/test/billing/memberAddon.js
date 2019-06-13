@@ -58,11 +58,11 @@ describe('Member Creation test Cases for Billing Organization', () => {
   });
 
   test('verifying alert message on deactivating a member', async () => {
-    await activateDeactivateMember('@selectAddonMemberFromList', '@deactivateMemberButton', '@deleteAlertMessage', '@deactivateInModal', '@updateSuccessMessage');
+    await activateDeactivateMember(memberFeeder.memberName6, '@deactivateMemberButton', '@deleteAlertMessage', '@deactivateInModal', '@updateSuccessMessage');
   });
 
   test('verifying alert message on reactivating a member', async () => {
-    await activateDeactivateMember('@selectAddonMemberFromList', '@activateMember', '@reactivateAlertMessage', '@reactivateInModal', '@updateSuccessMessage');
+    await activateDeactivateMember(memberFeeder.memberName6, '@activateMember', '@reactivateAlertMessage', '@reactivateInModal', '@updateSuccessMessage');
   });
 
   test('logout as CCR', async () => {

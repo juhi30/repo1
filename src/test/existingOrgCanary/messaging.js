@@ -12,7 +12,7 @@ describe('Existing org canary: messaging tests', () => {
   test('Send Outbound Message To Contact and Get Reply', async () => {
     const contacts = client.page.ContactsPage();
     await contacts.navigate()
-      .openContactChat('@addContactDropdownFirstResultBot')
+      .openContactChat(process.env.EXISTING_ORG_BOT_CONTACT_NAME)
       .pause(1000)
       .sendOutboundMessageAndGetReply(`handler add reply ${existingOrgFeeder.testBotReplyMessage}`, 'Hi Bot Contact');
   });
@@ -46,7 +46,7 @@ describe('Existing org canary: messaging tests', () => {
   test('Search Facebook Unknown Contact', async () => {
     const contacts = client.page.ContactsPage();
     await contacts.navigate()
-      .openContactChat('@addContactDropdownFirstResultFb')
+      .openContactChat(process.env.EXISTING_ORG_FACEBOOK_CONTACT_NAME)
       .pause(1000);
   });
 

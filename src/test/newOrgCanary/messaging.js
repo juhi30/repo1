@@ -11,7 +11,7 @@ describe('Chat Messaging Tests', () => {
   });
 
   test('Sending a Direct chat message from member1 to member2', async () => {
-    await messageToolbox.sendADirectMessage('@directChatInbox', '/chat', '@modalTitle', memberFeeder.memberName2, messageFeeder.directChatMessage);
+    await messageToolbox.directMessageToMember(memberFeeder.memberName2, messageFeeder.directChatMessage);
   });
 
   test('Sending a Direct chat message from member1 to Group', async () => {
@@ -50,12 +50,19 @@ describe('Direct Messaging Tests', () => {
   //   messageFeeder.directPatientMessage);
   // });
 
+  test('Sending message to contact new test', async () => {
+    await messageToolbox.newMessageToContact(contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage, 'Automation Test Channel');
+    // await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
+  });
+
   test('Sending a message to a Contact from a Group', async () => {
+  // eslint-disable-next-line max-len
     await messageToolbox.sendGroupMessageToContact('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
   });
 
   test('Sending a message to a Contact with MMS / Attachment', async () => {
+  // eslint-disable-next-line max-len
     await messageToolbox.sendAMessageWithAttachment('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName, messageFeeder.directPatientMessage);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
   });

@@ -3,6 +3,7 @@ import { logout } from '../../toolboxes/login.toolbox';
 
 const messageFeeder = require('../../feeder/message.feeder');
 const patientFeeder = require('../../feeder/patient.feeder');
+const contactFeeder = require('../../feeder/contact.feeder');
 
 describe('Patient Login Page Tests Cases', () => {
   const patient = client.page.PatientPage();
@@ -11,7 +12,7 @@ describe('Patient Login Page Tests Cases', () => {
 
   test('Send a rhino secure message from selected contact', async () => {
     await contact.navigate()
-      .openContactChat('@searchedContactForPatient');
+      .openContactChat(`${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`);
 
     await convo.sendRhinosecureMessage(messageFeeder.rhinosecureMessage);
 

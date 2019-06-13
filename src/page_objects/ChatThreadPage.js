@@ -14,6 +14,12 @@ const chatThreadCommands = {
       .setValue('@messageInput', text);
   },
 
+  selectFromRoute(channelName) {
+    return this.waitForElementVisible('@fromRouteSelected', 'From Route is visible')
+      .click('@fromRouteSelected')
+      .waitForElementVisible('@fromRouteDropdown', 'Dropdown to select From Route is visible')
+      .setValue('@fromRouteDropdown', channelName);
+  },
 };
 
 module.exports = {
@@ -27,6 +33,16 @@ module.exports = {
 
     sendMessageButton: {
       selector: '//BUTTON[contains(@class, \'convo__message__send\')]',
+      locateStrategy: 'xpath',
+    },
+
+    fromRouteSelected: {
+      selector: '//SPAN[@class=\'convo__channels__label__text\']//*[contains(text(),\'From\')]',
+      locateStrategy: 'xpath',
+    },
+
+    fromRouteDropdown: {
+      selector: '//SELECT[@name=\'from-channel\']',
       locateStrategy: 'xpath',
     },
   },

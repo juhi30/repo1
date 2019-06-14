@@ -1,22 +1,19 @@
 import { client } from 'nightwatch-api';
-import * as messengerbot from '../../services/MessengerBot.service';
+import { memberLogin } from '../../toolboxes/login.toolbox';
+import * as messengerBot from '../../services/MessengerBot.service';
 
 const existingOrgFeeder = require('../../feeder/existingOrg.feeder');
 
-describe('messsenging tests', () => {
+describe('Existing org canary: messaging tests', () => {
   test('Existing Org Canary Page Login With Member', async () => {
-    const login = client.page.LoginPage();
-
-    await login.navigate()
-      .validateForm()
-      .enterMemberCreds(existingOrgFeeder.memberUsernameExistingOrg, existingOrgFeeder.memberPasswordExistingOrg)
-      .submit();
+    await memberLogin(existingOrgFeeder.memberUsernameExistingOrg, existingOrgFeeder.memberPasswordExistingOrg);
   });
 
   test('Send Outbound Message To Contact and Get Reply', async () => {
     const contacts = client.page.ContactsPage();
-
-    await contacts.searchForContact(process.env.EXISTING_ORG_BOT_CONTACT_NAME, '@addContactDropdownFirstResultBot')
+    await contacts.navigate()
+      .openContactChat('@addContactDropdownFirstResultBot')
+      .pause(1000)
       .sendOutboundMessageAndGetReply(`handler add reply ${existingOrgFeeder.testBotReplyMessage}`, 'Hi Bot Contact');
   });
 
@@ -26,7 +23,7 @@ describe('messsenging tests', () => {
       config: { handler: 'forward', config: [process.env.EXISTING_ORG_BANDWIDTH_CHANNEL_NUMBER] },
     };
 
-    messengerbot.configureHandler(config).then(async () => {
+    messengerBot.configureHandler(config).then(async () => {
       done();
     });
   });
@@ -40,7 +37,7 @@ describe('messsenging tests', () => {
       text: `${existingOrgFeeder.testBotInboundMessage} ${randomNumber}`,
       media: null,
     };
-    messengerbot.sendMessage(config).then(async () => {
+    messengerBot.sendMessage(config).then(async () => {
       await contacts.getInboundMessage(existingOrgFeeder.testBotInboundMessage);
       done();
     });
@@ -48,8 +45,9 @@ describe('messsenging tests', () => {
 
   test('Search Facebook Unknown Contact', async () => {
     const contacts = client.page.ContactsPage();
-
-    await contacts.searchForContact(process.env.EXISTING_ORG_FACEBOOK_CONTACT_NAME, '@addContactDropdownFirstResultFb');
+    await contacts.navigate()
+      .openContactChat('@addContactDropdownFirstResultFb')
+      .pause(1000);
   });
 
   test('Outbound Message from Facebook Channel', async (done) => {

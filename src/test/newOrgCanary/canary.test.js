@@ -17,9 +17,5 @@ import './messaging';
 import './outofoffice';
 import './threadActions';
 import './orgPreferences';
+import './rhinopay';
 import './analytics';
-
-// //Member + CCR flow. This should be the last test case
-import './orgProfile';
-import './createAppointment';
-import './appointmentManager';

@@ -187,6 +187,37 @@ const convoThreadCommands = {
   verifyAutoResponse() {
     return this.waitForElementVisible('@rhinoSecureAutoResponseLink', 'Auto Response Message is Received');
   },
+
+  sendNewPaymentRequest() {
+    return this.waitForElementVisible('@requestNewPaymentButton')
+      .click('@requestNewPaymentButton')
+      .waitForElementVisible('@rhinopayAmountInput', 'Rhinopay modal visible')
+      .setValue('@rhinopayAmountInput', '12.23')
+      .setValue('@rhinopayNoteInput', 'This is a custom note')
+      .click('@requestPaymentButton');
+  },
+
+  selectChargeUrl() {
+    return this.waitForElementVisible('@chargeUrl', 'Charge url is visible')
+      .pause(3000)
+      .click('.convo__body > div > div:last-of-type .linkified');
+  },
+
+  enterPaymentDetails() {
+    return this.waitForElementVisible('@nameOnCardInput', 'Payment page is visible')
+      .setValue('@nameOnCardInput', process.env.RHINOPAY_CREDIT_CARD_NAME)
+      .setValue('@cardNumberInput', process.env.RHINOPAY_CREDIT_CARD_NUMBER)
+      .setValue('@expirationDateInput', process.env.RHINOPAY_CREDIT_CARD_EXPIRATION)
+      .setValue('@zipcodeInput', process.env.RHINOPAY_CREDIT_CARD_ZIPCODE)
+      .setValue('@streetInput', process.env.RHINOPAY_CREDIT_CARD_STREET)
+      .setValue('@cvvInput', process.env.RHINOPAY_CREDIT_CARD_CVV)
+      .click('@submitPaymentButton');
+  },
+
+  rhinopaySuccessMessage() {
+    return this.waitForElementVisible('@rhinopaySuccess', 'Payment has been made');
+  },
+
 };
 
 module.exports = {
@@ -436,6 +467,76 @@ module.exports = {
 
     sendMessageButton: {
       selector: '//BUTTON[contains(@class, \'convo__message__send\')]',
+      locateStrategy: 'xpath',
+    },
+
+
+    /*------------------------------------------------------------------------*/
+    // Rhinopay Elements
+    /*------------------------------------------------------------------------*/
+
+    requestNewPaymentButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Request New Payment\']',
+      locateStrategy: 'xpath',
+    },
+
+    rhinopayAmountInput: {
+      selector: '//INPUT[@name=\'paymentRequestAmount\']',
+      locateStrategy: 'xpath',
+    },
+
+    rhinopayNoteInput: {
+      selector: '//INPUT[@name=\'paymentRequestNote\']',
+      locateStrategy: 'xpath',
+    },
+
+    requestPaymentButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Request Payment\']',
+      locateStrategy: 'xpath',
+    },
+
+    chargeUrl: {
+      selector: '//A[@class=\'linkified\']',
+      locateStrategy: 'xpath',
+    },
+
+    nameOnCardInput: {
+      selector: '//INPUT[@name=\'nameOnCard\']',
+      locateStrategy: 'xpath',
+    },
+
+    cardNumberInput: {
+      selector: '//INPUT[@name=\'cardNumber\']',
+      locateStrategy: 'xpath',
+    },
+
+    expirationDateInput: {
+      selector: '//INPUT[@name=\'expirationDate\']',
+      locateStrategy: 'xpath',
+    },
+
+    cvvInput: {
+      selector: '//INPUT[@name=\'cvv\']',
+      locateStrategy: 'xpath',
+    },
+
+    streetInput: {
+      selector: '//INPUT[@name=\'street\']',
+      locateStrategy: 'xpath',
+    },
+
+    zipcodeInput: {
+      selector: '//INPUT[@name=\'zipcode\']',
+      locateStrategy: 'xpath',
+    },
+
+    submitPaymentButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Submit Payment\']',
+      locateStrategy: 'xpath',
+    },
+
+    rhinopaySuccess: {
+      selector: '//P[@class=\'u-text-large\'][text()=\'Your payment has been made.\']',
       locateStrategy: 'xpath',
     },
   },

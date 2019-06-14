@@ -39,11 +39,6 @@ const bulkActionCommands = {
     });
   },
 
-  selectMessageThread(contactName) {
-    return this.api.useXpath().waitForElementVisible(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`, `Thread with this name ${contactName} is visible.`)
-      .click(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`);
-  },
-
   selectAnAction(actionName) {
     return this.waitForElementVisible('@actionDropdown', 'Action Dropdown is visible and thread is selected')
       .click('@actionDropdown')
@@ -56,9 +51,9 @@ const bulkActionCommands = {
       .waitForElementNotPresent(successMessage, `${successMessage} is no longer present`);
   },
 
-  navigateToInboxGroup(groupName) {
-    return this.verify.visible(groupName, `${groupName} Page Navigation option is visible!`)
-      .click(groupName)
+  navigateToInboxGroup(inboxName) {
+    return this.waitForElementVisible(inboxName, `${inboxName} Page Navigated to the desired inbox!`)
+      .click(inboxName)
       .pause(2000);
   },
 
@@ -85,6 +80,13 @@ const bulkActionCommands = {
       .valueCompare('@actionDropdownList', selectionOption);
   },
 
+  performActionForSelection(selectionOption) {
+    return this.waitForElementVisible(selectionOption, `${selectionOption} is visible`)
+      .click(selectionOption)
+      .waitForElementVisible('@successToast', 'success message is visible')
+      .waitForElementNotPresent('@successToast', 'success message is not present');
+  },
+
   noneSelection() {
     return this.click('@bulkSelectDropdownIcon')
       .waitForElementVisible('@none', 'None Selection Option is visible!')
@@ -101,6 +103,11 @@ const bulkActionCommands = {
       .waitForElementVisible('@closeConversations', 'Close Conversations option is visible')
       .click('@closeConversations')
       .waitForElementNotPresent('@successToast', 'Toast Notification is gone');
+  },
+
+  selectMessageThread(contactName) {
+    return this.api.useXpath().waitForElementVisible(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`, `Thread with this name ${contactName} is visible.`)
+      .click(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`);
   },
 };
 

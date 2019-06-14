@@ -1,11 +1,12 @@
 import { client } from 'nightwatch-api';
-import * as bulkActionToolbox from '../../toolboxes/bulkActions.toolbox';
 import * as contactToolbox from '../../toolboxes/contact.toolbox';
+import * as bulkActionToolbox from '../../toolboxes/bulkActions.toolbox';
+import * as orgPreferencesToolbox from '../../toolboxes/orgPrefrences.toolbox';
 import * as messageToolbox from '../../toolboxes/messaging.toolbox';
 
-const chat = client.page.DirectChatInboxPage();
-const group = client.page.GroupsPage();
 const preference = client.page.PreferencesPage();
+const chat = client.page.DirectChatInbox();
+const group = client.page.GroupsPage();
 const contactFeeder = require('../../feeder/contact.feeder');
 const messageFeeder = require('../../feeder/message.feeder');
 const groupFeeder = require('../../feeder/group.feeder');
@@ -164,5 +165,123 @@ describe('Bulk Action automation test cases', () => {
     await bulkActionToolbox.closeConversationAction('@directInbox');
     await bulkActionToolbox.closeConversationAction('@patientAndTeamGroup_PatientInbox');
     await bulkActionToolbox.closeConversationAction('@patientGroup');
+  });
+});
+
+describe('Bulk Actions: Close conversation logic', () => {
+  test('Reopen conversation', async () => {
+    await messageToolbox.messageViaPAndTGroup(bulkContactName1, messageFeeder.groupPatientMessage);
+    await messageToolbox.messageViaPAndTGroup(bulkContactName2, messageFeeder.groupPatientMessage);
+    await messageToolbox.messageViaPAndTGroup(contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage);
+    await messageToolbox.messageViaDirect(bulkContactName3, messageFeeder.groupPatientMessage);
+    await messageToolbox.messageViaDirect(bulkContactName4, messageFeeder.groupPatientMessage);
+    await messageToolbox.messageViaDirect(contactFeeder.contactNewFirstName, messageFeeder.groupPatientMessage);
+    await bulkActionToolbox.assignToSelf('@patientAndTeamGroup_PatientInbox', contactFeeder.bulkContactFirstName2, '@assignedToMe');
+    await bulkActionToolbox.assignThreadToMemberAndGroup('@directInbox', contactFeeder.contactNewFirstName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
+  });
+
+
+  // ----- When close By assignee is OFF -------
+  test('Direct Inbox select default type threads and check for the action option', async () => {
+    await bulkActionToolbox.selectThreadAndVerifyResult('@directInbox', '@all', 'All');
+  });
+
+  test('PatientTeamGroupInbox select assigned thread and check for the action option', async () => {
+    await bulkActionToolbox.selectThreadAndVerifyResult('@patientAndTeamGroup_PatientInbox', '@assigned', 'AssignedGroup');
+  });
+
+  test('PatientTeamGroupInbox select default thread and check for the action option', async () => {
+    await bulkActionToolbox.selectThreadAndVerifyResult('@patientAndTeamGroup_PatientInbox', '@notAssigned', 'NotAssignedGroup');
+  });
+
+  test('AssignedToMeInbox select all threads and check for the action option', async () => {
+    await bulkActionToolbox.selectThreadAndVerifyResult('@assignedToMe', '@all', 'All');
+  });
+
+  test('PatientTeamGroupInbox select defalut and assigned threads and check for the action option', async () => {
+    await bulkActionToolbox.selectThreadAndVerifyResult('@patientAndTeamGroup_PatientInbox', '@all', 'All');
+  });
+
+  test('perform the operation of assignment complete for ATM Inbox', async () => {
+    await bulkActionToolbox.performAction('@assignedToMe', '@all', '@assignmentComplete');
+  });
+
+  test('perform the operation of close converstaion for Direct Inbox', async () => {
+    await bulkActionToolbox.performAction('@directInbox', '@all', '@closeConversations');
+  });
+
+  test('perform the operation of close converstaion for assigned threads for P&T Inbox', async () => {
+    await bulkActionToolbox.performAction('@patientAndTeamGroup_PatientInbox', '@assigned', '@assignmentComplete');
+  });
+
+  test('perform the operation of close converstaion for default threads for P&T Inbox', async () => {
+    await bulkActionToolbox.performAction('@patientAndTeamGroup_PatientInbox', '@notAssigned', '@closeConversations');
+  });
+
+  test('perform the operation of close converstaion for all threads for P&T Inbox', async () => {
+    await messageToolbox.messageViaPAndTGroup(contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage);
+    await messageToolbox.messageViaDirect(contactFeeder.contactNewFirstName, messageFeeder.groupPatientMessage);
+    await bulkActionToolbox.assignThreadToMemberAndGroup('@directInbox', contactFeeder.contactNewFirstName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
+    await bulkActionToolbox.performAction('@patientAndTeamGroup_PatientInbox', '@all', '@closeConversations');
+  });
+
+  // ------ When close by assignee is ON --------
+
+  test('Enable Close by Assignee option', async () => {
+    await orgPreferencesToolbox.enableCloseByAssignee();
+  });
+
+  test('Reopen conversation when CBA is On', async () => {
+    await messageToolbox.messageViaPAndTGroup(bulkContactName1, messageFeeder.groupPatientMessage);
+    await messageToolbox.messageViaPAndTGroup(bulkContactName2, messageFeeder.groupPatientMessage);
+    await messageToolbox.messageViaPAndTGroup(contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage);
+    await messageToolbox.messageViaDirect(bulkContactName3, messageFeeder.groupPatientMessage);
+    await messageToolbox.messageViaDirect(bulkContactName4, messageFeeder.groupPatientMessage);
+    await messageToolbox.messageViaDirect(contactFeeder.contactNewFirstName, messageFeeder.groupPatientMessage);
+    await bulkActionToolbox.assignToSelf('@patientAndTeamGroup_PatientInbox', contactFeeder.bulkContactFirstName2, '@assignedToMe');
+    await bulkActionToolbox.assignThreadToMemberAndGroup('@directInbox', contactFeeder.contactNewFirstName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
+  });
+
+  test('Direct Inbox select default threads and check for the action option when CBA is On', async () => {
+    await bulkActionToolbox.selectThreadAndVerifyResult('@directInbox', '@all', 'All');
+  });
+
+  test('PatientTeamGroupInbox select assigned thread and check for the action option CBA is On', async () => {
+    await bulkActionToolbox.selectThreadAndVerifyResult('@patientAndTeamGroup_PatientInbox', '@assigned', 'AssignedGroup');
+  });
+
+  test('PatientTeamGroupInbox select default thread and check for the action option CBA is On', async () => {
+    await bulkActionToolbox.selectThreadAndVerifyResult('@patientAndTeamGroup_PatientInbox', '@notAssigned', 'NotAssignedGroup');
+  });
+
+  test('AssignedToMeInbox select all threads and check for the action option CBA is On', async () => {
+    await bulkActionToolbox.selectThreadAndVerifyResult('@assignedToMe', '@all', 'All');
+  });
+
+  test('PatientTeamGroupInbox select all threads and check for the action option CBA is On', async () => {
+    await bulkActionToolbox.selectThreadAndVerifyResult('@patientAndTeamGroup_PatientInbox', '@all', 'All');
+  });
+
+  test('perform the operation of assignment complete for ATM Inbox CBA is On', async () => {
+    await bulkActionToolbox.performAction('@assignedToMe', '@all', '@assignmentComplete');
+  });
+
+  test('perform the operation of close converstaion for Direct Inbox CBA is On', async () => {
+    await bulkActionToolbox.performAction('@directInbox', '@all', '@closeConversations');
+  });
+
+  test('perform the operation of close converstaion for assigned threads for P&T Inbox CBA is On', async () => {
+    await bulkActionToolbox.performAction('@patientAndTeamGroup_PatientInbox', '@assigned', '@assignmentComplete');
+  });
+
+  test('perform the operation of close converstaion for default threads for P&T Inbox CBA is On', async () => {
+    await bulkActionToolbox.performAction('@patientAndTeamGroup_PatientInbox', '@notAssigned', '@closeConversations');
+  });
+
+  test('perform the operation of close converstaion for all threads for P&T Inbox CBA is On', async () => {
+    await messageToolbox.messageViaPAndTGroup(contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage);
+    await messageToolbox.messageViaDirect(contactFeeder.contactNewFirstName, messageFeeder.groupPatientMessage);
+    await bulkActionToolbox.assignThreadToMemberAndGroup('@directInbox', contactFeeder.contactNewFirstName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
+    await bulkActionToolbox.performAction('@patientAndTeamGroup_PatientInbox', '@all', '@closeConversations');
   });
 });

@@ -1,5 +1,7 @@
 import { client } from 'nightwatch-api';
 
+import * as orgPreferences from '../../toolboxes/orgPrefrences.toolbox';
+
 const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
 const memberFeeder = require('../../feeder/member.feeder');
 
@@ -63,5 +65,9 @@ describe('Preferences Page', () => {
     await checkAuditLogs.navigate()
       .pause(1000)
       .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName, '@categoryOrgPreferences');
+  });
+
+  test('Enable the close converstaion option for org preferences', async () => {
+    await orgPreferences.enableCloseByAssignee();
   });
 });

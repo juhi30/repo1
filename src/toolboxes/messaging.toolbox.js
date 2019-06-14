@@ -112,3 +112,34 @@ export async function sendGroupMessageToContactUsingRhinosecure(contactName, cha
     .pause(1000);
   await chat.clickSendMessageButton();
 }
+
+// functions for bulk actions
+export async function messageViaPAndTGroup(contactName, message) {
+  await contact.navigate()
+    .openContactChat(contactName);
+  await chat.fillInMessageInput(message)
+    .pause(1000);
+  await chat.clickSendMessageButton()
+    .pause(1000);
+}
+
+export async function messageViaPatientGroup(contactName, message, channelName) {
+  await contact.navigate()
+    .openContactChat(contactName);
+  await chat.clickButton('@rhinoSecureTab')
+    .channelSelection('@preselectedSecureChannelName', '@rhinosecureChannelListDropdown', channelName, '@newSelectedSecureChannel')
+    .fillInMessageInput(message)
+    .pause(1000);
+  await chat.clickSendMessageButton()
+    .pause(1000);
+}
+
+export async function messageViaDirect(contactName, message) {
+  await contact.navigate()
+    .openContactChat(contactName);
+  await chat.clickButton('@rhinoSecureTab')
+    .fillInMessageInput(message)
+    .pause(1000);
+  await chat.clickSendMessageButton()
+    .pause(1000);
+}

@@ -114,6 +114,12 @@ module.exports = {
     },
 
     // Group Type Options
+
+    directInbox: {
+      selector: '//a[@id=\'nav-inbox-direct\']',
+      locateStrategy: 'xpath',
+    },
+
     teamOption: {
       selector: '//*[@class=\'form__block-group__label\'][text()=\'Team\']',
       locateStrategy: 'xpath',
@@ -300,11 +306,6 @@ module.exports = {
 
     assignedToMe: {
       selector: '//span[contains(@class,\'app-navigation\')][contains(text(),\'Assigned to Me\')]',
-      locateStrategy: 'xpath',
-    },
-
-    directInbox: {
-      selector: '//a[@id=\'nav-inbox-direct\']',
       locateStrategy: 'xpath',
     },
 

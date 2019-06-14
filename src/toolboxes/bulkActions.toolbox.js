@@ -130,3 +130,18 @@ export async function closeConversationAction(source) {
 export async function verifyPagination(source) {
   await group.openGroup(source);
 }
+
+// -----Functions regarding close conversation logic ----
+
+export async function performAction(source, selection, actionName) {
+  await group.openGroup(source);
+  await bulk.selectOption(selection);
+  bulk.selectAnAction(actionName)
+    .verifySuccessMessage('@successToast');
+}
+
+export async function selectThreadAndVerifyResult(inboxName, option, resultSet) {
+  await group.openGroup(inboxName);
+  await bulk.selectOption(option)
+    .actionForSelection(resultSet);
+}

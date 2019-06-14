@@ -113,6 +113,26 @@ const orgProfileCommands = {
       .click('@saveOrgProfileButton')
       .waitForElementVisible('@orgUpdateSuccessMessage', 'Success message displayed');
   },
+
+  enableToggle(toggleSetup) {
+    return this.waitForElementVisible(toggleSetup, `${toggleSetup} toggle is visible.`)
+      .getAttribute('@merchantIdInput', 'disabled', (result) => {
+        if (result.value) {
+          this.click(toggleSetup);
+        }
+      });
+  },
+
+
+  updateEmptyValues(element, newValue) {
+    return this.verify.visible(element, `${element} is visible`)
+      .click(element)
+      .getValue(element, (result) => {
+        if (!result.value) {
+          element.setValue(element, newValue);
+        }
+      });
+  },
 };
 
 module.exports = {
@@ -273,6 +293,36 @@ module.exports = {
 
     orgUpdateSuccessMessage: {
       selector: '//DIV[text()=\'Organization updated successfully.\']',
+      locateStrategy: 'xpath',
+    },
+
+    rhinopayToggle: {
+      selector: '//LABEL[@class=\'rhinoswitcher__label\'][contains(@for,\'isRhinopayEnabled\')]',
+      locateStrategy: 'xpath',
+    },
+
+    merchantIdInput: {
+      selector: '//INPUT[contains(@id,\'merchantId\')]',
+      locateStrategy: 'xpath',
+    },
+
+    merchantTokenInput: {
+      selector: '//INPUT[contains(@id,\'merchantToken\')]',
+      locateStrategy: 'xpath',
+    },
+
+    paymentApiUsernameInput: {
+      selector: '//INPUT[contains(@id,\'paymentApiUsername\')]',
+      locateStrategy: 'xpath',
+    },
+
+    paymentApiPasswordInput: {
+      selector: '//INPUT[contains(@id,\'paymentApiPassword\')]',
+      locateStrategy: 'xpath',
+    },
+
+    paymentGatewayIdInput: {
+      selector: '//INPUT[contains(@id,\'paymentGatewayId\')]',
       locateStrategy: 'xpath',
     },
   },

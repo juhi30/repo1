@@ -259,6 +259,11 @@ const contactsCommands = {
       .waitForElementVisible('@appointmentUpdateMessage', 'Appointment Update success message is visible')
       .waitForElementNotPresent('@appointmentUpdateMessage', 'Appointment Update success message is gone');
   },
+
+  grantRhinopayStatus() {
+    return this.waitForElementVisible('@rhinopayConsentInput', 'Rhinopay consent is visible')
+      .click('@rhinopayConsentInput');
+  },
 };
 
 module.exports = {
@@ -732,6 +737,12 @@ module.exports = {
 
     confirmStatusChange: {
       selector: '//BUTTON[@class=\'button button--primary button--small\']//SPAN[text()=\'Confirm status change\']',
+      locateStrategy: 'xpath',
+    },
+
+    // communication consent Inputs
+    rhinopayConsentInput: {
+      selector: '//INPUT[@name = \'rhinopayStatusCover\'][@value= \'92\']/following-sibling::label[1]',
       locateStrategy: 'xpath',
     },
   },

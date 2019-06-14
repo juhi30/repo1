@@ -90,11 +90,3 @@ export async function deleteContact(deletedContactElement) {
   await contact.navigate()
     .deleteContact(deletedContactElement);
 }
-
-export async function openClosedContact(contactName, message) {
-  await contact.navigate()
-    .openContactChat(contactName);
-  await chat.fillInMessageInput(message)
-    .pause(1000);
-  await chat.clickSendMessageButton();
-}

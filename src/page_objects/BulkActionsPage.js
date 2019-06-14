@@ -105,18 +105,6 @@ const bulkActionCommands = {
       .waitForElementNotPresent('@successToast', 'Toast Notification is gone');
   },
 
-  selectActionAgainstCheckboxOption(inboxGroupName, actionName, contactName) {
-    return this.waitForElementVisible(inboxGroupName, `${inboxGroupName} inbox group is visible`)
-      .click(inboxGroupName)
-      .waitForElementVisible('@bulkSelectCheckbox', 'bulk select option is visible')
-      .click('@bulkSelectCheckbox')
-      .selectMessageThread(contactName)
-      .waitForElementVisible('@actionDropdown', 'Action dropdown is visible')
-      .click('@actionDropdown')
-      .waitForElementVisible(actionName, `${actionName} Action name is visible`)
-      .click(actionName);
-  },
-
   selectMessageThread(contactName) {
     return this.api.useXpath().waitForElementVisible(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`, `Thread with this name ${contactName} is visible.`)
       .click(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`);

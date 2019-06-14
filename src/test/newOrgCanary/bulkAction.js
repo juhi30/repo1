@@ -1,6 +1,7 @@
 import { client } from 'nightwatch-api';
 import * as bulkActionToolbox from '../../toolboxes/bulkActions.toolbox';
 import * as contactToolbox from '../../toolboxes/contact.toolbox';
+import * as messageToolbox from '../../toolboxes/messaging.toolbox';
 
 const chat = client.page.DirectChatInboxPage();
 const group = client.page.GroupsPage();
@@ -8,6 +9,7 @@ const preference = client.page.PreferencesPage();
 const contactFeeder = require('../../feeder/contact.feeder');
 const messageFeeder = require('../../feeder/message.feeder');
 const groupFeeder = require('../../feeder/group.feeder');
+const channelFeeder = require('../../feeder/channel.feeder');
 
 const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
 const bulkContactName1 = `${contactFeeder.bulkContactFirstName1} ${contactFeeder.bulkContactLastName1}`;
@@ -86,11 +88,11 @@ describe('Bulk Action automation test cases', () => {
   });
 
   test('Create Threads on the inbox page', async () => {
-    await bulkActionToolbox.messageViaPatientGroup(contactName, messageFeeder.groupPatientMessage, groupFeeder.patientGroupChannel);
-    await bulkActionToolbox.messageViaPAndTGroup(bulkContactName1, messageFeeder.groupPatientMessage);
-    await bulkActionToolbox.messageViaPAndTGroup(bulkContactName2, messageFeeder.groupPatientMessage);
-    await bulkActionToolbox.messageViaDirect(bulkContactName3, messageFeeder.groupPatientMessage);
-    await bulkActionToolbox.messageViaDirect(bulkContactName4, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(contactName, groupFeeder.patientGroupChannel, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendGroupMessageToContact(bulkContactName1, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendGroupMessageToContact(bulkContactName2, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(bulkContactName3, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(bulkContactName4, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
   });
 
   test('Verify action items according the selection criteria - Direct Inbox', async () => {

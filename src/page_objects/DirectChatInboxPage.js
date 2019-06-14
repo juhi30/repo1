@@ -1,6 +1,5 @@
 const memberFeeder = require('../feeder/member.feeder');
 const helper = require('../toolboxes/helpers.toolbox');
-const groupFeeder = require('../feeder/group.feeder');
 
 const commands = {
 
@@ -58,13 +57,15 @@ const commands = {
       .click(`//SPAN[@class='resource__intro__title__content'][contains(., '${searchText}')]`);
   },
 
-  channelSelection(chatChannelName, channelDropdown, value, newChatChannelName) {
+  channelSelection(chatChannelName, channelDropdown, value) {
     return this.waitForElementVisible(chatChannelName, `${chatChannelName} is visible`)
       .click(chatChannelName)
       .waitForElementVisible(channelDropdown, `${channelDropdown} is visible`)
+      .pause(1000)
       .setValue(channelDropdown, value)
       .pause(1000)
-      .waitForElementVisible(newChatChannelName, `${newChatChannelName} is visible`);
+      .waitForElementVisible(chatChannelName, `${chatChannelName} is visible as new channel`)
+      .click(chatChannelName);
   },
 
   verifySuccessMessage(successMessage) {
@@ -239,18 +240,13 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    preselectedSecureChannelName: {
+    selectedChannel: {
       selector: '//SPAN[@class=\'convo__channels__label__text\']',
       locateStrategy: 'xpath',
     },
 
     rhinosecureChannelListDropdown: {
       selector: '//SELECT[contains(@id, \'secure-channel\')]',
-      locateStrategy: 'xpath',
-    },
-
-    newSelectedSecureChannel: {
-      selector: `//STRONG[contains(text(), '${groupFeeder.patientGroupChannel}')]`,
       locateStrategy: 'xpath',
     },
 

@@ -681,16 +681,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    addContactDropdownFirstResultBot: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${process.env.EXISTING_ORG_BOT_CONTACT_NAME}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    addContactDropdownFirstResultFb: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${process.env.EXISTING_ORG_FACEBOOK_CONTACT_NAME}')]`,
-      locateStrategy: 'xpath',
-    },
-
     deleteContactButton: {
       selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Delete Contact\')]',
       locateStrategy: 'xpath',

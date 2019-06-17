@@ -53,7 +53,7 @@ describe('Direct Messaging Tests', () => {
   // });
 
   test('Sending a message to a Contact from a Group', async () => {
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(contactName, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(contactName, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
   });
 

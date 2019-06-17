@@ -91,11 +91,11 @@ describe('Bulk Action automation test cases', () => {
   });
 
   test('Create Threads on the inbox page', async () => {
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(contactName, groupFeeder.patientGroupChannel, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(contactName, groupFeeder.patientGroupChannel, messageFeeder.groupPatientMessage);
     await messageToolbox.sendGroupMessageToContact(bulkContactName1, messageFeeder.groupPatientMessage);
     await messageToolbox.sendGroupMessageToContact(bulkContactName2, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(bulkContactName3, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(bulkContactName4, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(bulkContactName3, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(bulkContactName4, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
   });
 
   test('Verify action items according the selection criteria - Direct Inbox', async () => {
@@ -172,13 +172,13 @@ describe('Bulk Action automation test cases', () => {
 
 describe('Bulk Actions: Close conversation logic', () => {
   test('Reopen conversation', async () => {
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(bulkContactName1, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(bulkContactName2, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(contactName, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(testcontact1, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(testcontact2, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(bulkContactName1, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(bulkContactName2, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(contactName, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(testcontact1, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(testcontact2, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
     // eslint-disable-next-line max-len
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(contactFeeder.contactNewFirstName, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(contactFeeder.contactNewFirstName, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
     await bulkActionToolbox.assignThreadToMemberAndGroup('@directInbox', contactFeeder.contactNewFirstName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
   });
 
@@ -222,9 +222,9 @@ describe('Bulk Actions: Close conversation logic', () => {
   });
 
   test('perform the operation of close converstaion for all threads for P&T Inbox', async () => {
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(contactName, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(contactName, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
     // eslint-disable-next-line max-len
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(contactFeeder.contactNewFirstName, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(contactFeeder.contactNewFirstName, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
     await bulkActionToolbox.assignThreadToMemberAndGroup('@directInbox', contactFeeder.contactNewFirstName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
     await bulkActionToolbox.performAction('@patientAndTeamGroup_PatientInbox', '@all', '@closeConversations');
   });
@@ -236,13 +236,13 @@ describe('Bulk Actions: Close conversation logic', () => {
   });
 
   test('Reopen conversation when CBA is On', async () => {
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(bulkContactName1, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(bulkContactName2, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(contactName, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(testcontact1, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(testcontact2, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(bulkContactName1, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(bulkContactName2, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(contactName, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(testcontact1, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(testcontact2, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
     // eslint-disable-next-line max-len
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(contactFeeder.contactNewFirstName, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(contactFeeder.contactNewFirstName, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
     await bulkActionToolbox.assignToSelf('@patientAndTeamGroup_PatientInbox', contactFeeder.bulkContactFirstName2, '@assignedToMe');
     await bulkActionToolbox.assignThreadToMemberAndGroup('@directInbox', contactFeeder.contactNewFirstName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
   });
@@ -284,9 +284,9 @@ describe('Bulk Actions: Close conversation logic', () => {
   });
 
   test('perform the operation of close converstaion for all threads for P&T Inbox CBA is On', async () => {
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(contactName, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(contactName, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
     // eslint-disable-next-line max-len
-    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(contactFeeder.contactNewFirstName, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(contactFeeder.contactNewFirstName, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
     await bulkActionToolbox.assignThreadToMemberAndGroup('@directInbox', contactFeeder.contactNewFirstName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
     await bulkActionToolbox.performAction('@patientAndTeamGroup_PatientInbox', '@all', '@closeConversations');
   });

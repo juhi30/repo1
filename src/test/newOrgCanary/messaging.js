@@ -4,6 +4,7 @@ import { memberLogin, logout } from '../../toolboxes/login.toolbox';
 const memberFeeder = require('../../feeder/member.feeder');
 const messageFeeder = require('../../feeder/message.feeder');
 const contactFeeder = require('../../feeder/contact.feeder');
+const groupFeeder = require('../../feeder/group.feeder');
 
 describe('Chat Messaging Tests', () => {
   test('Login as a Member1', async () => {
@@ -40,6 +41,7 @@ describe('Chat Messaging Tests', () => {
 });
 
 describe('Direct Messaging Tests', () => {
+  const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
   test('Login as a Member1', async () => {
     await memberLogin(memberFeeder.newMemberUsername, memberFeeder.newMemberPassword);
   });
@@ -56,8 +58,7 @@ describe('Direct Messaging Tests', () => {
   });
 
   test('Sending a message to a Contact from a Group', async () => {
-  // eslint-disable-next-line max-len
-    await messageToolbox.sendGroupMessageToContact('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendGroupMessageToContactUsingRhinosecure(contactName, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
   });
 

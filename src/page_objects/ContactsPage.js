@@ -79,8 +79,8 @@ const contactsCommands = {
   },
 
   openContactChat(contactName) {
-    this.api.useXpath().waitForElementVisible(`//SPAN[contains(., '${contactName}')]`, `"${contactName}" is visible in the list.`)
-      .click(`//SPAN[contains(., '${contactName}')]`);
+    this.api.useXpath().waitForElementVisible(`//SPAN[contains(text(),'${contactName}')]`, `${contactName} is visible in the list.`)
+      .click(`//SPAN[contains(text(),'${contactName}')]`);
     return this.waitForElementVisible('@goToConversationButton', 'Go to conversation button is visible')
       .click('@goToConversationButton')
       .waitForElementVisible('@inboxMessageArea', 'Conversation Chat box is opened for the selected contact.');
@@ -259,6 +259,11 @@ const contactsCommands = {
       .waitForElementVisible('@appointmentUpdateMessage', 'Appointment Update success message is visible')
       .waitForElementNotPresent('@appointmentUpdateMessage', 'Appointment Update success message is gone');
   },
+
+  grantRhinopayStatus() {
+    return this.waitForElementVisible('@rhinopayConsentInput', 'Rhinopay consent is visible')
+      .click('@rhinopayConsentInput');
+  },
 };
 
 module.exports = {
@@ -294,7 +299,7 @@ module.exports = {
     },
 
     patientOption: {
-      selector: '//SPAN[contains(.,\'Patient\')]',
+      selector: '//SPAN[@class=\'form__block-group__label\'][contains(.,\'Patient\')]',
       locateStrategy: 'xpath',
     },
 
@@ -727,6 +732,12 @@ module.exports = {
 
     confirmStatusChange: {
       selector: '//BUTTON[@class=\'button button--primary button--small\']//SPAN[text()=\'Confirm status change\']',
+      locateStrategy: 'xpath',
+    },
+
+    // communication consent Inputs
+    rhinopayConsentInput: {
+      selector: '//INPUT[@name = \'rhinopayStatusCover\'][@value= \'92\']/following-sibling::label[1]',
       locateStrategy: 'xpath',
     },
   },

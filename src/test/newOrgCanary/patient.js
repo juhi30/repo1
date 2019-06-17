@@ -9,10 +9,11 @@ describe('Patient Login Page Tests Cases', () => {
   const patient = client.page.PatientPage();
   const contact = client.page.ContactsPage();
   const convo = client.page.ConvoThreadPage();
+  const patientName = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
 
   test('Send a rhino secure message from selected contact', async () => {
     await contact.navigate()
-      .openContactChat(`${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`);
+      .openContactChat(patientName);
 
     await convo.sendRhinosecureMessage(messageFeeder.rhinosecureMessage);
 

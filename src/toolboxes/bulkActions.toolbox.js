@@ -38,7 +38,7 @@ export async function actionVerificationPatientGroup(groupName) {
 
 export async function assignToSelf(source, contactName, destination) {
   await group.openGroup(source);
-  await bulk.selectOption('@all');
+  await bulk.selectMessageThread(contactName);
   bulk.selectAnAction('@assignToSelf')
     .verifySuccessMessage('@successToast');
   await group.openGroup(destination)
@@ -125,10 +125,6 @@ export async function closeConversationAction(source) {
   bulk.selectAnAction('@closeConversations')
     .verifySuccessMessage('@successToast');
   await unfollow.verifyDefaultState();
-}
-
-export async function verifyPagination(source) {
-  await group.openGroup(source);
 }
 
 // -----Functions regarding close conversation logic ----

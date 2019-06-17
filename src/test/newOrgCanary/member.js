@@ -1,7 +1,9 @@
+import { client } from 'nightwatch-api';
 import { createMember, changePasswordUsingTempPassword } from '../../toolboxes/member.toolbox';
 import { logout } from '../../toolboxes/login.toolbox';
 
 const memberFeeder = require('../../feeder/member.feeder');
+const helper = require('../../toolboxes/helpers.toolbox');
 
 describe('Members Page', () => {
   test('Adding a new Member with Admin Role', async () => {
@@ -17,7 +19,8 @@ describe('Members Page', () => {
   test('Adding another Member with Admin Role', async () => {
     const memberDetails2 = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName2 },
       { element: '@memberLastName', value: memberFeeder.memberLastName2 },
-      { element: '@memberUsername', value: memberFeeder.memberUsername2 }];
+      { element: '@memberUsername', value: memberFeeder.memberUsername2 },
+      { element: '@memberEmailAddress', value: `test_${helper.randomNumber}@gmail.com` }];
     const roles = ['@adminRole', '@memberRole'];
 
     await createMember(memberDetails2, roles, 'NEW_CANARY_MEMBER2_TEMP_PASSWORD');
@@ -30,8 +33,11 @@ describe('Members Page', () => {
   test('Login as second Member with Admin Role', async () => {
     const { memberUsername2, memberPassword } = memberFeeder;
     const tempPassword2 = global.NEW_CANARY_MEMBER2_TEMP_PASSWORD;
+    const login = client.page.LoginPage();
 
     await changePasswordUsingTempPassword(memberUsername2, memberPassword, tempPassword2);
+    await login.clickConfirmEmailOnEmailModal()
+      .pause(1000);
   });
 
   test('Logout as member 2', async () => {
@@ -41,8 +47,11 @@ describe('Members Page', () => {
   test('Login as New Member with Admin Role', async () => {
     const { memberUsername, memberPassword } = memberFeeder;
     const tempPassword = global.NEW_CANARY_MEMBER_TEMP_PASSWORD;
+    const login = client.page.LoginPage();
 
     await changePasswordUsingTempPassword(memberUsername, memberPassword, tempPassword);
+    await login.clickConfirmEmailOnEmailModal()
+      .pause(1000);
   });
 
   test('Logout as member 1', async () => {

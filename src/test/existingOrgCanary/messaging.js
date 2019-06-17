@@ -6,13 +6,18 @@ const existingOrgFeeder = require('../../feeder/existingOrg.feeder');
 
 describe('Existing org canary: messaging tests', () => {
   test('Existing Org Canary Page Login With Member', async () => {
+    const login = client.page.LoginPage();
     await memberLogin(existingOrgFeeder.memberUsernameExistingOrg, existingOrgFeeder.memberPasswordExistingOrg);
+    await login.clickUpdateLaterOnEmailModal();
   });
 
   test('Send Outbound Message To Contact and Get Reply', async () => {
     const contacts = client.page.ContactsPage();
-    await contacts.navigate()
-      .openContactChat('@addContactDropdownFirstResultBot')
+    const universal = client.page.UniversalElements();
+
+    await universal.clickContacts()
+      .pause(500);
+    await contacts.openContactChat('@addContactDropdownFirstResultBot')
       .pause(1000)
       .sendOutboundMessageAndGetReply(`handler add reply ${existingOrgFeeder.testBotReplyMessage}`, 'Hi Bot Contact');
   });
@@ -45,8 +50,11 @@ describe('Existing org canary: messaging tests', () => {
 
   test('Search Facebook Unknown Contact', async () => {
     const contacts = client.page.ContactsPage();
-    await contacts.navigate()
-      .openContactChat('@addContactDropdownFirstResultFb')
+    const universal = client.page.UniversalElements();
+
+    await universal.clickContacts()
+      .pause(500);
+    await contacts.openContactChat('@addContactDropdownFirstResultFb')
       .pause(1000);
   });
 

@@ -6,6 +6,7 @@ import {
 } from '../../toolboxes/member.toolbox';
 
 const memberFeeder = require('../../feeder/member.feeder');
+const helper = require('../../toolboxes/helpers.toolbox');
 
 describe('Member Creation test Cases for Billing Organization', () => {
   const member = client.page.MembersPage();
@@ -13,7 +14,8 @@ describe('Member Creation test Cases for Billing Organization', () => {
   test('Adding Members according to the plan', async () => {
     const memberDetails1 = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName1 },
       { element: '@memberLastName', value: memberFeeder.memberLastName1 },
-      { element: '@memberUsername', value: memberFeeder.memberUsername1 }];
+      { element: '@memberUsername', value: memberFeeder.memberUsername1 },
+      { element: '@memberEmailAddress', value: `test_${helper.randomNumber}@gmail.com` }];
     const roles1 = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
     const memberDetails2 = [{ element: '@memberFirstName', value: memberFeeder.firstMemberName2 },
@@ -72,8 +74,11 @@ describe('Member Creation test Cases for Billing Organization', () => {
   test('Login as New Member with Admin Roles', async () => {
     const { memberUsername1, memberPassword } = memberFeeder;
     const tempPassword = global.BILLING_MEMBER_TEMP_PASSWORD;
+    const login = client.page.LoginPage();
 
     await changePasswordUsingTempPassword(memberUsername1, memberPassword, tempPassword);
+    await login.clickConfirmEmailOnEmailModal()
+      .pause(1000);
   });
 
   test('logout as Member', async () => {

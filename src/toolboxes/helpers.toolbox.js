@@ -33,7 +33,7 @@ function clickDivViaText(client, text) {
     .click(`//DIV[contains(text(), '${text}')]`);
 }
 
-const randoNum = Math.ceil(Math.random() * 1000);
+const randomNumber = Math.ceil(Math.random() * 1000);
 
 const theDateObj = new Date();
 const dateString = `${theDateObj.toLocaleTimeString()}, ${theDateObj.toLocaleDateString()}`;
@@ -117,7 +117,7 @@ module.exports = {
   clickDivViaText,
   returnElementText,
   findTextOnPage,
-  randoNum,
+  randomNumber,
   dateString,
   csrCreds,
   memberCreds,

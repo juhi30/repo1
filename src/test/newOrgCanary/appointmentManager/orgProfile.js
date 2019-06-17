@@ -41,12 +41,15 @@ describe('Organization Profile Edit as CCR', () => {
   });
 });
 
-describe('Organisation profile edit as member', () => {
+describe('Organization profile edit as member', () => {
   test('Login as Member (reset Password) and Edit Org Profile ', async () => {
     const { appointmentMemberUsername, memberPassword } = memberFeeder;
     const tempPassword = global.APPOINTMENT_MEMBER_TEMP_PASSWORD;
+    const login = client.page.LoginPage();
 
     await changePasswordUsingTempPassword(appointmentMemberUsername, memberPassword, tempPassword);
+    await login.clickConfirmEmailOnEmailModal()
+      .pause(1000);
   });
 
   test('Add Photo', async () => {

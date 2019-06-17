@@ -95,9 +95,17 @@ const loginCommands = {
       .click('@getNewPassword');
   },
 
+  clickConfirmEmailOnEmailModal() {
+    return this.waitForElementVisible('@confirmEmailButton', 'Confirm user email modal is visible')
+      .click('@confirmEmailButton')
+      .waitForElementNotPresent('@successEmailConfirmModal', 'Email is confirmed successfully')
+      .click('@closeConfirmEmailModal');
+  },
+
   clickUpdateLaterOnEmailModal() {
     return this.waitForElementVisible('@updateLaterButton', 'Confirm user email modal is visible')
-      .click('@updateLaterButton');
+      .click('@updateLaterButton')
+      .pause(1000);
   },
 };
 
@@ -124,6 +132,21 @@ module.exports = {
 
     logOutButton: {
       selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Log Out\']',
+      locateStrategy: 'xpath',
+    },
+
+    confirmEmailButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Confirm Email\']',
+      locateStrategy: 'xpath',
+    },
+
+    closeConfirmEmailModal: {
+      selector: '//button[contains(@class, \'modal__header__close\')][@title=\'Close\']',
+      locateStrategy: 'xpath',
+    },
+
+    successEmailConfirmModal: {
+      selector: '//h3[contains(@class, \'modal__header__title\')][text()=\'Great Job! Log In Details Updated.\']',
       locateStrategy: 'xpath',
     },
 

@@ -77,6 +77,7 @@ describe('Member Creation test Cases for Billing Organization', () => {
     const login = client.page.LoginPage();
 
     await changePasswordUsingTempPassword(memberUsername1, memberPassword, tempPassword);
+    // Below lines have been added to by pass confirm email modal
     await login.clickConfirmEmailOnEmailModal()
       .pause(1000);
   });

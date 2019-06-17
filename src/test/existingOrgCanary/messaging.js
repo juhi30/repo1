@@ -8,6 +8,7 @@ describe('Existing org canary: messaging tests', () => {
   test('Existing Org Canary Page Login With Member', async () => {
     const login = client.page.LoginPage();
     await memberLogin(existingOrgFeeder.memberUsernameExistingOrg, existingOrgFeeder.memberPasswordExistingOrg);
+    // Below lines have been added to by pass confirm email modal
     await login.clickUpdateLaterOnEmailModal();
   });
 

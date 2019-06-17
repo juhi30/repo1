@@ -36,6 +36,7 @@ describe('Members Page', () => {
     const login = client.page.LoginPage();
 
     await changePasswordUsingTempPassword(memberUsername2, memberPassword, tempPassword2);
+    // Below lines have been added to by pass confirm email modal
     await login.clickConfirmEmailOnEmailModal()
       .pause(1000);
   });
@@ -50,6 +51,7 @@ describe('Members Page', () => {
     const login = client.page.LoginPage();
 
     await changePasswordUsingTempPassword(memberUsername, memberPassword, tempPassword);
+    // Below lines have been added to by pass confirm email modal
     await login.clickConfirmEmailOnEmailModal()
       .pause(1000);
   });

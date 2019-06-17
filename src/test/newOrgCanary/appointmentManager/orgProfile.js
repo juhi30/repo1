@@ -48,6 +48,7 @@ describe('Organization profile edit as member', () => {
     const login = client.page.LoginPage();
 
     await changePasswordUsingTempPassword(appointmentMemberUsername, memberPassword, tempPassword);
+    // Below lines have been added to by pass confirm email modal
     await login.clickConfirmEmailOnEmailModal()
       .pause(1000);
   });

@@ -95,6 +95,7 @@ const loginCommands = {
       .click('@getNewPassword');
   },
 
+  // This function can be removed once require email modal will be removed from develop
   clickConfirmEmailOnEmailModal() {
     return this.waitForElementVisible('@confirmEmailButton', 'Confirm user email modal is visible')
       .click('@confirmEmailButton')
@@ -102,6 +103,7 @@ const loginCommands = {
       .click('@closeConfirmEmailModal');
   },
 
+  // This function can be removed once require email modal will be removed from develop
   clickUpdateLaterOnEmailModal() {
     return this.waitForElementVisible('@updateLaterButton', 'Confirm user email modal is visible')
       .click('@updateLaterButton')

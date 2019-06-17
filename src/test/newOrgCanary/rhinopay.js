@@ -8,7 +8,7 @@ const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
 
 describe('Automated Tests: Rhinopay', () => {
   test('Login as CCR', async () => {
-    await loginToolbox.ccrLogin(process.env.CCR_USERNAME, process.env.CCR_PASSWORD);
+    await loginToolbox.ccrLogin(process.env.NEW_CANARY_CCR_USERNAME, process.env.NEW_CANARY_CCR_PASSWORD);
   });
 
   test('Select organization', async () => {

@@ -1,8 +1,11 @@
+const dotenv = require('dotenv');
+const fs = require('fs');
+
 // allows tests to run through browserstack
 require('browserstack-automate').Nightwatch();
 
 const headless = !!process.env.HEADLESS && process.env.HEADLESS === 'true';
-const options = headless ? ['headless', 'window-size=1280,800', 'no-sandbox', 'disable-gpu'] : ['window-size=1280,800', 'no-sandbox', 'disable-gpu'];
+const options = headless ? { args: ['headless', 'no-sandbox', 'disable-gpu'] } : undefined;
 
 module.exports = {
   page_objects_path: './src/page_objects',
@@ -28,7 +31,7 @@ module.exports = {
         javascriptEnabled: true,
         acceptSslCerts: true,
         chromeOptions: {
-          args: options,
+          args: ['no-sandbox', 'disable-gpu', 'window-size=1280,800'],
         },
       },
     },

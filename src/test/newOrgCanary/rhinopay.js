@@ -4,6 +4,7 @@ import * as organizationToolbox from '../../toolboxes/organization.toolbox';
 
 const memberFeeder = require('../../feeder/member.feeder');
 const rhinopayFeeder = require('../../feeder/rhinopay.feeder');
+const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
 
 describe('Automated Tests: Rhinopay', () => {
   test('Login as CCR', async () => {
@@ -11,7 +12,7 @@ describe('Automated Tests: Rhinopay', () => {
   });
 
   test('Select organization', async () => {
-    await organizationToolbox.selectOrganizationByCCR(process.env.EXISTING_ORG_ID);
+    await organizationToolbox.selectOrganizationByCCR(accountSetupFeeder.orgName);
   });
 
   test('Edit Organization Profile as CCR', async () => {
@@ -37,7 +38,7 @@ describe('Automated Tests: Rhinopay', () => {
   });
 
   test('Login as member', async () => {
-    await loginToolbox.memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
+    await loginToolbox.memberLogin(memberFeeder.newMemberUsername, memberFeeder.newMemberPassword);
   });
 
   test('Create a contact', async () => {

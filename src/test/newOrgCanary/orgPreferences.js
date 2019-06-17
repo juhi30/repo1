@@ -64,4 +64,10 @@ describe('Preferences Page', () => {
       .pause(1000)
       .validateAuditEntry(memberFeeder.memberName, 'Org Preferences', 'Edit', accountSetupFeeder.orgName, '@categoryOrgPreferences');
   });
+
+  test('Logout as Member', async () => {
+    const logout = client.page.UniversalElements();
+
+    await logout.clickLogout();
+  });
 });

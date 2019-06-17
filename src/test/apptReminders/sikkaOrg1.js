@@ -11,7 +11,11 @@ let orgId;
 let createdPatient1;
 let createdAppointment1;
 let member;
-let secureChannel;
+let smsChannel;
+
+// ////////////////////////// SIKKA ORG 1
+// ////////////////////////// Sikka orgs do not utilize offices, but rather a default channel to send appt reminders out
+// ////////////////////////// This org has a default BandWidth Channel
 
 // externalIds
 const user1EmrId = uuid();
@@ -27,10 +31,9 @@ function sleep(ms) {
 describe('appt reminder tests', () => {
   jest.setTimeout(30000);
 
-  // CREATE NEW ORG
+  // //////////// log in as ccr and create org ----------------------
   beforeAll(async () => {
     try {
-      // log in as ccr and create org
       process.env.APPOINTMENT_CCR_COOKIE = await rhinoapi.login(process.env.INTEGRATIONS_CCR_USERNAME, process.env.INTEGRATIONS_CCR_PASSWORD);
 
       const orgData = {
@@ -54,11 +57,12 @@ describe('appt reminder tests', () => {
       const org = await rhinoapi.createOrganization(orgData, process.env.APPOINTMENT_CCR_COOKIE);
       orgId = org.id;
       const ccrUserId = await rhinoapi.getCcrUserId(process.env.APPOINTMENT_CCR_COOKIE);
-      // Change to newly created org
-      console.log('ORG AND ID====', orgId, ccrUserId);
+
+      // //////////////// Login to newly created org as CCR --------------------
+
       await rhinoapi.changeOrganization({ orgId, userId: ccrUserId }, process.env.APPOINTMENT_CCR_COOKIE);
 
-      // create member
+      // create member to use as the channel route
       const memberData = {
         afterHours: false,
         autoResponse: '',
@@ -116,13 +120,25 @@ describe('appt reminder tests', () => {
 
       member = await rhinoapi.postUser(memberData, process.env.APPOINTMENT_CCR_COOKIE);
 
+      // create BW channel to use as default org channel and set the route to the member created above
+      // POST AN ALREADY PROVISIONED BW NUMBER
       const channelData = {
-        name: 'new secure channel for appt testing',
+        name: 'new BW channel for appt testing',
         purpose: 'porpoise',
-        typeId: 54,
+        typeId: 10, // sms channel type
         timeZoneId: 1,
         observesDst: true,
-        details: {},
+        details: {
+          phone: {
+            value: process.env.DEV_PROVISIONED_DEFAULT_BW_CHANNEL_NUMBER,
+            typeId: 3,
+          },
+          forwardingPhone: {
+            value: '+15555555555',
+            typeId: 3,
+          },
+          bandwidthNumberId: process.env.DEV_PROVISIONED_DEFAULT_BW_NUMBER_ID,
+        },
         tagIds: [1, 2],
         route: {
           userId: member.id,
@@ -130,14 +146,14 @@ describe('appt reminder tests', () => {
         },
         autoResponse: 'nah',
       };
-      // once org is created and logged into, create a channel for that org, and patch the org with defaultChannel - sikka
-      secureChannel = await rhinoapi.postSecureChannel(channelData, process.env.APPOINTMENT_CCR_COOKIE);
+
+      smsChannel = await rhinoapi.postProvisionedChannel(channelData, process.env.APPOINTMENT_CCR_COOKIE);
 
       const updatedOrgData = {
-        defaultChannelId: secureChannel.id,
+        defaultChannelId: smsChannel.id,
       };
-
-      const updatedOrg = await rhinoapi.patchOrg(updatedOrgData, process.env.APPOINTMENT_CCR_COOKIE);
+      // patch org with new default channel that was created
+      await rhinoapi.patchOrg(updatedOrgData, process.env.APPOINTMENT_CCR_COOKIE);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log('===error on before all orgSetupAndTeardown=======', err);
@@ -146,17 +162,24 @@ describe('appt reminder tests', () => {
 
 
   // DELETE MY NEW ORG HERE
-  afterAll(async () => {
-    try {
-      await rhinoapi.archiveOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
-      await rhinoapi.deleteOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log('===error on after all orgSetupAndTeardown=======', err);
-    }
-  });
+  // afterAll(async () => {
+  //   try {
+  //     await rhinoapi.archiveOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE, 1); // 1 passed in to skip deprovisioning
+  //     await rhinoapi.deleteOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
+  //   } catch (err) {
+  //     // eslint-disable-next-line no-console
+  //     console.log('===error on after all orgSetupAndTeardown=======', err);
+  //   }
+  // });
 
   test('create patients', async () => {
+    // user with 1 phone number and is owner - give this patient 1 appt
+    // user with same phone number as above and is not owner - make this a minor with an appt
+    // user with 2 phones and owner of both - with 1 appt (should get 2 messages - one per phone)
+    // user with 2 phones and is owner of 1 - 1 upcoming appt
+    // user with 1 phone and is owner -- owner of phone above - no appt
+    // patient with invalid phone - should fail
+
     const user = {
       externalIds: {
         emrId: user1EmrId,
@@ -231,6 +254,8 @@ describe('appt reminder tests', () => {
     });
   });
 
+  // need to test that the appt response comes back in on the default channel for the org
+
   // test('send appointment reminder message with confirm/cancel', (done) => {
   //   const message = {
   //     userId: createdPatient1.id,
@@ -248,3 +273,13 @@ describe('appt reminder tests', () => {
   //   });
   // });
 });
+
+
+// test that each appt was created
+// test on zw and bandwidth (2 separate orgs)
+// test sending appt reminder from default channel - sikka
+// test sending appt reminder from office channels - non sikka
+// test sending appt reminder sent in the timezone of the orgs BW and orgs ZW numbers
+// test sending to all phone numbers on appt owner (if patient has appt, they are appt owner. send message to each phone listed on patient profile,
+// whether they are owner or not)
+//

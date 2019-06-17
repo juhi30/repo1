@@ -45,8 +45,8 @@ export async function postRhinolinerUser(user, orgId) {
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }
 
-export async function postSecureChannel(data, cookie) {
-  const response = await axios.post(`${process.env.API_BASE_URL}/channels/secure`,
+export async function postProvisionedChannel(data, cookie) {
+  const response = await axios.post(`${process.env.API_BASE_URL}/channels/provisioned`,
     data,
     {
       headers: {
@@ -71,10 +71,10 @@ export async function patchOrg(data, cookie) {
   return response.data;
 }
 
-export async function archiveOrganization(organizationId, cookie) {
+export async function archiveOrganization(organizationId, cookie, skipDeprovision) {
   const response = await axios({
     method: 'post',
-    url: `${process.env.API_BASE_URL}/organization/archive/${organizationId}`,
+    url: `${process.env.API_BASE_URL}/organization/archive/${organizationId}?skipDeprovision=${skipDeprovision}`,
     headers: {
       'content-type': 'application/json',
       token: process.env.RG_DEV_TOKEN,

@@ -751,8 +751,13 @@ module.exports = {
     },
 
     // communication consent Inputs
+    // rhinopayConsentInput: {
+    //   selector: '//INPUT[@name = \'rhinopayStatusCover\'][@value= \'92\']/following-sibling::label[1]',
+    //   locateStrategy: 'xpath',
+    // },
+
     rhinopayConsentInput: {
-      selector: '//INPUT[@name = \'rhinopayStatusCover\'][@value= \'92\']/following-sibling::label[1]',
+      selector: '(//*[@class=\'form__block-group__label\'][text()=\'Granted\'])[2]',
       locateStrategy: 'xpath',
     },
   },

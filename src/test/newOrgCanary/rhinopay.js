@@ -18,16 +18,16 @@ describe('Automated Tests: Rhinopay', () => {
   test('Edit Organization Profile as CCR', async () => {
     const orgProfile = client.page.OrgProfilePage();
 
-    await orgProfile.navigate()
-      .renderPageElements('@updateLogoButton');
+    // await orgProfile.navigate()
+    //   .renderPageElements('@updateLogoButton');
 
-    await orgProfile
+    await orgProfile.navigate()
       .enableToggle('@rhinopayToggle')
-      .updateEmptyValues('@merchantIdInput', process.env.RHINOPAY_MERCHANT_ID)
-      .updateEmptyValues('@merchantTokenInput', process.env.RHINOPAY_MERCHANT_TOKEN)
-      .updateEmptyValues('@paymentApiUsernameInput', process.env.RHINOPAY_API_USERNAME)
-      .updateEmptyValues('@paymentApiPasswordInput', process.env.RHINOPAY_API_PASSWORD)
-      .updateEmptyValues('@paymentGatewayIdInput', process.env.RHINOPAY_GATEWAY_ID)
+      .createOrgProfileForm('@merchantIdInput', process.env.RHINOPAY_MERCHANT_ID)
+      .createOrgProfileForm('@merchantTokenInput', process.env.RHINOPAY_MERCHANT_TOKEN)
+      .createOrgProfileForm('@paymentApiUsernameInput', process.env.RHINOPAY_API_USERNAME)
+      .createOrgProfileForm('@paymentApiPasswordInput', process.env.RHINOPAY_API_PASSWORD)
+      .createOrgProfileForm('@paymentGatewayIdInput', process.env.RHINOPAY_GATEWAY_ID)
       .clickSaveProfile();
   });
 
@@ -38,7 +38,7 @@ describe('Automated Tests: Rhinopay', () => {
   });
 
   test('Login as member', async () => {
-    await loginToolbox.memberLogin(memberFeeder.newMemberUsername, memberFeeder.newMemberPassword);
+    await loginToolbox.memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
   });
 
   test('Create a contact', async () => {

@@ -1,7 +1,6 @@
 import { client } from 'nightwatch-api';
 
 const contact = client.page.ContactsPage();
-const chat = client.page.DirectChatInboxPage();
 
 export async function createContact(contactDetails, contactTypeElement) {
   await contact.navigate()

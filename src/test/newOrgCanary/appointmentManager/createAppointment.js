@@ -17,7 +17,6 @@ function getDateInString(date, minutes, globalVariableKey) {
   startDate.setMinutes(startDate.getMinutes() + minutes);
   startDate.setDate(startDate.getDate() + 1);
   global[globalVariableKey] = startDate;
-  console.log('---------', startDate);
   return helpers.localToUtc(startDate, 'America/New_York');
 }
 

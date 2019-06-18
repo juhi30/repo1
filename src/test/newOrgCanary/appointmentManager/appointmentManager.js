@@ -1,5 +1,4 @@
 import { client } from 'nightwatch-api';
-import logger from 'rhinotilities/lib/loggers/logger';
 import { newMessageToContact } from '../../../toolboxes/messaging.toolbox';
 import { performAction } from '../../../toolboxes/bulkActions.toolbox';
 import { memberLogin } from '../../../toolboxes/login.toolbox';

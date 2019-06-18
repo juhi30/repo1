@@ -6,7 +6,6 @@ const universal = client.page.UniversalElements();
 
 const helpers = require('../toolboxes/helpers.toolbox');
 
-const msg = client.page.DirectInboxPage();
 const bulkAction = client.page.BulkActionsPage();
 const template = client.page.TemplatesPage();
 const contact = client.page.ContactsPage();

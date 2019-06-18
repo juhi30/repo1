@@ -34,7 +34,7 @@ function clickDivViaText(client, text) {
 }
 
 function changeDateFormat(date, timeZone, format) {
-  return moment.utc(date).tz(timeZone).format(format)
+  return moment.utc(date).tz(timeZone).format(format);
 }
 
 const randoNum = Math.ceil(Math.random() * 1000);

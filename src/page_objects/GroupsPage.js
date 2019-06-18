@@ -11,7 +11,8 @@ const groupsPageCommands = {
       .pause(500)
       .waitForElementVisible('@teamOption', 'Team option is visible')
       .waitForElementVisible('@patientOption', 'Patient option is visible')
-      .waitForElementVisible('@patientAndTeamOption', 'Patient and team option is visible');
+      .waitForElementVisible('@patientAndTeamOption', 'Patient and team option is visible')
+      .waitForElementNotPresent('@nameInput', 'No Group type is selected yet');
   },
 
   clickAddGroup() {
@@ -81,6 +82,21 @@ const groupsPageCommands = {
   selectTimezone() {
     return this.waitForElementVisible('@groupTimezone', ' Timezone list is visible')
       .setValue('@groupTimezone', channelFeeder.timeZone);
+  },
+
+  checkGroupDeletionConditions(condition) {
+    return this.api.useXpath.waitForElementVisible(`//li[text()='${condition}']`, `${condition} is visible in the confirm delete modal.`);
+  },
+
+  deleteGroup() {
+    return this.waitForElementVisible('@deleteGroupIcon', 'delete group icon is visible')
+      .click('@deleteGroupIcon');
+  },
+
+  confirmDelete(successMessage) {
+    return this.waitForElementVisible('@confirmDeleteButton', 'confirm delete button is visible')
+      .click('@confirmDeleteButton')
+      .waitForElementVisible(successMessage, `${successMessage} is visible.`);
   },
 };
 
@@ -282,6 +298,21 @@ module.exports = {
 
     assignedToMe: {
       selector: '//span[contains(@class,\'app-navigation\')][contains(text(),\'Assigned to Me\')]',
+      locateStrategy: 'xpath',
+    },
+
+    deleteGroupIcon: {
+      selector: '//BUTTON[@title=\'Delete Group\']//SPAN',
+      locateStrategy: 'xpath',
+    },
+
+    confirmDeleteButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Delete Group\']',
+      locateStrategy: 'xpath',
+    },
+
+    deleteSuccessMessage: {
+      selector: '//*[@class =\'toast toast--success\']',
       locateStrategy: 'xpath',
     },
   },

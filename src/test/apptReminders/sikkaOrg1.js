@@ -9,7 +9,18 @@ const USER_TYPE_PATIENT = 18;
 
 let orgId;
 let createdPatient1;
+let createdPatient2;
+let createdPatient3;
+let createdPatient4;
+let createdPatient5;
+let createdPatient6;
 let createdAppointment1;
+let createdAppointment2;
+let createdAppointment3;
+let createdAppointment4;
+let createdAppointment5;
+let createdAppointment6;
+
 let member;
 let smsChannel;
 
@@ -22,7 +33,17 @@ const user1EmrId = uuid();
 const user2EmrId = uuid();
 const user3EmrId = uuid();
 const user4EmrId = uuid();
+const user5EmrId = uuid();
+const user6EmrId = uuid();
+const user7EmrId = uuid();
 const appointmentExternalId = uuid();
+const appointmentExternalId2 = uuid();
+const appointmentExternalId3 = uuid();
+const appointmentExternalId4 = uuid();
+const appointmentExternalId5 = uuid();
+const appointmentExternalId6 = uuid();
+const appointmentExternalId7 = uuid();
+
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -37,7 +58,7 @@ describe('appt reminder tests', () => {
       process.env.APPOINTMENT_CCR_COOKIE = await rhinoapi.login(process.env.INTEGRATIONS_CCR_USERNAME, process.env.INTEGRATIONS_CCR_PASSWORD);
 
       const orgData = {
-        name: 'Appt Reminder Testing',
+        name: 'Appointment reminder org',
         parentCompany: '',
         street1: '123 sad lane',
         street2: '',
@@ -160,7 +181,6 @@ describe('appt reminder tests', () => {
     }
   });
 
-
   // DELETE MY NEW ORG HERE
   afterAll(async () => {
     try {
@@ -173,9 +193,6 @@ describe('appt reminder tests', () => {
   });
 
   test('create patients', async () => {
-    // user with 1 phone number and is owner - give this patient 1 appt
-    // user with same phone number as above and is not owner - make this a minor with an appt
-    // user with 2 phones and owner of both - with 1 appt (should get 2 messages - one per phone)
     // user with 2 phones and is owner of 1 - 1 upcoming appt
     // user with 1 phone and is owner -- owner of phone above - no appt
     // patient with invalid phone - should fail
@@ -199,6 +216,54 @@ describe('appt reminder tests', () => {
       integrated: true,
     };
     await rhinoapi.postRhinolinerUser(user, Number(orgId));
+
+    // minor / child of user above
+    const user2 = {
+      externalIds: {
+        emrId: user2EmrId,
+      },
+      firstName: 'Little',
+      lastName: 'Debra',
+      birthday: '2012-06-19',
+      sex: 'female',
+      messageType: 'USER',
+      phones: [{
+        number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER,
+        typeId: TYPE_PHONE_CELL,
+      }],
+      typeId: USER_TYPE_PATIENT,
+      orgId,
+      isMinor: true,
+      integrated: true,
+      connectedTo: [{
+        toUserId: user.id,
+        connectionTypeId: 33,
+      }],
+    };
+    await rhinoapi.postRhinolinerUser(user2, Number(orgId));
+
+    // user with 2 phones and owner of both - with 1 appt (should get 2 messages - one per phone)
+    const user3 = {
+      externalIds: {
+        emrId: user3EmrId,
+      },
+      firstName: 'Jimmy',
+      lastName: 'Buckets',
+      birthday: '1967-03-18',
+      sex: 'male',
+      messageType: 'USER',
+      phones: [{
+        number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_2,
+        typeId: TYPE_PHONE_CELL,
+      }, {
+        number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_3,
+        typeId: TYPE_PHONE_CELL,
+      }],
+      typeId: USER_TYPE_PATIENT,
+      orgId,
+      integrated: true,
+    };
+    await rhinoapi.postRhinolinerUser(user3, Number(orgId));
   });
 
   test('find patient', async () => {
@@ -207,7 +272,20 @@ describe('appt reminder tests', () => {
     createdPatient1 = response.data;
   });
 
-  test('create appointment', async (done) => {
+  test('find patient 2', async () => {
+    const response = await rhinoapi.getUserByExternalId(orgId, user2EmrId);
+    expect(response.data.externalIds.emrId).toBe(user2EmrId);
+    createdPatient2 = response.data;
+  });
+
+  test('find patient 3', async () => {
+    const response = await rhinoapi.getUserByExternalId(orgId, user3EmrId);
+    expect(response.data.externalIds.emrId).toBe(user3EmrId);
+    createdPatient3 = response.data;
+  });
+
+
+  test('create appointment 1', async (done) => {
     const startDate = new Date();
     startDate.setMinutes(startDate.getMinutes() + 5);
     startDate.setDate(startDate.getDate() + 1);
@@ -231,11 +309,52 @@ describe('appt reminder tests', () => {
     });
   });
 
-  test('find appointment', async () => {
-    await sleep(10000);
-    const response = await rhinoapi.getAppointmentByExternalId(appointmentExternalId, createdPatient1.id);
-    expect(response.data.externalId).toBe(appointmentExternalId);
-    createdAppointment1 = response.data;
+  test('create appointment 2', async (done) => {
+    const startDate = new Date();
+    startDate.setMinutes(startDate.getMinutes() + 5);
+    startDate.setDate(startDate.getDate() + 1);
+    const startDateString = helpers.localToUtc(startDate, 'America/New_York');
+    const endDate = new Date();
+    endDate.setMinutes(endDate.getMinutes() + 30);
+    endDate.setDate(endDate.getDate() + 1);
+    const endDateString = helpers.localToUtc(endDate, 'America/New_York');
+    const appointment = {
+      startDate: startDateString,
+      endDate: endDateString,
+      externalId: user2EmrId,
+      messageType: 'APPOINTMENT',
+      appointmentExternalId2,
+      deleted: false,
+      appointmentStatusTypeId: 81,
+      orgId,
+    };
+    await rhinoliner.pushtoqueue(appointment).then(() => {
+      done();
+    });
+  });
+
+  test('create appointment 3', async (done) => {
+    const startDate = new Date();
+    startDate.setMinutes(startDate.getMinutes() + 5);
+    startDate.setDate(startDate.getDate() + 1);
+    const startDateString = helpers.localToUtc(startDate, 'America/New_York');
+    const endDate = new Date();
+    endDate.setMinutes(endDate.getMinutes() + 30);
+    endDate.setDate(endDate.getDate() + 1);
+    const endDateString = helpers.localToUtc(endDate, 'America/New_York');
+    const appointment = {
+      startDate: startDateString,
+      endDate: endDateString,
+      externalId: user3EmrId,
+      messageType: 'APPOINTMENT',
+      appointmentExternalId3,
+      deleted: false,
+      appointmentStatusTypeId: 81,
+      orgId,
+    };
+    await rhinoliner.pushtoqueue(appointment).then(() => {
+      done();
+    });
   });
 
   test('find scheduled appointments ', async (done) => {
@@ -250,7 +369,7 @@ describe('appt reminder tests', () => {
       number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER,
       config: { handler: 'reply', config: ['1'] },
     };
-    messengerbot.configureHandler(config).then((res) => {
+    messengerbot.configureHandler(config).then(() => {
       done();
     });
   });

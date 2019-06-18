@@ -162,15 +162,15 @@ describe('appt reminder tests', () => {
 
 
   // DELETE MY NEW ORG HERE
-  // afterAll(async () => {
-  //   try {
-  //     await rhinoapi.archiveOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE, 1); // 1 passed in to skip deprovisioning
-  //     await rhinoapi.deleteOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
-  //   } catch (err) {
-  //     // eslint-disable-next-line no-console
-  //     console.log('===error on after all orgSetupAndTeardown=======', err);
-  //   }
-  // });
+  afterAll(async () => {
+    try {
+      await rhinoapi.archiveOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE, 1); // 1 passed in to skip deprovisioning
+      await rhinoapi.deleteOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log('===error on after all orgSetupAndTeardown=======', err);
+    }
+  });
 
   test('create patients', async () => {
     // user with 1 phone number and is owner - give this patient 1 appt
@@ -180,6 +180,7 @@ describe('appt reminder tests', () => {
     // user with 1 phone and is owner -- owner of phone above - no appt
     // patient with invalid phone - should fail
 
+    // user with 1 phone number and is owner - 1 appt
     const user = {
       externalIds: {
         emrId: user1EmrId,
@@ -204,16 +205,6 @@ describe('appt reminder tests', () => {
     const response = await rhinoapi.getUserByExternalId(orgId, user1EmrId);
     expect(response.data.externalIds.emrId).toBe(user1EmrId);
     createdPatient1 = response.data;
-  });
-
-  test('configure reply handler for known user', (done) => {
-    const config = {
-      number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER,
-      config: { handler: 'reply', config: ['1'] },
-    };
-    messengerbot.configureHandler(config).then(() => {
-      done();
-    });
   });
 
   test('create appointment', async (done) => {
@@ -254,18 +245,27 @@ describe('appt reminder tests', () => {
     });
   });
 
-  // need to test that the appt response comes back in on the default channel for the org
+  test('configure reply handler for known user', (done) => {
+    const config = {
+      number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER,
+      config: { handler: 'reply', config: ['1'] },
+    };
+    messengerbot.configureHandler(config).then((res) => {
+      done();
+    });
+  });
 
-  // test('send appointment reminder message with confirm/cancel', (done) => {
+  // need to test that the appt response comes back in on the default channel for the org
+  // test('send appointment reminder message with confirm', (done) => {
   //   const message = {
   //     userId: createdPatient1.id,
   //     appointmentId: createdAppointment1.id,
-  //     channelId: Number(orgId),
-  //     messageText: 'Outgoing reminder test',
+  //     channelId: smsChannel.id,
+  //     messageText: 'Outgoing appt reminder test !',
   //     phoneId: createdPatient1.phones[0].id,
   //     phoneNumber: createdPatient1.phones[0].number,
   //     appointmentEventTypeId: 65, // reminder
-  //     appointmentReminderResponseTypeId: 80, // confirm/cancel
+  //     appointmentReminderResponseTypeId: 82,
   //   };
 
   //   rhinoapi.postAppointmentReminderMessage(message).then(() => {
@@ -282,4 +282,10 @@ describe('appt reminder tests', () => {
 // test sending appt reminder sent in the timezone of the orgs BW and orgs ZW numbers
 // test sending to all phone numbers on appt owner (if patient has appt, they are appt owner. send message to each phone listed on patient profile,
 // whether they are owner or not)
-//
+
+// OUTLINE
+// for each patient, add an appt, send said appt reminder/scheduled reminder and check that it was from the
+// correct outgoing default channel, and that the patient received it, that it was
+// what they responded as (not sure houw to get bot to work...)
+// after that, add in random checks here and there according to the card
+// then do the same for zw and add offices, patients, appts, make sure that the appts went out on those correct channels, etc. the same as w bw.

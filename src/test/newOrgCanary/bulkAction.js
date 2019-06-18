@@ -83,11 +83,7 @@ describe('Bulk Action automation test cases', () => {
   });
 
   test('Disable Close By Assignee option', async () => {
-    await preference.navigate()
-      .waitForElementVisible('@closeByAssignee', 'close by assignee is visible')
-      .click('@closeByAssignee')
-      .click('@updatePreferences')
-      .waitForElementVisible('@updationSuccessfulMessage', 'success message is visible');
+    await orgPreferencesToolbox.enableCloseByAssignee();
   });
 
   test('Create Threads on the inbox page', async () => {

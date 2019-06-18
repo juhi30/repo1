@@ -33,7 +33,7 @@ describe('Automated Tests: Channels', () => {
       memberFirstName: memberFeeder.memberFirstName,
     };
 
-    await channelToolbox.createChannel('@newPhoneType', channelData, '@memberResult');
+    await channelToolbox.createChannel('@newPhoneType', channelData);
   });
 
   test('Channel Create - Rhinosecure channel with member route', async () => {
@@ -44,7 +44,7 @@ describe('Automated Tests: Channels', () => {
       memberFirstName: memberFeeder.memberFirstName,
     };
 
-    await channelToolbox.createChannel('@rhinoSecureType', channelData, '@memberResult');
+    await channelToolbox.createChannel('@rhinoSecureType', channelData);
   });
 
   test('Channel Edit - New phone type', async () => {

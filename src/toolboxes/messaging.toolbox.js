@@ -53,28 +53,26 @@ export async function verifyReceivingGroupChatMessage(groupName, message) {
   helpers.findTextOnPage(chat, message);
 }
 
-export async function sendADirectMessageToContact(contactName, message) {
+export async function newMessageToContact(contactName, messageTab, message, channelName) {
   await contact.navigate()
-    .openContactChat(contactName);
-  await chat.fillInMessageInput(message)
+    .openContactChat(contactName)
+    .pause(1000)
+    .selectMessageTab(messageTab)
     .pause(1000);
-  await chat.clickSendMessageButton();
+  await chat.fillInMessageInput(message);
+  await chat.selectFromRoute(channelName);
+  await chat.clickSendMessageButton()
+    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
 }
 
-export async function sendGroupMessageToContact(contactName, message) {
+export async function sendAMessageWithAttachment(contactName, messageTab, message, channelName) {
   await contact.navigate()
-    .openContactChat(contactName);
-  await chat.fillInMessageInput(message)
+    .openContactChat(contactName)
+    .pause(1000)
+    .selectMessageTab(messageTab)
     .pause(1000);
-  await chat.clickSendMessageButton();
-}
-
-export async function sendAMessageWithAttachment(groupName, titleElement, ContactName, message) {
-  await group.openGroup(groupName);
-  await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
-  await chat.fillInMessageInput(message)
+  await chat.fillInMessageInput(message);
+  await chat.selectFromRoute(channelName)
     .addToMessageOption()
     .addingAttachment();
   await chat.clickSendMessageButton()
@@ -82,11 +80,14 @@ export async function sendAMessageWithAttachment(groupName, titleElement, Contac
     .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
 }
 
-export async function sendAMessageUsingHipaaTemplate(groupName, titleElement, ContactName) {
-  await group.openGroup(groupName);
-  await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
+export async function sendAMessageUsingHipaaTemplate(contactName, messageTab, message, channelName) {
+  await contact.navigate()
+    .openContactChat(contactName)
+    .pause(1000)
+    .selectMessageTab(messageTab)
+    .pause(1000);
+  await chat.fillInMessageInput(message);
+  await chat.selectFromRoute(channelName);
   await chat.addToMessageOption()
     .useTemplate('@hipaaTemplate')
     .pause(2000);
@@ -95,11 +96,14 @@ export async function sendAMessageUsingHipaaTemplate(groupName, titleElement, Co
     .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
 }
 
-export async function sendADirectMessageUsingOtherTemplate(groupName, titleElement, ContactName) {
-  await group.openGroup(groupName);
-  await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
+export async function sendADirectMessageUsingOtherTemplate(contactName, messageTab, message, channelName) {
+  await contact.navigate()
+    .openContactChat(contactName)
+    .pause(1000)
+    .selectMessageTab(messageTab)
+    .pause(1000);
+  await chat.fillInMessageInput(message);
+  await chat.selectFromRoute(channelName);
   await chat.addToMessageOption()
     .useTemplate('@useTemplateOption')
     .pause(2000);

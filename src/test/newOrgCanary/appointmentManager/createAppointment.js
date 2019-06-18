@@ -12,10 +12,12 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function getDateInString(date, minutes) {
+function getDateInString(date, minutes, globalVariableKey) {
   const startDate = date;
   startDate.setMinutes(startDate.getMinutes() + minutes);
   startDate.setDate(startDate.getDate() + 1);
+  global[globalVariableKey] = startDate;
+  console.log('---------', startDate);
   return helpers.localToUtc(startDate, 'America/New_York');
 }
 
@@ -78,7 +80,7 @@ describe('Automated Tests: Appointment Manager', () => {
   });
 
   test('create appointment for patient 1 with status Unconfirmed', async (done) => {
-    const startDate = getDateInString(new Date(), 5);
+    const startDate = getDateInString(new Date(), 5, 'firstAppointmentStartDate');
     const endDate = getDateInString(new Date(), 30);
     const appointment = {
       startDate,
@@ -96,7 +98,7 @@ describe('Automated Tests: Appointment Manager', () => {
   });
 
   test('create appointment for patient 2 with status Confirmed', async (done) => {
-    const startDate = getDateInString(new Date(), 35);
+    const startDate = getDateInString(new Date(), 35, 'secondAppointmentStartDate');
     const endDate = getDateInString(new Date(), 60);
     const appointment = {
       startDate,
@@ -114,7 +116,7 @@ describe('Automated Tests: Appointment Manager', () => {
   });
 
   test('create appointment for patient 3 with status Unconfirmed', async (done) => {
-    const startDate = getDateInString(new Date(), 65);
+    const startDate = getDateInString(new Date(), 65, 'thirdAppointmentStartDate');
     const endDate = getDateInString(new Date(), 90);
     const appointment = {
       startDate,

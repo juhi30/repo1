@@ -86,6 +86,11 @@ const contactsCommands = {
       .waitForElementVisible('@inboxMessageArea', 'Conversation Chat box is opened for the selected contact.');
   },
 
+  selectMessageTab(messageTab) {
+    return this.api.useXpath().waitForElementVisible(`//BUTTON[contains(@class,'button--reset convo__footer__nav__item']//*[contains(text(),'${messageTab}')]`, `${messageTab} is visible`)
+      .click(`//BUTTON[@class='button--reset convo__footer__nav__item']//*[contains(text(),'${messageTab}')]`);
+  },
+
   getInboundMessage() {
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .pause(4000)

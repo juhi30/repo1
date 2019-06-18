@@ -1,4 +1,7 @@
+import logger from 'rhinotilities/lib/loggers/logger';
+
 const appointmentFeeder = require('../feeder/appointments.feeder');
+const helper = require('../toolboxes/helpers.toolbox');
 
 const appointmentRemindersCommands = {
 
@@ -44,6 +47,14 @@ const appointmentRemindersCommands = {
   verifyContactAndItsStatus(patientName, AppointmentStatus) {
     return this.api.useXpath().verify.visible(`//*[@class='button__text-wrapper'][contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//*[@class='appointments__status-label'][contains(.,'${AppointmentStatus}')]`, `Patient "${patientName}" with status "${AppointmentStatus}" as appointment status is visible`)
       .pause(2000);
+  },
+
+  verifyAppointmentDate(patientName, compareWith) {
+    return this.api.useXpath().verify.visible(`//*[@class='button__text-wrapper'][contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//SPAN[contains(text(),'EDT')]`, `Patient "${patientName}" with set appointment date is visible`)
+      .getText(`//*[@class='button__text-wrapper'][contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//SPAN[contains(text(),'EDT')]`, (tpObj) => {
+        const formatedDate = `${helper.changeDateFormat(compareWith, 'America/New_York', 'MM/DD/YY hh:mm a')} (EDT)`;
+        logger.info(`==== Date is === ${tpObj.value} ------ formatted date======= ${formatedDate}`);
+      });
   },
 };
 

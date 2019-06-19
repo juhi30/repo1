@@ -179,11 +179,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    member2Result: {
-      selector: `//SPAN[contains(., '${memberFeeder.memberName2}')]`,
-      locateStrategy: 'xpath',
-    },
-
     messageInput: {
       selector: '//TEXTAREA[contains(@name, \'message\')]',
       locateStrategy: 'xpath',

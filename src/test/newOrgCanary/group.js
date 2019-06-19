@@ -18,10 +18,10 @@ describe(' Automated Test Cases - Groups', () => {
       anotherMember: memberFeeder.memberName2,
     };
 
-    const routeDetails = [{ memberName: groupDetails.memberName, element: '@memberResult' },
-      { memberName: groupDetails.anotherMember, element: '@member2Result' }];
+    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName },
+      { memberName: groupDetails.anotherMember, element: memberFeeder.memberName2 }];
 
-    await createGroup(groupDetails, '@patientOption', '@patientGroupListView', routeDetails);
+    await createGroup(groupDetails, '@patientOption', groupFeeder.patientTypeGroup, routeDetails);
   });
 
   test('Add Channel Routes to patient Type Group', async () => {
@@ -32,7 +32,7 @@ describe(' Automated Test Cases - Groups', () => {
       groupName: groupFeeder.patientTypeGroup,
     };
 
-    await addChannelRouteToGroup(groupDetails, '@patientGroupListView', '@rhinoSecureType', '@patientGroupResult');
+    await addChannelRouteToGroup(groupDetails, groupFeeder.patientTypeGroup, '@rhinoSecureType', groupFeeder.patientTypeGroup);
   });
 
   test('Create Group - Team Type', async () => {
@@ -43,10 +43,10 @@ describe(' Automated Test Cases - Groups', () => {
       anotherMember: memberFeeder.memberName2,
     };
 
-    const routeDetails = [{ memberName: groupDetails.memberName, element: '@memberResult' },
-      { memberName: groupDetails.anotherMember, element: '@member2Result' }];
+    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName },
+      { memberName: groupDetails.anotherMember, element: memberFeeder.memberName2 }];
 
-    await createGroup(groupDetails, '@teamOption', '@teamGroupListView', routeDetails);
+    await createGroup(groupDetails, '@teamOption', groupFeeder.teamTypeGroup, routeDetails);
   });
 
   test('Create Group - Patient And Team Type', async () => {
@@ -57,10 +57,10 @@ describe(' Automated Test Cases - Groups', () => {
       anotherMember: memberFeeder.memberName2,
     };
 
-    const routeDetails = [{ memberName: groupDetails.memberName, element: '@memberResult' },
-      { memberName: groupDetails.anotherMember, element: '@member2Result' }];
+    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName },
+      { memberName: groupDetails.anotherMember, element: memberFeeder.memberName2 }];
 
-    await createGroup(groupDetails, '@patientAndTeamOption', '@patientAndTeamGroupListView', routeDetails);
+    await createGroup(groupDetails, '@patientAndTeamOption', groupFeeder.patientAndTeamType, routeDetails);
   });
 
   // test('Convert Patient Group to Patient and team type Group', async () => {
@@ -71,7 +71,7 @@ describe(' Automated Test Cases - Groups', () => {
   //     memberName: memberFeeder.memberName,
   //   };
 
-  //   await convertGroupTypeToAnotherGroupType(groupEditDetails, '@patientGroupListView', '@updatedPatientGroup_ListView');
+  //   await convertGroupTypeToAnotherGroupType(groupEditDetails, groupFeeder.patientTypeGroup, '@updatedPatientGroup_ListView');
   // });
 
   // test('Convert Team Group to Patient and team type Group', async () => {
@@ -82,7 +82,7 @@ describe(' Automated Test Cases - Groups', () => {
   //     memberName: memberFeeder.memberName,
   //   };
 
-  //   await convertGroupTypeToAnotherGroupType(groupEditDetails, '@teamGroupListView', '@updatedTeamGroup_ListView');
+  //   await convertGroupTypeToAnotherGroupType(groupEditDetails, groupFeeder.teamTypeGroup, '@updatedTeamGroup_ListView');
   // });
 
   test('Add Channel Routes to Patient And Team Type Group', async () => {
@@ -93,10 +93,10 @@ describe(' Automated Test Cases - Groups', () => {
       groupName: groupFeeder.patientAndTeamType,
     };
 
-    await addChannelRouteToGroup(groupDetails, '@patientAndTeamGroupListView', '@rhinoSecureType', '@patientAndTeamGroupResult');
+    await addChannelRouteToGroup(groupDetails, groupFeeder.patientAndTeamType, '@rhinoSecureType', groupFeeder.patientAndTeamType);
   });
 
   test('Route New Phone Type Channel to Patient And Team Type Group', async () => {
-    await routeGroupToChannel('@patientAndTeamGroupListView', '@updatedChannelTitle', groupFeeder.patientAndTeamType, '@patientAndTeamGroupResult');
+    await routeGroupToChannel(groupFeeder.patientAndTeamType, '@updatedChannelTitle', groupFeeder.patientAndTeamType, groupFeeder.patientAndTeamType);
   });
 });

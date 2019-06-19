@@ -44,7 +44,7 @@ const groupsPageCommands = {
   },
 
   openGroup(groupElement) {
-    return this.waitForElementVisible(groupElement, 'Group is visisble to the member')
+    return this.waitForElementVisible(groupElement, 'Group is visible to the member')
       .click(groupElement);
   },
 
@@ -54,14 +54,14 @@ const groupsPageCommands = {
       .verify.urlContains(url, `url contains ${url}`);
   },
 
-  checkGroupVisibilityOnList(element) {
-    return this.waitForElementVisible(element, `Created${element} Group is visible in the Group List as well.`);
+  checkGroupVisibilityOnList(groupName) {
+    return this.api.useXpath().waitForElementVisible(`//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupName}')]`, `Created ${groupName} Group is visible in the Group List as well.`);
   },
 
-  openInEditMode(group) {
-    return this.waitForElementVisible(group, `${group} is visible`)
-      .click(group)
-      .waitForElementVisible('@editGroupButton', 'Edit Group Button is visible.')
+  openInEditMode(groupName) {
+    this.api.useXpath().waitForElementVisible(`//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupName}')]`, `${groupName} is visible in the list.`)
+      .click(`//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupName}')]`);
+    return this.waitForElementVisible('@editGroupButton', 'Edit Group Button is visible.')
       .click('@editGroupButton');
   },
 
@@ -176,21 +176,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    patientGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.patientTypeGroup}')]`,
-      locateStrategy: 'xpath',
-    },
 
     teamGroup: {
       selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${groupFeeder.teamTypeGroup}')]`,
       locateStrategy: 'xpath',
     },
-
-    teamGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${groupFeeder.teamTypeGroup}']`,
-      locateStrategy: 'xpath',
-    },
-
     patientAndTeamGroup_PatientInbox: {
       selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${groupFeeder.patientAndTeamType}')]`,
       locateStrategy: 'xpath',
@@ -198,16 +188,6 @@ module.exports = {
 
     patientAndTeamGroup_TeamInbox: {
       selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${groupFeeder.patientAndTeamType}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    patientAndTeamGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.patientAndTeamType}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    updatedPatientAndTeamGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.updatedPatientAndTeamType}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -311,7 +291,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    deleteSuccessMessage: {
+    successMessage: {
       selector: '//*[@class =\'toast toast--success\']',
       locateStrategy: 'xpath',
     },

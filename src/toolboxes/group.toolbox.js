@@ -54,7 +54,6 @@ export async function addChannelRouteToGroup(groupDetails, groupListViewElement,
     .routeSearch('@groupInput', groupDetails.groupName, groupResultElement);
 
   await channel.createUpdateChannel('@createChannelButton', 'Create Channel button is visible')
-    // .pause(1000)
     .checkSuccessMessage('@channelCreateSuccessMessage')
     .waitForElementNotPresent('@channelCreateSuccessMessage');
 }
@@ -97,7 +96,20 @@ export async function routeGroupToChannel(groupListViewElement, channelNameEleme
     .routeSearch('@groupInput', groupName, groupResultElement);
 
   await channel.createUpdateChannel('@updateChannelButton', 'Update Channel button is visible')
-    // .pause(1000)
     .checkSuccessMessage('@channelUpdateSuccessMessage')
     .waitForElementNotPresent('@channelUpdateSuccessMessage');
+}
+
+export async function verifyGroupDeletion(groupListViewElement, successMessage) {
+  await group.navigate()
+    .openInEditMode(groupListViewElement)
+    .deleteGroup()
+    .confirmDelete(successMessage);
+}
+
+export async function verifyGroupDeleteConditions(groupListViewElement, condition) {
+  await group.navigate()
+    .openInEditMode(groupListViewElement)
+    .deleteGroup()
+    .checkGroupDeletionConditions(condition);
 }

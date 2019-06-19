@@ -17,4 +17,9 @@ module.exports = {
   assignedThreadsMessage: 'Some threads are assigned to this thread.',
   contactForwardingMessage: 'This group is associated with contact as forwarding',
   conversationHistoryMessage: 'Some threads are assigned to this thread.',
+
+  // for Deletion
+  patientTypeGroupD: 'P Group',
+  teamTypeGroupD: 'T Group',
+  patientAndTeamTypeD: 'PatientD and Team Group',
 };

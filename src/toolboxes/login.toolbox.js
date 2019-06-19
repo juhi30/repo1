@@ -73,6 +73,5 @@ export async function navigateToResetPasswordPage(url) {
 export async function resetMemberPassword(password) {
   await login.fillInNewPasswordInput(password)
     .fillInConfirmPasswordInput(password)
-    .clickSaveAndContinueButton()
-    .pause(1000);
+    .clickSaveAndContinueButton();
 }

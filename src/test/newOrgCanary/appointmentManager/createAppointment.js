@@ -16,7 +16,6 @@ function getDateInString(date, minutes, globalVariableKey) {
   const startDate = date;
   startDate.setMinutes(startDate.getMinutes() + minutes);
   startDate.setDate(startDate.getDate() + 1);
-  global[globalVariableKey] = startDate;
   return helpers.localToUtc(startDate, 'America/New_York');
 }
 
@@ -80,6 +79,7 @@ describe('Automated Tests: Appointment Manager', () => {
 
   test('create appointment for patient 1 with status Unconfirmed', async (done) => {
     const startDate = getDateInString(new Date(), 5, 'firstAppointmentStartDate');
+    global.firstAppointmentStartDate = startDate;
     const endDate = getDateInString(new Date(), 30);
     const appointment = {
       startDate,
@@ -98,6 +98,7 @@ describe('Automated Tests: Appointment Manager', () => {
 
   test('create appointment for patient 2 with status Confirmed', async (done) => {
     const startDate = getDateInString(new Date(), 35, 'secondAppointmentStartDate');
+    global.secondAppointmentStartDate = startDate;
     const endDate = getDateInString(new Date(), 60);
     const appointment = {
       startDate,
@@ -116,6 +117,7 @@ describe('Automated Tests: Appointment Manager', () => {
 
   test('create appointment for patient 3 with status Unconfirmed', async (done) => {
     const startDate = getDateInString(new Date(), 65, 'thirdAppointmentStartDate');
+    global.thirdAppointmentStartDate = startDate;
     const endDate = getDateInString(new Date(), 90);
     const appointment = {
       startDate,

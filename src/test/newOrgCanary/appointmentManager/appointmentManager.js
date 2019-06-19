@@ -37,7 +37,9 @@ describe('Automated Tests: Appointment Manager', () => {
   });
 
   test('Verify appointment dates available on UI', async () => {
-    await apptManager.verifyAppointmentDate(appointmentFeeder.patientFirstName_1, '2019-06-19T07:25:48.756Z');
+    await apptManager.verifyAppointmentDate(appointmentFeeder.patientFirstName_1, global.firstAppointmentStartDate);
+    await apptManager.verifyAppointmentDate(appointmentFeeder.patientFirstName_2, global.secondAppointmentStartDate);
+    await apptManager.verifyAppointmentDate(appointmentFeeder.patientFirstName_3, global.thirdAppointmentStartDate);
   });
 
   test('Verify Read/Unread status of appointment', async () => {

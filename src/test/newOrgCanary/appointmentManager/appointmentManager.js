@@ -1,14 +1,21 @@
 import { client } from 'nightwatch-api';
 import { newMessageToContact } from '../../../toolboxes/messaging.toolbox';
 import { performAction } from '../../../toolboxes/bulkActions.toolbox';
+import { memberLogin } from '../../../toolboxes/login.toolbox';
+
 
 const appointmentFeeder = require('../../../feeder/appointments.feeder');
 const channelFeeder = require('../../../feeder/channel.feeder');
+const memberFeeder = require('../../../feeder/member.feeder');
 
 describe('Automated Tests: Appointment Manager', () => {
   const apptManager = client.page.AppointmentManagerPage();
   const universal = client.page.UniversalElements();
   const contact = client.page.ContactsPage();
+
+  test('Login as member', async () => {
+    await memberLogin(memberFeeder.appointmentMemberUsername, memberFeeder.memberPassword);
+  });
 
   test('Verify Appointment manager option in Settings Menu', async () => {
     await universal.click('@settingsButton');
@@ -37,12 +44,27 @@ describe('Automated Tests: Appointment Manager', () => {
   });
 
   test('Verify Read/Unread status of appointment', async () => {
-    await newMessageToContact(appointmentFeeder.patientFirstName_2, 'Message', 'Test Message', channelFeeder.aptChannelName);
+    await newMessageToContact(appointmentFeeder.patientFirstName_1, 'Message', 'Test Message', channelFeeder.aptChannelName);
     await performAction('@directMessageInbox', '@all', '@markAsUnRead');
+    await universal.click('@settingsButton');
+    await apptManager.openAppointmentManager();
+    await apptManager.verifyUnreadStatus(appointmentFeeder.patientFirstName_1);
+    await apptManager.clickContactName(appointmentFeeder.patientFirstName_1);
+    await universal.click('@settingsButton');
+    await apptManager.openAppointmentManager();
+    await apptManager.verifyReadStatus(appointmentFeeder.patientFirstName_1);
   });
 
   test('Verify the Date picker and the various options available', async () => {
+    await apptManager.openDatePicker();
     await apptManager.validateDateRange();
+  });
+
+  test('Verify selecting Custom Date Range', async () => {
+    await apptManager.openDatePicker();
+    await apptManager.datePickerCustomDate('@customRangeFromDate', appointmentFeeder.month, appointmentFeeder.year, appointmentFeeder.day)
+    await apptManager.datePickerCustomDate('@customRangeToDate', appointmentFeeder.month, appointmentFeeder.year, appointmentFeeder.day)
+    await apptManager.applyCustomFilter();
   });
 
   test('Verify the status of an appointment when it is manually confirmed', async () => {

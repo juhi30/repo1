@@ -25,10 +25,13 @@ const appointmentRemindersCommands = {
       .expect.element('@totalUpcomingAppointments').text.to.contain(text);
   },
 
-  validateDateRange() {
+  openDatePicker() {
     return this.waitForElementVisible('@datePicker', 'Date picker is visible')
-      .click('@datePicker')
-      .waitForElementVisible('@datePickerMenu', 'Date picker menu is opened after click')
+      .click('@datePicker');
+  },
+
+  validateDateRange() {
+    return this.waitForElementVisible('@datePickerMenu', 'Date picker menu is opened after click')
       .verify.visible('@todayOption', 'Today option is visible')
       .verify.visible('@tomorrowOption', 'Tomorrow option is visible')
       .verify.visible('@nextSevenDaysOption', 'Next 7 days option is visible')
@@ -37,6 +40,24 @@ const appointmentRemindersCommands = {
       .verify.visible('@customRangeFromDate', 'From Date input is visible')
       .verify.visible('@customRangeToDate', 'To Date is visible')
       .click('@datePicker');
+  },
+
+  datePickerCustomDate(customRangeFor, month, year, date) {
+    return this.waitForElementVisible(customRangeFor, 'Date input is visible')
+      .click(customRangeFor)
+      .waitForElementVisible('@monthDropDown', 'Date picker is opened')
+      .setValue('@monthDropDown', month)
+      .setValue('@yearDropDown', year)
+      .pause(1000)
+      .api.useXpath().waitForElementVisible(`//*[contains(@class,'react-datepicker__day react-datepicker')][contains(.,'${date}')]`, `"${date}" Date is visible`)
+      .pause(2000)
+      .click(`//*[contains(@class,'react-datepicker__day react-datepicker')][contains(.,'${date}')]`)
+      .pause(1000);
+  },
+
+  applyCustomFilter() {
+    return this.click('@applyCustomDatesButton')
+      .waitForElementVisible('@noUpcomingAppointmentsPageCopy', 'No Appointments page copy visible for the selected custom dates');
   },
 
   clickContactName(contactName) {
@@ -53,6 +74,16 @@ const appointmentRemindersCommands = {
     const formatedDate = `${helper.changeDateFormat(compareWith, 'America/New_York', 'MM/DD/YY hh:mm a')} (EDT)`;
     return this.api.useXpath().verify.visible(`//*[@class='button__text-wrapper'][contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//SPAN[contains(text(),'EDT')]`, `Patient "${patientName}" with set appointment date is visible`)
       .expect.element(`//*[@class='button__text-wrapper'][contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//SPAN[contains(text(),'EDT')]`).text.to.equal(formatedDate);
+  },
+
+  verifyUnreadStatus(patientName) {
+    return this.api.useXpath().verify.visible(`//*[@class='button__text-wrapper'][contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//*[@class='appointments__circle--unread u-font-weight-bold']`, `Patient "${patientName}" - Appointment now marked as unread`)
+      .pause(2000);
+  },
+
+  verifyReadStatus(patientName) {
+    return this.api.useXpath().waitForElementNotPresent(`//*[@class='button__text-wrapper'][contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//*[@class='appointments__circle--unread u-font-weight-bold']`, `Patient "${patientName}" - Appointment now marked as read`)
+      .pause(2000);
   },
 };
 
@@ -125,6 +156,26 @@ module.exports = {
 
     customRangeToDate: {
       selector: '//INPUT[@name= \'endDate\']',
+      locateStrategy: 'xpath',
+    },
+
+    monthDropDown: {
+      selector: '//*[@class=\'react-datepicker__month-container\']//*[@class=\'react-datepicker__month-select\']',
+      locateStrategy: 'xpath',
+    },
+
+    yearDropDown: {
+      selector: '//*[@class=\'react-datepicker__month-container\']//*[@class=\'react-datepicker__year-select\']',
+      locateStrategy: 'xpath',
+    },
+
+    applyCustomDatesButton: {
+      selector: '//SPAN[text()=\'Apply\']',
+      locateStrategy: 'xpath',
+    },
+
+    noUpcomingAppointmentsPageCopy: {
+      selector: '//H3[text()=\'No Upcoming Appointments.\']',
       locateStrategy: 'xpath',
     },
   },

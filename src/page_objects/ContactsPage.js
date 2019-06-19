@@ -87,7 +87,7 @@ const contactsCommands = {
   },
 
   selectMessageTab(messageTab) {
-    return this.api.useXpath().waitForElementVisible(`//BUTTON[contains(@class,'button--reset convo__footer__nav__item']//*[contains(text(),'${messageTab}')]`, `${messageTab} is visible`)
+    return this.api.useXpath().waitForElementVisible(`//*[@class='button__text-wrapper'][contains(text(),'${messageTab}')]`, `${messageTab} is visible`)
       .click(`//BUTTON[@class='button--reset convo__footer__nav__item']//*[contains(text(),'${messageTab}')]`);
   },
 

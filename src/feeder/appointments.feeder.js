@@ -29,4 +29,9 @@ module.exports = {
   nextSevenDays: 'Next 7 Days',
   nextThirtyDays: 'Next 30 Days',
   customRange: 'Custom Range',
+
+  // Use for selecting Custom Dates
+  month: 'May',
+  year: '2020',
+  day: '25',
 };

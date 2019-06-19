@@ -6,6 +6,7 @@ import * as helpers from '../../toolboxes/helpers.toolbox';
 
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
+const TYPE_EVENT_APPT_REMINDER = 53;
 
 let orgId;
 let member;
@@ -306,62 +307,28 @@ describe('appt reminder tests', () => {
     };
     const userRes5 = await rhinoapi.postRhinolinerUser(user5, Number(orgId));
     createdPatient5 = userRes5.data;
-    // // patient with invalid phone
-    // const invalidPhoneUser = {
-    //   externalIds: {
-    //     emrId: user6EmrId,
-    //   },
-    //   firstName: 'Invalid',
-    //   lastName: 'Phone',
-    //   birthday: '1968-05-04',
-    //   sex: 'male',
-    //   messageType: 'USER',
-    //   phones: [{
-    //     number: '+15555555555',
-    //     typeId: TYPE_PHONE_CELL,
-    //   }],
-    //   typeId: USER_TYPE_PATIENT,
-    //   orgId,
-    //   integrated: true,
-    // };
-    // const invalidPhonePatient6 = await rhinoapi.postRhinolinerUser(invalidPhoneUser, Number(orgId));
+
+    // patient with invalid phone
+    const invalidPhoneUser = {
+      externalIds: {
+        emrId: user6EmrId,
+      },
+      firstName: 'Invalid',
+      lastName: 'Phone',
+      birthday: '1968-05-04',
+      sex: 'male',
+      messageType: 'USER',
+      phones: [{
+        number: '+15555555555',
+        typeId: TYPE_PHONE_CELL,
+      }],
+      typeId: USER_TYPE_PATIENT,
+      orgId,
+      integrated: true,
+    };
+    const userRes6 = await rhinoapi.postRhinolinerUser(invalidPhoneUser, Number(orgId));
+    invalidPhonePatient6 = userRes6.data;
   });
-
-  // test('find patient', async () => {
-  //   const response = await rhinoapi.getUserByExternalId(orgId, user1EmrId);
-  //   expect(response.data.externalIds.emrId).toBe(user1EmrId);
-  //   createdPatient1 = response.data;
-  // });
-
-  // test('find patient 2', async () => {
-  //   const response = await rhinoapi.getUserByExternalId(orgId, user2EmrId);
-  //   expect(response.data.externalIds.emrId).toBe(user2EmrId);
-  //   createdPatient2 = response.data;
-  // });
-
-  // test('find patient 3', async () => {
-  //   const response = await rhinoapi.getUserByExternalId(orgId, user3EmrId);
-  //   expect(response.data.externalIds.emrId).toBe(user3EmrId);
-  //   createdPatient3 = response.data;
-  // });
-
-  // test('find patient 4', async () => {
-  //   const response = await rhinoapi.getUserByExternalId(orgId, user4EmrId);
-  //   expect(response.data.externalIds.emrId).toBe(user4EmrId);
-  //   createdPatient4 = response.data;
-  // });
-
-  // test('find patient 5', async () => {
-  //   const response = await rhinoapi.getUserByExternalId(orgId, user5EmrId);
-  //   expect(response.data.externalIds.emrId).toBe(user5EmrId);
-  //   createdPatient5 = response.data;
-  // });
-
-  // test('find patient with invalid phone', async () => {
-  //   const response = await rhinoapi.getUserByExternalId(orgId, user6EmrId);
-  //   expect(response.data.externalIds.emrId).toBe(user6EmrId);
-  //   invalidPhonePatient6 = response.data;
-  // });
 
   test('create appointment 1', async () => {
     const startDate = new Date();
@@ -479,13 +446,41 @@ describe('appt reminder tests', () => {
     createdAppointment4 = response.data;
   });
 
+  test('create appointment 5', async () => {
+    const startDate = new Date();
+    startDate.setMinutes(startDate.getMinutes() + 5);
+    startDate.setDate(startDate.getDate() + 1);
+    const startDateString = helpers.localToUtc(startDate, 'America/New_York');
+    const endDate = new Date();
+    endDate.setMinutes(endDate.getMinutes() + 30);
+    endDate.setDate(endDate.getDate() + 1);
+    const endDateString = helpers.localToUtc(endDate, 'America/New_York');
+    const appointment = {
+      startDate: startDateString,
+      endDate: endDateString,
+      externalId: user6EmrId,
+      messageType: 'APPOINTMENT',
+      appointmentExternalId: appointmentExternalId5,
+      deleted: false,
+      appointmentStatusTypeId: 81,
+      orgId,
+    };
+    await rhinoliner.pushtoqueue(appointment);
+    await sleep(10000);
+  });
 
-  // test('find scheduled appointments ', async (done) => {
-  //   await sleep(10000);
-  //   rhinoapi.getScheduledAppointments(orgId).then(() => {
-  //     done();
-  //   });
-  // });
+  test('find appointment 5', async () => {
+    const response = await rhinoapi.getAppointmentByExternalId(appointmentExternalId5, invalidPhonePatient6.id);
+    expect(response.data.externalId).toBe(appointmentExternalId5);
+    createdAppointment5 = response.data;
+  });
+
+  test('find scheduled appointments ', async (done) => {
+    await sleep(10000);
+    rhinoapi.getScheduledAppointments(orgId).then(() => {
+      done();
+    });
+  });
 
   // test('configure reply handler for known user', (done) => {
   //   const config = {
@@ -498,29 +493,43 @@ describe('appt reminder tests', () => {
   // });
 
   // need to test that the appt response comes back in on the default channel for the org
-  // test('send appointment reminder message with confirm', (done) => {
-  //   const message = {
-  //     userId: createdPatient1.id,
-  //     appointmentId: createdAppointment1.id,
-  //     channelId: smsChannel.id,
-  //     messageText: 'Outgoing appt reminder test !',
-  //     phoneId: createdPatient1.phones[0].id,
-  //     phoneNumber: createdPatient1.phones[0].number,
-  //     appointmentEventTypeId: 65, // reminder
-  //     appointmentReminderResponseTypeId: 82,
-  //   };
+  test('send appointment reminder message with confirm', (done) => {
+    const message = {
+      userId: createdPatient1.id,
+      appointmentId: createdAppointment1.id,
+      channelId: smsChannel.id,
+      messageText: 'Outgoing appt reminder test !',
+      phoneId: createdPatient1.phones[0].id,
+      phoneNumber: createdPatient1.phones[0].number,
+      appointmentEventTypeId: 65, // reminder
+      appointmentReminderResponseTypeId: 82,
+    };
 
-  //   rhinoapi.postAppointmentReminderMessage(message).then(() => {
-  //     done();
-  //   });
-  // });
+    rhinoapi.postAppointmentReminderMessage(message).then((res) => {
+      console.log(res.data.pipes[0].channel);
+      expect(res.data.sender.firstName).toBe('Rhino');
+      expect(res.data.sender.lastName).toBe('System');
+      expect(res.data.sender.systemUser).toBe(1);
+      expect(res.data.typeId).toBe(TYPE_EVENT_APPT_REMINDER);
+      expect(res.data.appointmentReminder.appointmentId).toBe(createdAppointment1.id);
+      expect(res.data.appointmentReminder.numberSentTo).toBe(createdPatient1.phones[0].number);
+      expect(res.data.pipes[0].channelId).toBe(smsChannel.id);
+      expect(res.data.pipes[0].channel.name).toBe(smsChannel.name);
+      expect(res.data.pipes[0].channel.typeId).toBe(smsChannel.typeId);
+      expect(res.data.pipes[0].channel.smsChannelId).toBe(smsChannel.smsChannelId);
+      expect(res.data.pipes[0].channel.organizationId).toBe(orgId);
+      expect(res.data.pipes[0].channel.smsChannel.bandwidthNumberId).toBe(smsChannel.bandwidthNumberId);
+      expect(res.data.pipes[0].channel.routeUser.id).toBe(member.id);
+      done();
+    });
+  });
 });
 
 
-// test that each appt was created
-// test on zw and bandwidth (2 separate orgs)
-// test sending appt reminder from default channel - sikka
-// test sending appt reminder from office channels - non sikka
+// test that each appt was created - done
+// test on zw and bandwidth (2 separate orgs) - BW done (need zw)
+// test sending appt reminder from default channel - sikka - done
+// test sending appt reminder from office channels - non sikka - not done
 // test sending appt reminder sent in the timezone of the orgs BW and orgs ZW numbers
 // test sending to all phone numbers on appt owner (if patient has appt, they are appt owner. send message to each phone listed on patient profile,
 // whether they are owner or not)

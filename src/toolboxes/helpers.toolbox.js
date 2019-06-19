@@ -37,7 +37,7 @@ function changeDateFormat(date, timeZone, format) {
   return moment.utc(date).tz(timeZone).format(format);
 }
 
-const randoNum = Math.ceil(Math.random() * 1000);
+const randomNumber = Math.ceil(Math.random() * 1000);
 
 const theDateObj = new Date();
 const dateString = `${theDateObj.toLocaleTimeString()}, ${theDateObj.toLocaleDateString()}`;
@@ -121,7 +121,7 @@ module.exports = {
   clickDivViaText,
   returnElementText,
   findTextOnPage,
-  randoNum,
+  randomNumber,
   dateString,
   csrCreds,
   memberCreds,

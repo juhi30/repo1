@@ -40,30 +40,6 @@ export async function verifyReceivingGroupChatMessage(groupName, message) {
   helpers.findTextOnPage(chat, message);
 }
 
-export async function sendADirectMessageToContact(titleElement, ContactName, message) {
-  await msg.navigate()
-    .verify.urlContains('/direct', 'url contains direct')
-    .waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
-  await chat.fillInMessageInput(message)
-    .pause(1000);
-  await chat.clickSendMessageButton()
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
-}
-
-export async function sendGroupMessageToContact(groupName, titleElement, ContactName, message) {
-  await group.openGroup(groupName);
-  await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
-  await chat.fillInMessageInput(message)
-    .pause(1000);
-  await chat.clickSendMessageButton()
-    .pause(1000)
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
-}
-
 export async function sendAMessageWithAttachment(groupName, titleElement, ContactName, message) {
   await group.openGroup(groupName);
   await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
@@ -111,11 +87,11 @@ export async function closeConversation(groupName, directInbox) {
   await group.openGroup(directInbox);
 }
 
-export async function sendGroupMessageToContactUsingRhinosecure(contactName, message, channelName) {
+export async function sendMessageToContactUsingRhinosecure(contactName, channelName, message) {
   await contact.navigate()
     .openContactChat(contactName);
   await chat.clickButton('@rhinoSecureTab')
-    .channelSelection('@preselectedSecureChannelName', '@rhinosecureChannelListDropdown', channelName, '@newSelectedSecureChannel')
+    .channelSelection('@selectedChannel', '@rhinosecureChannelListDropdown', channelName)
     .fillInMessageInput(message)
     .pause(1000);
   await chat.clickSendMessageButton();

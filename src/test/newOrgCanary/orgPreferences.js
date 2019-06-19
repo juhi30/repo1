@@ -1,5 +1,6 @@
 import { client } from 'nightwatch-api';
 
+
 const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
 const memberFeeder = require('../../feeder/member.feeder');
 

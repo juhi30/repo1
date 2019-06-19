@@ -19,7 +19,7 @@ const followingPageCommands = {
   },
 
   verifyDefaultState() {
-    return this.waitForElementVisible('@defaultMessage', 'Following Inbox List Page is empty.');
+    return this.waitForElementVisible('@defaultMessage', 'Inbox page List is empty.');
   },
 };
 
@@ -51,7 +51,7 @@ module.exports = {
     },
 
     defaultMessage: {
-      selector: '//H3[contains(text(),\'Need to stay in the loop?\')]',
+      selector: '//H3',
       locateStrategy: 'xpath',
     },
   },

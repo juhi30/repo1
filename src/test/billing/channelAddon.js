@@ -52,7 +52,7 @@ describe('Channels Creation for Billing Org', () => {
   });
 
   test('verifying alert message when deleting an Addon channel', async () => {
-    await channelToolbox.verifyAlertDeletingChannel('@billingChannelName', '@deleteAlert');
+    await channelToolbox.verifyAlertDeletingChannel(channelFeeder.channelName1, '@deleteAlert');
   });
 
   test('logout as CCR', async () => {

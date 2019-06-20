@@ -11,9 +11,9 @@ const channelsCommands = {
   },
 
   channelEditMode(channel) {
-    return this.waitForElementVisible(channel, `${channel} Created Channel is visible in the channel list.`)
-      .click(channel)
-      .waitForElementVisible('@editChannel', 'Summary Panel opened.')
+    this.api.useXpath().waitForElementVisible(`//SPAN[contains(text(),'${channel}')]`, `${channel} Created Channel is visible in the channel list.`)
+      .click(`//SPAN[contains(text(),'${channel}')]`);
+    return this.waitForElementVisible('@editChannel', 'Summary Panel opened.')
       .click('@editChannel');
   },
 
@@ -69,16 +69,6 @@ module.exports = {
 
     rhinoSecureChannelTitle: {
       selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${channelFeeder.rhinoChannelName}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    updatedChannelTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${channelFeeder.newChannelName}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    updatedRhinoSecureChannelTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${channelFeeder.rhinoChannelNewName}')]`,
       locateStrategy: 'xpath',
     },
 

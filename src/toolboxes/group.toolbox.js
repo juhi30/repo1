@@ -107,9 +107,9 @@ export async function verifyGroupDeletion(groupListViewElement, successMessage) 
     .confirmDelete(successMessage);
 }
 
-export async function verifyGroupDeleteConditions(groupListViewElement, condition) {
+export async function closeDeleteGroupModal(groupListViewElement) {
   await group.navigate()
     .openInEditMode(groupListViewElement)
     .deleteGroup()
-    .checkGroupDeletionConditions(condition);
+    .closeGroupDeleteModal();
 }

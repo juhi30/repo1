@@ -90,3 +90,13 @@ export async function deleteContact(deletedContactElement) {
   await contact.navigate()
     .deleteContact(deletedContactElement);
 }
+
+export async function enableContactForwarding(contactName, searchInputField, assigneeName) {
+  await contact.navigate()
+    .verify.urlContains('contacts', 'Contact Page is opened')
+    .contactEditMode(contactName)
+    .pause(500)
+    .clickForwadingToggle();
+  await chat.selectMemberAndGroup(searchInputField, assigneeName);
+  await contact.clickCreateUpdateContact('@updateContactButton', '@editSuccessMessage');
+}

@@ -97,6 +97,6 @@ describe(' Automated Test Cases - Groups', () => {
   });
 
   test('Route New Phone Type Channel to Patient And Team Type Group', async () => {
-    await routeGroupToChannel(groupFeeder.patientAndTeamType, '@updatedChannelTitle', groupFeeder.patientAndTeamType, groupFeeder.patientAndTeamType);
+    await routeGroupToChannel(groupFeeder.patientAndTeamType, channelFeeder.newChannelName, groupFeeder.patientAndTeamType, groupFeeder.patientAndTeamType);
   });
 });

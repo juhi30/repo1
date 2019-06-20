@@ -4,7 +4,6 @@ import * as bulkActionToolbox from '../../toolboxes/bulkActions.toolbox';
 import * as orgPreferencesToolbox from '../../toolboxes/orgPrefrences.toolbox';
 import * as messageToolbox from '../../toolboxes/messaging.toolbox';
 
-const preference = client.page.PreferencesPage();
 const chat = client.page.DirectChatInboxPage();
 const group = client.page.GroupsPage();
 const contactFeeder = require('../../feeder/contact.feeder');

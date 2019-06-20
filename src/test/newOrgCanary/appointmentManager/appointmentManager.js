@@ -1,8 +1,6 @@
 import { client } from 'nightwatch-api';
 import { newMessageToContact } from '../../../toolboxes/messaging.toolbox';
 import { performAction } from '../../../toolboxes/bulkActions.toolbox';
-import { memberLogin } from '../../../toolboxes/login.toolbox';
-
 
 const appointmentFeeder = require('../../../feeder/appointments.feeder');
 const channelFeeder = require('../../../feeder/channel.feeder');
@@ -12,10 +10,6 @@ describe('Automated Tests: Appointment Manager', () => {
   const apptManager = client.page.AppointmentManagerPage();
   const universal = client.page.UniversalElements();
   const contact = client.page.ContactsPage();
-
-  test('Login as member', async () => {
-    await memberLogin(memberFeeder.appointmentMemberUsername, memberFeeder.memberPassword);
-  });
 
   test('Verify Appointment manager option in Settings Menu', async () => {
     await universal.click('@settingsButton');

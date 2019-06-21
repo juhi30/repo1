@@ -1,18 +1,13 @@
 import * as groupToolbox from '../../toolboxes/group.toolbox';
 import * as messageToolbox from '../../toolboxes/messaging.toolbox';
 import * as channelToolbox from '../../toolboxes/channel.toolbox';
-import * as bulkActionToolbox from '../../toolboxes/bulkActions.toolbox';
-import * as contactToolbox from '../../toolboxes/contact.toolbox';
 
 const groupFeeder = require('../../feeder/group.feeder');
 const memberFeeder = require('../../feeder/member.feeder');
 const channelFeeder = require('../../feeder/channel.feeder');
-const contactFeeder = require('../../feeder/contact.feeder');
 const messageFeeder = require('../../feeder/message.feeder');
 
 describe('Automated test cases for Group Deletion', () => {
-  const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
-  const secondContact = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
   test('Create Patient type Groups', async () => {
     const groupDetails = {
       name: groupFeeder.patientTypeGroupD,
@@ -129,7 +124,7 @@ describe('Automated test cases for Group Deletion', () => {
       channelName: groupFeeder.pGroupChannel,
       purpose: groupFeeder.newGroupPurpose,
       memberName: memberFeeder.memberName,
-      groupName: groupFeeder.patientTypeGroup,
+      name: groupFeeder.patientTypeGroupD,
     };
 
     await groupToolbox.verifyGroupDeletion(groupDetails, groupFeeder.patientTypeGroupD, '@successMessage');
@@ -152,6 +147,17 @@ describe('Automated test cases for Group Deletion', () => {
 
   test('Removing Group Delete Conditions', async () => {
     await channelToolbox.deleteChannel(groupFeeder.ptGroupChannel);
+  });
+
+  test('Deleting Patient and Team Group', async () => {
+    const groupDetails = {
+      channelName: groupFeeder.pGroupChannel,
+      purpose: groupFeeder.newGroupPurpose,
+      memberName: memberFeeder.memberName,
+      name: groupFeeder.patientAndTeamTypeD,
+    };
+
+    await groupToolbox.verifyGroupDeletion(groupDetails, groupFeeder.patientAndTeamTypeD, '@successMessage');
   });
 
   test('Create Delete Conditions for Team Group', async () => {

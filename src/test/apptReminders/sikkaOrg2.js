@@ -150,7 +150,7 @@ describe('appt reminder tests', () => {
         observesDst: true,
         details: {
           phone: {
-            value: process.env.DEV_PROVISIONED_DEFAULT_ZW_CHANNEL_NUMBER,
+            value: process.env.PROVISIONED_DEFAULT_ZW_CHANNEL_NUMBER,
             typeId: 3,
           },
           accessToken: '1234',

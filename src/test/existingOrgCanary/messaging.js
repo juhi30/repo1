@@ -19,8 +19,8 @@ describe('Existing org canary: messaging tests', () => {
     await universal.clickContacts()
       .pause(500);
     await contacts.openContactChat(process.env.EXISTING_ORG_BOT_CONTACT_NAME)
-      .pause(1000);
-    contacts.sendOutboundMessageAndGetReply(`handler add reply ${existingOrgFeeder.testBotReplyMessage}`, 'Hi Bot Contact');
+      .pause(1000)
+      .sendOutboundMessageAndGetReply(`handler add reply ${existingOrgFeeder.testBotReplyMessage}`, 'Hi Bot Contact');
   });
 
   test('configure forward handler for bot contact to get inbound message', async (done) => {

@@ -75,8 +75,7 @@ export async function sendAMessageWithAttachment(contactName, messageTab, messag
     .addToMessageOption()
     .addingAttachment();
   await chat.clickSendMessageButton()
-    .pause(1000)
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
+    .pause(1000);
 }
 
 export async function sendAMessageUsingHipaaTemplate(contactName, messageTab, message, channelName) {
@@ -119,7 +118,7 @@ export async function closeConversation(groupName, directInbox) {
   await group.openGroup(directInbox);
 }
 
-export async function sendGroupMessageToContactUsingRhinosecure(contactName, channelName, message) {
+export async function sendMessageToContactUsingRhinosecure(contactName, channelName, message) {
   await contact.navigate()
     .openContactChat(contactName);
   await chat.clickButton('@rhinoSecureTab')

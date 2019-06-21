@@ -11,6 +11,7 @@ const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
 
 
 describe('Automated Tests: Analytics', () => {
+  const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
   test('Check for accessibility of Analytics dashboard as a member', async () => {
     await analyticsToolbox.accessiilityOfAnalyticsDashboard();
   });
@@ -24,7 +25,7 @@ describe('Automated Tests: Analytics', () => {
   });
 
   test('Check for open conversation: a) count of open threads and b) verify each value of column', async () => {
-    await messageToolbox.sendGroupMessageToContact('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName, messageFeeder.groupPatientMessage);
+    await messageToolbox.sendGroupMessageToContact(contactName, messageFeeder.groupPatientMessage);
     await analyticsToolbox.verifyTotalCountAndColumnOfOpenConversation();
   });
 

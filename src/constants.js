@@ -48,7 +48,7 @@ const expectedResultSet1 = {
   UnreadGroup: ['Assign To Me', 'Assign', 'Close Conversations', 'Follow', 'Unfollow', 'Mark as Read'],
   FollowingGroup: ['Assign To Me', 'Assign', 'Close Conversations', 'Unfollow', 'Mark as Read', 'Mark as Unread'],
   NotFollowingGroup: ['Assign To Me', 'Assign', 'Close Conversations', 'Follow', 'Mark as Read', 'Mark as Unread'],
-  AssignedGroup: ['Assign To Me', 'Assign', 'Follow', 'Unfollow', 'Mark as Read', 'Mark as Unread'],
+  AssignedGroup: ['Assign To Me', 'Assign', 'Follow', 'Unfollow', 'Mark as Read', 'Mark as Unread', 'Assignment Complete'],
   NotAssignedGroup: ['Assign To Me', 'Assign', 'Close Conversations', 'Follow', 'Unfollow', 'Mark as Read'],
 
 };

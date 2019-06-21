@@ -110,17 +110,55 @@ describe('Automated test cases for Group Deletion', () => {
       channelName: groupFeeder.pGroupChannel,
       purpose: groupFeeder.newGroupPurpose,
       timeZone: channelFeeder.timeZone,
-      groupName: groupFeeder.patientTypeGroup,
+      groupName: groupFeeder.patientTypeGroupD,
     };
 
     await groupToolbox.addChannelRouteToGroup(groupDetails, groupFeeder.patientTypeGroupD, '@rhinoSecureType', groupFeeder.patientTypeGroupD);
-    await messageToolbox.sendMessageToContactUsingRhinosecure(contactName, groupFeeder.pGroupChannel, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendMessageToContactUsingRhinosecure(secondContact, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
-    await bulkActionToolbox.assignThreadToMemberAndGroup('@directInbox', secondContact, '@assign', '@groupSearchInput', groupFeeder.patientTypeGroupD, '@deletePGroup');
-    await contactToolbox.enableContactForwarding('@contactNameTitle', '@groupSearchInput', groupFeeder.patientTypeGroupD);
   });
 
   test('Verify if the Patient Group can be deleted', async () => {
     await groupToolbox.closeDeleteGroupModal(groupFeeder.patientTypeGroupD);
+  });
+
+  test('Removing Group Delete Conditions', async () => {
+    await channelToolbox.deleteChannel(groupFeeder.pGroupChannel);
+  });
+
+  test('Deleting Patient Group', async () => {
+    const groupDetails = {
+      channelName: groupFeeder.pGroupChannel,
+      purpose: groupFeeder.newGroupPurpose,
+      memberName: memberFeeder.memberName,
+      groupName: groupFeeder.patientTypeGroup,
+    };
+
+    await groupToolbox.verifyGroupDeletion(groupDetails, groupFeeder.patientTypeGroupD, '@successMessage');
+  });
+
+  test('Create Delete Conditions for Patient and Team Group', async () => {
+    const groupDetails = {
+      channelName: groupFeeder.ptGroupChannel,
+      purpose: groupFeeder.newGroupPurpose,
+      timeZone: channelFeeder.timeZone,
+      groupName: groupFeeder.patientAndTeamTypeD,
+    };
+
+    await groupToolbox.addChannelRouteToGroup(groupDetails, groupFeeder.patientAndTeamTypeD, '@rhinoSecureType', groupFeeder.patientAndTeamTypeD);
+  });
+
+  test('Verify if the Patient Group can be deleted', async () => {
+    await groupToolbox.closeDeleteGroupModal(groupFeeder.patientAndTeamTypeD);
+  });
+
+  test('Removing Group Delete Conditions', async () => {
+    await channelToolbox.deleteChannel(groupFeeder.ptGroupChannel);
+  });
+
+  test('Create Delete Conditions for Team Group', async () => {
+    await messageToolbox.sendChatMessageToGroup('@deleteTGroup', messageFeeder.groupChatMessage);
+  });
+
+  test('Verify if the Patient Group can be deleted', async () => {
+    await groupToolbox.closeDeleteGroupModal(groupFeeder.teamTypeGroupD);
   });
 });

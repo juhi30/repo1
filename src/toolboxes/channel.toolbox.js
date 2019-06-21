@@ -144,7 +144,8 @@ export async function updateWebFormFieldsByChannelEdit(editedChannelElement, web
  * @param  {string} deletedChannelElement Channel element that needs to be deleted
  */
 export async function deleteChannel(deletedChannelElement) {
-  await channel.channelEditMode(deletedChannelElement)
+  await channel.navigate()
+    .channelEditMode(deletedChannelElement)
     .pause(500)
     .checkElementVisibility('@editChannel');
 

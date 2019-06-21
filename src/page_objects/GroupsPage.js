@@ -347,7 +347,7 @@ module.exports = {
     },
 
     deleteTGroup: {
-      selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${groupFeeder.teamTypeGroupD}')]`,
+      selector: `//SPAN[@class='app-navigation__nav__button__text'][text()='${groupFeeder.teamTypeGroupD}']`,
       locateStrategy: 'xpath',
     },
 

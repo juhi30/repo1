@@ -115,5 +115,6 @@ export async function closeDeleteGroupModal(groupListViewElement) {
   await group.navigate()
     .openInEditMode(groupListViewElement)
     .deleteGroup()
-    .closeGroupDeleteModal();
+    .closeGroupDeleteModal()
+    .pause(500);
 }

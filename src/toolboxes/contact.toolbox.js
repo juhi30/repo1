@@ -102,3 +102,12 @@ export async function enableContactForwarding(contactName, searchInputField, ass
   await chat.selectMemberAndGroup(searchInputField, assigneeName);
   await contact.clickCreateUpdateContact('@updateContactButton', '@editSuccessMessage');
 }
+
+export async function disableContactForwarding(contactName) {
+  await contact.navigate()
+    .verify.urlContains('contacts', 'Contact Page is opened')
+    .contactEditMode(contactName)
+    .pause(500)
+    .clickForwadingToggle()
+    .clickCreateUpdateContact('@updateContactButton', '@editSuccessMessage');
+}

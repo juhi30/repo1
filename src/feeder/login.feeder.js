@@ -12,4 +12,8 @@ module.exports = {
   appointmentCcrLogin: process.env.APPOINTMENT_CCR_USERNAME,
   appointmentCcrPassword: process.env.APPOINTMENT_CCR_PASSWORD,
 
+  // CCR Logins for Contact crud test suite
+  contactCrudCcrLogin: process.env.CONTACT_CRUD_CCR_USERNAME,
+  contactCrudCcrPassword: process.env.CONTACT_CRUD_CCR_PASSWORD,
+
 };

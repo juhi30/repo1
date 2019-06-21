@@ -374,7 +374,7 @@ module.exports = {
     },
 
     searchContactPatient: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactFirstName} ${contactFeeder.contactLastName}']`,
+      selector: `//SPAN[@class='resource__intro__title__content'][text()='${contactFeeder.contactSuiteContactFirstName1} ${contactFeeder.contactSuiteContactLastName1}']`,
       locateStrategy: 'xpath',
     },
 

@@ -62,6 +62,12 @@ module.exports = {
   appointmentMemberName: 'Appointment_Member LastName',
   appointmentMemberFirstName: 'Appointment_Member',
   appointmentMemberLastName: 'LastName',
-  appointmentMemberUsername: 'Appointment_Member',
+  appointmentMemberUsername: 'Appointment_Member_mahima',
+
+  // Member for Contact Crud org
+  contactCrudMemberName: 'Contact_Crud_Member LastName',
+  contactCrudMemberFirstName: 'Contact_Crud_Member',
+  contactCrudMemberLastName: 'LastName',
+  contactCrudMemberUsername: 'Contact_Crud_Member',
 
 };

@@ -17,6 +17,20 @@ module.exports = {
   anotherContactBirthDate: '08/15/1988',
   anotherContactFirstPhoneNumber: '8475452365',
 
+  // Contact edit details
+  contactNewFirstName: 'Test P1',
+  contactNewLastName: 'Contact',
+  contactNewBirthDate: '09/23/1988',
+  contactGender: 'Male',
+  contactSecondPhoneNumber: '8455458451',
+  contactSecondEmail: 'second@gmail.com',
+  connectedNewRelationship: 'Guardian',
+
+  // ********** Contact details for contact crud suite ************
+
+  contactSuiteContactFirstName1: 'New Patient',
+  contactSuiteContactMiddleName1: 'Type',
+  contactSuiteContactLastName1: 'Contact',
   // Contact details for Other type
   contactOtherFirstName: 'Automation Other',
   contactOtherLastName: 'Contact',
@@ -26,15 +40,6 @@ module.exports = {
   contactOtherBirthDate: '05/18/1981',
   contactOtherFirstNumber: '8475422123',
   contactOtherFirstEmail: 'otheremail@gmail.com',
-
-  // Contact edit details
-  contactNewFirstName: 'Automation New',
-  contactNewLastName: 'Contact',
-  contactNewBirthDate: '09/23/1988',
-  contactGender: 'Male',
-  contactSecondPhoneNumber: '8455458451',
-  contactSecondEmail: 'second@gmail.com',
-  connectedNewRelationship: 'Guardian',
 
   // Add contact details by connected party
   contactTypeOnModal: 'Patient',

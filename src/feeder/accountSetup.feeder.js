@@ -25,4 +25,7 @@ module.exports = {
 
   // Appointment Manager Org
   appointmentOrgName: 'Appointment Manager Org',
+
+  // Organization for contact crud
+  contactOrgName: 'Contact Org Name',
 };

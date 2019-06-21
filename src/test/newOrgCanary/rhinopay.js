@@ -4,37 +4,34 @@ import * as organizationToolbox from '../../toolboxes/organization.toolbox';
 
 const memberFeeder = require('../../feeder/member.feeder');
 const rhinopayFeeder = require('../../feeder/rhinopay.feeder');
-const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
 
 describe('Automated Tests: Rhinopay', () => {
   test('Login as CCR', async () => {
-    await loginToolbox.ccrLogin(process.env.NEW_CANARY_CCR_USERNAME, process.env.NEW_CANARY_CCR_PASSWORD);
+    await loginToolbox.ccrLogin(process.env.CCR_USERNAME, process.env.CCR_PASSWORD);
   });
 
   test('Select organization', async () => {
-    await organizationToolbox.selectOrganizationByCCR(accountSetupFeeder.orgName);
+    await organizationToolbox.selectOrganizationByCCR(process.env.EXISTING_ORG_ID);
   });
 
   test('Edit Organization Profile as CCR', async () => {
     const orgProfile = client.page.OrgProfilePage();
 
-    // await orgProfile.navigate()
-    //   .renderPageElements('@updateLogoButton');
-
     await orgProfile.navigate()
+      .renderPageElements('@updateLogoButton');
+
+    await orgProfile
       .enableToggle('@rhinopayToggle')
-      .createOrgProfileForm('@merchantIdInput', process.env.RHINOPAY_MERCHANT_ID)
-      .createOrgProfileForm('@merchantTokenInput', process.env.RHINOPAY_MERCHANT_TOKEN)
-      .createOrgProfileForm('@paymentApiUsernameInput', process.env.RHINOPAY_API_USERNAME)
-      .createOrgProfileForm('@paymentApiPasswordInput', process.env.RHINOPAY_API_PASSWORD)
-      .createOrgProfileForm('@paymentGatewayIdInput', process.env.RHINOPAY_GATEWAY_ID)
+      .updateEmptyValues('@merchantIdInput', process.env.RHINOPAY_MERCHANT_ID)
+      .updateEmptyValues('@merchantTokenInput', process.env.RHINOPAY_MERCHANT_TOKEN)
+      .updateEmptyValues('@paymentApiUsernameInput', process.env.RHINOPAY_API_USERNAME)
+      .updateEmptyValues('@paymentApiPasswordInput', process.env.RHINOPAY_API_PASSWORD)
+      .updateEmptyValues('@paymentGatewayIdInput', process.env.RHINOPAY_GATEWAY_ID)
       .clickSaveProfile();
   });
 
   test('logout as CCR', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await loginToolbox.logout();
   });
 
   test('Login as member', async () => {

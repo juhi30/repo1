@@ -3,6 +3,7 @@ import * as contactToolbox from '../../toolboxes/contact.toolbox';
 import * as bulkActionToolbox from '../../toolboxes/bulkActions.toolbox';
 import * as orgPreferencesToolbox from '../../toolboxes/orgPrefrences.toolbox';
 import * as messageToolbox from '../../toolboxes/messaging.toolbox';
+import * as loginToolbox from '../../toolboxes/login.toolbox';
 
 const chat = client.page.DirectChatInboxPage();
 const group = client.page.GroupsPage();
@@ -284,5 +285,9 @@ describe('Bulk Actions: Close conversation logic', () => {
     await messageToolbox.sendMessageToContactUsingRhinosecure(contactFeeder.contactNewFirstName, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
     await bulkActionToolbox.assignThreadToMemberAndGroup('@directInbox', contactFeeder.contactNewFirstName, '@assign', '@groupSearchInput', groupFeeder.patientAndTeamType, '@patientAndTeamGroup_PatientInbox');
     await bulkActionToolbox.performAction('@patientAndTeamGroup_PatientInbox', '@all', '@closeConversations');
+  });
+
+  test('logout as CCR', async () => {
+    await loginToolbox.logout();
   });
 });

@@ -53,6 +53,15 @@ export async function sendAMessageWithAttachment(groupName, titleElement, Contac
     .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
 }
 
+export async function sendGroupMessageToContact(contactName, message) {
+  await contact.navigate()
+    .openContactChat(contactName);
+  await chat.fillInMessageInput(message)
+    .pause(1000);
+  await chat.clickSendMessageButton()
+    .pause(1000);
+}
+
 export async function sendAMessageUsingHipaaTemplate(groupName, titleElement, ContactName) {
   await group.openGroup(groupName);
   await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');

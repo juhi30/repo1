@@ -1,11 +1,6 @@
-const dotenv = require('dotenv');
-const fs = require('fs');
 
 // allows tests to run through browserstack
 require('browserstack-automate').Nightwatch();
-
-const headless = !!process.env.HEADLESS && process.env.HEADLESS === 'true';
-const options = headless ? { args: ['headless', 'no-sandbox', 'disable-gpu'] } : undefined;
 
 module.exports = {
   page_objects_path: './src/page_objects',

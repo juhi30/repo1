@@ -43,8 +43,16 @@ const groupsPageCommands = {
   },
 
   openGroup(groupElement) {
-    return this.waitForElementVisible(groupElement, 'Group is visisble to the member')
+    return this.waitForElementVisible(groupElement, 'Group is visible to the member')
       .click(groupElement);
+  },
+
+  verifyAssignedThread(assignedThread) {
+    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(.,'${assignedThread}')]`, `${assignedThread} is visible at its Assigned Destination!`);
+  },
+
+  verifyThreadVisibility(assignedThread) {
+    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(.,'${assignedThread}')]`, `${assignedThread} is visible at its Default Route`);
   },
 
   navigateToInbox(inboxElement, url) {
@@ -106,6 +114,12 @@ module.exports = {
     },
 
     // Group Type Options
+
+    directInbox: {
+      selector: '//a[@id=\'nav-inbox-direct\']',
+      locateStrategy: 'xpath',
+    },
+
     teamOption: {
       selector: '//*[@class=\'form__block-group__label\'][text()=\'Team\']',
       locateStrategy: 'xpath',
@@ -129,6 +143,16 @@ module.exports = {
 
     purposeInput: {
       selector: '//INPUT[contains(@name, \'purpose\')]',
+      locateStrategy: 'xpath',
+    },
+
+    topPaginationGroup: {
+      selector: '//DIV[@class=\'inbox-pagination\']',
+      locateStrategy: 'xpath',
+    },
+
+    bottomPaginationGroup: {
+      selector: '//DIV[@class=\'list-panel__body\']//DIV[@class=\'u-inline-grid u-flex u-flex-justify-between u-m-t-small u-text-small u-inline-grid--small\']',
       locateStrategy: 'xpath',
     },
 
@@ -282,6 +306,11 @@ module.exports = {
 
     assignedToMe: {
       selector: '//span[contains(@class,\'app-navigation\')][contains(text(),\'Assigned to Me\')]',
+      locateStrategy: 'xpath',
+    },
+
+    followingInbox: {
+      selector: '//span[@class=\'app-navigation__nav__button__text\'][text()=\'Following\']',
       locateStrategy: 'xpath',
     },
   },

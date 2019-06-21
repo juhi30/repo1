@@ -4,7 +4,6 @@ import { performAction } from '../../../toolboxes/bulkActions.toolbox';
 
 const appointmentFeeder = require('../../../feeder/appointments.feeder');
 const channelFeeder = require('../../../feeder/channel.feeder');
-const memberFeeder = require('../../../feeder/member.feeder');
 
 describe('Automated Tests: Appointment Manager', () => {
   const apptManager = client.page.AppointmentManagerPage();
@@ -56,12 +55,14 @@ describe('Automated Tests: Appointment Manager', () => {
 
   test('Verify selecting Custom Date Range', async () => {
     await apptManager.openDatePicker();
-    await apptManager.datePickerCustomDate('@customRangeFromDate', appointmentFeeder.month, appointmentFeeder.year, appointmentFeeder.day)
-    await apptManager.datePickerCustomDate('@customRangeToDate', appointmentFeeder.month, appointmentFeeder.year, appointmentFeeder.day)
+    await apptManager.datePickerCustomDate('@customRangeFromDate', appointmentFeeder.month, appointmentFeeder.year, appointmentFeeder.day);
+    await apptManager.datePickerCustomDate('@customRangeToDate', appointmentFeeder.month, appointmentFeeder.year, appointmentFeeder.day);
     await apptManager.applyCustomFilter();
   });
 
   test('Verify the status of an appointment when it is manually confirmed', async () => {
+    await apptManager.openDatePicker()
+      .applyQuickFilter('@nextSevenDaysOption');
     await apptManager.clickContactName(appointmentFeeder.patientFirstName_1);
     await contact.openAppointmentStatusDropdown()
       .selectAppointmentStatus('@confirmedStatus')

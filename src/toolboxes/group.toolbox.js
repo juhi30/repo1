@@ -19,7 +19,7 @@ export async function createGroup(groupDetails, groupTypeOption, groupTypeListVi
     .selectGroupType(groupTypeOption)
     .addGroupDetails(groupDetails.name, groupDetails.purpose);
 
-  await routeDetails.map(field => route.routeSearch('@memberInput', field.memberName, field.element));
+  await routeDetails.map(field => route.routeSearch(field.memberName));
 
   await group.createUpdateButton('@createGroupButton', '@groupCreateSuccessMessage')
     .checkGroupVisibilityOnList(groupTypeListViewElement)
@@ -35,9 +35,8 @@ export async function createGroup(groupDetails, groupTypeOption, groupTypeListVi
  * @param  {Object} groupDetails Group details to be created
  * @param  {string} channelType Channel type to be created
  * @param {string} groupTypeListViewElement created group element on Group listing
- * @param {string} groupResultElement Group element to route with channel on channel creation page
  */
-export async function addChannelRouteToGroup(groupDetails, groupListViewElement, channelType, groupResultElement) {
+export async function addChannelRouteToGroup(groupDetails, groupListViewElement, channelType) {
   await group.navigate()
     .openInEditMode(groupListViewElement)
     .addChannel()
@@ -51,7 +50,8 @@ export async function addChannelRouteToGroup(groupDetails, groupListViewElement,
     .channelDetails(groupDetails.channelName, groupDetails.purpose, groupDetails.timeZone);
 
   route.selectGroupRoute()
-    .routeSearch('@groupInput', groupDetails.groupName, groupResultElement);
+    .pause(1000)
+    .routeSearch(groupDetails.groupName);
 
   await channel.createUpdateChannel('@createChannelButton', 'Create Channel button is visible')
     // .pause(1000)
@@ -82,7 +82,7 @@ export async function convertGroupTypeToAnotherGroupType(groupEditDetails, edite
     .validateAuditEntry(groupEditDetails.memberName, 'Group', 'Add', groupEditDetails.newName, '@categoryGroup');
 }
 
-export async function routeGroupToChannel(groupListViewElement, channelNameElement, groupName, groupResultElement) {
+export async function routeGroupToChannel(groupListViewElement, channelNameElement, groupName) {
   await group.navigate()
     .openInEditMode(groupListViewElement)
     .addChannel()
@@ -94,7 +94,7 @@ export async function routeGroupToChannel(groupListViewElement, channelNameEleme
     .pause(500)
     .checkElementVisibility('@editChannel');
   route.selectGroupRoute()
-    .routeSearch('@groupInput', groupName, groupResultElement);
+    .routeSearch(groupName);
 
   await channel.createUpdateChannel('@updateChannelButton', 'Update Channel button is visible')
     // .pause(1000)

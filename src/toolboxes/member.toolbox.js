@@ -45,8 +45,8 @@ export async function changePasswordUsingTempPassword(memberUsername, memberPass
 export async function createTempPasswordByCCR(memberName, globalVariable) {
   await member.navigate()
     .pause(1000)
-    .selectMember(memberName)
-    .createTempPassword()
+    .selectMember(memberName);
+  await member.createTempPassword()
     .getTempPassword(globalVariable)
     .waitForElementNotPresent('@updateSuccessMessage')
     .pause(1000);
@@ -103,8 +103,8 @@ export async function addMemberProfilePhoto() {
 
 export async function activateDeactivateMember(memberName, button, alertMessage, confirmButton, successMessage) {
   await member.navigate()
-    .selectMember(memberName)
-    .reactivateDeactivateMember(button)
+    .selectMember(memberName);
+  await member.reactivateDeactivateMember(button)
     .verifyAlerts(alertMessage)
     .confirmReactivateDeactivateMember(confirmButton)
     .waitForElementVisible(successMessage, 'Member is updated successfully and Deactivated/Reactivated as well.')

@@ -46,7 +46,7 @@ const membersCommands = {
   },
 
   selectMember(memberName) {
-    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(., '${memberName}')]`, `Span with text "${memberName}" is visible`)
+    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(text(), '${memberName}')]`, `Span with text "${memberName}" is visible`)
       .click(`//SPAN[contains(., '${memberName}')]`);
   },
 

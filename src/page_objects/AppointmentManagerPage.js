@@ -1,5 +1,3 @@
-import logger from 'rhinotilities/lib/loggers/logger';
-
 const appointmentFeeder = require('../feeder/appointments.feeder');
 const helper = require('../toolboxes/helpers.toolbox');
 
@@ -11,7 +9,8 @@ const appointmentRemindersCommands = {
 
   openAppointmentManager() {
     return this.waitForElementVisible('@appointmentManagerMenuItem', 'Appointment manager option is visible in the Setting menu')
-      .click('@appointmentManagerMenuItem');
+      .click('@appointmentManagerMenuItem')
+      .pause(1000);
   },
 
   verifyBanner() {
@@ -52,6 +51,13 @@ const appointmentRemindersCommands = {
       .api.useXpath().waitForElementVisible(`//*[contains(@class,'react-datepicker__day react-datepicker')][contains(.,'${date}')]`, `"${date}" Date is visible`)
       .pause(2000)
       .click(`//*[contains(@class,'react-datepicker__day react-datepicker')][contains(.,'${date}')]`)
+      .pause(1000);
+  },
+
+  applyQuickFilter(quickFilterOption) {
+    return this.waitForElementVisible('@datePickerMenu', 'Date picker menu is opened after click')
+      .waitForElementVisible(quickFilterOption, `"${quickFilterOption}" quick filter option is visible`)
+      .click(quickFilterOption)
       .pause(1000);
   },
 

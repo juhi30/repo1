@@ -55,8 +55,8 @@ export async function verifyReceivingGroupChatMessage(groupName, message) {
 export async function newMessageToContact(contactName, messageTab, message, channelName) {
   await contact.navigate()
     .openContactChat(contactName)
-    .pause(1000)
-    .selectMessageTab(messageTab)
+    .pause(1000);
+  contact.selectMessageTab(messageTab)
     .pause(1000);
   await chat.fillInMessageInput(message);
   await chat.selectFromRoute(channelName);
@@ -67,8 +67,8 @@ export async function newMessageToContact(contactName, messageTab, message, chan
 export async function sendAMessageWithAttachment(contactName, messageTab, message, channelName) {
   await contact.navigate()
     .openContactChat(contactName)
-    .pause(1000)
-    .selectMessageTab(messageTab)
+    .pause(1000);
+  contact.selectMessageTab(messageTab)
     .pause(1000);
   await chat.fillInMessageInput(message);
   await chat.selectFromRoute(channelName)
@@ -82,8 +82,8 @@ export async function sendAMessageWithAttachment(contactName, messageTab, messag
 export async function sendAMessageUsingHipaaTemplate(contactName, messageTab, message, channelName) {
   await contact.navigate()
     .openContactChat(contactName)
-    .pause(1000)
-    .selectMessageTab(messageTab)
+    .pause(1000);
+  contact.selectMessageTab(messageTab)
     .pause(1000);
   await chat.fillInMessageInput(message);
   await chat.selectFromRoute(channelName);
@@ -98,8 +98,8 @@ export async function sendAMessageUsingHipaaTemplate(contactName, messageTab, me
 export async function sendADirectMessageUsingOtherTemplate(contactName, messageTab, message, channelName) {
   await contact.navigate()
     .openContactChat(contactName)
-    .pause(1000)
-    .selectMessageTab(messageTab)
+    .pause(1000);
+  contact.selectMessageTab(messageTab)
     .pause(1000);
   await chat.fillInMessageInput(message);
   await chat.selectFromRoute(channelName);

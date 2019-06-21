@@ -2,6 +2,7 @@ import { client } from 'nightwatch-api';
 
 const contact = client.page.ContactsPage();
 const chat = client.page.DirectChatInboxPage();
+const route = client.page.ChannelRouteMemberContainer();
 
 export async function createContact(contactDetails, contactTypeElement) {
   await contact.navigate()
@@ -97,6 +98,7 @@ export async function enableContactForwarding(contactName, searchInputField, ass
     .contactEditMode(contactName)
     .pause(500)
     .clickForwadingToggle();
+  await route.selectGroupRoute();
   await chat.selectMemberAndGroup(searchInputField, assigneeName);
   await contact.clickCreateUpdateContact('@updateContactButton', '@editSuccessMessage');
 }

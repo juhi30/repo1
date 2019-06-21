@@ -12,6 +12,7 @@ const messageFeeder = require('../../feeder/message.feeder');
 
 describe('Automated test cases for Group Deletion', () => {
   const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
+  const secondContact = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
   test('Create Patient type Groups', async () => {
     const groupDetails = {
       name: groupFeeder.patientTypeGroupD,
@@ -55,11 +56,25 @@ describe('Automated test cases for Group Deletion', () => {
   });
 
   test('Delete Patient and Team Type Group', async () => {
-    await groupToolbox.verifyGroupDeletion(groupFeeder.patientAndTeamTypeD, '@successMessage');
+    const groupDetails = {
+      name: groupFeeder.patientAndTeamTypeD,
+      purpose: groupFeeder.purpose,
+      memberName: memberFeeder.memberName,
+      anotherMember: memberFeeder.memberName2,
+    };
+
+    await groupToolbox.verifyGroupDeletion(groupDetails, groupFeeder.patientAndTeamTypeD, '@successMessage');
   });
 
   test('Delete Patient and Team Type Group', async () => {
-    await groupToolbox.verifyGroupDeletion(groupFeeder.teamTypeGroupD, '@successMessage');
+    const groupDetails = {
+      name: groupFeeder.teamTypeGroupD,
+      purpose: groupFeeder.purpose,
+      memberName: memberFeeder.memberName,
+      anotherMember: memberFeeder.memberName2,
+    };
+
+    await groupToolbox.verifyGroupDeletion(groupDetails, groupFeeder.teamTypeGroupD, '@successMessage');
   });
 
   test('Create Team type Groups', async () => {
@@ -100,14 +115,12 @@ describe('Automated test cases for Group Deletion', () => {
 
     await groupToolbox.addChannelRouteToGroup(groupDetails, groupFeeder.patientTypeGroupD, '@rhinoSecureType', groupFeeder.patientTypeGroupD);
     await messageToolbox.sendMessageToContactUsingRhinosecure(contactName, groupFeeder.pGroupChannel, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendMessageToContactUsingRhinosecure(contactName, groupFeeder.ptGroupChannel, messageFeeder.groupPatientMessage);
-    await bulkActionToolbox.assignThreadToMemberAndGroup('@deletePTGroup', contactName, '@assign', '@groupSearchInput', groupFeeder.patientTypeGroupD, '@deletePGroup');
-    await contactToolbox.enableContactForwarding('@contactNameTitle', '@groupOption', groupFeeder.patientTypeGroupD);
+    await messageToolbox.sendMessageToContactUsingRhinosecure(secondContact, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
+    await bulkActionToolbox.assignThreadToMemberAndGroup('@directInbox', secondContact, '@assign', '@groupSearchInput', groupFeeder.patientTypeGroupD, '@deletePGroup');
+    await contactToolbox.enableContactForwarding('@contactNameTitle', '@groupSearchInput', groupFeeder.patientTypeGroupD);
   });
 
   test('Verify if the Patient Group can be deleted', async () => {
     await groupToolbox.closeDeleteGroupModal(groupFeeder.patientTypeGroupD);
   });
 });
-
-// await channelToolbox.deleteChannel(channelFeeder.newChannelName);

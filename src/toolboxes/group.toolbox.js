@@ -100,11 +100,15 @@ export async function routeGroupToChannel(groupListViewElement, channelNameEleme
     .waitForElementNotPresent('@channelUpdateSuccessMessage');
 }
 
-export async function verifyGroupDeletion(groupListViewElement, successMessage) {
+export async function verifyGroupDeletion(groupDetails, groupListViewElement, successMessage) {
   await group.navigate()
     .openInEditMode(groupListViewElement)
     .deleteGroup()
     .confirmDelete(successMessage);
+
+  await auditLogs.navigate()
+    .pause(2000)
+    .validateAuditEntry(groupDetails.memberName, 'Group', 'Delete', groupDetails.name, '@categoryGroup');
 }
 
 export async function closeDeleteGroupModal(groupListViewElement) {

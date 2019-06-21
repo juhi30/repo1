@@ -287,7 +287,7 @@ describe('Bulk Actions: Close conversation logic', () => {
     await bulkActionToolbox.performAction('@patientAndTeamGroup_PatientInbox', '@all', '@closeConversations');
   });
 
-  test('logout as CCR', async () => {
-    await loginToolbox.logout();
-  });
+  // test('logout as CCR', async () => {
+  //   await loginToolbox.logout();
+  // });
 });

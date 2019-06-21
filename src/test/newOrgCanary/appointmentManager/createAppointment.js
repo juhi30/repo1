@@ -12,7 +12,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function getDateInString(date, minutes, globalVariableKey) {
+function getDateInString(date, minutes) {
   const startDate = date;
   startDate.setMinutes(startDate.getMinutes() + minutes);
   startDate.setDate(startDate.getDate() + 1);

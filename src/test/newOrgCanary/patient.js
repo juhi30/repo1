@@ -3,15 +3,17 @@ import { logout } from '../../toolboxes/login.toolbox';
 
 const messageFeeder = require('../../feeder/message.feeder');
 const patientFeeder = require('../../feeder/patient.feeder');
+const contactFeeder = require('../../feeder/contact.feeder');
 
 describe('Patient Login Page Tests Cases', () => {
   const patient = client.page.PatientPage();
   const contact = client.page.ContactsPage();
   const convo = client.page.ConvoThreadPage();
+  const patientName = `${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}`;
 
   test('Send a rhino secure message from selected contact', async () => {
     await contact.navigate()
-      .openContactChat('@searchedContactForPatient');
+      .openContactChat(patientName);
 
     await convo.sendRhinosecureMessage(messageFeeder.rhinosecureMessage);
 

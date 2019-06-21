@@ -20,9 +20,9 @@ const channelRouteCommands = {
       .click('@groupsButton');
   },
 
-  routeSearch(memberName) {
-    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(., '${memberName}')]`, `"${memberName}" is visible in the Route`)
-      .click(`//SPAN[contains(., '${memberName}')]`);
+  routeSearch(searchInput, routeName, result) {
+    return this.waitForElementVisible(result, `${result} is visible`)
+      .click(result);
   },
 };
 

@@ -681,6 +681,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    searchedContactForPatient: {
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}')]`,
+      locateStrategy: 'xpath',
+    },
+
     searchedContactFirstResult: {
       selector: `//SPAN[@class='resource__intro__title__content']//STRONG[text()='${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}']`,
       locateStrategy: 'xpath',

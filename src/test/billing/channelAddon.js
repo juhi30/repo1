@@ -33,7 +33,7 @@ describe('Channels Creation for Billing Org', () => {
       memberFirstName: memberFeeder.memberName1,
     };
 
-    await channelToolbox.createChannel('@newPhoneType', channelData);
+    await channelToolbox.createChannel('@newPhoneType', channelData, '@billingMemberResult');
   });
 
   test('verifying alert message when adding an Addon channel', async () => {
@@ -48,7 +48,7 @@ describe('Channels Creation for Billing Org', () => {
 
     await channelToolbox.verifyAlertMessagesAddonChannels('@createAlert', '@newPhoneType');
 
-    await channelToolbox.createChannel('@newPhoneType', channelData1);
+    await channelToolbox.createChannel('@newPhoneType', channelData1, '@billingMemberResult');
   });
 
   test('verifying alert message when deleting an Addon channel', async () => {

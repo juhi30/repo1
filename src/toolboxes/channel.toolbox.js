@@ -29,7 +29,7 @@ export async function validateChannelCreationRequiredFields(channelType) {
  * @param  {string} channelType Channel type like: New Phone, Rhinosecure
  * @param  {object} channelData Data to create new Channel
  */
-export async function createChannel(channelType, channelData) {
+export async function createChannel(channelType, channelData, routeMember) {
   const route = client.page.ChannelRouteMemberContainer();
 
   await channelCreateEdit.navigate()
@@ -44,7 +44,7 @@ export async function createChannel(channelType, channelData) {
     channelCreateEdit.channelDetails(channelData.channelName, channelData.channelPurpose, channelData.timeZone);
   }
 
-  route.routeSearch(channelData.memberFirstName)
+  route.routeSearch('@memberInput', channelData.memberFirstName, routeMember)
     .pause(2000);
 
   channelCreateEdit.createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')

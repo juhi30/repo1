@@ -35,26 +35,39 @@ const bulkActionCommands = {
       return self.waitForElementVisible('@inboxPageTitle', `${title} page title is visible`)
         .verify.containsText('@inboxPageTitle', title, ` page title is ${title}`)
         .verify.visible('@bulkSelectCheckbox', 'bulk select checkbox is visible')
-        .verify.visible('@BulkSelectDropdownIcon', 'bulk select option is available');
+        .verify.visible('@bulkSelectDropdownIcon', 'bulk select option is available');
     });
   },
 
-  navigateToInboxGroup(groupName) {
-    return this.verify.visible(groupName, `${groupName} Page Navigation option is visible!`)
-      .click(groupName)
+  selectAnAction(actionName) {
+    return this.waitForElementVisible('@actionDropdown', 'Action Dropdown is visible and thread is selected')
+      .click('@actionDropdown')
+      .waitForElementVisible(actionName, `Action Dropdown list is opened and ${actionName} is visible.`)
+      .click(actionName);
+  },
+
+  verifySuccessMessage(successMessage) {
+    return this.waitForElementVisible(successMessage, `${successMessage} is visible`)
+      .waitForElementNotPresent(successMessage, `${successMessage} is no longer present`);
+  },
+
+  navigateToInboxGroup(inboxName) {
+    return this.waitForElementVisible(inboxName, `${inboxName} Page Navigated to the desired inbox!`)
+      .click(inboxName)
       .pause(2000);
   },
 
   verifyActionDropdown() {
     return this.waitForElementNotPresent('@actionDropdown', 'Action dropdown is not available before a selection.')
+      .waitForElementVisible('@bulkSelectCheckbox', 'Bulk Select checkbox is visible.')
       .click('@bulkSelectCheckbox')
       .pause(1000)
       .waitForElementPresent('@actionDropdown', 'Action dropdown is visible after a selection.');
   },
 
   selectOption(option) {
-    return this.waitForElementPresent('@BulkSelectDropdownIcon', 'Selection dropdown is visible.')
-      .click('@BulkSelectDropdownIcon')
+    return this.waitForElementPresent('@bulkSelectDropdownIcon', 'Selection dropdown is visible.')
+      .click('@bulkSelectDropdownIcon')
       .waitForElementVisible(option, `${option} option is visible.`)
       .click(option)
       .waitForElementVisible('@selectionCount')
@@ -67,11 +80,18 @@ const bulkActionCommands = {
       .valueCompare('@actionDropdownList', selectionOption);
   },
 
+  performActionForSelection(selectionOption) {
+    return this.waitForElementVisible(selectionOption, `${selectionOption} is visible`)
+      .click(selectionOption)
+      .waitForElementVisible('@successToast', 'success message is visible')
+      .waitForElementNotPresent('@successToast', 'success message is not present');
+  },
+
   noneSelection() {
-    return this.click('@BulkSelectDropdownIcon')
-      .waitForElementVisible('@none', 'No Action options are available for None selection!')
+    return this.click('@bulkSelectDropdownIcon')
+      .waitForElementVisible('@none', 'None Selection Option is visible!')
       .click('@none')
-      .waitForElementNotPresent('@actionDropdown', 'Action dropdown is not available before a selection.');
+      .waitForElementNotPresent('@actionDropdown', 'Action dropdown is not available after the selection.');
   },
 
   closeAllConversation() {
@@ -80,9 +100,14 @@ const bulkActionCommands = {
       .pause(1000)
       .waitForElementVisible('@actionDropdown', 'Action dropdown is visible')
       .click('@actionDropdown')
-      .waitForElementVisible('@closeConversations', 'Close Conversations options is visible')
+      .waitForElementVisible('@closeConversations', 'Close Conversations option is visible')
       .click('@closeConversations')
       .waitForElementNotPresent('@successToast', 'Toast Notification is gone');
+  },
+
+  selectMessageThread(contactName) {
+    return this.api.useXpath().waitForElementVisible(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`, `Thread with this name ${contactName} is visible.`)
+      .click(`//*[contains(text(),'${contactName}')]//parent::div//parent::div//parent::div//*[@type='checkbox']`);
   },
 };
 
@@ -105,8 +130,13 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    PatientGroup: {
-      selector: '//*[contains(@id,\'nav-inbox\')][@title=\'All Member\']',
+    patientGroup: {
+      selector: '//*[contains(@id,\'nav-inbox\')][@title=\'Patient Group\']',
+      locateStrategy: 'xpath',
+    },
+
+    patientTeamGroup: {
+      selector: '//*[contains(@id,\'nav-inbox\')][@title=\'Patient Team Group\']',
       locateStrategy: 'xpath',
     },
 
@@ -126,7 +156,7 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    BulkSelectDropdownIcon: {
+    bulkSelectDropdownIcon: {
       selector: '(//div[@class=\'dropdown\']//span[@class=\'button__text-wrapper\']/button)[1]',
       locateStrategy: 'xpath',
     },
@@ -225,6 +255,11 @@ module.exports = {
 
     successToast: {
       selector: '//*[@class =\'toast toast--success\']',
+      locateStrategy: 'xpath',
+    },
+
+    assignToSelf: {
+      selector: '//span[@class=\'u-text-overflow\'][text()=\'Assign To Me\']',
       locateStrategy: 'xpath',
     },
   },

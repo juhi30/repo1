@@ -288,11 +288,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    contactNameTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}')]`,
-      locateStrategy: 'xpath',
-    },
-
     filterDropdown: {
       selector: '//BUTTON[contains(@title, \'Filter contacts\')]',
       locateStrategy: 'xpath',

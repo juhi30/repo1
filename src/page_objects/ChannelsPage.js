@@ -57,21 +57,6 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    channelName: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${channelFeeder.channelName}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    billingChannelName: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${channelFeeder.channelName1}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    rhinoSecureChannelTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${channelFeeder.rhinoChannelName}')]`,
-      locateStrategy: 'xpath',
-    },
-
     editChannel: {
       selector: '//SPAN[@class=\'button__text-wrapper\'][contains(text(),\'Edit Channel\')]',
       locateStrategy: 'xpath',

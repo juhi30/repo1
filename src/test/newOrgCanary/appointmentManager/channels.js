@@ -14,6 +14,6 @@ describe('Automated Tests: Channels', () => {
       memberFirstName: memberFeeder.appointmentMemberName,
     };
 
-    await channelToolbox.createChannel('@newPhoneType', channelData);
+    await channelToolbox.createChannel('@newPhoneType', channelData, '@apptMemberResult');
   });
 });

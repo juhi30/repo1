@@ -59,17 +59,17 @@ describe('Direct Messaging Tests', () => {
 
   test('Sending a message to a Contact with MMS / Attachment', async () => {
   // eslint-disable-next-line max-len
-    await messageToolbox.sendAMessageWithAttachment('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName, messageFeeder.directPatientMessage);
+    await messageToolbox.sendAMessageWithAttachment(contactName, 'Message', messageFeeder.directPatientMessage, channelFeeder.channelName);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
   });
 
   test('Sending a message to a Contact using Hipaa Template', async () => {
-    await messageToolbox.sendAMessageUsingHipaaTemplate('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName);
+    await messageToolbox.sendAMessageUsingHipaaTemplate(contactName, 'Message', channelFeeder.channelName);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
   });
 
   test('Sending a message to a Contact using other Template', async () => {
-    await messageToolbox.sendADirectMessageUsingOtherTemplate('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName);
+    await messageToolbox.sendADirectMessageUsingOtherTemplate(contactName, 'Message', channelFeeder.channelName);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
   });
 });

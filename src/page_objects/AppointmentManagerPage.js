@@ -184,5 +184,15 @@ module.exports = {
       selector: '//H3[text()=\'No Upcoming Appointments.\']',
       locateStrategy: 'xpath',
     },
+
+    topPagination: {
+      selector: '//*[@class=\'u-text-right u-p-t-small\']',
+      locateStrategy: 'xpath',
+    },
+
+    bottomPagination: {
+      selector: '//*[@class=\'column-4@small column-4@medium column-offset-8@small column-offset-8@medium\']',
+      locateStrategy: 'xpath',
+    },
   },
 };

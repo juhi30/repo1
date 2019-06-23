@@ -7,5 +7,4 @@ import './channels';
 import './orgProfile';
 
 // Member Flow
-import './createAppointment';
 import './appointmentManager';

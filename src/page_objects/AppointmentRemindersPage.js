@@ -4,6 +4,11 @@ const appointmentRemindersCommands = {
     this.api.pause(time);
     return this;
   },
+
+  verifyMenuItem() {
+    return this.waitForElementVisible('@appointmentRemindersMenuItem', 'Appointment Reminders option is visible in the Settings Menu items');
+  },
+
 };
 
 module.exports = {
@@ -12,6 +17,11 @@ module.exports = {
     return `${this.api.launch_url}/settings/organization/appointment-reminders`;
   },
   elements: {
+    appointmentRemindersMenuItem: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Appointment Reminders\']',
+      locateStrategy: 'xpath',
+    },
+
 
     /*--------------------------------------------*/
     // Outgoing Channels container

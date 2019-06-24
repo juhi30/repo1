@@ -3,7 +3,6 @@ import { client } from 'nightwatch-api';
 const chat = client.page.DirectChatInboxPage();
 const group = client.page.GroupsPage();
 const universal = client.page.UniversalElements();
-
 const helpers = require('../toolboxes/helpers.toolbox');
 
 const bulkAction = client.page.BulkActionsPage();

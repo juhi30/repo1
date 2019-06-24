@@ -54,14 +54,15 @@ const appointmentRemindersCommands = {
       .pause(1000);
   },
 
-  applyQuickFilter(quickFilterOption) {
+  // Function to select a quick filter from the date picker
+  datePickerQuickFilter(quickFilterOption) {
     return this.waitForElementVisible('@datePickerMenu', 'Date picker menu is opened after click')
       .waitForElementVisible(quickFilterOption, `"${quickFilterOption}" quick filter option is visible`)
       .click(quickFilterOption)
       .pause(1000);
   },
 
-  applyCustomFilter() {
+  clickApplyCustomDates() {
     return this.click('@applyCustomDatesButton')
       .waitForElementVisible('@noUpcomingAppointmentsPageCopy', 'No Appointments page copy visible for the selected custom dates');
   },

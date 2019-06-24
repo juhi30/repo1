@@ -77,12 +77,12 @@ describe('Automated Tests: Appointment Manager', () => {
     await apptManager.openDatePicker();
     await apptManager.datePickerCustomDate('@customRangeFromDate', appointmentFeeder.month, appointmentFeeder.year, appointmentFeeder.day);
     await apptManager.datePickerCustomDate('@customRangeToDate', appointmentFeeder.month, appointmentFeeder.year, appointmentFeeder.day);
-    await apptManager.applyCustomFilter();
+    await apptManager.clickApplyCustomDates();
   });
 
   test('Verify the status of an appointment when it is manually confirmed', async () => {
     await apptManager.openDatePicker()
-      .applyQuickFilter('@nextSevenDaysOption');
+      .datePickerQuickFilter('@nextSevenDaysOption');
     await apptManager.clickContactName(appointmentFeeder.secondPatientName);
     await contact.openAppointmentStatusDropdown()
       .selectAppointmentStatus('@confirmedStatus')

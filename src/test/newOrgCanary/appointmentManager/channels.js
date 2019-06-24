@@ -3,7 +3,7 @@ import * as channelToolbox from '../../../toolboxes/channel.toolbox';
 const channelFeeder = require('../../../feeder/channel.feeder');
 const memberFeeder = require('../../../feeder/member.feeder');
 
-describe('Automated Tests: Channels', () => {
+describe('Appointment Manager Tests: Channels', () => {
   test('Channel Create - New Phone type with member Route', async () => {
     const channelData = {
       phoneNumber: channelFeeder.numberForNewPhoneChannel,

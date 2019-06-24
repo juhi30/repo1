@@ -35,7 +35,7 @@ export async function createGroup(groupDetails, groupTypeOption, groupTypeListVi
  * @param  {Object} groupDetails Group details to be created
  * @param  {string} channelType Channel type to be created
  * @param {string} groupTypeListViewElement created group element on Group listing
- *  * @param {string} groupResultElement Group element to route with channel on channel creation page
+ * @param {string} groupResultElement Group element to route with channel on channel creation page
  */
 export async function addChannelRouteToGroup(groupDetails, groupListViewElement, channelType, groupResultElement) {
   await group.navigate()

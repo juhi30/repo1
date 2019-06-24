@@ -29,4 +29,7 @@ module.exports = {
   // Alert Message
   addAlert: 'Setting up this channel will add ',
   deleteAlert: 'Your monthly bill will decrease by ',
+
+  // Channel for Appointment Manager Org
+  aptChannelName: 'Appointment Channel',
 };

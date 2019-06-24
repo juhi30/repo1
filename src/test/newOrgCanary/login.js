@@ -74,8 +74,8 @@ describe('Login Page Tests Cases', () => {
   test('create two temporary password for member by ccr', async () => {
     await loginToolbox.ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
     await selectOrganizationByCCR(accountSetupFeeder.orgName);
-    await createTempPasswordByCCR('@selectMemberFromList', 'NEW_CANARY_TEMP_PASSWORD');
-    await createTempPasswordByCCR('@selectMemberFromList', 'NEW_CANARY_NEW_TEMP_PASSWORD');
+    await createTempPasswordByCCR(memberFeeder.memberName, 'NEW_CANARY_TEMP_PASSWORD');
+    await createTempPasswordByCCR(memberFeeder.memberName, 'NEW_CANARY_NEW_TEMP_PASSWORD');
     await loginToolbox.logout();
   });
 

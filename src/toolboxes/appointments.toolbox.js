@@ -54,6 +54,6 @@ export async function createAppointments(appt, count) {
     appointments.push(appointment);
   }
 
-  const apptPromise = appointments.map(appt => rhinoliner.pushtoqueue(appt));
-  await Promise.all(apptPromise);
+  const apptmntPromise = appointments.map(apptmnt => rhinoliner.pushtoqueue(apptmnt));
+  await Promise.all(apptmntPromise);
 }

@@ -10,7 +10,7 @@ import './office';
 import './memberPreferences';
 import './memberProfile';
 import './contact';
-import './deleteGroup';
+import './createAndDeleteGroup';
 import './template';
 import './tags';
 import './patient';

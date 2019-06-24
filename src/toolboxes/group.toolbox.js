@@ -111,7 +111,7 @@ export async function verifyGroupDeletion(groupDetails, groupListViewElement, su
     .validateAuditEntry(groupDetails.memberName, 'Group', 'Delete', groupDetails.name, '@categoryGroup');
 }
 
-export async function closeDeleteGroupModal(groupListViewElement) {
+export async function verifyDeleteGroupModal(groupListViewElement) {
   await group.navigate()
     .openInEditMode(groupListViewElement)
     .deleteGroup()

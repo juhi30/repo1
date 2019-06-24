@@ -9,7 +9,7 @@ const channelsCommands = {
   },
 
   channelEditMode(channel) {
-    this.api.useXpath().waitForElementVisible(`//SPAN[contains(text(),'${channel}')]`, `${channel} Created Channel is visible in the channel list.`)
+    this.api.useXpath().waitForElementVisible(`//SPAN[contains(text(),'${channel}')]`, `Created ${channel} is visible in the channel list.`)
       .click(`//SPAN[contains(text(),'${channel}')]`);
     return this.waitForElementVisible('@editChannel', 'Summary Panel opened.')
       .click('@editChannel');

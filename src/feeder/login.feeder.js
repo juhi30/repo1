@@ -12,4 +12,8 @@ module.exports = {
   appointmentCcrLogin: process.env.APPOINTMENT_CCR_USERNAME,
   appointmentCcrPassword: process.env.APPOINTMENT_CCR_PASSWORD,
 
+  // CCR Logins for Rhinopay New Canary test suite
+  rhinopayNewCanaryCcrLogin: process.env.RHINOPAY_NEWCANARY_CCR_USERNAME,
+  rhinopayNewCanaryCcrPassword: process.env.RHINOPAY_NEWCANARY_CCR_PASSWORD,
+
 };

@@ -117,11 +117,6 @@ const orgProfileCommands = {
   enableToggle(toggleSetup) {
     return this.waitForElementVisible(toggleSetup, `${toggleSetup} toggle is visible.`)
       .click(toggleSetup);
-    // .getAttribute('@merchantIdInput', 'disabled', (result) => {
-    //   if (result.value) {
-    //     this.click(toggleSetup);
-    //   }
-    // });
   },
 
   createOrgProfileForm(inputField, newValue) {

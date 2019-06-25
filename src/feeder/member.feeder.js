@@ -64,4 +64,11 @@ module.exports = {
   appointmentMemberLastName: 'LastName',
   appointmentMemberUsername: 'Appointment_Member',
 
+
+  // Member for Rhinopay new test canary Org
+  rhinopayMemberName: 'Rhinopay_Member LastName',
+  rhinopayMemberFirstName: 'Rhinopay_Member',
+  rhinopayMemberLastName: 'LastName',
+  rhinopayMemberUsername: 'Rhinopay_Member',
+
 };

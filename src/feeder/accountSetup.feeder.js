@@ -25,4 +25,7 @@ module.exports = {
 
   // Appointment Manager Org
   appointmentOrgName: 'Appointment Manager Org',
+
+  // Rhinopay Org
+  rhinopayNewCanaryOrgName: 'Rhinopay New Canary Org',
 };

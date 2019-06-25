@@ -1,3 +1,5 @@
+import moment from 'moment-timezone';
+
 const appointmentFeeder = require('../feeder/appointments.feeder');
 const helper = require('../toolboxes/helpers.toolbox');
 
@@ -16,6 +18,17 @@ const appointmentRemindersCommands = {
   verifyBanner() {
     return this.waitForElementVisible('@appointmentManagerPageTitle', 'Appointment Manager page is open')
       .waitForElementVisible('@lastSyncBanner', 'Banner for last sync update is visible');
+  },
+
+  verifyLastSyncDate() {
+    const currentDate = moment().format('MM/DD/YY');
+    return this.waitForElementVisible('@lastSyncBannerDate', 'Banner Date element is visible')
+      .getText('@lastSyncBannerDate', (tpObj) => {
+        const lastUpdatedDate = tpObj.value.split(' ');
+        const time = ` ${lastUpdatedDate[2]} ${lastUpdatedDate[3]}`;
+        const compareWith = ` ${currentDate}${time}`;
+        expect(tpObj.value).toBe(compareWith);
+      });
   },
 
   verifyUpcomingAppointsCount(text) {
@@ -113,6 +126,11 @@ module.exports = {
 
     lastSyncBanner: {
       selector: '//DIV[@class=\'alert u-m-b alert--info\']//DIV[contains(text(),\'Last data sync from PMS/EHR:\')]',
+      locateStrategy: 'xpath',
+    },
+
+    lastSyncBannerDate: {
+      selector: '//DIV[@class=\'alert__body\']//STRONG',
       locateStrategy: 'xpath',
     },
 

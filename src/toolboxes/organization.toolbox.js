@@ -48,10 +48,10 @@ export async function orgTearDown(organizationId, username, password) {
   logger.info('Login...');
   const cookie = await login(username, password);
   logger.info(organizationId, '== Deleting Org ==');
-  await archiveOrganization(organizationId, cookie);
-  logger.info('======== Organization Archive Response =======');
-  await deleteOrganization(organizationId, cookie);
-  logger.info('====== Organization Deleted =======');
+  const archiveResponse = await archiveOrganization(organizationId, cookie);
+  logger.info('======== Organization Archive Response =======', archiveResponse);
+  const deleteResponse = await deleteOrganization(organizationId, cookie);
+  logger.info('====== Organization Deleted =======', deleteResponse);
 }
 
 /**

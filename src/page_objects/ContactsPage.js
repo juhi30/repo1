@@ -86,6 +86,11 @@ const contactsCommands = {
       .waitForElementVisible('@inboxMessageArea', 'Conversation Chat box is opened for the selected contact.');
   },
 
+  selectMessageTab(messageTab) {
+    return this.api.useXpath().waitForElementVisible(`//*[@class='button__text-wrapper'][contains(text(),'${messageTab}')]`, `${messageTab} is visible`)
+      .click(`//BUTTON[@class='button--reset convo__footer__nav__item']//*[contains(text(),'${messageTab}')]`);
+  },
+
   getInboundMessage() {
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .pause(4000)
@@ -676,13 +681,13 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    searchedContactFirstResult: {
-      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[text()='${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}']`,
+    searchedContactForPatient: {
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}')]`,
       locateStrategy: 'xpath',
     },
 
-    searchedContactForPatient: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}')]`,
+    searchedContactFirstResult: {
+      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[text()='${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}']`,
       locateStrategy: 'xpath',
     },
 

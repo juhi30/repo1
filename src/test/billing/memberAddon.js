@@ -15,7 +15,7 @@ describe('Member Creation test Cases for Billing Organization', () => {
     const memberDetails1 = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName1 },
       { element: '@memberLastName', value: memberFeeder.memberLastName1 },
       { element: '@memberUsername', value: memberFeeder.memberUsername1 },
-      { element: '@memberEmailAddress', value: `test_${helper.randomNumber}@gmail.com` }];
+      { element: '@memberEmailAddress', value: `${memberFeeder.email}+${helper.randomNumber}@gmail.com` }];
     const roles1 = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
     const memberDetails2 = [{ element: '@memberFirstName', value: memberFeeder.firstMemberName2 },

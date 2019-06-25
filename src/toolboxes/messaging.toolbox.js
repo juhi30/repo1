@@ -2,22 +2,23 @@ import { client } from 'nightwatch-api';
 
 const chat = client.page.DirectChatInboxPage();
 const group = client.page.GroupsPage();
+const universal = client.page.UniversalElements();
 const helpers = require('../toolboxes/helpers.toolbox');
 
-const msg = client.page.DirectInboxPage();
 const bulkAction = client.page.BulkActionsPage();
 const template = client.page.TemplatesPage();
 const contact = client.page.ContactsPage();
+const members = client.page.MembersPage();
 
 /**
  * Used to send messages to a Patent or Member
  */
 
-// Can be used to send a direct chat message to a member or to a Contact
-export async function sendADirectMessage(inboxElement, url, ModaltitleElement, memberName, message) {
-  await group.navigateToInbox(inboxElement, url);
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(ModaltitleElement, memberName);
+export async function directMessageToMember(memberName, message) {
+  await universal.clickMembers();
+  await members.selectMember(memberName);
+  await members.goToConversation()
+    .pause(1000);
   await chat.fillInMessageInput(message)
     .pause(1000);
   await chat.clickSendMessageButton();
@@ -40,82 +41,71 @@ export async function verifyReceivingGroupChatMessage(groupName, message) {
   helpers.findTextOnPage(chat, message);
 }
 
-export async function sendADirectMessageToContact(titleElement, ContactName, message) {
-  await msg.navigate()
-    .verify.urlContains('/direct', 'url contains direct')
-    .waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
-  await chat.fillInMessageInput(message)
+export async function newMessageToContact(contactName, messageTab, message, channelName) {
+  await contact.navigate()
+    .openContactChat(contactName)
     .pause(1000);
-  await chat.clickSendMessageButton()
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
+  contact.selectMessageTab(messageTab)
+    .pause(1000);
+  await chat.fillInMessageInput(message);
+  await chat.selectFromRoute(channelName);
+  await chat.clickSendMessageButton();
 }
 
-export async function sendGroupMessageToContact(groupName, titleElement, ContactName, message) {
-  await group.openGroup(groupName);
-  await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
-  await chat.fillInMessageInput(message)
+export async function sendAMessageWithAttachment(contactName, messageTab, message, channelName) {
+  await contact.navigate()
+    .openContactChat(contactName)
     .pause(1000);
-  await chat.clickSendMessageButton()
-    .pause(1000)
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
-}
-
-export async function sendAMessageWithAttachment(groupName, titleElement, ContactName, message) {
-  await group.openGroup(groupName);
-  await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
-  await chat.fillInMessageInput(message)
-    .addToMessageOption()
+  await contact.selectMessageTab(messageTab)
+    .pause(1000);
+  await chat.fillInMessageInput(message);
+  await chat.addToMessageOption()
     .addingAttachment();
+  await chat.selectFromRoute(channelName);
   await chat.clickSendMessageButton()
-    .pause(1000)
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
+    .pause(1000);
 }
 
-export async function sendAMessageUsingHipaaTemplate(groupName, titleElement, ContactName) {
-  await group.openGroup(groupName);
-  await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
+export async function sendAMessageUsingHipaaTemplate(contactName, messageTab, channelName) {
+  await contact.navigate()
+    .openContactChat(contactName)
+    .pause(1000);
+  contact.selectMessageTab(messageTab)
+    .pause(1000);
   await chat.addToMessageOption()
     .useTemplate('@hipaaTemplate')
     .pause(2000);
+  await chat.selectFromRoute(channelName);
   await chat.clickSendMessageButton()
-    .pause(1000)
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
+    .pause(1000);
 }
 
-export async function sendADirectMessageUsingOtherTemplate(groupName, titleElement, ContactName) {
-  await group.openGroup(groupName);
-  await msg.waitForElementVisible('@patientInboxPageTitle', 'Page loaded successfully');
-  await chat.clickAddIcon()
-    .searchMemberAndOpenThread(titleElement, ContactName);
+export async function sendADirectMessageUsingOtherTemplate(contactName, messageTab, channelName) {
+  await contact.navigate()
+    .openContactChat(contactName)
+    .pause(1000);
+  contact.selectMessageTab(messageTab)
+    .pause(1000);
   await chat.addToMessageOption()
     .useTemplate('@useTemplateOption')
     .pause(2000);
   template.click('@editedTemplateTitle')
     .pause(1000);
+  await chat.selectFromRoute(channelName);
   await chat.clickSendMessageButton()
-    .pause(1000)
-    .waitForElementNotPresent('@failedMessage', 'Message Failure alert not present');
+    .pause(1000);
 }
 
-export async function closeConversation(groupName, directInbox) {
+export async function closeConversation(groupName) {
   await group.openGroup(groupName);
   bulkAction.closeAllConversation();
-  await group.openGroup(directInbox);
 }
 
-export async function sendGroupMessageToContactUsingRhinosecure(contactName, message, channelName) {
+export async function sendMessageToContactUsingRhinosecure(contactName, channelName, message) {
   await contact.navigate()
     .openContactChat(contactName);
   await chat.clickButton('@rhinoSecureTab')
-    .channelSelection('@preselectedSecureChannelName', '@rhinosecureChannelListDropdown', channelName, '@newSelectedSecureChannel')
+    .channelSelection('@selectedChannel', '@rhinosecureChannelListDropdown', channelName)
     .fillInMessageInput(message)
     .pause(1000);
   await chat.clickSendMessageButton();

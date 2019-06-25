@@ -18,7 +18,7 @@ describe('Existing org canary: messaging tests', () => {
 
     await universal.clickContacts()
       .pause(500);
-    await contacts.openContactChat('@addContactDropdownFirstResultBot')
+    await contacts.openContactChat(process.env.EXISTING_ORG_BOT_CONTACT_NAME)
       .pause(1000)
       .sendOutboundMessageAndGetReply(`handler add reply ${existingOrgFeeder.testBotReplyMessage}`, 'Hi Bot Contact');
   });
@@ -55,7 +55,7 @@ describe('Existing org canary: messaging tests', () => {
 
     await universal.clickContacts()
       .pause(500);
-    await contacts.openContactChat('@addContactDropdownFirstResultFb')
+    await contacts.openContactChat(process.env.EXISTING_ORG_FACEBOOK_CONTACT_NAME)
       .pause(1000);
   });
 

@@ -35,8 +35,7 @@ const editChannelsCommands = {
       .setValue('@channelPurposeInput', purpose)
       .verify.visible('@channelTimezoneDropdown', 'timezone dropdown is visible')
       .setValue('@channelTimezoneDropdown', timezone)
-      .verify.visible('@channelDSTCheckbox', 'DST checkbox is visible')
-      .click('@channelDSTCheckbox');
+      .verify.visible('@channelDSTCheckbox', 'DST checkbox is visible');
   },
 
   editChannelDetailsSection(newChannelName, newPurpose) {

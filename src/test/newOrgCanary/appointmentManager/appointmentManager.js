@@ -1,3 +1,4 @@
+import moment from 'moment-timezone';
 import { client } from 'nightwatch-api';
 import { newMessageToContact } from '../../../toolboxes/messaging.toolbox';
 import { performAction } from '../../../toolboxes/bulkActions.toolbox';
@@ -75,8 +76,8 @@ describe('Automated Tests: Appointment Manager', () => {
 
   test('Verify selecting Custom Date Range', async () => {
     await apptManager.openDatePicker();
-    await apptManager.datePickerCustomDate('@customRangeFromDate', appointmentFeeder.month, appointmentFeeder.year, appointmentFeeder.day);
-    await apptManager.datePickerCustomDate('@customRangeToDate', appointmentFeeder.month, appointmentFeeder.year, appointmentFeeder.day);
+    await apptManager.datePickerCustomDate('@customRangeFromDate', moment().format('MMM'), moment().add(1, 'y').format('YYYY'), moment().subtract(1, 'd').format('D'));
+    await apptManager.datePickerCustomDate('@customRangeToDate', moment().format('MMM'), moment().add(1, 'y').format('YYYY'), moment().subtract(1, 'd').format('D'));
     await apptManager.clickApplyCustomDates();
   });
 
@@ -136,5 +137,9 @@ describe('Automated Tests: Appointment Manager', () => {
 
   test('Verify availability of bottom pagination element', async () => {
     await apptManager.waitForElementNotPresent('@bottomPagination', 'Bottom Pagination is available');
+  });
+
+  test('Verify date in the banner', async () => {
+    await apptManager.verifyLastSyncDate();
   });
 });

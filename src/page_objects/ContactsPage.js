@@ -637,7 +637,7 @@ module.exports = {
     },
 
     createdContact: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactFirstName}')]`,
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactSuiteContactFirstName1}')]`,
       locateStrategy: 'xpath',
     },
 

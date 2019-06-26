@@ -1,7 +1,5 @@
 import logger from 'rhinotilities/lib/loggers/logger';
 
-const channelFeeder = require('../feeder/channel.feeder');
-
 const channelsCommands = {
 
   validateChannelsEls() {
@@ -11,9 +9,9 @@ const channelsCommands = {
   },
 
   channelEditMode(channel) {
-    return this.waitForElementVisible(channel, `${channel} Created Channel is visible in the channel list.`)
-      .click(channel)
-      .waitForElementVisible('@editChannel', 'Summary Panel opened.')
+    this.api.useXpath().waitForElementVisible(`//SPAN[contains(text(),'${channel}')]`, `Created ${channel} is visible in the channel list.`)
+      .click(`//SPAN[contains(text(),'${channel}')]`);
+    return this.waitForElementVisible('@editChannel', 'Summary Panel opened.')
       .click('@editChannel');
   },
 
@@ -54,31 +52,6 @@ module.exports = {
 
     addChannelButton: {
       selector: '//BUTTON[contains(@title,\'Create Channel\')]//SPAN',
-      locateStrategy: 'xpath',
-    },
-
-    channelName: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${channelFeeder.channelName}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    billingChannelName: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${channelFeeder.channelName1}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    rhinoSecureChannelTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${channelFeeder.rhinoChannelName}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    updatedChannelTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${channelFeeder.newChannelName}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    updatedRhinoSecureChannelTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${channelFeeder.rhinoChannelNewName}')]`,
       locateStrategy: 'xpath',
     },
 

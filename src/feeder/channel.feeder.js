@@ -29,4 +29,8 @@ module.exports = {
   // Alert Message
   addAlert: 'Setting up this channel will add ',
   deleteAlert: 'Your monthly bill will decrease by ',
+
+  // New phone type Channel for rhinopay new canary
+  rhinopayForwardingNumber: '(454) 657-8141',
+  rhinopayChannelName: 'Rhinopay Test Channel ',
 };

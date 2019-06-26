@@ -57,7 +57,7 @@ const commands = {
   },
 
   selectMemberAndGroup(inputSearch, searchText) {
-    return this.waitForElementVisible('@addNoteButton', 'Assign Model is opened')
+    return this.waitForElementVisible('@groupOption', 'Assign Model is opened')
       .setValue(inputSearch, searchText)
       .pause(2000)
       .api.useXpath().waitForElementVisible(`//SPAN[@class='resource__intro__title__content'][contains(., '${searchText}')]`, `Span with text "${searchText}" is visible`)
@@ -183,11 +183,6 @@ module.exports = {
 
     memberResult: {
       selector: `//SPAN[contains(., '${memberFeeder.memberName}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    member2Result: {
-      selector: `//SPAN[contains(., '${memberFeeder.memberName2}')]`,
       locateStrategy: 'xpath',
     },
 

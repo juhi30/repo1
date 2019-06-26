@@ -11,7 +11,8 @@ const groupsPageCommands = {
       .pause(500)
       .waitForElementVisible('@teamOption', 'Team option is visible')
       .waitForElementVisible('@patientOption', 'Patient option is visible')
-      .waitForElementVisible('@patientAndTeamOption', 'Patient and team option is visible');
+      .waitForElementVisible('@patientAndTeamOption', 'Patient and team option is visible')
+      .waitForElementNotPresent('@nameInput', 'No Group type is selected yet');
   },
 
   clickAddGroup() {
@@ -61,14 +62,14 @@ const groupsPageCommands = {
       .verify.urlContains(url, `url contains ${url}`);
   },
 
-  checkGroupVisibilityOnList(element) {
-    return this.waitForElementVisible(element, `Created${element} Group is visible in the Group List as well.`);
+  checkGroupVisibilityOnList(groupName) {
+    return this.api.useXpath().waitForElementVisible(`//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupName}')]`, `Created ${groupName} Group is visible in the Group List as well.`);
   },
 
-  openInEditMode(group) {
-    return this.waitForElementVisible(group, `${group} is visible`)
-      .click(group)
-      .waitForElementVisible('@editGroupButton', 'Edit Group Button is visible.')
+  openInEditMode(groupName) {
+    this.api.useXpath().waitForElementVisible(`//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupName}')]`, `${groupName} is visible in the list.`)
+      .click(`//SPAN[@class='resource__intro__title__content'][text()='${groupName}']`);
+    return this.waitForElementVisible('@editGroupButton', 'Edit Group Button is visible.')
       .click('@editGroupButton');
   },
 
@@ -89,6 +90,27 @@ const groupsPageCommands = {
   selectTimezone() {
     return this.waitForElementVisible('@groupTimezone', ' Timezone list is visible')
       .setValue('@groupTimezone', channelFeeder.timeZone);
+  },
+
+  checkGroupDeletionConditions(condition) {
+    return this.api.useXpath().waitForElementVisible(`//li[contains(text(),'${condition}')]`, `${condition} is visible in the confirm delete modal.`);
+  },
+
+  closeGroupDeleteModal() {
+    return this.waitForElementVisible('@deleteGroupModalHeader', 'Group cannot be deleted modal')
+      .waitForElementVisible('@closeDeleteModalButton', 'Modal Close Button is visible.')
+      .click('@closeDeleteModalButton');
+  },
+
+  deleteGroup() {
+    return this.waitForElementVisible('@deleteGroupIcon', 'delete group icon is visible')
+      .click('@deleteGroupIcon');
+  },
+
+  confirmDelete(successMessage) {
+    return this.waitForElementVisible('@confirmDeleteButton', 'confirm delete button is visible and there is no condition group deletion left.')
+      .click('@confirmDeleteButton')
+      .waitForElementVisible(successMessage, `${successMessage} is visible.`);
   },
 };
 
@@ -184,18 +206,8 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    patientGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.patientTypeGroup}')]`,
-      locateStrategy: 'xpath',
-    },
-
     teamGroup: {
       selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${groupFeeder.teamTypeGroup}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    teamGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][text()='${groupFeeder.teamTypeGroup}']`,
       locateStrategy: 'xpath',
     },
 
@@ -206,16 +218,6 @@ module.exports = {
 
     patientAndTeamGroup_TeamInbox: {
       selector: `//*[contains(@id, 'nav-chat')]//SPAN[contains(text(),'${groupFeeder.patientAndTeamType}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    patientAndTeamGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.patientAndTeamType}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    updatedPatientAndTeamGroupListView: {
-      selector: `//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupFeeder.updatedPatientAndTeamType}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -311,6 +313,46 @@ module.exports = {
 
     followingInbox: {
       selector: '//span[@class=\'app-navigation__nav__button__text\'][text()=\'Following\']',
+      locateStrategy: 'xpath',
+    },
+
+    deleteGroupIcon: {
+      selector: '//BUTTON[@title=\'Delete Group\']//SPAN',
+      locateStrategy: 'xpath',
+    },
+
+    confirmDeleteButton: {
+      selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Delete Group\']',
+      locateStrategy: 'xpath',
+    },
+
+    successMessage: {
+      selector: '//*[@class =\'toast toast--success\']',
+      locateStrategy: 'xpath',
+    },
+
+    closeDeleteModalButton: {
+      selector: '//SPAN[contains(.,\'Close\')]',
+      locateStrategy: 'xpath',
+    },
+
+    deletePGroup: {
+      selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${groupFeeder.patientTypeGroupD}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    deletePTGroup: {
+      selector: `//*[contains(@id, 'nav-inbox')]//SPAN[contains(text(),'${groupFeeder.patientAndTeamTypeD}')]`,
+      locateStrategy: 'xpath',
+    },
+
+    deleteTGroup: {
+      selector: `//SPAN[@class='app-navigation__nav__button__text'][text()='${groupFeeder.teamTypeGroupD}']`,
+      locateStrategy: 'xpath',
+    },
+
+    deleteGroupModalHeader: {
+      selector: '//H3[contains(text(),\'Group\')]',
       locateStrategy: 'xpath',
     },
   },

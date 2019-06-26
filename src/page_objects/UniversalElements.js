@@ -148,7 +148,7 @@ const universalElementsCommands = {
 
   clickMembers() {
     return this.click('@settingsButton')
-      .waitForElementVisible('@myProfileInSettingsDropdown', 'Settings Dropdown is visible')
+      .waitForElementVisible('@membersInSettingsDropdown', 'Settings Dropdown is visible')
       .click('@membersInSettingsDropdown')
       .pause(500)
       .verify.urlContains('organization/members', 'Members page is visible')

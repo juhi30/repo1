@@ -64,4 +64,7 @@ module.exports = {
   appointmentMemberLastName: 'LastName',
   appointmentMemberUsername: 'Appointment_Member',
 
+  // Valid email to remove junk email for member creation
+  email: 'rhinogramtests',
+
 };

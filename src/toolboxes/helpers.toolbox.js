@@ -33,7 +33,11 @@ function clickDivViaText(client, text) {
     .click(`//DIV[contains(text(), '${text}')]`);
 }
 
-const randomNumber = Math.ceil(Math.random() * 1000);
+function changeDateFormat(date, timeZone, format) {
+  return moment.utc(date).tz(timeZone).format(format);
+}
+
+const randomNumber = Math.ceil(Math.random() * 10000);
 
 const theDateObj = new Date();
 const dateString = `${theDateObj.toLocaleTimeString()}, ${theDateObj.toLocaleDateString()}`;
@@ -132,4 +136,5 @@ module.exports = {
   memberCredsForConversationGrid,
   uploadFile,
   localToUtc,
+  changeDateFormat,
 };

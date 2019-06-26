@@ -19,5 +19,5 @@ import './outofoffice';
 import './threadActions';
 import './orgPreferences';
 import './bulkAction';
-import './rhinopay';
+// import './rhinopay';
 import './analytics';

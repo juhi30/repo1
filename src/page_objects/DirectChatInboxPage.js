@@ -38,6 +38,13 @@ const commands = {
       .click(templateElement);
   },
 
+  selectFromRoute(channelName) {
+    return this.waitForElementVisible('@fromRouteSelected', 'From Route is visible')
+      .click('@fromRouteSelected')
+      .waitForElementVisible('@fromRouteDropdown', 'Dropdown to select From Route is visible')
+      .setValue('@fromRouteDropdown', channelName);
+  },
+
   clickSendMessageButton() {
     return this.waitForElementVisible('@sendMessageButton', 'Send message button is enabled')
       .click('@sendMessageButton')
@@ -186,6 +193,16 @@ module.exports = {
 
     sendMessageButton: {
       selector: '//BUTTON[@title=\'Send message\']',
+      locateStrategy: 'xpath',
+    },
+
+    fromRouteSelected: {
+      selector: '//SPAN[@class=\'convo__channels__label__text\']//*[contains(text(),\'From\')]',
+      locateStrategy: 'xpath',
+    },
+
+    fromRouteDropdown: {
+      selector: '//SELECT[@name=\'from-channel\']',
       locateStrategy: 'xpath',
     },
 

@@ -15,7 +15,7 @@ describe('Member Creation test Cases for Billing Organization', () => {
     const memberDetails1 = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName1 },
       { element: '@memberLastName', value: memberFeeder.memberLastName1 },
       { element: '@memberUsername', value: memberFeeder.memberUsername1 },
-      { element: '@memberEmailAddress', value: `test_${helper.randomNumber}@gmail.com` }];
+      { element: '@memberEmailAddress', value: `${memberFeeder.email}+${helper.randomNumber}@gmail.com` }];
     const roles1 = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
     const memberDetails2 = [{ element: '@memberFirstName', value: memberFeeder.firstMemberName2 },
@@ -60,11 +60,11 @@ describe('Member Creation test Cases for Billing Organization', () => {
   });
 
   test('verifying alert message on deactivating a member', async () => {
-    await activateDeactivateMember('@selectAddonMemberFromList', '@deactivateMemberButton', '@deleteAlertMessage', '@deactivateInModal', '@updateSuccessMessage');
+    await activateDeactivateMember(memberFeeder.memberName6, '@deactivateMemberButton', '@deleteAlertMessage', '@deactivateInModal', '@updateSuccessMessage');
   });
 
   test('verifying alert message on reactivating a member', async () => {
-    await activateDeactivateMember('@selectAddonMemberFromList', '@activateMember', '@reactivateAlertMessage', '@reactivateInModal', '@updateSuccessMessage');
+    await activateDeactivateMember(memberFeeder.memberName6, '@activateMember', '@reactivateAlertMessage', '@reactivateInModal', '@updateSuccessMessage');
   });
 
   test('logout as CCR', async () => {

@@ -87,8 +87,8 @@ const contactsCommands = {
   },
 
   selectMessageTab(messageTab) {
-    return this.api.useXpath().waitForElementVisible(`//*[@class='button__text-wrapper'][contains(text(),'${messageTab}')]`, `${messageTab} is visible`)
-      .click(`//BUTTON[@class='button--reset convo__footer__nav__item']//*[contains(text(),'${messageTab}')]`);
+    return this.api.useXpath().waitForElementVisible(`//SPAN[@class='button__text-wrapper'][contains(text(),'${messageTab}')]`, `${messageTab} is visible`)
+      .click(`//SPAN[@class='button__text-wrapper'][contains(text(),'${messageTab}')]`);
   },
 
   getInboundMessage() {

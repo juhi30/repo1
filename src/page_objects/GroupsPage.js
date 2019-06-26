@@ -67,7 +67,7 @@ const groupsPageCommands = {
   },
 
   openInEditMode(groupName) {
-    this.api.useXpath().waitForElementVisible(`//SPAN[@class='resource__intro__title__content'][contains(text(),'${groupName}')]`, `${groupName} is visible in the list.`)
+    this.api.useXpath().waitForElementVisible(`//SPAN[@class='resource__intro__title__content'][text()='${groupName}']`, `${groupName} is visible in the list.`)
       .click(`//SPAN[@class='resource__intro__title__content'][text()='${groupName}']`);
     return this.waitForElementVisible('@editGroupButton', 'Edit Group Button is visible.')
       .click('@editGroupButton');

@@ -50,7 +50,6 @@ function sleep(ms) {
 
 describe('appt reminder tests', () => {
   jest.setTimeout(30000);
-  console.log('IN HERE!!!!');
 
   // //////////// log in as ccr and create org ----------------------
   beforeAll(async () => {
@@ -151,14 +150,14 @@ describe('appt reminder tests', () => {
         observesDst: true,
         details: {
           phone: {
-            value: process.env.DEV_PROVISIONED_DEFAULT_BW_CHANNEL_NUMBER,
+            value: process.env.PROVISIONED_DEFAULT_BW_CHANNEL_NUMBER,
             typeId: 3,
           },
           forwardingPhone: {
             value: '+15555555555',
             typeId: 3,
           },
-          bandwidthNumberId: process.env.DEV_PROVISIONED_DEFAULT_BW_NUMBER_ID,
+          bandwidthNumberId: process.env.PROVISIONED_DEFAULT_BW_NUMBER_ID,
         },
         tagIds: [1, 2],
         route: {
@@ -180,7 +179,7 @@ describe('appt reminder tests', () => {
           dirtyZip: '29405',
         },
       };
-      await rhinoapi.postOffice(officeData, process.env.APPOINTMENT_CCR_COOKIE);
+      const office = await rhinoapi.postOffice(officeData, process.env.APPOINTMENT_CCR_COOKIE);
 
       const updatedOrgData = {
         defaultChannelId: defaultOrgSmsChannel.id,
@@ -192,6 +191,10 @@ describe('appt reminder tests', () => {
           organizationId: orgId,
           appointmentRemindersTemplate: 'you have an appointment coming up!',
         },
+        offices: [{
+          id: office.id,
+          channelId: defaultOrgSmsChannel.id,
+        }],
       };
       // patch org with new default channel that was created
       await rhinoapi.patchOrg(updatedOrgData, process.env.APPOINTMENT_CCR_COOKIE);
@@ -202,15 +205,15 @@ describe('appt reminder tests', () => {
   });
 
   // DELETE MY NEW ORG HERE
-  // afterAll(async () => {
-  //   try {
-  //     await rhinoapi.archiveOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE, 1); // 1 passed in to skip deprovisioning
-  //     await rhinoapi.deleteOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
-  //   } catch (err) {
-  //     // eslint-disable-next-line no-console
-  //     console.log('===error on after all orgSetupAndTeardown=======', err);
-  //   }
-  // });
+  afterAll(async () => {
+    try {
+      await rhinoapi.archiveOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE, 1); // 1 passed in to skip deprovisioning
+      await rhinoapi.deleteOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log('===error on after all orgSetupAndTeardown=======', err);
+    }
+  });
 
   test('create patients', async () => {
     // user with 1 phone number and is owner - 1 appt

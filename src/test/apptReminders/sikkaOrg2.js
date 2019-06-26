@@ -50,7 +50,7 @@ function sleep(ms) {
 
 describe('appt reminder tests', () => {
   jest.setTimeout(30000);
-
+  console.log('JIBBER JABBER');
   // //////////// log in as ccr and create org ----------------------
   beforeAll(async () => {
     try {
@@ -547,6 +547,8 @@ describe('appt reminder tests', () => {
     };
 
     rhinoapi.postAppointmentReminderMessage(message).then((res) => {
+      console.log('RES data in 1st one', res.data);
+      console.log('res.data.pipes[0]', res.data.pipes[0]);
       expect(res.data.sender.firstName).toBe('Rhino'); // message was sent via systemUser
       expect(res.data.sender.lastName).toBe('System');
       expect(res.data.sender.systemUser).toBe(1);
@@ -558,7 +560,7 @@ describe('appt reminder tests', () => {
       expect(res.data.pipes[0].channel.typeId).toBe(defaultOrgLandlineChannel.typeId);
       expect(res.data.pipes[0].channel.landlineChannelId).toBe(defaultOrgLandlineChannel.details.id); // sent the appt out on the correct default BW channel for the org
       expect(res.data.pipes[0].channel.organizationId).toBe(orgId);
-      expect(res.data.pipes[0].channel.landlineChannel.accessToken).toBe(defaultOrgLandlineChannel.details.accessToken);
+      expect(res.data.pipes[0].channel.landlineChannel.sessionId).toBe(defaultOrgLandlineChannel.details.accessToken);
       expect(res.data.pipes[0].channel.routeUser.id).toBe(member.id);
       done();
     });
@@ -620,7 +622,7 @@ describe('appt reminder tests', () => {
       expect(res.data.pipes[0].channel.typeId).toBe(defaultOrgLandlineChannel.typeId);
       expect(res.data.pipes[0].channel.landlineChannelId).toBe(defaultOrgLandlineChannel.details.id); // sent the appt out on the correct default BW channel for the org
       expect(res.data.pipes[0].channel.organizationId).toBe(orgId);
-      expect(res.data.pipes[0].channel.landlineChannel.accessToken).toBe(defaultOrgLandlineChannel.details.accessToken);
+      expect(res.data.pipes[0].channel.landlineChannel.sessionId).toBe(defaultOrgLandlineChannel.details.accessToken);
       expect(res.data.pipes[0].channel.routeUser.id).toBe(member.id);
       done();
     });
@@ -652,7 +654,7 @@ describe('appt reminder tests', () => {
       expect(res.data.pipes[0].channel.typeId).toBe(defaultOrgLandlineChannel.typeId);
       expect(res.data.pipes[0].channel.landlineChannelId).toBe(defaultOrgLandlineChannel.details.id); // sent the appt out on the correct default BW channel for the org
       expect(res.data.pipes[0].channel.organizationId).toBe(orgId);
-      expect(res.data.pipes[0].channel.landlineChannel.accessToken).toBe(defaultOrgLandlineChannel.details.accessToken);
+      expect(res.data.pipes[0].channel.landlineChannel.sessionId).toBe(defaultOrgLandlineChannel.details.accessToken);
       expect(res.data.pipes[0].channel.routeUser.id).toBe(member.id);
       done();
     });
@@ -683,7 +685,7 @@ describe('appt reminder tests', () => {
       expect(res.data.pipes[0].channel.typeId).toBe(defaultOrgLandlineChannel.typeId);
       expect(res.data.pipes[0].channel.landlineChannelId).toBe(defaultOrgLandlineChannel.details.id); // sent the appt out on the correct default BW channel for the org
       expect(res.data.pipes[0].channel.organizationId).toBe(orgId);
-      expect(res.data.pipes[0].channel.landlineChannel.accessToken).toBe(defaultOrgLandlineChannel.details.accessToken);
+      expect(res.data.pipes[0].channel.landlineChannel.sessionId).toBe(defaultOrgLandlineChannel.details.accessToken);
       expect(res.data.pipes[0].channel.routeUser.id).toBe(member.id);
       done();
     });
@@ -715,7 +717,7 @@ describe('appt reminder tests', () => {
       expect(res.data.pipes[0].channel.typeId).toBe(defaultOrgLandlineChannel.typeId);
       expect(res.data.pipes[0].channel.landlineChannelId).toBe(defaultOrgLandlineChannel.details.id); // sent the appt out on the correct default BW channel for the org
       expect(res.data.pipes[0].channel.organizationId).toBe(orgId);
-      expect(res.data.pipes[0].channel.landlineChannel.accessToken).toBe(defaultOrgLandlineChannel.details.accessToken);
+      expect(res.data.pipes[0].channel.landlineChannel.sessionId).toBe(defaultOrgLandlineChannel.details.accessToken);
       expect(res.data.pipes[0].channel.routeUser.id).toBe(member.id);
       done();
     });
@@ -746,7 +748,7 @@ describe('appt reminder tests', () => {
       expect(res.data.pipes[0].channel.typeId).toBe(defaultOrgLandlineChannel.typeId);
       expect(res.data.pipes[0].channel.landlineChannelId).toBe(defaultOrgLandlineChannel.details.id); // sent the appt out on the correct default BW channel for the org
       expect(res.data.pipes[0].channel.organizationId).toBe(orgId);
-      expect(res.data.pipes[0].channel.landlineChannel.accessToken).toBe(defaultOrgLandlineChannel.details.accessToken);
+      expect(res.data.pipes[0].channel.landlineChannel.sessionId).toBe(defaultOrgLandlineChannel.details.accessToken);
       expect(res.data.pipes[0].channel.routeUser.id).toBe(member.id);
       done();
     });

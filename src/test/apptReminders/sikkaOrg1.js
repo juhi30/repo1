@@ -3,6 +3,7 @@ import { Lambda } from 'aws-sdk';
 import * as rhinoapi from '../../services/Rhinoapi.service';
 import * as rhinoliner from '../../services/Rhinoliner.service';
 import * as helpers from '../../toolboxes/helpers.toolbox';
+import * as messengerbot from '../../services/MessengerBot.service';
 
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
@@ -150,14 +151,14 @@ describe('appt reminder tests', () => {
         observesDst: true,
         details: {
           phone: {
-            value: process.env.DEV_PROVISIONED_DEFAULT_BW_CHANNEL_NUMBER,
+            value: process.env.PROVISIONED_DEFAULT_BW_CHANNEL_NUMBER,
             typeId: 3,
           },
           forwardingPhone: {
             value: '+15555555555',
             typeId: 3,
           },
-          bandwidthNumberId: process.env.DEV_PROVISIONED_DEFAULT_BW_NUMBER_ID,
+          bandwidthNumberId: process.env.PROVISIONED_DEFAULT_BW_NUMBER_ID,
         },
         tagIds: [1, 2],
         route: {
@@ -483,23 +484,74 @@ describe('appt reminder tests', () => {
     createdAppointment5 = response.data;
   });
 
-  test('find scheduled appointments ', async (done) => {
-    await sleep(10000);
-    rhinoapi.getScheduledAppointments(orgId).then(() => {
-      done();
-    });
-  });
-  test('find appointments reminders for org', async (done) => {
-    await sleep(10000);
-    rhinoapi.getAppointmentReminders(orgId).then(() => {
-      done();
-    });
-  });
+  // test('find scheduled appointments ', async (done) => {
+  //   await sleep(10000);
+  //   rhinoapi.getScheduledAppointments(orgId).then(() => {
+  //     done();
+  //   });
+  // });
+  // test('find appointments reminders for org', async (done) => {
+  //   await sleep(10000);
+  //   rhinoapi.getAppointmentReminders(orgId).then(() => {
+  //     done();
+  //   });
+  // });
 
   // test('get appt reminders', async () => {
   //   const apptRem = await rhinoapi.getAppointmentReminders(orgId);
   //   console.log('appt rREMINDERZZZ====', apptRem);
   // });
+
+  test('configure reply handler for createdPatient1', (done) => {
+    const config = {
+      number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER,
+      config: { handler: 'reply', config: ['1'] },
+    };
+    messengerbot.configureHandler(config).then(() => {
+      done();
+    });
+  });
+
+  test('configure reply handler for createdPatient3', (done) => {
+    const config = {
+      number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_2,
+      config: { handler: 'reply', config: ['1'] },
+    };
+    messengerbot.configureHandler(config).then(() => {
+      done();
+    });
+  });
+
+  test('configure 2nd reply handler for createdPatient3', (done) => {
+    const config = {
+      number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_3,
+      config: { handler: 'reply', config: ['1'] },
+    };
+    messengerbot.configureHandler(config).then(() => {
+      done();
+    });
+  });
+
+  test('configure reply handler for createdPatient5', (done) => {
+    const config = {
+      number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_5,
+      config: { handler: 'reply', config: ['1'] },
+    };
+    messengerbot.configureHandler(config).then(() => {
+      done();
+    });
+  });
+
+  test('configure reply handler for invalidPhonePatient6', (done) => {
+    const config = {
+      number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_INVALID,
+      config: { handler: 'reply', config: ['1'] },
+    };
+    messengerbot.configureHandler(config).then(() => {
+      done();
+    });
+  });
+
 
   test('handle appointments', async () => {
     await sleep(10000);

@@ -21,7 +21,6 @@ export async function getScheduledAppointments(orgId) {
 }
 
 export async function getAppointmentReminders(orgId) {
-  console.log('ORG ID ', orgId);
   return axios.get(`${process.env.API_BASE_URL}/rhinocron/appointments/reminders/${orgId}`,
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }

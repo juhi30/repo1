@@ -1,9 +1,10 @@
-// CCR Flow
+// // CCR Flow
 import './orgSetupAndTeardown';
+//
+// // CCR + Member flow
 import './member';
-
-// CCR + Member flow
 import './orgProfile';
+import './channels';
 
 // Member Flow
 import './appointmentReminders';

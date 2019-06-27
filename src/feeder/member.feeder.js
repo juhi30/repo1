@@ -63,5 +63,4 @@ module.exports = {
   appointmentMemberFirstName: 'Appointment_Member',
   appointmentMemberLastName: 'LastName',
   appointmentMemberUsername: 'Appointment_Member',
-
 };

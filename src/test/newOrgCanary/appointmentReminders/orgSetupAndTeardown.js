@@ -20,10 +20,10 @@ beforeAll(async () => {
   try {
     // Increase max listeners for long running test
     EventEmitter.defaultMaxListeners = 100;
-    await ccrLogin(loginFeeder.appointmentCcrLogin, loginFeeder.appointmentCcrPassword);
+    await ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
     await organizationSetUp(organizationDetails, 'APPOINTMENT_ORG_ID');
   } catch (error) {
-    logger.info(error, '===error on beforeAll (AppointmentRemindersSuite) orgSetupAndTearDown=====');
+    logger.info(error, '===error on beforeAll (AppointmentManagerSuite) orgSetupAndTearDown=====');
   }
 });
 
@@ -38,6 +38,6 @@ afterAll(async (done) => {
     // Reset max listeners to the node.js default once the test is complete.
     EventEmitter.defaultMaxListeners = 10;
     done(error);
-    logger.error(error, '===error on afterAll (AppointmentRemindersSuite) orgSetupAndTeardown=======');
+    logger.error(error, '===error on afterAll (AppointmentManagerSuite) orgSetupAndTeardown=======');
   }
 });

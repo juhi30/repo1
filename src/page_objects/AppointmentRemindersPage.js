@@ -1,12 +1,8 @@
 const appointmentRemindersCommands = {
 
-  pause(time) {
-    this.api.pause(time);
-    return this;
-  },
-
-  verifyMenuItem() {
-    return this.waitForElementVisible('@appointmentRemindersMenuItem', 'Appointment Reminders option is visible in the Settings Menu items');
+  openAppointmentReminders() {
+    return this.waitForElementVisible('@appointmentRemindersMenuItem', 'Appointment reminder option is visible in the Setting menu')
+      .click('@appointmentRemindersMenuItem');
   },
 
 };

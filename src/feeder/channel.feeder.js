@@ -33,4 +33,7 @@ module.exports = {
   // New phone type Channel for rhinopay new canary
   rhinopayForwardingNumber: '(454) 657-8141',
   rhinopayChannelName: 'Rhinopay Test Channel ',
+
+  // Channel for Appointment Manager Org
+  aptChannelName: 'Appointment Channel',
 };

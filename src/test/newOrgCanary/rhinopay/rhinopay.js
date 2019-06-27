@@ -30,7 +30,7 @@ describe('Rhinopay: New Canary Tests', () => {
       memberFirstName: memberFeeder.rhinopayMemberFirstName,
     };
 
-    await channelToolbox.createChannel('@newPhoneType', channelData, '@memberResult');
+    await channelToolbox.createChannel('@newPhoneType', channelData, memberFeeder.rhinopayMemberFirstName);
   });
 
   test('Edit Organization Profile as CCR', async () => {
@@ -43,7 +43,8 @@ describe('Rhinopay: New Canary Tests', () => {
       .createOrgProfileForm('@paymentApiUsernameInput', process.env.RHINOPAY_API_USERNAME)
       .createOrgProfileForm('@paymentApiPasswordInput', process.env.RHINOPAY_API_PASSWORD)
       .createOrgProfileForm('@paymentGatewayIdInput', process.env.RHINOPAY_GATEWAY_ID)
-      .clickSaveProfile();
+      .clickSaveProfile()
+      .pause(1000);
   });
 
   test('logout as CCR', async () => {

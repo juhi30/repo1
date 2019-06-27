@@ -71,4 +71,7 @@ module.exports = {
   rhinopayMemberLastName: 'LastName',
   rhinopayMemberUsername: 'Rhinopay_Member',
 
+  // Valid email to remove junk email for member creation
+  email: 'rhinogramtests',
+
 };

@@ -33,7 +33,7 @@ describe('Automated Tests: Channels', () => {
       memberFirstName: memberFeeder.memberFirstName,
     };
 
-    await channelToolbox.createChannel('@newPhoneType', channelData, '@memberResult');
+    await channelToolbox.createChannel('@newPhoneType', channelData, memberFeeder.memberName);
   });
 
   test('Channel Create - Rhinosecure channel with member route', async () => {
@@ -44,7 +44,7 @@ describe('Automated Tests: Channels', () => {
       memberFirstName: memberFeeder.memberFirstName,
     };
 
-    await channelToolbox.createChannel('@rhinoSecureType', channelData, '@memberResult');
+    await channelToolbox.createChannel('@rhinoSecureType', channelData, memberFeeder.memberName);
   });
 
   test('Channel Edit - New phone type', async () => {
@@ -54,7 +54,7 @@ describe('Automated Tests: Channels', () => {
     };
     const enableToggles = ['@availabilityHoursToggle', '@webFormAddOnnToggle', '@channelForwardingToggle'];
 
-    await channelToolbox.editChannel('@channelName', channelData, enableToggles);
+    await channelToolbox.editChannel(channelFeeder.channelName, channelData, enableToggles);
   });
 
   test('Channel Edit - Rhinosecure', async () => {
@@ -64,17 +64,17 @@ describe('Automated Tests: Channels', () => {
     };
     const enableToggles = ['@availabilityHoursToggle', '@channelForwardingToggle'];
 
-    await channelToolbox.editChannel('@rhinoSecureChannelTitle', channelData, enableToggles);
+    await channelToolbox.editChannel(channelFeeder.rhinoChannelName, channelData, enableToggles);
   });
 
   test('Tags creation for newPhone type and Rhino secure type', async () => {
-    await channelToolbox.tagsCreationByChannelEdit('@updatedChannelTitle', tagsFeeder.tagNameNewPhoneType);
+    await channelToolbox.tagsCreationByChannelEdit(channelFeeder.newChannelName, tagsFeeder.tagNameNewPhoneType);
 
-    await channelToolbox.tagsCreationByChannelEdit('@updatedRhinoSecureChannelTitle', tagsFeeder.tagNameRhinoType);
+    await channelToolbox.tagsCreationByChannelEdit(channelFeeder.rhinoChannelNewName, tagsFeeder.tagNameRhinoType);
   });
 
   test('validation on Web Form fields', async () => {
-    await channelToolbox.validateWebFormFieldsByChannelEdit('@updatedChannelTitle');
+    await channelToolbox.validateWebFormFieldsByChannelEdit(channelFeeder.newChannelName);
   });
 
   test('Updation on Web Form fields', async () => {
@@ -87,12 +87,12 @@ describe('Automated Tests: Channels', () => {
       { element: '@callToActionButton', value: channelFeeder.callToActionButton },
       { element: '@confirmationText', value: channelFeeder.confirmationText }];
 
-    await channelToolbox.updateWebFormFieldsByChannelEdit('@updatedChannelTitle', webFormFields);
+    await channelToolbox.updateWebFormFieldsByChannelEdit(channelFeeder.newChannelName, webFormFields);
   });
 
   // test('Channel Deletion', async () => {
-  //   await channelToolbox.deleteChannel('@updatedChannelTitle');
-  //   await channelToolbox.deleteChannel('@updatedRhinoSecureChannelTitle');
+  //   await channelToolbox.deleteChannel(channelFeeder.newChannelName);
+  //   await channelToolbox.deleteChannel(channelFeeder.rhinoChannelNewName);
   // });
 
   test('logout as CCR', async () => {

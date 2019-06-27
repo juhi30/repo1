@@ -11,4 +11,18 @@ module.exports = {
   newGroupPurpose: 'Group Automation Testing',
   patientGroupChannel: 'patient Group Channel',
   patientAndTeamGroupChannel: 'patient and Team Channel Group',
+
+  // conditions for Group deletion - not yet used but will be used in future
+  activeChannelMessage: 'This group is associated with an active channel.',
+  assignedThreadsMessage: 'Some threads are assigned to this thread.',
+  contactForwardingMessage: 'This group is associated with contact as forwarding',
+  conversationHistoryMessage: 'Some threads are assigned to this thread.',
+
+  // for Deletion
+  patientTypeGroupD: 'P Group',
+  teamTypeGroupD: 'T Group',
+  patientAndTeamTypeD: 'PatientD and Team Group',
+  pGroupChannel: 'deleteP Group Channel',
+  ptGroupChannel: 'deletePT Channel Group',
+
 };

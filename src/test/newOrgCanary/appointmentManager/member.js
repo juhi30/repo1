@@ -8,7 +8,7 @@ describe('Members Page', () => {
     const memberDetails = [{ element: '@memberFirstName', value: memberFeeder.appointmentMemberFirstName },
       { element: '@memberLastName', value: memberFeeder.appointmentMemberLastName },
       { element: '@memberUsername', value: memberFeeder.appointmentMemberUsername },
-      { element: '@memberEmailAddress', value: `test_${helper.randomNumber}@gmail.com` }];
+      { element: '@memberEmailAddress', value: `${memberFeeder.email}+${helper.randomNumber}@gmail.com` }];
     const roles = ['@adminRole', '@memberRole'];
 
     await createMember(memberDetails, roles, 'APPOINTMENT_MEMBER_TEMP_PASSWORD');

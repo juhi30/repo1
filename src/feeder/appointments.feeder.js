@@ -1,27 +1,27 @@
 module.exports = {
 
   // Details for creating patients with appointments
-  appointmentExternalId: '34692356',
   totalAppointmentsCreated: '3',
 
   // Patient 1
-  patientExternalId_1: '789',
-  patientFirstName_1: 'Appointment_1',
+  patientExternalId: '173',
+  patientFirstName: 'Appointment',
   patientLastName: 'Appointmentson',
-  birthDay_1: '1960-06-07',
-  contactNumber_1: '5598934904',
+  birthDay: '1960-06-07',
+  contactNumber: '559893490',
+  appointmentExternalId: '34468356',
 
   // Patient 2
-  patientExternalId_2: '456',
-  patientFirstName_2: 'Appointment_2',
+  patientExternalId_2: '249',
+  patientFirstName_2: 'BulkAppointment',
   birthDay_2: '1970-07-08',
-  contactNumber_2: '5576534946',
+  contactNumber_2: '557653494',
+  appointmentExternalId_2: '34499356',
 
-  // Patient 3
-  patientExternalId_3: '258',
-  patientFirstName_3: 'Appointment_3',
-  birthDay_3: '1975-05-09',
-  contactNumber_3: '5576534259',
+  // Used for UI tests of the appointments created
+  firstPatientName: 'Appointment_1',
+  secondPatientName: 'Appointment_2',
+  thirdPatientName: 'Appointment_3',
 
   // Date Picker Options
   today: 'Today',

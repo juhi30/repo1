@@ -14,6 +14,6 @@ describe('Appointment Manager Tests: Channels', () => {
       memberFirstName: memberFeeder.appointmentMemberName,
     };
 
-    await channelToolbox.createChannel('@newPhoneType', channelData, '@apptMemberResult');
+    await channelToolbox.createChannel('@newPhoneType', channelData, memberFeeder.appointmentMemberName);
   });
 });

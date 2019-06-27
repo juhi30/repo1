@@ -153,7 +153,8 @@ describe('appt reminder tests', () => {
             value: process.env.PROVISIONED_DEFAULT_ZW_CHANNEL_NUMBER,
             typeId: 3,
           },
-          accessToken: '1234',
+          accessToken: process.env.PROVISIONED_DEFAULT_ZW_CHANNEL_SESSION_ID,
+          password: process.env.PROVISIONED_DEFAULT_ZW_CHANNEL_PASSWORD,
         },
         tagIds: [1, 2],
         route: {
@@ -547,8 +548,6 @@ describe('appt reminder tests', () => {
     };
 
     rhinoapi.postAppointmentReminderMessage(message).then((res) => {
-      console.log('RES data in 1st one', res.data);
-      console.log('res.data.pipes[0]', res.data.pipes[0]);
       expect(res.data.sender.firstName).toBe('Rhino'); // message was sent via systemUser
       expect(res.data.sender.lastName).toBe('System');
       expect(res.data.sender.systemUser).toBe(1);

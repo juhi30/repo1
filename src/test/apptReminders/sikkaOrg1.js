@@ -190,15 +190,15 @@ describe('appt reminder tests', () => {
   });
 
   // DELETE MY NEW ORG HERE
-  afterAll(async () => {
-    try {
-      await rhinoapi.archiveOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE, 1); // 1 passed in to skip deprovisioning
-      await rhinoapi.deleteOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log('===error on after all orgSetupAndTeardown=======', err);
-    }
-  });
+  // afterAll(async () => {
+  //   try {
+  //     await rhinoapi.archiveOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE, 1); // 1 passed in to skip deprovisioning
+  //     await rhinoapi.deleteOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
+  //   } catch (err) {
+  //     // eslint-disable-next-line no-console
+  //     console.log('===error on after all orgSetupAndTeardown=======', err);
+  //   }
+  // });
 
   test('create patients', async () => {
     // user with 1 phone number and is owner - 1 appt
@@ -512,66 +512,66 @@ describe('appt reminder tests', () => {
     });
   });
 
-  test('configure reply handler for createdPatient3', (done) => {
-    const config = {
-      number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_2,
-      config: { handler: 'reply', config: ['1'] },
-    };
-    messengerbot.configureHandler(config).then(() => {
-      done();
-    });
-  });
+  // test('configure reply handler for createdPatient3', (done) => {
+  //   const config = {
+  //     number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_2,
+  //     config: { handler: 'reply', config: ['1'] },
+  //   };
+  //   messengerbot.configureHandler(config).then(() => {
+  //     done();
+  //   });
+  // });
 
-  test('configure 2nd reply handler for createdPatient3', (done) => {
-    const config = {
-      number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_3,
-      config: { handler: 'reply', config: ['1'] },
-    };
-    messengerbot.configureHandler(config).then(() => {
-      done();
-    });
-  });
+  // test('configure 2nd reply handler for createdPatient3', (done) => {
+  //   const config = {
+  //     number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_3,
+  //     config: { handler: 'reply', config: ['1'] },
+  //   };
+  //   messengerbot.configureHandler(config).then(() => {
+  //     done();
+  //   });
+  // });
 
-  test('configure reply handler for createdPatient5', (done) => {
-    const config = {
-      number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_5,
-      config: { handler: 'reply', config: ['1'] },
-    };
-    messengerbot.configureHandler(config).then(() => {
-      done();
-    });
-  });
+  // test('configure reply handler for createdPatient5', (done) => {
+  //   const config = {
+  //     number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_5,
+  //     config: { handler: 'reply', config: ['1'] },
+  //   };
+  //   messengerbot.configureHandler(config).then(() => {
+  //     done();
+  //   });
+  // });
 
-  test('configure reply handler for invalidPhonePatient6', (done) => {
-    const config = {
-      number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_INVALID,
-      config: { handler: 'reply', config: ['1'] },
-    };
-    messengerbot.configureHandler(config).then(() => {
-      done();
-    });
-  });
+  // test('configure reply handler for invalidPhonePatient6', (done) => {
+  //   const config = {
+  //     number: process.env.PATIENT_BANDWIDTH_NUMBER_APPOINTMENT_REMINDER_INVALID,
+  //     config: { handler: 'reply', config: ['1'] },
+  //   };
+  //   messengerbot.configureHandler(config).then(() => {
+  //     done();
+  //   });
+  // });
 
 
-  test('handle appointments', async () => {
-    await sleep(10000);
+  // test('handle appointments', async () => {
+  //   await sleep(10000);
 
-    const params = {
-      // ClientContext: 'rhinocron',
-      FunctionName: 'rhinocron-develop-sendReminders',
-      InvocationType: 'RequestResponse',
-      LogType: 'Tail',
-    //   Payload: `{
-    //     "glossary": {
-    //         "title": "example glossary",
-    //     }
-    // }`,
-    };
+  //   const params = {
+  //     // ClientContext: 'rhinocron',
+  //     FunctionName: 'rhinocron-develop-sendReminders',
+  //     InvocationType: 'RequestResponse',
+  //     LogType: 'Tail',
+  //   //   Payload: `{
+  //   //     "glossary": {
+  //   //         "title": "example glossary",
+  //   //     }
+  //   // }`,
+  //   };
 
-    const lambda = new Lambda();
-    const data = await lambda.invoke(params).promise();
-    console.log(data);
-  });
+  //   const lambda = new Lambda();
+  //   const data = await lambda.invoke(params).promise();
+  //   console.log(data);
+  // });
 
   // patient 1 only has one phone and 1 appt, 1 message should go out
   test('send appointment reminder message with unconfirm to createdPatient1', (done) => {

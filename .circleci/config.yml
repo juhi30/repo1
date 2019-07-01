@@ -100,13 +100,22 @@ workflows:
     jobs:
       - rhinomatic
 
-  merge:
+  testDevOnMerge:
     jobs:
       - rhinomatic:
+          context: Dev
           filters:
             branches:
               only:
                 - develop
+
+  testStageOnMerge:
+    jobs:
+      - rhinomatic:
+          context: Stage
+          filters:
+            branches:
+              only:
                 - staging
 
   general:

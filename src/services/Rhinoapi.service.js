@@ -58,6 +58,19 @@ export async function postProvisionedChannel(data, cookie) {
   return response.data;
 }
 
+export async function patchApptRemindersToggledRemindersTimestamp(data, cookie) {
+  const response = await axios.patch(`${process.env.API_BASE_URL}/organization/automatedMessages/apptRemindersTimestamps`,
+    data,
+    {
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
 export async function postOffice(data, cookie) {
   const response = await axios.post(`${process.env.API_BASE_URL}/offices`,
     data,

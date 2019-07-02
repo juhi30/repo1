@@ -7,7 +7,14 @@ import * as messengerbot from '../../services/MessengerBot.service';
 
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
+const USER_TYPE_MEMBER = 19;
 const TYPE_EVENT_APPT_REMINDER = 53;
+const TYPE_INTEGRATION_PARTNER_ID = 71; // sikka
+const TYPE_CHANNEL_SMS = 10;
+const TYPE_APPT_STATUS_UNCONFIRMED = 81;
+const TYPE_APPT_STATUS_CONFIRMED = 82;
+const TYPE_APPT_STATUS_CANCELLED = 83;
+const TYPE_APPT_EVENT_REMINDER = 65;
 
 let orgId;
 let member;
@@ -73,6 +80,8 @@ describe('appt reminder tests', () => {
         contactEmail: '',
         billingChecked: true,
         selectedBillingOpt: 'newCust',
+        integration: true,
+        integrationPartnerTypeId: TYPE_INTEGRATION_PARTNER_ID,
       };
 
       const org = await rhinoapi.createOrganization(orgData, process.env.APPOINTMENT_CCR_COOKIE);
@@ -134,7 +143,7 @@ describe('appt reminder tests', () => {
         routedChannels: [],
         suffixId: '',
         tagIds: [],
-        typeId: 19,
+        typeId: USER_TYPE_MEMBER,
         username: `testmember_${orgId}`,
         password: '4419kJig',
       };
@@ -146,17 +155,17 @@ describe('appt reminder tests', () => {
       const channelData = {
         name: 'new BW channel for appt testing',
         purpose: 'porpoise',
-        typeId: 10, // sms channel type
+        typeId: TYPE_CHANNEL_SMS,
         timeZoneId: 1,
         observesDst: true,
         details: {
           phone: {
             value: process.env.PROVISIONED_DEFAULT_BW_CHANNEL_NUMBER,
-            typeId: 3,
+            typeId: TYPE_PHONE_CELL,
           },
           forwardingPhone: {
             value: '+15555555555',
-            typeId: 3,
+            typeId: TYPE_PHONE_CELL,
           },
           bandwidthNumberId: process.env.PROVISIONED_DEFAULT_BW_NUMBER_ID,
         },
@@ -174,8 +183,8 @@ describe('appt reminder tests', () => {
         defaultChannelId: defaultOrgSmsChannel.id,
         automatedMessages: {
           appointmentReminders: true,
-          appointmentScheduled: false,
-          appointmentRemindersDeliveryHours: 24,
+          appointmentScheduled: true,
+          appointmentRemindersDeliveryHours: 48,
           channelId: defaultOrgSmsChannel.id,
           organizationId: orgId,
           appointmentRemindersTemplate: 'you have an appointment coming up!',
@@ -183,6 +192,18 @@ describe('appt reminder tests', () => {
       };
       // patch org with new default channel that was created
       await rhinoapi.patchOrg(updatedOrgData, process.env.APPOINTMENT_CCR_COOKIE);
+
+      // get time for appt reminder toggled timestamp (has to be in the past)
+      const toggleDate = new Date();
+      toggleDate.setMinutes(toggleDate.getMinutes() - 30);
+      toggleDate.setDate(toggleDate.getDate() - 1);
+
+      const timestampData = {
+        apptRemindersToggledOnTimestamp: toggleDate,
+        appointmentScheduledTimestamp: toggleDate,
+      };
+      // has to be manually updated and set to before the appts are made
+      await rhinoapi.patchApptRemindersToggledRemindersTimestamp(timestampData, process.env.APPOINTMENT_CCR_COOKIE);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log('===error on before all orgSetupAndTeardown=======', err);
@@ -190,15 +211,15 @@ describe('appt reminder tests', () => {
   });
 
   // DELETE MY NEW ORG HERE
-  // afterAll(async () => {
-  //   try {
-  //     await rhinoapi.archiveOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE, 1); // 1 passed in to skip deprovisioning
-  //     await rhinoapi.deleteOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
-  //   } catch (err) {
-  //     // eslint-disable-next-line no-console
-  //     console.log('===error on after all orgSetupAndTeardown=======', err);
-  //   }
-  // });
+  afterAll(async () => {
+    try {
+      await rhinoapi.archiveOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE, 1); // 1 passed in to skip deprovisioning
+      await rhinoapi.deleteOrganization(orgId, process.env.APPOINTMENT_CCR_COOKIE);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log('===error on after all orgSetupAndTeardown=======', err);
+    }
+  });
 
   test('create patients', async () => {
     // user with 1 phone number and is owner - 1 appt
@@ -355,7 +376,7 @@ describe('appt reminder tests', () => {
       messageType: 'APPOINTMENT',
       appointmentExternalId: appointmentExternalId1,
       deleted: false,
-      appointmentStatusTypeId: 81,
+      appointmentStatusTypeId: TYPE_APPT_STATUS_UNCONFIRMED,
       orgId,
     };
     await rhinoliner.pushtoqueue(appointment);
@@ -384,7 +405,7 @@ describe('appt reminder tests', () => {
       messageType: 'APPOINTMENT',
       appointmentExternalId: appointmentExternalId2,
       deleted: false,
-      appointmentStatusTypeId: 81,
+      appointmentStatusTypeId: TYPE_APPT_STATUS_UNCONFIRMED,
       orgId,
     };
     await rhinoliner.pushtoqueue(appointment);
@@ -413,7 +434,7 @@ describe('appt reminder tests', () => {
       messageType: 'APPOINTMENT',
       appointmentExternalId: appointmentExternalId3,
       deleted: false,
-      appointmentStatusTypeId: 81,
+      appointmentStatusTypeId: TYPE_APPT_STATUS_UNCONFIRMED,
       orgId,
     };
     await rhinoliner.pushtoqueue(appointment);
@@ -442,7 +463,7 @@ describe('appt reminder tests', () => {
       messageType: 'APPOINTMENT',
       appointmentExternalId: appointmentExternalId4,
       deleted: false,
-      appointmentStatusTypeId: 81,
+      appointmentStatusTypeId: TYPE_APPT_STATUS_UNCONFIRMED,
       orgId,
     };
     await rhinoliner.pushtoqueue(appointment);
@@ -471,7 +492,7 @@ describe('appt reminder tests', () => {
       messageType: 'APPOINTMENT',
       appointmentExternalId: appointmentExternalId5,
       deleted: false,
-      appointmentStatusTypeId: 81,
+      appointmentStatusTypeId: TYPE_APPT_STATUS_UNCONFIRMED,
       orgId,
     };
     await rhinoliner.pushtoqueue(appointment);
@@ -497,10 +518,10 @@ describe('appt reminder tests', () => {
   //   });
   // });
 
-  // test('get appt reminders', async () => {
-  //   const apptRem = await rhinoapi.getAppointmentReminders(orgId);
-  //   console.log('appt rREMINDERZZZ====', apptRem);
-  // });
+  test('get appt reminders', async () => {
+    const apptRem = await rhinoapi.getAppointmentReminders(orgId);
+    console.log('appt rREMINDERZZZ====', apptRem);
+  });
 
   test('configure reply handler for createdPatient1', (done) => {
     const config = {
@@ -552,26 +573,27 @@ describe('appt reminder tests', () => {
   //   });
   // });
 
+  // running on develop = issue #1
+  // can we run the serverless invoke sendReminders fn living in cron from here...
+  // every environment will need its own config here
+  // can we get a local aws function
+  // bot not goign to work until we actually send via lambda fn being invoked
+  // how to actually check that they were sent
+  // is dev configured to not send out on dev?
+  test('handle appointments', async () => {
+    await sleep(10000);
 
-  // test('handle appointments', async () => {
-  //   await sleep(10000);
+    const params = {
+      // ClientContext: 'rhinocron',
+      FunctionName: 'rhinocron-develop-sendReminders',
+      InvocationType: 'RequestResponse',
+      LogType: 'Tail',
+    };
 
-  //   const params = {
-  //     // ClientContext: 'rhinocron',
-  //     FunctionName: 'rhinocron-develop-sendReminders',
-  //     InvocationType: 'RequestResponse',
-  //     LogType: 'Tail',
-  //   //   Payload: `{
-  //   //     "glossary": {
-  //   //         "title": "example glossary",
-  //   //     }
-  //   // }`,
-  //   };
-
-  //   const lambda = new Lambda();
-  //   const data = await lambda.invoke(params).promise();
-  //   console.log(data);
-  // });
+    const lambda = new Lambda();
+    const data = await lambda.invoke(params).promise();
+    console.log('DATA', data);
+  });
 
   // patient 1 only has one phone and 1 appt, 1 message should go out
   test('send appointment reminder message with unconfirm to createdPatient1', (done) => {
@@ -582,8 +604,8 @@ describe('appt reminder tests', () => {
       messageText: 'Outgoing appt reminder test !',
       phoneId: createdPatient1.phones[0].id,
       phoneNumber: createdPatient1.phones[0].number,
-      appointmentEventTypeId: 65, // reminder
-      appointmentReminderResponseTypeId: 81,
+      appointmentEventTypeId: TYPE_APPT_EVENT_REMINDER, // appt reminder
+      appointmentReminderResponseTypeId: TYPE_APPT_STATUS_UNCONFIRMED,
     };
 
     rhinoapi.postAppointmentReminderMessage(message).then((res) => {
@@ -591,7 +613,7 @@ describe('appt reminder tests', () => {
       expect(res.data.sender.lastName).toBe('System');
       expect(res.data.sender.systemUser).toBe(1);
       expect(res.data.typeId).toBe(TYPE_EVENT_APPT_REMINDER); // appt reminder
-      expect(res.data.appointmentReminder.appointmentReminderResponseTypeId).toBe(81); // unconfirmed
+      expect(res.data.appointmentReminder.appointmentReminderResponseTypeId).toBe(TYPE_APPT_STATUS_UNCONFIRMED); // unconfirmed
       expect(res.data.appointmentReminder.appointmentId).toBe(createdAppointment1.id); // sent out correct appt created for that user
       expect(res.data.appointmentReminder.numberSentTo).toBe(createdPatient1.phones[0].number); // sent appt to the users only phone
       expect(res.data.pipes[0].channelId).toBe(defaultOrgSmsChannel.id);
@@ -643,8 +665,8 @@ describe('appt reminder tests', () => {
       messageText: 'Outgoing appt reminder test #2!',
       phoneId: createdPatient2.phones[0].id,
       phoneNumber: createdPatient2.phones[0].number,
-      appointmentEventTypeId: 65, // reminder
-      appointmentReminderResponseTypeId: 81,
+      appointmentEventTypeId: TYPE_APPT_EVENT_REMINDER, // reminder
+      appointmentReminderResponseTypeId: TYPE_APPT_STATUS_UNCONFIRMED,
     };
 
     rhinoapi.postAppointmentReminderMessage(message).then((res) => {
@@ -652,7 +674,7 @@ describe('appt reminder tests', () => {
       expect(res.data.sender.lastName).toBe('System');
       expect(res.data.sender.systemUser).toBe(1);
       expect(res.data.typeId).toBe(TYPE_EVENT_APPT_REMINDER); // appt reminder
-      expect(res.data.appointmentReminder.appointmentReminderResponseTypeId).toBe(81); // unconfirmed
+      expect(res.data.appointmentReminder.appointmentReminderResponseTypeId).toBe(TYPE_APPT_STATUS_UNCONFIRMED); // unconfirmed
       expect(res.data.appointmentReminder.appointmentId).toBe(createdAppointment2.id); // sent out correct appt created for that user
       expect(res.data.appointmentReminder.numberSentTo).toBe(createdPatient1.phones[0].number); // sent appt to the owner of the phone, not to the minor patient
       expect(res.data.pipes[0].phone.ownerId).toBe(createdPatient1.id); // owner of the phone is patient 1, not the current patient
@@ -676,8 +698,8 @@ describe('appt reminder tests', () => {
       messageText: 'Outgoing appt reminder test !',
       phoneId: createdPatient3.phones[0].id,
       phoneNumber: createdPatient3.phones[0].number,
-      appointmentEventTypeId: 65, // reminder
-      appointmentReminderResponseTypeId: 81,
+      appointmentEventTypeId: TYPE_APPT_EVENT_REMINDER, // reminder
+      appointmentReminderResponseTypeId: TYPE_APPT_STATUS_UNCONFIRMED,
     };
 
     rhinoapi.postAppointmentReminderMessage(message).then((res) => {
@@ -685,7 +707,7 @@ describe('appt reminder tests', () => {
       expect(res.data.sender.lastName).toBe('System');
       expect(res.data.sender.systemUser).toBe(1);
       expect(res.data.typeId).toBe(TYPE_EVENT_APPT_REMINDER); // appt reminder
-      expect(res.data.appointmentReminder.appointmentReminderResponseTypeId).toBe(81); // unconfirmed
+      expect(res.data.appointmentReminder.appointmentReminderResponseTypeId).toBe(TYPE_APPT_STATUS_UNCONFIRMED); // unconfirmed
       expect(res.data.appointmentReminder.appointmentId).toBe(createdAppointment3.id); // sent out correct appt created for that user
       expect(res.data.appointmentReminder.numberSentTo).toBe(createdPatient3.phones[0].number); // sent appt to the users first phone
       expect(res.data.pipes[0].channelId).toBe(defaultOrgSmsChannel.id);
@@ -707,8 +729,8 @@ describe('appt reminder tests', () => {
       messageText: 'Outgoing appt reminder test !',
       phoneId: createdPatient3.phones[1].id,
       phoneNumber: createdPatient3.phones[1].number,
-      appointmentEventTypeId: 65, // reminder
-      appointmentReminderResponseTypeId: 82,
+      appointmentEventTypeId: TYPE_APPT_EVENT_REMINDER, // reminder
+      appointmentReminderResponseTypeId: TYPE_APPT_STATUS_CONFIRMED,
     };
 
     rhinoapi.postAppointmentReminderMessage(message).then((res) => {
@@ -716,7 +738,7 @@ describe('appt reminder tests', () => {
       expect(res.data.sender.lastName).toBe('System');
       expect(res.data.sender.systemUser).toBe(1);
       expect(res.data.typeId).toBe(TYPE_EVENT_APPT_REMINDER); // appt reminder
-      expect(res.data.appointmentReminder.appointmentReminderResponseTypeId).toBe(82); // confirmed
+      expect(res.data.appointmentReminder.appointmentReminderResponseTypeId).toBe(TYPE_APPT_STATUS_CONFIRMED);
       expect(res.data.appointmentReminder.appointmentId).toBe(createdAppointment3.id); // sent out correct appt created for that user
       expect(res.data.appointmentReminder.numberSentTo).toBe(createdPatient3.phones[1].number); // sent appt to the users 2nd phone
       expect(res.data.pipes[0].channelId).toBe(defaultOrgSmsChannel.id);
@@ -739,8 +761,8 @@ describe('appt reminder tests', () => {
       messageText: 'Outgoing appt reminder test !',
       phoneId: createdPatient5.phones[0].id,
       phoneNumber: createdPatient5.phones[0].number,
-      appointmentEventTypeId: 65, // reminder
-      appointmentReminderResponseTypeId: 83,
+      appointmentEventTypeId: TYPE_APPT_EVENT_REMINDER, // reminder
+      appointmentReminderResponseTypeId: TYPE_APPT_STATUS_CANCELLED,
     };
 
     rhinoapi.postAppointmentReminderMessage(message).then((res) => {
@@ -748,7 +770,7 @@ describe('appt reminder tests', () => {
       expect(res.data.sender.lastName).toBe('System');
       expect(res.data.sender.systemUser).toBe(1);
       expect(res.data.typeId).toBe(TYPE_EVENT_APPT_REMINDER); // appt reminder
-      expect(res.data.appointmentReminder.appointmentReminderResponseTypeId).toBe(83); // cancelled
+      expect(res.data.appointmentReminder.appointmentReminderResponseTypeId).toBe(TYPE_APPT_STATUS_CANCELLED); // cancelled
       expect(res.data.appointmentReminder.appointmentId).toBe(createdAppointment4.id); // sent out correct appt created for that user
       expect(res.data.appointmentReminder.numberSentTo).toBe(createdPatient4.phones[0].number); // sent appt to the owner of the phone (not user 5)
       expect(res.data.pipes[0].channelId).toBe(defaultOrgSmsChannel.id);
@@ -770,8 +792,8 @@ describe('appt reminder tests', () => {
       messageText: 'Outgoing appt reminder test !',
       phoneId: createdPatient5.phones[1].id,
       phoneNumber: createdPatient5.phones[1].number,
-      appointmentEventTypeId: 65, // reminder
-      appointmentReminderResponseTypeId: 83,
+      appointmentEventTypeId: TYPE_APPT_EVENT_REMINDER, // reminder
+      appointmentReminderResponseTypeId: TYPE_APPT_STATUS_CANCELLED,
     };
 
     rhinoapi.postAppointmentReminderMessage(message).then((res) => {
@@ -779,7 +801,7 @@ describe('appt reminder tests', () => {
       expect(res.data.sender.lastName).toBe('System');
       expect(res.data.sender.systemUser).toBe(1);
       expect(res.data.typeId).toBe(TYPE_EVENT_APPT_REMINDER); // appt reminder
-      expect(res.data.appointmentReminder.appointmentReminderResponseTypeId).toBe(83); // cancelled
+      expect(res.data.appointmentReminder.appointmentReminderResponseTypeId).toBe(TYPE_APPT_STATUS_CANCELLED); // cancelled
       expect(res.data.appointmentReminder.appointmentId).toBe(createdAppointment4.id); // sent out correct appt created for that user
       expect(res.data.appointmentReminder.numberSentTo).toBe(createdPatient5.phones[1].number); // sent appt to the users owned phone
       expect(res.data.pipes[0].channelId).toBe(defaultOrgSmsChannel.id);
@@ -801,7 +823,7 @@ describe('appt reminder tests', () => {
   //     messageText: 'Outgoing appt reminder test !',
   //     phoneId: invalidPhonePatient6.phones[0].id,
   //     phoneNumber: '+1adjf',
-  //     appointmentEventTypeId: 65, // reminder
+  //     appointmentEventTypeId: TYPE_APPT_EVENT_REMINDER, // reminder
   //     appointmentReminderResponseTypeId: 81,
   //   };
 

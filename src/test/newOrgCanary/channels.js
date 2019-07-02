@@ -15,11 +15,15 @@ describe('Automated Tests: Channels', () => {
     await selectOrganizationByCCR(accountSetupFeeder.orgName);
   });
 
-  test('Required Fields and validations', async () => {
+  test('validate channels page element', async () => {
     await channelToolbox.validateChannelPageElements();
+  });
 
+  test('Validate required field validation for new phone type channel', async () => {
     await channelToolbox.validateChannelCreationRequiredFields('@newPhoneType');
+  });
 
+  test('Validate required field validation for rhinosecure type channel', async () => {
     await channelToolbox.validateChannelCreationRequiredFields('@rhinoSecureType');
   });
 

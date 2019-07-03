@@ -1,7 +1,4 @@
 import { client } from 'nightwatch-api';
-import * as loginToolbox from '../../../toolboxes/login.toolbox';
-import { createOffice } from '../../../toolboxes/office.toolbox';
-import * as memberFeeder from '../../../feeder/member.feeder';
 import * as officeFeeder from '../../../feeder/office.feeder';
 
 const orgProfileFeeder = require('../../../feeder/orgProfile.feeder');
@@ -13,10 +10,6 @@ describe('Automated Tests: Appointment Reminders', () => {
   const universal = client.page.UniversalElements();
   const orgProfile = client.page.OrgProfilePage();
   const office = client.page.OfficePage();
-  //
-  // test('Login as CCR', async () => {
-  //   await loginToolbox.ccrLogin(process.env.CCR_USERNAME, process.env.CCR_PASSWORD);
-  // });
 
   test('Verify Appointment manager option in Settings Menu', async () => {
     await universal.click('@settingsButton');

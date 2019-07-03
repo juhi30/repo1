@@ -1,7 +1,7 @@
 module.exports = {
 
   // New Phone Type Channel1 Details
-  numberForNewPhoneChannel: 704,
+  numberForNewPhoneChannel: 819,
   forwardingNumber: '(454) 657-6879',
   channelName: 'Automation Test Channel',
   channelPurpose: 'test Automation',

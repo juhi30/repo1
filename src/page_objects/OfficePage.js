@@ -39,7 +39,8 @@ const officeCommands = {
   },
 
   successMessageVerification(element) {
-    return this.waitForElementVisible(element, `${element}: is successfully done`);
+    return this.waitForElementVisible(element, 'Success message displayed')
+      .waitForElementNotPresent(element, 'Success message is gone');
   },
 };
 

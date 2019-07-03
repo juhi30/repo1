@@ -59,7 +59,7 @@ describe('Automated Tests: Appointment Reminders', () => {
   test('Update Organization integration value', async () => {
     await orgProfile.navigate();
     await orgProfile
-      .updateIntegrationValue(orgProfileFeeder.orgNewCloudNineIntegration)
+      .updateIntegrationValue(orgProfileFeeder.orgNewCloud9Integration)
       .clickSaveProfile();
   });
 

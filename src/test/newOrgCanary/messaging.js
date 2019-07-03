@@ -4,7 +4,7 @@ import { memberLogin, logout } from '../../toolboxes/login.toolbox';
 const memberFeeder = require('../../feeder/member.feeder');
 const messageFeeder = require('../../feeder/message.feeder');
 const contactFeeder = require('../../feeder/contact.feeder');
-const groupFeeder = require('../../feeder/group.feeder');
+const channelFeeder = require('../../feeder/channel.feeder');
 
 describe('Chat Messaging Tests', () => {
   test('Login as a Member1', async () => {
@@ -12,7 +12,7 @@ describe('Chat Messaging Tests', () => {
   });
 
   test('Sending a Direct chat message from member1 to member2', async () => {
-    await messageToolbox.sendADirectMessage('@directChatInbox', '/chat', '@modalTitle', memberFeeder.memberName2, messageFeeder.directChatMessage);
+    await messageToolbox.directMessageToMember(memberFeeder.memberName2, messageFeeder.directChatMessage);
   });
 
   test('Sending a Direct chat message from member1 to Group', async () => {
@@ -53,22 +53,23 @@ describe('Direct Messaging Tests', () => {
   // });
 
   test('Sending a message to a Contact from a Group', async () => {
-    await messageToolbox.sendMessageToContactUsingRhinosecure(contactName, groupFeeder.patientAndTeamGroupChannel, messageFeeder.groupPatientMessage);
+    await messageToolbox.newMessageToContact(contactName, 'Message', messageFeeder.groupPatientMessage, channelFeeder.channelName);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
   });
 
   test('Sending a message to a Contact with MMS / Attachment', async () => {
-    await messageToolbox.sendAMessageWithAttachment('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName, messageFeeder.directPatientMessage);
+  // eslint-disable-next-line max-len
+    await messageToolbox.sendAMessageWithAttachment(contactName, 'Message', messageFeeder.directPatientMessage, channelFeeder.channelName);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
   });
 
   test('Sending a message to a Contact using Hipaa Template', async () => {
-    await messageToolbox.sendAMessageUsingHipaaTemplate('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName);
+    await messageToolbox.sendAMessageUsingHipaaTemplate(contactName, 'Message', channelFeeder.channelName);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
   });
 
   test('Sending a message to a Contact using other Template', async () => {
-    await messageToolbox.sendADirectMessageUsingOtherTemplate('@patientAndTeamGroup_PatientInbox', '@searchContactModalTitle', contactFeeder.anotherContactFirstName);
+    await messageToolbox.sendADirectMessageUsingOtherTemplate(contactName, 'Message', channelFeeder.channelName);
     await messageToolbox.closeConversation('@patientAndTeamGroup_PatientInbox', '@directMessageInbox');
   });
 });

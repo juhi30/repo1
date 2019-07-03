@@ -88,8 +88,8 @@ describe('Bulk Action automation test cases', () => {
 
   test('Create Threads on the inbox page', async () => {
     await messageToolbox.sendMessageToContactUsingRhinosecure(contactName, groupFeeder.patientGroupChannel, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendGroupMessageToContact(bulkContactName1, messageFeeder.groupPatientMessage);
-    await messageToolbox.sendGroupMessageToContact(bulkContactName2, messageFeeder.groupPatientMessage);
+    await messageToolbox.newMessageToContact(bulkContactName1, 'Message', messageFeeder.groupPatientMessage, channelFeeder.channelName);
+    await messageToolbox.newMessageToContact(bulkContactName2, 'Message', messageFeeder.groupPatientMessage, channelFeeder.channelName);
     await messageToolbox.sendMessageToContactUsingRhinosecure(bulkContactName3, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
     await messageToolbox.sendMessageToContactUsingRhinosecure(bulkContactName4, channelFeeder.rhinoChannelNewName, messageFeeder.groupPatientMessage);
   });
@@ -287,7 +287,7 @@ describe('Bulk Actions: Close conversation logic', () => {
     await bulkActionToolbox.performAction('@patientAndTeamGroup_PatientInbox', '@all', '@closeConversations');
   });
 
-  test('logout as CCR', async () => {
-    await loginToolbox.logout();
-  });
+  // test('logout as CCR', async () => {
+  //   await loginToolbox.logout();
+  // });
 });

@@ -21,8 +21,12 @@ const channelRouteCommands = {
   },
 
   routeSearch(searchInput, routeName, result) {
-    return this.waitForElementVisible(result, `${result} is visible`)
-      .click(result);
+    this.waitForElementVisible(searchInput, `${searchInput} is visible`)
+      .click(searchInput)
+      .clearValue(searchInput)
+      .setValue(searchInput, routeName);
+    return this.api.useXpath().waitForElementVisible(`//SPAN[@class='resource__intro__title__content'][contains(., '${result}')]`, `${result} is visible.`)
+      .click(`//SPAN[@class='resource__intro__title__content'][contains(., '${result}')]`);
   },
 };
 
@@ -69,21 +73,6 @@ module.exports = {
 
     memberResult: {
       selector: `//SPAN[contains(., '${memberFeeder.memberName}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    billingMemberResult: {
-      selector: `//SPAN[contains(., '${memberFeeder.memberName1}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    member2Result: {
-      selector: `//SPAN[contains(., '${memberFeeder.memberName2}')]`,
-      locateStrategy: 'xpath',
-    },
-
-    appointmentMemberResult: {
-      selector: `//SPAN[contains(., '${memberFeeder.appointmentMemberName}')]`,
       locateStrategy: 'xpath',
     },
 

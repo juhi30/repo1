@@ -8,6 +8,7 @@ const messageFeeder = require('../../feeder/message.feeder');
 const contactFeeder = require('../../feeder/contact.feeder');
 const loginFeeder = require('../../feeder/login.feeder');
 const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
+const channelFeeder = require('../../feeder/channel.feeder');
 
 
 describe('Automated Tests: Analytics', () => {
@@ -25,7 +26,7 @@ describe('Automated Tests: Analytics', () => {
   });
 
   test('Check for open conversation: a) count of open threads and b) verify each value of column', async () => {
-    await messageToolbox.sendGroupMessageToContact(contactName, messageFeeder.groupPatientMessage);
+    await messageToolbox.newMessageToContact(contactName, 'Message', messageFeeder.groupPatientMessage, channelFeeder.channelName);
     await analyticsToolbox.verifyTotalCountAndColumnOfOpenConversation();
   });
 

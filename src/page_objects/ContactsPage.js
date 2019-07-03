@@ -86,6 +86,11 @@ const contactsCommands = {
       .waitForElementVisible('@inboxMessageArea', 'Conversation Chat box is opened for the selected contact.');
   },
 
+  selectMessageTab(messageTab) {
+    return this.api.useXpath().waitForElementVisible(`//SPAN[@class='button__text-wrapper'][contains(text(),'${messageTab}')]`, `${messageTab} is visible`)
+      .click(`//SPAN[@class='button__text-wrapper'][contains(text(),'${messageTab}')]`);
+  },
+
   getInboundMessage() {
     return this.waitForElementVisible('@inboxMessageArea', 'Inbox message area is visible')
       .pause(4000)
@@ -264,6 +269,11 @@ const contactsCommands = {
     return this.waitForElementVisible('@rhinopayConsentInput', 'Rhinopay consent is visible')
       .click('@rhinopayConsentInput');
   },
+
+  clickForwadingToggle() {
+    return this.waitForElementVisible('@forwardingToggle', 'Forwarding Toggle is visible')
+      .click('@forwardingToggle');
+  },
 };
 
 module.exports = {
@@ -280,11 +290,6 @@ module.exports = {
 
     goToConversationButton: {
       selector: '//SPAN[@class=\'button__text-wrapper\'][text()=\'Go to Conversation\']',
-      locateStrategy: 'xpath',
-    },
-
-    contactNameTitle: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -676,13 +681,13 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    searchedContactFirstResult: {
-      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[text()='${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}']`,
+    searchedContactForPatient: {
+      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}')]`,
       locateStrategy: 'xpath',
     },
 
-    searchedContactForPatient: {
-      selector: `//SPAN[@class='resource__intro__title__content has-subtitle'][contains(text(),'${contactFeeder.contactNewFirstName} ${contactFeeder.contactNewLastName}')]`,
+    searchedContactFirstResult: {
+      selector: `//SPAN[@class='resource__intro__title__content']//STRONG[text()='${contactFeeder.contactFirstNameOnModal} ${contactFeeder.contactLastNameOnModal}']`,
       locateStrategy: 'xpath',
     },
 
@@ -743,6 +748,11 @@ module.exports = {
     // communication consent Inputs
     rhinopayConsentInput: {
       selector: '//INPUT[@name = \'rhinopayStatusCover\'][@value= \'92\']/following-sibling::label[1]',
+      locateStrategy: 'xpath',
+    },
+
+    forwardingToggle: {
+      selector: '//LABEL[@class=\'rhinoswitcher__label\'][contains(@for,\'forwarding\')]',
       locateStrategy: 'xpath',
     },
   },

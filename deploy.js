@@ -7,7 +7,7 @@ if (!process.env.CIRCLE_BRANCH) {
 const rhinocloud = new Rhinocloud();
 
 const STACK_NAME = `s3-rhinomatic-${process.env.CIRCLE_BRANCH}-bucket`;
-const BUCKET = `nightwatch-results-${process.env.CIRCLE_BRANCH}`;
+const BUCKET = `rhinomatic-results-${process.env.CIRCLE_BRANCH}`;
 
 (async function deploy() {
   try {

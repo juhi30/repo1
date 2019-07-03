@@ -17,4 +17,5 @@ module.exports = {
 
   // Org Profile Integration Type Information
   orgNewIntegration: 'Sikka',
+  orgNewCloudNineIntegration: 'Cloud 9',
 };

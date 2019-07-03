@@ -1,67 +1,93 @@
 import { client } from 'nightwatch-api';
 import * as loginToolbox from '../../../toolboxes/login.toolbox';
-import * as organizationToolbox from '../../../toolboxes/organization.toolbox';
+import { createOffice } from '../../../toolboxes/office.toolbox';
+import * as memberFeeder from '../../../feeder/member.feeder';
+import * as officeFeeder from '../../../feeder/office.feeder';
 
-const appointmentFeeder = require('../../../feeder/appointments.feeder');
-const memberFeeder = require('../../../feeder/member.feeder');
+const orgProfileFeeder = require('../../../feeder/orgProfile.feeder');
+const channelFeeder = require('../../../feeder/channel.feeder');
 
 describe('Automated Tests: Appointment Reminders', () => {
   const apptReminders = client.page.AppointmentRemindersPage();
   const apptManager = client.page.AppointmentManagerPage();
   const universal = client.page.UniversalElements();
-  const contact = client.page.ContactsPage();
-  // 
-  // test('Temp login as member', async () => {
-  //   await loginToolbox.memberLogin(memberFeeder.appointmentMemberUsername, memberFeeder.memberPassword);
-  // });
+  const orgProfile = client.page.OrgProfilePage();
+  const office = client.page.OfficePage();
   //
   // test('Login as CCR', async () => {
   //   await loginToolbox.ccrLogin(process.env.CCR_USERNAME, process.env.CCR_PASSWORD);
   // });
-  //
-  // test('Select organization', async () => {
-  //   await organizationToolbox.selectOrganizationByCCR(process.env.EXISTING_ORG_ID);
-  // });
+
   test('Verify Appointment manager option in Settings Menu', async () => {
     await universal.click('@settingsButton');
     await apptManager.verifyMenuItem();
   });
 
   test('Click Appointment reminders option in Settings Menu', async () => {
-    await universal.click('@settingsButton');
-    await apptReminders.openAppointmentReminders()
-      .pause(5000);
+    await apptReminders.openAppointmentReminders();
   });
 
-  // test('Verify the columns and values in each is as per the Appointments generated', async () => {
-  //   await apptManager.verifyContactAndItsStatus(appointmentFeeder.patientFirstName_1, 'Unconfirmed');
-  //   await apptManager.verifyContactAndItsStatus(appointmentFeeder.patientFirstName_2, 'Confirmed');
-  //   await apptManager.verifyContactAndItsStatus(appointmentFeeder.patientFirstName_3, 'Unconfirmed');
-  // });
-  //
-  // test('Verify the Date picker and the various options available', async () => {
-  //   await apptManager.validateDateRange();
-  // });
-  //
-  // test('Verify the status of an appointment when it is manually confirmed', async () => {
-  //   await apptManager.clickContactName(appointmentFeeder.patientFirstName_1);
-  //   await contact.openAppointmentStatusDropdown()
-  //     .selectAppointmentStatus('@confirmedStatus')
-  //     .clickConfirmStatusChange();
-  //   await universal.click('@settingsButton')
-  //     .pause(1000);
-  //   await apptManager.openAppointmentManager()
-  //     .verifyContactAndItsStatus(appointmentFeeder.patientFirstName_1, 'Confirmed');
-  // });
-  //
-  // test('Verify the status of an appointment when it is manually cancelled', async () => {
-  //   await apptManager.clickContactName(appointmentFeeder.patientFirstName_3);
-  //   await contact.openAppointmentStatusDropdown()
-  //     .selectAppointmentStatus('@cancelledStatus')
-  //     .clickConfirmStatusChange();
-  //   await universal.click('@settingsButton')
-  //     .pause(1000);
-  //   await apptManager.openAppointmentManager()
-  //     .expect.element('body').text.to.not.contain(appointmentFeeder.patientFirstName_3);
-  // });
+  test('Select Outgoing channel', async () => {
+    await apptReminders.selectChannel(channelFeeder.channelName);
+  });
+
+  test('Toggle Appointment scheduled on', async () => {
+    await apptReminders.enableDisableToggles('@appointmentScheduledToggle');
+  });
+
+  test('Verify Variable message options', async () => {
+    await apptReminders.checkVariableMessage('First Name');
+    await apptReminders.checkVariableMessage('Last Name');
+    await apptReminders.checkVariableMessage('Appointment Date Time');
+  });
+
+  test('Toggle Appointment scheduled on', async () => {
+    await apptReminders.enableDisableToggles('@appointmentReminderToggle');
+  });
+
+  test('Verify Variable message options', async () => {
+    await apptReminders.checkVariableMessage('First Name', 2);
+    await apptReminders.checkVariableMessage('Last Name', 2);
+    await apptReminders.checkVariableMessage('Appointment Date Time', 2);
+    await apptReminders.checkVariableMessage('REPLY ‘1’ to CONFIRM');
+    await apptReminders.checkVariableMessage('REPLY ‘2’ to CANCEL');
+  });
+
+  test('Select Variable message options', async () => {
+    await apptReminders.selectVariableMessage('REPLY ‘1’ to CONFIRM');
+    await apptReminders.selectVariableMessage('REPLY ‘2’ to CANCEL');
+  });
+
+  test('Enter Reminder delivery setting hours', async () => {
+    await apptReminders.updateDetails('@appointmentDeliveryHours', 12);
+    await apptReminders.clickSaveAppointments();
+  });
+
+  test('Update Organization integration value', async () => {
+    await orgProfile.navigate();
+    await orgProfile
+      .updateIntegrationValue(orgProfileFeeder.orgNewCloudNineIntegration)
+      .clickSaveProfile();
+  });
+
+  test('Creating office', async () => {
+    await office.navigate().clickAddOffice();
+    await office.createOfficeForm('@officeName', officeFeeder.officeName);
+    await office.createOfficeForm('@officeAddressLine1', officeFeeder.officeAddress);
+    await office.createOfficeForm('@officeCity', officeFeeder.officeCity);
+    await office.createOfficeForm('@officeState', officeFeeder.officeState);
+    await office.createOfficeForm('@officeZip', officeFeeder.zipCode);
+    await office.click('@createOfficeButton')
+      .successMessageVerification('@officeCreationSuccessMessage');
+  });
+
+  test('Click Appointment reminders option in Settings Menu', async () => {
+    await universal.click('@settingsButton');
+    await apptReminders.openAppointmentReminders();
+  });
+
+  test('Verify Variable message location options', async () => {
+    await apptReminders.checkVariableMessage('Office Location');
+    await apptReminders.checkVariableMessage('Office Location', 2);
+  });
 });

@@ -20,7 +20,7 @@ beforeAll(async () => {
   try {
     // Increase max listeners for long running test
     EventEmitter.defaultMaxListeners = 100;
-    await ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
+    await ccrLogin(loginFeeder.appointmentCcrLogin, loginFeeder.appointmentCcrPassword);
     await organizationSetUp(organizationDetails, 'APPOINTMENT_ORG_ID');
   } catch (error) {
     logger.info(error, '===error on beforeAll (AppointmentManagerSuite) orgSetupAndTearDown=====');

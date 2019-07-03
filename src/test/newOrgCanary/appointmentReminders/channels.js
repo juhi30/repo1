@@ -36,24 +36,9 @@ describe('Automated Tests: Channels', () => {
       channelName: channelFeeder.channelName,
       channelPurpose: channelFeeder.channelPurpose,
       timeZone: channelFeeder.timeZone,
-      memberFirstName: memberFeeder.memberFirstName,
+      memberFirstName: memberFeeder.appointmentMemberFirstName,
     };
 
-    await channelToolbox.createChannel('@newPhoneType', channelData, '@memberResult');
-  });
-
-  test('Channel Create - Rhinosecure channel with member route', async () => {
-    const channelData = {
-      channelName: channelFeeder.rhinoChannelName,
-      channelPurpose: channelFeeder.channelPurpose,
-      timeZone: channelFeeder.timeZone,
-      memberFirstName: memberFeeder.memberFirstName,
-    };
-
-    await channelToolbox.createChannel('@rhinoSecureType', channelData, '@memberResult');
-  });
-
-  test('logout as CCR', async () => {
-    await logout();
+    await channelToolbox.createChannel('@newPhoneType', channelData, '@appointmentMemberResult');
   });
 });

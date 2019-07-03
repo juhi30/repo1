@@ -1,4 +1,4 @@
-// // CCR Flow
+// CCR Flow
 import './orgSetupAndTeardown';
 //
 // // CCR + Member flow

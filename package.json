@@ -35,7 +35,7 @@
     "@babel/plugin-transform-runtime": "7.4.4",
     "@babel/preset-env": "7.4.3",
     "eslint-config-rhinogram": "https://github.com/rhinogram/eslint-config-rhinogram.git#0.0.17",
-    "rhinodeploy-cli": "git+https://ab1e60bc7d1ea8f0cef2d98a042749dee2741f8c:x-oauth-basic@github.com/rhinogram/rhinodeploy.git#cli"
+    "rhinodeploy-cli": "git+https://ab1e60bc7d1ea8f0cef2d98a042749dee2741f8c:x-oauth-basic@github.com/rhinogram/rhinodeploy.git#cli1.0.0"
   },
   "dependencies": {
     "@babel/runtime": "7.4.4",

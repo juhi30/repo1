@@ -1,8 +1,39 @@
 const appointmentRemindersCommands = {
 
-  pause(time) {
-    this.api.pause(time);
-    return this;
+  openAppointmentReminders() {
+    return this.waitForElementVisible('@appointmentRemindersMenuItem', 'Appointment reminder option is visible in the Setting menu')
+      .click('@appointmentRemindersMenuItem');
+  },
+
+  selectChannel(channel) {
+    return this.waitForElementVisible('@defaultChannelDropdown', `${channel} is visible`)
+      .setValue('@defaultChannelDropdown', channel);
+  },
+
+  enableDisableToggles(toggle) {
+    return this.waitForElementVisible(toggle, `${toggle} toggle is visible.`)
+      .click(toggle);
+  },
+
+  checkVariableMessage(message, index = 1) {
+    return this.api.useXpath().waitForElementVisible(`(//SPAN[contains(., '${message}')])[${index}]`, `Variable Message with text "${message}" is visible`);
+  },
+
+  selectVariableMessage(message) {
+    return this.api.useXpath().waitForElementVisible(`//SPAN[contains(., '${message}')]`, `Span with text "${message}" is visible`)
+      .click(`//SPAN[contains(., '${message}')]`);
+  },
+
+  updateDetails(element, newValue) {
+    return this.verify.visible(element, `${element} is visible`)
+      .clearValue(element)
+      .setValue(element, newValue);
+  },
+
+  clickSaveAppointments() {
+    return this.click('@saveChangesButton')
+      .waitForElementVisible('@appointmentRemindersSuccessMessage', 'Success message displayed')
+      .waitForElementNotPresent('@appointmentRemindersSuccessMessage', 'Success message is gone');
   },
 };
 
@@ -12,6 +43,11 @@ module.exports = {
     return `${this.api.launch_url}/settings/organization/appointment-reminders`;
   },
   elements: {
+    appointmentRemindersMenuItem: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Appointment Reminders\']',
+      locateStrategy: 'xpath',
+    },
+
 
     /*--------------------------------------------*/
     // Outgoing Channels container
@@ -24,7 +60,7 @@ module.exports = {
 
     defaultChannelDropdown: {
       selector: '//SELECT[contains(@id, \'selectedChannel\')]',
-      locatestrategy: 'xpath',
+      locateStrategy: 'xpath',
     },
 
     /*--------------------------------------------*/
@@ -33,12 +69,7 @@ module.exports = {
 
     appointmentScheduledToggle: {
       selector: '//LABEL[contains(@for, \'appointmentScheduled\')]',
-      locatestrategy: 'xpath',
-    },
-
-    scheduledVariableDropdown: {
-      selector: '//SELECT[contains(@id, \'appointmentScheduledTemplate\')]',
-      locatestrategy: 'xpath',
+      locateStrategy: 'xpath',
     },
 
     /*--------------------------------------------*/
@@ -47,39 +78,24 @@ module.exports = {
 
     appointmentReminderToggle: {
       selector: '//LABEL[contains(@for, \'appointmentReminders\')]',
-      locatestrategy: 'xpath',
+      locateStrategy: 'xpath',
     },
 
-    oneWeekRadio: {
-      selector: '//LABEL[conatins (text(),\'1 week prior\')]',
-      locatestrategy: 'xpath',
-    },
-
-    twoDayRadio: {
-      selector: '//LABEL[conatins (text(),\'48 hours prior\')]',
-      locatestrategy: 'xpath',
-    },
-
-    oneDayRadio: {
-      selector: '//LABEL[conatins (text(),\'24 hours prior\')]',
-      locatestrategy: 'xpath',
-    },
-
-    twoHourRadio: {
-      selector: '//LABEL[conatins (text(),\'2 hours prior\')]',
-      locatestrategy: 'xpath',
-    },
-
-    reminderVariableDropdown: {
-      selector: '//SELECT[contains(@id, \'appointmentReminderTemplate\')]',
-      locatestrategy: 'xpath',
+    appointmentDeliveryHours: {
+      selector: '//INPUT[contains(@id,\'appointmentRemindersDeliveryHours\')]',
+      locateStrategy: 'xpath',
     },
 
     /*--------------------------------------------*/
 
     saveChangesButton: {
       selector: '//SPAN[contains(text(), \'Save Changes\')]',
-      locatestrategy: 'xpath',
+      locateStrategy: 'xpath',
+    },
+
+    appointmentRemindersSuccessMessage: {
+      selector: '//DIV[text()=\'Organization updated successfully.\']',
+      locateStrategy: 'xpath',
     },
   },
 };

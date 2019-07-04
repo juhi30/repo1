@@ -21,7 +21,7 @@ describe('Patient Login Page Tests Cases', () => {
   });
 
   test('Get patient registration link', async () => {
-    await convo.verifyAutoResponse()
+    await convo.verifyAutoResponse('@rhinoSecureAutoResponseLink')
       .getPatientLink('NEW_CANARY_PATIENT_SIGNUP_LINK');
   });
 

@@ -1,7 +1,6 @@
 import { client } from 'nightwatch-api';
 import * as loginToolbox from '../../../toolboxes/login.toolbox';
 import * as channelToolbox from '../../../toolboxes/channel.toolbox';
-import * as organizationToolbox from '../../../toolboxes/organization.toolbox';
 import { createMember, changePasswordUsingTempPassword } from '../../../toolboxes/member.toolbox';
 
 const helper = require('../../../toolboxes/helpers.toolbox');
@@ -10,11 +9,14 @@ const channelFeeder = require('../../../feeder/channel.feeder');
 const rhinopayFeeder = require('../../../feeder/rhinopay.feeder');
 
 describe('Rhinopay: New Canary Tests', () => {
+  const paymentPage = client.page.RhinopayPage();
+  const convo = client.page.ConvoThreadPage();
+
   test('Adding a new Member with Admin Role', async () => {
     const memberDetails = [{ element: '@memberFirstName', value: memberFeeder.rhinopayMemberFirstName },
-      { element: '@memberLastName', value: memberFeeder.rhinopayMemberLastName },
-      { element: '@memberUsername', value: memberFeeder.rhinopayMemberUsername },
-      { element: '@memberEmailAddress', value: `test_${helper.randomNumber}@gmail.com` }];
+    { element: '@memberLastName', value: memberFeeder.rhinopayMemberLastName },
+    { element: '@memberUsername', value: memberFeeder.rhinopayMemberUsername },
+    { element: '@memberEmailAddress', value: `${memberFeeder.email}+${helper.randomNumber}@gmail.com` }];
     const roles = ['@adminRole', '@memberRole'];
 
     await createMember(memberDetails, roles, 'RHINOPAY_MEMBER_TEMP_PASSWORD');
@@ -75,18 +77,23 @@ describe('Rhinopay: New Canary Tests', () => {
   });
 
   test('Request Charge amount', async () => {
-    const convo = client.page.ConvoThreadPage();
     await convo.sendNewPaymentRequest();
   });
 
-  test('Select most recent charge url', async () => {
-    const convo = client.page.ConvoThreadPage();
-    await convo.selectChargeUrl();
+
+  test('Get rhinopay message link', async () => {
+    await convo.verifyAutoResponse('@rhinopayAutoResponseLink')
+      .getRhinopayLink('NEW_CANARY_RHINOPAY_LINK');
+  });
+
+  test('logout as member', async () => {
+    await loginToolbox.logout()
+      .pause(1000);
   });
 
   test('Enter payment details', async () => {
-    const convo = client.page.ConvoThreadPage();
-    await convo.enterPaymentDetails();
-    await convo.rhinopaySuccessMessage();
+    paymentPage.navigate()
+      .enterPaymentDetails()
+      .rhinopaySuccessMessage();
   });
 });

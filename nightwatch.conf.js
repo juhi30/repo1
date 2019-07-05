@@ -1,9 +1,6 @@
 // allows tests to run through browserstack
 require('browserstack-automate').Nightwatch();
 
-const headless = !!process.env.HEADLESS && process.env.HEADLESS === 'true';
-const options = headless ? ['headless', 'window-size=1280,800', 'no-sandbox', 'disable-gpu'] : ['window-size=1280,800', 'no-sandbox', 'disable-gpu'];
-
 module.exports = {
   page_objects_path: './src/page_objects',
   globals_path: './src/globals.js',
@@ -28,7 +25,7 @@ module.exports = {
         javascriptEnabled: true,
         acceptSslCerts: true,
         chromeOptions: {
-          args: options,
+          args: ['headless', 'window-size=1280,800', 'no-sandbox', 'disable-gpu'],
         },
       },
     },

@@ -11,7 +11,7 @@ describe('Members Page', () => {
     const memberDetails = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName },
       { element: '@memberLastName', value: memberFeeder.memberLastName },
       { element: '@memberUsername', value: global.newCanaryUserOne },
-      { element: '@memberEmailAddress', value: memberFeeder.memberEmail }];
+      { element: '@memberEmailAddress', value: `${memberFeeder.memberEmail}+${helper.randomNumber}@gmail.com` }];
     const roles = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
     await createMember(memberDetails, roles, 'NEW_CANARY_MEMBER_TEMP_PASSWORD');

@@ -80,14 +80,14 @@ describe('Login Page Tests Cases', () => {
   });
 
   test('Unused reset password token is invalidated if another reset request is sent', async () => {
-    const { memberUsername, memberPassword } = memberFeeder;
+    const { memberPassword } = memberFeeder;
     const tempPassword = global.NEW_CANARY_TEMP_PASSWORD;
     const newTempPassword = global.NEW_CANARY_NEW_TEMP_PASSWORD;
     const errorMessage = 'Error message is visible, old token did not work. ';
     // Login as Member with Old Password reset token
     await loginToolbox.invalidMemberLogin(global.newCanaryUserOne, tempPassword, '@errorPrompt', errorMessage);
     // Login as Member with New Password reset token
-    await changePasswordUsingTempPassword(memberUsername, memberPassword, newTempPassword);
+    await changePasswordUsingTempPassword(global.newCanaryUserOne, memberPassword, newTempPassword);
   });
 
   test('logout as Member', async () => {

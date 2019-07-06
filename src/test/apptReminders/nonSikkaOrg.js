@@ -6,7 +6,14 @@ import * as helpers from '../../toolboxes/helpers.toolbox';
 
 const TYPE_PHONE_CELL = 3;
 const USER_TYPE_PATIENT = 18;
+const USER_TYPE_MEMBER = 19;
 const TYPE_EVENT_APPT_REMINDER = 53;
+const TYPE_INTEGRATION_PARTNER_ID_CLOUD9 = 76; // cloud9
+const TYPE_CHANNEL_SMS = 10;
+const TYPE_APPT_STATUS_UNCONFIRMED = 81;
+const TYPE_APPT_STATUS_CONFIRMED = 82;
+const TYPE_APPT_STATUS_CANCELLED = 83;
+const TYPE_APPT_EVENT_REMINDER = 65;
 
 let orgId;
 let member;
@@ -73,6 +80,8 @@ describe('appt reminder tests', () => {
         contactEmail: '',
         billingChecked: true,
         selectedBillingOpt: 'newCust',
+        integration: true,
+        integrationPartnerTypeId: TYPE_INTEGRATION_PARTNER_ID_CLOUD9,
       };
 
       const org = await rhinoapi.createOrganization(orgData, process.env.APPOINTMENT_CCR_COOKIE);
@@ -134,7 +143,7 @@ describe('appt reminder tests', () => {
         routedChannels: [],
         suffixId: '',
         tagIds: [],
-        typeId: 19,
+        typeId: USER_TYPE_MEMBER,
         username: `testmember_${orgId}`,
         password: '4419kJig',
       };
@@ -144,8 +153,8 @@ describe('appt reminder tests', () => {
       // create BW channel to use as default org channel and set the route to the member created above
       // POST AN ALREADY PROVISIONED BW NUMBER
       const channelData = {
-        name: 'new BW channel for appt testing',
-        purpose: 'porpoise',
+        name: 'BW channel for non sikka org',
+        purpose: 'non sikka',
         typeId: 10, // sms channel type
         timeZoneId: 1,
         observesDst: true,
@@ -171,8 +180,8 @@ describe('appt reminder tests', () => {
       defaultOrgSmsChannel = await rhinoapi.postProvisionedChannel(channelData, process.env.APPOINTMENT_CCR_COOKIE);
 
       const channel2Data = {
-        name: 'new ZW channel for appt testing',
-        purpose: 'zipwhip default channel',
+        name: 'ZW channel for non sikka testing',
+        purpose: 'non sikka testing',
         typeId: 11, // landline channel type
         timeZoneId: 1,
         observesDst: true,
@@ -222,11 +231,11 @@ describe('appt reminder tests', () => {
         defaultChannelId: defaultOrgSmsChannel.id,
         automatedMessages: {
           appointmentReminders: true,
-          appointmentScheduled: false,
-          appointmentRemindersDeliveryHours: 24,
+          appointmentScheduled: true,
+          appointmentRemindersDeliveryHours: 48,
           channelId: defaultOrgSmsChannel.id,
           organizationId: orgId,
-          appointmentRemindersTemplate: 'you have an appointment coming up!',
+          appointmentRemindersTemplate: 'you have an appointment coming up',
         },
         offices: [{
           id: office.id,
@@ -238,6 +247,18 @@ describe('appt reminder tests', () => {
       };
       // patch org with new default channel that was created
       await rhinoapi.patchOrg(updatedOrgData, process.env.APPOINTMENT_CCR_COOKIE);
+
+      // get time for appt reminder toggled timestamp (has to be in the past)
+      const toggleDate = new Date();
+      toggleDate.setMinutes(toggleDate.getMinutes() - 30);
+      toggleDate.setDate(toggleDate.getDate() - 1);
+
+      const timestampData = {
+        apptRemindersToggledOnTimestamp: toggleDate,
+        appointmentScheduledTimestamp: toggleDate,
+      };
+      // has to be manually updated and set to before the appts are made
+      await rhinoapi.patchApptRemindersToggledRemindersTimestamp(timestampData, process.env.APPOINTMENT_CCR_COOKIE);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log('===error on before all orgSetupAndTeardown=======', err);

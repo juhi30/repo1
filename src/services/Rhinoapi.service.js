@@ -161,3 +161,28 @@ export async function postUser(userData, cookie) {
 
   return response.data;
 }
+
+export async function searchMemberOrContact(searchText, userType, cookie) {
+  const response = await axios.get(`${process.env.API_BASE_URL}/users/allMembersOrContacts?searchText=${searchText}&userType=${userType}`,
+    {
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
+export async function postProvisionedChannel(data, cookie) {
+  const response = await axios.post(`${process.env.API_BASE_URL}/channels/provisioned`,
+    data,
+    {
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}

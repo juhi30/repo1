@@ -9,31 +9,28 @@ const memberFeeder = require('../../feeder/member.feeder');
 const loginFeeder = require('../../feeder/login.feeder');
 
 describe('Automated Tests: Channels', () => {
+  test('Bandwidth channel setup without provision', async () => {
+    const ccr = { userName: loginFeeder.ccrLogin, password: loginFeeder.ccrPassword };
+    const userSearchDetails = { userName: memberFeeder.memberFirstName, userType: 'members' };
+    await channelToolbox.createBWChannelSkipProvision(ccr, process.env.NEW_CANARY_ORG_ID, userSearchDetails);
+  });
+
   test('login as ccr into the organization', async () => {
     await ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
 
     await selectOrganizationByCCR(accountSetupFeeder.orgName);
   });
 
-  test('Required Fields and validations', async () => {
+  test('validate channels page element', async () => {
     await channelToolbox.validateChannelPageElements();
-
-    await channelToolbox.validateChannelCreationRequiredFields('@newPhoneType');
-
-    await channelToolbox.validateChannelCreationRequiredFields('@rhinoSecureType');
   });
 
-  test('Channel Create - New Phone type with member Route', async () => {
-    const channelData = {
-      phoneNumber: channelFeeder.numberForNewPhoneChannel,
-      forwardingNumber: channelFeeder.forwardingNumber,
-      channelName: channelFeeder.channelName,
-      channelPurpose: channelFeeder.channelPurpose,
-      timeZone: channelFeeder.timeZone,
-      memberFirstName: memberFeeder.memberFirstName,
-    };
+  test('Validate required field validation for new phone type channel', async () => {
+    await channelToolbox.validateChannelCreationRequiredFields('@newPhoneType');
+  });
 
-    await channelToolbox.createChannel('@newPhoneType', channelData, memberFeeder.memberName);
+  test('Validate required field validation for rhinosecure type channel', async () => {
+    await channelToolbox.validateChannelCreationRequiredFields('@rhinoSecureType');
   });
 
   test('Channel Create - Rhinosecure channel with member route', async () => {
@@ -89,11 +86,6 @@ describe('Automated Tests: Channels', () => {
 
     await channelToolbox.updateWebFormFieldsByChannelEdit(channelFeeder.newChannelName, webFormFields);
   });
-
-  // test('Channel Deletion', async () => {
-  //   await channelToolbox.deleteChannel(channelFeeder.newChannelName);
-  //   await channelToolbox.deleteChannel(channelFeeder.rhinoChannelNewName);
-  // });
 
   test('logout as CCR', async () => {
     await logout();

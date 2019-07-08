@@ -3,7 +3,7 @@ module.exports = {
   // New Phone Type Channel1 Details
   numberForNewPhoneChannel: 819,
   forwardingNumber: '(454) 657-6879',
-  channelName: 'Automation Test Channel',
+  channelName: 'New BW Channel',
   channelPurpose: 'test Automation',
   timeZone: 'Eastern Time (UTC -05:00) - New York',
 

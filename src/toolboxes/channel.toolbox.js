@@ -1,4 +1,7 @@
 import { client } from 'nightwatch-api';
+import * as rhinoapi from '../services/Rhinoapi.service';
+
+const channelFeeder = require('../feeder/channel.feeder');
 
 const channel = client.page.ChannelsPage();
 const channelCreateEdit = client.page.ChannelsCreateEditPage();
@@ -20,8 +23,8 @@ export async function validateChannelCreationRequiredFields(channelType) {
     .selectChannelCategory(channelType)
     .createUpdateChannel('@createChannelButton', 'Create Channel button is visible.')
     .waitForElementVisible('@channelNameValidation', 'Validation message for channel Name is visible')
-    .verify.visible('@timezoneValidation', 'Validation message for TimeZone is visible')
-    .verify.visible('@channelRouteValidation', 'validation message for Channel Route is visible');
+    .waitForElementVisible('@timezoneValidation', 'Validation message for TimeZone is visible')
+    .waitForElementVisible('@channelRouteValidation', 'validation message for Channel Route is visible');
 }
 
 /**
@@ -183,4 +186,43 @@ export async function editChannelRoute(channelNameElement, channelData) {
     .createUpdateChannel('@updateChannelButton', 'update channel button is visible.')
     .checkSuccessMessage('@channelUpdateSuccessMessage')
     .waitForElementNotPresent('@channelUpdateSuccessMessage');
+}
+
+export async function createBWChannelSkipProvision(ccrLogin, organizationId, userSearchDetails) {
+  try {
+    const orgId = parseInt(organizationId, 10);
+    const ccrCookie = await rhinoapi.login(ccrLogin.userName, ccrLogin.password);
+    const ccrUserId = await rhinoapi.getCcrUserId(ccrCookie);
+    await rhinoapi.changeOrganization({ orgId, userId: ccrUserId }, ccrCookie);
+    const members = await rhinoapi.searchMemberOrContact(userSearchDetails.userName, userSearchDetails.userType, ccrCookie);
+    const channelData = {
+      name: channelFeeder.channelName,
+      purpose: channelFeeder.channelPurpose,
+      typeId: 10, // sms channel type
+      timeZoneId: 1,
+      observesDst: true,
+      details: {
+        phone: {
+          value: process.env.NEW_CANARY_PROVISIONED_BW_CHANNEL_NUMBER,
+          typeId: 3,
+        },
+        forwardingPhone: {
+          value: '+15555555555',
+          typeId: 3,
+        },
+        bandwidthNumberId: process.env.NEW_CANARY_PROVISIONED_BW_CHANNEL_NUMBER,
+      },
+      tagIds: [],
+      route: {
+        userId: members[0].id,
+        groupId: null,
+      },
+      autoResponse: 'nah',
+    };
+
+    await rhinoapi.postProvisionedChannel(channelData, ccrCookie);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log('===error while creating BW channel skip provision=======', err);
+  }
 }

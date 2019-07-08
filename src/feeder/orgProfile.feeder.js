@@ -1,7 +1,7 @@
 module.exports = {
 
   // Org Profile New Info for Mandatory Fields
-  orgNewName: 'Testing_Appointment_Org',
+  orgNewName: 'Testing Appointment Org',
   orgNewAddress: 'New Test Address',
   orgNewCity: 'New City',
   orgNewState: 'New State',

@@ -12,30 +12,31 @@ describe('Member Creation test Cases for Billing Organization', () => {
   const member = client.page.MembersPage();
 
   test('Adding Members according to the plan', async () => {
+    global.billingMemberUsername1 = `${memberFeeder.memberUsername1}_${helper.randomNumber}`;
     const memberDetails1 = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName1 },
       { element: '@memberLastName', value: memberFeeder.memberLastName1 },
-      { element: '@memberUsername', value: memberFeeder.memberUsername1 },
+      { element: '@memberUsername', value: global.billingMemberUsername1 },
       { element: '@memberEmailAddress', value: `${memberFeeder.email}+${helper.randomNumber}@gmail.com` }];
     const roles1 = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
     const memberDetails2 = [{ element: '@memberFirstName', value: memberFeeder.firstMemberName2 },
       { element: '@memberLastName', value: memberFeeder.lastMemberName2 },
-      { element: '@memberUsername', value: memberFeeder.username2 }];
+      { element: '@memberUsername', value: `${memberFeeder.username2}_${helper.randomNumber}` }];
     const roles2 = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
     const memberDetails3 = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName3 },
       { element: '@memberLastName', value: memberFeeder.memberLastName3 },
-      { element: '@memberUsername', value: memberFeeder.memberUsername3 }];
+      { element: '@memberUsername', value: `${memberFeeder.memberUsername3}_${helper.randomNumber}` }];
     const roles3 = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
     const memberDetails4 = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName4 },
       { element: '@memberLastName', value: memberFeeder.memberLastName4 },
-      { element: '@memberUsername', value: memberFeeder.memberUsername4 }];
+      { element: '@memberUsername', value: `${memberFeeder.memberUsername4}_${helper.randomNumber}` }];
     const roles4 = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
     const memberDetails5 = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName5 },
       { element: '@memberLastName', value: memberFeeder.memberLastName5 },
-      { element: '@memberUsername', value: memberFeeder.memberUsername5 }];
+      { element: '@memberUsername', value: `${memberFeeder.memberUsername5}_${helper.randomNumber}` }];
     const roles5 = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
     await createMember(memberDetails1, roles1, 'BILLING_MEMBER_TEMP_PASSWORD');
@@ -53,7 +54,7 @@ describe('Member Creation test Cases for Billing Organization', () => {
 
     const memberDetails6 = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName6 },
       { element: '@memberLastName', value: memberFeeder.memberLastName6 },
-      { element: '@memberUsername', value: memberFeeder.memberUsername6 }];
+      { element: '@memberUsername', value: `${memberFeeder.memberUsername6}_${helper.randomNumber}` }];
     const roles6 = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
     await createMember(memberDetails6, roles6);
@@ -72,11 +73,11 @@ describe('Member Creation test Cases for Billing Organization', () => {
   });
 
   test('Login as New Member with Admin Roles', async () => {
-    const { memberUsername1, memberPassword } = memberFeeder;
+    const { memberPassword } = memberFeeder;
     const tempPassword = global.BILLING_MEMBER_TEMP_PASSWORD;
     const login = client.page.LoginPage();
 
-    await changePasswordUsingTempPassword(memberUsername1, memberPassword, tempPassword);
+    await changePasswordUsingTempPassword(global.billingMemberUsername1, memberPassword, tempPassword);
     // Below lines have been added to by pass confirm email modal
     await login.clickConfirmEmailOnEmailModal()
       .pause(1000);

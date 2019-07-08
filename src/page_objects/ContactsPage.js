@@ -304,7 +304,7 @@ module.exports = {
     },
 
     patientOption: {
-      selector: '//SPAN[@class=\'form__block-group__label\'][contains(.,\'Patient\')]',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Patient\']',
       locateStrategy: 'xpath',
     },
 

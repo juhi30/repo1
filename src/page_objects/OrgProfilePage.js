@@ -58,7 +58,7 @@ const orgProfileCommands = {
 
 
   updateIntegrationValue(integrationType) {
-    return this.verify.visible('@integrationDropdown', 'Integration dropdown is visible')
+    return this.waitForElementVisible('@integrationDropdown', 'Integration dropdown is visible')
       .setValue('@integrationDropdown', integrationType);
   },
 

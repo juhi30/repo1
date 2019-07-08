@@ -46,19 +46,26 @@ jobs:
           when: always
           name: Deploy Test Results
           command: |
-            yarn && node deploy
+            node deploy
+            if [ "$CIRCLE_BRANCH" == "master" ] || [ "$CIRCLE_BRANCH" == "staging" ]; then
+              profile=rhinoprod
+            else
+              profile=rhinodev
+            fi
             aws s3 sync \
               results \
               s3://rhinomatic-results-$CIRCLE_BRANCH/ \
               --acl public-read \
               --cache-control max-age=300 \
-              --storage-class REDUCED_REDUNDANCY
+              --storage-class REDUCED_REDUNDANCY \
+              --profile $profile
             aws s3 sync \
               results \
               s3://rhinomatic-results-$CIRCLE_BRANCH/$CIRCLE_BUILD_NUM \
               --acl public-read \
               --cache-control max-age=300 \
-              --storage-class REDUCED_REDUNDANCY
+              --storage-class REDUCED_REDUNDANCY \
+              --profile $profile
       - store_test_results:
           path: results/junit
       - store_artifacts:
@@ -81,7 +88,7 @@ jobs:
 workflows:
   version: 2
 
-  nightly:
+  nightlyDev:
     triggers:
       - schedule:
           cron: '0 5 * * *'
@@ -89,22 +96,44 @@ workflows:
             branches:
               only:
                 - develop
-                - staging
-    jobs:
-      - rhinomatic
-
-  merge:
     jobs:
       - rhinomatic:
+          context: Dev
+
+  nightlyStage:
+    triggers:
+      - schedule:
+          cron: '0 5 * * *'
+          filters:
+            branches:
+              only:
+                - staging
+    jobs:
+      - rhinomatic:
+          context: Stage
+
+  mergeDev:
+    jobs:
+      - rhinomatic:
+          context: Dev
           filters:
             branches:
               only:
                 - develop
+
+  mergeStage:
+    jobs:
+      - rhinomatic:
+          context: Stage
+          filters:
+            branches:
+              only:
                 - staging
 
   general:
     jobs:
       - test:
+          context: Dev
           filters:
             branches:
               ignore:

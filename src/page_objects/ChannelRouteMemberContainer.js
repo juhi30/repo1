@@ -23,7 +23,9 @@ const channelRouteCommands = {
   routeSearch(searchInput, routeName, result) {
     this.waitForElementVisible(searchInput, `${searchInput} is visible`)
       .click(searchInput)
+      .pause(1000)
       .clearValue(searchInput)
+      .pause(1000)
       .setValue(searchInput, routeName);
     return this.api.useXpath().waitForElementVisible(`//SPAN[@class='resource__intro__title__content'][contains(., '${result}')]`, `${result} is visible.`)
       .click(`//SPAN[@class='resource__intro__title__content'][contains(., '${result}')]`);

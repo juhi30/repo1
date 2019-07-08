@@ -23,9 +23,9 @@ describe('Automated Tests: Channels', () => {
       channelName: channelFeeder.channelName,
       channelPurpose: channelFeeder.channelPurpose,
       timeZone: channelFeeder.timeZone,
-      memberFirstName: memberFeeder.appointmentMemberFirstName,
+      memberFirstName: memberFeeder.appointmentReminderMemberFirstName,
     };
 
-    await channelToolbox.createChannel('@newPhoneType', channelData, '@appointmentMemberResult');
+    await channelToolbox.createChannel('@newPhoneType', channelData, memberFeeder.appointmentReminderMemberFirstName);
   });
 });

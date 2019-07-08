@@ -5,9 +5,10 @@ const helper = require('../../../toolboxes/helpers.toolbox');
 
 describe('Members Page', () => {
   test('Adding a new Member with Admin Role', async () => {
+    global.apptReminderUsername = `${memberFeeder.appointmentReminderMemberUsername}_${helper.randomNumber}`;
     const memberDetails = [{ element: '@memberFirstName', value: memberFeeder.appointmentReminderMemberFirstName },
       { element: '@memberLastName', value: memberFeeder.appointmentReminderMemberLastName },
-      { element: '@memberUsername', value: memberFeeder.appointmentReminderMemberUsername },
+      { element: '@memberUsername', value: global.apptReminderUsername },
       { element: '@memberEmailAddress', value: `test_${helper.randomNumber}@gmail.com` }];
     const roles = ['@adminRole', '@memberRole'];
 

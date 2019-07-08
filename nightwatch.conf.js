@@ -25,7 +25,7 @@ module.exports = {
         javascriptEnabled: true,
         acceptSslCerts: true,
         chromeOptions: {
-          args: ['headless', 'window-size=1280,800', 'no-sandbox', 'disable-gpu'],
+          args: ['window-size=1280,800', 'no-sandbox', 'disable-gpu'],
         },
       },
     },

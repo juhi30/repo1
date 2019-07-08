@@ -10,7 +10,7 @@ const accountSetupFeeder = require('../../../feeder/accountSetup.feeder');
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
   const organizationDetails = {
-    name: accountSetupFeeder.appointmentOrgName,
+    name: accountSetupFeeder.appointmentReminderOrgName,
     address: accountSetupFeeder.address,
     city: accountSetupFeeder.city,
     state: accountSetupFeeder.state,
@@ -20,8 +20,8 @@ beforeAll(async () => {
   try {
     // Increase max listeners for long running test
     EventEmitter.defaultMaxListeners = 100;
-    await ccrLogin(loginFeeder.appointmentCcrLogin, loginFeeder.appointmentCcrPassword);
-    await organizationSetUp(organizationDetails, 'APPOINTMENT_ORG_ID');
+    await ccrLogin(loginFeeder.appointmentReminderCcrLogin, loginFeeder.appointmentReminderCcrPassword);
+    await organizationSetUp(organizationDetails, 'APPOINTMENT_REMINDER_ORG_ID');
   } catch (error) {
     logger.info(error, '===error on beforeAll (AppointmentManagerSuite) orgSetupAndTearDown=====');
   }
@@ -32,7 +32,7 @@ afterAll(async (done) => {
   try {
     // Reset max listeners to the node.js default once the test is complete.
     EventEmitter.defaultMaxListeners = 10;
-    await orgTearDown(process.env.APPOINTMENT_ORG_ID, loginFeeder.appointmentCcrLogin, loginFeeder.appointmentCcrPassword);
+    await orgTearDown(process.env.APPOINTMENT_REMINDER_ORG_ID, loginFeeder.appointmentReminderCcrLogin, loginFeeder.appointmentReminderCcrPassword);
     done();
   } catch (error) {
     // Reset max listeners to the node.js default once the test is complete.

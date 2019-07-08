@@ -72,10 +72,11 @@ const analyticsCommands = {
 
   validateClosedConversations() {
     const self = this;
-    return this.waitForElementVisible('@closedTab')
+    return this.pause(1000)
+      .waitForElementVisible('@closedTab', 'Closed tab is visible')
       .click('@closedTab')
       .waitForElementVisible('@closedConversationDatePicker', 'Date Range Picker is visible')
-      .verify.visible('@closedTableMessage', `Closed Conversation Table Message "${analyticsClosedConversationUI.closedTableMessage}" is visible`)
+      .waitForElementVisible('@closedTableMessage', `Closed Conversation Table Message "${analyticsClosedConversationUI.closedTableMessage}" is visible`)
       .waitForElementVisible('@firstRowConversation', 'First Row of Conversations is visible', (result) => {
         if (result.value) {
           self.verify.visible('@timeOpenColumn', 'Time Open Column is visible')
@@ -111,6 +112,7 @@ const analyticsCommands = {
 
   validateClosedConvoDatePickerAndOptions() {
     return this.click('@closedConversationDatePicker')
+      .pause(500)
       .waitForElementVisible('@closedConvoDateRangeDropdownMenus', 'DateRange dropdown is opened after click')
       .verify.visible('@closedConvoYesterdayOption', 'Yesterday option is visible')
       .verify.visible('@closedConvoLastSevenDaysOption', 'Last 7 days option is visible')
@@ -125,7 +127,7 @@ const analyticsCommands = {
 
   validateOpenConvoContactNavigation() {
     const self = this;
-    return this.click('@openTab')
+    return this.pause(1000)
       .waitForElementVisible('@firstRowConversation', 'First Row of Conversations is visible', (result) => {
         logger.info('open', result.value);
         if (result.value) {
@@ -138,8 +140,6 @@ const analyticsCommands = {
   validateClosedConvoContactNavigation() {
     const self = this;
     return this.waitForElementVisible('@closedTab', 'Closed tab is visible in conversations')
-      .pause(1000)
-      .click('@closedTab')
       .waitForElementVisible('@firstRowConversation', 'First Row of Conversations is visible', (result) => {
         logger.info(result.value);
         if (result.value) {
@@ -323,7 +323,7 @@ module.exports = {
     },
 
     openTab: {
-      selector: `//DIV[contains(@class, 'convo__tabs')]//SPAN[text() = '${analyticsOpenConversationUI.defautlTabLabel}']//parent::BUTTON`,
+      selector: `//DIV[contains(@class, 'convo__tabs')]//ul//li//div[@class='nav-tabs__item__link'][text()='${analyticsOpenConversationUI.defautlTabLabel}']`,
       locateStrategy: 'xpath',
     },
 
@@ -348,7 +348,7 @@ module.exports = {
     },
 
     timeOpenColumn: {
-      selector: `//DIV[contains(@class, 'ReactTable')]//DIV[contains(text() ,'${analyticsOpenConversationUI.timeOpenColumn}')]`,
+      selector: `//DIV[@class='tabs-content__pane is-active']//DIV[contains(text() ,'${analyticsOpenConversationUI.timeOpenColumn}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -363,7 +363,7 @@ module.exports = {
     },
 
     contactColumn: {
-      selector: `//DIV[contains(@class, 'ReactTable')]//DIV[contains(text() ,'${analyticsOpenConversationUI.contactColumn}')]`,
+      selector: `//DIV[@class='tabs-content__pane is-active']//DIV[contains(text() ,'${analyticsOpenConversationUI.contactColumn}')]`,
       locateStrategy: 'xpath',
     },
 
@@ -373,27 +373,27 @@ module.exports = {
 
 
     closedTab: {
-      selector: `//DIV[contains(@class, 'convo__tabs')]//BUTTON//SPAN[text() = '${analyticsClosedConversationUI.closedTab}']`,
+      selector: `//DIV[contains(@class, 'convo__tabs')]//ul//li//div[@class='nav-tabs__item__link'][text()='${analyticsClosedConversationUI.closedTab}']`,
       locateStrategy: 'xpath',
     },
 
     totalClosedLabel: {
-      selector: `//DIV[contains(@class, 'row convo__toggle')]//h3[contains(text() ,'${analyticsClosedConversationUI.totalClosedConversationLabel}')]`,
+      selector: '//DIV[contains(@class, \'tabs-content__pane is-active\')]//h3[contains(text() ,\'Total Closed\')]',
       locateStrategy: 'xpath',
     },
 
     closedConversationDatePicker: {
-      selector: '//DIV[contains(@class, \'convo-grid\')]//DIV[@class= \'daterange__dropdown\']',
+      selector: '//DIV[@class=\'tabs-content__pane is-active\']//DIV[@class=\'analytics__date-range\']',
       locateStrategy: 'xpath',
     },
 
     closedConvoDateRangeDropdownLabel: {
-      selector: `//DIV[@class= 'daterange__dropdown']//SPAN[@class='dropdown__toggle__text' and text() = '${helpers.defaultDateRange(30, 0)}']`,
+      selector: `//DIV[@class= 'tabs-content__pane is-active']//SPAN[@class='dropdown__toggle__text' and text() = '${helpers.defaultDateRange(30, 0)}']`,
       locateStrategy: 'xpath',
     },
 
     closedTableMessage: {
-      selector: `//DIV[contains(@class, 'convo-grid')]//SPAN[text() = '${analyticsClosedConversationUI.closedTableMessage}']`,
+      selector: `//DIV[contains(@class, 'tabs-content__pane is-active')]//SPAN[text() = '${analyticsClosedConversationUI.closedTableMessage}']`,
       locateStrategy: 'xpath',
     },
 
@@ -403,17 +403,17 @@ module.exports = {
     },
 
     dateClosedColumn: {
-      selector: `//DIV[contains(@class, 'ReactTable')]//DIV[contains(text() ,'${analyticsClosedConversationUI.dateClosedColumn}')]`,
+      selector: `//DIV[@class='tabs-content__pane is-active']//DIV[contains(text() ,'${analyticsClosedConversationUI.dateClosedColumn}')]`,
       locateStrategy: 'xpath',
     },
 
     closedByColumn: {
-      selector: `//DIV[contains(@class, 'ReactTable')]//DIV[contains(text() ,'${analyticsClosedConversationUI.closedByColumn}')]`,
+      selector: `//DIV[@class='tabs-content__pane is-active']//DIV[contains(text() ,'${analyticsClosedConversationUI.closedByColumn}')]`,
       locateStrategy: 'xpath',
     },
 
     firstRowConversation: {
-      selector: '(//DIV[contains(@class, \'ReactTable\')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])[1]',
+      selector: '//DIV[@class=\'tabs-content__pane is-active\']//DIV[@class=\'rt-thead -header\']',
       locateStrategy: 'xpath',
     },
 
@@ -438,67 +438,67 @@ module.exports = {
     },
 
     firstRowConversationContactValue: {
-      selector: `//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//*[contains(text(),'${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}')]`,
+      selector: '//DIV[contains(@class, \'tabs-content__pane is-active\')]//DIV[@class="rt-tbody"][1]',
       locateStrategy: 'xpath',
     },
 
     firstClosedByConversationValue: {
-      selector: `(//DIV[contains(@class, 'ReactTable')]//DIV[@class="rt-tbody"]//DIV[@class="rt-tr -odd"])[1]//DIV[contains(text(),'${memberFeeder.memberName}')]`,
+      selector: '(//DIV[@class=\'tabs-content__pane is-active\']//Button//span[@class=\'button__text-wrapper\'])[1]',
       locateStrategy: 'xpath',
     },
 
     closedConvoDateRangeDropdownMenus: {
-      selector: '//DIV[contains(@class, \'convo-grid\')]//DIV[contains(@class, \'dropdown__menu__scroll\')]',
+      selector: '//DIV[contains(@class, \'tabs-content__pane is-active\')]//DIV[contains(@class, \'dropdown__menu__scroll\')]',
       locateStrategy: 'xpath',
     },
 
     closedConvoYesterdayOption: {
-      selector: `//DIV[contains(@class, 'convo-grid')]//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.yesterday}']`,
+      selector: `//DIV[contains(@class, 'tabs-content__pane is-active')]//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.yesterday}']`,
       locateStrategy: 'xpath',
     },
 
     closedConvoLastSevenDaysOption: {
-      selector: `//DIV[contains(@class, 'convo-grid')]//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.last7Days}']`,
+      selector: `//DIV[contains(@class, 'tabs-content__pane is-active')]//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.last7Days}']`,
       locateStrategy: 'xpath',
     },
 
     closedConvoLastThirtyDaysOption: {
-      selector: `//DIV[contains(@class, 'convo-grid')]//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.last30Days}']`,
+      selector: `//DIV[contains(@class, 'tabs-content__pane is-active')]//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.last30Days}']`,
       locateStrategy: 'xpath',
     },
 
     closedConvoLastNintyDaysOption: {
-      selector: `//DIV[contains(@class, 'convo-grid')]//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.last90Days}']`,
+      selector: `//DIV[contains(@class, 'tabs-content__pane is-active')]//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.last90Days}']`,
       locateStrategy: 'xpath',
     },
 
     closedConvoLastTwelveMonthsOption: {
-      selector: `//DIV[contains(@class, 'convo-grid')]//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.last12Months}']`,
+      selector: `//DIV[contains(@class, 'tabs-content__pane is-active')]//DIV[@class= 'dropdown__menu__item__content__label']//span[text()='${dateRangePickerOptions.last12Months}']`,
       locateStrategy: 'xpath',
     },
 
     closedConvoCustomRangeOption: {
-      selector: `//DIV[contains(@class, 'convo-grid')]//DIV[@class= 'date-range__label' and text() = '${dateRangePickerOptions.customRange}']`,
+      selector: `//DIV[contains(@class, 'tabs-content__pane is-active')]//DIV[@class= 'date-range__label' and text() = '${dateRangePickerOptions.customRange}']`,
       locateStrategy: 'xpath',
     },
 
     closedConvoCustomRangeFromDate: {
-      selector: '//DIV[contains(@class, \'convo-grid\')]//INPUT[@name= \'startDate\']',
+      selector: '//DIV[contains(@class, \'tabs-content__pane is-active\')]//INPUT[@name= \'startDate\']',
       locateStrategy: 'xpath',
     },
 
     closedConvoCustomRangeToDate: {
-      selector: '//DIV[contains(@class, \'convo-grid\')]//INPUT[@name= \'endDate\']',
+      selector: '//DIV[contains(@class, \'tabs-content__pane is-active\')]//INPUT[@name= \'endDate\']',
       locateStrategy: 'xpath',
     },
 
     contactNavigation: {
-      selector: '//DIV[contains(@class, \'convo-grid\')]//DIV[@class = \'rt-tr -odd\']//DIV[4]//BUTTON',
+      selector: '(//DIV[contains(@class, \'tabs-content__pane is-active\')]//DIV[@class = \'rt-tr -odd\']//DIV[4]//BUTTON//SPAN)[1]',
       locateStrategy: 'xpath',
     },
 
     emptyConversations: {
-      selector: '//DIV[contains(@class, \'convo-grid\')]//DIV[@class = \'convo__empty\']',
+      selector: '//DIV[contains(@class, \'tabs-content__pane is-active\')]//DIV[@class = \'convo__empty\']',
       locateStrategy: 'xpath',
     },
   },

@@ -8,7 +8,7 @@ const channelFeeder = require('../../feeder/channel.feeder');
 
 describe('Chat Messaging Tests', () => {
   test('Login as a Member1', async () => {
-    await memberLogin(memberFeeder.newMemberUsername, memberFeeder.newMemberPassword);
+    await memberLogin(global.newCanaryNewUser, memberFeeder.newMemberPassword);
   });
 
   test('Sending a Direct chat message from member1 to member2', async () => {
@@ -24,7 +24,7 @@ describe('Chat Messaging Tests', () => {
   });
 
   test('Login as a Member2', async () => {
-    await memberLogin(memberFeeder.memberUsername2, memberFeeder.memberPassword);
+    await memberLogin(global.newCanaryUserTwo, memberFeeder.memberPassword);
   });
 
   test('Verify if direct chat message is received by Member1', async () => {
@@ -43,7 +43,7 @@ describe('Chat Messaging Tests', () => {
 describe('Direct Messaging Tests', () => {
   const contactName = `${contactFeeder.anotherContactFirstName} ${contactFeeder.anotherContactLastName}`;
   test('Login as a Member1', async () => {
-    await memberLogin(memberFeeder.newMemberUsername, memberFeeder.newMemberPassword);
+    await memberLogin(global.newCanaryNewUser, memberFeeder.newMemberPassword);
   });
 
   // Commenting this test as we need another channel setup that is routed to this member only

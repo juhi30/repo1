@@ -10,6 +10,7 @@ import {
 
 const memberFeeder = require('../../feeder/member.feeder');
 const tagsFeeder = require('../../feeder/tags.feeder');
+const helper = require('../../toolboxes/helpers.toolbox');
 
 describe('Automated Tests: Member Profile', () => {
   test('Required fields and validations on the profile page', async () => {
@@ -28,7 +29,8 @@ describe('Automated Tests: Member Profile', () => {
   });
 
   test('Change username and password and on the profile page', async () => {
-    await changeMemberUserName(memberFeeder.newMemberUsername);
+    global.newCanaryNewUser = `${memberFeeder.newMemberUsername}_${helper.randomNumber}`;
+    await changeMemberUserName(global.newCanaryNewUser);
 
     await changePasswordByProfile(memberFeeder.memberPassword, memberFeeder.newMemberPassword);
   });

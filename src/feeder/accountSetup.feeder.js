@@ -1,7 +1,7 @@
 module.exports = {
 
   // Org Setup Details
-  orgName: 'Testing_NewCanary_dev',
+  orgName: 'Testing NewCanary',
   orgName2: process.env.NEW_CANARY_EXISTING_ORG_NAME,
   address: 'Test Address',
   city: 'Test City',
@@ -9,7 +9,7 @@ module.exports = {
   zip: '12345',
 
   // Billing Org
-  billingOrgName: 'Billing_Test_Organization',
+  billingOrgName: 'Billing TestOrganization',
   billingContactFirstName: 'Billing First Name',
   billingContactLastName: 'Billing Last Name',
   billingContactPhone: '(555) 666-7778',

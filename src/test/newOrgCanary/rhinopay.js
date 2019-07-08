@@ -35,7 +35,7 @@ describe('Automated Tests: Rhinopay', () => {
   });
 
   test('Login as member', async () => {
-    await loginToolbox.memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
+    await loginToolbox.memberLogin(global.newCanaryUserOne, memberFeeder.memberPassword);
   });
 
   test('Create a contact', async () => {

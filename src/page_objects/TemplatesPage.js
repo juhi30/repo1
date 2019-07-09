@@ -30,7 +30,7 @@ const templatesCommands = {
       .click('@uploadFileButton')
       .waitForElementNotVisible('@uploadFileButton', 'Uplaod Photo modal is open')
       .pause(2000);
-    await helper.uploadFile(this, 'rhinogram.png');
+    await helper.uploadFile(this, 'rhinogram.png', '@addAttachmentFile');
     return this.pause(2000);
   },
 
@@ -289,6 +289,11 @@ module.exports = {
 
     noResultFound: {
       selector: '//DIV[@class=\'search__no-results\'][contains(text(),\'No results\')]',
+      locateStrategy: 'xpath',
+    },
+
+    addAttachmentFile: {
+      selector: '//INPUT[@class = \'u-sr-only\']',
       locateStrategy: 'xpath',
     },
   },

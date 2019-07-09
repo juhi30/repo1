@@ -14,9 +14,9 @@ describe('Rhinopay: New Canary Tests', () => {
 
   test('Adding a new Member with Admin Role', async () => {
     const memberDetails = [{ element: '@memberFirstName', value: memberFeeder.rhinopayMemberFirstName },
-    { element: '@memberLastName', value: memberFeeder.rhinopayMemberLastName },
-    { element: '@memberUsername', value: memberFeeder.rhinopayMemberUsername },
-    { element: '@memberEmailAddress', value: `${memberFeeder.email}+${helper.randomNumber}@gmail.com` }];
+      { element: '@memberLastName', value: memberFeeder.rhinopayMemberLastName },
+      { element: '@memberUsername', value: memberFeeder.rhinopayMemberUsername },
+      { element: '@memberEmailAddress', value: `${memberFeeder.email}+${helper.randomNumber}@gmail.com` }];
     const roles = ['@adminRole', '@memberRole'];
 
     await createMember(memberDetails, roles, 'RHINOPAY_MEMBER_TEMP_PASSWORD');
@@ -87,12 +87,11 @@ describe('Rhinopay: New Canary Tests', () => {
   });
 
   test('logout as member', async () => {
-    await loginToolbox.logout()
-      .pause(1000);
+    await loginToolbox.logout();
   });
 
   test('Enter payment details', async () => {
-    paymentPage.navigate()
+    await paymentPage.navigate()
       .enterPaymentDetails()
       .rhinopaySuccessMessage();
   });

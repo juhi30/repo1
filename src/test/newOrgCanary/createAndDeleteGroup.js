@@ -16,8 +16,7 @@ describe('Automated test cases for Group Deletion', () => {
       anotherMember: memberFeeder.memberName2,
     };
 
-    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName },
-      { memberName: groupDetails.anotherMember, element: memberFeeder.memberName2 }];
+    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName }];
 
     await groupToolbox.createGroup(groupDetails, '@patientOption', groupFeeder.patientTypeGroup, routeDetails);
   });
@@ -30,8 +29,7 @@ describe('Automated test cases for Group Deletion', () => {
       anotherMember: memberFeeder.memberName2,
     };
 
-    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName },
-      { memberName: groupDetails.anotherMember, element: memberFeeder.memberName2 }];
+    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName }];
 
     await groupToolbox.createGroup(groupDetails, '@teamOption', groupFeeder.teamTypeGroupD, routeDetails);
   });
@@ -44,8 +42,7 @@ describe('Automated test cases for Group Deletion', () => {
       anotherMember: memberFeeder.memberName2,
     };
 
-    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName },
-      { memberName: groupDetails.anotherMember, element: memberFeeder.memberName2 }];
+    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName }];
 
     await groupToolbox.createGroup(groupDetails, '@patientAndTeamOption', groupFeeder.patientAndTeamType, routeDetails);
   });
@@ -80,8 +77,7 @@ describe('Automated test cases for Group Deletion', () => {
       anotherMember: memberFeeder.memberName2,
     };
 
-    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName },
-      { memberName: groupDetails.anotherMember, element: memberFeeder.memberName2 }];
+    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName }];
 
     await groupToolbox.createGroup(groupDetails, '@teamOption', groupFeeder.teamTypeGroup, routeDetails);
   });
@@ -94,8 +90,7 @@ describe('Automated test cases for Group Deletion', () => {
       anotherMember: memberFeeder.memberName2,
     };
 
-    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName },
-      { memberName: groupDetails.anotherMember, element: memberFeeder.memberName2 }];
+    const routeDetails = [{ memberName: groupDetails.memberName, element: memberFeeder.memberName }];
 
     await groupToolbox.createGroup(groupDetails, '@patientAndTeamOption', groupFeeder.patientAndTeamType, routeDetails);
   });

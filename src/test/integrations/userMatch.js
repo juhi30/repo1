@@ -4,6 +4,8 @@ import * as rhinoliner from '../../services/Rhinoliner.service';
 // eslint-disable-next-line import/no-extraneous-dependencies
 const followRedirects = require('follow-redirects');
 
+let orgId;
+
 export const USER_TYPE_OTHER = 36;
 export const USER_TYPE_PATIENT = 18;
 
@@ -16,6 +18,74 @@ function sleep(ms) {
 
 describe('user matching tests', () => {
   jest.setTimeout(30000);
+
+  test('log into org as ccr', async () => {
+    orgId = parseInt(process.env.INTEGRATIONS_ORG_ID, 10);
+    const ccrUserId = await rhinoapi.getCcrUserId(process.env.INTEGRATIONS_CCR_COOKIE);
+    await rhinoapi.changeOrganization({ orgId, userId: ccrUserId }, process.env.INTEGRATIONS_CCR_COOKIE);
+  });
+
+  test('log in as member', async () => {
+    const memberData = {
+      afterHours: false,
+      autoResponse: '',
+      businessHours: [],
+      businessTitle: '',
+      firstName: 'Test',
+      groupIds: [],
+      id: -1,
+      lastName: `UserMatchMember_${orgId}`,
+      loginEmail: '',
+      middleName: '',
+      observesDst: false,
+      preferredName: '',
+      prefixId: '',
+      profileImageUrl: '',
+      roles: [
+        {
+          id: 2,
+          name: 'Admin',
+          description: null,
+          systemRole: true,
+        },
+        {
+          id: 3,
+          name: 'Billing Admin',
+          description: null,
+          systemRole: true,
+        },
+        {
+          id: 5,
+          name: 'Member',
+          description: null,
+          systemRole: true,
+        },
+        {
+          id: 1,
+          name: 'Member Admin',
+          description: null,
+          systemRole: true,
+        },
+        {
+          id: 6,
+          name: 'Member Templates',
+          description: null,
+          systemRole: true,
+        },
+      ],
+      routedChannels: [],
+      suffixId: '',
+      tagIds: [],
+      typeId: 19,
+      username: `testusermatchmember_${orgId}`,
+      password: '4419kJig',
+    };
+
+    await rhinoapi.postUser(memberData, process.env.INTEGRATIONS_CCR_COOKIE);
+
+    process.env.INTEGRATIONS_MEMBER_COOKIE = await rhinoapi.login(memberData.username, memberData.password);
+  });
+
   test('create patients', async () => {
     let user = {
       externalId: '1',
@@ -39,6 +109,35 @@ describe('user matching tests', () => {
       orgId: process.env.INTEGRATIONS_ORG_ID,
     };
     rhinoliner.pushtoqueue(user);
+
+    // NON INTEGRATED USER
+    user = {
+      firstName: 'Jimbo',
+      lastName: 'NonIntegrated',
+      loginEmail: `${process.env.INTEGRATIONS_ORG_ID}_jimbousermatch@mail.com`,
+      preferredName: 'Jim',
+      isMinor: false,
+      roles: [
+        {
+          id: 7,
+          name: 'Patient',
+          description: null,
+          systemRole: true,
+        },
+      ],
+      sex: 'male',
+      birthday: '1976-10-15',
+      note: 'my name is jimbo',
+      noteIsImportant: true,
+      tagIds: [1],
+      typeId: USER_TYPE_OTHER,
+      username: 'jnonintegratedpeters',
+      password: '4419kJig',
+      pwReset: false,
+      hipaaStatus: {},
+    };
+
+    await rhinoapi.postUser(user, process.env.INTEGRATIONS_MEMBER_COOKIE);
     await sleep(20000);
   });
 
@@ -139,16 +238,17 @@ describe('user matching tests', () => {
     });
   });
 
-  test('try match joe with no ext id but by first last and birthday with patient joe', async (done) => {
+  test('try match jimbo with no ext id but by first last and birthday with patient jimbo', async (done) => {
     const user = {
-      firstName: 'Joe',
-      lastName: 'Johnson',
-      birthday: '1920-01-01',
+      firstName: 'Jimbo',
+      lastName: 'NonIntegrated',
+      birthday: '1976-10-15',
       orgId: process.env.INTEGRATIONS_ORG_ID,
     };
     rhinoapi.findUserByUser(process.env.INTEGRATIONS_ORG_ID, user).then((response) => {
-      expect(response.data.externalIds.emrId).toBe('1');
-      expect(response.data.firstName).toBe('Joe');
+      expect(response.data.firstName).toBe('Jimbo');
+      expect(response.data.lastName).toBe('NonIntegrated');
+      expect(response.data.integrated).toBe(0);
       done();
     });
   });

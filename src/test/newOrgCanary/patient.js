@@ -4,6 +4,7 @@ import { logout } from '../../toolboxes/login.toolbox';
 const messageFeeder = require('../../feeder/message.feeder');
 const patientFeeder = require('../../feeder/patient.feeder');
 const contactFeeder = require('../../feeder/contact.feeder');
+const helper = require('../../toolboxes/helpers.toolbox');
 
 describe('Patient Login Page Tests Cases', () => {
   const patient = client.page.PatientPage();
@@ -30,9 +31,11 @@ describe('Patient Login Page Tests Cases', () => {
   });
 
   test('Register Patient through rhino secure auto response', async () => {
+    global.usernameForPatient = `${patientFeeder.patientUserName}_${helper.randomNumber}`;
+    global.emailForPatient = `${patientFeeder.patientEmail}+${helper.randomNumber}@rhino.com`;
     await patient.navigate()
-      .registerPatient(patientFeeder.patientUserName,
-        patientFeeder.patientEmail,
+      .registerPatient(global.usernameForPatient,
+        global.emailForPatient,
         patientFeeder.patientPassword);
   });
 

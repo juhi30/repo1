@@ -22,7 +22,7 @@ describe('Login Page Tests Cases', () => {
   });
 
   test('Login as member with valid username and password', async () => {
-    await loginToolbox.memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
+    await loginToolbox.memberLogin(global.newCanaryUserOne, memberFeeder.memberPassword);
   });
 
   test('logout as Member', async () => {
@@ -30,7 +30,7 @@ describe('Login Page Tests Cases', () => {
   });
 
   test('Use valid username for forgotten password', async () => {
-    await loginToolbox.sendForgotPasswordLink(memberFeeder.memberUsername, true);
+    await loginToolbox.sendForgotPasswordLink(global.newCanaryUserOne, true);
   });
 
   test('Use invalid username for forgotten password', async () => {
@@ -47,7 +47,7 @@ describe('Login Page Tests Cases', () => {
 
   test('Login with valid username and invalid password', async () => {
     const errorMessage = 'Error message is visible.';
-    await loginToolbox.invalidMemberLogin(memberFeeder.memberUsername, accountSetupFeeder.state, '@errorPrompt', errorMessage);
+    await loginToolbox.invalidMemberLogin(global.newCanaryUserOne, accountSetupFeeder.state, '@errorPrompt', errorMessage);
   });
 
   test('Login with invalid username and valid password', async () => {
@@ -80,14 +80,14 @@ describe('Login Page Tests Cases', () => {
   });
 
   test('Unused reset password token is invalidated if another reset request is sent', async () => {
-    const { memberUsername, memberPassword } = memberFeeder;
+    const { memberPassword } = memberFeeder;
     const tempPassword = global.NEW_CANARY_TEMP_PASSWORD;
     const newTempPassword = global.NEW_CANARY_NEW_TEMP_PASSWORD;
     const errorMessage = 'Error message is visible, old token did not work. ';
     // Login as Member with Old Password reset token
-    await loginToolbox.invalidMemberLogin(memberFeeder.memberUsername, tempPassword, '@errorPrompt', errorMessage);
+    await loginToolbox.invalidMemberLogin(global.newCanaryUserOne, tempPassword, '@errorPrompt', errorMessage);
     // Login as Member with New Password reset token
-    await changePasswordUsingTempPassword(memberUsername, memberPassword, newTempPassword);
+    await changePasswordUsingTempPassword(global.newCanaryUserOne, memberPassword, newTempPassword);
   });
 
   test('logout as Member', async () => {
@@ -100,9 +100,9 @@ describe('Login Page Tests Cases', () => {
 
     try {
       // Login with valid user name and invalid password
-      await loginToolbox.invalidMemberLogin(memberFeeder.memberUsername, accountSetupFeeder.state, '@errorPrompt', errorMessage);
-      await loginToolbox.invalidMemberLogin(memberFeeder.memberUsername, accountSetupFeeder.state, '@errorPrompt', errorMessage);
-      await loginToolbox.invalidMemberLogin(memberFeeder.memberUsername, accountSetupFeeder.state, '@failedLoginAttemptPrompt', thirdLoginAttemptErrorMessage);
+      await loginToolbox.invalidMemberLogin(global.newCanaryUserOne, accountSetupFeeder.state, '@errorPrompt', errorMessage);
+      await loginToolbox.invalidMemberLogin(global.newCanaryUserOne, accountSetupFeeder.state, '@errorPrompt', errorMessage);
+      await loginToolbox.invalidMemberLogin(global.newCanaryUserOne, accountSetupFeeder.state, '@failedLoginAttemptPrompt', thirdLoginAttemptErrorMessage);
 
       await loginToolbox.sendForgotPasswordLink(memberFeeder.memberEmail, true);
 

@@ -16,8 +16,7 @@ function returnElementText(client, selector) {
 
 // Use to upload attachments
 async function uploadFile(client, fileName, element) {
-  const attachmentElement = element || 'input[type="file"]';
-  client.setValue(attachmentElement, `${path.resolve()}/src/assets/${fileName}`);
+  client.setValue(element, `${path.resolve()}/src/assets/${fileName}`);
 }
 
 // useful for clicking a specific element without needing a Page Object function

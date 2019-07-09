@@ -1,3 +1,4 @@
+import logger from 'rhinotilities/lib/loggers/logger';
 import * as rhinoliner from '../services/Rhinoliner.service';
 import * as helpers from './helpers.toolbox';
 
@@ -41,6 +42,7 @@ export async function createAppointments(appt, count) {
   for (let i = 1; i <= count; i += 1) {
     const startDate = getDateInString(new Date(), 5 + (i * 5));
     global[`appointmentStartDate_${i}`] = startDate;
+    logger.info(`==== appointmentStartDate_${i} === ${startDate}`);
     const appointment = {
       startDate,
       endDate,

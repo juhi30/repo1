@@ -10,7 +10,7 @@ const universal = client.page.UniversalElements();
 
 describe('Billing Organization Test Cases', () => {
   test('Login as Member', async () => {
-    await login.memberLogin(memberFeeder.memberUsername1, memberFeeder.memberPassword);
+    await login.memberLogin(global.billingMemberUsername1, memberFeeder.memberPassword);
   });
 
   test('Verifying billing UI', async () => {

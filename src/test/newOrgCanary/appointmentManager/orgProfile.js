@@ -43,11 +43,11 @@ describe('Organization Profile Edit as CCR', () => {
 
 describe('Organization profile edit as member', () => {
   test('Login as Member (reset Password) and Edit Org Profile ', async () => {
-    const { appointmentMemberUsername, memberPassword } = memberFeeder;
+    const { memberPassword } = memberFeeder;
     const tempPassword = global.APPOINTMENT_MEMBER_TEMP_PASSWORD;
     const login = client.page.LoginPage();
 
-    await changePasswordUsingTempPassword(appointmentMemberUsername, memberPassword, tempPassword);
+    await changePasswordUsingTempPassword(global.apptUsername, memberPassword, tempPassword);
     // Below lines have been added to by pass confirm email modal
     await login.clickConfirmEmailOnEmailModal()
       .pause(1000);

@@ -7,7 +7,7 @@ const memberFeeder = require('../../feeder/member.feeder');
 
 describe(' Automated Test Cases - Groups', () => {
   test('Login as member', async () => {
-    await memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
+    await memberLogin(global.newCanaryUserOne, memberFeeder.memberPassword);
   });
 
   test('Create Groups - Patient Type', async () => {

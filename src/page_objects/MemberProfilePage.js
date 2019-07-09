@@ -61,7 +61,7 @@ const profileCommands = {
       .click(element)
       .waitForElementNotVisible('@uploadPhotoButton', 'Upload Photo modal is open')
       .pause(2000);
-    await helper.uploadFile(this, 'rhinogram.png');
+    await helper.uploadFile(this, 'rhinogram.png', '@addMemberProfilePhoto');
     return this.pause(5000)
       .click('@doneUploadPhoto')
       .pause(5000)
@@ -305,6 +305,11 @@ module.exports = {
 
     rhinoSecureTypeChannel: {
       selector: `//SPAN[@class='resource__intro__title__content'][text()='${channelFeeder.rhinoChannelNewName}']`,
+      locateStrategy: 'xpath',
+    },
+
+    addMemberProfilePhoto: {
+      selector: '//INPUT[@id = \'js-upload-avatar\']',
       locateStrategy: 'xpath',
     },
   },

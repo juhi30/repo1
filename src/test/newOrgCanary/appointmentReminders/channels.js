@@ -7,14 +7,6 @@ const memberFeeder = require('../../../feeder/member.feeder');
 const channels = client.page.ChannelsPage();
 
 describe('Automated Tests: Channels', () => {
-  test('Required Fields and validations', async () => {
-    await channels.navigate();
-    await channelToolbox.validateChannelPageElements();
-
-    await channelToolbox.validateChannelCreationRequiredFields('@newPhoneType');
-
-    await channelToolbox.validateChannelCreationRequiredFields('@rhinoSecureType');
-  });
 
   test('Channel Create - New Phone type with member Route', async () => {
     const channelData = {

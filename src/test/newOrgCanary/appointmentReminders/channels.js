@@ -4,18 +4,7 @@ import * as channelToolbox from '../../../toolboxes/channel.toolbox';
 const channelFeeder = require('../../../feeder/channel.feeder');
 const memberFeeder = require('../../../feeder/member.feeder');
 
-const channels = client.page.ChannelsPage();
-
 describe('Automated Tests: Channels', () => {
-  test('Required Fields and validations', async () => {
-    await channels.navigate();
-    await channelToolbox.validateChannelPageElements();
-
-    await channelToolbox.validateChannelCreationRequiredFields('@newPhoneType');
-
-    await channelToolbox.validateChannelCreationRequiredFields('@rhinoSecureType');
-  });
-
   test('Channel Create - New Phone type with member Route', async () => {
     const channelData = {
       phoneNumber: channelFeeder.numberForNewPhoneChannel,
@@ -23,9 +12,9 @@ describe('Automated Tests: Channels', () => {
       channelName: channelFeeder.channelName,
       channelPurpose: channelFeeder.channelPurpose,
       timeZone: channelFeeder.timeZone,
-      memberFirstName: memberFeeder.appointmentMemberFirstName,
+      memberFirstName: memberFeeder.appointmentReminderMemberFirstName,
     };
 
-    await channelToolbox.createChannel('@newPhoneType', channelData, '@appointmentMemberResult');
+    await channelToolbox.createChannel('@newPhoneType', channelData, memberFeeder.appointmentReminderMemberFirstName);
   });
 });

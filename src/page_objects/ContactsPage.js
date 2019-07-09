@@ -165,7 +165,7 @@ const contactsCommands = {
       .click('@addPhotoButton')
       .waitForElementNotVisible('@uploadPhotoButton', 'Upload Photo modal is open')
       .pause(2000);
-    await helper.uploadFile(this, 'contact.png');
+    await helper.uploadFile(this, 'contact.png', '@addProfilePhoto');
     return this.pause(3000)
       .click('@doneUploadPhoto')
       .waitForElementNotPresent('@doneUploadPhoto', 'Upload photo modal is hidden')
@@ -304,7 +304,7 @@ module.exports = {
     },
 
     patientOption: {
-      selector: '//SPAN[@class=\'form__block-group__label\'][contains(.,\'Patient\')]',
+      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Patient\']',
       locateStrategy: 'xpath',
     },
 
@@ -753,6 +753,11 @@ module.exports = {
 
     forwardingToggle: {
       selector: '//LABEL[@class=\'rhinoswitcher__label\'][contains(@for,\'forwarding\')]',
+      locateStrategy: 'xpath',
+    },
+
+    addProfilePhoto: {
+      selector: '//INPUT[@id = \'js-upload-avatar\']',
       locateStrategy: 'xpath',
     },
   },

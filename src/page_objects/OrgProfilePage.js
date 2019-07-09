@@ -58,7 +58,7 @@ const orgProfileCommands = {
 
 
   updateIntegrationValue(integrationType) {
-    return this.verify.visible('@integrationDropdown', 'Integration dropdown is visible')
+    return this.waitForElementVisible('@integrationDropdown', 'Integration dropdown is visible')
       .setValue('@integrationDropdown', integrationType);
   },
 
@@ -106,7 +106,7 @@ const orgProfileCommands = {
       .click(element)
       .waitForElementVisible('@uploadPhotoModal', 'Upload Photo modal is open')
       .pause(2000);
-    await helper.uploadFile(this, fileName);
+    await helper.uploadFile(this, fileName, '@addOrgProfilePhoto');
     return this.pause(5000)
       .click('@doneUploadPhoto')
       .pause(5000)
@@ -323,6 +323,11 @@ module.exports = {
 
     paymentGatewayIdInput: {
       selector: '//INPUT[contains(@id,\'paymentGatewayId\')]',
+      locateStrategy: 'xpath',
+    },
+
+    addOrgProfilePhoto: {
+      selector: '//INPUT[@id = \'js-upload-avatar\']',
       locateStrategy: 'xpath',
     },
   },

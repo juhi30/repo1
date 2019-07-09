@@ -1,7 +1,7 @@
 module.exports = {
 
   // Org Profile New Info for Mandatory Fields
-  orgNewName: 'Testing_Appointment_Org',
+  orgNewName: 'Testing Appointment Org',
   orgNewAddress: 'New Test Address',
   orgNewCity: 'New City',
   orgNewState: 'New State',
@@ -17,4 +17,5 @@ module.exports = {
 
   // Org Profile Integration Type Information
   orgNewIntegration: 'Sikka',
+  orgNewCloud9Integration: 'Cloud 9',
 };

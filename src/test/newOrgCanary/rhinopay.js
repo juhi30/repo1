@@ -31,13 +31,11 @@ describe('Automated Tests: Rhinopay', () => {
   });
 
   test('logout as CCR', async () => {
-    const logout = client.page.UniversalElements();
-
-    await logout.clickLogout();
+    await loginToolbox.logout();
   });
 
   test('Login as member', async () => {
-    await loginToolbox.memberLogin(memberFeeder.memberUsername, memberFeeder.memberPassword);
+    await loginToolbox.memberLogin(global.newCanaryUserOne, memberFeeder.memberPassword);
   });
 
   test('Create a contact', async () => {

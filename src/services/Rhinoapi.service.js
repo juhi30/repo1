@@ -45,6 +45,23 @@ export async function postRhinolinerUser(user, orgId) {
     { headers: { Authorization: `Basic ${Buffer.from(process.env.API_BASIC_AUTH).toString('base64')}` } });
 }
 
+export async function getThreadForUser(userId, payload, cookie) {
+  console.log('SUER ID IN GET THREAD', userId);
+  const {
+    pageNo, pageSize, sort, minimal,
+  } = payload;
+
+  const response = await axios.get(`${process.env.API_BASE_URL}/thread/${userId}?pageNo=${pageNo}&pageSize=${pageSize}&sort=${sort}&minimal=${minimal}`,
+    {
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      },
+    });
+  console.log('RES', response.data);
+  return response.data;
+}
+
 export async function postProvisionedChannel(data, cookie) {
   const response = await axios.post(`${process.env.API_BASE_URL}/channels/provisioned`,
     data,

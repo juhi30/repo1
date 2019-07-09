@@ -235,7 +235,7 @@ describe('appt reminder tests', () => {
           appointmentRemindersDeliveryHours: 48,
           channelId: defaultOrgSmsChannel.id,
           organizationId: orgId,
-          appointmentRemindersTemplate: 'you have an appointment coming up',
+          appointmentRemindersTemplate: 'upcoming appt reminder message',
         },
         offices: [{
           id: office.id,

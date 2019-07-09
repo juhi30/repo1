@@ -187,7 +187,7 @@ describe('appt reminder tests', () => {
           appointmentRemindersDeliveryHours: 48,
           channelId: defaultOrgSmsChannel.id,
           organizationId: orgId,
-          appointmentRemindersTemplate: 'you have an appointment coming up!',
+          appointmentRemindersTemplate: 'this is your upcoming appointment reminder',
         },
       };
       // patch org with new default channel that was created
@@ -227,7 +227,7 @@ describe('appt reminder tests', () => {
       externalIds: {
         emrId: user1EmrId,
       },
-      firstName: 'Sally',
+      firstName: 'Ginny',
       lastName: 'Hanson',
       birthday: '1990-06-23',
       sex: 'female',

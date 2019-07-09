@@ -1,12 +1,20 @@
 import { client } from 'nightwatch-api';
 import { changePasswordUsingTempPassword } from '../../../toolboxes/member.toolbox';
-import { logout } from '../../../toolboxes/login.toolbox';
+import { ccrLogin, logout } from '../../../toolboxes/login.toolbox';
+import { selectOrganizationByCCR } from '../../../toolboxes/organization.toolbox';
 
 const loginFeeder = require('../../../feeder/login.feeder');
 const orgProfileFeeder = require('../../../feeder/orgProfile.feeder');
 const memberFeeder = require('../../../feeder/member.feeder');
+const accountSetupFeeder = require('../../../feeder/accountSetup.feeder');
 
 describe('Organization Profile Edit as CCR', () => {
+  test('login as ccr into the organization', async () => {
+    await ccrLogin(loginFeeder.appointmentCcrLogin, loginFeeder.appointmentCcrPassword);
+
+    await selectOrganizationByCCR(accountSetupFeeder.appointmentOrgName);
+  });
+
   test('Edit Organization Profile as CCR', async () => {
     const orgProfile = client.page.OrgProfilePage();
     const entry = client.page.AuditLogsPage();

@@ -32,13 +32,19 @@ export async function validateChannelCreationRequiredFields(channelType) {
  * @param  {string} channelType Channel type like: New Phone, Rhinosecure
  * @param  {object} channelData Data to create new Channel
  */
-export async function createChannel(channelType, channelData, routeMember) {
+export async function createChannel(channelType, channelData, routeMember, isSkipNavigation) {
   const route = client.page.ChannelRouteMemberContainer();
 
-  await channelCreateEdit.navigate()
-    .validateCreateEls()
-    .selectChannelCategory(channelType)
-    .pause(2000);
+  if (isSkipNavigation) {
+    await channelCreateEdit.validateCreateEls()
+      .selectChannelCategory(channelType)
+      .pause(2000);
+  } else {
+    await channelCreateEdit.navigate()
+      .validateCreateEls()
+      .selectChannelCategory(channelType)
+      .pause(2000);
+  }
 
   if (channelType === '@newPhoneType') {
     channelCreateEdit.addNumber(channelData.phoneNumber, channelData.forwardingNumber)
@@ -170,10 +176,8 @@ export async function verifyAlertDeletingChannel(deletedChannelElement, alertMes
     .waitForElementVisible('@deleteChannelButton', 'Delete Channel Button is visible')
     .click('@deleteChannelButton')
     .verifyChannelAlerts(alertMessage)
-    .waitForElementVisible('@confirmDeleteChannel', 'confirm delete button is visible')
-    .click('@confirmDeleteChannel')
-    .waitForElementVisible('@deleteChannelSuccessMessage', 'Channel Deleted Successfully')
-    .waitForElementNotPresent('@deleteChannelSuccessMessage', 'Delete Success Message is no longer visible.');
+    .click('@deleteModalCancelButton')
+    .pause(1000);
 }
 
 export async function editChannelRoute(channelNameElement, channelData) {
@@ -188,7 +192,7 @@ export async function editChannelRoute(channelNameElement, channelData) {
     .waitForElementNotPresent('@channelUpdateSuccessMessage');
 }
 
-export async function createBWChannelSkipProvision(ccrLogin, organizationId, userSearchDetails) {
+export async function createBWChannelSkipProvision(ccrLogin, organizationId, userSearchDetails, channelDetails) {
   try {
     const orgId = parseInt(organizationId, 10);
     const ccrCookie = await rhinoapi.login(ccrLogin.userName, ccrLogin.password);
@@ -196,21 +200,21 @@ export async function createBWChannelSkipProvision(ccrLogin, organizationId, use
     await rhinoapi.changeOrganization({ orgId, userId: ccrUserId }, ccrCookie);
     const members = await rhinoapi.searchMemberOrContact(userSearchDetails.userName, userSearchDetails.userType, ccrCookie);
     const channelData = {
-      name: channelFeeder.channelName,
-      purpose: channelFeeder.channelPurpose,
+      name: channelDetails.channelName,
+      purpose: channelDetails.channelPurpose,
       typeId: 10, // sms channel type
       timeZoneId: 1,
       observesDst: true,
       details: {
         phone: {
-          value: process.env.NEW_CANARY_PROVISIONED_BW_CHANNEL_NUMBER,
+          value: channelDetails.phoneNumber,
           typeId: 3,
         },
         forwardingPhone: {
-          value: '+15555555555',
+          value: channelDetails.forwardingPhone,
           typeId: 3,
         },
-        bandwidthNumberId: process.env.NEW_CANARY_PROVISIONED_BW_CHANNEL_NUMBER,
+        bandwidthNumberId: channelDetails.phoneNumber,
       },
       tagIds: [],
       route: {

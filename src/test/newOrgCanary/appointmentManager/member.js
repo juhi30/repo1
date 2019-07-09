@@ -1,4 +1,5 @@
 import { createMember } from '../../../toolboxes/member.toolbox';
+import { logout } from '../../../toolboxes/login.toolbox';
 
 const memberFeeder = require('../../../feeder/member.feeder');
 const helper = require('../../../toolboxes/helpers.toolbox');
@@ -13,5 +14,9 @@ describe('Members Page', () => {
     const roles = ['@adminRole', '@memberRole'];
 
     await createMember(memberDetails, roles, 'APPOINTMENT_MEMBER_TEMP_PASSWORD');
+  });
+
+  test('logout as CCR', async () => {
+    await logout();
   });
 });

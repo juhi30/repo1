@@ -12,7 +12,13 @@ describe('Automated Tests: Channels', () => {
   test('Bandwidth channel setup without provision', async () => {
     const ccr = { userName: loginFeeder.ccrLogin, password: loginFeeder.ccrPassword };
     const userSearchDetails = { userName: memberFeeder.memberFirstName, userType: 'members' };
-    await channelToolbox.createBWChannelSkipProvision(ccr, process.env.NEW_CANARY_ORG_ID, userSearchDetails);
+    const channelData = {
+      channelName: channelFeeder.channelName,
+      channelPurpose: channelFeeder.channelPurpose,
+      phoneNumber: process.env.NEW_CANARY_PROVISIONED_BW_CHANNEL_NUMBER,
+      forwardingPhone: '+15555555555',
+    };
+    await channelToolbox.createBWChannelSkipProvision(ccr, process.env.NEW_CANARY_ORG_ID, userSearchDetails, channelData);
   });
 
   test('login as ccr into the organization', async () => {

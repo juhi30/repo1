@@ -10,6 +10,7 @@ module.exports = {
   // New phone type Channel2 Details
   forwardingNumber1: '(454) 657-8140',
   channelName1: 'Test Channel2',
+  rhinosecureChannelName: 'New Rhinosecure Channel',
 
   // Web Form Addition Details
   formTitleName: 'Send Message via web form.',

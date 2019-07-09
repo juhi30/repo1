@@ -34,7 +34,7 @@ afterAll(async (done) => {
   try {
     // Reset max listeners to the node.js default once the test is complete.
     EventEmitter.defaultMaxListeners = 10;
-    await orgTearDown(process.env.NEW_CANARY_ORG_ID, loginFeeder.ccrLogin, loginFeeder.ccrPassword);
+    await orgTearDown(process.env.NEW_CANARY_ORG_ID, loginFeeder.ccrLogin, loginFeeder.ccrPassword, 1);
     done();
   } catch (error) {
     // Reset max listeners to the node.js default once the test is complete.

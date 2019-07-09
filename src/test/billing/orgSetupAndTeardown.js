@@ -37,7 +37,7 @@ beforeAll(async () => {
 
 // DELETE MY NEW ORG HERE
 afterAll(async (done) => {
-  orgTearDown(process.env.BILLING_ORG_ID, loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword)
+  orgTearDown(process.env.BILLING_ORG_ID, loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword, 1)
     .then(() => {
       done();
     })

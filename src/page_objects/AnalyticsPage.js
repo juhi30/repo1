@@ -33,8 +33,7 @@ const analyticsCommands = {
       .verify.visible('@lastTwelveMonthsOption', 'Last 12 months option is visible')
       .verify.visible('@customRangeOption', 'Custom Range option is visible')
       .verify.visible('@customRangeFromDate', 'From Date input is visible')
-      .verify.visible('@customRangeToDate', 'To Date is visible')
-      .click('@dateRangeDropdown');
+      .verify.visible('@customRangeToDate', 'To Date is visible');
   },
 
   validateDefaultOptionInDateRangeDropdown() {
@@ -178,12 +177,12 @@ module.exports = {
     },
 
     dateRangeDropdown: {
-      selector: '//DIV[contains(@class, \'daterange__dropdown\')]',
+      selector: '//DIV[contains(@class, \'analytics__date-range\')]//DIV[contains(@class,\'daterange__dropdown\')]',
       locateStrategy: 'xpath',
     },
 
     dateRangeDropdownMenus: {
-      selector: '//DIV[contains(@class, \'analytics__wrapper\')]//DIV[contains(@class, \'dropdown__menu__scroll\')]',
+      selector: '//DIV[contains(@class, \'analytics__date-range\')]//DIV[contains(@class,\'dropdown__menu__scroll\')]',
       locateStrategy: 'xpath',
     },
 
@@ -323,7 +322,7 @@ module.exports = {
     },
 
     openTab: {
-      selector: `//DIV[contains(@class, 'convo__tabs')]//ul//li//div[@class='nav-tabs__item__link'][text()='${analyticsOpenConversationUI.defautlTabLabel}']`,
+      selector: `//DIV[contains(@class, 'convo__tabs')]//*[@class='nav-tabs__item__link'][text()='${analyticsOpenConversationUI.defautlTabLabel}']`,
       locateStrategy: 'xpath',
     },
 

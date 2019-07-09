@@ -79,8 +79,9 @@ describe('Automated Tests: Appointment Reminders', () => {
     await apptReminders.openAppointmentReminders();
   });
 
-  test('Verify Variable message location options', async () => {
+  test('Verify Variable message location options', async (done) => {
     await apptReminders.checkVariableMessage('Office Location');
     await apptReminders.checkVariableMessage('Office Location', 2);
+    done();
   });
 });

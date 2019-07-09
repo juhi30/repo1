@@ -3,21 +3,10 @@ import logger from 'rhinotilities/lib/loggers/logger';
 const contactFeeder = require('./../feeder/contact.feeder');
 const helper = require('../toolboxes/helpers.toolbox');
 
-
 const randomNumber = Math.floor(Math.random() * 1000000);
 const existingOrgFeeder = require('../feeder/existingOrg.feeder');
 
 const contactsCommands = {
-
-  validateContactsElements() {
-    return this.waitForElementVisible('@filterDropdown', 'Filter dropdown button is visible')
-      .click('@filterDropdown')
-      .verify.visible('@allContactsOption', 'All contacts option is visible')
-      .verify.visible('@patientFilterOption', 'Patient option is visible')
-      .verify.visible('@unknownFilterOption', 'Unknown filter option is visible')
-      .verify.visible('@otherFilterOption', 'Other filter option is visible')
-      .click('@filterDropdown');
-  },
 
   clickFilterOption(element, filter) {
     return this.click('@filterDropdown')

@@ -28,16 +28,14 @@ beforeAll(async () => {
 });
 
 // DELETE MY NEW ORG HERE
-afterAll(async (done) => {
+afterAll(async () => {
   try {
     // Reset max listeners to the node.js default once the test is complete.
     EventEmitter.defaultMaxListeners = 10;
-    await orgTearDown(process.env.APPOINTMENT_REMINDER_ORG_ID, loginFeeder.appointmentReminderCcrLogin, loginFeeder.appointmentReminderCcrPassword);
-    done();
+    await orgTearDown(process.env.APPOINTMENT_REMINDER_ORG_ID, loginFeeder.appointmentReminderCcrLogin, loginFeeder.appointmentReminderCcrPassword, 1);
   } catch (error) {
     // Reset max listeners to the node.js default once the test is complete.
     EventEmitter.defaultMaxListeners = 10;
-    done(error);
     logger.error(error, '===error on afterAll (AppointmentManagerSuite) orgSetupAndTeardown=======');
   }
 });

@@ -96,8 +96,8 @@ const groupsPageCommands = {
     return this.api.useXpath().waitForElementVisible(`//li[contains(text(),'${condition}')]`, `${condition} is visible in the confirm delete modal.`);
   },
 
-  closeGroupDeleteModal() {
-    return this.waitForElementVisible('@deleteGroupModalHeader', 'Group cannot be deleted modal')
+  verifyDeleteGroupModal() {
+    return this.waitForElementVisible('@deleteGroupModalHeader', 'Group Could Not Be Deleted modal is opened')
       .waitForElementVisible('@closeDeleteModalButton', 'Modal Close Button is visible.')
       .click('@closeDeleteModalButton');
   },
@@ -108,7 +108,8 @@ const groupsPageCommands = {
   },
 
   confirmDelete(successMessage) {
-    return this.waitForElementVisible('@confirmDeleteButton', 'confirm delete button is visible and there is no condition group deletion left.')
+    return this.waitForElementVisible('@confirmDeleteGroupModalHeader', 'Confirm Delete Modal is opened.')
+      .verify.visible('@confirmDeleteButton', 'confirm delete button is visible and there is no condition group deletion left.')
       .click('@confirmDeleteButton')
       .waitForElementVisible(successMessage, `${successMessage} is visible.`);
   },
@@ -352,7 +353,12 @@ module.exports = {
     },
 
     deleteGroupModalHeader: {
-      selector: '//H3[contains(text(),\'Group\')]',
+      selector: '//H3[contains(text(),\'Group Could Not Be Deleted\')]',
+      locateStrategy: 'xpath',
+    },
+
+    confirmDeleteGroupModalHeader: {
+      selector: '//H3[contains(text(),\'Delete Group?\')]',
       locateStrategy: 'xpath',
     },
   },

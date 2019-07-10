@@ -13,42 +13,49 @@ describe('Channels Creation for Billing Org', () => {
   const universal = client.page.UniversalElements();
   const channel = client.page.ChannelsPage();
 
+  test('Add First BW Channel according to the current plan', async () => {
+    const ccr = { userName: loginFeeder.billingCcrLogin, password: loginFeeder.billingCcrPassword };
+    const userSearchDetails = { userName: memberFeeder.memberName1, userType: 'members' };
+    const channelData = {
+      channelName: channelFeeder.channelName,
+      channelPurpose: channelFeeder.channelPurpose,
+      phoneNumber: process.env.NEW_CANARY_PROVISIONED_BW_CHANNEL_NUMBER,
+      forwardingPhone: '+15555555555',
+    };
+    await channelToolbox.createBWChannelSkipProvision(ccr, process.env.BILLING_ORG_ID, userSearchDetails, channelData);
+  });
+
+  test('Add Second BW Channel according to the current plan', async () => {
+    const ccr = { userName: loginFeeder.billingCcrLogin, password: loginFeeder.billingCcrPassword };
+    const userSearchDetails = { userName: memberFeeder.memberName1, userType: 'members' };
+    const channelData = {
+      channelName: channelFeeder.channelName1,
+      channelPurpose: channelFeeder.channelPurpose,
+      phoneNumber: process.env.NEW_CANARY_PROVISIONED_BW_CHANNEL_NUMBER,
+      forwardingPhone: '+15555555555',
+    };
+    await channelToolbox.createBWChannelSkipProvision(ccr, process.env.BILLING_ORG_ID, userSearchDetails, channelData);
+  });
+
   test('login as ccr into the organization', async () => {
     await ccrLogin(loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword);
 
     await selectOrganizationByCCR(accountSetupFeeder.billingOrgName, '@billingOrgSearchResult');
   });
 
-  test('Add Channels according to the current plan', async () => {
+  test('verifying alert message when adding an Addon channel', async () => {
+    const channelData = {
+      channelName: channelFeeder.rhinosecureChannelName,
+      channelPurpose: channelFeeder.channelPurpose,
+      timeZone: channelFeeder.timeZone,
+      memberFirstName: memberFeeder.memberName1,
+    };
     await universal.clickChannels()
       .pause(1000);
-    await channel.addChannel();
-
-    const channelData = {
-      phoneNumber: channelFeeder.numberForNewPhoneChannel,
-      forwardingNumber: channelFeeder.forwardingNumber,
-      channelName: channelFeeder.channelName,
-      channelPurpose: channelFeeder.channelPurpose,
-      timeZone: channelFeeder.timeZone,
-      memberFirstName: memberFeeder.memberName1,
-    };
-
-    await channelToolbox.createChannel('@newPhoneType', channelData, memberFeeder.memberName1);
-  });
-
-  test('verifying alert message when adding an Addon channel', async () => {
-    const channelData1 = {
-      phoneNumber: channelFeeder.numberForNewPhoneChannel,
-      forwardingNumber: channelFeeder.forwardingNumber1,
-      channelName: channelFeeder.channelName1,
-      channelPurpose: channelFeeder.channelPurpose,
-      timeZone: channelFeeder.timeZone,
-      memberFirstName: memberFeeder.memberName1,
-    };
 
     await channelToolbox.verifyAlertMessagesAddonChannels('@createAlert', '@newPhoneType');
 
-    await channelToolbox.createChannel('@newPhoneType', channelData1, memberFeeder.memberName1);
+    await channelToolbox.createChannel('@rhinoSecureType', channelData, memberFeeder.memberName1, true);
   });
 
   test('verifying alert message when deleting an Addon channel', async () => {

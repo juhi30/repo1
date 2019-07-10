@@ -161,13 +161,13 @@ describe('Automated Tests: Contact', () => {
     await contact.navigate()
       .verify.urlContains('contacts', 'Contact Page is opened')
       .validateContactFilterOptions()
-      .clickFilterOption('@patientOption', 'Patient')
+      .clickFilterOption('@patientFilterOption', 'Patient')
       .waitForElementVisible('@filteredPatientContact', 'Patient contact is visible')
       .waitForElementVisible('@filteredContactPatientType', 'Filtered contact should be Patient')
-      .clickFilterOption('@otherOption', 'Other')
+      .clickFilterOption('@otherFilterOption', 'Other')
       .waitForElementVisible('@filteredOtherContact', 'Other contact is visible')
       .waitForElementVisible('@filteredContactOtherType', 'Filtered contact should be Other')
-      .clickFilterOption('@unknownOption', 'Unknown')
+      .clickFilterOption('@unknownFilterOption', 'Unknown')
       .waitForElementVisible('@noRecords', 'No contact is visible');
   });
 

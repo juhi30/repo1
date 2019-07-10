@@ -1,8 +1,11 @@
 import { client } from 'nightwatch-api';
+import { ccrLogin } from '../../../toolboxes/login.toolbox';
+import { selectOrganizationByCCR } from '../../../toolboxes/organization.toolbox';
 import * as officeFeeder from '../../../feeder/office.feeder';
 
 const orgProfileFeeder = require('../../../feeder/orgProfile.feeder');
 const channelFeeder = require('../../../feeder/channel.feeder');
+const loginFeeder = require('../../../feeder/login.feeder');
 
 describe('Automated Tests: Appointment Reminders', () => {
   const apptReminders = client.page.AppointmentRemindersPage();
@@ -10,6 +13,12 @@ describe('Automated Tests: Appointment Reminders', () => {
   const universal = client.page.UniversalElements();
   const orgProfile = client.page.OrgProfilePage();
   const office = client.page.OfficePage();
+
+  test('login as ccr into the organization', async () => {
+    await ccrLogin(loginFeeder.appointmentReminderCcrLogin, loginFeeder.appointmentReminderCcrPassword);
+
+    await selectOrganizationByCCR(orgProfileFeeder.apptReminderOrgNewName, '@apptReminderOrgSearchResult');
+  });
 
   test('Verify Appointment manager option in Settings Menu', async () => {
     await universal.click('@settingsButton');
@@ -21,7 +30,7 @@ describe('Automated Tests: Appointment Reminders', () => {
   });
 
   test('Select Outgoing channel', async () => {
-    await apptReminders.selectChannel(channelFeeder.channelName);
+    await apptReminders.selectChannel(channelFeeder.aptChannelName);
   });
 
   test('Toggle Appointment scheduled on', async () => {
@@ -79,8 +88,9 @@ describe('Automated Tests: Appointment Reminders', () => {
     await apptReminders.openAppointmentReminders();
   });
 
-  test('Verify Variable message location options', async () => {
+  test('Verify Variable message location options', async (done) => {
     await apptReminders.checkVariableMessage('Office Location');
     await apptReminders.checkVariableMessage('Office Location', 2);
+    done();
   });
 });

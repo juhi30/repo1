@@ -3,18 +3,18 @@ import * as channelToolbox from '../../../toolboxes/channel.toolbox';
 
 const channelFeeder = require('../../../feeder/channel.feeder');
 const memberFeeder = require('../../../feeder/member.feeder');
+const loginFeeder = require('../../../feeder/login.feeder');
 
-describe('Automated Tests: Channels', () => {
-  test('Channel Create - New Phone type with member Route', async () => {
+describe('Appointment Reminder Tests: Channels', () => {
+  test('Channel Create - New BW Phone type channel with member Route', async () => {
+    const ccr = { userName: loginFeeder.appointmentReminderCcrLogin, password: loginFeeder.appointmentReminderCcrPassword };
+    const userSearchDetails = { userName: memberFeeder.appointmentReminderMemberFirstName, userType: 'members' };
     const channelData = {
-      phoneNumber: channelFeeder.numberForNewPhoneChannel,
-      forwardingNumber: channelFeeder.forwardingNumber,
-      channelName: channelFeeder.channelName,
+      channelName: channelFeeder.aptChannelName,
       channelPurpose: channelFeeder.channelPurpose,
-      timeZone: channelFeeder.timeZone,
-      memberFirstName: memberFeeder.appointmentReminderMemberFirstName,
+      phoneNumber: process.env.NEW_CANARY_PROVISIONED_BW_CHANNEL_NUMBER,
+      forwardingPhone: '+15555555555',
     };
-
-    await channelToolbox.createChannel('@newPhoneType', channelData, memberFeeder.appointmentReminderMemberFirstName);
+    await channelToolbox.createBWChannelSkipProvision(ccr, process.env.APPOINTMENT_REMINDER_ORG_ID, userSearchDetails, channelData);
   });
 });

@@ -1,4 +1,5 @@
 import { client } from 'nightwatch-api';
+import { logout } from '../../../toolboxes/login.toolbox';
 
 const orgProfileFeeder = require('../../../feeder/orgProfile.feeder');
 
@@ -10,7 +11,7 @@ describe('Organization Profile Edit as CCR', () => {
     await orgProfile.renderPageElements('@addLogoButton');
 
     await orgProfile.verifyBillingIdAndIntegrationOptions()
-      .updateOrgProfileMandatoryFields(orgProfileFeeder.orgNewName,
+      .updateOrgProfileMandatoryFields(orgProfileFeeder.apptReminderOrgNewName,
         orgProfileFeeder.orgNewAddress,
         orgProfileFeeder.orgNewCity,
         orgProfileFeeder.orgNewState,
@@ -24,5 +25,9 @@ describe('Organization Profile Edit as CCR', () => {
       .enableDisableToggles('@integrationToggle')
       .updateIntegrationValue(orgProfileFeeder.orgNewIntegration)
       .clickSaveProfile();
+  });
+
+  test('logout as CCR', async () => {
+    await logout();
   });
 });

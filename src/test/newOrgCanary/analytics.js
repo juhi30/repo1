@@ -51,8 +51,8 @@ describe('Automated Tests: Analytics', () => {
     await analyticsToolbox.accessiilityOfAnalyticsDashboardAsCCR();
   });
 
-  test('logout as CCR', async () => {
-    const universalElements = client.page.UniversalElements();
-    await universalElements.clickLogout();
+  test('logout as CCR', async (done) => {
+    await loginToolbox.logout();
+    done();
   });
 });

@@ -41,7 +41,8 @@ describe('Billing Organization Test Cases', () => {
     await billing.verifyBillingContactDetails();
   });
 
-  test('Update Billing Contact details', async () => {
+  test('Update Billing Contact details', async (done) => {
     await billing.updateContactDetails();
+    done();
   });
 });

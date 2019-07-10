@@ -68,7 +68,7 @@ module.exports = {
   appointmentReminderMemberName: 'Appointment_Reminder_Member LastName',
   appointmentReminderMemberFirstName: 'Appointment_Reminder_Member',
   appointmentReminderMemberLastName: 'LastName',
-  appointmentReminderMemberUsername: 'Appointment_Reminder_Member',
+  appointmentReminderMemberUsername: 'Appt_Reminder_Member',
 
   // Valid email to remove junk email for member creation
   email: 'rhinogramtests',

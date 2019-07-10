@@ -12,7 +12,7 @@ describe('Organization Profile Edit as CCR', () => {
   test('login as ccr into the organization', async () => {
     await ccrLogin(loginFeeder.appointmentCcrLogin, loginFeeder.appointmentCcrPassword);
 
-    await selectOrganizationByCCR(accountSetupFeeder.appointmentOrgName);
+    await selectOrganizationByCCR(accountSetupFeeder.appointmentOrgName, '@apptManagerOrgSearchResult');
   });
 
   test('Edit Organization Profile as CCR', async () => {

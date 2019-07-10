@@ -8,10 +8,11 @@ const helper = require('../../toolboxes/helpers.toolbox');
 describe('Members Page', () => {
   test('Adding a new Member with Admin Role', async () => {
     global.newCanaryUserOne = `${memberFeeder.memberUsername}_${helper.randomNumber}`;
+    global.newCanaryMemberEmail = `${memberFeeder.memberEmail}+${helper.randomNumber}@gmail.com`;
     const memberDetails = [{ element: '@memberFirstName', value: memberFeeder.memberFirstName },
       { element: '@memberLastName', value: memberFeeder.memberLastName },
       { element: '@memberUsername', value: global.newCanaryUserOne },
-      { element: '@memberEmailAddress', value: `${memberFeeder.memberEmail}+${helper.randomNumber}@gmail.com` }];
+      { element: '@memberEmailAddress', value: global.newCanaryMemberEmail }];
     const roles = ['@adminRole', '@memberRole', '@billingAdminRole'];
 
     await createMember(memberDetails, roles, 'NEW_CANARY_MEMBER_TEMP_PASSWORD');

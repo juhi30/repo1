@@ -56,7 +56,7 @@ describe('Login Page Tests Cases', () => {
   });
 
   test('Use valid email for forgotten password', async () => {
-    await loginToolbox.sendForgotPasswordLink(memberFeeder.memberEmail, true);
+    await loginToolbox.sendForgotPasswordLink(global.newCanaryMemberEmail, true);
   });
 
   test('Fetch password reset token link using iMap and navigate to the reset password link received in email', async (done) => {
@@ -104,7 +104,7 @@ describe('Login Page Tests Cases', () => {
       await loginToolbox.invalidMemberLogin(global.newCanaryUserOne, accountSetupFeeder.state, '@errorPrompt', errorMessage);
       await loginToolbox.invalidMemberLogin(global.newCanaryUserOne, accountSetupFeeder.state, '@failedLoginAttemptPrompt', thirdLoginAttemptErrorMessage);
 
-      await loginToolbox.sendForgotPasswordLink(memberFeeder.memberEmail, true);
+      await loginToolbox.sendForgotPasswordLink(global.newCanaryMemberEmail, true);
 
       gmail.fetchPasswordResetLink().then(async (result) => {
         logger.info(`====>>>>> ${result.hrefValue}`);
@@ -115,6 +115,20 @@ describe('Login Page Tests Cases', () => {
     } catch (err) {
       logger.error(err, '=====err===');
     }
+  });
+
+  test('logout as Member', async () => {
+    await loginToolbox.logout();
+  });
+
+  test('create again temporary password for member by ccr', async () => {
+    const { memberPassword } = memberFeeder;
+    await loginToolbox.ccrLogin(loginFeeder.ccrLogin, loginFeeder.ccrPassword);
+    await selectOrganizationByCCR(accountSetupFeeder.orgName);
+    await createTempPasswordByCCR(memberFeeder.memberName, 'NEW_CANARY_ANOTHER_TEMP_PASSWORD');
+    await loginToolbox.logout();
+    const newTempPassword = global.NEW_CANARY_ANOTHER_TEMP_PASSWORD;
+    await changePasswordUsingTempPassword(global.newCanaryUserOne, memberPassword, newTempPassword);
   });
 
   test('logout as Member', async () => {

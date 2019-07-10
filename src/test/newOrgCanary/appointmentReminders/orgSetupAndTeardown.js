@@ -32,7 +32,7 @@ afterAll(async () => {
   try {
     // Reset max listeners to the node.js default once the test is complete.
     EventEmitter.defaultMaxListeners = 10;
-    await orgTearDown(process.env.APPOINTMENT_REMINDER_ORG_ID, loginFeeder.appointmentReminderCcrLogin, loginFeeder.appointmentReminderCcrPassword);
+    await orgTearDown(process.env.APPOINTMENT_REMINDER_ORG_ID, loginFeeder.appointmentReminderCcrLogin, loginFeeder.appointmentReminderCcrPassword, 1);
   } catch (error) {
     // Reset max listeners to the node.js default once the test is complete.
     EventEmitter.defaultMaxListeners = 10;

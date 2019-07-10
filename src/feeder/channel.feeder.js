@@ -3,13 +3,14 @@ module.exports = {
   // New Phone Type Channel1 Details
   numberForNewPhoneChannel: 819,
   forwardingNumber: '(454) 657-6879',
-  channelName: 'Automation Test Channel',
+  channelName: 'New BW Channel',
   channelPurpose: 'test Automation',
   timeZone: 'Eastern Time (UTC -05:00) - New York',
 
   // New phone type Channel2 Details
   forwardingNumber1: '(454) 657-8140',
   channelName1: 'Test Channel2',
+  rhinosecureChannelName: 'New Rhinosecure Channel',
 
   // Web Form Addition Details
   formTitleName: 'Send Message via web form.',

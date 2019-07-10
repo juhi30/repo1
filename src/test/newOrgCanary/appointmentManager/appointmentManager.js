@@ -139,7 +139,8 @@ describe('Automated Tests: Appointment Manager', () => {
     await apptManager.waitForElementNotPresent('@bottomPagination', 'Bottom Pagination is available');
   });
 
-  test('Verify date in the banner', async () => {
+  test('Verify date in the banner', async (done) => {
     await apptManager.verifyLastSyncDate();
+    done();
   });
 });

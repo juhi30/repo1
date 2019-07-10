@@ -127,9 +127,13 @@ export async function patchOrg(data, cookie) {
 }
 
 export async function archiveOrganization(organizationId, cookie, skipDeprovision) {
+  let url = `${process.env.API_BASE_URL}/organization/archive/${organizationId}`;
+  if (skipDeprovision) {
+    url = `${url}?skipDeprovision=${skipDeprovision}`;
+  }
   const response = await axios({
     method: 'post',
-    url: `${process.env.API_BASE_URL}/organization/archive/${organizationId}?skipDeprovision=${skipDeprovision}`,
+    url,
     headers: {
       'content-type': 'application/json',
       token: process.env.RG_DEV_TOKEN,
@@ -233,6 +237,18 @@ export async function getUser(userId, cookie) {
 export async function postUser(userData, cookie) {
   const response = await axios.post(`${process.env.API_BASE_URL}/users`,
     userData,
+    {
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
+export async function searchMemberOrContact(searchText, userType, cookie) {
+  const response = await axios.get(`${process.env.API_BASE_URL}/users/allMembersOrContacts?searchText=${searchText}&userType=${userType}`,
     {
       headers: {
         'content-type': 'application/json',

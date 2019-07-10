@@ -107,7 +107,7 @@ describe('Automated test cases for Group Deletion', () => {
   });
 
   test('Verify if the Patient Group can be deleted', async () => {
-    await groupToolbox.verifyDeleteGroupModal(groupFeeder.patientTypeGroupD);
+    await groupToolbox.verifyGroupCouldNotBeDeletedModal(groupFeeder.patientTypeGroupD);
   });
 
   test('Removing Group Delete Conditions', async () => {
@@ -137,7 +137,7 @@ describe('Automated test cases for Group Deletion', () => {
   });
 
   test('Verify if the Patient and team Group can be deleted', async () => {
-    await groupToolbox.verifyDeleteGroupModal(groupFeeder.patientAndTeamTypeD);
+    await groupToolbox.verifyGroupCouldNotBeDeletedModal(groupFeeder.patientAndTeamTypeD);
   });
 
   test('Removing Group Delete Conditions', async () => {
@@ -160,6 +160,6 @@ describe('Automated test cases for Group Deletion', () => {
   });
 
   test('Verify if the Patient Group can be deleted', async () => {
-    await groupToolbox.verifyDeleteGroupModal(groupFeeder.teamTypeGroupD);
+    await groupToolbox.verifyGroupCouldNotBeDeletedModal(groupFeeder.teamTypeGroupD);
   });
 });

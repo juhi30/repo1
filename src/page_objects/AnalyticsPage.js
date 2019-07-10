@@ -33,7 +33,8 @@ const analyticsCommands = {
       .verify.visible('@lastTwelveMonthsOption', 'Last 12 months option is visible')
       .verify.visible('@customRangeOption', 'Custom Range option is visible')
       .verify.visible('@customRangeFromDate', 'From Date input is visible')
-      .verify.visible('@customRangeToDate', 'To Date is visible');
+      .verify.visible('@customRangeToDate', 'To Date is visible')
+      .click('@dateRangeDropdown');
   },
 
   validateDefaultOptionInDateRangeDropdown() {
@@ -242,7 +243,7 @@ module.exports = {
     },
 
     dateRangeDropdownLabel: {
-      selector: `//DIV[@class= 'daterange__dropdown']//SPAN[@class='dropdown__toggle__text' and text() = '${helpers.defaultDateRange(30, 1)}']`,
+      selector: '//*[@class= \'dropdown__toggle__text xh-highlight\']',
       locateStrategy: 'xpath',
     },
 

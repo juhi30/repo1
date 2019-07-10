@@ -46,12 +46,11 @@ export async function postRhinolinerUser(user, orgId) {
 }
 
 export async function getThreadForUser(userId, payload, cookie) {
-  console.log('SUER ID IN GET THREAD', userId);
   const {
-    pageNo, pageSize, sort, minimal,
+    pageNo, pageSize, sort, minimal, groupId,
   } = payload;
 
-  const response = await axios.get(`${process.env.API_BASE_URL}/thread/${userId}?pageNo=${pageNo}&pageSize=${pageSize}&sort=${sort}&minimal=${minimal}`,
+  const response = await axios.get(`${process.env.API_BASE_URL}/thread/${userId}?groupId=${groupId}&pageNo=${pageNo}&pageSize=${pageSize}&sort=${sort}&minimal=${minimal}`,
     {
       headers: {
         'content-type': 'application/json',
@@ -90,6 +89,19 @@ export async function patchApptRemindersToggledRemindersTimestamp(data, cookie) 
 
 export async function postOffice(data, cookie) {
   const response = await axios.post(`${process.env.API_BASE_URL}/offices`,
+    data,
+    {
+      headers: {
+        'content-type': 'application/json',
+        Cookie: cookie,
+      },
+    });
+
+  return response.data;
+}
+
+export async function postUserGroup(data, cookie) {
+  const response = await axios.post(`${process.env.API_BASE_URL}/groups`,
     data,
     {
       headers: {

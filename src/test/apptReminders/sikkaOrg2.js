@@ -18,9 +18,11 @@ const TYPE_APPT_STATUS_CANCELLED = 83;
 const TYPE_APPT_EVENT_REMINDER = 65;
 const TYPE_INTEGRATION_PARTNER_ID_SIKKA = 71;
 const TYPE_EVENT_APPT_REMINDER = 53;
+const TYPE_GROUP_INBOX = 59;
 
 let orgId;
 let member;
+let group;
 let defaultOrgLandlineChannel;
 let createdPatient1;
 let createdPatient2;
@@ -90,7 +92,7 @@ describe('appt reminder tests', () => {
 
       await rhinoapi.changeOrganization({ orgId, userId: ccrUserId }, process.env.APPOINTMENT_CCR_COOKIE);
 
-      // create member to use as the channel route
+      // create member to add to a group that will be the channel route
       const memberData = {
         afterHours: false,
         autoResponse: '',
@@ -148,6 +150,23 @@ describe('appt reminder tests', () => {
 
       member = await rhinoapi.postUser(memberData, process.env.APPOINTMENT_CCR_COOKIE);
 
+      const groupData = {
+        afterHours: false,
+        autoResponse: 'nothing',
+        businessHours: null,
+        id: -1,
+        name: 'appt reminder messages group',
+        observesDst: true,
+        purpose: 'the channel route',
+        routedChannels: [],
+        tagIds: [],
+        timeZoneId: null,
+        typeId: TYPE_GROUP_INBOX,
+        userIds: [member.id],
+      };
+
+      group = await rhinoapi.postUserGroup(groupData, process.env.APPOINTMENT_CCR_COOKIE);
+
       // create ZW channel to use as default org channel and set the route to the member created above
       // POST AN ALREADY PROVISIONED ZW NUMBER
       const channelData = {
@@ -166,14 +185,13 @@ describe('appt reminder tests', () => {
         },
         tagIds: [1, 2],
         route: {
-          userId: member.id,
-          groupId: null,
+          userId: null,
+          groupId: group.id,
         },
         autoResponse: 'ok',
       };
 
       defaultOrgLandlineChannel = await rhinoapi.postProvisionedChannel(channelData, process.env.APPOINTMENT_CCR_COOKIE);
-
       const updatedOrgData = {
         defaultChannelId: defaultOrgLandlineChannel.id,
         automatedMessages: {
@@ -182,7 +200,7 @@ describe('appt reminder tests', () => {
           appointmentRemindersDeliveryHours: 48,
           channelId: defaultOrgLandlineChannel.id,
           organizationId: orgId,
-          appointmentRemindersTemplate: 'BLAH BLAH NEW APPT REMINDER',
+          appointmentRemindersTemplate: 'Appointment Reminder for user',
         },
       };
       // patch org with new default channel that was created
@@ -217,13 +235,13 @@ describe('appt reminder tests', () => {
   // });
 
   test('create patients', async () => {
-    // user with 1 phone number and is owner - 1 appt
+    // user with 1 phone number and is owner
     const user = {
       externalIds: {
         emrId: user1EmrId,
       },
-      firstName: 'Billy',
-      lastName: 'Hanson',
+      firstName: 'Willy',
+      lastName: 'Benson',
       birthday: '1990-06-23',
       sex: 'female',
       messageType: 'USER',
@@ -586,17 +604,20 @@ describe('appt reminder tests', () => {
     await lambda.invoke(params).promise();
   });
 
-  // patient only has one phone and 1 appt, 1 message should have sent
-  test('get thread data for patient', async () => {
-    // pageNo=0&pageSize=20&sort=descending&minimal=1
-    const payload = {
+  // patient has one number. Patient is a parent of another user. Both users have upcoming appts.
+  // There should be 2 appt reminders sent out to createdPatient1, and 2 responses from said patient. 4 total events
+  test('get thread data for patient 1', async () => {
+    await sleep(10000);
+    const threadParams = {
       pageNo: 0,
       pageSize: 20,
       sort: 'descending',
       minimal: 1,
+      groupId: group.id,
     };
-    const userData = await rhinoapi.getThreadForUser(createdPatient1.id, payload, process.env.APPOINTMENT_CCR_COOKIE);
-    console.log('USER 1 THREAD DATAA====', userData);
+    const userThread = await rhinoapi.getThreadForUser(createdPatient1.id, threadParams, process.env.APPOINTMENT_CCR_COOKIE);
+    console.log('USER 1 THREAD DATAA====', userThread);
+    // expect(userThread.);
   });
 
 

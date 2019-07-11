@@ -95,8 +95,8 @@ const appointmentRemindersCommands = {
     const formatedDate = `${helper.changeDateFormat(compareWith, 'America/New_York', 'MM/DD/YY hh:mm a')} (EDT)`;
     logger.info(`==== Formatted Date is === ${formatedDate}`);
     this.api.useXpath().verify.visible(`//*[@class='button__text-wrapper'][contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//SPAN[contains(text(),'EDT')]`, `Patient "${patientName}" with set appointment date is visible`)
-      .api.useXpath().getText(`//*[@class='button__text-wrapper'][contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//SPAN[contains(text(),'EDT')]`, (tpObj) => {
-        logger.info(`==== Appointment Date on UI is === ${tpObj}`);
+      .getText(`//*[@class='button__text-wrapper'][contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//SPAN[contains(text(),'EDT')]`, (tpObj) => {
+        logger.info(`==== Appointment Date on UI is === ${tpObj.value}`);
       });
     return this.expect.element(`//*[@class='button__text-wrapper'][contains(.,'${patientName}')]//parent::button//parent::div/preceding-sibling::div//SPAN[contains(text(),'EDT')]`).text.to.equal(formatedDate);
   },

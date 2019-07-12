@@ -10,7 +10,6 @@ const accountSetupFeeder = require('../../feeder/accountSetup.feeder');
 
 // CREATE MY NEW ORG HERE
 beforeAll(async () => {
-  console.log('here');
   const organizationDetails = {
     name: accountSetupFeeder.orgName,
     address: accountSetupFeeder.address,

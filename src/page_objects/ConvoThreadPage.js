@@ -437,6 +437,11 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    paymentRequestSuccessMessage: {
+      selector: '//DIV[contains(text(),\'Payment request sent successfully\')]',
+      locateStrategy: 'xpath',
+    },
+
     rhinoSecureButton: {
       selector: '//SPAN[@class="button__text-wrapper"][text()="RhinoSecure"]',
       locateStrategy: 'xpath',

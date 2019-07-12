@@ -13,9 +13,10 @@ describe('Rhinopay: New Canary Tests', () => {
   const convo = client.page.ConvoThreadPage();
 
   test('Adding a new Member with Admin Role', async () => {
+    global.rhinopayMemberUsername = `${memberFeeder.rhinopayMemberUsername}_${helper.randomNumber}`;
     const memberDetails = [{ element: '@memberFirstName', value: memberFeeder.rhinopayMemberFirstName },
       { element: '@memberLastName', value: memberFeeder.rhinopayMemberLastName },
-      { element: '@memberUsername', value: memberFeeder.rhinopayMemberUsername },
+      { element: '@memberUsername', value: global.rhinopayMemberUsername },
       { element: '@memberEmailAddress', value: `${memberFeeder.email}+${helper.randomNumber}@gmail.com` }];
     const roles = ['@adminRole', '@memberRole'];
 
@@ -54,11 +55,11 @@ describe('Rhinopay: New Canary Tests', () => {
   });
 
   test('Login as Member (reset Password)', async () => {
-    const { rhinopayMemberUsername, memberPassword } = memberFeeder;
+    const { memberPassword } = memberFeeder;
     const tempPassword = global.RHINOPAY_MEMBER_TEMP_PASSWORD;
     const login = client.page.LoginPage();
 
-    await changePasswordUsingTempPassword(rhinopayMemberUsername, memberPassword, tempPassword);
+    await changePasswordUsingTempPassword(global.rhinopayMemberUsername, memberPassword, tempPassword);
     // Below lines have been added to by pass confirm email modal
     await login.clickConfirmEmailOnEmailModal()
       .pause(1000);
@@ -83,7 +84,8 @@ describe('Rhinopay: New Canary Tests', () => {
 
   test('Get rhinopay message link', async () => {
     await convo.verifyAutoResponse('@rhinopayAutoResponseLink')
-      .getRhinopayLink('NEW_CANARY_RHINOPAY_LINK');
+      .getRhinopayLink('NEW_CANARY_RHINOPAY_LINK')
+      .waitForElementNotPresent('@paymentRequestSuccessMessage', 'Payment Request Success Message is no longer visible.');
   });
 
   test('logout as member', async () => {

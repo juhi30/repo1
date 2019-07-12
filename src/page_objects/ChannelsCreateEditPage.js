@@ -361,5 +361,10 @@ module.exports = {
       selector: `//OL[@class='u-list--numbers']//LI[contains(text(),'${channelFeeder.deleteAlert}')]`,
       locateStrategy: 'xpath',
     },
+
+    deleteModalCancelButton: {
+      selector: '//DIV[@class=\'modal__footer\']//SPAN[text()=\'Cancel\']',
+      locateStrategy: 'xpath',
+    },
   },
 };

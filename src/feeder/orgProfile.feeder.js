@@ -18,4 +18,5 @@ module.exports = {
   // Org Profile Integration Type Information
   orgNewIntegration: 'Sikka',
   orgNewCloud9Integration: 'Cloud 9',
+  apptReminderOrgNewName: 'Testing Appt Reminder Org',
 };

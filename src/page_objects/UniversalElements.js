@@ -501,6 +501,16 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    apptReminderOrgSearchResult: {
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${orgProfileFeeder.apptReminderOrgNewName}' ]`,
+      locateStrategy: 'xpath',
+    },
+
+    apptManagerOrgSearchResult: {
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${accountSetupFeeder.appointmentOrgName}' ]`,
+      locateStrategy: 'xpath',
+    },
+
     noSearchResult: {
       selector: '//SPAN[text()=\'No organizations found\']',
       locateStrategy: 'xpath',

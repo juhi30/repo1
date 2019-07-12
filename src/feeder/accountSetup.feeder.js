@@ -28,4 +28,6 @@ module.exports = {
 
   // Rhinopay Org
   rhinopayNewCanaryOrgName: 'Rhinopay New Canary Org',
+  // Appointment Reminder Org
+  appointmentReminderOrgName: 'Appointment Reminder Org',
 };

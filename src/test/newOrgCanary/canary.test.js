@@ -18,5 +18,5 @@ import './messaging';
 import './outofoffice';
 import './threadActions';
 import './orgPreferences';
-import './bulkAction';
+// import './bulkAction';
 import './analytics';

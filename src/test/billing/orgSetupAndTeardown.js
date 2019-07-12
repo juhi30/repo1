@@ -37,12 +37,13 @@ beforeAll(async () => {
 
 // DELETE MY NEW ORG HERE
 afterAll(async (done) => {
-  orgTearDown(process.env.BILLING_ORG_ID, loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword)
+  orgTearDown(process.env.BILLING_ORG_ID, loginFeeder.billingCcrLogin, loginFeeder.billingCcrPassword, 1)
     .then(() => {
+      logger.info('=====new org canary org tear down successfully');
       done();
     })
     .catch((err) => {
       logger.error(err, '===error on after all orgSetupAndTeardown=======');
-      done(err);
+      done();
     });
 });

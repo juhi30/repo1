@@ -3,21 +3,10 @@ import logger from 'rhinotilities/lib/loggers/logger';
 const contactFeeder = require('./../feeder/contact.feeder');
 const helper = require('../toolboxes/helpers.toolbox');
 
-
 const randomNumber = Math.floor(Math.random() * 1000000);
 const existingOrgFeeder = require('../feeder/existingOrg.feeder');
 
 const contactsCommands = {
-
-  validateContactsElements() {
-    return this.waitForElementVisible('@filterDropdown', 'Filter dropdown button is visible')
-      .click('@filterDropdown')
-      .verify.visible('@allContactsOption', 'All contacts option is visible')
-      .verify.visible('@patientOption', 'Patient option is visible')
-      .verify.visible('@unknownOption', 'Unknown option is visible')
-      .verify.visible('@otherOption', 'Other option is visible')
-      .click('@filterDropdown');
-  },
 
   clickFilterOption(element, filter) {
     return this.click('@filterDropdown')
@@ -46,9 +35,9 @@ const contactsCommands = {
     return this.waitForElementVisible('@filterDropdown', 'Filter dropdown button is visible')
       .click('@filterDropdown')
       .verify.visible('@allContactsOption', 'All contacts option is visible')
-      .verify.visible('@patientOption', 'Patient option is visible')
-      .verify.visible('@unknownOption', 'Unknown option is visible')
-      .verify.visible('@otherOption', 'Other option is visible')
+      .verify.visible('@patientFilterOption', 'Patient filter option is visible')
+      .verify.visible('@unknownFilterOption', 'Unknown filter option is visible')
+      .verify.visible('@otherFilterOption', 'Other filter option is visible')
       .click('@filterDropdown');
   },
 
@@ -165,7 +154,7 @@ const contactsCommands = {
       .click('@addPhotoButton')
       .waitForElementNotVisible('@uploadPhotoButton', 'Upload Photo modal is open')
       .pause(2000);
-    await helper.uploadFile(this, 'contact.png');
+    await helper.uploadFile(this, 'contact.png', '@addProfilePhoto');
     return this.pause(3000)
       .click('@doneUploadPhoto')
       .waitForElementNotPresent('@doneUploadPhoto', 'Upload photo modal is hidden')
@@ -303,18 +292,18 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
-    patientOption: {
-      selector: '//SPAN[@class=\'u-text-overflow\'][text()=\'Patient\']',
+    patientFilterOption: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][contains(.,\'Patient\')]',
       locateStrategy: 'xpath',
     },
 
-    unknownOption: {
-      selector: '//SPAN[contains(.,\'Unknown\')]',
+    unknownFilterOption: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][contains(.,\'Unknown\')]',
       locateStrategy: 'xpath',
     },
 
-    otherOption: {
-      selector: '//SPAN[contains(.,\'Other\')]',
+    otherFilterOption: {
+      selector: '//SPAN[@class=\'u-text-overflow\'][contains(.,\'Other\')]',
       locateStrategy: 'xpath',
     },
 
@@ -758,6 +747,23 @@ module.exports = {
 
     forwardingToggle: {
       selector: '//LABEL[@class=\'rhinoswitcher__label\'][contains(@for,\'forwarding\')]',
+      locateStrategy: 'xpath',
+    },
+
+    // Contact type
+    patientOption: {
+      selector: '//SPAN[contains(.,\'Patient\')]',
+      locateStrategy: 'xpath',
+    },
+
+    otherOption: {
+      selector: '//SPAN[contains(.,\'Other\')]',
+      locateStrategy: 'xpath',
+    },
+
+    // Add Profile Photo
+    addProfilePhoto: {
+      selector: '//INPUT[@id = \'js-upload-avatar\']',
       locateStrategy: 'xpath',
     },
   },

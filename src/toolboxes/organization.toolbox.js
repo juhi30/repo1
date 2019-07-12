@@ -44,11 +44,11 @@ export async function billingOrganizationSetUp(organizationDetails, envVariable)
  * @param  {string} username ccr user name
  * @param  {string} password ccr password
  */
-export async function orgTearDown(organizationId, username, password) {
+export async function orgTearDown(organizationId, username, password, skipDeprovision) {
   logger.info('Login...');
   const cookie = await login(username, password);
   logger.info(organizationId, '== Deleting Org ==');
-  const archiveResponse = await archiveOrganization(organizationId, cookie);
+  const archiveResponse = await archiveOrganization(organizationId, cookie, skipDeprovision);
   logger.info('======== Organization Archive Response =======', archiveResponse);
   const deleteResponse = await deleteOrganization(organizationId, cookie);
   logger.info('====== Organization Deleted =======', deleteResponse);

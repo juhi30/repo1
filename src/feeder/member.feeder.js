@@ -70,6 +70,11 @@ module.exports = {
   rhinopayMemberFirstName: 'Rhinopay_Member',
   rhinopayMemberLastName: 'LastName',
   rhinopayMemberUsername: 'Rhinopay_Member',
+  // Member for Appointment Reminder Org
+  appointmentReminderMemberName: 'Appointment_Reminder_Member LastName',
+  appointmentReminderMemberFirstName: 'Appointment_Reminder_Member',
+  appointmentReminderMemberLastName: 'LastName',
+  appointmentReminderMemberUsername: 'Appt_Reminder_Member',
 
   // Valid email to remove junk email for member creation
   email: 'rhinogramtests',

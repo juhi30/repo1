@@ -506,6 +506,12 @@ module.exports = {
       locateStrategy: 'xpath',
     },
 
+    rhinopaynewcanaryOrgSearchResult: {
+      selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${accountSetupFeeder.rhinopayNewCanaryOrgName}' ]`,
+      locateStrategy: 'xpath',
+    },
+
+
     apptManagerOrgSearchResult: {
       selector: `//SPAN[contains(@class, 'resource__intro__title__content') and text() = '${accountSetupFeeder.appointmentOrgName}' ]`,
       locateStrategy: 'xpath',

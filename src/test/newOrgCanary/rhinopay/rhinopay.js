@@ -1,5 +1,6 @@
 import { client } from 'nightwatch-api';
 import * as loginToolbox from '../../../toolboxes/login.toolbox';
+import { selectOrganizationByCCR } from '../../../toolboxes/organization.toolbox';
 import * as channelToolbox from '../../../toolboxes/channel.toolbox';
 import { createMember, changePasswordUsingTempPassword } from '../../../toolboxes/member.toolbox';
 
@@ -7,6 +8,8 @@ const helper = require('../../../toolboxes/helpers.toolbox');
 const memberFeeder = require('../../../feeder/member.feeder');
 const channelFeeder = require('../../../feeder/channel.feeder');
 const rhinopayFeeder = require('../../../feeder/rhinopay.feeder');
+const loginFeeder = require('../../../feeder/login.feeder');
+const accountSetupFeeder = require('../../../feeder/accountSetup.feeder');
 
 describe('Rhinopay: New Canary Tests', () => {
   const paymentPage = client.page.RhinopayPage();
@@ -24,16 +27,21 @@ describe('Rhinopay: New Canary Tests', () => {
   });
 
   test('Channel Create - New Phone type with member Route', async () => {
+    const ccr = { userName: loginFeeder.rhinopayNewCanaryCcrLogin, password: loginFeeder.rhinopayNewCanaryCcrPassword };
+    const userSearchDetails = { userName: memberFeeder.rhinopayMemberFirstName, userType: 'members' };
     const channelData = {
-      phoneNumber: channelFeeder.numberForNewPhoneChannel,
-      forwardingNumber: channelFeeder.rhinopayForwardingNumber,
       channelName: channelFeeder.rhinopayChannelName,
       channelPurpose: channelFeeder.channelPurpose,
-      timeZone: channelFeeder.timeZone,
-      memberFirstName: memberFeeder.rhinopayMemberFirstName,
+      phoneNumber: process.env.NEW_CANARY_PROVISIONED_BW_CHANNEL_NUMBER,
+      forwardingPhone: '+15555555555',
     };
+    await channelToolbox.createBWChannelSkipProvision(ccr, process.env.RP_NEWCANARY_ORG_ID, userSearchDetails, channelData);
+  });
 
-    await channelToolbox.createChannel('@newPhoneType', channelData, memberFeeder.rhinopayMemberFirstName);
+  test('login as ccr into the organization', async () => {
+    await loginToolbox.ccrLogin(loginFeeder.rhinopayNewCanaryCcrLogin, loginFeeder.rhinopayNewCanaryCcrPassword);
+
+    await selectOrganizationByCCR(accountSetupFeeder.rhinopayNewCanaryOrgName, '@rhinopaynewcanaryOrgSearchResult');
   });
 
   test('Edit Organization Profile as CCR', async () => {

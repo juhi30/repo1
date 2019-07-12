@@ -73,8 +73,8 @@ const accountSetupCommands = {
 
   clickCreateOrganization() {
     return this.waitForElementPresent('@createOrgButton', 'Create organization button is present')
-      .click('@createOrgButton');
-    // .waitForElementVisible('@contactsPage', 'CCR Landed on org contact page')
+      .click('@createOrgButton')
+      .waitForElementVisible('@contactsPage', 60000, 'Org created successfully. CCR Landed on org contact page');
   },
 
 };
